@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designed to Collapse — Why the Same Earthquake Kills 500 or 200,000 | Trace Upstream</title>
+<meta name="description" content="Venezuela's twin earthquakes killed thousands. Chile survived one 90× stronger with 525 deaths. The difference isn't seismology — it's system design: liability, inspection incentives, and a feedback loop that fires once in fifty years.">
+<link rel="canonical" href="https://traceupstream.com/episodes/001-earthquake-building-codes/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="Designed to Collapse — Why the Same Earthquake Kills 500 or 200,000">
+<meta property="og:description" content="An interactive blueprint: the system design behind Venezuela's earthquake toll, and three real redesigns — Chile, Erzin, Japan.">
+<meta property="og:url" content="https://traceupstream.com/episodes/001-earthquake-building-codes/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+/* stage */
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice */
+svg text{font-family:var(--font-mono);font-size:13px;letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0} /* beat element, revealed by timeline */
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1560px}
+body.auto h2{font-size:44px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.001 — 2026-07-03</div>
+<div id="tip"></div>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="37.4">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.001</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <!-- Chile side -->
+        <text x="120" y="90" class="big b" font-size="64" id="h_chile">M 8.8</text>
+        <text x="122" y="120" class="b" id="h_chileLab">CHILE · 2010 · OFFSHORE MAULE</text>
+        <circle cx="330" cy="330" r="8" fill="var(--fact)" class="b" id="h_disc1"/>
+        <text x="300" y="560" class="fact b" id="h_energy">×90 THE ENERGY</text>
+        <text x="120" y="330" class="big fact b" font-size="54" id="h_c525">0</text>
+        <text x="122" y="360" class="b" id="h_c525lab">DEAD</text>
+        <!-- divider -->
+        <line x1="740" y1="60" x2="740" y2="560" stroke="var(--grid)" stroke-width="2" class="b" id="h_div"/>
+        <!-- Venezuela side -->
+        <text x="820" y="90" class="big b" font-size="64" id="h_ven">M 7.5</text>
+        <text x="822" y="120" class="b" id="h_venLab">VENEZUELA · LAST WEEK</text>
+        <circle cx="1000" cy="330" r="8" fill="var(--flaw)" class="b" id="h_disc2"/>
+        <text x="820" y="330" class="big flawtxt b" font-size="54" id="h_vcount">0</text>
+        <text x="822" y="360" class="flawtxt b" id="h_vlab">DEAD — AND COUNTING</text>
+        <g class="b" id="h_bags"></g>
+        <text x="822" y="470" class="b" id="h_bagslab">10,000 BODY BAGS PROCURED BY THE UN</text>
+        <!-- question -->
+        <text x="740" y="600" text-anchor="middle" class="strong b" id="h_q" font-size="17">SAME PLANET. SAME PHYSICS. WILDLY DIFFERENT MATH — WHY?</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">Designed<br>to collapse.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>In 2010, a magnitude 8.8 earthquake hit Chile — roughly ninety times the energy of the one that just flattened Venezuela's coast. It killed 525 people. Venezuela passed that number before sunrise; the UN is shipping ten thousand body bags.</p>
+      <p>Same planet. Same physics. Wildly different math. The difference isn't the earthquake. It never is.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="95.9">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · June 24, 2026</div>
+    <h2>6:04 p.m. Then 39 seconds.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg1">
+        <!-- coast -->
+        <path id="e_coast" class="ink b" stroke-width="2.5" d="M120 210 C 300 170, 480 200, 640 185 C 800 170, 980 205, 1160 190 C 1260 182, 1330 195, 1380 190"/>
+        <text x="1180" y="160" class="b" id="e_sea">CARIBBEAN SEA</text>
+        <circle cx="430" cy="300" r="6" fill="var(--text)" class="b" id="e_sf"/>
+        <text x="400" y="340" class="b" id="e_sfl">SAN FELIPE</text>
+        <circle cx="980" cy="255" r="6" fill="var(--text)" class="b" id="e_lg"/>
+        <text x="950" y="235" class="b" id="e_lgl">LA GUAIRA</text>
+        <circle cx="1120" cy="290" r="6" fill="var(--text)" class="b" id="e_cc"/>
+        <text x="1095" y="330" class="b" id="e_ccl">CARACAS</text>
+        <!-- clock + shocks -->
+        <text x="120" y="90" class="big b" font-size="40" id="e_clock">18:04:00</text>
+        <g class="b" id="e_p1"><circle cx="430" cy="300" r="10" class="blue"/><circle cx="430" cy="300" r="10" class="blue" id="e_ring1"/></g>
+        <text x="330" y="425" class="fact b" id="e_m72">M 7.2</text>
+        <g class="b" id="e_p2"><circle cx="560" cy="270" r="12" class="amber"/><circle cx="560" cy="270" r="12" class="amber" id="e_ring2"/></g>
+        <text x="560" y="425" class="flawtxt b" id="e_m75">+39 s — M 7.5 MAINSHOCK</text>
+        <text x="120" y="130" class="b" id="e_1900">STRONGEST SINCE 1900 · TWIN EVENT LAST SEEN 1812</text>
+        <!-- buildings row -->
+        <g id="e_town" class="b" transform="translate(120,470)"></g>
+        <text x="120" y="590" class="strong b" id="e_downlab"><tspan class="flawtxt" id="e_down">0</tspan> BUILDINGS DOWN · 189 FLATTENED · SATELLITE EST. <tspan id="e_sat">0</tspan> DAMAGED</text>
+        <!-- toll -->
+        <text x="1010" y="480" class="big flawtxt b" font-size="46" id="e_dead">0</text>
+        <text x="1012" y="510" class="b" id="e_deadlab">CONFIRMED DEAD, WEEK ONE — MODEL EST. &gt;10,000</text>
+        <text x="1010" y="565" class="big fact b" font-size="34" id="e_dmg">$0B</text>
+        <text x="1012" y="592" class="b" id="e_dmglab">DIRECT DAMAGE · UNDRR</text>
+        <!-- hands -->
+        <text x="740" y="80" text-anchor="middle" class="strong b" font-size="16" id="e_hands">FIRST 24 HOURS: NEIGHBORS DUG WITH THEIR HANDS — NOT ENOUGH MACHINES</text>
+        <text x="740" y="110" text-anchor="middle" class="flawtxt b" id="e_quote">GEOLOGISTS' FACTOR LIST: TWIN SHOCKS · SOIL · RESONANCE · “CONSTRUCTION DEFECTS”</text>
+      </svg>
+      <div class="figcap">Fig. 1 — rupture sequence &amp; first-week toll · sources: USGS, NPR, UNDRR, Oregon State satellite analysis</div>
+    </div>
+    <div class="prose">
+      <p>A magnitude 7.2 strikes near San Felipe; thirty-nine seconds later a 7.5 near Yumare — the strongest shaking Venezuela has recorded since 1900. In La Guaira, apartment blocks pancaked: ~800 buildings down, 189 completely, ~58,870 damaged by satellite estimate. Week one: 2,590+ dead, 12,500+ injured, tens of thousands missing; USGS models say the toll could pass 10,000. Damage: $37B.</p>
+      <p>The president of the Venezuelan Society of Geologists listed the factors — twin shocks, soil, resonance, and construction defects. The media found villains fast. That's the story you've heard.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PATTERN ================= -->
+<section class="ep" id="s2" data-duration="41.6">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pattern</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pattern · Why it keeps happening</div>
+    <h2>The size of the earthquake barely matters.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg2">
+        <text x="120" y="70" class="strong b" id="p_t1" font-size="16">FOUR EARTHQUAKES, SORTED BY POWER —</text>
+        <g id="p_rows"></g>
+        <text x="120" y="520" class="strong b" font-size="16" id="p_t2">— NOW THE DEATHS. <tspan class="flawtxt">THE ORDER REFUSES TO FOLLOW.</tspan></text>
+      </svg>
+      <div class="figcap">Fig. 2 — deaths per quake, magnitude descending · depth, distance &amp; soil differ — that's the point · official tolls</div>
+    </div>
+    <p class="keyline" style="font-family:var(--font-display);font-size:clamp(19px,2.4vw,27px);margin-top:18px" id="p_adage">
+      Earthquakes don't kill people. <b style="color:var(--flaw)">Buildings do.</b> And buildings are decisions — stacked forty storeys high.</p>
+    <div class="prose">
+      <p>Chile 2010, M8.8 — 525 dead. Turkey 2023, M7.8 — 53,000+. Venezuela 2026, M7.5 — thousands. Haiti 2010, M7.0, the weakest — 200,000+. The real question isn't who cut corners in La Guaira. It's why corner-cutting is rational in some systems and professional suicide in others.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM ================= -->
+<section class="ep" id="s3" data-duration="132.4">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · How the system works</div>
+    <h2>A feedback loop that fires once in fifty years.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg3">
+        <g id="world"><!-- camera group, 4400px world -->
+          <!-- Station 1: developer -->
+          <g class="b" id="m_dev">
+            <rect x="120" y="200" width="200" height="70" class="nodebox"/>
+            <text x="150" y="242" class="strong" font-size="15">DEVELOPER</text>
+            <text x="122" y="180" class="flawtxt" id="m_save">POURS TODAY — JUDGED IN 30 YEARS</text>
+          </g>
+          <g class="b" id="m_col">
+            <rect x="420" y="140" width="120" height="330" class="ink"/>
+            <g id="m_rebar"></g>
+            <text x="408" y="510" class="strong">THE COLUMN — X-RAY VIEW</text>
+            <text x="408" y="536" class="flawtxt b" id="m_rebarlab">REBAR −40% = COST −18%. CAST IN CONCRETE. INVISIBLE.</text>
+          </g>
+          <!-- Station 2: buyer -->
+          <g class="b" id="m_buy">
+            <circle cx="700" cy="280" r="46" class="ink"/>
+            <line x1="732" y1="316" x2="775" y2="360" class="ink"/>
+            <text x="686" y="292" class="big" font-size="40">?</text>
+            <text x="640" y="400" class="strong">THE BUYER CANNOT SEE INSIDE CONCRETE</text>
+            <text x="640" y="426">NEITHER CAN THE MARKET. THE DEFECT HAS NO PRICE.</text>
+          </g>
+          <!-- Station 3: inspector -->
+          <g class="b" id="m_insp">
+            <clipPath id="clipList"><rect x="962" y="182" width="216" height="286"/></clipPath>
+            <rect x="960" y="180" width="220" height="290" class="ink"/>
+            <g id="m_list" clip-path="url(#clipList)"></g>
+            <text x="962" y="160" class="strong">THE ONLY CHECK: ONE INSPECTOR</text>
+            <text x="962" y="500" class="flawtxt">UNDERPAID · A FEW VISITS · SIGNATURE &gt; SALARY</text>
+            <g id="m_stamp" class="b">
+              <rect x="1000" y="280" width="140" height="52" fill="var(--flaw)" opacity=".92"/>
+              <text x="1017" y="313" fill="#fff" font-size="17" style="font-weight:600">APPROVED</text>
+            </g>
+          </g>
+          <!-- Station 4: politician -->
+          <g class="b" id="m_pol">
+            <text x="1330" y="170" class="strong">THE POLITICIAN'S DASHBOARD</text>
+            <rect x="1330" y="200" width="30" height="0" fill="var(--fact)" id="m_bar1"/>
+            <text x="1330" y="420" class="fact">HOUSING UNITS — WINS THIS ELECTION</text>
+            <rect x="1650" y="200" width="30" height="0" fill="var(--flaw)" id="m_bar2"/>
+            <text x="1650" y="420" class="flawtxt">ENFORCEMENT — PAYS OFF IN 2056</text>
+          </g>
+          <!-- Station 5: calendar -->
+          <g class="b" id="m_cal">
+            <rect x="2000" y="180" width="240" height="200" class="ink"/>
+            <text x="2040" y="300" class="big" font-size="56" id="m_year">1996</text>
+            <text x="2000" y="420" class="strong">NOTHING HAPPENS. FOR DECADES.</text>
+            <path id="m_crack" class="amber" d="M2120 380 l -14 30 l 22 26 l -12 34 l 18 30" opacity="0"/>
+          </g>
+          <!-- Station 6: quake -->
+          <g class="b" id="m_quake">
+            <g id="m_qb"></g>
+            <text x="2460" y="160" class="big flawtxt" font-size="34" id="m_audit">JUNE 24 — THE AUDIT RUNS</text>
+            <text x="2462" y="500" class="flawtxt">RESULT: FAIL · ALL DEFECTS, ALL AT ONCE</text>
+          </g>
+          <!-- feedback arrow travels back -->
+          <path id="m_fb" class="amber" stroke-dasharray="3 7" d="M2500 120 C 2100 40, 900 40, 240 170" opacity="0"/>
+          <text x="900" y="80" class="flawtxt b" id="m_fblab">CONSEQUENCES, RETURNING TO SENDER…</text>
+          <text x="240" y="150" class="flawtxt b" id="m_gone" font-size="15">✕ FIRM DISSOLVED · LIABILITY EXPIRED · NOBODY HOME</text>
+          <!-- Turkey inset -->
+          <g class="b" id="m_tr">
+            <rect x="3000" y="140" width="560" height="330" class="ink" stroke-dasharray="4 4"/>
+            <text x="3030" y="185" class="strong" font-size="16">TURKEY, 2018 — THE BUG, PRICED</text>
+            <text x="3030" y="230">CONSTRUCTION AMNESTY: PAY A FEE →</text>
+            <text x="3030" y="256">YOUR ILLEGAL BUILDING BECOMES LEGAL</text>
+            <text x="3030" y="330" class="big flawtxt" font-size="40" id="m_amn">0</text>
+            <text x="3030" y="360">BUILDINGS CERTIFIED · BILLIONS RAISED</text>
+            <text x="3030" y="430" class="flawtxt b" id="m_test">5 YEARS LATER, M 7.8 GRADED THE BET: 53,537+ DEAD</text>
+          </g>
+          <!-- thermostat card -->
+          <text x="3720" y="260" class="big b" font-size="42" id="m_thermo1">A THERMOSTAT THAT REPORTS</text>
+          <text x="3720" y="320" class="big b" font-size="42" id="m_thermo2">ONCE PER GENERATION</text>
+          <text x="3720" y="380" class="big b" font-size="42" id="m_thermo2b">ISN'T A THERMOSTAT.</text>
+          <text x="3720" y="470" class="big flawtxt b" font-size="46" id="m_thermo3">IT'S AN OBITUARY.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — the invisible-defect assembly line · every arrow individually rational</div>
+    </div>
+    <div class="prose">
+      <p>Skimping saves 10–20% today and the defect is invisible — no one can price missing rebar. The inspector is the loop on paper; in practice, one tired man and one envelope. The politician gets housing numbers now; enforcement pays off in someone else's decade. Turkey priced the bug explicitly in 2018 — pay a fee, become legal; millions accepted, and the 7.8 graded the bet five years later.</p>
+      <p>What's broken isn't morality. It's timing: the correcting event fires once in fifty years, after the firm is dissolved and the stamp is dust.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF ================= -->
+<section class="ep" id="s4" data-duration="157.6">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three working redesigns</div>
+    <h2>Three systems fixed the loop three ways.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <!-- CHILE -->
+        <g class="b" id="a_ch">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE A · CHILE — MOVE THE CONSEQUENCE ONTO A PERSON</text>
+          <rect x="120" y="130" width="180" height="64" class="nodebox"/>
+          <text x="146" y="168" class="strong">BUILDER</text>
+          <rect x="740" y="130" width="200" height="64" class="nodebox" stroke="var(--flaw)"/>
+          <text x="762" y="168" class="strong flawtxt">COLLAPSE (2010)</text>
+          <path id="a_arrow" class="green" d="M740 162 C 580 46, 360 46, 300 148"/>
+          <text x="340" y="34" class="alttxt b" id="a_liab">10-YEAR PERSONAL LIABILITY — THE AUDIT FINDS A DEFENDANT</text>
+          <text x="120" y="250" class="b" id="a_alto">ALTO RÍO TOWER → BUILDERS PROSECUTED, IN COURT, BY NAME</text>
+          <text x="120" y="290" class="b" id="a_code">AND EVERY QUAKE PATCHES THE CODE: NCh433 <tspan class="alttxt">v1996 → v2010 → …</tspan></text>
+          <text x="120" y="345" class="big fact b" font-size="30" id="a_result">M 8.8 → 525 DEAD. THE MATH DEFENDS ITSELF.</text>
+          <text x="120" y="390" class="flawtxt b" id="a_cost">TRADE-OFF: SLOWER, COSTLIER, NEEDS WORKING COURTS</text>
+        </g>
+        <!-- ERZIN -->
+        <g class="b" id="a_er">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE B · ERZIN, TURKEY — ENFORCEMENT IS THE PRODUCT</text>
+          <g id="a_grid" transform="translate(120,120)"></g>
+          <circle id="a_ring" cx="0" cy="0" r="40" class="green" opacity="0"/>
+          <text x="700" y="200" class="strong b" id="a_erz1" font-size="16">EPICENTER REGION, M 7.8 — TOWNS FALL ACROSS THE MAP</text>
+          <text x="700" y="240" class="alttxt b" id="a_erz2" font-size="16">ERZIN, POP. 42,000: ZERO COLLAPSES. ZERO.</text>
+          <text x="700" y="295" class="b" id="a_erz3">ITS MAYORS SIMPLY REFUSED ILLEGAL CONSTRUCTION.</text>
+          <text x="700" y="322" class="b" id="a_erz4">SAME NATIONAL CODE AS EVERY FALLEN TOWN — JUST APPLIED.</text>
+          <text x="700" y="380" class="flawtxt b" id="a_erz5">TRADE-OFF: HEROES DON'T SCALE. INSTITUTIONALIZE OR IT'S A LOTTERY.</text>
+        </g>
+        <!-- JAPAN -->
+        <g class="b" id="a_jp">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE C · JAPAN — PATCH THE STOCK LIKE SOFTWARE</text>
+          <g id="a_row" transform="translate(120,140)"></g>
+          <text x="120" y="420" class="b" id="a_jp1">AFTER KOBE 1995 (DEATHS CONCENTRATED IN PRE-1981 BUILDINGS):</text>
+          <text x="120" y="447" class="b" id="a_jp2">FIND OLD STOCK → SUBSIDIZE RETROFIT → DISCLOSE PUBLICLY</text>
+          <text x="120" y="500" class="big fact b" font-size="26" id="a_jp3">2011, M 9.0: THE BUILDINGS HELD.</text>
+          <text x="120" y="545" class="flawtxt b" id="a_jp4">TRADE-OFF: A PERMANENT TAX THE PRESENT PAYS THE FUTURE</text>
+        </g>
+        <!-- synthesis -->
+        <g class="b" id="a_syn">
+          <text x="200" y="180" class="big" font-size="30">THREE DESIGNS, ONE MOVE:</text>
+          <text x="200" y="260" class="alttxt b" id="a_s1" font-size="19">→ LIABILITY THAT OUTLIVES THE PAPERWORK</text>
+          <text x="200" y="320" class="alttxt b" id="a_s2" font-size="19">→ ENFORCEMENT AS THE ACTUAL PRODUCT</text>
+          <text x="200" y="380" class="alttxt b" id="a_s3" font-size="19">→ A BUILDING STOCK THAT GETS PATCHED</text>
+          <text x="200" y="470" class="strong b" id="a_s4" font-size="17">NONE OF THEM REQUIRES A HERO. THAT'S RATHER THE POINT.</text>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 4 — the same loop, redlined three ways · dashed green = revision markup</div>
+    </div>
+    <div class="prose">
+      <p>Chile made the first seller personally liable for ten years — the Alto Río builders were prosecuted; every quake updates the code. Erzin, near the 2023 epicenter, lost zero buildings: its mayors just refused illegal construction — enforcement, not regulation, is the product. Japan retrofits old stock like software patches; in 2011 the buildings held.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 CLOSE ================= -->
+<section class="ep" id="s5" data-duration="55.5">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Your city, your calendar</div>
+    <h2>The next toll is being written today.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <g id="c_sky" class="b"></g>
+        <g id="c_new"></g>
+        <text x="740" y="80" text-anchor="middle" class="strong b" id="c_your" font-size="18">YOUR CITY — NO QUAKE IN 50 YEARS</text>
+        <text x="740" y="130" text-anchor="middle" class="b" id="c_pour">THE SAME QUIET DECISIONS ARE BEING POURED INTO NEW FOUNDATIONS RIGHT NOW</text>
+        <text x="740" y="398" text-anchor="middle" class="flawtxt b" id="c_castlab" font-size="13">⚠ CAST IN, TODAY — INVISIBLE AGAIN</text>
+        <text x="740" y="440" text-anchor="middle" class="big b" font-size="30" id="c_q1">WOULD ANYONE FACE CONSEQUENCES FOR THE CONCRETE</text>
+        <text x="740" y="485" text-anchor="middle" class="big flawtxt b" font-size="30" id="c_q2">BEFORE IT FALLS?</text>
+        <text x="740" y="440" text-anchor="middle" class="big b" font-size="26" id="c_line">THE ONLY THING BETWEEN YOU AND LA GUAIRA</text>
+        <text x="740" y="492" text-anchor="middle" class="big flawtxt b" font-size="36" id="c_year">IS THE CALENDAR. 2026</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>The neighbors digging with their hands were not failed by an earthquake. They were failed by quiet, rational decisions compounding inside concrete for decades, waiting for thirty-nine seconds of shaking to run the audit. If nobody in your city answers for concrete before it falls — the only thing between you and La Guaira is the calendar.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe on YouTube</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <g stroke="var(--text)" stroke-width="4" fill="none">
+      <rect x="150" y="120" width="200" height="420"/>
+      <line x1="150" y1="190" x2="350" y2="190"/><line x1="150" y1="260" x2="350" y2="260"/>
+      <line x1="150" y1="330" x2="350" y2="330"/><line x1="150" y1="400" x2="350" y2="400"/><line x1="150" y1="470" x2="350" y2="470"/>
+    </g>
+    <path d="M150 330 L245 355 L350 322" stroke="var(--flaw)" stroke-width="7" fill="none"/>
+    <circle cx="245" cy="355" r="16" fill="none" stroke="var(--flaw)" stroke-width="6"/>
+    <path d="M390 540 C 470 470, 490 320, 420 180" stroke="var(--alt)" stroke-width="5" fill="none" stroke-dasharray="14 12"/>
+  </svg>
+  <div class="ttxt">Designed<br><em>to collapse</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <g fill="none" stroke-width="5">
+      <rect x="120" y="330" width="170" height="240" stroke="var(--text)"/>
+      <rect x="360" y="180" width="170" height="390" stroke="var(--text)"/>
+      <path d="M360 300 L445 325 L530 292" stroke="var(--flaw)" stroke-width="7"/>
+    </g>
+    <text x="128" y="300" font-family="Space Grotesk" font-weight="700" font-size="52" fill="var(--fact)">M 8.8</text>
+    <text x="368" y="150" font-family="Space Grotesk" font-weight="700" font-size="52" fill="var(--flaw)">M 7.5</text>
+  </svg>
+  <div class="ttxt" style="font-size:104px">525 vs<br><em>10,000 dead</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function ring(tl,id,pos,rMax=160,d=2.2,rep=2){tl.set($(id),{opacity:1},pos)
+  .fromTo($(id),{attr:{r:10},opacity:.9},{attr:{r:rMax},opacity:0,duration:d,repeat:rep,ease:'power1.out'},pos);}
+function card(tl,el,pos,hold=2.0){tl.fromTo(el,{opacity:0},{opacity:1,duration:.4},pos)
+  .to(el,{opacity:0,duration:.5},pos+hold);}
+
+/* ---------- dynamic bits ---------- */
+// body bag ticks (s0)
+(()=>{const g=$('h_bags');let s='';for(let i=0;i<50;i++){const x=822+(i%25)*22,y=395+Math.floor(i/25)*18;
+  s+=`<line x1="${x}" y1="${y}" x2="${x+12}" y2="${y}" stroke="var(--flaw)" stroke-width="4"/>`;}g.innerHTML=s;})();
+// town buildings (s1)
+(()=>{const g=$('e_town');let s='';for(let i=0;i<16;i++){const h=36+((i*37)%50);
+  s+=`<rect class="tb" data-i="${i}" x="${i*52}" y="${80-h}" width="34" height="${h}" fill="none" stroke="var(--text)" stroke-width="2"/>`;}g.innerHTML=s;})();
+// chart rows (s2)
+const QUAKES=[
+ {m:'M 8.8',c:'CHILE · 2010',v:525,txt:'525',tip:'Offshore Maule — strict code + builder liability.'},
+ {m:'M 7.8',c:'TURKEY · 2023',v:53537,txt:'53,537',tip:'2018 amnesty legalized millions of violations.'},
+ {m:'M 7.5',c:'VENEZUELA · 2026',v:2590,txt:'2,590+ → est. 10,000',flaw:1,est:10000,tip:'Week-one toll; USGS PAGER model >10,000.'},
+ {m:'M 7.0',c:'HAITI · 2010',v:200000,txt:'200,000+',tip:'Weakest of the four. No enforced code.'}];
+(()=>{const g=$('p_rows');let s='';QUAKES.forEach((q,i)=>{const y=110+i*92;
+ s+=`<g class="prow" data-tip="${q.tip}">
+   <text x="235" y="${y+20}" text-anchor="end" class="strong">${q.m}</text>
+   <text x="235" y="${y+40}" text-anchor="end">${q.c}</text>
+   <rect id="pm_${i}" x="260" y="${y}" width="0" height="16" fill="var(--fact)" opacity=".35"/>
+   <rect id="pb_${i}" x="260" y="${y+22}" width="0" height="22" rx="2" fill="${q.flaw?'var(--flaw)':'var(--fact)'}"/>
+   ${q.est?`<rect id="pe_${i}" x="260" y="${y+22}" width="0" height="22" fill="none" stroke="var(--flaw)" stroke-dasharray="5 4" stroke-width="2"/>`:''}
+   <text id="pv_${i}" x="260" y="${y+39}" class="strong b" font-size="14">${q.txt}</text></g>`;});
+ g.innerHTML=s;})();
+// rebar (s3)
+(()=>{const g=$('m_rebar');let s='';for(let i=0;i<8;i++)
+  s+=`<line class="rb" data-i="${i}" x1="${438+i*13}" y1="150" x2="${438+i*13}" y2="460" stroke="var(--fact)" stroke-width="3"/>`;
+  g.innerHTML=s;})();
+// inspector checklist (s3)
+(()=>{const g=$('m_list');let s='';for(let i=0;i<14;i++)
+  s+=`<g class="li"><line x1="980" y1="${210+i*18}" x2="${1050+(i*53)%110}" y2="${210+i*18}" stroke="var(--grid)" stroke-width="6"/></g>`;
+  g.innerHTML=s;})();
+// quake buildings (s3)
+(()=>{const g=$('m_qb');let s='';for(let i=0;i<7;i++){const h=60+((i*53)%120);
+  s+=`<rect class="qb" x="${2460+i*80}" y="${440-h}" width="52" height="${h}" fill="none" stroke="var(--text)" stroke-width="2.5"/>`;}g.innerHTML=s;})();
+// Erzin map grid (s4)
+(()=>{const g=$('a_grid');let s='';for(let r=0;r<4;r++)for(let c=0;c<6;c++){
+  s+=`<rect class="eg" data-safe="${r===2&&c===3?1:0}" x="${c*84}" y="${r*84}" width="60" height="60" fill="none" stroke="var(--text)" stroke-width="2"/>`;}g.innerHTML=s;})();
+// Japan row (s4)
+(()=>{const g=$('a_row');let s='';for(let i=0;i<8;i++){const h=120+((i*41)%80);
+  s+=`<g class="jb"><rect x="${i*110}" y="${220-h}" width="70" height="${h}" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+  <path class="brace" d="M${i*110} ${220-h} l70 ${h} M${i*110} 220 l70 ${-h}" stroke="var(--alt)" stroke-width="2.5" fill="none" stroke-dasharray="6 5" opacity="0"/>
+  <text class="vtag" x="${i*110}" y="245" font-size="11" fill="var(--alt)" opacity="0">v1981+</text></g>`;}g.innerHTML=s;})();
+// skyline (s5) — skip slots 3/7/11 where new buildings will rise
+(()=>{const g=$('c_sky');let s='';for(let i=0;i<14;i++){if([3,7,11].includes(i))continue;
+  const h=70+((i*67)%160);
+  s+=`<rect x="${170+i*82}" y="${360-h}" width="56" height="${h}" fill="none" stroke="var(--text)" stroke-width="2"/>`;}g.innerHTML=s;})();
+// new foundations being poured today (s5)
+(()=>{const g=$('c_new');let s='';[3,7,11].forEach(i=>{const x=170+i*82;
+  s+=`<rect class="nb" x="${x}" y="360" width="56" height="0" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+      <circle class="nd" cx="${x+28}" cy="330" r="6" fill="var(--flaw)" opacity="0"/>`;});g.innerHTML=s;})();
+
+/* ---------- scene timelines (durations in real seconds) ---------- */
+function sc0(D){const tl=gsap.timeline();
+  pop(tl,'h_chile',0.5);say(tl,'h_chileLab',1.0);
+  tl.set($('h_disc1'),{opacity:1},1.6).to($('h_disc1'),{attr:{r:150},duration:2.4,ease:'power2.out'},1.6);
+  say(tl,'h_energy',3.4);
+  count(tl,'h_c525',525,2.2,5.0);say(tl,'h_c525lab',7.0);
+  say(tl,'h_div',8.6);pop(tl,'h_ven',9.4);say(tl,'h_venLab',10.0);
+  tl.set($('h_disc2'),{opacity:1},10.8).to($('h_disc2'),{attr:{r:16},duration:.8},10.8);
+  count(tl,'h_vcount',2590,4.5,12.0,{suf:'+'});say(tl,'h_vlab',15.0);
+  tl.set($('h_bags'),{opacity:1},18.0)
+    .fromTo($('h_bags').children,{opacity:0},{opacity:1,duration:.06,stagger:.055},18.0);
+  say(tl,'h_bagslab',21.5);
+  say(tl,'h_q',24.5);shake(tl,'svg0',26.0,6);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},29.5);
+  if(isAuto)tl.to({},{duration:4.5},30.1);   // hold: the title rides out with the section, no flash-back
+  else tl.to($('titleCard'),{opacity:0,duration:.5},33.5); // web: release the stage for scrolling
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  draw(tl,'e_coast',2.2,0.3);say(tl,'e_sea',1.4);
+  [['e_sf','e_sfl',2.6],['e_lg','e_lgl',3.1],['e_cc','e_ccl',3.6]].forEach(([a,b,t])=>{pop(tl,a,t,.3);say(tl,b,t+.15,.4);});
+  pop(tl,'e_clock',5.0);
+  tl.set($('e_p1'),{opacity:1},6.0);ring(tl,'e_ring1',6.0,130,2.0,2);say(tl,'e_m72',6.4);
+  // stopwatch: 18:04:00 → 18:04:39
+  (()=>{const st={v:0};tl.to(st,{v:39,duration:3.2,ease:'power1.in',
+    onUpdate:()=>$('e_clock').textContent='18:04:'+String(Math.round(st.v)).padStart(2,'0'),
+    onComplete:()=>$('e_clock').textContent='18:04:39'},8.5);})();
+  tl.set($('e_p2'),{opacity:1},12.2);ring(tl,'e_ring2',12.2,210,2.4,3);shake(tl,'svg1',12.2,10,14);
+  say(tl,'e_m75',13.0);say(tl,'e_1900',16.0);
+  tl.set($('e_town'),{opacity:1},20.0)
+    .fromTo($('e_town').children,{opacity:0},{opacity:1,duration:.2,stagger:.12},20.0);
+  // buildings fall
+  tl.to([...$('e_town').children].filter((_,i)=>[1,4,5,9,12,14].includes(i)),
+     {rotation:(i)=>i%2?78:-71,transformOrigin:'bottom center',y:6,duration:.7,ease:'power2.in',stagger:.35},24.0);
+  tl.set($('e_downlab'),{opacity:1},26.0);count(tl,'e_down',800,2.0,26.0,{pre:'~'});count(tl,'e_sat',58870,3.0,28.5);
+  count(tl,'e_dead',2590,3.0,34.0,{suf:'+'});say(tl,'e_deadlab',36.5);
+  count(tl,'e_dmg',37,2.0,40.0,{pre:'$',suf:'B'});say(tl,'e_dmglab',41.5);
+  say(tl,'e_hands',46.0);say(tl,'e_quote',52.0);
+  // idle pulse on mainshock to keep motion
+  tl.to($('e_p2'),{opacity:.4,duration:1.2,repeat:8,yoyo:true},56.0);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  say(tl,'p_t1',0.3);
+  QUAKES.forEach((q,i)=>{ // magnitude ghosts first: width ∝ magnitude
+    tl.to($('pm_'+i),{attr:{width:(parseFloat(q.m.slice(2))-6.5)*420},duration:.6,ease:'power2.out'},1.0+i*.5);});
+  say(tl,'p_t2',4.0);
+  QUAKES.forEach((q,i)=>{ const w=Math.max(4,q.v/200000*1100);
+    tl.to($('pb_'+i),{attr:{width:w},duration:i===3?2.4:1.1,ease:i===3?'power3.in':'power3.out'},5.5+i*1.6);
+    if(q.est)tl.to($('pe_'+i),{attr:{width:q.est/200000*1100},duration:.8},7.5+i*.4);
+    tl.set($('pv_'+i),{opacity:1},6.3+i*1.6)
+      .call(()=>{const b=$('pb_'+i),v=$('pv_'+i);
+        const w2=+b.getAttribute('width');v.setAttribute('x',260+(w2>760?12:w2+14));
+        if(w2>760)v.setAttribute('fill','var(--bg-raised)');},[],6.5+i*1.6);});
+  shake(tl,'svg2',12.6,6);
+  tl.fromTo($('p_adage'),{opacity:0,y:14},{opacity:1,y:0,duration:.8},15.0);
+  // keep motion through the narration tail: pulse the inversion pair
+  tl.to([$('pb_0'),$('pb_3')],{opacity:.55,duration:1.3,repeat:9,yoyo:true},17.0);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();const W=$('world');
+  const cam=x=>({x:-x,duration:1.4,ease:'power2.inOut'});
+  pop(tl,'m_dev',0.5);say(tl,'m_save',1.5);
+  pop(tl,'m_col',3.0);
+  // rebar disappears
+  tl.to([...$('m_rebar').children].filter((_,i)=>i%2),{opacity:.12,duration:1.6,stagger:.3},5.0);
+  say(tl,'m_rebarlab',8.5);
+  tl.to(W,cam(520),12.0);pop(tl,'m_buy',13.5);
+  tl.to(W,cam(740),18.0);pop(tl,'m_insp',19.5);
+  tl.to($('m_list').children,{y:-160,duration:2.2,ease:'none'},21.0); // checklist scrolls too fast
+  pop(tl,'m_stamp',23.6,.25);shake(tl,'m_insp',23.8,7,6);
+  tl.to(W,cam(1110),27.5);pop(tl,'m_pol',29.0);
+  tl.to($('m_bar1'),{attr:{height:180},duration:1.6},30.0).set($('m_bar1'),{attr:{y:200}},30.0)
+    .to($('m_bar1'),{attr:{y:20,height:360},duration:1.6},30.0);
+  tl.to($('m_bar2'),{attr:{y:150,height:50},duration:1.6},31.0);
+  tl.to(W,cam(1780),35.0);pop(tl,'m_cal',36.5);
+  count(tl,'m_year',2026,4.5,37.5,{});
+  tl.fromTo($('m_year'),{},{},37.5);
+  tl.set($('m_year'),{},42).call(()=>$('m_year').textContent='2026',[],42.0);
+  draw(tl,'m_crack',2.0,40.0);
+  tl.to(W,cam(2280),44.5);tl.set($('m_quake'),{opacity:1},45.5);
+  shake(tl,'svg3',46.0,12,18);
+  tl.to([...$('m_qb').children].filter((_,i)=>i!==3),
+     {rotation:i=>i%2?75:-80,transformOrigin:'bottom center',duration:.8,ease:'power2.in',stagger:.25},46.5);
+  say(tl,'m_audit',49.0);
+  // feedback arrow returns — camera follows back
+  tl.set($('m_fb'),{opacity:1},53.0);draw(tl,'m_fb',3.4,53.0);
+  tl.to(W,cam(700),53.6);say(tl,'m_fblab',55.0);
+  tl.to(W,cam(0),57.0);say(tl,'m_gone',58.5);
+  tl.to($('m_dev').querySelector('rect'),{opacity:.25,duration:1.0},59.0);
+  // Turkey inset
+  tl.to(W,cam(2780),64.0);tl.set($('m_tr'),{opacity:1},65.5);
+  say(tl,'m_tr',65.5);count(tl,'m_amn',7000000,3.5,68.0,{suf:'+'});
+  say(tl,'m_test',73.0);shake(tl,'m_tr',74.0,8,8);
+  // thermostat
+  tl.to(W,cam(3560),78.5);
+  say(tl,'m_thermo1',80.0);say(tl,'m_thermo2',81.2);say(tl,'m_thermo2b',82.1);say(tl,'m_thermo3',84.0);
+  // hold with subtle pulse
+  tl.to($('m_thermo3'),{opacity:.55,duration:1.4,repeat:5,yoyo:true},85.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  const chapters=[$('a_ch'),$('a_er'),$('a_jp'),$('a_syn')];
+  const show=(el,t)=>tl.fromTo(el,{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to(el,{opacity:0,duration:.5},t);
+  // CHILE 0–40
+  show(chapters[0],0.5);
+  draw(tl,'a_arrow',2.2,2.0);say(tl,'a_liab',4.5);
+  say(tl,'a_alto',8.0);say(tl,'a_code',12.0);
+  say(tl,'a_result',17.0);say(tl,'a_cost',22.0);
+  hide(chapters[0],38.0);
+  // ERZIN 40–86
+  show(chapters[1],39.0);
+  tl.fromTo($('a_grid').children,{opacity:0},{opacity:1,duration:.15,stagger:.06},40.0);
+  say(tl,'a_erz1',43.5);shake(tl,'svg4',45.0,10,14);
+  tl.to([...$('a_grid').querySelectorAll('.eg:not([data-safe="1"])')],
+     {opacity:.15,rotation:8,transformOrigin:'bottom left',duration:.5,stagger:.08},45.5);
+  tl.set($('a_ring'),{opacity:1,attr:{cx:120+3*84+30,cy:120+2*84+30}},48.5)
+    .fromTo($('a_ring'),{attr:{r:60},opacity:0},{attr:{r:44},opacity:1,duration:.8},48.5);
+  say(tl,'a_erz2',50.0);say(tl,'a_erz3',56.0);say(tl,'a_erz4',60.0);say(tl,'a_erz5',66.0);
+  hide(chapters[1],84.0);tl.to($('a_ring'),{opacity:0,duration:.4},84.0);
+  // JAPAN 86–140
+  show(chapters[2],85.0);
+  tl.fromTo($('a_row').children,{opacity:0},{opacity:1,duration:.2,stagger:.15},86.5);
+  tl.to($('a_row').querySelectorAll('.brace'),{opacity:1,duration:.4,stagger:.5},90.0);
+  tl.to($('a_row').querySelectorAll('.vtag'),{opacity:1,duration:.3,stagger:.5},90.4);
+  say(tl,'a_jp1',97.0);say(tl,'a_jp2',102.0);
+  shake(tl,'svg4',108.0,8,12);say(tl,'a_jp3',110.0);say(tl,'a_jp4',116.0);
+  hide(chapters[2],136.0);
+  // SYNTHESIS 140–160
+  show(chapters[3],137.0);
+  say(tl,'a_s1',139.0);say(tl,'a_s2',141.5);say(tl,'a_s3',144.0);say(tl,'a_s4',148.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  tl.set($('c_sky'),{opacity:1},0.3)                       // the parent, not only children
+    .fromTo($('c_sky').children,{opacity:0},{opacity:1,duration:.25,stagger:.12},0.4);
+  say(tl,'c_your',3.5);
+  say(tl,'c_pour',8.0);
+  // three new buildings rise — the same decisions, poured right now
+  [...$('c_new').querySelectorAll('.nb')].forEach((r,i)=>{
+    const h=150+i*35;
+    tl.to(r,{attr:{y:360-h,height:h},duration:2.2,ease:'power1.inOut'},10.5+i*2.6);});
+  // amber defects cast inside, then fade — invisible again
+  tl.to($('c_new').querySelectorAll('.nd'),{opacity:1,duration:.4,stagger:.5},19.5);
+  say(tl,'c_castlab',21.0);
+  tl.to($('c_new').querySelectorAll('.nd'),{opacity:0,duration:2.0,stagger:.4},25.0);
+  tl.to($('c_castlab'),{opacity:0,duration:1.0},27.5);
+  // the question
+  say(tl,'c_q1',29.5);say(tl,'c_q2',32.0);
+  tl.to($('c_q2'),{opacity:.55,duration:1.1,repeat:3,yoyo:true},34.5);
+  tl.to([$('c_q1'),$('c_q2')],{opacity:0,duration:.6},41.0);
+  // the calendar
+  say(tl,'c_line',42.0);
+  tl.set($('c_year'),{opacity:1},44.0);
+  (()=>{const st={v:2026};tl.to(st,{v:2074,duration:5.0,ease:'power2.in',
+    onUpdate:()=>$('c_year').textContent='IS THE CALENDAR. '+Math.round(st.v),
+    onComplete:()=>$('c_year').textContent='IS THE CALENDAR. 20??'},44.5);})();
+  tl.to($('c_year'),{opacity:.55,duration:1.2,repeat:4,yoyo:true},50.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode) */
+function setRedline(on){['a_arrow'].forEach(id=>$(id).style.opacity=on?1:0);
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);              // card is up BEFORE the section arrives
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); } // …then dissolves into the scene
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;           // available window inside the section
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);       // too long → compress
+    else if(dur<win*0.96){                  // too short → spread beat positions across the real audio
+      const k=win/dur;                      // tween speeds stay; only the gaps stretch
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01); // hold to the full schedule — video must outlast the padded audio track
+  if(spd&&spd!==1)master.timeScale(1/spd); // &spd=0.05 → 20× dry run
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.2); // snappier for scroll viewing
+    if(s.id==='s3')tl.timeScale(1.6);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  // tooltips
+  const tip=$('tip');
+  document.querySelectorAll('.prow').forEach(r=>{
+    r.addEventListener('mousemove',e=>{tip.textContent=r.dataset.tip;tip.style.opacity=1;
+      tip.style.left=Math.min(e.clientX+14,innerWidth-300)+'px';tip.style.top=(e.clientY+16)+'px';});
+    r.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+}
+</script>
+</body>
+</html>
