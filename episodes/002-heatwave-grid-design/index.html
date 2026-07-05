@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Most Predictable Blackout — Why America's Grid Begs in a Heat Wave | Trace Upstream</title>
+<meta name="description" content="A heat dome canceled America's 250th-birthday parade and left 800,000 homes dark — with a week of warning. The flaw isn't the weather: it's a grid where the price signal dies at your meter. Three real redesigns: dynamic pricing, France's Plan Canicule, Seville's named heat waves.">
+<link rel="canonical" href="https://traceupstream.com/episodes/002-heatwave-grid-design/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Most Predictable Blackout — Why America's Grid Begs in a Heat Wave">
+<meta property="og:description" content="An interactive blueprint: the design flaw behind July's grid emergency, and three real redesigns — dynamic pricing, Plan Canicule, named heat waves.">
+<meta property="og:url" content="https://traceupstream.com/episodes/002-heatwave-grid-design/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#B08468;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+/* stage */
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice */
+svg text{font-family:var(--font-mono);font-size:13px;letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0} /* beat element, revealed by timeline */
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+/* listen mode */
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+/* simulator */
+#sim{border:1px solid var(--grid);background:var(--bg-raised);padding:20px 24px;margin-top:16px}
+#sim .simhead{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+#sim input[type=range]{width:260px;accent-color:var(--alt)}
+#sim svg{width:100%;height:auto;display:block;margin-top:8px}
+body.auto #sim{display:none}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:110px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1560px}
+body.auto h2{font-size:44px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.002 — 2026-07-05</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 9:35</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="48.2">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.002</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <text x="70" y="480" font-family="Space Grotesk" font-weight="700" font-size="300" fill="var(--topic)" opacity=".10">250</text>
+        <!-- left: the birthday -->
+        <text x="120" y="95" class="big b" font-size="52" id="h_250">JULY 4, 2026</text>
+        <text x="122" y="125" class="b" id="h_250lab">AMERICA'S 250TH BIRTHDAY — YEARS IN THE PLANNING</text>
+        <g class="b" id="h_bl"></g>
+        <g class="b" id="h_stamp" transform="rotate(-7 400 300)">
+          <rect x="220" y="262" width="360" height="66" fill="var(--flaw)" opacity=".93"/>
+          <text x="252" y="305" fill="#fff" font-size="30" style="font-weight:700;font-family:'Space Grotesk'">CANCELED</text>
+        </g>
+        <text x="122" y="392" class="flawtxt b" id="h_bylab">THE DAY BEFORE. NOT A PROTEST. NOT A THREAT. AIR.</text>
+        <!-- divider -->
+        <line x1="740" y1="60" x2="740" y2="560" stroke="var(--grid)" stroke-width="2" class="b" id="h_div"/>
+        <!-- right: the grid -->
+        <text x="820" y="95" class="b strong" id="h_grid" font-size="15">MEANWHILE, THE COUNTRY'S LARGEST GRID OPERATOR:</text>
+        <text x="820" y="175" class="big fact b" font-size="54" id="h_67">0</text>
+        <text x="822" y="205" class="b" id="h_67lab">PEOPLE ASKED — PLEASE, VOLUNTARILY — USE LESS</text>
+        <text x="820" y="290" class="big flawtxt b" font-size="54" id="h_243">0</text>
+        <text x="822" y="320" class="b" id="h_243lab">WHOLESALE POWER, NEW ENGLAND, IN DAYS</text>
+        <text x="820" y="405" class="big flawtxt b" font-size="54" id="h_800">0</text>
+        <text x="822" y="435" class="b" id="h_800lab">HOMES WITH NO POWER AT ALL — SATURDAY MORNING</text>
+        <text x="820" y="500" class="strong b" id="h_fc" font-size="16">ALL OF IT WAS IN THE FORECAST — SEVEN DAYS EARLY.</text>
+        <!-- question -->
+        <text x="740" y="600" text-anchor="middle" class="strong b" id="h_q" font-size="17">THE MOST PREDICTABLE DISASTER IN AMERICA — AND THE BEST TOOL LEFT WAS BEGGING. WHY?</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The most predictable<br>blackout.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>America spent years planning its 250th birthday. The parade in Washington was canceled the day before — not by a protest, not by a security threat. By air. While the bleachers sat empty, the operator of the country's largest grid was asking 67 million people to please use less electricity; wholesale power in New England cost nearly 3.5× more than days earlier; by Saturday, 800,000 homes had none at all.</p>
+      <p>The strange part: all of it was in the forecast a week early.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="100.9">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · July 3–5, 2026</div>
+    <h2>A lid on a pot, 185 million people inside.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg1">
+        <!-- left: map -->
+        <text x="120" y="70" class="big b" font-size="34" id="v_date">FRIDAY · JULY 3</text>
+        <path id="v_coast" class="ink b" stroke-width="2.5" d="M200 560 C 260 500, 250 460, 310 430 C 370 400, 380 360, 430 340 C 480 320, 490 290, 540 270 C 590 250, 610 220, 660 210"/>
+        <circle cx="300" cy="452" r="6" fill="var(--text)" class="b" id="v_dc"/>
+        <text x="180" y="492" class="b" id="v_dcl">WASHINGTON</text>
+        <circle cx="395" cy="373" r="6" fill="var(--text)" class="b" id="v_ph"/>
+        <text x="415" y="382" class="b" id="v_phl">PHILADELPHIA</text>
+        <circle cx="505" cy="292" r="6" fill="var(--text)" class="b" id="v_ny"/>
+        <text x="525" y="300" class="b" id="v_nyl">NEW YORK</text>
+        <circle cx="640" cy="222" r="6" fill="var(--text)" class="b" id="v_bo"/>
+        <text x="660" y="230" class="b" id="v_bol">BOSTON</text>
+        <!-- heat dome -->
+        <path id="v_dome" class="amber b" stroke-width="3" d="M150 560 C 200 160, 680 120, 780 540"/>
+        <text x="330" y="150" class="flawtxt b" id="v_domelab">HIGH-PRESSURE DOME — A LID ON A POT</text>
+        <!-- cancellation stamps -->
+        <g class="b" id="v_st1" transform="rotate(-5 250 520)"><rect x="120" y="505" width="230" height="30" fill="var(--flaw)" opacity=".9"/><text x="130" y="526" fill="#fff" font-size="13">DC PARADE — CANCELED</text></g>
+        <g class="b" id="v_st2" transform="rotate(4 560 420)"><rect x="440" y="405" width="250" height="30" fill="var(--flaw)" opacity=".9"/><text x="450" y="426" fill="#fff" font-size="13">PHILADELPHIA — CANCELED</text></g>
+        <g class="b" id="v_st3" transform="rotate(-4 300 585)"><rect x="120" y="570" width="290" height="30" fill="var(--flaw)" opacity=".9"/><text x="130" y="591" fill="#fff" font-size="13">MALL FAIR — CLOSED AT 101°F</text></g>
+        <g class="b" id="v_st4" transform="rotate(3 640 130)"><rect x="500" y="115" width="280" height="30" fill="var(--flaw)" opacity=".9"/><text x="510" y="136" fill="#fff" font-size="13">BOSTON FIREWORKS — GATES +4 H</text></g>
+        <!-- right: numbers -->
+        <text x="860" y="95" class="big fact b" font-size="46" id="v_185">0</text>
+        <text x="862" y="123" class="b" id="v_185lab">UNDER HEAT ALERTS — MORE THAN HALF THE COUNTRY</text>
+        <text x="860" y="170" class="big flawtxt b" font-size="30" id="v_115">HEAT INDEX 115°F / 46°C</text>
+        <text x="862" y="198" class="b" id="v_night">NIGHTS STAY HOT — THE BODY RECOVERS AFTER DARK. OR DOESN'T.</text>
+        <!-- PJM -->
+        <g class="b" id="v_pjm">
+          <rect x="860" y="225" width="290" height="60" class="nodebox"/>
+          <text x="880" y="250" class="strong" font-size="15">PJM — LARGEST US GRID</text>
+          <text x="880" y="272" class="fact">67,000,000 PEOPLE</text>
+        </g>
+        <text x="862" y="312" class="flawtxt b" id="v_pjmlab">EMERGENCY ORDER: ENROLLED CUSTOMERS, CUT USAGE</text>
+        <text x="862" y="336" class="b" id="v_pjmwhy">GENERATORS FAILING · LINES OVERLOADED · AC SURGING</text>
+        <!-- price bars -->
+        <text x="862" y="375" class="strong b" id="v_pt" font-size="14">WHOLESALE SPOT PRICE, FRIDAY —</text>
+        <g id="v_bars" class="b"></g>
+        <!-- DOE + rail + outages -->
+        <g class="b" id="v_doe" transform="rotate(-3 1050 528)">
+          <rect x="860" y="510" width="420" height="36" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="874" y="534" class="flawtxt" font-size="13">DOE ORDER: RUN EVERYTHING — INCLUDING BACKUPS</text>
+        </g>
+        <text x="862" y="572" class="b" id="v_doe2">SECOND TIME THIS SUMMER.</text>
+        <line x1="860" y1="600" x2="1280" y2="600" class="ink b" id="v_rail"/>
+        <text x="862" y="626" class="b" id="v_raillab">AMTRAK SLOWS TRAINS — RAILS BUCKLE IN HEAT</text>
+        <text x="1400" y="60" class="big flawtxt b" font-size="40" id="v_out" text-anchor="end">0</text>
+        <text x="1400" y="88" class="b" id="v_outlab" text-anchor="end">CUSTOMERS DARK, SAT AM</text>
+        <text x="740" y="52" text-anchor="middle" class="strong b" id="v_death" font-size="14">PENNSYLVANIA: OFFICIALS LINK AT LEAST ONE DEATH TO THE HEAT</text>
+        <text x="740" y="26" text-anchor="middle" class="b" id="v_media" font-size="13">THE COVERAGE WROTE ITSELF: RECORDS · AGING GRID · CLIMATE, AGAIN</text>
+      </svg>
+      <div class="figcap">Fig. 1 — the July 3–5 heat dome: cancellations, grid strain, prices · sources: Reuters/AP, CNBC, ABC News, NWS</div>
+    </div>
+    <div class="prose">
+      <p>July 3rd: 185 million Americans under heat alerts, heat indexes to 115°F. The NPS cancels Washington's Independence Day Parade; Philadelphia cancels its Salute to Independence; the Mall fair closes at 101°F; Boston delays fireworks entry by four hours. PJM (67M people) orders emergency-program customers to cut usage — generators failing, lines overloaded, AC surging. Wholesale power +243% in New England, +101% in NYC. DOE orders all generators, including backups, to run flat out — second time this summer. Amtrak slows trains. By Saturday, ~800,000 customers are without power; Pennsylvania officials link at least one death to the heat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PATTERN ================= -->
+<section class="ep" id="s2" data-duration="46.4">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pattern</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pattern · Why it keeps happening</div>
+    <h2>The only disaster that sends a save-the-date.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg2">
+        <text x="120" y="66" class="strong b" id="w_t1" font-size="16">THE FORECAST WAS PUBLIC SEVEN DAYS OUT. AND STILL —</text>
+        <g class="b" id="w_c1" transform="rotate(-3 260 130)"><rect x="120" y="100" width="280" height="56" class="ink"/><text x="145" y="135" class="strong" font-size="17">TEXAS · FEB 2021</text></g>
+        <g class="b" id="w_c2" transform="rotate(2 610 130)"><rect x="470" y="100" width="280" height="56" class="ink"/><text x="495" y="135" class="strong" font-size="17">CALIFORNIA · 2022</text></g>
+        <g class="b" id="w_c3" transform="rotate(-2 960 130)"><rect x="820" y="100" width="280" height="56" class="ink"/><text x="845" y="135" class="strong" font-size="17">SOUTHWEST · 2023</text></g>
+        <g class="b" id="w_c4" transform="rotate(3 1290 130)"><rect x="1170" y="100" width="190" height="56" fill="none" stroke="var(--flaw)" stroke-width="2.5"/><text x="1195" y="135" class="strong flawtxt" font-size="17">EAST · NOW</text></g>
+        <text x="120" y="205" class="flawtxt b" id="w_t2" font-size="15">SAME RITUAL EVERY TIME: EMERGENCY ORDERS · CONSERVATION APPEALS · BLACKOUTS</text>
+        <text x="120" y="255" class="strong b" id="w_t3" font-size="14">US WEATHER DEATHS — 30-YEAR AVERAGE PER YEAR (NWS):</text>
+        <g id="w_rows" class="b"></g>
+        <text x="120" y="530" class="strong b" font-size="16" id="w_t4">FAILING ON SCHEDULE, WITH NOTICE — <tspan class="flawtxt">THAT'S NOT WEATHER. THAT'S DESIGN.</tspan></text>
+      </svg>
+      <div class="figcap">Fig. 2 — heat kills more than hurricanes, floods and tornadoes in most years · NWS 30-yr weather fatality averages</div>
+    </div>
+    <p class="keyline" style="font-family:var(--font-display);font-size:clamp(19px,2.4vw,27px);margin-top:18px" id="w_adage">
+      Heat is the deadliest weather in America — <b style="color:var(--flaw)">and the slowest.</b> The only disaster that sends a save-the-date.</p>
+    <div class="prose">
+      <p>2021, Texas. 2022, California. 2023, the Southwest. Now the East. The dates change; the script doesn't. In most years heat kills more Americans than hurricanes, floods and tornadoes combined. When a system fails the same way, on schedule, with advance notice — that's not weather. That's design.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM ================= -->
+<section class="ep" id="s3" data-duration="139.7">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · How the system works</div>
+    <h2>The signal dies at your meter.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg3">
+        <g id="world"><!-- camera group, ~6400px world -->
+          <!-- Station 1: the rule -->
+          <g class="b" id="g_rule">
+            <text x="120" y="200" class="big" font-size="52">SUPPLY = DEMAND</text>
+            <text x="122" y="245" class="big" font-size="26">EVERY SECOND OF EVERY DAY</text>
+          </g>
+          <g class="b" id="g_wh">
+            <rect x="120" y="320" width="240" height="150" class="ink"/>
+            <line x1="120" y1="360" x2="360" y2="360" class="ink"/>
+            <text x="150" y="348" class="strong">WAREHOUSE</text>
+          </g>
+          <path id="g_whx" class="amber b" d="M110 310 L 370 480 M 370 310 L 110 480"/>
+          <text x="122" y="520" class="flawtxt b" id="g_whlab">A MARKET WITH NO WAREHOUSE — ELECTRICITY IS BARELY STORED</text>
+          <!-- Station 2: built for the peak -->
+          <g class="b" id="g_ax">
+            <line x1="1020" y1="440" x2="1680" y2="440" class="ink"/>
+            <text x="1020" y="470">JAN</text><text x="1620" y="470">DEC</text>
+            <text x="1020" y="130" class="strong" font-size="16">ONE YEAR OF DEMAND —</text>
+          </g>
+          <path id="g_ldc" class="blue b" d="M1030 415 C 1120 405, 1200 412, 1280 400 L 1330 250 L 1352 165 L 1374 250 L 1420 402 C 1500 412, 1590 408, 1660 415"/>
+          <circle cx="1352" cy="165" r="10" class="amber b" id="g_peak"/>
+          <text x="1240" y="145" class="flawtxt b" id="g_peaklab">THE SINGLE HOTTEST HOUR — THE WHOLE MACHINE IS SIZED TO IT</text>
+          <g class="b" id="g_plants"></g>
+          <text x="1022" y="608" class="b" id="g_idle">WHOLE PLANTS EXIST TO RUN A FEW DOZEN HOURS A YEAR — WAITING</text>
+          <!-- Station 3: yesterday's climate -->
+          <g class="b" id="g_cl">
+            <text x="1920" y="130" class="strong" font-size="16">THE WORST CASE WAS GUESSED — LAST CENTURY</text>
+            <line x1="1920" y1="260" x2="2580" y2="260" class="blue" stroke-dasharray="8 6"/>
+            <text x="1920" y="240" class="fact">DESIGN PEAK — CALIBRATED ON THE PAST CENTURY'S CLIMATE</text>
+          </g>
+          <path id="g_demand" class="amber b" d="M1920 430 C 2050 410, 2180 360, 2280 300 C 2360 250, 2440 205, 2560 185"/>
+          <text x="2330" y="170" class="flawtxt b" id="g_gap">⚠ PAST THE ASSUMPTION</text>
+          <path id="g_wave" class="blue b" d="M1920 560 q 40 -55 80 0 q 40 55 80 0 q 40 -55 80 0 q 40 55 80 0"/>
+          <text x="1920" y="490" class="b" id="g_tx1">TRANSFORMERS ARE BUILT TO COOL OFF AT NIGHT</text>
+          <path id="g_wave2" class="amber b" d="M2280 545 q 40 -28 80 0 q 40 28 80 0 q 40 -28 80 0"/>
+          <text x="2280" y="600" class="flawtxt b" id="g_tx2">NIGHTS STAY HOT → NO RECOVERY → FAILURES CLIMB</text>
+          <text x="1920" y="630" class="b" id="g_tx3">THAT'S THE "GENERATOR OUTAGES" LINE IN PJM'S FRIDAY ORDER</text>
+          <!-- Station 4: the price screams -->
+          <g class="b" id="g_pr">
+            <text x="2820" y="150" class="strong" font-size="16">WHEN POWER GETS SCARCE, THE WHOLESALE PRICE SCREAMS</text>
+          </g>
+          <text x="2820" y="300" class="big flawtxt b" font-size="72" id="g_price">$40</text>
+          <text x="2822" y="335" class="b" id="g_pricelab">PER MEGAWATT-HOUR — TEXAS SCARCITY RANGE</text>
+          <path id="g_scr" class="amber b" d="M2820 430 q 20 -10 40 0 q 20 10 40 0 q 20 -30 40 0 q 20 30 40 0 q 20 -70 40 0 q 20 70 40 0 q 20 -130 40 0 q 20 130 40 0"/>
+          <text x="2822" y="490" class="fact b" id="g_ne">+243% NEW ENGLAND, LAST FRIDAY</text>
+          <text x="2820" y="550" class="strong b" id="g_scream1" font-size="16">THE PRICE IS THE SYSTEM SPEAKING, PRECISELY, IN REAL TIME:</text>
+          <text x="2820" y="585" class="flawtxt b" id="g_scream2" font-size="17">"THERE ISN'T ENOUGH — USE LESS, OR USE IT LATER."</text>
+          <!-- Station 5: the meter -->
+          <path id="g_wavein" class="amber b" stroke-width="3" d="M3720 320 q 25 -60 50 0 q 25 60 50 0 q 25 -90 50 0 q 25 90 50 0"/>
+          <g class="b" id="g_meter">
+            <rect x="3940" y="270" width="130" height="100" class="ink" stroke-width="2.5"/>
+            <text x="3958" y="330" class="strong" font-size="15">METER</text>
+          </g>
+          <text x="3975" y="250" class="flawtxt b" id="g_break" font-size="26">⚠</text>
+          <line x1="4070" y1="320" x2="4420" y2="320" class="ink b" id="g_flat"/>
+          <text x="4110" y="300" class="b" id="g_flatlab">FLAT RATE — SET MONTHS IN ADVANCE</text>
+          <text x="3720" y="420" class="strong b" id="g_apr" font-size="15">THE HOTTEST DAY OF THE YEAR COSTS WHAT A MILD APRIL TUESDAY COSTS</text>
+          <text x="3720" y="452" class="flawtxt b" id="g_deaf" font-size="17">DEMAND NEVER HEARS THE SCREAM. IT CAN'T FLINCH.</text>
+          <path id="g_temp" class="ink b" d="M3720 600 C 3830 585, 3960 555, 4100 520"/>
+          <text x="4110" y="525" class="b" id="g_templab">TEMPERATURE ↑</text>
+          <path id="g_ac" class="amber b" d="M3720 620 C 3850 610, 3990 575, 4140 545"/>
+          <text x="4150" y="560" class="flawtxt b" id="g_aclab">EVERY AC WORKS HARDER — DEMAND ↑</text>
+          <text x="3720" y="500" class="b strong" id="g_wrong" font-size="15">CLIMBING EXACTLY WHEN THE SYSTEM NEEDS IT TO FALL</text>
+          <!-- Station 6: three levers -->
+          <text x="4620" y="150" class="strong b" id="g_left" font-size="16">DELETE THE PRICE SIGNAL — THIS IS WHAT'S LEFT:</text>
+          <g class="b" id="g_l1">
+            <rect x="4620" y="200" width="230" height="150" class="ink"/>
+            <text x="4645" y="245" class="big" font-size="24">BEG</text>
+            <text x="4645" y="280" font-size="12">CONSERVATION APPEALS</text>
+            <text x="4645" y="302" font-size="12">"PLEASE USE LESS"</text>
+          </g>
+          <g class="b" id="g_l2">
+            <rect x="4900" y="200" width="230" height="150" class="ink"/>
+            <text x="4925" y="245" class="big" font-size="24">COMMAND</text>
+            <text x="4925" y="280" font-size="12">FEDERAL ORDER:</text>
+            <text x="4925" y="302" font-size="12">EVERYTHING FLAT OUT</text>
+          </g>
+          <g class="b" id="g_l3">
+            <rect x="5180" y="200" width="230" height="150" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+            <text x="5205" y="245" class="big flawtxt" font-size="24">RATION</text>
+            <text x="5205" y="280" font-size="12">ROLLING BLACKOUTS —</text>
+            <text x="5205" y="302" font-size="12">SCARCITY BY LOTTERY</text>
+          </g>
+          <text x="4620" y="420" class="flawtxt b" id="g_l4" font-size="15">A MARKET THAT SWITCHES TO PLEADING EXACTLY WHEN THE STAKES PEAK</text>
+          <!-- Station 7: the supermarket -->
+          <text x="5520" y="230" class="big b" font-size="40" id="g_sm1">A SUPERMARKET THAT PRINTS ITS</text>
+          <text x="5520" y="285" class="big b" font-size="40" id="g_sm1b">PRICES ONCE A YEAR.</text>
+          <text x="5520" y="360" class="big b" font-size="30" id="g_sm2">THE DAY THE HARVEST FAILS,</text>
+          <text x="5520" y="402" class="big b" font-size="30" id="g_sm2b">THE SHELVES JUST GO EMPTY.</text>
+          <text x="5520" y="490" class="big flawtxt b" font-size="40" id="g_sm3">THAT'S NOT A METAPHOR.</text>
+          <text x="5520" y="545" class="big flawtxt b" font-size="40" id="g_sm4">THAT'S THE WIRING DIAGRAM.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — the severed feedback loop: scarcity speaks, the meter deletes it · every actor individually rational</div>
+      <div id="sim">
+        <div class="simhead">
+          <span class="mono" style="color:var(--text)">Simulator — what if demand could hear the price?</span>
+          <label class="mono">Households on dynamic pricing: <b id="simPct" style="color:var(--alt)">0%</b>
+            <input type="range" id="simRange" min="0" max="50" value="0" step="1"></label>
+        </div>
+        <svg viewBox="0 0 1180 260" id="simSvg">
+          <line x1="40" y1="60" x2="1140" y2="60" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="8 6"/>
+          <text x="46" y="50" class="flawtxt">EMERGENCY THRESHOLD</text>
+          <line x1="40" y1="220" x2="1140" y2="220" stroke="var(--grid)" stroke-width="2"/>
+          <text x="40" y="245">0H</text><text x="1100" y="245">24H</text>
+          <polyline id="simCurve" fill="none" stroke="var(--fact)" stroke-width="3" points=""/>
+          <polyline id="simShift" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6" points=""/>
+          <text x="880" y="110" id="simPeak" class="strong" font-size="15"></text>
+        </svg>
+        <div class="mono">Load shifts out of the evening peak as more homes see real prices · illustrative model, not a grid study (≈ Brattle 2019 potential at 100%≈20% of peak)</div>
+      </div>
+    </div>
+    <div class="prose">
+      <p>The grid is a market with no warehouse: supply must equal demand every second, so everything is sized to the single hottest hour — as guessed from last century's climate. A heat dome pushes demand past the assumption, and hot nights stop transformers from recovering. When scarcity hits, the wholesale price screams ($40 → $5,000/MWh in Texas) — and the signal dies at the retail meter, where a flat rate was set months ago. Demand never hears it; air-conditioning climbs exactly when the system needs it to fall. What's left is begging, commanding, and rationing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF ================= -->
+<section class="ep" id="s4" data-duration="172.5">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three working redesigns</div>
+    <h2>Three systems decided the emergency was optional.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <!-- BRITAIN -->
+        <g class="b" id="a_uk">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE A · BRITAIN — WIRE THE PRICE TO THE THERMOSTAT</text>
+          <g id="u_strip" transform="translate(120,150)"></g>
+          <line x1="120" y1="300" x2="1360" y2="300" stroke="var(--grid)" stroke-width="2"/>
+          <text x="120" y="120" class="b" id="u_t1">AGILE TARIFF: PRICE CHANGES EVERY 30 MINUTES — PUBLISHED A DAY AHEAD</text>
+          <g id="u_blocks"></g>
+          <text x="122" y="392" class="alttxt b" id="u_shift">LAUNDRY · DISHES · CAR CHARGING → SHIFTED TO CHEAP HOURS</text>
+          <text x="410" y="345" class="alttxt b" id="u_neg">▼ NEGATIVE — PAID TO CONSUME</text>
+          <text x="900" y="345" class="b" id="u_cap">CAP £1/KWH — A CRISIS CAN'T BANKRUPT YOU</text>
+          <text x="120" y="440" class="strong b" id="u_agg" font-size="16">MILLIONS OF HOMES, IN AGGREGATE = A POWER PLANT MADE OF RESTRAINT</text>
+          <text x="120" y="520" class="big fact b" font-size="40" id="u_gw">0 GW</text>
+          <text x="122" y="548" class="b" id="u_gwlab">UNTAPPED US DEMAND FLEXIBILITY ≈ 1/5 OF SUMMER PEAK — BRATTLE GROUP</text>
+          <text x="120" y="590" class="flawtxt b" id="u_tx1">TRADE-OFF — TEXAS, FEB 2021: WHOLESALE-INDEXED BILLS IN THE THOUSANDS</text>
+          <text x="120" y="615" class="flawtxt b" id="u_tx2">THE 80-YEAR-OLD ON A RESPIRATOR AT 3 P.M. CANNOT "SHIFT HER LOAD"</text>
+          <text x="800" y="615" class="strong b" id="u_tx3">PRICE CAN BE A LAYER — NOT THE ONLY LAYER</text>
+        </g>
+        <!-- FRANCE -->
+        <g class="b" id="a_fr">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE B · FRANCE — WIRE THE STATE TO THE VULNERABLE</text>
+          <text x="120" y="180" class="big flawtxt b" font-size="54" id="f_dead">0</text>
+          <text x="122" y="210" class="b" id="f_deadlab">DEAD · AUGUST 2003 · TWO WEEKS · MOSTLY ELDERLY, ALONE</text>
+          <text x="120" y="255" class="strong b" id="f_war" font-size="16">FRANCE RESPONDED THE WAY YOU RESPOND TO LOSING A WAR.</text>
+          <g id="f_ladder"></g>
+          <text x="122" y="308" class="alttxt b" id="f_pm">TOP LEVEL: THE PRIME MINISTER'S OFFICE RUNS THE MACHINE</text>
+          <text x="120" y="560" class="b" id="f_tools">REGISTRIES OF THE ISOLATED · MANDATORY CHECK-IN CALLS · COOL ROOMS</text>
+          <rect x="880" y="180" width="70" height="240" fill="var(--flaw)" opacity=".85" class="b" id="f_b03"/>
+          <text x="860" y="450" class="b" id="f_b03l">2003 · 15,000</text>
+          <rect x="1060" y="396" width="70" height="24" fill="var(--alt)" class="b" id="f_b19"/>
+          <text x="1040" y="450" class="b" id="f_b19l">2019 · 1,462</text>
+          <text x="1180" y="330" class="big alttxt b" font-size="52" id="f_90">−90%</text>
+          <text x="880" y="130" class="strong b" id="f_hot" font-size="15">2019 WAS HOTTER — ALL-TIME RECORD 46.0°C</text>
+          <text x="120" y="595" class="flawtxt b" id="f_tx1">TRADE-OFF: A STANDING BUREAUCRACY FOR AN EVENT THAT MAY NOT COME</text>
+          <text x="120" y="620" class="flawtxt b" id="f_tx2">SAVES PEOPLE, NOT POWER LINES · 50 STATES + 3,000 COUNTIES = DIFFERENT HARDWARE</text>
+        </g>
+        <!-- SEVILLE -->
+        <g class="b" id="a_sv">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE C · SEVILLE — WIRE THE FORECAST TO A PROTOCOL</text>
+          <g class="b" id="sv_zoe" transform="rotate(-3 350 180)">
+            <rect x="120" y="130" width="470" height="90" fill="none" stroke="var(--alt)" stroke-width="3"/>
+            <text x="150" y="172" class="big alttxt" font-size="30">HEAT WAVE “ZOE”</text>
+            <text x="150" y="202" font-size="13">SEVILLE · 2022 · THE FIRST NAMED HEAT WAVE ON EARTH</text>
+          </g>
+          <g id="sv_cats"></g>
+          <text x="122" y="392" class="b" id="sv_cat">CATEGORIES TIED TO FORECAST IMPACT — TOP TIERS TRIGGER PROTOCOLS AUTOMATICALLY</text>
+          <text x="120" y="450" class="strong b" id="sv_us" font-size="15">US PILOTS: MIAMI · LOS ANGELES · MILWAUKEE · KANSAS CITY — PLUS CHIEF HEAT OFFICERS</text>
+          <text x="120" y="530" class="flawtxt b" id="sv_tx1" font-size="16">TRADE-OFF: A NAME IS A COMMUNICATION LAYER — NOT A PLAN</text>
+          <text x="120" y="560" class="flawtxt b" id="sv_tx2">WITHOUT A CANICULE UNDERNEATH IT, IT'S MARKETING. METEOROLOGISTS ARE SPLIT FOR A REASON.</text>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="a_syn">
+          <text x="200" y="140" class="big" font-size="30" id="y_head">THREE DESIGNS, ONE MOVE — RECONNECT A WIRE:</text>
+          <g id="y_built" opacity="0">
+            <line x1="240" y1="300" x2="620" y2="300" class="amber"/>
+            <line x1="680" y1="300" x2="1060" y2="300" class="amber"/>
+            <text x="636" y="308" class="flawtxt" font-size="22">⚠</text>
+            <text x="240" y="350" class="flawtxt" font-size="15">AS BUILT: THE WIRE STAYS CUT — BEG · COMMAND · RATION</text>
+          </g>
+          <path id="y_w1" class="green b" d="M240 220 C 400 190, 700 190, 900 218"/>
+          <text x="200" y="260" class="alttxt b" id="y_l1" font-size="19">→ THE PRICE, WIRED TO THE THERMOSTAT</text>
+          <path id="y_w2" class="green b" d="M240 320 C 400 290, 700 290, 900 318"/>
+          <text x="200" y="360" class="alttxt b" id="y_l2" font-size="19">→ THE STATE, WIRED TO THE VULNERABLE</text>
+          <path id="y_w3" class="green b" d="M240 420 C 400 390, 700 390, 900 418"/>
+          <text x="200" y="460" class="alttxt b" id="y_l3" font-size="19">→ THE FORECAST, WIRED TO A PROTOCOL</text>
+          <text x="200" y="545" class="strong b" id="y_s4" font-size="17">NONE OF THEM PREVENTS A HEAT DOME. ALL OF THEM DECIDE, IN ADVANCE, WHAT HAPPENS WHEN ONE ARRIVES.</text>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 4 — the same meter, redlined three ways · dashed green = revision markup</div>
+    </div>
+    <div class="prose">
+      <p>Britain's Octopus Agile changes the household price every 30 minutes — millions of homes become a power plant made of restraint (Brattle: ~200 GW of untapped US flexibility). Trade-off: February 2021 showed the risk lands on households, and price can't be the only layer. France's Plan Canicule — built after 15,000 deaths in 2003 — cut the toll of a hotter 2019 by 90%: registries, check-in calls, four alert levels. Trade-off: standing bureaucracy, saves people not power lines. Seville names and ranks heat waves like hurricanes; a name without a plan is marketing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 CLOSE ================= -->
+<section class="ep" id="s5" data-duration="50.8">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Your meter, your city</div>
+    <h2>Planning to be surprised.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <g id="z_bl" class="b"></g>
+        <line x1="150" y1="100" x2="150" y2="230" class="ink b" id="z_pole"/>
+        <path d="M150 100 L 210 115 L 150 130 Z" fill="var(--text)" class="b" id="z_flag"/>
+        <text x="400" y="80" class="strong b" id="z_t1" font-size="16">THE DOME WILL LIFT. THE OUTAGE MAPS WILL TURN GREEN.</text>
+        <text x="400" y="110" class="b" id="z_t2">THE 250TH — REMEMBERED FOR ITS EMPTY BLEACHERS.</text>
+        <g class="b" id="z_phone">
+          <rect x="880" y="140" width="330" height="120" class="ink" stroke-width="2.5"/>
+          <line x1="880" y1="175" x2="1210" y2="175" class="ink"/>
+          <text x="896" y="165" class="strong" font-size="13">NOTIFICATIONS</text>
+          <text x="896" y="205" class="flawtxt" font-size="14">⚠ GRID ALERT: PLEASE CONSERVE</text>
+          <text x="896" y="230" font-size="12">AN HOUR BEFORE THE LIGHTS FLICKER</text>
+        </g>
+        <text x="880" y="290" class="strong b" id="z_inst" font-size="15">THE MOST INSTRUMENTED MACHINE — ASKING NICELY</text>
+        <line x1="880" y1="345" x2="1210" y2="345" class="ink b" id="z_flatline"/>
+        <text x="880" y="370" class="b" id="z_flatlab">THE PRICE SIGNAL, STILL DEAD AT YOUR METER</text>
+        <path id="z_fix" class="green b" d="M880 345 C 990 305, 1100 305, 1210 345"/>
+        <text x="880" y="397" class="alttxt b" id="z_fixlab">— UNLESS SOMEBODY WIRES IT THROUGH</text>
+        <text x="180" y="418" class="flawtxt b" id="z_next" font-size="15">THE NEXT HEAT DOME IS ALREADY SCHEDULED — STATISTICALLY</text>
+        <text x="740" y="458" text-anchor="middle" class="big b" font-size="28" id="z_q1">WHEN THE AIR OVER YOUR CITY STOPS MOVING FOR A WEEK —</text>
+        <text x="740" y="500" text-anchor="middle" class="big b" font-size="30" id="z_q2">DOES YOUR SYSTEM ALREADY KNOW WHAT TO DO?</text>
+        <text x="740" y="500" text-anchor="middle" class="big flawtxt b" font-size="34" id="z_q3">OR IS IT PLANNING TO BE SURPRISED?</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Next time, you won't find out from the price — that signal dies at your meter. You'll find out from a push notification begging you to conserve, an hour before the lights flicker. The next heat dome is already scheduled, statistically. When the air over your city stops moving for a week — does your system already know what to do, or is it planning to be surprised?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Watch on YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <path d="M60 560 q 40 -60 80 0 q 40 60 80 0 q 40 -110 80 0" stroke="var(--fact)" stroke-width="6" fill="none"/>
+    <rect x="330" y="490" width="120 " height="120" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <text x="352" y="562" font-family="Space Grotesk" font-weight="700" font-size="30" fill="var(--text)">kWh</text>
+    <line x1="450" y1="550" x2="590" y2="550" stroke="var(--flaw)" stroke-width="7"/>
+    <text x="470" y="500" font-family="Space Grotesk" font-weight="700" font-size="60" fill="var(--flaw)">⚠</text>
+    <path d="M100 380 C 160 120, 480 120, 540 380" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <text x="200" y="300" font-family="Space Grotesk" font-weight="700" font-size="76" fill="var(--text)">115°F</text>
+  </svg>
+  <div class="ttxt">The blackout<br><em>they forecast</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <g fill="none" stroke="var(--text)" stroke-width="5">
+      <rect x="100" y="380" width="90" height="180"/><rect x="230" y="320" width="90" height="240"/>
+      <rect x="360" y="420" width="90" height="140"/><rect x="490" y="350" width="90" height="210"/>
+    </g>
+    <path d="M60 340 C 130 90, 490 90, 570 340" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <text x="215" y="250" font-family="Space Grotesk" font-weight="700" font-size="90" fill="var(--flaw)">+243%</text>
+  </svg>
+  <div class="ttxt" style="font-size:100px">800,000 dark<br><em>on schedule</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:o.from||0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function drawDashed(tl,id,dur,pos,dash){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos)
+    .set(p,{strokeDasharray:dash},'>');}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+
+/* ---------- dynamic bits ---------- */
+// s0: parade bleachers
+(()=>{const g=$('h_bl');let s='';
+  for(let r=0;r<3;r++){const y=180+r*46,x0=140+r*26;
+    s+=`<line x1="${x0}" y1="${y}" x2="${x0+420}" y2="${y}" stroke="var(--text)" stroke-width="3"/>`;
+    for(let i=0;i<9;i++)s+=`<line x1="${x0+18+i*46}" y1="${y}" x2="${x0+18+i*46}" y2="${y+16}" stroke="var(--text)" stroke-width="2"/>`;}
+  g.innerHTML=s;})();
+// s1: regional price bars
+const REGIONS=[
+ {n:'NEW ENGLAND',v:243,tip:'ISO-NE wholesale spot, Friday July 3 — +243% vs earlier in the week.'},
+ {n:'NEW YORK CITY',v:101,tip:'NYISO city zone — +101%. Con Ed reported ~17,000 customers out Friday.'},
+ {n:'MIDWEST',v:55,tip:'MISO — +55% as the dome drifted east.'},
+ {n:'MID-ATLANTIC',v:45.6,dec:1,tip:'PJM zone — +45.6%; PJM ordered emergency conservation.'}];
+(()=>{const g=$('v_bars');let s='';REGIONS.forEach((r,i)=>{const y=392+i*28;
+  s+=`<g class="rrow" data-tip="${r.tip}">
+    <text x="1010" y="${y+13}" text-anchor="end">${r.n}</text>
+    <rect id="vb_${i}" x="1020" y="${y}" width="0" height="16" fill="var(--flaw)" opacity=".85"/>
+    <text id="vv_${i}" x="1030" y="${y+13}" class="strong b" font-size="13">+${r.v}%</text></g>`;});
+  g.innerHTML=s;})();
+// s2: weather-death bars
+const WD=[
+ {n:'HEAT',v:238,flaw:1,tip:'≈238 deaths/yr, 30-year NWS average — and heat deaths are widely undercounted.'},
+ {n:'FLOODS',v:88,tip:'≈88 deaths/yr, 30-year NWS average.'},
+ {n:'TORNADOES',v:71,tip:'≈71 deaths/yr, 30-year NWS average.'},
+ {n:'HURRICANES',v:46,tip:'≈46 deaths/yr, 30-year NWS average — direct fatalities.'}];
+(()=>{const g=$('w_rows');let s='';WD.forEach((q,i)=>{const y=280+i*52;
+  s+=`<g class="wrow" data-tip="${q.tip}">
+    <text x="255" y="${y+16}" text-anchor="end" class="strong">${q.n}</text>
+    <rect id="wb_${i}" x="270" y="${y}" width="0" height="22" fill="${q.flaw?'var(--flaw)':'var(--fact)'}"/>
+    <text id="wv_${i}" x="280" y="${y+16}" class="strong b" font-size="14">≈${q.v}/YR</text></g>`;});
+  g.innerHTML=s;})();
+// s3: waiting plants
+(()=>{const g=$('g_plants');let s='';for(let i=0;i<5;i++){const x=1020+i*130;
+  s+=`<g class="pl" data-i="${i}"><rect x="${x}" y="510" width="90" height="60" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+      <line x1="${x+62}" y1="510" x2="${x+62}" y2="488" stroke="var(--text)" stroke-width="2.5"/></g>`;}
+  g.innerHTML=s;})();
+// s4: Agile half-hour price strip (48 bars, few negative)
+const NEG=[4,5,29];
+(()=>{const g=$('u_strip');let s='';for(let i=0;i<48;i++){
+  const peak=i>=34&&i<=40;const h=peak?60+((i*13)%40):14+((i*29)%26);
+  if(NEG.includes(i))s+=`<rect class="ub neg" x="${i*26}" y="150" width="18" height="26" fill="var(--alt)"/>`;
+  else s+=`<rect class="ub" x="${i*26}" y="${150-h}" width="18" height="${h}" fill="${peak?'var(--flaw)':'var(--fact)'}" opacity="${peak?.9:.55}"/>`;}
+  g.innerHTML=s;})();
+// s4: shiftable appliance blocks (start at evening peak, slide to cheap hours)
+(()=>{const g=$('u_blocks');let s='';['WASH','DISH','EV'].forEach((n,i)=>{
+  s+=`<g class="ublk" data-i="${i}" transform="translate(${1030+i*20},${318+i*22})">
+    <rect width="86" height="20" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="8" y="15" class="alttxt" font-size="11">${n}</text></g>`;});
+  g.innerHTML=s;})();
+// s4: France alert ladder
+(()=>{const g=$('f_ladder');let s='';for(let i=0;i<4;i++){const y=470-i*38;
+  s+=`<g class="fl"><rect x="120" y="${y}" width="${240+i*60}" height="30" fill="none" stroke="var(--alt)" stroke-width="2" ${i==3?'stroke-dasharray="none" stroke-width="3"':''}/>
+  <text x="132" y="${y+21}" class="alttxt" font-size="12">LEVEL ${i+1}${i==3?' — MAXIMUM MOBILIZATION':''}</text></g>`;}
+  g.innerHTML=s;})();
+// s4: Seville categories
+(()=>{const g=$('sv_cats');let s='';['CAT 1','CAT 2','CAT 3 — NAMED'].forEach((n,i)=>{
+  s+=`<g class="svc"><rect x="${120+i*230}" y="270" width="${200}" height="60" fill="none" stroke="var(--alt)" stroke-width="${2+i}"/>
+  <text x="${140+i*230}" y="306" class="alttxt" font-size="14">${n}</text></g>`;});
+  g.innerHTML=s;})();
+// s5: empty bleachers
+(()=>{const g=$('z_bl');let s='';
+  for(let r=0;r<4;r++){const y=230+r*40,x0=180+r*30;
+    s+=`<line x1="${x0}" y1="${y}" x2="${x0+400}" y2="${y}" stroke="var(--text)" stroke-width="3"/>`;
+    for(let i=0;i<8;i++)s+=`<line x1="${x0+20+i*50}" y1="${y}" x2="${x0+20+i*50}" y2="${y+14}" stroke="var(--text)" stroke-width="2"/>`;}
+  g.innerHTML=s;})();
+
+/* ---------- scene timelines ---------- */
+function sc0(D){const tl=gsap.timeline();
+  pop(tl,'h_250',0.5);say(tl,'h_250lab',1.4);
+  tl.set($('h_bl'),{opacity:1},3.0)
+    .fromTo($('h_bl').children,{opacity:0},{opacity:1,duration:.12,stagger:.05},3.0);
+  pop(tl,'h_stamp',6.5,.25);shake(tl,'svg0',6.7,7,8);
+  say(tl,'h_bylab',8.5);
+  say(tl,'h_div',11.5);say(tl,'h_grid',12.2);
+  count(tl,'h_67',67000000,2.4,13.5);say(tl,'h_67lab',16.2);
+  count(tl,'h_243',243,2.0,19.5,{pre:'+',suf:'%'});say(tl,'h_243lab',21.8);
+  count(tl,'h_800',800000,2.4,24.5);say(tl,'h_800lab',27.2);
+  say(tl,'h_fc',31.0);
+  say(tl,'h_q',34.5);shake(tl,'svg0',36.0,5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},38.5);
+  if(isAuto)tl.to({},{duration:5.0},39.1);   // title rides out with the section
+  else tl.to($('titleCard'),{opacity:0,duration:.5},42.5);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  pop(tl,'v_date',0.4);
+  draw(tl,'v_coast',2.0,1.2);
+  [['v_dc','v_dcl',3.2],['v_ph','v_phl',3.7],['v_ny','v_nyl',4.2],['v_bo','v_bol',4.7]].forEach(([a,b,t])=>{pop(tl,a,t,.3);say(tl,b,t+.15,.4);});
+  draw(tl,'v_dome',2.6,6.5);say(tl,'v_domelab',9.2);
+  count(tl,'v_185',185000000,2.6,12.0);say(tl,'v_185lab',14.8);
+  pop(tl,'v_115',17.5);say(tl,'v_night',20.5);
+  pop(tl,'v_st1',25.5,.25);shake(tl,'svg1',25.7,5,6);
+  pop(tl,'v_st2',28.0,.25);shake(tl,'svg1',28.2,5,6);
+  pop(tl,'v_st3',30.5,.25);
+  pop(tl,'v_st4',33.0,.25);shake(tl,'svg1',33.2,5,6);
+  pop(tl,'v_pjm',38.0);say(tl,'v_pjmlab',40.5);say(tl,'v_pjmwhy',44.0);
+  say(tl,'v_pt',48.0);
+  tl.set($('v_bars'),{opacity:1},48.5);
+  REGIONS.forEach((r,i)=>{const w=r.v*1.35;
+    tl.to($('vb_'+i),{attr:{width:w},duration:.9,ease:'power2.out'},49.0+i*1.7);
+    tl.set($('vv_'+i),{opacity:1},49.6+i*1.7)
+      .call(()=>{$('vv_'+i).setAttribute('x',1020+r.v*1.35+10);},[],49.6+i*1.7);});
+  pop(tl,'v_doe',58.5,.3);shake(tl,'v_doe',58.7,6,6);
+  say(tl,'v_doe2',61.5);
+  draw(tl,'v_rail',1.6,65.0);shake(tl,'v_rail',67.0,4,10);say(tl,'v_raillab',67.5);
+  count(tl,'v_out',800000,2.6,72.0);say(tl,'v_outlab',74.8);
+  say(tl,'v_death',80.0);
+  say(tl,'v_media',85.0);
+  tl.to($('v_dome'),{opacity:.45,duration:1.2,repeat:5,yoyo:true},87.0);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  say(tl,'w_t1',0.4);
+  [['w_c1',3.0],['w_c2',5.0],['w_c3',7.0],['w_c4',9.2]].forEach(([id,t])=>{pop(tl,id,t,.28);shake(tl,'svg2',t+.2,4,5);});
+  say(tl,'w_t2',12.0);
+  say(tl,'w_t3',16.0);
+  tl.set($('w_rows'),{opacity:1},17.2);
+  WD.forEach((q,i)=>{const w=q.v*4.4;
+    tl.to($('wb_'+i),{attr:{width:w},duration:i===0?2.0:.9,ease:i===0?'power3.in':'power3.out'},18.0+i*1.9);
+    tl.set($('wv_'+i),{opacity:1},18.8+i*1.9)
+      .call(()=>{$('wv_'+i).setAttribute('x',270+q.v*4.4+12);},[],18.8+i*1.9);});
+  tl.fromTo($('w_adage'),{opacity:0,y:14},{opacity:1,y:0,duration:.8},28.0);
+  say(tl,'w_t4',33.0);shake(tl,'svg2',34.0,5);
+  tl.to($('wb_0'),{opacity:.5,duration:1.2,repeat:7,yoyo:true},36.0);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();const W=$('world');
+  const cam=x=>({x:-x,duration:1.4,ease:'power2.inOut'});
+  // st1: the rule
+  pop(tl,'g_rule',0.5);
+  pop(tl,'g_wh',3.0);draw(tl,'g_whx',1.2,4.5);say(tl,'g_whlab',6.0);
+  // st2: built for the peak
+  tl.to(W,cam(900),10.0);
+  say(tl,'g_ax',11.5);draw(tl,'g_ldc',2.6,13.0);
+  pop(tl,'g_peak',15.8,.3);say(tl,'g_peaklab',16.5);
+  tl.set($('g_plants'),{opacity:1},20.0)
+    .fromTo($('g_plants').children,{opacity:0},{opacity:1,duration:.2,stagger:.3},20.0);
+  say(tl,'g_idle',22.5);
+  tl.to([...$('g_plants').children].filter((_,i)=>i>0),{opacity:.22,duration:1.4},24.5);
+  // st3: yesterday's climate
+  tl.to(W,cam(1800),28.5);
+  say(tl,'g_cl',30.0);
+  draw(tl,'g_demand',2.6,33.0);
+  say(tl,'g_gap',36.0);shake(tl,'svg3',36.2,7,8);
+  say(tl,'g_tx1',39.5);draw(tl,'g_wave',2.0,40.0);
+  draw(tl,'g_wave2',1.6,43.5);say(tl,'g_tx2',45.0);
+  say(tl,'g_tx3',48.5);
+  // st4: the price screams
+  tl.to(W,cam(2700),52.5);
+  say(tl,'g_pr',54.0);
+  count(tl,'g_price',5000,3.6,55.5,{pre:'$',from:40,ease:'power2.in'});
+  say(tl,'g_pricelab',59.3);
+  draw(tl,'g_scr',2.2,60.0);
+  say(tl,'g_ne',62.5);
+  say(tl,'g_scream1',65.0);say(tl,'g_scream2',67.5);
+  // st5: the meter
+  tl.to(W,cam(3600),71.5);
+  draw(tl,'g_wavein',1.8,73.0);
+  pop(tl,'g_meter',75.0);
+  draw(tl,'g_flat',1.6,76.2);pop(tl,'g_break',77.6,.3);shake(tl,'svg3',77.8,6,6);
+  say(tl,'g_flatlab',79.0);
+  say(tl,'g_apr',82.5);
+  say(tl,'g_deaf',86.0);
+  draw(tl,'g_temp',1.8,89.0);say(tl,'g_templab',90.5);
+  draw(tl,'g_ac',1.8,91.5);say(tl,'g_aclab',93.0);
+  say(tl,'g_wrong',95.5);
+  // st6: three levers
+  tl.to(W,cam(4500),100.0);
+  say(tl,'g_left',101.5);
+  pop(tl,'g_l1',104.0);
+  pop(tl,'g_l2',108.5);
+  pop(tl,'g_l3',113.0);shake(tl,'g_l3',113.4,5,6);
+  say(tl,'g_l4',116.5);
+  // st7: the supermarket
+  tl.to(W,cam(5400),122.0);
+  say(tl,'g_sm1',124.0);say(tl,'g_sm1b',125.2);
+  say(tl,'g_sm2',130.0);say(tl,'g_sm2b',131.5);
+  say(tl,'g_sm3',137.5);say(tl,'g_sm4',141.0);
+  tl.to($('g_sm4'),{opacity:.55,duration:1.4,repeat:5,yoyo:true},144.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  const chapters=[$('a_uk'),$('a_fr'),$('a_sv'),$('a_syn')];
+  const show=(el,t)=>tl.fromTo(el,{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to(el,{opacity:0,duration:.5},t);
+  // BRITAIN 0–55
+  show(chapters[0],0.5);
+  tl.fromTo($('u_strip').children,{opacity:0,scaleY:0,transformOrigin:'bottom'},
+    {opacity:1,scaleY:1,duration:.25,stagger:.035},2.0);
+  say(tl,'u_t1',5.5);
+  tl.fromTo([...$('u_blocks').children],{opacity:0},{opacity:1,duration:.3,stagger:.2},9.0);
+  tl.to([...$('u_blocks').children],{x:i=>-870+i*30,duration:1.6,ease:'power2.inOut',stagger:.35},11.0);
+  say(tl,'u_shift',12.5);
+  tl.to($('u_strip').querySelectorAll('.neg'),{fill:'var(--alt)',opacity:1,scaleY:1.6,transformOrigin:'top',duration:.5},16.5);
+  say(tl,'u_neg',17.5);
+  say(tl,'u_cap',22.5);
+  say(tl,'u_agg',27.5);
+  count(tl,'u_gw',200,2.2,32.5,{suf:' GW'});say(tl,'u_gwlab',35.0);
+  say(tl,'u_tx1',41.5);shake(tl,'svg4',42.0,6,8);
+  say(tl,'u_tx2',46.5);
+  say(tl,'u_tx3',51.0);
+  hide(chapters[0],54.0);
+  // FRANCE 55–107
+  show(chapters[1],55.0);
+  count(tl,'f_dead',15000,3.0,56.5,{pre:'≈'});say(tl,'f_deadlab',60.0);
+  say(tl,'f_war',65.0);
+  tl.set($('f_ladder'),{opacity:1},69.0)
+    .fromTo($('f_ladder').children,{opacity:0,y:10},{opacity:1,y:0,duration:.4,stagger:.9},69.0);
+  say(tl,'f_pm',73.5);
+  say(tl,'f_tools',77.5);
+  say(tl,'f_hot',82.5);
+  tl.fromTo($('f_b03'),{opacity:0,scaleY:0,transformOrigin:'bottom'},{opacity:1,scaleY:1,duration:1.2},84.0);
+  say(tl,'f_b03l',85.0);
+  tl.fromTo($('f_b19'),{opacity:0,scaleY:0,transformOrigin:'bottom'},{opacity:1,scaleY:1,duration:.8},87.0);
+  say(tl,'f_b19l',87.5);
+  pop(tl,'f_90',90.5);
+  say(tl,'f_tx1',96.5);
+  say(tl,'f_tx2',101.0);
+  hide(chapters[1],105.5);
+  // SEVILLE 107–139
+  show(chapters[2],106.5);
+  pop(tl,'sv_zoe',108.5,.35);shake(tl,'svg4',108.8,5,6);
+  tl.set($('sv_cats'),{opacity:1},113.5)
+    .fromTo($('sv_cats').children,{opacity:0},{opacity:1,duration:.3,stagger:.8},113.5);
+  say(tl,'sv_cat',116.5);
+  say(tl,'sv_us',121.5);
+  say(tl,'sv_tx1',127.5);
+  say(tl,'sv_tx2',131.5);
+  hide(chapters[2],137.5);
+  // SYNTHESIS 139–166
+  show(chapters[3],138.5);
+  drawDashed(tl,'y_w1',1.6,141.0,'7 6');say(tl,'y_l1',142.0);
+  drawDashed(tl,'y_w2',1.6,146.0,'7 6');say(tl,'y_l2',147.0);
+  drawDashed(tl,'y_w3',1.6,151.0,'7 6');say(tl,'y_l3',152.0);
+  say(tl,'y_s4',157.5);
+  tl.to([$('y_w1'),$('y_w2'),$('y_w3')],{opacity:.5,duration:1.3,repeat:4,yoyo:true},161.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  tl.set($('z_bl'),{opacity:1},0.3)
+    .fromTo($('z_bl').children,{opacity:0},{opacity:1,duration:.2,stagger:.06},0.4);
+  say(tl,'z_pole',2.5);say(tl,'z_flag',2.8);
+  say(tl,'z_t1',4.0);
+  say(tl,'z_t2',8.0);
+  pop(tl,'z_phone',13.0,.35);shake(tl,'z_phone',13.4,6,8);
+  say(tl,'z_inst',19.0);
+  draw(tl,'z_flatline',1.4,25.0);say(tl,'z_flatlab',26.5);
+  drawDashed(tl,'z_fix',1.8,30.5,'7 6');say(tl,'z_fixlab',32.0);
+  say(tl,'z_next',37.0);
+  say(tl,'z_q1',43.0);
+  say(tl,'z_q2',46.5);
+  tl.to($('z_q2'),{opacity:.55,duration:1.0,repeat:3,yoyo:true},49.0);
+  tl.to($('z_q2'),{opacity:0,duration:.5},52.5);
+  say(tl,'z_q3',53.5);
+  tl.to($('z_q3'),{opacity:.55,duration:1.2,repeat:4,yoyo:true},55.5);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode): the three reconnected wires vs the cut wire */
+function setRedline(on){
+  ['a_uk','a_fr','a_sv'].forEach(id=>$(id).style.opacity=0);   // clear whatever the scroll scene left up
+  $('a_syn').style.opacity=1;$('y_head').style.opacity=1;$('y_s4').style.opacity=1;
+  ['y_w1','y_w2','y_w3','y_l1','y_l2','y_l3'].forEach(id=>$(id).style.opacity=on?1:0);
+  $('y_built').style.opacity=on?0:1;
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* parameter simulator (web mode) */
+(()=>{
+  const base=[56,53,51,50,50,53,58,64,70,76,82,88,93,97,100,102,103,101,97,90,80,72,64,58];
+  const X=i=>40+i*(1100/23), Y=v=>220-(v-40)*(180/70); // 40..110 → px
+  function curve(flex){ // flex 0..0.5 of households; at 100% ≈ 20% of peak shaved
+    const shaved=base.map(v=>v>85?v-(v-85)*flex*2*0.5:v);
+    const removed=base.reduce((a,v,i)=>a+(v-shaved[i]),0);
+    const lowIdx=base.map((v,i)=>[v,i]).filter(([v])=>v<65).map(([,i])=>i);
+    return shaved.map((v,i)=>lowIdx.includes(i)?v+removed/lowIdx.length*.7:v);}
+  function render(){
+    const s=(+$('simRange').value)/100;
+    $('simPct').textContent=Math.round(s*100)+'%';
+    $('simCurve').setAttribute('points',base.map((v,i)=>X(i)+','+Y(v)).join(' '));
+    const c=curve(s);
+    $('simShift').setAttribute('points',c.map((v,i)=>X(i)+','+Y(v)).join(' '));
+    $('simShift').style.opacity=s>0?1:0;
+    const pk=Math.max(...c);
+    $('simPeak').textContent='PEAK: 103 → '+Math.round(pk)+' ('+(pk>96?'EMERGENCY':'CLEAR')+')';
+    $('simPeak').setAttribute('fill',pk>96?'var(--flaw)':'var(--alt)');}
+  if($('simRange')){$('simRange').addEventListener('input',render);render();}
+})();
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);              // card is up BEFORE the section arrives
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01); // hold to the full schedule
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.2);
+    if(s.id==='s3')tl.timeScale(1.6);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  // tooltips
+  const tip=$('tip');
+  document.querySelectorAll('.wrow,.rrow').forEach(r=>{
+    r.addEventListener('mousemove',e=>{tip.textContent=r.dataset.tip;tip.style.opacity=1;
+      tip.style.left=Math.min(e.clientX+14,innerWidth-300)+'px';tip.style.top=(e.clientY+16)+'px';});
+    r.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
