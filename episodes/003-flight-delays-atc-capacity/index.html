@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engineered for a Perfect Day — Why One Storm Grounds 2,000 Flights | Trace Upstream</title>
+<meta name="description" content="One line of thunderstorms delayed 2,199 US flights — because the schedule has no buffer and the control room has no one to spare. The flaw isn't the weather: it's two severed feedback loops. Three real redesigns: Europe's network manager, Nav Canada's user-fee funding, and pricing the peak slot.">
+<link rel="canonical" href="https://traceupstream.com/episodes/003-flight-delays-atc-capacity/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="Engineered for a Perfect Day — Why One Storm Grounds 2,000 Flights">
+<meta property="og:description" content="An interactive blueprint: the design flaw behind July's flight chaos, and three real redesigns — a network manager, user-fee funding, and pricing the peak.">
+<meta property="og:url" content="https://traceupstream.com/episodes/003-flight-delays-atc-capacity/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#7A93A8;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text{font-family:var(--font-mono);font-size:13px;letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:104px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1560px}
+body.auto h2{font-size:44px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.003 — 2026-07-06</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 9:15</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="41.3">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.003</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <text x="60" y="470" font-family="Space Grotesk" font-weight="700" font-size="260" fill="var(--topic)" opacity=".10">8 AM</text>
+        <!-- left: map + storm -->
+        <text x="120" y="82" class="big b" font-size="34" id="h_date">JULY 2, 2026</text>
+        <text x="122" y="110" class="b" id="h_datelab">ONE LINE OF THUNDERSTORMS · THE US SOUTHEAST</text>
+        <path id="h_map" class="ink b" stroke-width="2" opacity=".4" d="M120 300 L 250 250 L 470 235 L 650 250 L 700 292 L 650 348 L 600 408 L 500 448 L 360 452 L 250 420 L 165 372 Z"/>
+        <path id="h_storm" class="amber b" stroke-width="3.5" d="M520 250 q 34 26 0 52 q -34 26 0 52 q 34 26 0 52 q -34 26 0 52"/>
+        <text x="470" y="228" class="flawtxt b" id="h_stormlab" font-size="13">ORDINARY SUMMER WEATHER</text>
+        <g class="b" id="h_dots"></g>
+        <!-- right: counters -->
+        <text x="900" y="150" class="big flawtxt b" font-size="86" id="h_delays">0</text>
+        <text x="902" y="182" class="b" id="h_delayslab">FLIGHTS DELAYED — DALLAS · CHICAGO · SAN FRANCISCO</text>
+        <text x="900" y="300" class="big flawtxt b" font-size="86" id="h_cancel">0</text>
+        <text x="902" y="332" class="b" id="h_cancellab">CANCELED, IN A SINGLE DAY</text>
+        <text x="902" y="372" class="strong b" id="h_far" font-size="15">— A THOUSAND MILES FROM THE STORM</text>
+        <g class="b" id="h_perfect" transform="rotate(-6 1140 470)">
+          <rect x="905" y="430" width="470" height="66" fill="var(--flaw)" opacity=".93"/>
+          <text x="928" y="473" font-size="26" style="fill:#F8F9FB;font-weight:700;font-family:'Space Grotesk'">BUILT FOR A PERFECT DAY</text>
+        </g>
+        <text x="740" y="590" text-anchor="middle" class="strong b" id="h_q" font-size="17">THE TRAFFIC JAM ISN'T IN THE SKY. IT WAS PRINTED MONTHS AGO — AND NOBODY HAD A REASON TO STOP IT.</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">Engineered for<br>a perfect day.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>On July 2nd, a single line of thunderstorms drifted across the American Southeast. Ordinary summer weather. By the end of the day, 2,199 flights were delayed and 73 were canceled — from Dallas to Chicago to San Francisco, a thousand miles from the storm.</p>
+      <p>The storm wasn't historic. It didn't need to be. The schedule you were booked on was never built to survive an ordinary bad day. It was built to work on a perfect one — and the traffic jam was printed months ago.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="85">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · July 4 weekend, 2026</div>
+    <h2>A system running hot, permanently.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg1">
+        <text x="740" y="30" text-anchor="middle" class="b" id="v_media" font-size="13">THE HEADLINES BLAME THE WEATHER, AND THE SUMMER CROWDS. BOTH ARE REAL.</text>
+        <!-- left: map + chips -->
+        <text x="120" y="76" class="big b" font-size="30" id="v_date">JULY 4 WEEKEND · 2026</text>
+        <text x="122" y="102" class="b" id="v_datelab" style="fill:var(--topic)">AMERICA TURNS 250 — AND ITS AIRPORTS BUCKLE</text>
+        <path id="v_map" class="ink b" stroke-width="2" opacity=".4" d="M120 330 L 250 280 L 470 265 L 650 280 L 700 322 L 650 378 L 600 438 L 500 478 L 360 482 L 250 450 L 165 402 Z"/>
+        <g class="b" id="v_ewr">
+          <circle cx="628" cy="300" r="7" fill="var(--flaw)"/>
+          <line x1="628" y1="300" x2="560" y2="180" class="amber" stroke-width="1.5"/>
+          <rect x="330" y="132" width="300" height="54" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="346" y="158" class="flawtxt strong" font-size="15">NEWARK — FAA VOLUME LIMIT</text>
+          <text x="346" y="177" class="flawtxt" font-size="12.5">THE AGENCY CAPS HOW MANY PLANES MAY FLY</text>
+        </g>
+        <g class="b" id="v_jfk">
+          <circle cx="648" cy="286" r="6" fill="var(--flaw)"/>
+          <text x="662" y="292" class="flawtxt strong" font-size="13">JFK · 143 DELAYS</text>
+        </g>
+        <g class="b" id="v_orl">
+          <circle cx="590" cy="430" r="6" fill="var(--flaw)"/>
+          <text x="604" y="436" class="flawtxt strong" font-size="13">ORLANDO · 200+</text>
+        </g>
+        <path id="v_casc" class="amber b" d="M628 300 C 520 340, 440 360, 380 372 C 300 388, 230 380, 175 400" stroke-dasharray="6 5"/>
+        <text x="140" y="452" class="flawtxt b" id="v_casclab" font-size="12.5">NINE AIRLINES TANGLED — ONE HUB'S PROBLEM CASCADES TO THE NEXT</text>
+        <!-- right: the structural number -->
+        <line x1="770" y1="70" x2="770" y2="600" stroke="var(--grid)" stroke-width="2" class="b" id="v_div"/>
+        <text x="820" y="96" class="strong b" id="v_strip" font-size="14">STRIP THE WEATHER AND THE CROWDS AWAY — AND YOU FIND THIS:</text>
+        <text x="820" y="176" class="big flawtxt b" font-size="70" id="v_short">0</text>
+        <text x="822" y="208" class="b" id="v_shortlab">AIR TRAFFIC CONTROLLERS SHORT — ROUGHLY, RIGHT NOW</text>
+        <!-- decade evidence -->
+        <text x="820" y="262" class="strong b" id="v_dech" font-size="14">AND THIS ISN'T A BAD MONTH — IT'S A DECADE:</text>
+        <g class="b" id="v_hire">
+          <rect x="820" y="280" width="440" height="26" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <rect id="v_hirefill" x="820" y="280" width="0" height="26" fill="var(--flaw)" opacity=".8"/>
+          <text x="828" y="299" style="fill:#F8F9FB" font-size="13" id="v_hiretxt">HIRED: ⅔ OF TARGET</text>
+        </g>
+        <text x="822" y="330" class="b" id="v_hirelab">2013–2023 · FAA HIRED TWO-THIRDS OF WHAT ITS OWN MODEL REQUIRED</text>
+        <text x="820" y="372" class="fact b" id="v_trend" font-size="15">WORKFORCE −13%  ·  FLIGHTS +10%   (THE 2010s)</text>
+        <!-- facilities -->
+        <text x="820" y="418" class="strong b" id="v_fach" font-size="14">THE 30 BUSIEST FACILITIES —</text>
+        <g class="b" id="v_fac"></g>
+        <text x="822" y="486" class="flawtxt b" id="v_faclab">19 OF 30 STAFFED BELOW 85% OF TARGET</text>
+        <text x="822" y="510" class="strong b" id="v_fac2" font-size="14">— AND THEY GENERATE ~40% OF ALL US DELAYS</text>
+        <!-- the people -->
+        <g class="b" id="v_ppl">
+          <rect x="820" y="540" width="440" height="60" class="nodebox" stroke="var(--flaw)"/>
+          <text x="836" y="565" class="flawtxt strong" font-size="14">4 IN 10 CONTROLLERS: 10-HOUR DAYS, 6-DAY WEEKS</text>
+          <text x="836" y="586" class="flawtxt" font-size="12.5">MORALE, BY THE FAA'S OWN ACCOUNT, AT A HISTORIC LOW</text>
+        </g>
+        <text x="740" y="632" text-anchor="middle" class="strong b" id="v_hot" font-size="15">THE WEATHER JUST DECIDES WHICH DAY IT SHOWS.</text>
+      </svg>
+      <div class="figcap">Fig. 1 — the July 4 weekend disruption, over a decade-deep staffing hole · sources: Brookings, GAO, National Academies (2025), FAA Controller Workforce Plan, Travel &amp; Tour World</div>
+    </div>
+    <div class="prose">
+      <p>Independence Day weekend, 2026. On the Fourth, Newark runs under emergency limits imposed by the FAA — the agency capping how many planes may use the airport. JFK: 143 delays. Orlando: over 200. Nine airlines tangled, one hub cascading into the next. Headlines blame weather and crowds — both real. But strip them away and you find a number tied to neither: the US is short roughly 3,000 air traffic controllers. Between 2013 and 2023 the FAA hired only two-thirds of its own target; the workforce shrank 13% in a decade while flights grew. Nineteen of the thirty busiest facilities sit below 85% of target — and generate ~40% of all delays. This is a system running hot, permanently.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="36.9">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pivot · Why it keeps happening</div>
+    <h2>Two things ration the sky. Both are broken.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 540" id="svg2">
+        <text x="120" y="70" class="strong b" id="p_t1" font-size="16">WE KNOW HOW TO ADD CONTROLLERS. WE KNOW HOW TO BUILD RUNWAYS.</text>
+        <text x="120" y="104" class="b" id="p_t1b">SO WHY DOES THE SYSTEM SIT ONE THUNDERSTORM FROM CHAOS?</text>
+        <!-- valve 1: price / runway -->
+        <g class="b" id="p_v1">
+          <rect x="200" y="180" width="440" height="150" class="ink"/>
+          <text x="228" y="228" class="big" font-size="26">THE RUNWAY</text>
+          <text x="228" y="262" class="strong" font-size="14">RATIONED BY: PRICE</text>
+          <text x="228" y="292" font-size="12.5">HOW MANY FLIGHTS MAY WANT</text>
+          <text x="228" y="312" font-size="12.5">THE SAME BUSY MINUTE</text>
+        </g>
+        <path id="p_l1" class="amber b" d="M420 330 C 420 380, 420 380, 420 410 M405 392 L420 412 L435 392" />
+        <text x="250" y="440" class="flawtxt b" id="p_l1x" font-size="14">⚠ NO WORKING PRICE SIGNAL</text>
+        <!-- valve 2: time / workforce -->
+        <g class="b" id="p_v2">
+          <rect x="840" y="180" width="440" height="150" class="ink"/>
+          <text x="868" y="228" class="big" font-size="26">THE WORKFORCE</text>
+          <text x="868" y="262" class="strong" font-size="14">RATIONED BY: TIME</text>
+          <text x="868" y="292" font-size="12.5">HOW MANY CONTROLLERS EXIST</text>
+          <text x="868" y="312" font-size="12.5">TO HANDLE THEM</text>
+        </g>
+        <path id="p_l2" class="amber b" d="M1060 330 C 1060 380, 1060 380, 1060 410 M1045 392 L1060 412 L1075 392"/>
+        <text x="890" y="440" class="flawtxt b" id="p_l2x" font-size="14">⚠ FEEDBACK DELAYED BY YEARS</text>
+        <text x="740" y="500" text-anchor="middle" class="strong b" id="p_end" font-size="17">NEITHER CAN CATCH UP ON ITS OWN. <tspan class="flawtxt">WATCH THEM BOTH FAIL.</tspan></text>
+      </svg>
+      <div class="figcap">Fig. 2 — access to the sky is rationed two ways; neither loop closes</div>
+    </div>
+    <div class="prose">
+      <p>We know how to add controllers. We know how to build runways. So why does the system sit permanently one thunderstorm from chaos? Because two different things ration access to the sky — and both are broken the same way. One rations the runway, and it's about price. One rations the workforce, and it's about time. Neither has a working feedback loop, so neither can catch up on its own.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM ================= -->
+<section class="ep" id="s3" data-duration="121.5">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · How the system works</div>
+    <h2>No buffer, and no one to spare.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg3">
+        <g id="world">
+          <!-- Station 1: slots handed out, not sold -->
+          <g class="b" id="g_rw">
+            <rect x="120" y="300" width="520" height="70" class="ink"/>
+            <line x1="150" y1="335" x2="610" y2="335" class="ink" stroke-dasharray="26 20"/>
+            <text x="130" y="290" class="strong">THE RUNWAY — A CONGESTED AIRPORT</text>
+          </g>
+          <g class="b" id="g_slots"></g>
+          <text x="122" y="430" class="strong b" id="g_s1a" font-size="15">SLOTS AREN'T SOLD TO THE HIGHEST BIDDER —</text>
+          <text x="122" y="458" class="b" id="g_s1b">GRANDFATHERED TO AIRLINES THAT HAVE HELD THEM FOR YEARS</text>
+          <text x="122" y="500" class="flawtxt b" id="g_s1c" font-size="15">THE FEE IS BY THE WEIGHT OF YOUR PLANE — NOT BY HOW BADLY EVERYONE WANTS 8 A.M.</text>
+          <!-- Station 2: everyone piles on 8am, ceiling, cascade -->
+          <g class="b" id="g_ax">
+            <line x1="1020" y1="470" x2="1680" y2="470" class="ink"/>
+            <text x="1020" y="498">6A</text><text x="1330" y="498">2P</text><text x="1630" y="498">11P</text>
+            <text x="1020" y="150" class="strong" font-size="15">FLIGHTS SCHEDULED PER HOUR —</text>
+          </g>
+          <g class="b" id="g_bars"></g>
+          <line x1="1020" y1="205" x2="1680" y2="205" class="amber b" id="g_ceil"/>
+          <text x="1024" y="195" class="flawtxt b" id="g_ceillab" font-size="13">FAIR-WEATHER CEILING — CLEAR SKY, EVERY SEAT FILLED</text>
+          <path id="g_cloud" class="amber b" d="M1300 250 q 20 -22 44 -6 q 26 -18 40 8 q 24 -2 12 22 l -104 0 q -14 -22 8 -24" stroke-width="2"/>
+          <text x="1200" y="300" class="flawtxt b" id="g_s2a" font-size="14">ONE CLOUD · ONE SICK CONTROLLER —</text>
+          <path id="g_casc" class="amber b" d="M1352 210 L 1420 300 L 1360 300 L 1440 400 L 1380 400 L 1470 500" stroke-width="2.5"/>
+          <text x="1024" y="600" class="flawtxt b" id="g_s2b" font-size="15">NO SLACK. NO BUFFER. THE SCHEDULE HAS NOWHERE TO ABSORB THE HIT — IT CASCADES.</text>
+          <!-- Station 3: the flat price fails to move anyone -->
+          <g class="b" id="g_pr">
+            <text x="1920" y="150" class="strong" font-size="16">THERE'S NO PRICE HIGH ENOUGH AT THE PEAK TO MOVE A FLIGHT —</text>
+          </g>
+          <g class="b" id="g_flat">
+            <rect x="1920" y="230" width="220" height="80" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+            <text x="1946" y="278" class="big" font-size="30">8A = 11A</text>
+          </g>
+          <text x="1922" y="345" class="b" id="g_flatlab">EVERY HOUR PRICED THE SAME — FLAT, BY WEIGHT</text>
+          <path id="g_try" class="amber b" d="M2200 270 C 2320 270, 2360 270, 2470 270 M2450 255 L2472 270 L2450 285"/>
+          <text x="2200" y="250" class="flawtxt b" id="g_trylab">$ TRIES TO NUDGE A FLIGHT TO THE QUIET HOURS →</text>
+          <g class="b" id="g_x11"><rect x="2490" y="235" width="150" height="70" fill="none" stroke="var(--flaw)" stroke-width="2.5"/><text x="2512" y="278" class="strong flawtxt" font-size="15">11 A.M.</text></g>
+          <path id="g_deadx" class="amber b" d="M2560 320 L 2620 380 M 2620 320 L 2560 380"/>
+          <text x="1922" y="470" class="flawtxt b" id="g_s3" font-size="16">SO NOBODY MOVES. DEMAND NEVER LEAVES THE PEAK — LOOP ONE NEVER CLOSES.</text>
+          <!-- Station 4: the workforce pipeline + shutdown clamps -->
+          <text x="2820" y="150" class="strong b" id="g_ppl0" font-size="16">NOW THE WORKFORCE. TRAINING A CONTROLLER TAKES —</text>
+          <g class="b" id="g_pipe">
+            <rect x="2820" y="240" width="620" height="80" class="ink"/>
+            <text x="2842" y="288" class="strong" font-size="18">18 MONTHS  →  4 YEARS</text>
+            <path d="M3440 240 L 3480 280 L 3440 320" class="ink"/>
+          </g>
+          <text x="2822" y="360" class="b" id="g_pipelab">THE PIPELINE RUNS ON ANNUAL FUNDING FROM CONGRESS</text>
+          <g class="b" id="g_years"></g>
+          <text x="2822" y="470" class="flawtxt b" id="g_s4a" font-size="15">EVERY SHUTDOWN, EVERY BUDGET FIGHT, FREEZES HIRING —</text>
+          <path id="g_hole" class="amber b" d="M3300 500 q 30 -60 60 0" stroke-width="2.5"/>
+          <text x="2822" y="560" class="b" id="g_s4b">IT CARVES A HOLE IN THE WORKFORCE 3–4 YEARS LATER — WHEN THOSE TRAINEES WOULD FINALLY BE CERTIFIED.</text>
+          <!-- Station 5: the reinforcing spiral -->
+          <text x="3720" y="150" class="strong b" id="g_sp0" font-size="16">AND HERE'S THE LOOP THAT MAKES IT WORSE:</text>
+          <g class="b" id="g_spiral">
+            <circle cx="4020" cy="380" r="150" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="8 7"/>
+            <path d="M4020 230 L 4038 258 L 4002 258 Z" fill="var(--flaw)"/>
+          </g>
+          <text x="3960" y="250" class="flawtxt b" id="g_sp1" font-size="13" text-anchor="middle">TOO FEW CONTROLLERS</text>
+          <text x="4210" y="390" class="flawtxt b" id="g_sp2" font-size="13">MANDATORY OVERTIME</text>
+          <text x="3960" y="530" class="flawtxt b" id="g_sp3" font-size="13" text-anchor="middle">BURNOUT · EARLY EXITS</text>
+          <text x="3720" y="400" class="flawtxt b" id="g_sp4" font-size="13" text-anchor="end">EVEN FEWER →</text>
+          <text x="3720" y="600" class="strong b" id="g_sp5" font-size="15">THE SHORTAGE FEEDS ITSELF — LOOP TWO NEVER CLOSES EITHER.</text>
+          <!-- Station 6: two broken loops + emergency brake -->
+          <text x="4620" y="140" class="strong b" id="g_bo0" font-size="16">SO LOOK AT WHAT'S ACTUALLY BROKEN —</text>
+          <g class="b" id="g_bo1">
+            <path d="M4640 300 C 4640 230, 4860 230, 4860 300 C 4860 350, 4760 350, 4720 350" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+            <text x="4650" y="392" class="flawtxt" font-size="13">LOOP 1 · NO PRICE SIGNAL</text>
+            <text x="4820" y="330" class="flawtxt" font-size="22">⚠</text>
+          </g>
+          <g class="b" id="g_bo2">
+            <path d="M4980 300 C 4980 230, 5200 230, 5200 300 C 5200 350, 5100 350, 5060 350" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+            <text x="4990" y="392" class="flawtxt" font-size="13">LOOP 2 · FEEDBACK CUT & DELAYED</text>
+            <text x="5160" y="330" class="flawtxt" font-size="22">⚠</text>
+          </g>
+          <text x="4620" y="450" class="b" id="g_bo3">NEITHER CAN SELF-CORRECT. ALL THAT'S LEFT IS THE EMERGENCY BRAKE:</text>
+          <g class="b" id="g_brake" transform="rotate(-3 4900 540)">
+            <rect x="4620" y="510" width="600" height="56" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+            <text x="4640" y="546" class="flawtxt strong" font-size="16">GROUND STOPS · FLOW RESTRICTIONS · FAA CAPS AN AIRPORT — LIVE</text>
+          </g>
+          <text x="4620" y="602" class="strong b" id="g_bo4" font-size="15">REACTIVE. NEVER AHEAD OF THE PROBLEM.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — two severed loops: a price-blind peak and a shutdown-starved pipeline · the emergency brake is all that remains</div>
+    </div>
+    <div class="prose">
+      <p>At a congested airport, slots are handed out administratively and the fee tracks aircraft weight, not demand — so if 8 a.m. costs what 11 a.m. costs, everyone piles onto 8 a.m., scheduling right up to the fair-weather ceiling. No buffer: one cloud and it cascades, and no price is high enough to move a flight to the quiet hours. Meanwhile the controller pipeline takes 18 months to 4 years and runs on annual funding, so every shutdown freezes hiring and carves a hole years later — while overtime burns out the controllers you have, feeding the shortage. Two loops that can't self-correct. What's left is the emergency brake: ground stops, flow restrictions, an airport capped in real time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF ================= -->
+<section class="ep" id="s4" data-duration="126.9">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three working redesigns</div>
+    <h2>Three places gave the system a feedback loop.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <!-- EUROPE -->
+        <g class="b" id="a_eu">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE A · EUROPE — MANAGE THE NETWORK, NOT ONE AIRPORT</text>
+          <path id="e_net" class="green b" d="M180 220 L 420 160 L 700 210 L 980 165 L 1240 220 M180 360 L 420 420 L 700 370 L 980 425 L 1240 360 M180 220 L 180 360 M420 160 L 420 420 M700 210 L 700 370 M980 165 L 980 425 M1240 220 L 1240 360"/>
+          <g class="b" id="e_frank"><circle cx="700" cy="210" r="9" fill="none" stroke="var(--flaw)" stroke-width="2.5"/><text x="716" y="204" class="flawtxt" font-size="12">STORM OVER FRANKFURT</text></g>
+          <g class="b" id="e_madrid"><rect x="150" y="345" width="60" height="30" fill="none" stroke="var(--alt)" stroke-width="2"/><text x="120" y="410" class="alttxt" font-size="12">MADRID — PLANE HELD ON THE GROUND</text></g>
+          <path id="e_hold" class="green b" d="M700 230 C 560 300, 360 330, 215 358"/>
+          <text x="120" y="470" class="strong b" id="e_flow" font-size="16">IT MANAGES THE FLOW OF THE SYSTEM, NOT JUST THE PIECES.</text>
+          <text x="120" y="560" class="flawtxt b" id="e_tx1" font-size="14">TRADE-OFF: COUNTRIES SURRENDER A SLICE OF SOVEREIGNTY —</text>
+          <text x="120" y="586" class="flawtxt b" id="e_tx2">AND DECADES IN, THE PROVIDERS UNDERNEATH ARE STILL A NATIONAL PATCHWORK.</text>
+        </g>
+        <!-- NAV CANADA -->
+        <g class="b" id="a_ca">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE B · NAV CANADA — TAKE THE PIPELINE OFF THE BUDGET</text>
+          <g class="b" id="c_cong"><rect x="120" y="150" width="220" height="70" fill="none" stroke="var(--text)" stroke-width="2"/><text x="150" y="192" class="strong" font-size="16">CONGRESS</text></g>
+          <path id="c_cut" class="amber b" d="M360 170 L 470 170 M420 150 L 470 170 L 420 190"/>
+          <text x="360" y="140" class="flawtxt b" id="c_cutlab" font-size="12">✂ CORD CUT</text>
+          <g class="b" id="c_fees"><rect x="500" y="150" width="240" height="70" fill="none" stroke="var(--alt)" stroke-width="2.5"/><text x="528" y="192" class="alttxt strong" font-size="16">USER FEES</text></g>
+          <text x="120" y="270" class="b" id="c_lab">1996 · A PRIVATE, NON-PROFIT CORPORATION — FUNDED BY THE AIRLINES THAT USE IT</text>
+          <g class="b" id="c_clamp"><rect x="820" y="150" width="70" height="70" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 4"/><text x="828" y="192" class="flawtxt" font-size="12">SHUT-<tspan x="828" dy="16">DOWN</tspan></text></g>
+          <path id="c_pass" class="green b" d="M760 185 L 1080 185 M1060 170 L1082 185 L1060 200"/>
+          <text x="920" y="170" class="alttxt b" id="c_passlab" font-size="12">PASSES RIGHT THROUGH — NO EFFECT</text>
+          <text x="120" y="330" class="strong b" id="c_plan" font-size="16">HIRING & TRAINING KEEP RUNNING — MONEY COMES FROM TRAFFIC, NOT POLITICS.</text>
+          <text x="120" y="560" class="flawtxt b" id="c_tx1" font-size="14">TRADE-OFF: THE FEES RIDE YOUR TICKET —</text>
+          <text x="120" y="586" class="flawtxt b" id="c_tx2">A SAFETY MONOPOLY OFF THE BALLOT, WORKABLE ONLY WITH A STRONG, INDEPENDENT REGULATOR.</text>
+        </g>
+        <!-- PRICE THE PEAK -->
+        <g class="b" id="a_pr">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE C · PRICE THE PEAK — CHARGE FOR THE HOUR EVERYONE WANTS</text>
+          <line x1="140" y1="420" x2="900" y2="420" class="ink b" id="pr_ax"/>
+          <text x="150" y="446" class="b" id="pr_ax8">8 A.M.</text><text x="760" y="446" class="b" id="pr_ax10">10 A.M.</text>
+          <rect id="pr_peak" x="160" y="200" width="120" height="220" fill="var(--flaw)" opacity=".8" class="b"/>
+          <rect id="pr_off" x="760" y="360" width="120" height="60" fill="var(--alt)" opacity=".85" class="b"/>
+          <path id="pr_shift" class="green b" d="M290 250 C 480 250, 600 320, 758 360"/>
+          <text x="300" y="235" class="alttxt b" id="pr_shiftlab" font-size="13">A BUDGET AIRLINE DOES THE MATH → MOVES TO 10 A.M.</text>
+          <text x="150" y="180" class="strong b" id="pr_toll" font-size="15">AUCTION THE SCARCE SLOTS · PRICE BY DEMAND, LIKE A TOLL ROAD AT RUSH HOUR</text>
+          <text x="950" y="230" class="fact b" id="pr_hx" font-size="15">HEATHROW —</text>
+          <text x="950" y="286" class="big fact b" font-size="46" id="pr_h">£0</text>
+          <text x="952" y="316" class="b" id="pr_hlab">ONE SCARCE SLOT PAIR CAN TRADE FOR TENS OF MILLIONS</text>
+          <text x="120" y="560" class="flawtxt b" id="pr_tx1" font-size="14">TRADE-OFF: HIGHER FARES AT THE BUSY HOURS —</text>
+          <text x="120" y="586" class="flawtxt b" id="pr_tx2">AND SMALL TOWNS WHOSE FLIGHTS CAN'T OUTBID A TRANSATLANTIC JUMBO GET PRICED OUT.</text>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="a_syn">
+          <text x="180" y="120" class="big" font-size="30" id="y_head">THREE DESIGNS — EACH RECONNECTS A FEEDBACK LOOP:</text>
+          <g id="y_built" opacity="0">
+            <path d="M240 300 C 240 250, 460 250, 460 300 C 460 335, 380 335, 350 335" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+            <text x="470" y="306" class="flawtxt" font-size="22">⚠</text>
+            <path d="M620 300 C 620 250, 840 250, 840 300 C 840 335, 760 335, 730 335" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+            <text x="850" y="306" class="flawtxt" font-size="22">⚠</text>
+            <text x="240" y="420" class="flawtxt" font-size="16">AS BUILT: BOTH LOOPS STAY CUT — BEG, RESTRICT, GROUND, CAP</text>
+          </g>
+          <path id="y_w1" class="green b" d="M240 210 C 420 180, 720 180, 940 208"/>
+          <text x="200" y="252" class="alttxt b" id="y_l1" font-size="19">→ THE FLOW, MANAGED ACROSS THE WHOLE NETWORK</text>
+          <path id="y_w2" class="green b" d="M240 320 C 420 290, 720 290, 940 318"/>
+          <text x="200" y="362" class="alttxt b" id="y_l2" font-size="19">→ THE PIPELINE, FUNDED OFF THE BUDGET</text>
+          <path id="y_w3" class="green b" d="M240 430 C 420 400, 720 400, 940 428"/>
+          <text x="200" y="472" class="alttxt b" id="y_l3" font-size="19">→ THE PEAK, PRICED SO DEMAND CAN MOVE</text>
+          <text x="200" y="560" class="strong b" id="y_s4" font-size="17">NONE OF THEM STOPS A STORM. ALL OF THEM DECIDE, IN ADVANCE, WHAT HAPPENS WHEN ONE ARRIVES.</text>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 4 — the same two loops, redlined three ways · dashed green = revision markup</div>
+    </div>
+    <div class="prose">
+      <p>Europe runs a central network manager that meters traffic across the continent — holding a plane in Madrid before it launches into a Frankfurt jam. Trade-off: shared sovereignty, and a still-fragmented patchwork underneath. Canada took its air traffic control off the budget in 1996 — Nav Canada is a non-profit funded by user fees, so a shutdown can't freeze hiring. Trade-off: fees ride your ticket, and a safety monopoly needs a strong independent regulator. The third answer prices the peak: auction the scarce slots so a budget airline shifts to 10 a.m. on its own. Heathrow shows the latent value — a slot pair worth tens of millions. Trade-off: higher peak fares, and small towns priced out.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 CLOSE ================= -->
+<section class="ep" id="s5" data-duration="52.8">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Your flight, next summer</div>
+    <h2>Waiting for its cloud.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <path id="z_storm" class="amber b" stroke-width="3.5" d="M170 90 q 30 24 0 48 q -30 24 0 48 q 30 24 0 48 q -30 24 0 48"/>
+        <text x="210" y="96" class="strong b" id="z_t1" font-size="16">JULY 2 DELAYED 2,000 FLIGHTS — NOT BECAUSE THE STORM WAS POWERFUL,</text>
+        <text x="210" y="124" class="b" id="z_t1b">BUT BECAUSE IT HIT A SCHEDULE WITH NO ROOM TO BEND AND A CONTROL ROOM WITH NO ONE TO SPARE.</text>
+        <g class="b" id="z_g1"><rect x="210" y="180" width="360" height="56" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="6 4"/><text x="228" y="205" class="flawtxt" font-size="13">A BUDGET FIGHT FROZE HIRING</text><text x="228" y="225" class="flawtxt" font-size="13">YEARS EARLIER</text></g>
+        <g class="b" id="z_g2"><rect x="610" y="180" width="360" height="56" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="6 4"/><text x="628" y="205" class="flawtxt" font-size="13">AN AIRLINE STACKED ONE MORE</text><text x="628" y="225" class="flawtxt" font-size="13">FLIGHT ONTO THE PEAK</text></g>
+        <text x="210" y="286" class="strong b" id="z_bill" font-size="16">THE STORM JUST COLLECTED THE BILL.</text>
+        <g class="b" id="z_sched"><rect x="1040" y="150" width="330" height="120" class="ink" stroke-width="2.5"/><line x1="1040" y1="186" x2="1370" y2="186" class="ink"/><text x="1058" y="176" class="strong" font-size="13">NEXT SUMMER — ALREADY PRINTED</text><text x="1058" y="214" font-size="12">SAME RUNWAYS</text><text x="1058" y="238" font-size="12">SAME SHRINKING POOL</text><text x="1330" y="238" class="flawtxt" font-size="22">▮</text></g>
+        <text x="210" y="345" class="flawtxt b" id="z_next" font-size="15">THE DELAY YOU'LL CURSE A YEAR FROM NOW ALREADY EXISTS — IT'S JUST WAITING FOR ITS CLOUD.</text>
+        <text x="740" y="418" text-anchor="middle" class="big b" font-size="27" id="z_q1">THE QUESTION ISN'T WHY THE FLIGHTS WERE LATE.</text>
+        <text x="740" y="470" text-anchor="middle" class="big flawtxt b" font-size="30" id="z_q2">IT'S WHY THE SYSTEM WAS BUILT TO GUARANTEE THAT, EVENTUALLY, THEY WOULD BE.</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>July 2nd delayed two thousand flights not because the storm was powerful, but because it hit a schedule with no room to bend and a control room with no one to spare. None of that was decided that morning — it was decided in the budget fights that froze hiring years earlier, and every time an airline stacked one more flight onto the perfect-weather peak. The storm just collected the bill. Right now, next summer's schedule is being printed onto the same runways, staffed from the same shrinking pool. The delay you'll curse a year from now already exists. It's just waiting for its cloud.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <line x1="40" y1="470" x2="560" y2="470" stroke="var(--text)" stroke-width="5"/>
+    <g fill="var(--fact)">
+      <rect x="70" y="180" width="60" height="290" opacity=".55"/>
+      <rect x="160" y="120" width="60" height="350" fill="var(--flaw)" opacity=".9"/>
+      <rect x="250" y="300" width="60" height="170" opacity=".55"/>
+      <rect x="340" y="270" width="60" height="200" opacity=".55"/>
+      <rect x="430" y="330" width="60" height="140" opacity=".55"/>
+    </g>
+    <path d="M150 90 q 34 26 0 52 q -34 26 0 52 q 34 26 0 52" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <text x="352" y="150" style="font-size:58px;fill:var(--flaw);font-family:'Space Grotesk';font-weight:700">8AM</text>
+  </svg>
+  <div class="ttxt">The jam was<br><em>printed</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <g fill="none" stroke="var(--text)" stroke-width="5">
+      <circle cx="310" cy="300" r="230"/><circle cx="310" cy="300" r="150"/><circle cx="310" cy="300" r="72"/>
+    </g>
+    <line x1="310" y1="300" x2="470" y2="150" stroke="var(--flaw)" stroke-width="6"/>
+    <path d="M470 250 A 190 190 0 0 1 500 360 L 310 300 Z" fill="var(--flaw)" opacity=".18"/>
+    <text x="250" y="560" style="font-size:96px;fill:var(--flaw);font-family:'Space Grotesk';font-weight:700">−3,000</text>
+  </svg>
+  <div class="ttxt" style="font-size:92px">Nobody left<br><em>to spare</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:o.from||0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function drawDashed(tl,id,dur,pos,dash){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos)
+    .set(p,{strokeDasharray:dash},'>');}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+
+/* ---------- dynamic bits ---------- */
+// s0: stranded-flight dots far from the storm
+(()=>{const g=$('h_dots');let s='';const pts=[[210,330],[300,300],[250,410],[360,452],[200,372],[450,300],[420,420]];
+  pts.forEach(([x,y])=>{s+=`<circle cx="${x}" cy="${y}" r="5" fill="var(--flaw)" opacity=".8"/>`;});
+  g.innerHTML=s;})();
+// s3 st1: slot tickets on the runway
+(()=>{const g=$('g_slots');let s='';for(let i=0;i<6;i++){const x=150+i*80;
+  s+=`<g class="slot"><rect x="${x}" y="316" width="56" height="34" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2"/><text x="${x+10}" y="338" class="fact" font-size="12">SLOT</text></g>`;}
+  g.innerHTML=s;})();
+// s3 st2: flights-per-hour bars, 8am peak overshoots the ceiling
+const HRS=[[1040,60],[1100,90],[1160,150],[1220,210],[1280,150],[1340,120],[1400,150],[1460,180],[1520,140],[1580,90]];
+(()=>{const g=$('g_bars');let s='';HRS.forEach(([x,h],i)=>{const peak=i===3;
+  s+=`<rect class="hb" id="hb_${i}" x="${x}" y="470" width="44" height="0" data-h="${h}" fill="${peak?'var(--flaw)':'var(--fact)'}" opacity="${peak?.9:.5}"/>`;});
+  g.innerHTML=s;})();
+// s3 st4: shutdown-year clamps on the pipeline
+(()=>{const g=$('g_years');let s='';['2013','2018','2019','2025'].forEach((y,i)=>{const x=2842+i*150;
+  s+=`<g class="yr" data-tip="Shutdowns and budget fights (${y}) froze FAA hiring and training — the hole shows up years later. Freezes span both parties across three administrations.">
+    <rect x="${x}" y="380" width="110" height="46" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 4"/>
+    <text x="${x+16}" y="409" class="flawtxt strong" font-size="15">${y}</text></g>`;});
+  g.innerHTML=s;})();
+
+/* ---------- scene timelines ---------- */
+function sc0(D){const tl=gsap.timeline();
+  say(tl,'h_date',0.4);say(tl,'h_datelab',1.2);
+  draw(tl,'h_map',2.0,2.4);
+  draw(tl,'h_storm',2.0,4.2);say(tl,'h_stormlab',6.0);
+  count(tl,'h_delays',2199,2.6,9.0);say(tl,'h_delayslab',12.0);
+  count(tl,'h_cancel',73,1.8,15.0);say(tl,'h_cancellab',16.8);
+  tl.set($('h_dots'),{opacity:1},18.5)
+    .fromTo($('h_dots').children,{opacity:0,scale:0,transformOrigin:'50% 50%'},{opacity:.8,scale:1,duration:.3,stagger:.12,ease:'back.out(2)'},18.5);
+  say(tl,'h_far',20.0);
+  tl.to($('h_storm'),{opacity:0,duration:.8},24.0);
+  pop(tl,'h_perfect',25.0,.3);shake(tl,'svg0',25.3,7,8);
+  say(tl,'h_q',30.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},37.0);
+  if(isAuto)tl.to({},{duration:5.0},37.6);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},41.5);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  say(tl,'v_media',0.4);
+  say(tl,'v_date',2.5);say(tl,'v_datelab',3.2);
+  draw(tl,'v_map',2.0,4.5);
+  pop(tl,'v_ewr',8.0,.3);shake(tl,'svg1',8.3,5,6);
+  pop(tl,'v_jfk',13.0,.3);
+  pop(tl,'v_orl',15.5,.3);
+  drawDashed(tl,'v_casc',1.8,18.0,'6 5');say(tl,'v_casclab',20.0);
+  say(tl,'v_div',24.0);say(tl,'v_strip',24.6);
+  tl.to($('v_media'),{opacity:.35,duration:.6},27.5);
+  count(tl,'v_short',3000,2.8,29.0,{pre:'−'});say(tl,'v_shortlab',32.5);shake(tl,'svg1',30.0,6,6);
+  say(tl,'v_dech',37.0);
+  tl.set($('v_hire'),{opacity:1},39.0);
+  tl.to($('v_hirefill'),{attr:{width:293},duration:1.6,ease:'power2.out'},39.5);
+  say(tl,'v_hirelab',42.0);
+  say(tl,'v_trend',47.0);
+  say(tl,'v_fach',52.0);
+  tl.set($('v_fac'),{opacity:1},53.0)
+    .fromTo($('v_fac').children,{opacity:0,scale:0,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.2,stagger:.04,ease:'back.out(2)'},53.5);
+  say(tl,'v_faclab',60.0);
+  say(tl,'v_fac2',64.0);
+  pop(tl,'v_ppl',70.0,.35);shake(tl,'v_ppl',70.4,5,6);
+  say(tl,'v_hot',80.0);
+  tl.to($('v_short'),{opacity:.55,duration:1.2,repeat:5,yoyo:true},84.0);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  say(tl,'p_t1',0.5);say(tl,'p_t1b',2.5);
+  pop(tl,'p_v1',7.0);
+  draw(tl,'p_l1',1.0,10.0);say(tl,'p_l1x',11.0);shake(tl,'p_l1x',11.4,4,5);
+  pop(tl,'p_v2',15.0);
+  draw(tl,'p_l2',1.0,18.0);say(tl,'p_l2x',19.0);shake(tl,'p_l2x',19.4,4,5);
+  say(tl,'p_end',24.0);
+  tl.to([$('p_l1x'),$('p_l2x')],{opacity:.5,duration:1.1,repeat:5,yoyo:true},28.0);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();const W=$('world');
+  const cam=x=>({x:-x,duration:1.4,ease:'power2.inOut'});
+  // st1: slots handed out
+  pop(tl,'g_rw',0.5);
+  tl.set($('g_slots'),{opacity:1},2.5)
+    .fromTo($('g_slots').children,{opacity:0,y:-14},{opacity:1,y:0,duration:.3,stagger:.18,ease:'power2.out'},2.5);
+  say(tl,'g_s1a',6.0);say(tl,'g_s1b',9.0);
+  say(tl,'g_s1c',13.0);
+  // st2: everyone piles on 8am, ceiling, cascade
+  tl.to(W,cam(900),18.0);
+  say(tl,'g_ax',19.5);
+  draw(tl,'g_ceil',1.6,21.0);say(tl,'g_ceillab',22.2);
+  tl.set($('g_bars'),{opacity:1},24.5);
+  HRS.forEach(([x,h],i)=>{tl.to($('hb_'+i),{attr:{height:h,y:470-h},duration:.7,ease:'power2.out'},24.8+i*0.28);});
+  draw(tl,'g_cloud',1.2,30.0);say(tl,'g_s2a',31.0);
+  draw(tl,'g_casc',1.8,33.5);shake(tl,'svg3',33.7,7,8);
+  say(tl,'g_s2b',37.0);
+  // st3: flat price fails
+  tl.to(W,cam(1800),42.0);
+  say(tl,'g_pr',43.5);
+  pop(tl,'g_flat',46.0);say(tl,'g_flatlab',47.5);
+  draw(tl,'g_try',1.4,51.0);say(tl,'g_trylab',52.0);
+  pop(tl,'g_x11',55.0,.3);
+  draw(tl,'g_deadx',0.9,57.0);shake(tl,'svg3',57.2,5,6);
+  say(tl,'g_s3',60.0);
+  // st4: pipeline + shutdown clamps
+  tl.to(W,cam(2700),65.0);
+  say(tl,'g_ppl0',66.5);
+  pop(tl,'g_pipe',69.0);say(tl,'g_pipelab',72.0);
+  tl.set($('g_years'),{opacity:1},75.0)
+    .fromTo($('g_years').children,{opacity:0,scale:.6,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.35,stagger:.35,ease:'back.out(2)'},75.0);
+  tl.call(()=>{},[],75.0);
+  say(tl,'g_s4a',79.0);
+  draw(tl,'g_hole',1.0,82.5);say(tl,'g_s4b',83.5);
+  // st5: reinforcing spiral
+  tl.to(W,cam(3600),89.0);
+  say(tl,'g_sp0',90.5);
+  pop(tl,'g_spiral',93.0,.6);
+  say(tl,'g_sp1',95.0);say(tl,'g_sp2',97.0);say(tl,'g_sp3',99.0);say(tl,'g_sp4',101.0);
+  say(tl,'g_sp5',104.0);
+  tl.to($('g_spiral'),{rotation:360,transformOrigin:'4020px 380px',duration:8,ease:'none',repeat:3},95.0);
+  // st6: two broken loops + brake
+  tl.to(W,cam(4500),110.0);
+  say(tl,'g_bo0',111.5);
+  pop(tl,'g_bo1',114.0);
+  pop(tl,'g_bo2',118.0);
+  say(tl,'g_bo3',123.0);
+  pop(tl,'g_brake',127.0,.3);shake(tl,'g_brake',127.3,7,8);
+  say(tl,'g_bo4',132.0);
+  tl.to([$('g_bo1'),$('g_bo2')],{opacity:.55,duration:1.2,repeat:4,yoyo:true},135.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  const chapters=[$('a_eu'),$('a_ca'),$('a_pr'),$('a_syn')];
+  const show=(el,t)=>tl.fromTo(el,{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to(el,{opacity:0,duration:.5},t);
+  // EUROPE 0–46
+  show(chapters[0],0.5);
+  draw(tl,'e_net',2.6,2.5);
+  pop(tl,'e_frank',9.0,.3);shake(tl,'svg4',9.3,5,6);
+  pop(tl,'e_madrid',13.0,.3);
+  drawDashed(tl,'e_hold',2.0,15.5,'7 6');
+  say(tl,'e_flow',22.0);
+  say(tl,'e_tx1',30.0);say(tl,'e_tx2',34.0);
+  hide(chapters[0],44.0);
+  // NAV CANADA 46–96
+  show(chapters[1],45.5);
+  pop(tl,'c_cong',47.5);
+  draw(tl,'c_cut',0.9,50.5);say(tl,'c_cutlab',51.2);
+  pop(tl,'c_fees',53.0);say(tl,'c_lab',55.0);
+  pop(tl,'c_clamp',60.0,.3);
+  drawDashed(tl,'c_pass',1.4,62.5,'7 6');say(tl,'c_passlab',63.5);
+  say(tl,'c_plan',68.0);
+  say(tl,'c_tx1',80.0);say(tl,'c_tx2',84.0);
+  hide(chapters[1],94.0);
+  // PRICE 96–140
+  show(chapters[2],95.5);
+  draw(tl,'pr_ax',1.2,97.5);say(tl,'pr_ax8',98.2);say(tl,'pr_ax10',98.6);
+  say(tl,'pr_toll',100.0);
+  tl.fromTo($('pr_peak'),{opacity:0,scaleY:0,transformOrigin:'bottom'},{opacity:.8,scaleY:1,duration:.9},103.0);
+  drawDashed(tl,'pr_shift',1.8,106.0,'7 6');say(tl,'pr_shiftlab',107.0);
+  tl.fromTo($('pr_off'),{opacity:0,scaleY:0,transformOrigin:'bottom'},{opacity:.85,scaleY:1,duration:.8},109.0);
+  say(tl,'pr_hx',114.0);
+  count(tl,'pr_h',80,2.2,115.5,{pre:'£',suf:'M'});say(tl,'pr_hlab',118.0);
+  say(tl,'pr_tx1',126.0);say(tl,'pr_tx2',130.0);
+  hide(chapters[2],138.0);
+  // SYNTHESIS 140–153
+  show(chapters[3],139.0);
+  say(tl,'y_head',140.5);
+  drawDashed(tl,'y_w1',1.4,142.5,'7 6');say(tl,'y_l1',143.3);
+  drawDashed(tl,'y_w2',1.4,145.5,'7 6');say(tl,'y_l2',146.3);
+  drawDashed(tl,'y_w3',1.4,148.5,'7 6');say(tl,'y_l3',149.3);
+  say(tl,'y_s4',151.5);
+  tl.to([$('y_w1'),$('y_w2'),$('y_w3')],{opacity:.5,duration:1.3,repeat:3,yoyo:true},153.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  draw(tl,'z_storm',1.6,0.5);
+  say(tl,'z_t1',3.0);say(tl,'z_t1b',5.5);
+  pop(tl,'z_g1',10.0,.3);
+  pop(tl,'z_g2',13.0,.3);
+  say(tl,'z_bill',18.0);shake(tl,'svg5',18.3,5,6);
+  pop(tl,'z_sched',24.0,.35);
+  say(tl,'z_next',31.0);
+  say(tl,'z_q1',40.0);
+  say(tl,'z_q2',45.0);
+  tl.to($('z_q2'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},50.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode): three reconnected loops vs both cut */
+function setRedline(on){
+  ['a_eu','a_ca','a_pr'].forEach(id=>$(id).style.opacity=0);
+  $('a_syn').style.opacity=1;$('y_head').style.opacity=1;$('y_s4').style.opacity=1;
+  ['y_w1','y_w2','y_w3','y_l1','y_l2','y_l3'].forEach(id=>$(id).style.opacity=on?1:0);
+  $('y_built').style.opacity=on?0:1;
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.2);
+    if(s.id==='s3')tl.timeScale(1.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  // tooltips
+  const tip=$('tip');
+  document.querySelectorAll('.yr').forEach(r=>{
+    r.addEventListener('mousemove',e=>{tip.textContent=r.dataset.tip;tip.style.opacity=1;
+      tip.style.left=Math.min(e.clientX+14,innerWidth-300)+'px';tip.style.top=(e.clientY+16)+'px';});
+    r.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
