@@ -283,7 +283,7 @@ body.auto h2{font-size:44px}
           <path id="g_cloud" class="amber b" d="M1300 250 q 20 -22 44 -6 q 26 -18 40 8 q 24 -2 12 22 l -104 0 q -14 -22 8 -24" stroke-width="2"/>
           <text x="1200" y="300" class="flawtxt b" id="g_s2a" font-size="14">ONE CLOUD · ONE SICK CONTROLLER —</text>
           <path id="g_casc" class="amber b" d="M1352 210 L 1420 300 L 1360 300 L 1440 400 L 1380 400 L 1470 500" stroke-width="2.5"/>
-          <text x="1024" y="600" class="flawtxt b" id="g_s2b" font-size="15">NO SLACK. NO BUFFER. THE SCHEDULE HAS NOWHERE TO ABSORB THE HIT — IT CASCADES.</text>
+          <text x="1024" y="578" class="flawtxt b" id="g_s2b" font-size="15">NO SLACK. NO BUFFER.<tspan x="1024" dy="24">THE FIRST HIT HAS NOWHERE TO GO — IT CASCADES.</tspan></text>
           <!-- Station 3: the flat price fails to move anyone -->
           <g class="b" id="g_pr">
             <text x="1920" y="150" class="strong" font-size="16">THERE'S NO PRICE HIGH ENOUGH AT THE PEAK TO MOVE A FLIGHT —</text>
@@ -297,7 +297,7 @@ body.auto h2{font-size:44px}
           <text x="2200" y="250" class="flawtxt b" id="g_trylab">$ TRIES TO NUDGE A FLIGHT TO THE QUIET HOURS →</text>
           <g class="b" id="g_x11"><rect x="2490" y="235" width="150" height="70" fill="none" stroke="var(--flaw)" stroke-width="2.5"/><text x="2512" y="278" class="strong flawtxt" font-size="15">11 A.M.</text></g>
           <path id="g_deadx" class="amber b" d="M2560 320 L 2620 380 M 2620 320 L 2560 380"/>
-          <text x="1922" y="470" class="flawtxt b" id="g_s3" font-size="16">SO NOBODY MOVES. DEMAND NEVER LEAVES THE PEAK — LOOP ONE NEVER CLOSES.</text>
+          <text x="1922" y="452" class="flawtxt b" id="g_s3" font-size="16">SO NOBODY MOVES. DEMAND NEVER LEAVES THE PEAK —<tspan x="1922" dy="26">LOOP ONE NEVER CLOSES.</tspan></text>
           <!-- Station 4: the workforce pipeline + shutdown clamps -->
           <text x="2820" y="150" class="strong b" id="g_ppl0" font-size="16">NOW THE WORKFORCE. TRAINING A CONTROLLER TAKES —</text>
           <g class="b" id="g_pipe">
@@ -309,7 +309,7 @@ body.auto h2{font-size:44px}
           <g class="b" id="g_years"></g>
           <text x="2822" y="470" class="flawtxt b" id="g_s4a" font-size="15">EVERY SHUTDOWN, EVERY BUDGET FIGHT, FREEZES HIRING —</text>
           <path id="g_hole" class="amber b" d="M3300 500 q 30 -60 60 0" stroke-width="2.5"/>
-          <text x="2822" y="560" class="b" id="g_s4b">IT CARVES A HOLE IN THE WORKFORCE 3–4 YEARS LATER — WHEN THOSE TRAINEES WOULD FINALLY BE CERTIFIED.</text>
+          <text x="2822" y="548" class="b" id="g_s4b">IT CARVES A HOLE IN THE WORKFORCE 3–4 YEARS LATER —<tspan x="2822" dy="24">WHEN THOSE TRAINEES WOULD FINALLY HAVE BEEN CERTIFIED.</tspan></text>
           <!-- Station 5: the reinforcing spiral -->
           <text x="3720" y="150" class="strong b" id="g_sp0" font-size="16">AND HERE'S THE LOOP THAT MAKES IT WORSE:</text>
           <g class="b" id="g_spiral">
@@ -637,10 +637,10 @@ function sc3(D){const tl=gsap.timeline();const W=$('world');
   // st5: reinforcing spiral
   tl.to(W,cam(3600),89.0);
   say(tl,'g_sp0',90.5);
-  pop(tl,'g_spiral',93.0,.6);
+  tl.fromTo($('g_spiral'),{opacity:0},{opacity:1,duration:.6},93.0);
   say(tl,'g_sp1',95.0);say(tl,'g_sp2',97.0);say(tl,'g_sp3',99.0);say(tl,'g_sp4',101.0);
   say(tl,'g_sp5',104.0);
-  tl.to($('g_spiral'),{rotation:360,transformOrigin:'4020px 380px',duration:8,ease:'none',repeat:3},95.0);
+  tl.to($('g_spiral'),{rotation:360,svgOrigin:'4020 380',duration:9,ease:'none',repeat:3},95.0);
   // st6: two broken loops + brake
   tl.to(W,cam(4500),110.0);
   say(tl,'g_bo0',111.5);
