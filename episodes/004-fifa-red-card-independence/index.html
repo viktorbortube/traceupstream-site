@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Court Inside the House — What Makes a Tribunal Independent | Trace Upstream</title>
+<meta name="description" content="For the first time ever, a World Cup red-card ban was suspended — after a president's phone calls. Not a soccer story: a blueprint of what actually keeps any tribunal independent — separation from leadership, written reasons, and a right to appeal.">
+<link rel="canonical" href="https://traceupstream.com/episodes/004-fifa-red-card-independence/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Court Inside the House — What Makes a Tribunal Independent">
+<meta property="og:description" content="An interactive blueprint: the three missing walls that let a World Cup rule bend, and three real redesigns — external appeal, structural independence, and standing.">
+<meta property="og:url" content="https://traceupstream.com/episodes/004-fifa-red-card-independence/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#8A7F9E; /* desaturated violet — governance/committee accent */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text{font-family:var(--font-mono);font-size:13px;letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .wallbox{fill:var(--text);stroke:none}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.004 — 2026-07-07</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 8:23</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="38.7">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.004</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <!-- referee raising a card -->
+        <g class="b" id="h_ref">
+          <circle cx="230" cy="150" r="24" class="ink"/>
+          <line class="ink" x1="230" y1="174" x2="230" y2="300"/>
+          <line class="ink" x1="230" y1="300" x2="198" y2="384"/>
+          <line class="ink" x1="230" y1="300" x2="266" y2="384"/>
+          <line class="ink" x1="230" y1="212" x2="300" y2="120"/>
+          <line class="ink" x1="230" y1="212" x2="176" y2="272"/>
+          <rect x="292" y="78" width="42" height="58" rx="3" fill="var(--flaw)"/>
+        </g>
+        <text x="120" y="430" class="b" id="h_reflab">A RED CARD = AN AUTOMATIC BAN. NO APPEAL. NO EXCEPTIONS.</text>
+        <text x="120" y="530" class="big b" font-size="82" id="h_190">0</text>
+        <text x="122" y="565" class="b" id="h_190lab">RED CARDS IN WORLD CUP HISTORY</text>
+        <!-- divider -->
+        <line x1="720" y1="60" x2="720" y2="560" stroke="var(--grid)" stroke-width="2" class="b" id="h_div"/>
+        <!-- right: 2 erased -->
+        <text x="800" y="170" class="big flawtxt b" font-size="82" id="h_2">0</text>
+        <text x="802" y="205" class="flawtxt b" id="h_2lab">EVER ESCAPED THAT BAN</text>
+        <g class="b" id="h_1962">
+          <rect x="800" y="250" width="150" height="70" fill="none" stroke="var(--text-dim)" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <text x="820" y="285" class="strong">1962</text>
+          <text x="820" y="308">☎ PRESSURE</text>
+        </g>
+        <g class="b" id="h_2026">
+          <rect x="980" y="250" width="150" height="70" fill="none" stroke="var(--flaw)" stroke-width="1.8"/>
+          <text x="1000" y="285" class="strong flawtxt">2026</text>
+          <text x="1000" y="308" class="flawtxt">☎ THIS WEEK</text>
+        </g>
+        <text x="800" y="390" class="strong b" id="h_1call" font-size="16">SIXTY-FOUR YEARS APART — BOTH AFTER A PHONE CALL.</text>
+        <!-- question -->
+        <text x="720" y="470" text-anchor="middle" class="strong b" id="h_q" font-size="18">A RULE BENT. THE STRANGE PART ISN'T THAT — IT'S WHY IT *COULD*.</text>
+        <text x="720" y="505" text-anchor="middle" class="fact b" id="h_q2" font-size="15">THIS WAS NEVER REALLY A STORY ABOUT SOCCER.</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The court inside<br>the house.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>About a hundred and ninety times, a referee at the soccer World Cup has held up a red card. A red card carries an automatic ban — you sit out the next match. No appeal. No exceptions. That's the whole point of the word "automatic."</p>
+      <p>In ninety years, exactly one player ever escaped that ban — Brazil, 1962, after some quiet political pressure. This week it happened for the second time. The strange part isn't that a rule bent. It's why it <em>could</em>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="90.8">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · July 2026 · FIFA World Cup</div>
+    <h2>A goal, a red card — then the phone rang.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 660" id="svg1">
+        <!-- top flow: goal → foul → red → ban -->
+        <g class="b" id="e_goal"><rect x="90" y="70" width="150" height="58" class="nodebox"/>
+          <text x="112" y="95" class="strong fact">BALOGUN</text><text x="112" y="116" class="fact">SCORES · 3RD</text></g>
+        <path id="e_a1" class="ink b" d="M240 99 L300 99"/>
+        <g class="b" id="e_foul"><rect x="300" y="70" width="176" height="58" class="nodebox" stroke="var(--text)"/>
+          <text x="320" y="95" class="strong">STUDS ON</text><text x="320" y="116">MUHAREMOVIĆ</text></g>
+        <path id="e_a2" class="ink b" d="M476 99 L536 99"/>
+        <g class="b" id="e_red"><rect x="536" y="66" width="46" height="64" rx="4" fill="var(--flaw)"/>
+          <text x="592" y="90" class="strong flawtxt">RED CARD</text><text x="592" y="112" class="flawtxt">= AUTOMATIC BAN</text></g>
+        <path id="e_a3" class="ink b" d="M760 99 L820 99"/>
+        <g class="b" id="e_ban"><rect x="820" y="70" width="230" height="58" class="nodebox"/>
+          <text x="840" y="95" class="strong">SIT OUT NEXT MATCH:</text><text x="840" y="116">ROUND OF 16 vs BELGIUM</text></g>
+        <!-- phone call into FIFA -->
+        <circle cx="1250" cy="230" r="58" class="ink b" id="e_fifa"/>
+        <text x="1250" y="235" text-anchor="middle" class="big b" font-size="22" id="e_fifalab">FIFA</text>
+        <path id="e_phone" class="amber b" d="M1250 40 C 1250 110, 1250 130, 1250 170"/>
+        <text x="1120" y="34" class="flawtxt b" id="e_calls">U.S. PRESIDENT CALLS FIFA — ×3</text>
+        <text x="1120" y="150" class="flawtxt b" id="e_evid">+ TASK-FORCE DIRECTOR · COMMERCE SECRETARY · "ADDITIONAL EVIDENCE"</text>
+        <!-- July 5 decision, dropped from FIFA -->
+        <path id="e_drop" class="ink b" d="M1250 288 L1250 360 L820 360 L820 392"/>
+        <g class="b" id="e_dec"><rect x="360" y="392" width="700" height="150" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="384" y="428" class="strong flawtxt" font-size="15">JULY 5 · DISCIPLINARY COMMITTEE · ARTICLE 27</text>
+          <text x="384" y="462" class="big" font-size="26">BAN SUSPENDED — CARD STANDS</text>
+          <text x="384" y="496">ONE-YEAR PROBATION · <tspan class="flawtxt">NO REASON GIVEN</tspan></text>
+          <text x="384" y="524" class="fact">FIRST WORLD CUP BAN EVER PAUSED, NOT SERVED (189 OTHERS: SERVED)</text></g>
+        <!-- bottom: Belgium blocked, UEFA, score -->
+        <g class="b" id="e_bel"><circle cx="150" cy="600" r="40" class="ink"/>
+          <text x="150" y="596" text-anchor="middle" class="strong" font-size="12">BELGIUM</text>
+          <text x="150" y="614" text-anchor="middle" font-size="11">HARMED</text></g>
+        <path id="e_appeal" class="ink b" d="M192 600 L360 600"/>
+        <g class="b" id="e_nostand"><line x1="292" y1="580" x2="332" y2="620" class="amber"/><line x1="332" y1="580" x2="292" y2="620" class="amber"/>
+          <text x="250" y="650" class="flawtxt">NO STANDING — "NOT A PARTY"</text></g>
+        <text x="470" y="588" class="flawtxt b" id="e_uefa" font-size="15">UEFA: FIFA "CROSSED A RED LINE"</text>
+        <text x="470" y="614" class="b" id="e_uefa2">"UNPRECEDENTED, INCOMPREHENSIBLE, UNJUSTIFIABLE"</text>
+        <text x="1150" y="590" text-anchor="middle" class="big b" font-size="34" id="e_score">BEL 4–1 USA</text>
+        <text x="1150" y="620" text-anchor="middle" class="b" id="e_scorelab">BALOGUN PLAYS · USA ELIMINATED</text>
+      </svg>
+      <div class="figcap">Fig. 1 — the reversal, step by step · sources: AP, NPR, Al Jazeera, Euronews, Sky Sports</div>
+    </div>
+    <div class="prose">
+      <p>Round of 32: the United States beat Bosnia and Herzegovina; Balogun scores, then his studs catch defender Tarik Muharemović. Red card — an automatic one-match ban for the round of sixteen against Belgium. Then the U.S. president calls FIFA's president, reportedly three times; a task-force director and the Commerce Secretary weigh in; a U.S. official cites "additional evidence."</p>
+      <p>On July 5, FIFA's Disciplinary Committee suspends the ban under Article 27 — card stands, penalty on hold, no reason given. The first World Cup ban ever paused rather than served. Belgium's challenge is ruled inadmissible: no standing. UEFA says FIFA "crossed a red line." Balogun plays; the U.S. lose 4–1 and go home.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="41.5">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pivot · Everyone's asking who. Ask why.</div>
+    <h2>The pressure is a constant. Why did it work?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <!-- bare tribunal box with a looping pressure arrow -->
+        <rect x="560" y="200" width="360" height="120" class="nodebox b" id="pv_box"/>
+        <text x="740" y="255" text-anchor="middle" class="strong b" id="pv_boxlab" font-size="15">A RULE-BASED TRIBUNAL</text>
+        <text x="740" y="285" text-anchor="middle" class="b" id="pv_boxlab2">A VERDICT IS SUPPOSED TO BE FINAL</text>
+        <path id="pv_press" class="amber b" d="M300 120 C 520 90, 560 150, 620 198"/>
+        <text x="150" y="110" class="flawtxt b" id="pv_presslab">POWERFUL PEOPLE LEAN ON TRIBUNALS — ALWAYS. IT'S GRAVITY.</text>
+        <!-- fraction -->
+        <text x="1120" y="240" class="big b" font-size="30" id="pv_frac">1 IN 190</text>
+        <text x="1080" y="278" class="b" id="pv_fraclab">CARDS: THE PUSH ACTUALLY WORKED</text>
+        <text x="740" y="420" text-anchor="middle" class="strong b" id="pv_q" font-size="18">EVERY SERIOUS SYSTEM HAS WALLS BUILT FOR EXACTLY THIS.</text>
+        <text x="740" y="456" text-anchor="middle" class="flawtxt b" id="pv_q2" font-size="18">SO LOOK AT THIS ONE — WHERE WERE THEY?</text>
+      </svg>
+      <div class="figcap">Fig. 2 — the real question isn't the call; it's what failed to stop it</div>
+    </div>
+    <div class="prose">
+      <p>The reflex is to argue about the phone call. But powerful people lean on referees and tribunals constantly — that pressure is a constant. The interesting question is why it worked this once, out of a hundred and ninety cards. What's supposed to stop a call from changing a verdict? Every serious system has something built for exactly that job. So look at this one — where were the walls?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM ================= -->
+<section class="ep" id="s3" data-duration="136.5">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · Three missing walls</div>
+    <h2>A judge who works for one of the parties.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg3">
+        <g id="world">
+          <!-- Station A/B: the automatic wall + Article 27 gap -->
+          <g class="b" id="m_wallg">
+            <rect x="330" y="130" width="26" height="360" class="wallbox" id="m_wall"/>
+            <rect x="330" y="270" width="26" height="80" fill="var(--bg-raised)" id="m_gap" opacity="0"/>
+            <text x="120" y="120" class="strong">THE WALL: "AUTOMATIC" REMOVES JUDGMENT —</text>
+            <text x="120" y="146">NOTHING TO LOBBY. THE CARD DECIDES, NOT A PERSON.</text>
+            <path id="m_lobby" class="amber" d="M150 300 C 250 260, 290 300, 320 310" opacity="0"/>
+            <text x="120" y="540" class="flawtxt b" id="m_a27">ARTICLE 27 — A BACK DOOR: A BAN CAN BE "SUSPENDED".</text>
+            <text x="120" y="566" class="flawtxt b" id="m_a27b">DISCRETION WALKS BACK IN. NOW THERE'S SOMETHING TO LOBBY.</text>
+          </g>
+          <!-- Station C: appointment -->
+          <g class="b" id="m_appt">
+            <rect x="900" y="170" width="220" height="66" class="nodebox"/>
+            <text x="926" y="200" class="strong">FIFA</text><text x="926" y="222">LEADERSHIP</text>
+            <rect x="1220" y="380" width="260" height="66" class="nodebox"/>
+            <text x="1246" y="410" class="strong">DISCIPLINARY</text><text x="1246" y="432">COMMITTEE (DECIDES)</text>
+            <path id="m_appoint" class="amber" d="M1120 236 C 1240 300, 1300 340, 1340 378"/>
+            <text x="1150" y="320" class="flawtxt b" id="m_apptlab">APPOINTS / REMOVES</text>
+            <path id="m_call" class="amber" d="M1010 40 L1010 168"/>
+            <text x="1032" y="70" class="flawtxt b" id="m_calllab">THE PHONE CALL LANDS HERE</text>
+            <text x="900" y="510" class="flawtxt b" id="m_w1" font-size="15">⚠ MISSING WALL #1 — THE JUDGE WORKS FOR A PARTY</text>
+          </g>
+          <!-- Station D: no reason -->
+          <g class="b" id="m_doc">
+            <rect x="1660" y="150" width="300" height="360" class="ink"/>
+            <g id="m_doclines"></g>
+            <rect x="1688" y="360" width="244" height="66" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="5 4"/>
+            <text x="1700" y="400" class="flawtxt">REASON: __________</text>
+            <text x="1660" y="540" class="strong">THE RULING · ARTICLE 27</text>
+            <text x="1660" y="566" class="flawtxt b" id="m_w2" font-size="15">⚠ MISSING WALL #2 — NO REASONS TO CONTEST</text>
+          </g>
+          <!-- Station E: standing -->
+          <g class="b" id="m_stand">
+            <circle cx="2500" cy="300" r="46" class="ink"/>
+            <text x="2500" y="296" text-anchor="middle" class="strong" font-size="12">BELGIUM</text>
+            <text x="2500" y="315" text-anchor="middle" font-size="11">HARMED</text>
+            <path id="m_appeal2" class="ink" d="M2546 300 L2760 300"/>
+            <g id="m_cross"><line x1="2690" y1="272" x2="2730" y2="328" class="amber"/><line x1="2730" y1="272" x2="2690" y2="328" class="amber"/></g>
+            <rect x="2760" y="230" width="220" height="140" class="ink" stroke-dasharray="4 4"/>
+            <text x="2778" y="290" class="strong">COURT OF ARBITRATION</text><text x="2778" y="314">FOR SPORT (CAS)</text>
+            <text x="2778" y="352" class="flawtxt">🔒 DOOR LOCKED</text>
+            <text x="2440" y="430" class="flawtxt b" id="m_w3" font-size="15">⚠ MISSING WALL #3 — THE HARMED PARTY CAN'T APPEAL</text>
+          </g>
+          <!-- Station F: tally -->
+          <g class="b" id="m_tally">
+            <text x="3180" y="200" class="big" font-size="26">ADD IT UP:</text>
+            <text x="3180" y="270" class="flawtxt b" id="m_tf1" font-size="18">→ DECIDER APPOINTED BY THE LOBBIED</text>
+            <text x="3180" y="320" class="flawtxt b" id="m_tf2" font-size="18">→ DECISION WITH NO REASONS</text>
+            <text x="3180" y="370" class="flawtxt b" id="m_tf3" font-size="18">→ THE HARMED PARTY LOCKED OUT</text>
+            <text x="3180" y="450" class="strong b" id="m_tf4" font-size="17">NOTHING WAS BUILT TO RESIST PRESSURE.</text>
+          </g>
+          <!-- Station G: quote + gavel -->
+          <text x="3940" y="230" class="big b" font-size="34" id="m_quote">"OUR JUDICIAL BODIES</text>
+          <text x="3940" y="280" class="big b" font-size="34" id="m_quote2">ARE INDEPENDENT."</text>
+          <text x="3940" y="330" class="b" id="m_quote3">— FIFA PRESIDENT, THE NEXT DAY</text>
+          <text x="3940" y="430" class="big flawtxt b" font-size="30" id="m_gavel1">A JUDGE ONE PARTY CAN REASSIGN</text>
+          <text x="3940" y="475" class="big flawtxt b" font-size="30" id="m_gavel2">ISN'T A JUDGE — HE'S AN EMPLOYEE</text>
+          <text x="3940" y="520" class="big flawtxt b" font-size="30" id="m_gavel3">WITH A GAVEL.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — the tribunal, wall by missing wall · one amber flag per station</div>
+    </div>
+    <div class="prose">
+      <p>An automatic ban exists to remove discretion — nothing to lobby. But Article 27 lets a ban be "suspended," and discretion walks back in. Who exercises it? A committee appointed and removable by the same leadership that took the call — the judge works for a party. The ruling comes with no reason, so it can't be argued on the merits. And the one party harmed, Belgium, was told it had no standing to appeal — locking out the only actor with a motive to contest it, and the external court (CAS) with it.</p>
+      <p>Add it up: appointed by the lobbied, opaque, un-appealable. Not a court that caved under pressure — a structure with nothing built to resist it. A judge one party can reassign isn't a judge. He's an employee with a gavel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF ================= -->
+<section class="ep" id="s4" data-duration="141.8">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three ways to build the walls</div>
+    <h2>Three institutions, three walls — each with a price.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <!-- CASE A · CAS -->
+        <g class="b" id="a_cas">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE A · MOVE THE LAST WORD OUTSIDE THE HOUSE</text>
+          <rect x="120" y="130" width="520" height="330" class="ink"/>
+          <text x="140" y="160" class="strong">THE HOUSE (FIFA)</text>
+          <rect x="200" y="240" width="240" height="70" class="nodebox"/>
+          <text x="224" y="282" class="strong">DISCIPLINARY BODY</text>
+          <rect x="900" y="240" width="360" height="70" class="nodebox" stroke="var(--alt)"/>
+          <text x="924" y="272" class="strong alttxt">COURT OF ARBITRATION</text><text x="924" y="294" class="alttxt">FOR SPORT · LAUSANNE</text>
+          <path id="r_cas" class="green" d="M440 275 L900 275"/>
+          <text x="560" y="240" class="alttxt b" id="a_cas2">FINAL WORD, OUT OF ANY PRESIDENT'S REACH</text>
+          <text x="120" y="540" class="flawtxt b" id="a_cascost" font-size="15">TRADE-OFF: SLOW · COSTLY · USELESS WITHOUT STANDING</text>
+        </g>
+        <!-- CASE B · CENTRAL BANK -->
+        <g class="b" id="a_cb">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE B · INDEPENDENCE BY DESIGN (CENTRAL BANKS)</text>
+          <rect x="520" y="230" width="440" height="150" class="nodebox" stroke="var(--alt)"/>
+          <text x="548" y="278" class="strong alttxt">THE TRIBUNAL</text>
+          <text x="548" y="312">FIXED TERMS · REMOVAL ONLY FOR CAUSE</text>
+          <text x="548" y="338">APPOINTMENT INSULATED FROM TODAY'S POWER</text>
+          <path id="a_cbpress" class="amber b" d="M180 300 C 380 260, 460 300, 516 305"/>
+          <path id="r_cb" class="green" d="M516 305 C 470 340, 300 380, 180 360" opacity="0"/>
+          <text x="150" y="255" class="flawtxt b" id="a_cbp">THE CALL ARRIVES —</text>
+          <text x="150" y="410" class="alttxt b" id="a_cbp2">— AND REACHES SOMEONE WHOSE JOB IT CAN'T TOUCH</text>
+          <text x="120" y="540" class="flawtxt b" id="a_cbcost" font-size="15">TRADE-OFF: INDEPENDENCE CAN CURDLE INTO UNACCOUNTABILITY</text>
+        </g>
+        <!-- CASE C · STANDING -->
+        <g class="b" id="a_stand">
+          <text x="120" y="80" class="alttxt" font-size="15">CASE C · GIVE THE HARMED PARTY A KEY (STANDING)</text>
+          <circle cx="220" cy="300" r="48" class="ink"/>
+          <text x="220" y="296" text-anchor="middle" class="strong" font-size="13">BELGIUM</text>
+          <text x="220" y="316" text-anchor="middle" font-size="11">AFFECTED</text>
+          <g id="r_key" opacity="0"><rect x="300" y="286" width="26" height="14" class="green" fill="none"/><line x1="326" y1="293" x2="360" y2="293" class="green"/></g>
+          <rect x="900" y="250" width="320" height="100" class="nodebox" stroke="var(--alt)"/>
+          <text x="924" y="292" class="strong alttxt">THE COURT</text><text x="924" y="320" class="alttxt">HEARS THE APPEAL</text>
+          <path id="r_stand" class="green" d="M268 300 L900 300" opacity="0"/>
+          <text x="120" y="540" class="flawtxt b" id="a_standcost" font-size="15">TRADE-OFF: EVERY CALL → A CASE · VERDICT vs THE NEXT KICKOFF</text>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="a_syn">
+          <text x="200" y="150" class="big" font-size="30">THREE WALLS, ONE PRINCIPLE:</text>
+          <text x="200" y="230" class="alttxt b" id="a_s1" font-size="19">→ AN EXTERNAL, FINAL WORD</text>
+          <text x="200" y="290" class="alttxt b" id="a_s2" font-size="19">→ STRUCTURAL INDEPENDENCE</text>
+          <text x="200" y="350" class="alttxt b" id="a_s3" font-size="19">→ A RIGHT TO APPEAL FOR THE HARMED</text>
+          <text x="200" y="440" class="strong b" id="a_s4" font-size="17">NONE OF THEM NEEDS BETTER PEOPLE.</text>
+          <text x="200" y="475" class="b" id="a_s5" font-size="15">CHILE MAKES BUILDERS LIABLE; A CENTRAL BANK PUTS THE LEVER OUT OF REACH.</text>
+          <text x="200" y="500" class="b" id="a_s6" font-size="15">THE DESIGN DOES THE WORK, SO CHARACTER DOESN'T HAVE TO.</text>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 4 — the missing walls, redlined three ways · dashed green = revision markup</div>
+    </div>
+    <div class="prose">
+      <p>One: move the final word outside the house — the Court of Arbitration for Sport, beyond any president's phone. Trade-off: slow, costly, and useless if the harmed party can't get in the door. Two: structural independence, the way central banks ignore a furious minister — fixed terms, removal only for cause. Trade-off: independence can curdle into unaccountability. Three: standing — let the affected competitor appeal. Trade-off: every close call becomes a case, and a tournament runs on days, not depositions.</p>
+      <p>None of these depends on better people. That's the point of a system: Chile doesn't ask builders to be honest — it makes them liable; a central bank doesn't ask politicians to be patient — it puts the lever out of reach.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 CLOSE ================= -->
+<section class="ep" id="s5" data-duration="60.8">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Every institution has an Article 27</div>
+    <h2>What's built to stop the phone call?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <text x="740" y="80" text-anchor="middle" class="big b" font-size="30" id="c_two">TWO ERASED — 64 YEARS APART</text>
+        <g class="b" id="c_p1"><text x="560" y="130" text-anchor="middle">☎ 1962</text></g>
+        <g class="b" id="c_p2"><text x="920" y="130" text-anchor="middle" class="flawtxt">☎ 2026</text></g>
+        <text x="740" y="175" text-anchor="middle" class="b" id="c_same" font-size="15">SAME RESULT, SAME REASON: A RULE IS ONLY AS STRONG AS THE INDEPENDENCE OF WHO ENFORCES IT.</text>
+        <!-- institutions -->
+        <text x="740" y="255" text-anchor="middle" class="strong b" id="c_inst" font-size="16">COURTS · REGULATORS · REVIEW BOARDS · REFEREES — EACH HAS AN ARTICLE 27.</text>
+        <!-- the missing walls redrawn green -->
+        <g id="c_walls">
+          <line class="green b" id="c_w1" x1="470" y1="300" x2="470" y2="380"/>
+          <line class="green b" id="c_w2" x1="740" y1="300" x2="740" y2="380"/>
+          <line class="green b" id="c_w3" x1="1010" y1="300" x2="1010" y2="380"/>
+        </g>
+        <text x="740" y="435" text-anchor="middle" class="big b" font-size="30" id="c_q">IF SOMEONE PICKS UP THE PHONE — WHAT STOPS IT?</text>
+        <text x="740" y="485" text-anchor="middle" class="big flawtxt b" font-size="24" id="c_favor">IF THE ANSWER IS "NOTHING," IT WAS NEVER A RULE. IT WAS A FAVOR.</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Two red cards erased, sixty-four years apart, both after a call: a rule is only as strong as the independence of whoever enforces it. Every institution you rely on has a version of Article 27 — a back door of discretion — and a version of that org chart, where the judge reports to someone who can be lobbied. So the question was never whether the president should have called. It's the one you can ask of any institution with power over you: if someone with enough leverage picks up the phone, what is built to stop it? Because if the honest answer is "nothing," then it was never a rule. It was a favor, waiting to be asked.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://youtu.be/gFg3N3uaz64" rel="noopener">Watch on YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <rect x="120" y="120" width="240" height="90" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <text x="150" y="178" font-family="IBM Plex Mono" font-size="26" fill="var(--text)">COMMITTEE</text>
+    <rect x="300" y="380" width="240" height="90" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <text x="330" y="438" font-family="IBM Plex Mono" font-size="26" fill="var(--text)">LEADER</text>
+    <path d="M420 380 C 380 300, 300 240, 240 212" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <path d="M420 80 L420 375" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <circle cx="420" cy="70" r="16" fill="none" stroke="var(--flaw)" stroke-width="6"/>
+  </svg>
+  <div class="ttxt">Who judges<br><em>the judge?</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <g stroke="var(--text)" stroke-width="5" fill="none">
+      <circle cx="250" cy="150" r="34"/>
+      <line x1="250" y1="184" x2="250" y2="360"/>
+      <line x1="250" y1="360" x2="200" y2="470"/><line x1="250" y1="360" x2="300" y2="470"/>
+      <line x1="250" y1="230" x2="360" y2="110"/>
+    </g>
+    <rect x="350" y="60" width="70" height="96" rx="5" fill="var(--flaw)"/>
+    <path d="M150 540 C 260 500, 320 360, 260 240" stroke="var(--alt)" stroke-width="5" fill="none" stroke-dasharray="14 12"/>
+    <line x1="180" y1="360" x2="230" y2="430" stroke="var(--flaw)" stroke-width="7"/>
+    <line x1="230" y1="360" x2="180" y2="430" stroke="var(--flaw)" stroke-width="7"/>
+  </svg>
+  <div class="ttxt">The rule<br><em>bent</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);
+  if(p.classList.contains('green'))       // restore the brand dash: green = "as it could be"
+    tl.set(p,{strokeDasharray:'7 6',strokeDashoffset:0},pos+dur);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function ring(tl,id,pos,rMax=160,d=2.2,rep=2){tl.set($(id),{opacity:1},pos)
+  .fromTo($(id),{attr:{r:10},opacity:.9},{attr:{r:rMax},opacity:0,duration:d,repeat:rep,ease:'power1.out'},pos);}
+
+/* ---------- dynamic bits ---------- */
+// ruling document lines (s3)
+(()=>{const g=$('m_doclines');let s='';for(let i=0;i<7;i++)
+  s+=`<line x1="1688" y1="${190+i*22}" x2="${1688+120+(i*57)%120}" y2="${190+i*22}" stroke="var(--grid)" stroke-width="6"/>`;
+  g.innerHTML=s;})();
+
+/* ---------- scene timelines (durations in real seconds) ---------- */
+function sc0(D){const tl=gsap.timeline();
+  pop(tl,'h_ref',0.5,.7);say(tl,'h_reflab',1.6);
+  count(tl,'h_190',190,2.4,3.0);say(tl,'h_190lab',5.6);
+  say(tl,'h_div',7.0);
+  count(tl,'h_2',2,1.4,8.0);say(tl,'h_2lab',9.6);
+  pop(tl,'h_1962',11.0);pop(tl,'h_2026',12.2);
+  say(tl,'h_1call',14.0);
+  say(tl,'h_q',17.0);say(tl,'h_q2',19.2);shake(tl,'svg0',20.4,6);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},22.5);
+  if(isAuto)tl.to({},{duration:4.5},23.1);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},26.5);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  pop(tl,'e_goal',0.5);draw(tl,'e_a1',.5,1.4);pop(tl,'e_foul',2.0);
+  draw(tl,'e_a2',.5,3.2);
+  // red card flips up
+  tl.fromTo($('e_red').querySelector('rect'),{scaleY:0,transformOrigin:'bottom center'},{scaleY:1,duration:.5,ease:'back.out(2)'},4.0);
+  tl.fromTo($('e_red'),{opacity:0},{opacity:1,duration:.3},4.0);
+  draw(tl,'e_a3',.5,5.4);pop(tl,'e_ban',6.0);
+  // phone call
+  pop(tl,'e_fifa',9.0);say(tl,'e_fifalab',9.2);
+  say(tl,'e_calls',10.5);draw(tl,'e_phone',1.4,11.5);
+  say(tl,'e_evid',14.0);
+  // decision drops
+  draw(tl,'e_drop',1.6,19.0);pop(tl,'e_dec',21.0,.5);
+  shake(tl,'e_dec',21.4,6,6);
+  // belgium blocked
+  pop(tl,'e_bel',30.0);draw(tl,'e_appeal',.8,31.0);
+  tl.fromTo($('e_nostand'),{opacity:0,scale:.7,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.4,ease:'back.out(2)'},32.0);
+  say(tl,'e_uefa',35.0);say(tl,'e_uefa2',37.5);
+  // score
+  pop(tl,'e_score',42.0);say(tl,'e_scorelab',43.5);
+  tl.to($('e_dec'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},46.0);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  pop(tl,'pv_box',0.5);say(tl,'pv_boxlab',1.2);say(tl,'pv_boxlab2',2.0);
+  say(tl,'pv_presslab',3.5);draw(tl,'pv_press',1.6,4.5);
+  // pressure keeps pushing
+  tl.to($('pv_press'),{opacity:.4,duration:1.0,repeat:6,yoyo:true},6.5);
+  say(tl,'pv_frac',9.0);say(tl,'pv_fraclab',10.5);
+  say(tl,'pv_q',14.0);say(tl,'pv_q2',16.5);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();const W=$('world');
+  const cam=x=>({x:-x,duration:1.4,ease:'power2.inOut'});
+  // A: wall
+  pop(tl,'m_wallg',0.5);
+  tl.set($('m_lobby'),{opacity:1},2.0);draw(tl,'m_lobby',.9,2.0);
+  tl.to($('m_lobby'),{x:-30,duration:.4,yoyo:true,repeat:1},3.0); // bounces off
+  // B: article 27 opens the gap
+  tl.to($('m_gap'),{opacity:1,duration:.6},6.5);
+  say(tl,'m_a27',7.5);say(tl,'m_a27b',9.5);
+  // C: appointment
+  tl.to(W,cam(760),13.0);pop(tl,'m_appt',14.5);
+  draw(tl,'m_appoint',1.4,16.5);say(tl,'m_apptlab',18.0);
+  draw(tl,'m_call',1.0,20.0);say(tl,'m_calllab',21.0);
+  say(tl,'m_w1',24.0);
+  // D: no reason
+  tl.to(W,cam(1520),29.0);pop(tl,'m_doc',30.5);
+  say(tl,'m_w2',35.0);
+  // E: standing
+  tl.to(W,cam(2280),40.0);pop(tl,'m_stand',41.5);
+  draw(tl,'m_appeal2',.9,43.0);
+  tl.fromTo($('m_cross'),{opacity:0,scale:.6,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.4,ease:'back.out(2)'},44.0);
+  say(tl,'m_w3',47.0);
+  // F: tally
+  tl.to(W,cam(3040),52.0);pop(tl,'m_tally',53.5);
+  say(tl,'m_tf1',55.0);say(tl,'m_tf2',57.0);say(tl,'m_tf3',59.0);say(tl,'m_tf4',62.0);
+  // G: quote + gavel
+  tl.to(W,cam(3800),67.0);
+  say(tl,'m_quote',68.5);say(tl,'m_quote2',69.6);say(tl,'m_quote3',71.0);
+  say(tl,'m_gavel1',74.0);say(tl,'m_gavel2',75.2);say(tl,'m_gavel3',76.4);
+  tl.to($('m_gavel3'),{opacity:.55,duration:1.3,repeat:3,yoyo:true},79.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  const chapters=[$('a_cas'),$('a_cb'),$('a_stand'),$('a_syn')];
+  const show=(el,t)=>tl.fromTo(el,{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to(el,{opacity:0,duration:.5},t);
+  // CAS 0–40
+  show(chapters[0],0.5);
+  draw(tl,'r_cas',1.8,3.0);say(tl,'a_cas2',5.5);
+  say(tl,'a_cascost',10.0);
+  hide(chapters[0],36.0);
+  // CENTRAL BANK 40–86
+  show(chapters[1],38.0);
+  say(tl,'a_cbp',40.0);draw(tl,'a_cbpress',1.4,41.0);
+  tl.set($('r_cb'),{opacity:1},43.0);draw(tl,'r_cb',1.2,43.0); // bounces back off the tribunal
+  say(tl,'a_cbp2',46.0);say(tl,'a_cbcost',52.0);
+  hide(chapters[1],80.0);
+  // STANDING 86–128
+  show(chapters[2],82.0);
+  tl.to($('r_key'),{opacity:1,duration:.5},85.0);
+  tl.set($('r_stand'),{opacity:1},86.5);draw(tl,'r_stand',1.6,86.5);
+  say(tl,'a_standcost',92.0);
+  hide(chapters[2],120.0);
+  // SYNTHESIS 128–155
+  show(chapters[3],122.0);
+  say(tl,'a_s1',124.0);say(tl,'a_s2',126.5);say(tl,'a_s3',129.0);
+  say(tl,'a_s4',132.5);say(tl,'a_s5',135.0);say(tl,'a_s6',137.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  say(tl,'c_two',0.5);pop(tl,'c_p1',2.0);pop(tl,'c_p2',3.0);
+  say(tl,'c_same',5.0);
+  say(tl,'c_inst',9.0);
+  // missing walls redrawn quietly green
+  draw(tl,'c_w1',.7,13.0);draw(tl,'c_w2',.7,13.6);draw(tl,'c_w3',.7,14.2);
+  say(tl,'c_q',18.0);
+  say(tl,'c_favor',24.0);
+  tl.to($('c_favor'),{opacity:.6,duration:1.2,repeat:4,yoyo:true},27.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode) — reveal the "as it could be" green revisions */
+function setRedline(on){['r_cas','r_cb','r_stand','r_key'].forEach(id=>{const e=$(id);if(e)e.style.opacity=on?1:0;});
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.2);
+    if(s.id==='s3')tl.timeScale(1.6);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  // tooltips (none needed yet; hook left for future clickable diagrams)
+  const tip=$('tip');
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- listen mode: per-section narration, page follows the voice ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
