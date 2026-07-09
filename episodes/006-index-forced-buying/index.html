@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Buy You Didn't Make — How Index Rules Bought You SpaceX | Trace Upstream</title>
+<meta name="description" content="On July 7, tens of millions of index-fund holders were forced to buy SpaceX — after Nasdaq quietly rewrote its own rules. A blueprint of how passive money delegates the buy decision, why the safeguard was deleted, and three ways to put a guardrail back.">
+<link rel="canonical" href="https://traceupstream.com/episodes/006-index-forced-buying/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Buy You Didn't Make — How Index Rules Bought You SpaceX">
+<meta property="og:description" content="An interactive blueprint: price-agnostic passive buying, the safeguard Nasdaq deleted, and three redesigns — S&P discipline, float integrity, and governed index rules.">
+<meta property="og:url" content="https://traceupstream.com/episodes/006-index-forced-buying/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#8A9B84; /* desaturated sage — capital-markets accent */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text{font-family:var(--font-mono);font-size:13px;letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.006 — 2026-07-09</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 7:29</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="37.4">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.006</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <defs>
+          <marker id="ah" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0 0 L10 4 L0 8 z" fill="var(--text)"/>
+          </marker>
+          <marker id="ahA" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/>
+          </marker>
+        </defs>
+        <!-- 401(k) statement -->
+        <g class="b" id="h_stmt">
+          <rect x="120" y="150" width="330" height="190" class="ink"/>
+          <text x="142" y="184" class="strong">YOUR 401(k)</text>
+          <line x1="142" y1="200" x2="430" y2="200" stroke="var(--grid)" stroke-width="1.5"/>
+          <line x1="142" y1="292" x2="430" y2="292" stroke="var(--grid)" stroke-width="1.5"/>
+          <rect x="134" y="250" width="302" height="34" fill="var(--bg)" stroke="var(--flaw)" stroke-width="1.5"/>
+          <text x="150" y="273" class="strong flawtxt">SPCX — BOUGHT</text>
+          <text x="336" y="273" class="flawtxt">✕ NO CLICK</text>
+        </g>
+        <!-- price chart: up then down -->
+        <polyline class="blue b" id="h_chart" points="540,360 610,300 670,220 730,255 800,305 870,330"/>
+        <text x="600" y="205" class="fact b" id="h_peak">$226 PEAK</text>
+        <text x="890" y="330" class="fact b" id="h_now">→ $153 · −30%</text>
+        <circle cx="800" cy="305" r="8" fill="var(--flaw)" class="b" id="h_buydot"/>
+        <text x="700" y="410" class="flawtxt b" id="h_buylab">YOU BUY HERE — FORCED</text>
+        <!-- insider sell window -->
+        <g class="b" id="h_insider">
+          <rect x="1050" y="180" width="320" height="150" class="ink"/>
+          <text x="1072" y="216" class="strong">INSIDERS HOLD 96%</text>
+          <text x="1072" y="252" class="flawtxt">SELL WINDOW OPENS</text>
+          <text x="1072" y="280" class="flawtxt">— MID-JULY</text>
+        </g>
+        <!-- punch lines -->
+        <text x="740" y="480" text-anchor="middle" class="big b" font-size="27" id="h_line1">NO PERSON PRESSED BUY. A RULE DID.</text>
+        <text x="740" y="522" text-anchor="middle" class="big fact b" font-size="21" id="h_line2">— AND THE RULE WAS JUST REWRITTEN.</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The buy you<br>didn't make.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>On July 7th, if you own a 401(k) or an index fund, you bought SpaceX. You didn't click buy. Nobody asked you. Tens of millions of Americans bought it in the very same second — a stock already down about a third from its high, just as the insiders who own almost all of it were about to be allowed to sell.</p>
+      <p>No person decided this. A rule decided it. And a few weeks earlier, the company that writes that rule quietly changed it. This isn't about whether SpaceX is a good bet — it's about who decides what your savings buy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="85.4">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · July 2026</div>
+    <h2>They rewrote the rule. Then you bought.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 660" id="svg1">
+        <!-- timeline -->
+        <g class="b" id="e_t1"><rect x="120" y="90" width="220" height="58" class="nodebox"/><text x="144" y="117" class="strong">JUN 12 · IPO</text><text x="144" y="138">$75B — LARGEST EVER</text></g>
+        <path id="e_ta1" class="ink b" d="M340 119 L420 119" marker-end="url(#ah)"/>
+        <g class="b" id="e_t2"><rect x="430" y="90" width="180" height="58" class="nodebox"/><text x="454" y="117" class="strong">PEAK $226</text><text x="454" y="138">JUN 16</text></g>
+        <path id="e_ta2" class="ink b" d="M610 119 L690 119" marker-end="url(#ah)"/>
+        <g class="b" id="e_t3"><rect x="700" y="90" width="230" height="58" class="nodebox" stroke="var(--flaw)"/><text x="724" y="117" class="strong flawtxt">NOW ~$153</text><text x="724" y="138" class="flawtxt">−30% IN 3 WEEKS</text></g>
+        <!-- old rule crossed out -->
+        <g class="b" id="e_oldrule">
+          <rect x="120" y="230" width="520" height="118" class="ink"/>
+          <text x="144" y="266" class="strong">OLD RULE — A SAFEGUARD:</text>
+          <text x="144" y="300">3 MONTHS ON MARKET</text>
+          <text x="144" y="328">+ AT LEAST 10% OF SHARES TRADING</text>
+        </g>
+        <g id="e_oldx" class="b"><line x1="130" y1="238" x2="632" y2="340" class="amber"/><line x1="632" y1="238" x2="130" y2="340" class="amber"/></g>
+        <path id="e_may" class="amber b" d="M640 289 L800 289" marker-end="url(#ahA)"/>
+        <text x="648" y="272" class="flawtxt b" id="e_maylab">MAY 1 — REWRITTEN</text>
+        <!-- new rule -->
+        <g class="b" id="e_newrule">
+          <rect x="800" y="230" width="520" height="118" class="ink" stroke="var(--flaw)"/>
+          <text x="824" y="266" class="strong flawtxt">NEW RULE:</text>
+          <text x="824" y="300">15 TRADING DAYS</text>
+          <text x="824" y="328">· NO FLOAT MINIMUM</text>
+        </g>
+        <!-- lower band -->
+        <text x="120" y="410" class="strong b" id="e_join">JULY 7 — SPACEX JOINS, 15 DAYS AFTER ITS IPO</text>
+        <text x="120" y="452" class="b" id="e_forced">$800B TRACKS THE NASDAQ-100 → FORCED TO BUY ~$4B OF SPCX</text>
+        <text x="120" y="480" class="b" id="e_forced2">(ANALYST ESTIMATE · ONLY ~4% OF SHARES TRADE FREELY)</text>
+        <text x="120" y="524" class="flawtxt b" id="e_lock">INSIDER LOCKUPS BEGIN EXPIRING — MID-JULY</text>
+        <g class="b" id="e_sp">
+          <rect x="840" y="420" width="480" height="150" class="ink"/>
+          <text x="862" y="456" class="strong">S&amp;P 500 REFUSED THE FAST-TRACK</text>
+          <text x="862" y="490">KEPT SEASONING + PROFITS + FLOAT</text>
+          <text x="862" y="524" class="fact">SPACEX OUT UNTIL AT LEAST 2027</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — the rule change and the forced buy · sources: CNBC, TechTimes, Motley Fool, ETF.com</div>
+    </div>
+    <div class="prose">
+      <p>SpaceX went public June 12th — the biggest IPO ever, $75B. It jumped 50%, peaked near $226, then slid to about $153. To join the Nasdaq-100, a company used to need three months on the market and at least 10% of its shares trading freely — safeguards that keep unproven, thinly traded stocks out of the index in your retirement account.</p>
+      <p>On May 1st, Nasdaq deleted them: a top-40 company can now enter after 15 trading days, no float minimum. SpaceX was first — joining July 7th. About $800B of trackers had to buy it (an estimated $4B+), though only ~4% of its shares trade freely, and insider lockups start expiring mid-July. S&P refused the fast-track; SpaceX stays out of the S&P 500 until at least 2027.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="28">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pivot · "So what?"</div>
+    <h2>Buying by a rule is normal. Until it isn't.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 500" id="svg2">
+        <rect x="360" y="90" width="760" height="120" fill="none" stroke="var(--grid)" stroke-width="1.5" class="b" id="pv_qbox"/>
+        <text x="740" y="140" text-anchor="middle" class="big b" font-size="24" id="pv_obj">"MY FUND BUYS BY A RULE, NOT ME.</text>
+        <text x="740" y="178" text-anchor="middle" class="big b" font-size="24" id="pv_obj2">THAT'S THE WHOLE POINT."</text>
+        <text x="740" y="250" text-anchor="middle" class="b" id="pv_true">CHEAP · DIVERSIFIED · BEATS MOST STOCK-PICKERS. ALL TRUE.</text>
+        <text x="740" y="340" text-anchor="middle" class="strong b" id="pv_q1" font-size="18">BUYING BY A RULE IS NORMAL — USUALLY A GOOD THING.</text>
+        <text x="740" y="392" text-anchor="middle" class="big flawtxt b" font-size="22" id="pv_q2">BUT WHAT IF THE RULE STOPS PROTECTING YOU —</text>
+        <text x="740" y="430" text-anchor="middle" class="big flawtxt b" font-size="22" id="pv_q3">AND ITS AUTHOR PROFITS FROM CHANGING IT?</text>
+      </svg>
+      <div class="figcap">Fig. 2 — the objection, and the question it misses</div>
+    </div>
+    <div class="prose">
+      <p>The obvious reaction: so what? My fund buys stocks by a rule instead of me — that's the whole point of index investing. Cheap, diversified, beats most people who try to pick. All true; if that were the whole story, there'd be nothing here. So here's the real question: buying by a rule is normal — usually good. What happens when the rule stops protecting you, and the people who profit from it are the ones who get to change it?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM ================= -->
+<section class="ep" id="s3" data-duration="123.3">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · Who pressed buy?</div>
+    <h2>The trigger was pulled by a rule someone edited.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 660" id="svg3">
+        <!-- chain: YOU -> FUND -> NASDAQ-100 -> RULE -> BUY -->
+        <g class="b" id="c1"><rect x="90" y="150" width="150" height="60" class="nodebox"/><text x="112" y="177" class="strong">YOU</text><text x="112" y="197">401(k)</text></g>
+        <path id="ca1" class="ink b" d="M240 180 L320 180" marker-end="url(#ah)"/>
+        <g class="b" id="c2"><rect x="320" y="150" width="170" height="60" class="nodebox"/><text x="342" y="177" class="strong">INDEX FUND</text><text x="342" y="197">tracks the index</text></g>
+        <path id="ca2" class="ink b" d="M490 180 L570 180" marker-end="url(#ah)"/>
+        <g class="b" id="c3"><rect x="570" y="150" width="170" height="60" class="nodebox"/><text x="592" y="177" class="strong">NASDAQ-100</text><text x="592" y="197">$800B follows it</text></g>
+        <path id="ca3" class="amber b" d="M740 180 L820 180" marker-end="url(#ahA)"/>
+        <g class="b" id="c4"><rect x="820" y="150" width="160" height="60" class="nodebox" stroke="var(--flaw)"/><text x="842" y="187" class="strong flawtxt">THE RULE</text></g>
+        <path id="ca4" class="amber b" d="M980 180 L1060 180" marker-end="url(#ahA)"/>
+        <g class="b" id="c5"><rect x="1060" y="150" width="250" height="60" class="nodebox" stroke="var(--flaw)"/><text x="1082" y="177" class="strong flawtxt">BUY SPCX</text><text x="1082" y="197" class="flawtxt">at any price</text></g>
+        <text x="740" y="262" text-anchor="middle" class="flawtxt b" id="c_flag" font-size="15">⚠ THE RULE WAS JUST REWRITTEN · A SAFEGUARD DELETED · YOU GOT NO VOTE</text>
+        <!-- mechanic: thin float hit by forced buying -->
+        <rect x="600" y="330" width="46" height="120" class="ink b" id="m_floatbar"/>
+        <text x="558" y="470" class="b" id="m_floatlab">FLOAT 4%</text>
+        <path id="m_forced" class="amber b" d="M200 390 L594 390" marker-end="url(#ahA)"/>
+        <text x="200" y="374" class="flawtxt b" id="m_forcedlab">$4B FORCED · PRICE-BLIND</text>
+        <path id="m_up" class="amber b" d="M660 430 L780 350" marker-end="url(#ahA)"/>
+        <text x="700" y="330" class="flawtxt b" id="m_uplab">PRICE PUSHED UP → YOU BUY HIGH</text>
+        <path id="m_exit" class="amber b" d="M980 400 L1200 460" marker-end="url(#ahA)"/>
+        <text x="980" y="384" class="flawtxt b" id="m_exitlab">INSIDERS (96%) SELL INTO IT — LOCKUP OPENS SAME WEEK</text>
+        <!-- honest scale -->
+        <text x="120" y="580" class="strong b" id="m_note1" font-size="15">TO YOU: ABOUT 1% OF THE INDEX — TINY. NOBODY'S RETIREMENT IS WRECKED.</text>
+        <text x="120" y="612" class="flawtxt b" id="m_note2" font-size="15">THE SHAPE: A SMALL, ONE-WAY, REPEATABLE TRANSFER — FORCED BUYERS → INSIDERS.</text>
+        <text x="120" y="640" class="flawtxt b" id="m_note3" font-size="15">AND IT GROWS: PASSIVE IS NOW ~HALF OF ALL U.S. FUND MONEY.</text>
+      </svg>
+      <div class="figcap">Fig. 3 — who actually pressed buy · the rule is the finger on the trigger</div>
+    </div>
+    <div class="prose">
+      <p>Three things make this different from your fund quietly buying Apple. First, an index fund is a price-agnostic buyer — it never asks whether the price is fair; the index says "hold this much," so it buys at any price. Usually harmless, because your purchase is a drop in a deep ocean. Second, the rule isn't a law of nature — a private company writes it, and Nasdaq just deleted the one safeguard that protected passive investors, weeks before the giant IPO that benefits, with no vote for the people whose money moved.</p>
+      <p>Third, only ~4% of SpaceX shares trade. Pour billions of forced, price-blind buying into that sliver and you push the price up — so you buy the price your own buying inflated, while insiders holding the other 96% get to sell into it the same week. To you it's tiny — about 1% of the index. But the shape is a small, one-way, repeatable transfer, and it grows as passive money grows: now about half of all U.S. fund money.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF ================= -->
+<section class="ep" id="s4" data-duration="131.5">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Put a guardrail back</div>
+    <h2>Who decides what your money buys?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <!-- FIX A -->
+        <g class="b" id="a_sp">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX A · KEEP THE GUARDRAILS (WHAT S&amp;P DOES)</text>
+          <rect x="150" y="240" width="360" height="90" class="nodebox" stroke="var(--alt)" stroke-dasharray="7 6"/>
+          <text x="178" y="278" class="strong alttxt">WAIT + PROFITS + REAL FLOAT</text><text x="178" y="306" class="alttxt">before a stock can enter</text>
+          <path id="r_sp" class="green" d="M510 285 L820 285"/>
+          <rect x="820" y="240" width="360" height="90" class="nodebox"/>
+          <text x="848" y="278" class="strong">SPACEX WAITS</text><text x="848" y="306">out of the S&amp;P 500 till ≥2027</text>
+          <text x="120" y="540" class="flawtxt b" id="a_spcost" font-size="15">TRADE-OFF: THE INDEX LAGS — THE PROFITS RULE KEPT TESLA OUT FOR YEARS</text>
+        </g>
+        <!-- FIX B -->
+        <g class="b" id="a_float">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX B · BRING BACK THE FLOAT MINIMUM</text>
+          <rect x="300" y="250" width="60" height="90" class="ink"/><text x="300" y="368">4% (TOO THIN)</text>
+          <path id="r_float" class="green" d="M470 295 L640 295"/>
+          <rect x="700" y="220" width="120" height="150" class="nodebox" stroke="var(--alt)"/><text x="712" y="398" class="alttxt">≥10% REQUIRED</text>
+          <text x="900" y="280" class="alttxt b" id="a_float2">NO MORE BUYING A PRICE</text>
+          <text x="900" y="308" class="alttxt b" id="a_float3">YOUR OWN DEMAND INFLATED</text>
+          <text x="120" y="540" class="flawtxt b" id="a_floatcost" font-size="15">TRADE-OFF: SHUTS OUT SOME FOUNDER-CONTROLLED GIANTS · INDEX LESS REPRESENTATIVE</text>
+        </g>
+        <!-- FIX C -->
+        <g class="b" id="a_phase">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX C · CHANGE HOW IT BUYS</text>
+          <text x="150" y="270" class="strong">ONE PRICE-BLIND SLUG, DAY ONE</text>
+          <path id="r_phase" class="green" d="M150 300 L760 300"/>
+          <text x="150" y="336" class="alttxt b" id="a_phase2">→ PHASE ENTRY OVER WEEKS · EQUAL-WEIGHT · A SCREENED FUND</text>
+          <text x="120" y="540" class="flawtxt b" id="a_phasecost" font-size="15">TRADE-OFF: MORE COST &amp; TURNOVER · YOU'RE NO LONGER "BUYING THE WHOLE MARKET"</text>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="a_syn">
+          <text x="200" y="150" class="big" font-size="28">UNDERNEATH ALL THREE:</text>
+          <text x="200" y="220" class="alttxt b" id="a_s1" font-size="20">→ INDEX RULES MOVE TRILLIONS — MORE THAN MOST LAWS</text>
+          <text x="200" y="270" class="alttxt b" id="a_s2" font-size="20">→ TREAT THEM AS INFRASTRUCTURE: PUBLISH · JUSTIFY · GIVE NOTICE</text>
+          <text x="200" y="350" class="strong b" id="a_s3" font-size="18">NONE OF THIS ARGUES WHETHER SPACEX IS GOOD.</text>
+          <text x="200" y="388" class="b" id="a_s4" font-size="16">IT ASKS WHO DECIDES WHAT YOUR MONEY BUYS — AND WHETHER THERE'S A GUARDRAIL.</text>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 4 — three guardrails, one governance question · dashed green = revision markup</div>
+    </div>
+    <div class="prose">
+      <p>Three fixes, each with a cost. Keep the guardrails, as S&P does — seasoning, profits, real float; the trade-off is the index lags, and a strict profits rule kept Tesla out for years. Or bring back the float minimum alone, ending the thin-float distortion — but you'd shut out some founder-controlled giants. Or change the buying itself: phase a new stock in over weeks, use an equal-weight index, or a screened fund — at the cost of more turnover and no longer "buying the whole market."</p>
+      <p>Underneath all three: index rules now move trillions, more than most laws, yet they're private editorial decisions changed without notice. Treat them like real market infrastructure — publish, justify, warn. None of this argues whether SpaceX is good. It asks who decides what your money buys — and whether that decision has a guardrail at all.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 CLOSE ================= -->
+<section class="ep" id="s5" data-duration="50.9">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · On autopilot</div>
+    <h2>Who's flying the plane?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <g class="b" id="c_stmt">
+          <rect x="120" y="130" width="300" height="110" class="ink"/>
+          <text x="142" y="166" class="strong">YOUR 401(k)</text>
+          <text x="142" y="200" class="flawtxt">STILL HOLDS SPCX</text>
+          <text x="142" y="226">STILL NOT YOUR CHOICE</text>
+        </g>
+        <text x="900" y="150" text-anchor="middle" class="big b" font-size="24" id="c_auto">~HALF OF U.S. FUND MONEY</text>
+        <text x="900" y="188" text-anchor="middle" class="big b" font-size="24" id="c_auto2">BUYS ON AUTOPILOT, BY RULES</text>
+        <text x="900" y="234" text-anchor="middle" class="b" id="c_auto3">— RULES WRITTEN BY PRIVATE FIRMS COMPETING FOR LISTINGS</text>
+        <text x="740" y="330" text-anchor="middle" class="big b" font-size="30" id="c_q">WHO'S FLYING THE PLANE —</text>
+        <text x="740" y="372" text-anchor="middle" class="big b" font-size="30" id="c_q2">AND WHO REWROTE THE MANUAL?</text>
+        <text x="740" y="440" text-anchor="middle" class="big flawtxt b" font-size="22" id="c_final">…WITHOUT TELLING THE PASSENGERS.</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>You still own SpaceX. You still didn't choose it. About half of all the money in American funds now buys on autopilot, by rules — and those rules are written by private companies competing to attract the next big listing. The promise of index investing was mostly true: you don't have to decide. The fine print is that someone else decides for you, and you get no say in who, or in how they rewrite the rules. So the question isn't whether SpaceX goes up or down. It's: when nobody's steering by hand, who's flying the plane — and who just rewrote the manual, without telling the passengers?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://youtu.be/YhfwnKNGe7o" rel="noopener">Watch on YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <rect x="120" y="150" width="380" height="240" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <line x1="120" y1="220" x2="500" y2="220" stroke="var(--text)" stroke-width="3"/>
+    <rect x="150" y="270" width="320" height="60" fill="none" stroke="var(--flaw)" stroke-width="5"/>
+    <text x="172" y="312" font-family="IBM Plex Mono" font-size="34" fill="var(--flaw)">SPCX — BUY</text>
+    <text x="300" y="470" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="120" fill="var(--flaw)">✕</text>
+  </svg>
+  <div class="ttxt">You didn't<br><em>click buy</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <g stroke="var(--text)" stroke-width="5" fill="none">
+      <circle cx="150" cy="200" r="34"/>
+      <rect x="270" y="170" width="120" height="60"/>
+      <rect x="470" y="170" width="120" height="60"/>
+    </g>
+    <path d="M184 200 L270 200 M390 200 L470 200" stroke="var(--text)" stroke-width="5" fill="none"/>
+    <path d="M530 230 L530 430" stroke="var(--flaw)" stroke-width="6" stroke-dasharray="10 8"/>
+    <circle cx="530" cy="450" r="16" fill="none" stroke="var(--flaw)" stroke-width="6"/>
+  </svg>
+  <div class="ttxt">A rule<br><em>pressed buy</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);
+  if(p.classList.contains('green'))
+    tl.set(p,{strokeDasharray:'7 6',strokeDashoffset:0},pos+dur);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+
+/* ---------- scene timelines (durations in real seconds) ---------- */
+function sc0(D){const tl=gsap.timeline();
+  pop(tl,'h_stmt',0.5,.6);
+  draw(tl,'h_chart',1.5,2.5);say(tl,'h_peak',3.6);say(tl,'h_now',5.0);
+  pop(tl,'h_buydot',6.2,.3);say(tl,'h_buylab',6.6);
+  pop(tl,'h_insider',8.5);
+  say(tl,'h_line1',11.5);say(tl,'h_line2',13.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},16.0);
+  if(isAuto)tl.to({},{duration:4.5},16.6);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},20.0);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  pop(tl,'e_t1',0.5);draw(tl,'e_ta1',.4,1.4);pop(tl,'e_t2',2.0);draw(tl,'e_ta2',.4,2.8);pop(tl,'e_t3',3.4);
+  pop(tl,'e_oldrule',6.0);
+  say(tl,'e_maylab',8.0);draw(tl,'e_may',.7,8.4);
+  pop(tl,'e_newrule',9.6);
+  // the old safeguard gets crossed out
+  tl.set($('e_oldx'),{opacity:1},11.0);
+  [...$('e_oldx').children].forEach((l,i)=>{const L=l.getTotalLength();
+    tl.set(l,{strokeDasharray:L+' '+L,strokeDashoffset:L},11.0+i*.3).to(l,{strokeDashoffset:0,duration:.4},11.0+i*.3);});
+  say(tl,'e_join',14.0);
+  say(tl,'e_forced',17.0);say(tl,'e_forced2',18.4);
+  say(tl,'e_lock',21.0);
+  pop(tl,'e_sp',24.0);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  pop(tl,'pv_qbox',0.5);say(tl,'pv_obj',1.0);say(tl,'pv_obj2',1.8);
+  say(tl,'pv_true',3.2);
+  tl.to([$('pv_qbox'),$('pv_obj'),$('pv_obj2'),$('pv_true')],{opacity:.32,duration:.8},5.5);
+  say(tl,'pv_q1',6.5);say(tl,'pv_q2',8.0);say(tl,'pv_q3',9.2);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();
+  // the chain
+  pop(tl,'c1',0.5);draw(tl,'ca1',.4,1.2);pop(tl,'c2',1.7);draw(tl,'ca2',.4,2.4);
+  pop(tl,'c3',2.9);draw(tl,'ca3',.4,3.6);pop(tl,'c4',4.1);draw(tl,'ca4',.4,4.8);pop(tl,'c5',5.3);
+  say(tl,'c_flag',7.0);
+  // mechanic
+  pop(tl,'m_floatbar',10.0);say(tl,'m_floatlab',10.4);
+  say(tl,'m_forcedlab',12.0);draw(tl,'m_forced',1.0,12.4);
+  say(tl,'m_uplab',15.0);draw(tl,'m_up',.6,15.4);
+  say(tl,'m_exitlab',18.0);draw(tl,'m_exit',.8,18.4);
+  // honest scale
+  say(tl,'m_note1',21.5);say(tl,'m_note2',23.0);say(tl,'m_note3',24.4);
+  tl.to($('c_flag'),{opacity:.55,duration:1.2,repeat:4,yoyo:true},26.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  const chapters=[$('a_sp'),$('a_float'),$('a_phase'),$('a_syn')];
+  const show=(el,t)=>tl.fromTo(el,{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to(el,{opacity:0,duration:.5},t);
+  show(chapters[0],0.5);draw(tl,'r_sp',1.8,3.0);say(tl,'a_spcost',9.0);hide(chapters[0],34.0);
+  show(chapters[1],36.0);draw(tl,'r_float',1.6,39.0);say(tl,'a_float2',43.0);say(tl,'a_float3',44.2);say(tl,'a_floatcost',49.0);hide(chapters[1],78.0);
+  show(chapters[2],80.0);draw(tl,'r_phase',1.6,83.0);say(tl,'a_phase2',86.0);say(tl,'a_phasecost',92.0);hide(chapters[2],120.0);
+  show(chapters[3],122.0);say(tl,'a_s1',124.0);say(tl,'a_s2',127.0);say(tl,'a_s3',131.0);say(tl,'a_s4',133.5);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  pop(tl,'c_stmt',0.5);
+  say(tl,'c_auto',3.0);say(tl,'c_auto2',3.9);say(tl,'c_auto3',5.2);
+  say(tl,'c_q',9.0);say(tl,'c_q2',10.2);
+  say(tl,'c_final',14.0);
+  tl.to($('c_final'),{opacity:.6,duration:1.2,repeat:4,yoyo:true},16.5);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode) */
+function setRedline(on){['r_sp','r_float','r_phase'].forEach(id=>{const e=$(id);if(e)e.style.opacity=on?1:0;});
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.2);
+    if(s.id==='s3')tl.timeScale(1.6);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  const tip=$('tip');
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
