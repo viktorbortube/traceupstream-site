@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3,000 Sick, No Source — The Disease Sensor We Switched Off | Trace Upstream</title>
+<meta name="description" content="A cyclospora outbreak has made 3,000+ people across 31 states sick — and the source is still unknown, a year after the CDC scaled back its foodborne surveillance. A blueprint of why we underfund the systems that watch for rare disasters, and three ways to design the blindness out.">
+<link rel="canonical" href="https://traceupstream.com/episodes/007-foodborne-surveillance/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="3,000 Sick, No Source — The Disease Sensor We Switched Off">
+<meta property="og:description" content="An interactive blueprint: how disease surveillance links scattered cases into one source, why it's the first thing cut, and three redesigns — EU rapid-alert, seller liability, and shorter chains.">
+<meta property="og:url" content="https://traceupstream.com/episodes/007-foodborne-surveillance/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#6E8E8A; /* desaturated clinical teal — public-health accent */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text{font-family:var(--font-mono);font-size:13px;letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.007 — 2026-07-13</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 8:25</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="38.9">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.007</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <defs>
+          <marker id="ah" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--text)"/></marker>
+          <marker id="ahA" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+        </defs>
+        <!-- salad bag -->
+        <g class="b" id="h_bag">
+          <path class="ink" d="M180 210 L210 170 L360 170 L390 210 L378 350 Q285 372 192 350 Z"/>
+          <path class="ink" d="M240 250 q45 -30 90 0 M240 290 q45 -30 90 0" stroke-width="1.5"/>
+          <text x="150" y="400" id="h_baglab">ONE ORDINARY BAG OF SALAD</text>
+        </g>
+        <!-- states scatter + counter -->
+        <g id="h_states"></g>
+        <text x="800" y="470" class="big flawtxt b" font-size="72" id="h_count">0</text>
+        <text x="802" y="505" class="flawtxt b" id="h_countlab">CASES · 31 STATES · SAME SOURCE</text>
+        <!-- surveillance off toggle -->
+        <g class="b" id="h_toggle">
+          <rect x="1090" y="150" width="290" height="70" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
+          <rect x="1108" y="170" width="30" height="30" rx="15" fill="var(--text-dim)"/>
+          <text x="1152" y="182" font-size="12" fill="var(--text-dim)">SURVEILLANCE</text>
+          <text x="1152" y="202" font-size="12" fill="var(--flaw)">OFF · SINCE 2025</text>
+        </g>
+        <text x="740" y="558" text-anchor="middle" class="strong b" id="h_l1" font-size="17">IN A CALM YEAR, WATCHING FEELS LIKE PAYING PEOPLE TO STARE AT NOTHING.</text>
+        <text x="740" y="596" text-anchor="middle" class="big fact b" font-size="20" id="h_l2">THIS IS THE WEEK THE CALM ENDS.</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">3,000 sick,<br>no source.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>Somewhere out there is a bag of salad that looks completely ordinary. And right now, food like it has made more than three thousand people, across thirty-one states, sick — and it seems to trace back to a single source.</p>
+      <p>Here is the strange part. The people whose entire job is to find that source can't do it — because a year ago we quietly switched off the system built to look. In a calm year, watching for outbreaks feels like paying people to stare at nothing. This is the week the calm ends.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="91.4">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · July 2026</div>
+    <h2>Three thousand cases. No source.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg1">
+        <!-- stat row -->
+        <g class="b" id="e_stats">
+          <text x="120" y="130" class="big flawtxt" font-size="52" id="e_n1">3,000+</text><text x="122" y="162">CASES SINCE MAY</text>
+          <text x="470" y="130" class="big" font-size="52" id="e_n2">31–32</text><text x="472" y="162">STATES</text>
+          <text x="760" y="130" class="big" font-size="52" id="e_n3">86</text><text x="762" y="162">HOSPITALIZED · NO DEATHS</text>
+          <text x="1120" y="130" class="big flawtxt" font-size="52" id="e_n4">31×</text><text x="1122" y="162">MICHIGAN vs A NORMAL YEAR</text>
+        </g>
+        <text x="120" y="238" class="strong b" id="e_source" font-size="17">SOURCE, WEEKS IN: <tspan class="flawtxt">STILL UNKNOWN</tspan> — no farm, no supplier, no product named</text>
+        <text x="120" y="268" class="b" id="e_hist">CYCLOSPORA — A PARASITE THAT RIDES IN ON FRESH PRODUCE (RASPBERRIES · BAGGED SALAD · CILANTRO · BASIL)</text>
+        <!-- the 2025 scale-back -->
+        <g class="b" id="e_card">
+          <rect x="120" y="330" width="1240" height="240" class="ink"/>
+          <text x="148" y="372" class="strong" font-size="16">SUMMER 2025 — THE SURVEILLANCE NETWORK WAS SCALED BACK</text>
+          <text x="148" y="410">THE OLD LIST (ACTIVELY TRACKED):</text>
+          <g id="e_list"></g>
+          <text x="148" y="548" class="flawtxt" id="e_cardnote">EXPERTS WARNED IT WOULD MAKE OUTBREAKS HARDER TO CATCH. A YEAR LATER — HERE'S ONE.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — the outbreak, and the sensor turned off a year before it · sources: CDC, NPR, NBC, Forbes, TIME</div>
+    </div>
+    <div class="prose">
+      <p>The illness is cyclosporiasis — a parasite that travels on fresh produce, with nausea and diarrhea that can last weeks. Since May: 3,000+ cases across 31–32 states, 86 hospitalized, no deaths. Michigan alone has 1,500+ in a state that normally sees about 50 a year — roughly 31× normal. Weeks in, no farm, supplier, or product has been named.</p>
+      <p>Here's what makes it a system story. In summer 2025 the CDC scaled back its foodborne-surveillance network; tracking this parasite became optional, leaving only salmonella and E. coli watched everywhere. Experts warned it then. A year later, here's an outbreak that's hard to catch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="35.4">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pivot · Not "who's slow"</div>
+    <h2>We keep switching off the watchers.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 500" id="svg2">
+        <text x="740" y="120" text-anchor="middle" class="big b" font-size="23" id="pv_blame">"THE AGENCIES ARE JUST SLOW."</text>
+        <g id="pv_cal" class="b"></g>
+        <text x="740" y="330" text-anchor="middle" class="strong b" id="pv_recur" font-size="16">PRODUCE OUTBREAKS ARRIVE EVERY SUMMER — THIS IS ROUTINE, NOT A FREAK EVENT.</text>
+        <text x="740" y="405" text-anchor="middle" class="big flawtxt b" font-size="21" id="pv_q1">SO WHY DO WE KEEP SWITCHING OFF THE SYSTEMS</text>
+        <text x="740" y="443" text-anchor="middle" class="big flawtxt b" font-size="21" id="pv_q2">THAT WATCH FOR RARE DISASTERS — UNTIL THE DISASTER?</text>
+      </svg>
+      <div class="figcap">Fig. 2 — a recurring event, met with the sensor already off</div>
+    </div>
+    <div class="prose">
+      <p>It would be easy to blame slow agencies and leave it there. But produce outbreaks arrive every summer — this is routine, and investigators have done it many times. What's different this time is that the tool they'd normally use to trace the source was switched off before the outbreak began. Which points at a pattern this channel keeps finding under the news: we keep switching off the systems that watch for rare disasters, right up until the disaster arrives.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM ================= -->
+<section class="ep" id="s3" data-duration="129">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · Surveillance is a sensor</div>
+    <h2>Without it, one outbreak looks like 3,000 accidents.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 660" id="svg3">
+        <defs>
+          <marker id="ah3" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+        </defs>
+        <!-- two cases linked into one source -->
+        <g class="b" id="m_mi"><circle cx="230" cy="160" r="34" class="ink"/><text x="230" y="156" text-anchor="middle" class="strong" font-size="12">MICHIGAN</text><text x="230" y="174" text-anchor="middle" font-size="11">1 case</text></g>
+        <g class="b" id="m_tx"><circle cx="230" cy="300" r="34" class="ink"/><text x="230" y="296" text-anchor="middle" class="strong" font-size="12">TEXAS</text><text x="230" y="314" text-anchor="middle" font-size="11">1 case</text></g>
+        <path id="m_link1" class="blue b" d="M264 168 L560 220"/>
+        <path id="m_link2" class="blue b" d="M264 292 L560 240"/>
+        <g class="b" id="m_src"><rect x="560" y="200" width="260" height="64" class="nodebox"/><text x="586" y="230" class="strong fact">SURVEILLANCE LINKS THEM</text><text x="586" y="252" class="fact">same fingerprint → ONE source</text></g>
+        <!-- toggle off -->
+        <g class="b" id="m_off">
+          <line x1="400" y1="210" x2="440" y2="250" class="amber"/><line x1="440" y1="210" x2="400" y2="250" class="amber"/>
+          <text x="330" y="400" class="flawtxt" id="m_offlab">SENSOR OFF → 3,000 CONNECTED CASES LOOK LIKE 3,000 SEPARATE ACCIDENTS</text>
+        </g>
+        <!-- the invisible-payoff trap -->
+        <text x="900" y="150" class="strong b" id="m_trap1" font-size="16">WHY THE SENSOR IS ALWAYS CUT FIRST:</text>
+        <text x="900" y="184" class="b" id="m_trap2">WHEN IT WORKS, OUTBREAKS STAY SMALL — NOTHING DRAMATIC HAPPENS.</text>
+        <text x="900" y="212" class="b" id="m_trap3">SO IT LOOKS LIKE PAYING TO WATCH FOR NOTHING.</text>
+        <text x="900" y="252" class="flawtxt b" id="m_trap4" font-size="15.5">YOU CAN'T SEE A DISASTER THAT NEVER HAPPENED.</text>
+        <!-- supply chain fan-out -->
+        <g class="b" id="m_proc"><rect x="150" y="470" width="180" height="60" class="nodebox"/><text x="176" y="500" class="strong">ONE BATCH</text><text x="176" y="522">one processor</text></g>
+        <g id="m_fan"></g>
+        <text x="150" y="580" class="b" id="m_fanlab">IN 30 STATES WITHIN DAYS — THE FOOD OUTRUNS THE INVESTIGATION</text>
+        <!-- EP.001 echo -->
+        <g class="b" id="m_eq">
+          <rect x="1150" y="470" width="60" height="90" class="ink"/><path class="amber" d="M1180 470 l-10 30 l16 20 l-12 40" opacity="1"/>
+          <text x="900" y="620" class="strong b" id="m_eqlab" font-size="15">SAME TRAP AS A BUILDING CODE (EP.001): PAY NOW, THE REWARD IS A RARE DISASTER THAT QUIETLY NEVER ARRIVES.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — the sensor that turns scattered cases into one source · and why it's first to be cut</div>
+    </div>
+    <div class="prose">
+      <p>Surveillance isn't paperwork — it's a sensor. One case in Michigan and one in Texas are just two unrelated bad days; surveillance is what links them by genetic fingerprint into one source. Switch it off, and 3,000 connected cases look like 3,000 separate accidents, and the pattern pointing at one farm never forms. And it's always cut first because its value is invisible: when it works, outbreaks stay small, so it looks like paying to watch for nothing — you can't see a disaster that never happened.</p>
+      <p>On top of that, one contaminated batch from a big processor is in 30 states within days — the food outruns the trace-back. It's the same trap as a building code: pay now, and the reward is a rare disaster that quietly never arrives, so it gets shaved down until the ground moves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF ================= -->
+<section class="ep" id="s4" data-duration="149.6">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Design the blindness out</div>
+    <h2>Three ways to stop being blind.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <!-- EUROPE -->
+        <g class="b" id="a_eu">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX A · EUROPE — ONE ALERT, EVERY BORDER, BY LAW</text>
+          <rect x="150" y="250" width="240" height="80" class="nodebox" stroke="var(--flaw)"/><text x="176" y="296" class="strong flawtxt">A FLAGGED PRODUCT</text>
+          <rect x="900" y="250" width="330" height="80" class="nodebox" stroke="var(--alt)"/><text x="928" y="286" class="strong alttxt">EVERY COUNTRY, IN HOURS</text><text x="928" y="310" class="alttxt">+ trace one step back / forward, by law</text>
+          <path id="r_eu" class="green" d="M390 290 L900 290"/>
+          <text x="120" y="540" class="flawtxt b" id="a_eucost" font-size="15">TRADE-OFF: EXPENSIVE, BUREAUCRATIC, NEEDS CENTRAL COORDINATION A 50-STATE PATCHWORK RESISTS</text>
+        </g>
+        <!-- SELLER -->
+        <g class="b" id="a_seller">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX B · PUT THE COST ON THE SELLER (LESS GOVERNMENT)</text>
+          <rect x="150" y="250" width="300" height="80" class="nodebox" stroke="var(--alt)"/><text x="176" y="286" class="strong alttxt">BUYERS + INSURERS DEMAND IT</text><text x="176" y="310" class="alttxt">"digitize your chain, or you're out"</text>
+          <path id="r_seller" class="green" d="M450 290 L820 290"/>
+          <rect x="820" y="250" width="300" height="80" class="nodebox"/><text x="848" y="296" class="strong">SUPPLIERS TRACE, FAST</text>
+          <text x="120" y="540" class="flawtxt b" id="a_sellercost" font-size="15">TRADE-OFF: ONLY WHERE A BIG BUYER EXISTS · CAN ROT INTO BOX-TICKING · CRUSHES SMALL FARMS</text>
+        </g>
+        <!-- SHORT CHAIN -->
+        <g class="b" id="a_short">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX C · SHORTEN THE CHAIN — SHRINK THE BLAST RADIUS</text>
+          <rect x="150" y="250" width="320" height="80" class="nodebox" stroke="var(--alt)"/><text x="176" y="286" class="strong alttxt">GROWN + EATEN IN ONE REGION</text><text x="176" y="310" class="alttxt">source obvious within a day</text>
+          <path id="r_short" class="green" d="M470 290 L760 290"/>
+          <text x="790" y="296" class="b" id="a_shortnote">vs a processor shipping to 30 states</text>
+          <text x="120" y="540" class="flawtxt b" id="a_shortcost" font-size="15">TRADE-OFF: LESS EFFICIENT, COSTLIER, CAN'T GROW EVERYTHING EVERYWHERE ALL YEAR</text>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="a_syn">
+          <text x="200" y="180" class="big" font-size="28">EUROPE'S SPEED · A BUYER'S LEVERAGE · A SHORT CHAIN'S SMALL FOOTPRINT</text>
+          <text x="200" y="270" class="strong b" id="a_s1" font-size="19">EACH ONE DESIGNS THE BLINDNESS OUT —</text>
+          <text x="200" y="322" class="b" id="a_s2" font-size="17">INSTEAD OF HOPING SOMEONE SPOTS THE DANGER IN TIME.</text>
+          <text x="200" y="400" class="alttxt b" id="a_s3" font-size="16">NONE OF THEM NEEDS BETTER PEOPLE.</text>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 4 — three architectures, three trade-offs · dashed green = revision markup</div>
+    </div>
+    <div class="prose">
+      <p>Three very different systems answer this, none of them just "spend more on the same monitoring." Europe runs one rapid-alert network — a flag in one country reaches every border in hours — with a law requiring every business to know one step back and forward; trace-backs take a day, not weeks. The cost: expensive, bureaucratic, hard to coordinate across fifty states. Or use less government: make the seller liable and let big buyers and insurers demand traceability — faster than any regulator, but only where a powerful buyer exists, and it can crush small farms. Or shorten the chain so a local outbreak stays local and the source is obvious — at the cost of efficiency.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 CLOSE ================= -->
+<section class="ep" id="s5" data-duration="68.6">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · What are we not watching?</div>
+    <h2>A prevented crisis leaves nothing to point at.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <text x="120" y="120" class="big flawtxt b" font-size="46" id="c_n">3,000</text><text x="122" y="152" class="b" id="c_nlab">SICK — CHEAP TO SWITCH OFF NOW · RUINOUS TO GO WITHOUT LATER</text>
+        <text x="740" y="220" text-anchor="middle" class="strong b" id="c_more" font-size="16">EVERY QUIET SAFEGUARD RUNS INTO THE SAME TRAP —</text>
+        <g class="b" id="c_list">
+          <text x="300" y="270" class="b" id="c_i1">· DISEASE SURVEILLANCE</text>
+          <text x="640" y="270" class="b" id="c_i2">· BRIDGE INSPECTIONS</text>
+          <text x="980" y="270" class="b" id="c_i3">· AIRCRAFT MAINTENANCE</text>
+          <text x="470" y="304" class="b" id="c_i4">· THE EMERGENCY STOCKPILE NOBODY HAS TOUCHED IN YEARS</text>
+        </g>
+        <text x="740" y="380" text-anchor="middle" class="big b" font-size="27" id="c_q">WHAT IS NOBODY WATCHING RIGHT NOW —</text>
+        <text x="740" y="424" text-anchor="middle" class="big flawtxt b" font-size="22" id="c_q2">BECAUSE, FOR THE MOMENT, NOTHING BAD IS HAPPENING?</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Those three thousand people aren't sick because anyone is stupid. They're sick because turning the watching off is easy and cheap today, and living without it is ruinously expensive the moment an outbreak slips through — a cost that only shows up later. And it's bigger than one salad: disease surveillance, bridge inspections, aircraft maintenance, the emergency stockpile — every safeguard that works quietly looks like waste, because a prevented crisis leaves nothing to point at. So the calmest moment is when the watching is easiest to cut. The real question isn't who was too slow to find the lettuce. It's about you: what is nobody watching right now, because for the moment nothing bad is happening?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://youtu.be/biO8EnM0eT8" rel="noopener">Watch on YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <path d="M180 190 L220 130 L440 130 L480 190 L462 500 Q330 540 198 500 Z" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <line x1="206" y1="196" x2="454" y2="196" stroke="var(--text)" stroke-width="4"/>
+    <text x="330" y="415" text-anchor="middle" style="font-family:var(--font-display);font-weight:700;font-size:220px;fill:var(--flaw)">?</text>
+  </svg>
+  <div class="ttxt">3,000 sick<br><em>no source</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <rect x="360" y="120" width="200" height="90" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <rect x="380" y="145" width="30" height="30" rx="15" fill="var(--flaw)"/>
+    <text x="425" y="167" style="font-family:var(--font-mono);font-size:24px;fill:var(--flaw)">OFF</text>
+    <g fill="var(--text)"><circle cx="120" cy="330" r="10"/><circle cx="240" cy="380" r="10"/><circle cx="180" cy="470" r="10"/><circle cx="330" cy="440" r="10"/><circle cx="90" cy="440" r="10"/><circle cx="290" cy="330" r="10"/></g>
+  </svg>
+  <div class="ttxt">We turned<br><em>it off</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);
+  if(p.classList.contains('green'))
+    tl.set(p,{strokeDasharray:'7 6',strokeDashoffset:0},pos+dur);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+
+/* ---------- dynamic bits ---------- */
+// S0 state grid (8x6), some light amber
+(()=>{const g=$('h_states');let s='';for(let i=0;i<48;i++){const c=i%8,r=(i/8|0);
+  const x=820+c*66,y=200+r*30;
+  s+=`<rect class="stdot" data-i="${i}" x="${x}" y="${y}" width="16" height="16" fill="none" stroke="var(--grid)" stroke-width="1.5"/>`;}
+  g.innerHTML=s;})();
+// S1 the old FoodNet list — salmonella + E.coli kept, cyclospora struck, rest greyed
+(()=>{const g=$('e_list');if(!g)return;
+  const items=[['SALMONELLA',1],['E. COLI',1],['CAMPYLOBACTER',0],['CYCLOSPORA',2],['LISTERIA',0],['SHIGELLA',0],['VIBRIO',0],['YERSINIA',0]];
+  let s='';items.forEach((it,i)=>{const c=i%4,r=(i/4|0);const x=170+c*300,y=442+r*40;
+    const col=it[1]===1?'var(--text)':it[1]===2?'var(--flaw)':'var(--grid)';
+    s+=`<text x="${x}" y="${y}" fill="${col}" font-weight="${it[1]===1?600:400}">${it[1]===2?'✕ ':''}${it[0]}${it[1]===1?'  ✓ KEPT':''}</text>`;});
+  g.innerHTML=s;})();
+// S2 season calendar — 5 summers, each with a blip
+(()=>{const g=$('pv_cal');let s='';for(let i=0;i<5;i++){const x=360+i*160;
+  s+=`<g><line x1="${x}" y1="230" x2="${x+120}" y2="230" stroke="var(--grid)" stroke-width="2"/>
+  <circle cx="${x+60}" cy="230" r="7" fill="var(--flaw)"/><text x="${x+40}" y="262" font-size="11">SUMMER ${i+1}</text></g>`;}
+  g.innerHTML=s;})();
+// S3 supply-chain fan targets
+(()=>{const g=$('m_fan');let s='';for(let i=0;i<12;i++){const x=560+(i%6)*130,y=(i<6?480:540);
+  s+=`<circle class="fandot" data-i="${i}" cx="${x}" cy="${y}" r="7" fill="none" stroke="var(--text)" stroke-width="1.5"/>
+  <line class="fanline" data-i="${i}" x1="330" y1="500" x2="${x}" y2="${y}" stroke="var(--flaw)" stroke-width="1.5" opacity="0"/>`;}
+  g.innerHTML=s;})();
+
+/* ---------- scene timelines ---------- */
+function sc0(D){const tl=gsap.timeline();
+  pop(tl,'h_bag',0.5,.6);say(tl,'h_baglab',1.6);
+  // states light up
+  tl.set($('h_states'),{opacity:1},2.5);
+  tl.to([...$('h_states').querySelectorAll('.stdot')].filter((_,i)=>i<32),
+    {stroke:'var(--flaw)',fill:'var(--flaw)',duration:.06,stagger:.05},2.5);
+  count(tl,'h_count',3000,2.4,3.0,{suf:'+'});say(tl,'h_countlab',5.6);
+  pop(tl,'h_toggle',7.5);shake(tl,'h_toggle',7.9,5,5);
+  say(tl,'h_l1',10.5);say(tl,'h_l2',12.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},15.5);
+  if(isAuto)tl.to({},{duration:4.5},16.1);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},19.5);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  count(tl,'e_n1',3000,2.0,0.5,{suf:'+'});count(tl,'e_n2',32,1.4,1.5);
+  count(tl,'e_n3',86,1.4,2.5);count(tl,'e_n4',31,1.2,3.5,{suf:'×'});
+  tl.set($('e_stats'),{opacity:1},0.5);
+  say(tl,'e_source',6.0);say(tl,'e_hist',8.0);
+  pop(tl,'e_card',11.0);
+  // the monitored list, cyclospora struck through, most greyed
+  tl.set($('e_list'),{opacity:1},13.0);
+  say(tl,'e_cardnote',18.0);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  say(tl,'pv_blame',0.5);tl.to($('pv_blame'),{opacity:.3,duration:.8},3.0);
+  tl.set($('pv_cal'),{opacity:1},3.6).fromTo($('pv_cal').children,{opacity:0},{opacity:1,duration:.3,stagger:.25},3.6);
+  say(tl,'pv_recur',6.5);
+  say(tl,'pv_q1',9.5);say(tl,'pv_q2',10.7);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();
+  pop(tl,'m_mi',0.5);pop(tl,'m_tx',1.2);
+  draw(tl,'m_link1',.7,2.2);draw(tl,'m_link2',.7,2.6);pop(tl,'m_src',3.4);
+  // toggle off — links break
+  tl.fromTo($('m_off'),{opacity:0,scale:.7,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.4,ease:'back.out(2)'},6.0);
+  tl.to([$('m_link1'),$('m_link2'),$('m_src')],{opacity:.2,duration:.6},6.2);
+  say(tl,'m_offlab',7.5);
+  // the trap
+  say(tl,'m_trap1',10.5);say(tl,'m_trap2',12.0);say(tl,'m_trap3',13.4);say(tl,'m_trap4',15.2);
+  // supply chain fan
+  pop(tl,'m_proc',18.0);
+  tl.set($('m_fan'),{opacity:1},18.5);
+  [...$('m_fan').querySelectorAll('.fanline')].forEach((l,i)=>tl.to(l,{opacity:.6,duration:.25},19.0+i*.12));
+  tl.to([...$('m_fan').querySelectorAll('.fandot')],{stroke:'var(--flaw)',duration:.25,stagger:.12},19.1);
+  say(tl,'m_fanlab',22.5);
+  // EP.001 echo
+  pop(tl,'m_eq',25.5);say(tl,'m_eqlab',26.5);
+  tl.to($('m_trap4'),{opacity:.55,duration:1.2,repeat:3,yoyo:true},28.5);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  const chapters=[$('a_eu'),$('a_seller'),$('a_short'),$('a_syn')];
+  const show=(el,t)=>tl.fromTo(el,{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to(el,{opacity:0,duration:.5},t);
+  show(chapters[0],0.5);draw(tl,'r_eu',1.8,3.0);say(tl,'a_eucost',9.0);hide(chapters[0],38.0);
+  show(chapters[1],40.0);draw(tl,'r_seller',1.6,43.0);say(tl,'a_sellercost',50.0);hide(chapters[1],86.0);
+  show(chapters[2],88.0);draw(tl,'r_short',1.4,91.0);say(tl,'a_shortnote',93.0);say(tl,'a_shortcost',98.0);hide(chapters[2],132.0);
+  show(chapters[3],134.0);say(tl,'a_s1',136.0);say(tl,'a_s2',138.5);say(tl,'a_s3',141.5);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  count(tl,'c_n',3000,2.0,0.5);say(tl,'c_nlab',2.6);
+  say(tl,'c_more',5.5);
+  tl.set($('c_list'),{opacity:1},7.0).fromTo($('c_list').children,{opacity:0,y:10},{opacity:1,y:0,duration:.4,stagger:.35},7.0);
+  say(tl,'c_q',12.5);say(tl,'c_q2',13.9);
+  tl.to($('c_q2'),{opacity:.6,duration:1.2,repeat:4,yoyo:true},16.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode) */
+function setRedline(on){['r_eu','r_seller','r_short'].forEach(id=>{const e=$(id);if(e)e.style.opacity=on?1:0;});
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.2);
+    if(s.id==='s3')tl.timeScale(1.6);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  const tip=$('tip');
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
