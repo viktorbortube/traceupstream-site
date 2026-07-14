@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Instruction Nobody Follows — Why Wildfire Evacuations Keep Killing | Trace Upstream</title>
+<meta name="description" content="Thirteen people died in Spain's Almería wildfire — most while fleeing, against official shelter-in-place advice, with no phone alert sent. A blueprint of why the flee-or-stay decision lands on the least prepared person at the worst moment, and three designs that move it: Australia's leave-early plans, last-resort refuges, and ground that forgives both choices.">
+<link rel="canonical" href="https://traceupstream.com/episodes/008-wildfire-evacuation-design/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Instruction Nobody Follows — Why Wildfire Evacuations Keep Killing">
+<meta property="og:description" content="An interactive blueprint: why 'stay or run' lands on the least prepared person at the worst moment — and three redesigns that move the decision in time, in space, or into the ground itself.">
+<meta property="og:url" content="https://traceupstream.com/episodes/008-wildfire-evacuation-design/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#7E8560; /* desaturated dry-scrub olive — wildfire-country accent */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text:not([font-size]){font-size:13px}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:118px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.008 — 2026-07-14</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 10:35</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="49.5">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.008</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <defs>
+          <marker id="ah" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--text)"/></marker>
+          <marker id="ahA" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+        </defs>
+        <!-- fire glow on the right horizon -->
+        <g class="b" id="h_fire">
+          <path class="amber" d="M1330 380 q14 -46 2 -84 q30 26 34 62 q22 -18 18 -48 q26 40 12 88 q-32 30 -66 -18" fill="none"/>
+          <path class="amber" d="M1400 392 q10 -30 2 -55 q22 20 24 48 q-12 26 -26 7" fill="none" stroke-width="2"/>
+          <line x1="1240" y1="430" x2="1470" y2="430" class="amber"/>
+          <text x="1252" y="462" class="flawtxt" font-size="12">FIRE ON THE HORIZON</text>
+        </g>
+        <!-- burned-out car, side view, facing the fire -->
+        <g class="b" id="h_car">
+          <path class="ink" d="M330 400 L360 400 Q380 352 430 348 L610 348 Q660 352 690 386 L760 396 Q778 400 778 414 L778 430 L330 430 Z"/>
+          <circle cx="430" cy="432" r="26" class="ink"/><circle cx="700" cy="432" r="26" class="ink"/>
+          <path class="ink" d="M446 396 L448 362 L520 360 L522 396 Z M542 396 L542 360 L612 362 L634 396 Z" stroke-width="1.6"/>
+          <!-- steering wheel on the RIGHT (front) window -->
+          <circle cx="596" cy="380" r="11" class="amber" id="h_wheel"/>
+        </g>
+        <g class="b" id="h_ann">
+          <path class="ink" d="M596 362 L596 300 L820 300" stroke-width="1.2"/>
+          <text x="832" y="304" class="strong" font-size="15">STEERING WHEEL: RIGHT SIDE —</text>
+          <text x="832" y="328" font-size="13.5">THE WAY CARS ARE BUILT FOR BRITISH ROADS</text>
+        </g>
+        <!-- four figures + the drive -->
+        <g class="b" id="h_four">
+          <g id="h_figs"></g>
+          <text x="150" y="560" class="strong" font-size="15" id="h_fourlab">FOUR PEOPLE DID THE MOST NATURAL THING — THEY GOT IN, AND THEY DROVE.</text>
+        </g>
+        <path class="amber b" id="h_arrow" d="M800 414 L1180 414" marker-end="url(#ahA)"/>
+        <!-- the instruction -->
+        <g class="b" id="h_order">
+          <rect x="960" y="120" width="380" height="96" fill="var(--text)"/>
+          <text x="1150" y="162" text-anchor="middle" font-size="19" style="fill:#F8F9FB;font-weight:600">OFFICIAL INSTRUCTION:</text>
+          <text x="1150" y="194" text-anchor="middle" font-size="22" style="fill:#F8F9FB;font-weight:700;font-family:var(--font-display)">STAY WHERE YOU ARE</text>
+        </g>
+        <text x="150" y="596" class="flawtxt b" id="h_l1" font-size="16">MOST OF THE THIRTEEN WHO DIED HAD NOT FOLLOWED IT.</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The instruction<br>nobody follows.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>When rescue teams reached one burned-out car in the south of Spain last week, they could guess where its passengers were from by a single detail: the steering wheel was on the right side, the way cars are built for British roads. Four people did the most natural thing a human being can do when fire appears on the horizon — they got in the car, and they drove.</p>
+      <p>The official instruction that night was the exact opposite: stay where you are. And according to the head of the region's emergency services, most of the thirteen people who died had not followed it. This is not a story about panic or blame. It is a story about a decision — and the system that scheduled it for the worst possible moment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="94.1">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Los Gallardos, Almería · July 9–12, 2026</div>
+    <h2>Thirteen deaths. No alert.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg1">
+        <!-- locator -->
+        <g class="b" id="e_map">
+          <rect x="120" y="70" width="300" height="180" class="ink" stroke-width="1.5"/>
+          <circle cx="330" cy="205" r="6" fill="var(--flaw)"/>
+          <circle cx="330" cy="205" r="16" class="amber" stroke-width="1.5" id="e_ring"/>
+          <text x="140" y="100" class="strong" font-size="13">SPAIN · ANDALUSIA</text>
+          <text x="140" y="122" font-size="12">ALMERÍA — LOS GALLARDOS</text>
+          <text x="140" y="232" font-size="11.5">HEAT WAVE · TINDER-DRY SCRUB</text>
+        </g>
+        <!-- stat row -->
+        <g class="b" id="e_stats">
+          <text x="490" y="130" class="big" font-size="46" id="e_n1">50</text><text x="492" y="160">KM/H WIND</text>
+          <text x="700" y="130" class="big flawtxt" font-size="46" id="e_n2">100</text><text x="702" y="160">METERS OF GROUND / MINUTE</text>
+          <text x="1090" y="130" class="big" font-size="46" id="e_n3">70</text><text x="1092" y="160">KM² BURNED — LARGER THAN MANHATTAN</text>
+        </g>
+        <!-- victims -->
+        <g class="b" id="e_vict">
+          <text x="120" y="360" class="big flawtxt" font-size="72" id="e_n4">13</text>
+          <text x="122" y="392" font-size="12.5">DEATHS — DEADLIEST WILDFIRE EVER RECORDED IN ANDALUSIA · 3RD IN SPAIN'S HISTORY</text>
+          <text x="122" y="418" class="strong" font-size="13" id="e_flags">UK ×5 · BELGIUM ×3 · FRANCE ×1 · US ×1 · SPAIN ×1 · UNIDENTIFIED ×2</text>
+        </g>
+        <g class="b" id="e_how">
+          <g id="e_carfigs"></g><text x="920" y="322" font-size="12.5">FOUR DIED IN THAT CAR</text>
+          <g id="e_footfigs"></g><text x="920" y="392" font-size="12.5">EIGHT DIED ON FOOT</text>
+        </g>
+        <!-- riverbed -->
+        <g class="b" id="e_river">
+          <path class="amber" id="e_riverpath" d="M120 480 q80 -26 160 0 q80 26 160 0"/>
+          <text x="130" y="520" class="flawtxt" font-size="13.5">ESCAPE ROUTE: A DRY RIVERBED — "TURNED INTO A DEATH TRAP"</text>
+          <text x="130" y="544" font-size="11.5">— HEAD OF ANDALUSIA'S EMERGENCY SERVICES</text>
+        </g>
+        <!-- the dispute + silent phone -->
+        <g class="b" id="e_disp">
+          <rect x="760" y="452" width="330" height="104" class="ink" stroke-width="1.5"/>
+          <text x="782" y="484" font-size="12">OFFICIALS: THE ADVICE WAS</text>
+          <text x="782" y="506" class="strong" font-size="13">SHELTER IN PLACE</text>
+          <text x="782" y="536" font-size="11.5">"MOST OF THE VICTIMS DID NOT"</text>
+        </g>
+        <g class="b" id="e_disp2">
+          <rect x="1110" y="452" width="250" height="104" class="ink" stroke-width="1.5" stroke="var(--flaw)"/>
+          <text x="1132" y="484" font-size="12">THE FAMILIES:</text>
+          <text x="1132" y="510" class="strong flawtxt" font-size="13.5">"NO GUIDANCE AT ALL"</text>
+          <text x="1132" y="536" font-size="11.5">— SON OF A BELGIAN VICTIM</text>
+        </g>
+        <g class="b" id="e_phone">
+          <rect x="645" y="452" width="64" height="104" class="ink"/>
+          <line x1="661" y1="540" x2="693" y2="540" class="ink" stroke-width="1.5"/>
+          <line x1="637" y1="444" x2="717" y2="564" class="amber" id="e_slash"/>
+          <text x="580" y="600" class="flawtxt" font-size="14" id="e_phonelab">EMERGENCY ALERT SENT: NO</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — the fire, the victims, and the alert that never went out · sources: NPR, France 24, AFP, The Olive Press</div>
+    </div>
+    <div class="prose">
+      <p>On the evening of July 9th a wildfire started near Los Gallardos, in Almería. Mid-heat-wave, tinder-dry scrub, wind at 50 km/h; at its fastest the fire covered a hundred meters a minute, and over three days it burned seventy square kilometers — larger than Manhattan. Thirteen people died: the deadliest wildfire ever recorded in Andalusia, third deadliest in Spain's history. Twelve of the thirteen were foreign nationals — this is a countryside of British and Belgian retirement homes. Four died in that car; eight on foot; several had tried to escape along a dry riverbed that, in the words of the regional emergency chief, "turned into a death trap."</p>
+      <p>The official advice, he said, was to shelter in place — and most victims did not. The families see it differently: the son of one Belgian victim said the people fleeing were given no guidance at all. Under the whole dispute sits one quiet fact: Spain can push an emergency alert to every phone in a fire's path. That night, no alert was sent.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="60.5">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pattern</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pattern · Four fires, one signature</div>
+    <h2>People die while they are moving.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 500" id="svg2">
+        <g id="pv_cards"></g>
+        <text x="740" y="360" text-anchor="middle" class="strong b" id="pv_sig" font-size="16">DIFFERENT CONTINENTS, DIFFERENT FIRES — THE SAME SIGNATURE, EVERY TIME.</text>
+        <text x="740" y="395" text-anchor="middle" class="b" id="pv_sig2" font-size="14">PEOPLE DIE WHILE THEY ARE MOVING — AND THEY ARE MOVING BECAUSE THEY LEFT TOO LATE.</text>
+        <text x="740" y="452" text-anchor="middle" class="big flawtxt b" font-size="19" id="pv_off">AND AFTERWARDS, OFFICIALS SAY: "THEY SHOULD HAVE STAYED — OR LEFT MUCH EARLIER."</text>
+      </svg>
+      <div class="figcap">Fig. 2 — Black Saturday · Mati · Paradise · Lahaina · Almería: the late-flight signature</div>
+    </div>
+    <div class="prose">
+      <p>If this were one strange night in Spain, it would be a tragedy and nothing more. But the same pattern keeps returning. Australia 2009: 173 died, many caught fleeing at the last moment. Greece 2018: 104 died, cars jammed into dead-end streets near the sea. California, the same year: Paradise lost 85 people as thousands tried to escape down a single jammed road. Hawaii 2023: 102 died in Lahaina, many in their cars. Different continents — the same signature. People die while they are moving, and they are moving because they left too late. And afterwards, officials say some version of the same sentence: they should have stayed, or left much earlier.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM ================= -->
+<section class="ep" id="s3" data-duration="152.4">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · One fork, held by the wrong hands</div>
+    <h2>Why does surviving come down to this choice at all?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 660" id="svg3">
+        <defs>
+          <marker id="ah3" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+          <marker id="ah3b" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--fact)"/></marker>
+        </defs>
+        <!-- CH1: the fork -->
+        <g class="b" id="f_fork">
+          <text x="120" y="80" class="flawtxt" font-size="15">PART 1 · THE WHOLE SYSTEM NARROWS TO ONE FORK</text>
+          <path class="ink" d="M140 200 L620 300" id="f_in1"/><text x="140" y="188" font-size="12">ALERTS</text>
+          <path class="ink" d="M140 300 L620 310" id="f_in2"/><text x="140" y="288" font-size="12">PLANS · TRAINING</text>
+          <path class="ink" d="M140 400 L620 320" id="f_in3"/><text x="140" y="430" font-size="12">REFUGES · ROADS</text>
+          <circle cx="660" cy="310" r="14" class="ink" id="f_node"/>
+          <!-- the person -->
+          <g id="f_person"><circle cx="660" cy="252" r="10" class="ink"/><line x1="660" y1="262" x2="660" y2="288" class="ink"/></g>
+          <text x="700" y="250" font-size="12" id="f_perslab">NO TRAINING · SMOKE · MINUTES OF INFORMATION</text>
+          <path class="amber b" id="f_run" d="M674 300 L1050 210" marker-end="url(#ah3)"/>
+          <text x="1066" y="206" class="flawtxt strong b" font-size="16" id="f_runlab">RUN — INSTINCT (A MILLION YEARS OLD)</text>
+          <path class="blue b" id="f_stay" d="M674 322 L1050 420" marker-end="url(#ah3b)"/>
+          <text x="1066" y="428" class="fact strong b" font-size="16" id="f_staylab">STAY — INSTRUCTION (A STRANGER'S VOICE)</text>
+          <g class="b" id="f_odds">
+            <rect x="180" y="500" width="1120" height="110" class="ink" stroke-width="1.5"/>
+            <text x="210" y="536" class="strong" font-size="14">WHAT FIRE SCIENCE KNOWS — AND THE PERSON AT THE FORK CANNOT SEE:</text>
+            <text x="210" y="564" font-size="13">LATE ESCAPE IS OFTEN THE DEADLIEST OPTION · THE OPEN ROAD IS WHERE FIRE CATCHES PEOPLE · A RIVERBED IS A CHANNEL LINED WITH FUEL</text>
+            <text x="210" y="590" class="flawtxt" font-size="13" id="f_oddsl2">THE KNOWLEDGE LIVES IN RESEARCH PAPERS. THE INSTINCT LIVES IN YOUR BODY. IN THE MOMENT, INSTINCT WINS.</text>
+          </g>
+        </g>
+        <!-- CH2: trust -->
+        <g class="b" id="f_trust">
+          <text x="120" y="80" class="flawtxt" font-size="15">PART 2 · "STAY" ONLY WORKS WITH TRUST ATTACHED — BUILT YEARS EARLIER, OR NEVER</text>
+          <text x="180" y="180" class="strong" font-size="15">AUSTRALIAN HOUSEHOLD — REHEARSES A FIRE PLAN EVERY SEASON</text>
+          <rect x="180" y="205" width="900" height="26" fill="none" stroke="var(--grid)"/>
+          <rect x="180" y="205" width="0" height="26" fill="var(--alt)" id="f_bar1"/>
+          <text x="1100" y="224" class="alttxt" font-size="13" id="f_bar1lab">YEARS OF DEPOSITS</text>
+          <text x="180" y="330" class="strong" font-size="15">BRITISH RETIREE IN A SPANISH VALLEY — HAS REHEARSED NOTHING</text>
+          <rect x="180" y="355" width="900" height="26" fill="none" stroke="var(--grid)"/>
+          <rect x="180" y="355" width="6" height="26" fill="var(--flaw)" id="f_bar2"/>
+          <text x="1100" y="374" class="flawtxt" font-size="13" id="f_bar2lab">ZERO</text>
+          <text x="180" y="500" class="big b" font-size="22" id="f_trustl1">TO THEM, "STAY WHERE YOU ARE" IS NOT WISDOM.</text>
+          <text x="180" y="545" class="big flawtxt b" font-size="22" id="f_trustl2">IT IS A STRANGER'S VOICE, ASKING THEM TO STAND STILL WHILE THE HORIZON BURNS.</text>
+        </g>
+        <!-- CH3: delivery -->
+        <g class="b" id="f_del">
+          <text x="120" y="80" class="flawtxt" font-size="15">PART 3 · THE DELIVERY — A DECISION, NOT AN OVERSIGHT</text>
+          <!-- tower -->
+          <g id="f_tower">
+            <path class="ink" d="M300 400 L330 180 L360 400 M310 330 L350 330 M305 365 L355 365"/>
+            <path class="blue b" id="f_arc1" d="M360 210 q120 -40 240 -10" marker-end="url(#ah3b)"/>
+            <path class="blue b" id="f_arc2" d="M360 250 q120 60 240 90" marker-end="url(#ah3b)"/>
+            <g class="b" id="f_msg1"><rect x="620" y="160" width="240" height="54" class="nodebox"/><text x="640" y="193" class="fact" font-size="13">VALLEY A: "EVACUATE"</text></g>
+            <g class="b" id="f_msg2"><rect x="620" y="320" width="240" height="54" class="nodebox"/><text x="640" y="353" class="fact" font-size="13">VALLEY B: "SHELTER"</text></g>
+            <text x="240" y="446" font-size="12.5" class="b" id="f_towerlab">CELL BROADCAST: EVERY PHONE NEAR A TOWER · NO APP · TOWER-BY-TOWER TARGETING</text>
+          </g>
+          <g class="b" id="f_silent">
+            <line x1="250" y1="150" x2="410" y2="430" class="amber" stroke-width="3"/>
+            <text x="920" y="180" class="strong" font-size="14.5">THAT NIGHT: NOTHING WAS SENT.</text>
+            <text x="920" y="210" font-size="12.5">OFFICIALS: DIFFERENT AREAS NEEDED DIFFERENT</text>
+            <text x="920" y="230" font-size="12.5">INSTRUCTIONS — ONE MESSAGE MIGHT CONFUSE.</text>
+            <text x="920" y="262" class="flawtxt" font-size="13" id="f_yet">YET TARGETING IS EXACTLY WHAT IT IS BUILT FOR.</text>
+          </g>
+          <g class="b" id="f_door">
+            <g id="f_houses"></g>
+            <text x="240" y="600" font-size="12.5" class="b" id="f_doorlab">INSTEAD: MAYORS AND POLICE, DOOR TO DOOR — IN SPANISH</text>
+            <g class="b" id="f_gap">
+              <text x="1130" y="480" class="flawtxt strong" font-size="15">…ES → EN? NL?</text>
+              <text x="1130" y="510" class="flawtxt" font-size="13.5">THE WARNING BREAKS</text>
+              <text x="1130" y="536" class="flawtxt" font-size="13.5">AT THE LANGUAGE GAP</text>
+            </g>
+          </g>
+        </g>
+        <!-- CH4: summary -->
+        <g class="b" id="f_sum">
+          <text x="740" y="200" text-anchor="middle" class="big" font-size="26" id="f_sum1">NO VILLAIN — EVERY LINK MADE A DEFENSIBLE CHOICE.</text>
+          <text x="740" y="290" text-anchor="middle" class="strong b" font-size="18" id="f_sum2">BUT ADD IT UP: AN ENTIRE EMERGENCY SYSTEM, NARROWING TO ONE FORK —</text>
+          <text x="740" y="345" text-anchor="middle" class="big flawtxt b" font-size="21" id="f_sum3">RUN OR STAY — IN THE HANDS OF THE LEAST PREPARED PERSON,</text>
+          <text x="740" y="400" text-anchor="middle" class="big flawtxt b" font-size="21" id="f_sum4">AT THE WORST POSSIBLE MINUTE, IN A LANGUAGE THEY MAY NOT SPEAK.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — the fork, the missing trust, and the alert that stayed silent</div>
+    </div>
+    <div class="prose">
+      <p>The question worth asking is not why people disobey — it is why surviving a wildfire comes down to this choice at all. Look at what the choice demands: no training, smoke in the air, a few minutes of information, and a million years of instinct screaming <em>run</em>. Fire science knows the real odds — a late escape is often the deadliest option, the open road is where fire catches people, a dry riverbed is a channel lined with fuel, and sheltering in a solid building while the front passes is very often survivable. But that knowledge lives in research papers; the instinct lives in your body. In the moment, instinct wins.</p>
+      <p>For "stay" to beat instinct it must arrive with trust attached — and trust is built years earlier, or never. And then the delivery: Spain has had cell-broadcast alerts since 2023, yet that night the system stayed silent — a decision, not an oversight. Officials said different areas needed different instructions and one message might confuse; yet zone-by-zone targeting is exactly what the technology is built for. Instead the warnings went door to door, in Spanish, through a countryside that speaks English and Flemish. No villain — but the whole design narrows to one fork, held by the least prepared hands, at the worst minute.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF ================= -->
+<section class="ep" id="s4" data-duration="167.4">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Move the decision</div>
+    <h2>Three designs that move the choice.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <defs>
+          <marker id="ah4" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--alt)"/></marker>
+        </defs>
+        <!-- FIX A: TIME -->
+        <g class="b" id="a_time">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX A · AUSTRALIA — MOVE THE DECISION IN TIME</text>
+          <line x1="180" y1="240" x2="1300" y2="240" stroke="var(--grid)" stroke-width="2"/>
+          <circle cx="1240" cy="240" r="9" fill="var(--flaw)"/><text x="1150" y="212" class="flawtxt" font-size="13">FIRE DAY</text>
+          <circle cx="260" cy="240" r="9" fill="var(--alt)"/><text x="200" y="212" class="alttxt" font-size="13">DECISION DAY — A WEEK BEFORE</text>
+          <path class="green b" id="r_time" d="M1240 262 Q750 360 272 262" marker-end="url(#ah4)"/>
+          <g class="b" id="a_plan"><rect x="360" y="300" width="330" height="86" class="nodebox" stroke="var(--alt)"/>
+            <text x="384" y="334" class="strong alttxt" font-size="13.5">A WRITTEN HOUSEHOLD FIRE PLAN</text>
+            <text x="384" y="360" class="alttxt" font-size="12.5">leave early — or stay and defend, decided in calm</text></g>
+          <g class="b" id="a_rating"><rect x="760" y="300" width="420" height="86" class="nodebox" stroke="var(--alt)"/>
+            <text x="784" y="334" class="strong alttxt" font-size="13.5">TOP FIRE-DANGER RATING = "DO NOT BE THERE"</text>
+            <text x="784" y="360" class="alttxt" font-size="12.5">you leave before there is any smoke to see</text></g>
+          <text x="120" y="500" class="b" font-size="13" id="a_time09">AFTER 2009 KILLED 173, THE RULES WERE REWRITTEN: LEAVING EARLY IS NOW THE DEFAULT.</text>
+          <text x="120" y="560" class="flawtxt b" id="a_timecost" font-size="14">TRADE-OFF: YEARS OF PUBLIC EDUCATION · A STATE THAT SAYS "WE CANNOT PROTECT YOUR HOUSE, ONLY YOUR LIFE" · STAY-AND-DEFEND MISJUDGED = DEADLY</text>
+        </g>
+        <!-- FIX B: SPACE -->
+        <g class="b" id="a_space">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX B · MOVE THE DECISION IN SPACE — A THIRD PLACE TO GO</text>
+          <g id="a_housered"><rect x="220" y="200" width="90" height="70" class="ink"/><path class="ink" d="M212 200 L265 156 L318 200"/><text x="200" y="304" class="flawtxt" font-size="12">THE HOUSE — NOT TRUSTED</text></g>
+          <path class="amber b" id="a_roadx" d="M360 420 L1140 420"/><text x="620" y="452" class="flawtxt b" font-size="12" id="a_roadlab">THE ROAD — WHERE FIRE CATCHES PEOPLE</text>
+          <path class="green b" id="r_space" d="M310 240 Q620 150 900 226" marker-end="url(#ah4)"/>
+          <g class="b" id="a_refuge"><rect x="900" y="200" width="345" height="90" class="nodebox" stroke="var(--alt)"/>
+            <text x="924" y="234" class="strong alttxt" font-size="13.5">LAST-RESORT REFUGE — 300 M AWAY</text>
+            <text x="924" y="260" class="alttxt" font-size="12.5">mapped · signposted · known in advance</text></g>
+          <text x="120" y="520" class="b" font-size="13" id="a_spacenote">VICTORIA'S "NEIGHBOURHOOD SAFER PLACES" · JAPAN'S TSUNAMI TOWERS — SAFETY CLOSER THAN THE DANGER. WORKS FOR TOURISTS, THE ELDERLY, PEOPLE WITH NO PLAN.</text>
+          <text x="120" y="572" class="flawtxt b" id="a_spacecost" font-size="14">TRADE-OFF: BUILD AND MAINTAIN FOREVER · CAN TEMPT PEOPLE TO DELAY · TOO SMALL OR TOO FAR = PART OF THE DISASTER</text>
+        </g>
+        <!-- FIX C: GROUND -->
+        <g class="b" id="a_ground">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX C · CHANGE THE GROUND ITSELF</text>
+          <g id="a_house2"><rect x="640" y="240" width="110" height="84" class="ink"/><path class="ink" d="M630 240 L695 186 L760 240"/></g>
+          <circle cx="695" cy="300" r="150" class="green b" id="r_ground"/>
+          <text x="695" y="490" text-anchor="middle" class="alttxt b" font-size="13" id="a_ring">FRANCE: 50 M OF BRUSH CLEARED BY LAW, WITH FINES</text>
+          <text x="695" y="520" text-anchor="middle" class="alttxt b" font-size="13" id="a_hard">CALIFORNIA: EMBER-RESISTANT VENTS · ROOFS THAT DON'T IGNITE</text>
+          <g class="b" id="a_both">
+            <text x="240" y="140" class="alttxt strong" font-size="14">STAYING SURVIVES — THE HOUSE RESISTS</text>
+            <text x="900" y="140" class="alttxt strong" font-size="14">FLEEING SURVIVES — ROADS NOT LINED WITH FUEL</text>
+          </g>
+          <text x="120" y="580" class="flawtxt b" id="a_groundcost" font-size="14">TRADE-OFF: POLICING MILLIONS OF PRIVATE GARDENS · A YEARLY COST — AND IN RENTAL COUNTRY, WHOSE JOB IS THE CLEARING?</text>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="a_syn">
+          <text x="740" y="200" text-anchor="middle" class="big" font-size="27" id="a_s0">TIME · SPACE · GROUND</text>
+          <text x="740" y="280" text-anchor="middle" class="strong b" font-size="18" id="a_s1">THREE DESIGNS, THREE PRICE TAGS —</text>
+          <text x="740" y="340" text-anchor="middle" class="b" font-size="16" id="a_s2">AND NOT ONE OF THEM ASKS PEOPLE TO BE BRAVER.</text>
+          <text x="740" y="420" text-anchor="middle" class="alttxt big b" font-size="19" id="a_s3">EACH ONE MOVES THE DECISION AWAY FROM THE BURNING MINUTE.</text>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 4 — move the decision in time, in space, or into the ground · dashed green = revision markup</div>
+    </div>
+    <div class="prose">
+      <p>None of this has to stay the way it is. Australia moved the decision in time: every household in a fire zone decides in advance, in writing — leave early, or stay and defend a prepared house; after 2009 killed 173 people the rules were rewritten, leaving early became the default, and the top fire-danger rating simply means "do not be there." The cost: years of education, a state willing to say it cannot protect your house, and a stay-and-defend option that killed when misjudged. The second design moves the decision in space: Victoria's designated last-resort refuges — mapped and known in advance, like Japan's tsunami towers — turn an impossible instruction into a three-hundred-meter walk. The cost: build and maintain forever, the temptation to delay, and unforgiving placement math. The third changes the ground: France legally requires fifty meters of cleared brush around homes; California requires ember-resistant vents and roofs. Both choices become survivable — at the price of policing millions of gardens, every single year.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 CLOSE ================= -->
+<section class="ep" id="s5" data-duration="58.3">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Where will the decision be waiting?</div>
+    <h2>The systems that save lives remove the moment.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <!-- the car returns -->
+        <g class="b" id="c_car">
+          <path class="ink" d="M170 190 L192 190 Q206 156 240 152 L360 152 Q394 156 414 180 L462 186 Q474 190 474 200 L474 212 L170 212 Z" stroke-width="1.6"/>
+          <circle cx="240" cy="214" r="17" class="ink" stroke-width="1.6"/><circle cx="404" cy="214" r="17" class="ink" stroke-width="1.6"/>
+          <circle cx="352" cy="176" r="7" class="amber" stroke-width="1.6"/>
+        </g>
+        <text x="530" y="170" class="strong b" font-size="15" id="c_l1">NOT A WARNING ABOUT DISOBEDIENCE —</text>
+        <text x="530" y="200" class="flawtxt strong b" font-size="15" id="c_l2">A MEASUREMENT OF HOW MUCH WEIGHT THE DESIGN PUTS ON ITS MOST FRAGILE PART.</text>
+        <!-- upstream slider -->
+        <g class="b" id="c_up">
+          <line x1="170" y1="330" x2="1310" y2="330" stroke="var(--grid)" stroke-width="2"/>
+          <circle cx="1240" cy="330" r="9" fill="var(--flaw)"/><text x="1310" y="302" text-anchor="end" class="flawtxt" font-size="12.5">THE LAST TEN MINUTES — INSTINCT ALWAYS WINS</text>
+          <g class="b" id="c_st1"><circle cx="330" cy="330" r="8" fill="var(--alt)"/><text x="240" y="372" class="alttxt" font-size="12">A KITCHEN-TABLE PLAN</text></g>
+          <g class="b" id="c_st2"><circle cx="620" cy="330" r="8" fill="var(--alt)"/><text x="540" y="372" class="alttxt" font-size="12">A 300-METER WALK</text></g>
+          <g class="b" id="c_st3"><circle cx="900" cy="330" r="8" fill="var(--alt)"/><text x="830" y="372" class="alttxt" font-size="12">CLEARED GROUND</text></g>
+          <path class="green b" id="c_arrow" d="M1226 352 Q740 430 344 352" marker-end="url(#ah4c)"/>
+        </g>
+        <defs><marker id="ah4c" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--alt)"/></marker></defs>
+        <text x="740" y="452" text-anchor="middle" class="big b" font-size="24" id="c_q">THE NEXT FIRE IS CERTAIN. WHERE WILL THE DECISION BE WAITING —</text>
+        <text x="740" y="492" text-anchor="middle" class="big flawtxt b" font-size="21" id="c_q2">IN THE LAST TEN MINUTES, OR FAR UPSTREAM?</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Come back to that car with the steering wheel on the right. It is easy to read those four people as a warning about disobedience; it is more accurate to read them as a measurement of the system itself — of how much weight the current design places on its most fragile component: a frightened human being, choosing between instinct and a stranger's instruction, with the horizon on fire. The systems that actually save lives do not produce calmer people. They quietly remove that moment: the decision gets made a week earlier at a kitchen table, or becomes a three-hundred-meter walk, or the ground itself is changed so that whichever way you choose, you can survive it. The next fire is already certain. The only open question is where the decision will be waiting — in the last ten minutes, where instinct always wins, or far upstream, where survival never has to be a race at all.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <path d="M120 560 L310 320 M310 320 L160 120 M310 320 L520 150" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <circle cx="310" cy="320" r="16" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <text x="90" y="90" style="font-family:var(--font-mono);font-size:30px;fill:var(--flaw)">RUN?</text>
+    <text x="470" y="110" style="font-family:var(--font-mono);font-size:30px;fill:var(--fact)">STAY?</text>
+    <circle cx="310" cy="258" r="18" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <line x1="310" y1="276" x2="310" y2="306" stroke="var(--text)" stroke-width="5"/>
+  </svg>
+  <div class="ttxt">Run — or<br><em>stay?</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <rect x="220" y="120" width="180" height="330" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <line x1="262" y1="400" x2="358" y2="400" stroke="var(--text)" stroke-width="5"/>
+    <line x1="180" y1="100" x2="440" y2="470" stroke="var(--flaw)" stroke-width="8"/>
+  </svg>
+  <div class="ttxt">No alert<br><em>was sent</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);
+  if(p.classList.contains('green'))
+    tl.set(p,{strokeDasharray:'7 6',strokeDashoffset:0},pos+dur);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+
+/* ---------- dynamic bits ---------- */
+// S0: four small figures walking to the car
+(()=>{const g=$('h_figs');let s='';for(let i=0;i<4;i++){const x=180+i*44;
+  s+=`<g><circle cx="${x}" cy="486" r="9" fill="none" stroke="var(--text)" stroke-width="2"/>
+  <line x1="${x}" y1="495" x2="${x}" y2="522" stroke="var(--text)" stroke-width="2"/></g>`;}
+  g.innerHTML=s;})();
+// S1: 4 car figures + 8 foot figures
+(()=>{const cg=$('e_carfigs');let s='';for(let i=0;i<4;i++){const x=940+i*36;
+  s+=`<circle cx="${x}" cy="286" r="8" fill="none" stroke="var(--flaw)" stroke-width="2"/>`;}
+  cg.innerHTML=s;
+  const fg=$('e_footfigs');s='';for(let i=0;i<8;i++){const x=940+i*36;
+  s+=`<g><circle cx="${x}" cy="352" r="8" fill="none" stroke="var(--text)" stroke-width="2"/>
+  <line x1="${x}" y1="360" x2="${x}" y2="376" stroke="var(--text)" stroke-width="2"/></g>`;}
+  fg.innerHTML=s;})();
+// S2: four pattern cards
+(()=>{const g=$('pv_cards');const data=[
+  ['AUSTRALIA · 2009','173','caught fleeing late'],
+  ['GREECE · 2018','104','cars in dead-end streets'],
+  ['CALIFORNIA · 2018','85','one jammed road out'],
+  ['HAWAII · 2023','102','many in their cars']];
+  let s='';data.forEach((d,i)=>{const x=130+i*330;
+  s+=`<g class="b pvcard" data-i="${i}">
+    <rect x="${x}" y="90" width="290" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="1.6"/>
+    <text x="${x+22}" y="126" font-size="12.5">${d[0]}</text>
+    <text x="${x+22}" y="192" class="big flawtxt" font-size="46">${d[1]}</text>
+    <text x="${x+22}" y="222" font-size="11.5">DEAD — ${d[2]}</text>
+    <g class="runicon" opacity="0">
+      <circle cx="${x+240}" cy="140" r="9" fill="none" stroke="var(--flaw)" stroke-width="2.2"/>
+      <path d="M${x+240} 149 l-8 20 M${x+240} 149 l9 18 M${x+232} 160 l-10 -6 M${x+248} 158 l10 -4" stroke="var(--flaw)" stroke-width="2.2" fill="none"/>
+    </g></g>`;});
+  g.innerHTML=s;})();
+// S3: door-to-door house chain
+(()=>{const g=$('f_houses');let s='';for(let i=0;i<5;i++){const x=260+i*180;
+  const broken=i>=3;
+  s+=`<g class="dhouse" data-i="${i}" opacity="0">
+    <rect x="${x}" y="500" width="60" height="46" fill="none" stroke="var(--text)" stroke-width="2"/>
+    <path d="M${x-6} 500 L${x+30} 474 L${x+66} 500" fill="none" stroke="var(--text)" stroke-width="2"/>
+    ${i<4?`<line class="dlink" x1="${x+70}" y1="524" x2="${x+170}" y2="524" stroke="${broken?'var(--flaw)':'var(--text)'}" stroke-width="2" ${broken?'stroke-dasharray="4 6"':''}/>`:''}
+  </g>`;}
+  g.innerHTML=s;})();
+
+/* ---------- scene timelines ---------- */
+function sc0(D){const tl=gsap.timeline();
+  pop(tl,'h_car',0.5,.7);
+  tl.to($('h_wheel'),{opacity:1,duration:.3},1.6);
+  say(tl,'h_ann',2.2);
+  say(tl,'h_fire',5.5);
+  say(tl,'h_four',8.0);
+  draw(tl,'h_arrow',1.2,10.5);
+  pop(tl,'h_order',13.5);shake(tl,'h_order',14.0,6,6);
+  say(tl,'h_l1',16.5);
+  tl.to($('h_l1'),{opacity:.55,duration:1.1,repeat:2,yoyo:true},18.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},22.0);
+  if(isAuto)tl.to({},{duration:4.0},22.6);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},26.0);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  pop(tl,'e_map',0.5);
+  tl.to($('e_ring'),{attr:{r:34},opacity:0,duration:1.2,repeat:2},1.2);
+  tl.set($('e_stats'),{opacity:1},3.5);
+  count(tl,'e_n1',50,1.0,3.5);count(tl,'e_n2',100,1.2,4.6);count(tl,'e_n3',70,1.2,6.0);
+  count(tl,'e_n4',13,1.6,9.0);tl.set($('e_vict'),{opacity:1},9.0);
+  say(tl,'e_flags',12.0);
+  say(tl,'e_how',14.5);
+  tl.set($('e_river'),{opacity:1},18.0);draw(tl,'e_riverpath',1.6,18.0);
+  say(tl,'e_disp',21.5);say(tl,'e_disp2',24.0);
+  pop(tl,'e_phone',27.0);draw(tl,'e_slash',.5,28.0);shake(tl,'e_phone',28.6,6,6);
+  tl.to($('e_phonelab'),{opacity:.55,duration:1.1,repeat:2,yoyo:true},29.5);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  const cards=[...document.querySelectorAll('.pvcard')];
+  cards.forEach((c,i)=>{
+    tl.fromTo(c,{opacity:0,y:16},{opacity:1,y:0,duration:.5,ease:'power2.out'},0.5+i*2.2);});
+  cards.forEach((c,i)=>{
+    const ic=c.querySelector('.runicon');
+    tl.fromTo(ic,{opacity:0,scale:.5,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.3,ease:'back.out(2)'},10.0+i*.5);});
+  say(tl,'pv_sig',12.5);say(tl,'pv_sig2',14.2);
+  say(tl,'pv_off',17.0);
+  tl.to($('pv_off'),{opacity:.6,duration:1.2,repeat:2,yoyo:true},19.0);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();
+  const show=(el,t)=>tl.fromTo($(el),{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to($(el),{opacity:0,duration:.5},t);
+  // PART 1 — the fork (0–46)
+  show('f_fork',0.5);
+  draw(tl,'f_run',1.0,5.0);say(tl,'f_runlab',6.2);
+  draw(tl,'f_stay',1.0,8.0);say(tl,'f_staylab',9.2);
+  say(tl,'f_odds',13.0);
+  tl.to($('f_oddsl2'),{opacity:.55,duration:1.1,repeat:2,yoyo:true},17.0);
+  hide('f_fork',44.0);
+  // PART 2 — trust (46–78)
+  show('f_trust',46.0);
+  tl.to($('f_bar1'),{attr:{width:900},duration:2.0,ease:'power1.inOut'},48.0);
+  say(tl,'f_bar1lab',50.0);
+  shake(tl,'f_bar2',53.0,5,6);say(tl,'f_bar2lab',53.5);
+  say(tl,'f_trustl1',56.0);say(tl,'f_trustl2',58.5);
+  hide('f_trust',76.0);
+  // PART 3 — delivery (78–128)
+  show('f_del',78.0);
+  draw(tl,'f_arc1',.9,80.0);pop(tl,'f_msg1',81.0);
+  draw(tl,'f_arc2',.9,82.0);pop(tl,'f_msg2',83.0);
+  say(tl,'f_towerlab',85.0);
+  tl.fromTo($('f_silent'),{opacity:0},{opacity:1,duration:.5},89.0);
+  tl.to([$('f_arc1'),$('f_arc2'),$('f_msg1'),$('f_msg2')],{opacity:.15,duration:.6},89.2);
+  say(tl,'f_yet',95.0);
+  tl.set($('f_door'),{opacity:1},99.0);
+  [...document.querySelectorAll('.dhouse')].forEach((h,i)=>{
+    tl.fromTo(h,{opacity:0},{opacity:1,duration:.35},99.5+i*.8);});
+  say(tl,'f_doorlab',104.0);say(tl,'f_gap',106.5);
+  shake(tl,'f_gap',107.5,5,6);
+  hide('f_del',124.0);
+  // PART 4 — summary (128–end)
+  show('f_sum',126.0);
+  say(tl,'f_sum2',129.0);say(tl,'f_sum3',131.5);say(tl,'f_sum4',134.0);
+  tl.to([$('f_sum3'),$('f_sum4')],{opacity:.65,duration:1.3,repeat:2,yoyo:true},137.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  const show=(el,t)=>tl.fromTo($(el),{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to($(el),{opacity:0,duration:.5},t);
+  // FIX A — TIME (0–56)
+  show('a_time',0.5);
+  draw(tl,'r_time',1.8,3.0);
+  pop(tl,'a_plan',6.0);pop(tl,'a_rating',9.0);
+  say(tl,'a_time09',13.0);
+  say(tl,'a_timecost',18.0);
+  hide('a_time',54.0);
+  // FIX B — SPACE (56–108)
+  show('a_space',56.0);
+  draw(tl,'a_roadx',1.0,58.0);say(tl,'a_roadlab',59.0);
+  draw(tl,'r_space',1.6,61.0);pop(tl,'a_refuge',63.0);
+  say(tl,'a_spacenote',67.0);
+  say(tl,'a_spacecost',73.0);
+  hide('a_space',106.0);
+  // FIX C — GROUND (108–158)
+  show('a_ground',108.0);
+  draw(tl,'r_ground',2.0,110.0);
+  say(tl,'a_ring',113.0);say(tl,'a_hard',116.0);
+  say(tl,'a_both',120.0);
+  say(tl,'a_groundcost',126.0);
+  hide('a_ground',156.0);
+  // SYNTHESIS
+  show('a_syn',158.0);
+  say(tl,'a_s1',160.5);say(tl,'a_s2',163.0);say(tl,'a_s3',166.0);
+  tl.to($('a_s3'),{opacity:.6,duration:1.2,repeat:2,yoyo:true},169.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  pop(tl,'c_car',0.5,.7);
+  say(tl,'c_l1',3.0);say(tl,'c_l2',5.0);
+  tl.set($('c_up'),{opacity:1},9.0);
+  draw(tl,'c_arrow',1.8,10.0);
+  say(tl,'c_st1',12.0);say(tl,'c_st2',13.2);say(tl,'c_st3',14.4);
+  say(tl,'c_q',17.0);say(tl,'c_q2',19.0);
+  tl.to($('c_q2'),{opacity:.6,duration:1.2,repeat:4,yoyo:true},21.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode) */
+function setRedline(on){['r_time','r_space','r_ground'].forEach(id=>{const e=$(id);if(e)e.style.opacity=on?1:0;});
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.2);
+    if(s.id==='s3'||s.id==='s4')tl.timeScale(3.2);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
