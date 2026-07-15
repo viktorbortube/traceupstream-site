@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Gigawatts That Don't Exist — Why Your Power Bill Is Building Data Centers That Aren't Coming | Trace Upstream</title>
+<meta name="description" content="One Houston utility's data-center requests went from 1 GW to 25 GW in a year — but most of that demand doesn't exist. New York just froze new data centers. A blueprint of why asking for power is free, building it isn't, and who ends up paying — plus three designs: Ohio's deposit, Ireland's condition, and flexible load.">
+<link rel="canonical" href="https://traceupstream.com/episodes/009-data-center-phantom-load/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Gigawatts That Don't Exist">
+<meta property="og:description" content="An interactive blueprint: how free-to-file power requests inflate grid forecasts, why your bill pays for wires to buildings that never arrive, and three real redesigns.">
+<meta property="og:url" content="https://traceupstream.com/episodes/009-data-center-phantom-load/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#6F6C91; /* desaturated indigo-slate — server-hall accent */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text:not([font-size]){font-size:13px}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.topictxt{fill:var(--topic)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .ghost{stroke:var(--text-dim);fill:none;stroke-width:1.5;stroke-dasharray:5 5;opacity:.55}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim{border:1px solid var(--grid);background:var(--bg-raised);padding:18px 20px;margin-top:14px;
+  font-family:var(--font-mono);font-size:12.5px;color:var(--text-dim)}
+.sim label{display:block;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.sim input[type=range]{width:100%;accent-color:var(--flaw)}
+.sim .out{margin-top:12px;display:flex;gap:28px;flex-wrap:wrap}
+.sim .out div{font-family:var(--font-display);font-weight:700;font-size:22px;color:var(--text)}
+.sim .out span{display:block;font-family:var(--font-mono);font-weight:400;font-size:11px;color:var(--text-dim);
+  text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+.sim .preset{margin-top:12px;background:none;border:1px solid var(--grid);color:var(--text-dim);
+  font-family:inherit;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;padding:7px 12px;cursor:pointer}
+.sim .preset:hover{border-color:var(--text);color:var(--text)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:112px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .sim{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.009 — 2026-07-15</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:00</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="52.1">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.009</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <defs>
+          <marker id="ahA0" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+          <marker id="ahG0" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--text-dim)"/></marker>
+        </defs>
+        <!-- the counter -->
+        <text x="120" y="150" class="big flawtxt b" font-size="96" id="h_count">1</text>
+        <text x="122" y="192" class="b" id="h_countlab" font-size="15">GIGAWATTS OF DATA-CENTER REQUESTS — ONE HOUSTON UTILITY, TWELVE MONTHS</text>
+        <!-- Denmark anchor -->
+        <g class="b" id="h_dk">
+          <rect x="120" y="240" width="620" height="66" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
+          <text x="146" y="280" class="strong" font-size="15">25 GIGAWATTS ≈ ALL THE ELECTRICITY DENMARK USES</text>
+        </g>
+        <!-- one project, five ghosts -->
+        <g class="b" id="h_dc">
+          <rect x="150" y="410" width="150" height="110" class="ink"/>
+          <path class="ink" d="M172 434 h106 M172 464 h106 M172 494 h106" stroke-width="1.4"/>
+          <text x="150" y="552" class="strong" font-size="14">ONE PROJECT</text>
+        </g>
+        <g id="h_ghosts"></g>
+        <text x="700" y="576" class="b" id="h_ghostlab" font-size="14">…ASKING FIVE UTILITIES AT ONCE — BECAUSE ASKING IS ALMOST FREE</text>
+        <!-- the bill -->
+        <g class="b" id="h_bill">
+          <rect x="1180" y="230" width="220" height="150" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2"/>
+          <path class="amber" d="M1206 268 h168 M1206 300 h168" stroke-width="1.4"/>
+          <text x="1206" y="348" class="flawtxt strong" font-size="22" id="h_billn">+68%</text>
+          <text x="1180" y="404" class="flawtxt" font-size="13">YOUR BILL — ALREADY PAYING</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The gigawatts<br>that don't exist.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>In the space of twelve months, one electric utility in Houston watched its data-center requests grow from one gigawatt to twenty-five — roughly the entire electricity demand of Denmark, arriving in a single city's inbox in a single year.</p>
+      <p>But most of that demand does not exist. It is the same handful of projects, asking five different utilities at once — because asking is almost free, and whoever says yes fastest wins. The grid gets planned, built, and priced on those requests. So you are already paying, in your monthly bill, for wires to buildings that will never be built. And this month, one American state reached for the only lever it had: it stopped approving new data centers altogether.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="86.9">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · New York · July 14, 2026</div>
+    <h2>The first freeze in America.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg1">
+        <!-- order card -->
+        <g class="b" id="e_order">
+          <rect x="110" y="70" width="560" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/>
+          <text x="136" y="112" class="strong" font-size="16">EXECUTIVE ORDER · JULY 14, 2026</text>
+          <text x="136" y="146" font-size="14">FIRST STATEWIDE FREEZE ON NEW GIANT DATA CENTERS</text>
+          <text x="136" y="176" font-size="14">NO ENVIRONMENTAL PERMITS — UP TO ONE YEAR</text>
+          <text x="136" y="204" class="flawtxt" font-size="14">NOT A TAX. NOT A BAN. A PAUSE TO WRITE THE RULEBOOK.</text>
+        </g>
+        <!-- threshold -->
+        <g class="b" id="e_thresh">
+          <text x="740" y="118" class="big" font-size="54" id="e_mw">50</text>
+          <text x="742" y="150" font-size="14">MEGAWATTS — THE THRESHOLD</text>
+          <text x="742" y="182" class="topictxt" font-size="14">≈ THE ELECTRICITY OF A TOWN OF 40,000 PEOPLE</text>
+        </g>
+        <!-- the bill line -->
+        <g class="b" id="e_bill">
+          <text x="1370" y="118" text-anchor="end" class="big flawtxt" font-size="54" id="e_pct">+68%</text>
+          <text x="1370" y="150" text-anchor="end" font-size="14">WHAT NEW YORKERS PAY FOR POWER, SINCE 2019</text>
+        </g>
+        <!-- the quote from the order -->
+        <g class="b" id="e_quote">
+          <rect x="110" y="270" width="1260" height="150" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="140" y="312" class="strong" font-size="15">FROM THE ORDER ITSELF:</text>
+          <text x="140" y="352" class="flawtxt" font-size="19" id="e_q1">DATA CENTER DEMAND IS UNPREDICTABLE — THE EXPECTED ELECTRICITY</text>
+          <text x="140" y="384" class="flawtxt" font-size="19" id="e_q2">"DOES NOT ALWAYS FULLY MATERIALIZE."</text>
+        </g>
+        <text x="110" y="462" class="strong b" id="e_reframe" font-size="17">THE OFFICIAL REASON FOR STOPPING IS NOT THAT THE DATA CENTERS ARE COMING —</text>
+        <text x="110" y="494" class="big flawtxt b" id="e_reframe2" font-size="19">IT IS THAT THEY MIGHT NOT BE. AND WE ARE BUILDING FOR THEM ANYWAY.</text>
+        <!-- context row -->
+        <g class="b" id="e_ctx">
+          <text x="110" y="580" class="big" font-size="34" id="e_c1">14</text><text x="112" y="606" font-size="12.5">STATES WITH BILLS TO RESTRICT DATA CENTERS</text>
+          <text x="470" y="580" class="big" font-size="34" id="e_c2">300+</text><text x="472" y="606" font-size="12.5">DATA-CENTER BILLS FILED IN 30+ STATES, IN SIX WEEKS</text>
+        </g>
+        <g class="b" id="e_obj">
+          <rect x="960" y="530" width="410" height="86" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
+          <text x="984" y="562" font-size="12.5">THE INDUSTRY'S TRADE GROUP:</text>
+          <text x="984" y="590" class="strong" font-size="13.5">"THE INVESTMENT AND THE JOBS GO ELSEWHERE."</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — the order, the bill, and the sentence most coverage skipped · source: Office of the Governor of New York</div>
+    </div>
+    <div class="prose">
+      <p>On July 14th, the governor of New York signed the first order of its kind in the United States: for up to a year, no environmental permits for new giant data centers — any facility drawing 50 megawatts or more, about the electricity of a town of 40,000. Not a tax, not a permanent ban; a pause, bought so the state can write the rulebook it doesn't yet have. The reason is money, not machines: New Yorkers' electricity has climbed 68% since 2019.</p>
+      <p>But the order says something most coverage skipped, and it is really the whole story. Data center demand, it says, is unpredictable, and the electricity those centers ask for does not always show up — and when it doesn't, the utility has already built the wires, and the people who pay that utility are left holding the bill. The official reason for stopping isn't that the data centers are coming. It's that they might not be — and we're building for them anyway. Fourteen states have bills to restrict data centers; 300+ were filed across 30-plus states in six weeks. The industry's trade group calls the freeze a mistake: the jobs will simply go somewhere else.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="42.5">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pivot · Not "AI is eating the grid"</div>
+    <h2>The demand is real. The question is how much.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 500" id="svg2">
+        <text x="740" y="110" text-anchor="middle" class="big b" font-size="26" id="pv_easy">"AI IS EATING THE POWER GRID."</text>
+        <g class="b" id="pv_real">
+          <text x="740" y="200" text-anchor="middle" class="big fact" font-size="48" id="pv_bn">$650B</text>
+          <text x="740" y="234" text-anchor="middle" class="fact" font-size="14">COMMITTED BY THE FOUR BIGGEST CLOUD COMPANIES · 2025–26 — THAT SPENDING IS NOT IMAGINARY</text>
+        </g>
+        <!-- the gap -->
+        <g class="b" id="pv_gap">
+          <line x1="260" y1="330" x2="1220" y2="330" stroke="var(--grid)" stroke-width="2"/>
+          <circle cx="1120" cy="330" r="9" fill="var(--text-dim)"/><text x="1220" y="308" text-anchor="end" font-size="13">ASKED FOR</text>
+          <circle cx="420" cy="330" r="9" fill="var(--fact)"/><text x="260" y="308" class="fact" font-size="13">ACTUALLY BUILT</text>
+          <path class="amber" d="M420 356 L1120 356" stroke-dasharray="6 5"/>
+          <text x="770" y="396" text-anchor="middle" class="flawtxt strong" font-size="16" id="pv_gaplab">THIS GAP IS THE PART THAT LANDS ON YOUR ELECTRICITY BILL</text>
+        </g>
+        <text x="740" y="456" text-anchor="middle" class="big flawtxt b" font-size="21" id="pv_q">HOW MUCH IS REAL? NOBODY KNOWS — NOT THE UTILITIES, NOT THE REGULATORS, NOT THE STATE.</text>
+      </svg>
+      <div class="figcap">Fig. 2 — the real question is not whether, but how much</div>
+    </div>
+    <div class="prose">
+      <p>The easy version: AI is eating the power grid, and a state finally pushed back. That version is popular, and mostly wrong. The demand is real — the four biggest cloud companies have committed something like $650 billion to this build-out, and they have the money to do it. The question is stranger: <em>how much</em> is real? Nobody knows — not the utilities, not the regulators, not the state that just hit pause. And the difference between how much was asked for and how much actually gets built is the part that lands on your electricity bill.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM (panning world) ================= -->
+<section class="ep" id="s3" data-duration="165.5">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · Free to ask, expensive to build</div>
+    <h2>We planned as if asking were the same as building.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 660" id="svg3">
+        <defs>
+          <marker id="ah3" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+          <marker id="ah3b" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--fact)"/></marker>
+          <marker id="ah3g" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--text-dim)"/></marker>
+          <clipPath id="clip3"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+          <clipPath id="clipW1"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+          <clipPath id="clipW2"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+          <clipPath id="clipW3"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+        </defs>
+        <g clip-path="url(#clip3)"><g id="world3">
+
+          <!-- ===== STATION 1 (x 0..1480): the free option ===== -->
+          <g id="w1" clip-path="url(#clipW1)">
+            <text x="120" y="70" class="flawtxt" font-size="15">STATION 1 · WHAT IT COSTS TO ASK</text>
+            <g class="b" id="m_form">
+              <rect x="150" y="130" width="200" height="130" class="ink"/>
+              <path class="ink" d="M176 168 h148 M176 196 h148 M176 224 h96" stroke-width="1.4"/>
+              <text x="150" y="292" class="strong" font-size="14">A FORM + A MODEST FEE</text>
+            </g>
+            <path class="ghost b" id="m_buys" d="M360 195 L560 195" marker-end="url(#ahG0)"/>
+            <g class="b" id="m_land">
+              <rect x="580" y="130" width="330" height="130" fill="none" stroke="var(--topic)" stroke-width="2"/>
+              <text x="606" y="180" class="topictxt strong" font-size="15">WHAT IT BUYS:</text>
+              <text x="606" y="212" class="topictxt" font-size="14">LAND WITH POWER ATTACHED</text>
+              <text x="606" y="240" class="topictxt" font-size="14">— WORTH FAR MORE THAN LAND</text>
+            </g>
+            <!-- one project, five requests -->
+            <g class="b" id="m_proj">
+              <rect x="150" y="380" width="130" height="96" class="ink"/>
+              <path class="ink" d="M170 406 h90 M170 430 h90 M170 454 h90" stroke-width="1.3"/>
+              <text x="150" y="504" class="strong" font-size="13.5">ONE BUILDING</text>
+            </g>
+            <g id="m_fan5"></g>
+            <text x="120" y="612" class="strong b" id="m_nobody" font-size="15">NOBODY IS CHEATING — EVERY REQUEST IS LEGAL. FREE TO ASK, EXPENSIVE TO BUILD, PLANNED AS IF IDENTICAL.</text>
+            <g class="b" id="m_5x">
+              <text x="1440" y="470" text-anchor="end" class="big flawtxt" font-size="60" id="m_5xn">5–10×</text>
+              <text x="1440" y="504" text-anchor="end" class="flawtxt" font-size="13">MORE REQUESTS TO CONNECT THAN DATA CENTERS BEING BUILT</text>
+              <text x="1440" y="528" text-anchor="end" font-size="12">— ASTRID ATKINSON, CAMUS ENERGY (EX-GOOGLE), CONSERVATIVE ESTIMATE</text>
+            </g>
+          </g>
+
+          <!-- ===== STATION 2 (x 1480..2960): the money path ===== -->
+          <g id="w2" transform="translate(1480,0)" clip-path="url(#clipW2)">
+            <text x="120" y="70" class="flawtxt" font-size="15">STATION 2 · WHO PAYS FOR THE WIRE</text>
+            <g class="b" id="m_rule">
+              <rect x="120" y="120" width="420" height="90" class="nodebox"/>
+              <text x="146" y="156" class="strong fact" font-size="14">A UTILITY CANNOT LEGALLY GUESS.</text>
+              <text x="146" y="184" class="fact" font-size="13.5">IF A CUSTOMER ASKS FOR POWER — IT MUST PLAN TO SERVE IT.</text>
+            </g>
+            <!-- money path chain -->
+            <g class="b" id="m_p1"><rect x="120" y="270" width="270" height="80" fill="none" stroke="var(--text)" stroke-width="2"/>
+              <text x="146" y="306" class="strong" font-size="14">DEVELOPER ASKS</text><text x="146" y="332" font-size="13">cost to them: ≈ $0</text></g>
+            <path class="amber b" id="m_pa1" d="M390 310 L470 310" marker-end="url(#ah3)"/>
+            <g class="b" id="m_p2"><rect x="470" y="270" width="270" height="80" fill="none" stroke="var(--text)" stroke-width="2"/>
+              <text x="496" y="306" class="strong" font-size="14">UTILITY BUILDS</text><text x="496" y="332" font-size="13">substations · lines · generation</text></g>
+            <path class="amber b" id="m_pa2" d="M740 310 L820 310" marker-end="url(#ah3)"/>
+            <g class="b" id="m_p3"><rect x="820" y="270" width="360" height="80" fill="var(--flaw)" stroke="none"/>
+              <text x="846" y="306" font-size="14" style="fill:#F8F9FB;font-weight:600">ADDED TO EVERYONE'S BILL</text>
+              <text x="846" y="332" font-size="13" style="fill:#F8F9FB">the utility does not eat the cost</text></g>
+            <text x="120" y="404" class="flawtxt strong b" id="m_paylab" font-size="16">— WHETHER THE BUILDING EVER ARRIVES OR NOT.</text>
+            <!-- forecast = sum of requests -->
+            <g class="b" id="m_fc">
+              <rect x="120" y="450" width="740" height="110" class="ink"/>
+              <text x="146" y="488" class="strong" font-size="14.5">THE FORECAST = THE SUM OF THE REQUESTS</text>
+              <text x="146" y="518" class="flawtxt" font-size="13.5">…INCLUDING THE SAME PROJECT, COUNTED 4× BY 4 UTILITIES</text>
+              <text x="146" y="544" font-size="12.5">it decides substations · power lines · electricity bought years ahead</text>
+            </g>
+            <g class="b" id="m_prices">
+              <text x="920" y="490" class="big flawtxt" font-size="46" id="m_x8">×8</text>
+              <text x="922" y="520" class="flawtxt" font-size="12.5">COST OF GUARANTEEING FUTURE POWER</text>
+              <text x="922" y="542" class="flawtxt" font-size="12.5">13 EASTERN STATES — IN THREE YEARS</text>
+              <text x="1250" y="490" class="big flawtxt" font-size="46" id="m_va">+⅕</text>
+              <text x="1252" y="520" class="flawtxt" font-size="12.5">VIRGINIA ELECTRICITY</text>
+              <text x="1252" y="542" class="flawtxt" font-size="12.5">IN A SINGLE YEAR</text>
+            </g>
+          </g>
+
+          <!-- ===== STATION 3 (x 2960..4440): the quiet loop ===== -->
+          <g id="w3" transform="translate(2960,0)" clip-path="url(#clipW3)">
+            <text x="120" y="70" class="flawtxt" font-size="15">STATION 3 · THE QUIETEST LOOP</text>
+            <g class="b" id="m_mono">
+              <rect x="140" y="140" width="620" height="100" class="ink"/>
+              <text x="168" y="180" class="strong" font-size="15">YOUR UTILITY: A REGULATED MONOPOLY</text>
+              <text x="168" y="212" font-size="13.5">the rules guarantee it a profit on everything it builds</text>
+            </g>
+            <text x="140" y="320" class="strong b" id="m_not" font-size="15">NOT ON THE ELECTRICITY IT SELLS YOU —</text>
+            <text x="140" y="364" class="big flawtxt b" id="m_cc" font-size="24">ON THE CONCRETE AND THE COPPER.</text>
+            <!-- the loop, in clear space on the right -->
+            <path class="amber b" id="m_loop" d="M1110 200 a140 140 0 1 1 -2 0" marker-end="url(#ah3)"/>
+            <g class="b" id="m_looplab">
+              <text x="1110" y="322" text-anchor="middle" class="flawtxt strong" font-size="17">BUILD MORE</text>
+              <text x="1110" y="352" text-anchor="middle" class="flawtxt strong" font-size="19">↓</text>
+              <text x="1110" y="384" text-anchor="middle" class="flawtxt strong" font-size="17">EARN MORE</text>
+            </g>
+            <g class="b" id="m_severed">
+              <rect x="240" y="540" width="1000" height="90" fill="none" stroke="var(--flaw)" stroke-width="2"/>
+              <text x="268" y="578" class="strong" font-size="15">THE ONE EXPERT WHO COULD SAY "THIS FORECAST LOOKS INFLATED"</text>
+              <text x="268" y="608" class="flawtxt" font-size="15">IS THE ONE WHO PROFITS IF NOBODY ASKS. NOT A CONSPIRACY — THE BUSINESS MODEL WE DESIGNED.</text>
+            </g>
+          </g>
+
+        </g></g>
+      </svg>
+      <div class="figcap">Fig. 3 — a free option, a forecast built from it, and a builder paid to believe it · pan: ask → pay → profit</div>
+    </div>
+    <div class="prose">
+      <p>Filing a request to connect to the grid is cheap — a form and a modest fee. What it buys is enormous: land with power attached is worth far more than land. So the rational move isn't to ask one utility; it's to ask five, in three states, for the same building, then build wherever says yes first and cheapest. The other four requests sit in line, counted on the books as real electricity someone will need — often nobody ever takes them out. Nobody is cheating; every request is legal. The problem is we made asking free and building expensive, then planned as if they were the same thing. A former Google engineer who now runs a grid software company estimates, conservatively, five to ten times more requests to connect than data centers actually built.</p>
+      <p>A utility can't legally guess: if a customer requests power, it must plan to serve it. And when the utility spends that money, it doesn't eat the cost — it's allowed to add it to everyone's bill. So the developer asks for free, the utility builds, and you pay, whether the building arrives or not. The forecast — simply the sum of the requests, same project counted four times — decides substations, power lines, electricity bought years ahead. In the market supplying 13 eastern states, the cost of guaranteeing future power rose roughly eightfold in three years, driven substantially by these forecasts; Virginia's electricity got about a fifth more expensive in a year. And the quietest loop: your utility is a regulated monopoly guaranteed a profit on what it builds — not on the electricity it sells, on the concrete and the copper. The one organization expert enough to challenge the forecast is the one that profits if nobody asks. Not a conspiracy — the business model we designed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF ================= -->
+<section class="ep" id="s4" data-duration="199.1">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three answers, three price tags</div>
+    <h2>An off-switch is a blunt instrument.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <defs>
+          <marker id="ah4" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--alt)"/></marker>
+        </defs>
+        <!-- FIX A: PRICE THE ASK -->
+        <g class="b" id="a_price">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX A · MAKE ASKING COST SOMETHING</text>
+          <g class="b" id="a_ohio">
+            <rect x="120" y="140" width="600" height="180" class="nodebox" stroke="var(--alt)"/>
+            <text x="148" y="180" class="strong alttxt" font-size="15">OHIO · APPROVED THIS MONTH</text>
+            <text x="148" y="216" class="alttxt" font-size="14">PAY FOR ≥85% OF THE POWER YOU SIGN UP FOR — USED OR NOT</text>
+            <text x="148" y="246" class="alttxt" font-size="14">FOR TWELVE YEARS · PROOF YOU CAN AFFORD IT · FEE IF YOU WALK</text>
+            <text x="148" y="290" class="alttxt" font-size="14">VIRGINIA: LONGER CONTRACTS + A DEPOSIT OF TENS OF MILLIONS</text>
+          </g>
+          <g class="b" id="a_ga">
+            <rect x="760" y="140" width="600" height="180" fill="none" stroke="var(--grid)" stroke-width="1.5"/>
+            <text x="788" y="180" class="strong" font-size="15">GEORGIA · PAY FOR MORE THAN YOUR OWN DOOR</text>
+            <text x="788" y="216" font-size="14">ALSO THE POWER PLANTS AND LONG-DISTANCE LINES BEHIND IT</text>
+            <text x="788" y="260" class="big" font-size="34" id="a_24">24</text>
+            <text x="790" y="288" font-size="13">STATES NOW HAVE SOME VERSION OF THIS</text>
+          </g>
+          <!-- the punchline: requests halved -->
+          <g class="b" id="a_half">
+            <text x="120" y="420" class="strong" font-size="16">OHIO ASKED FOR MONEY UP FRONT. THE RESULT:</text>
+            <rect x="120" y="446" width="700" height="42" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
+            <rect x="120" y="446" width="700" height="42" fill="var(--text-dim)" id="a_bar1" opacity=".45"/>
+            <rect x="120" y="446" width="700" height="42" fill="var(--alt)" id="a_bar2"/>
+            <text x="840" y="474" class="alttxt strong" font-size="17" id="a_halflab">REQUESTS TO CONNECT FELL BY HALF</text>
+            <text x="120" y="524" class="flawtxt" font-size="15" id="a_halfnote">HALF OF THE "DEMAND" WAS NEVER DEMAND — IT WAS PEOPLE RESERVING A PLACE THEY HADN'T DECIDED TO TAKE.</text>
+          </g>
+          <text x="120" y="590" class="flawtxt b" id="a_pricecost" font-size="14">TRADE-OFF: ~$10M IN YEAR ONE FOR A LARGE PROJECT — GIANTS ABSORB IT, SMALL OPERATORS CANNOT · A 12-YEAR CONTRACT IS ITS OWN BET</text>
+        </g>
+        <!-- FIX B: IRELAND -->
+        <g class="b" id="a_ireland">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX B · IRELAND — THE EXPERIMENT THAT ALREADY RAN TO THE END</text>
+          <g class="b" id="a_ie22">
+            <text x="120" y="170" class="big flawtxt" font-size="60" id="a_22">22%</text>
+            <text x="122" y="204" class="flawtxt" font-size="14">OF IRELAND'S ENTIRE ELECTRICITY — MORE THAN EVERY HOME COMBINED</text>
+            <text x="122" y="230" font-size="13">…WITH ALMOST ALL OF THEM AROUND DUBLIN</text>
+          </g>
+          <!-- timeline -->
+          <g class="b" id="a_ietl">
+            <line x1="620" y1="180" x2="1340" y2="180" stroke="var(--grid)" stroke-width="2"/>
+            <circle cx="680" cy="180" r="9" fill="var(--flaw)"/><text x="620" y="152" class="flawtxt" font-size="13">2022 · DUBLIN STOPS CONNECTING</text>
+            <circle cx="1240" cy="180" r="9" fill="var(--alt)"/><text x="1340" y="152" text-anchor="end" class="alttxt" font-size="13">DEC 2025 · IRELAND ENDS THE PAUSE</text>
+            <text x="960" y="218" text-anchor="middle" font-size="13">FOUR YEARS</text>
+          </g>
+          <text x="120" y="300" class="big b" id="a_ienot" font-size="22">NOT BECAUSE THE PROBLEM WAS SOLVED — BECAUSE A PAUSE IS NOT A POLICY.</text>
+          <g class="b" id="a_iecond">
+            <rect x="120" y="350" width="1240" height="130" class="nodebox" stroke="var(--alt)"/>
+            <text x="150" y="392" class="strong alttxt" font-size="15">THE CONDITION THAT REPLACED IT:</text>
+            <text x="150" y="428" class="alttxt" font-size="14.5">BUILD ENOUGH OF YOUR OWN POWER — OR BATTERIES — TO COVER EVERYTHING YOU USE.</text>
+            <text x="150" y="460" class="alttxt" font-size="14.5">AND WHEN THE GRID IS SHORT, SEND SOME BACK.</text>
+          </g>
+          <text x="120" y="524" class="strong b" id="a_ieasset" font-size="16">THE DATA CENTER STOPS BEING SOMETHING THE GRID CARRIES — AND STARTS BEING SOMETHING IT CAN LEAN ON.</text>
+          <text x="120" y="590" class="flawtxt b" id="a_iecost" font-size="14">TRADE-OFF: EXPENSIVE · SLOWER · OFTEN GAS BURNED ON SITE TO MEET THE RULE · FOR FOUR YEARS THE BUILDINGS WENT TO OTHER COUNTRIES</text>
+        </g>
+        <!-- FIX C: BEND THE LOAD -->
+        <g class="b" id="a_bend">
+          <text x="120" y="80" class="alttxt" font-size="15">FIX C · QUESTION THE PREMISE — BEND THE DEMAND INSTEAD</text>
+          <!-- peak curve -->
+          <g class="b" id="a_peak">
+            <path class="ink" id="a_curve" d="M180 420 q160 -10 260 -30 q120 -24 200 -140 q60 -86 120 0 q90 130 210 152 q120 22 290 18"/>
+            <text x="740" y="200" text-anchor="middle" class="flawtxt" font-size="14">WE BUILD THE GRID FOR THIS — THE WORST HOUR OF THE WORST DAY</text>
+            <line x1="760" y1="238" x2="760" y2="420" class="amber" stroke-dasharray="5 5"/>
+          </g>
+          <g class="b" id="a_bendbox">
+            <rect x="120" y="470" width="600" height="120" class="nodebox" stroke="var(--alt)"/>
+            <text x="148" y="508" class="strong alttxt" font-size="14.5">CONNECT FAST — ON ONE CONDITION:</text>
+            <text x="148" y="540" class="alttxt" font-size="14">WHEN THE GRID IS UNDER STRAIN, YOU POWER DOWN.</text>
+            <text x="148" y="570" class="alttxt" font-size="13.5">training a model can wait an hour, or run in another country</text>
+          </g>
+          <g class="b" id="a_bendcost">
+            <rect x="760" y="470" width="600" height="120" fill="none" stroke="var(--flaw)" stroke-width="1.5"/>
+            <text x="788" y="508" class="strong" font-size="14.5">TRADE-OFF: ONLY SOME OF THE WORK CAN MOVE.</text>
+            <text x="788" y="540" class="flawtxt" font-size="14">WHEN YOU ASK AN AI A QUESTION, THAT ANSWER CAN'T WAIT AN HOUR.</text>
+            <text x="788" y="570" class="flawtxt" font-size="13.5">needs metering and trust to be more than a promise on paper</text>
+          </g>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="a_syn">
+          <text x="740" y="210" text-anchor="middle" class="big" font-size="27" id="a_s0">A DEPOSIT · A CONDITION · A BEND</text>
+          <text x="740" y="290" text-anchor="middle" class="strong b" font-size="18" id="a_s1">NONE OF THEM ASKS ANYONE TO WANT LESS ELECTRICITY.</text>
+          <text x="740" y="350" text-anchor="middle" class="b" font-size="17" id="a_s2">EACH ONE JUST MAKES THE ASKING MEAN SOMETHING.</text>
+          <text x="740" y="430" text-anchor="middle" class="alttxt big b" font-size="19" id="a_s3">AND EACH ONE HAS A PRICE SOMEBODY HAS TO PAY.</text>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="sim">
+        <label for="rate">Simulator · what share of requested megawatts actually gets built?</label>
+        <input type="range" id="rate" min="5" max="100" value="20" step="5">
+        <div class="out">
+          <div id="simRate">20%<span>requests that become real</span></div>
+          <div id="simWaste">80%<span>grid built for demand that never arrives</span></div>
+          <div id="simBill">+$8.64<span>rough monthly add-on to a $120 household bill*</span></div>
+        </div>
+        <button class="preset" id="simPreset">Preset: Ohio charged money up front → requests fell by half</button>
+        <div style="margin-top:10px;font-size:11px">* Illustrative only — a teaching model, not a forecast. It shows the shape of the cost, not any utility's real numbers.</div>
+      </div>
+      <div class="figcap">Fig. 4 — price the ask · condition the connection · bend the demand — dashed green = revision markup</div>
+    </div>
+    <div class="prose">
+      <p>Make asking cost something: Ohio's new deal makes large data centers pay for at least 85% of the power they sign up for — used or not — for twelve years, with proof they can afford it and a fee if they walk. Virginia adds longer contracts and a deposit of tens of millions; Georgia makes big customers pay for the power plants and long lines behind their own hookup. Twenty-four states now have a version of this. The result that tells you everything: when Ohio asked for money up front, requests to connect fell by half. Half the "demand" was never demand — it was people reserving a place they hadn't decided to take, because reserving cost nothing. The trade-off: ~$10M in year one for a large project, which giants absorb and small operators can't.</p>
+      <p>Ireland got here first: data centers grew to 22% of the country's entire electricity — more than every home combined — so in 2022 Dublin stopped connecting them. In December, after four years, Ireland ended the pause — not because the problem was solved, but because a pause is not a policy. The condition that replaced it: build enough of your own power or batteries to cover everything you use, and send some back when the grid is short. The data center stops being something the grid carries and becomes something it can lean on. The cost: expensive, slower, often gas burned on site — and for four years the buildings simply went to other countries. The third answer questions the premise: grids are built for the rare peak, but training a model can wait an hour or run elsewhere. Connect fast, power down when the system is strained. The limit: when you ask an AI a question, that answer can't wait.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 CLOSE ================= -->
+<section class="ep" id="s5" data-duration="66.9">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Who pays for the wire?</div>
+    <h2>It was never a measurement of the future.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <!-- counter returns, ghosts fade -->
+        <text x="120" y="130" class="big flawtxt b" font-size="72" id="c_count">25</text>
+        <g class="b" id="c_lab">
+          <text x="122" y="166" font-size="14">GIGAWATTS REQUESTED — ONE UTILITY, TWELVE MONTHS</text>
+          <text x="122" y="192" font-size="14">EVERY REQUEST REAL, FILED BY SOMEONE WHO MIGHT BUILD</text>
+        </g>
+        <g id="c_ghosts"></g>
+        <text x="120" y="250" class="strong b" id="c_l1" font-size="17">THE NUMBER WAS NEVER A MEASUREMENT OF THE FUTURE.</text>
+        <text x="120" y="292" class="big flawtxt b" id="c_l2" font-size="24">IT WAS A MEASUREMENT OF HOW CHEAP IT IS TO ASK.</text>
+        <!-- three answers -->
+        <g class="b" id="c_three">
+          <text x="200" y="380" class="alttxt" font-size="14">NEW YORK: A YEAR, BOUGHT TO FIND AN ANSWER</text>
+          <text x="640" y="380" class="alttxt" font-size="14">OHIO: AN ANSWER BOUGHT WITH A DEPOSIT</text>
+          <text x="1060" y="380" class="alttxt" font-size="14">IRELAND: FOUR YEARS SPENT — THEN A CONDITION</text>
+        </g>
+        <text x="740" y="450" text-anchor="middle" class="big b" font-size="25" id="c_q">WHO PAYS FOR THE WIRE —</text>
+        <text x="740" y="492" text-anchor="middle" class="big flawtxt b" font-size="22" id="c_q2">THE PERSON WHO ASKED FOR IT, OR THE PERSON WHO HAPPENED TO BE STANDING THERE?</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Come back to that utility in Houston, watching one gigawatt become twenty-five in a year. Nothing about that number was a lie — every request was real, filed by someone who genuinely might build. The number was just never a measurement of the future. It was a measurement of how cheap it is to ask. That is the whole flaw, and it's bigger than data centers: any time a system lets you claim something valuable for almost nothing, it will get flooded with claims — and if it plans as though every claim were a commitment, it will build for a world that doesn't arrive and send the bill to people who never asked for any of it. New York's pause isn't the answer, and the state has been honest that it isn't: it's a year, bought so they can find one. Ohio bought its answer with a deposit. Ireland bought four years, spent them, and came back with a condition. So the question underneath your power bill isn't whether the machines are coming. It's simpler, and older: who pays for the wire — the person who asked for it, or the person who happened to be standing there?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <rect x="80" y="230" width="150" height="180" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <path d="M105 270 h100 M105 310 h100 M105 350 h100" stroke="var(--text)" stroke-width="4"/>
+    <g stroke="var(--text-dim)" stroke-width="4" stroke-dasharray="8 8" fill="none" opacity=".6">
+      <rect x="300" y="120" width="110" height="130"/><rect x="450" y="120" width="110" height="130"/>
+      <rect x="300" y="390" width="110" height="130"/><rect x="450" y="390" width="110" height="130"/>
+    </g>
+    <text x="360" y="330" style="font-family:var(--font-display);font-weight:700;font-size:64px;fill:var(--flaw)">×5</text>
+  </svg>
+  <div class="ttxt">1 → 25<br><em>gigawatts</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <path d="M90 480 L250 480 L250 300 L410 300 L410 180 L560 180" fill="none" stroke="var(--flaw)" stroke-width="9"/>
+    <circle cx="560" cy="180" r="14" fill="var(--flaw)"/>
+    <text x="90" y="120" style="font-family:var(--font-mono);font-size:30px;fill:var(--text-dim)">YOUR BILL</text>
+  </svg>
+  <div class="ttxt">You pay for<br><em>the empty lot</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:o.from||0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);
+  if(p.classList.contains('green'))tl.set(p,{strokeDasharray:'7 6',strokeDashoffset:0},pos+dur);
+  if(p.classList.contains('ghost'))tl.set(p,{strokeDasharray:'5 5',strokeDashoffset:0},pos+dur);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+
+/* ---------- dynamic bits ---------- */
+// S0: five ghost data centers around the real one
+(()=>{const g=$('h_ghosts');let s='';
+  for(let i=0;i<5;i++){const x=420+i*180;
+    s+=`<g class="hg" data-i="${i}" opacity="0">
+      <rect class="ghost" x="${x}" y="425" width="110" height="82"/>
+      <path class="ghost" d="M${x+16} 449 h78 M${x+16} 471 h78" stroke-width="1.2"/>
+      <text x="${x}" y="530" font-size="11">UTILITY ${i+1}</text>
+      <text x="${x}" y="548" font-size="11" fill="var(--flaw)">"5 GW, PLEASE"</text>
+    </g>`;}
+  g.innerHTML=s;})();
+// S3 station 1: one project fanning into five requests
+(()=>{const g=$('m_fan5');let s='';
+  for(let i=0;i<5;i++){const y=356+i*40;
+    s+=`<g class="fr" data-i="${i}" opacity="0">
+      <line class="ghost" x1="290" y1="428" x2="640" y2="${y}"/>
+      <rect class="ghost" x="650" y="${y-16}" width="180" height="30"/>
+      <text x="666" y="${y+4}" font-size="11.5">REQUEST → UTILITY ${i+1}</text>
+      ${i>0?`<text x="850" y="${y+4}" font-size="11.5" fill="var(--flaw)">still in line · never withdrawn</text>`:
+             `<text x="850" y="${y+4}" font-size="11.5" fill="var(--fact)">← builds here</text>`}
+    </g>`;}
+  g.innerHTML=s;})();
+// S5: ghosts that fade out
+(()=>{const g=$('c_ghosts');let s='';
+  for(let i=0;i<5;i++){const x=760+i*140;
+    s+=`<g class="cg" data-i="${i}" opacity="0">
+      <rect class="${i===0?'ink':'ghost'}" x="${x}" y="70" width="100" height="76"/>
+      <text x="${x}" y="168" font-size="11" fill="${i===0?'var(--fact)':'var(--text-dim)'}">${i===0?'BUILT':'NEVER BUILT'}</text>
+    </g>`;}
+  g.innerHTML=s;})();
+
+/* ---------- scene timelines ---------- */
+function sc0(D){const tl=gsap.timeline();
+  count(tl,'h_count',25,3.0,0.5,{from:1});say(tl,'h_countlab',1.0);
+  say(tl,'h_dk',4.2);
+  pop(tl,'h_dc',7.0);
+  [...document.querySelectorAll('.hg')].forEach((el,i)=>
+    tl.fromTo(el,{opacity:0,x:-14},{opacity:1,x:0,duration:.35},9.0+i*.45));
+  say(tl,'h_ghostlab',11.6);
+  pop(tl,'h_bill',14.5);shake(tl,'h_bill',15.0,5,5);
+  tl.to($('h_billn'),{opacity:.55,duration:1.0,repeat:2,yoyo:true},16.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},20.0);
+  if(isAuto)tl.to({},{duration:4.0},20.6);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},24.0);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  pop(tl,'e_order',0.5,.6);shake(tl,'e_order',1.0,5,5);
+  count(tl,'e_mw',50,1.2,3.5);say(tl,'e_thresh',3.5);
+  say(tl,'e_bill',6.5);
+  tl.to($('e_pct'),{opacity:.5,duration:.9,repeat:2,yoyo:true},8.0);
+  pop(tl,'e_quote',11.0);
+  say(tl,'e_q1',12.0);say(tl,'e_q2',13.6);
+  tl.to($('e_q2'),{opacity:.55,duration:1.1,repeat:2,yoyo:true},15.5);
+  say(tl,'e_reframe',18.5);say(tl,'e_reframe2',20.0);
+  count(tl,'e_c1',14,1.0,24.0);count(tl,'e_c2',300,1.2,25.0,{suf:'+'});
+  tl.set($('e_ctx'),{opacity:1},24.0);
+  say(tl,'e_obj',27.5);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  say(tl,'pv_easy',0.5);
+  tl.to($('pv_easy'),{opacity:.25,duration:.8},3.4);
+  count(tl,'pv_bn',650,1.6,4.5,{pre:'$',suf:'B'});say(tl,'pv_real',4.5);
+  say(tl,'pv_gap',8.5);
+  tl.to($('pv_gaplab'),{opacity:.6,duration:1.1,repeat:2,yoyo:true},11.0);
+  say(tl,'pv_q',14.0);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();
+  const world=$('world3');
+  // ---- STATION 1 (0–72) ----
+  pop(tl,'m_form',0.5);
+  draw(tl,'m_buys',.7,2.2);
+  say(tl,'m_land',3.0);
+  pop(tl,'m_proj',6.5);
+  [...document.querySelectorAll('.fr')].forEach((el,i)=>
+    tl.fromTo(el,{opacity:0},{opacity:1,duration:.4},8.0+i*.9));
+  say(tl,'m_nobody',14.0);
+  say(tl,'m_5x',18.0);
+  tl.to($('m_5xn'),{opacity:.6,duration:1.0,repeat:2,yoyo:true},20.0);
+  // ---- TRAVEL to STATION 2 ----
+  tl.to(world,{x:-1480,duration:1.6,ease:'power2.inOut'},24.0);
+  // ---- STATION 2 (26–52) ----
+  pop(tl,'m_rule',26.0);
+  say(tl,'m_p1',29.5);draw(tl,'m_pa1',.5,30.6);
+  say(tl,'m_p2',31.2);draw(tl,'m_pa2',.5,32.3);
+  say(tl,'m_p3',33.0);shake(tl,'m_p3',33.6,6,6);
+  say(tl,'m_paylab',35.5);
+  tl.to($('m_paylab'),{opacity:.55,duration:1.0,repeat:2,yoyo:true},37.0);
+  say(tl,'m_fc',40.0);
+  say(tl,'m_prices',44.5);
+  // ---- TRAVEL to STATION 3 ----
+  tl.to(world,{x:-2960,duration:1.6,ease:'power2.inOut'},50.0);
+  // ---- STATION 3 (52–end) ----
+  pop(tl,'m_mono',52.0);
+  say(tl,'m_not',55.0);say(tl,'m_cc',56.6);
+  draw(tl,'m_loop',2.0,59.0);say(tl,'m_looplab',60.5);
+  say(tl,'m_severed',64.0);
+  tl.to($('m_severed'),{opacity:.6,duration:1.2,repeat:2,yoyo:true},67.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  const show=(el,t)=>tl.fromTo($(el),{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to($(el),{opacity:0,duration:.5},t);
+  // FIX A — price the ask (0–56)
+  show('a_price',0.5);
+  pop(tl,'a_ohio',2.0);
+  pop(tl,'a_ga',6.0);count(tl,'a_24',24,1.0,7.0);
+  say(tl,'a_half',11.0);
+  tl.set($('a_bar2'),{scaleX:1,transformOrigin:'0% 50%'},11.0)
+    .to($('a_bar2'),{scaleX:.5,duration:1.4,ease:'power2.inOut'},12.5);
+  say(tl,'a_halflab',13.9);
+  say(tl,'a_halfnote',16.0);
+  say(tl,'a_pricecost',20.0);
+  hide('a_price',54.0);
+  // FIX B — Ireland (56–116)
+  show('a_ireland',56.0);
+  count(tl,'a_22',22,1.2,57.5,{suf:'%'});say(tl,'a_ie22',57.5);
+  say(tl,'a_ietl',61.0);
+  say(tl,'a_ienot',65.0);
+  pop(tl,'a_iecond',69.0);
+  say(tl,'a_ieasset',74.0);
+  say(tl,'a_iecost',78.0);
+  hide('a_ireland',114.0);
+  // FIX C — bend the load (116–160)
+  show('a_bend',116.0);
+  draw(tl,'a_curve',2.2,117.5);tl.set($('a_peak'),{opacity:1},117.5);
+  pop(tl,'a_bendbox',122.0);
+  pop(tl,'a_bendcost',127.0);
+  hide('a_bend',158.0);
+  // SYNTHESIS
+  show('a_syn',160.0);
+  say(tl,'a_s1',162.5);say(tl,'a_s2',165.0);say(tl,'a_s3',168.0);
+  tl.to($('a_s3'),{opacity:.6,duration:1.2,repeat:2,yoyo:true},171.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  count(tl,'c_count',25,1.6,0.5);say(tl,'c_lab',1.2);
+  [...document.querySelectorAll('.cg')].forEach((el,i)=>
+    tl.fromTo(el,{opacity:0},{opacity:1,duration:.3},2.5+i*.3));
+  tl.to([...document.querySelectorAll('.cg')].filter((_,i)=>i>0),
+    {opacity:.18,duration:1.4,stagger:.2},5.5);
+  say(tl,'c_l1',7.5);say(tl,'c_l2',9.2);
+  say(tl,'c_three',13.0);
+  say(tl,'c_q',17.0);say(tl,'c_q2',18.6);
+  tl.to($('c_q2'),{opacity:.6,duration:1.2,repeat:4,yoyo:true},20.5);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode) */
+function setRedline(on){
+  ['a_ohio','a_iecond','a_bendbox'].forEach(id=>{const e=$(id);if(e)e.style.opacity=on?1:0;});
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+if($('btnBuilt')){$('btnBuilt').onclick=()=>setRedline(false);$('btnCould').onclick=()=>setRedline(true);}
+
+/* simulator (web mode) */
+(()=>{const r=$('rate');if(!r)return;
+  const BILL=120, GRID_SHARE=0.15; // illustrative: share of a bill tied to new build-out
+  function upd(){const v=+r.value;
+    const waste=100-v;
+    // rough teaching model: the more of the built-for demand never arrives, the more of that
+    // build-out's cost is spread over households instead of the customers who asked for it
+    const add=BILL*GRID_SHARE*(waste/100)*(1/(v/100))*0.12;
+    $('simRate').innerHTML=v+'%<span>requests that become real</span>';
+    $('simWaste').innerHTML=waste+'%<span>grid built for demand that never arrives</span>';
+    $('simBill').innerHTML='+$'+add.toFixed(2)+'<span>rough monthly add-on to a $120 household bill*</span>';}
+  r.addEventListener('input',upd);upd();
+  $('simPreset').addEventListener('click',()=>{r.value=40;upd();});})();
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.2);
+    if(s.id==='s3'||s.id==='s4')tl.timeScale(3.4);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
