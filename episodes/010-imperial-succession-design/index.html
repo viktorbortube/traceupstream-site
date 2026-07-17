@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Institution That Forgot to Keep Spares — Japan's Succession Crisis as a Design Flaw | Trace Upstream</title>
+<meta name="description" content="The world's oldest monarchy — roughly 1,500 years unbroken — now hangs on a single 19-year-old. Not because of war or plague, but because two reasonable decisions removed its spares. A blueprint of a single point of failure, and three ways monarchies have fixed it: a deeper male bench, a woman as a bridge, or absolute primogeniture.">
+<link rel="canonical" href="https://traceupstream.com/episodes/010-imperial-succession-design/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Institution That Forgot to Keep Spares">
+<meta property="og:description" content="An interactive blueprint: why a 1,500-year line now depends on one teenager, and the three redesigns — a deeper bench, a bridge, or absolute primogeniture — each with an honest cost.">
+<meta property="og:url" content="https://traceupstream.com/episodes/010-imperial-succession-design/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#8C6A78; /* desaturated dynastic plum — heritage accent */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text:not([font-size]){font-size:13px}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.topictxt{fill:var(--topic)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .ghost{stroke:var(--text-dim);fill:none;stroke-width:1.5;stroke-dasharray:5 5;opacity:.5}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:112px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.010 — 2026-07-17</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 11:05</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="42.6">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.010</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <defs>
+          <marker id="ah0" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--text-dim)"/></marker>
+        </defs>
+        <!-- long timeline of ~15 centuries -->
+        <text x="120" y="150" class="strong b" id="h_line1" font-size="17">THE OLDEST CONTINUOUS INSTITUTION ON EARTH</text>
+        <text x="120" y="180" class="b" id="h_line2" font-size="13">OLDER THAN THE SAMURAI · OLDER THAN THE MAGNA CARTA · ~15 CENTURIES UNBROKEN</text>
+        <line x1="120" y1="330" x2="1230" y2="330" class="ink b" id="h_axis" stroke-width="1.5"/>
+        <g id="h_ticks"></g>
+        <text x="120" y="300" class="b" id="h_start" font-size="12">c. 500 AD</text>
+        <!-- the single lit figure -->
+        <g class="b" id="h_now">
+          <circle cx="1230" cy="330" r="26" class="amber" fill="var(--bg-raised)"/>
+          <circle cx="1230" cy="318" r="7" class="amber"/><line x1="1230" y1="325" x2="1230" y2="344" class="amber"/>
+          <text x="1230" y="392" text-anchor="middle" class="flawtxt strong" font-size="15">TODAY</text>
+          <text x="1230" y="414" text-anchor="middle" class="flawtxt" font-size="13">ONE HEIR · AGE 19</text>
+        </g>
+        <text x="120" y="470" class="strong b" id="h_l3" font-size="16">NOT A WAR. NOT A PLAGUE. TWO REASONABLE DECISIONS —</text>
+        <text x="120" y="512" class="big flawtxt b" id="h_l4" font-size="21">THAT REMOVED THE ONE THING EVERY INSTITUTION NEEDS: A SPARE.</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The institution that<br>forgot to keep spares.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>It is the oldest continuous institution on Earth — older than the samurai, older than the Magna Carta. For roughly fifteen hundred years, the Japanese throne has passed down an unbroken line, through wars, famines, and the fall of empires all around it. And today, the survival of that entire fifteen-century line depends on one person: a single nineteen-year-old.</p>
+      <p>This isn't the result of a war or a plague. It comes from two decisions — each of which, on the day it was made, looked completely reasonable. Put them together, and they quietly removed the one thing every institution needs to survive its own members: a spare.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="81.9">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Japan · July 2026</div>
+    <h2>Three people. One young man.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg1">
+        <!-- three succession cards -->
+        <text x="120" y="90" class="strong b" id="e_hdr" font-size="15">THE LINE OF SUCCESSION TO EMPEROR NARUHITO — EXACTLY THREE PEOPLE:</text>
+        <g class="b" id="e_c1"><rect x="120" y="120" width="330" height="150" class="ink"/>
+          <text x="148" y="158" class="strong" font-size="15">CROWN PRINCE AKISHINO</text>
+          <text x="148" y="186" font-size="13">his brother</text>
+          <text x="148" y="240" class="big" font-size="46">60</text></g>
+        <g class="b" id="e_c2"><rect x="480" y="120" width="330" height="150" class="nodebox" stroke="var(--flaw)"/>
+          <text x="508" y="158" class="strong flawtxt" font-size="15">PRINCE HISAHITO</text>
+          <text x="508" y="186" class="flawtxt" font-size="13">the only young male</text>
+          <text x="508" y="240" class="big flawtxt" font-size="46">19</text></g>
+        <g class="b" id="e_c3"><rect x="840" y="120" width="330" height="150" class="ink"/>
+          <text x="868" y="158" class="strong" font-size="15">PRINCE HITACHI</text>
+          <text x="868" y="186" font-size="13">an uncle</text>
+          <text x="868" y="240" class="big" font-size="46">90</text></g>
+        <text x="120" y="312" class="b" id="e_note" font-size="14">TWO ARE NEAR THE END OF THEIR LIVES — ONE MAN CARRIES THE NEXT GENERATION, ALONE.</text>
+        <!-- Aiko, locked out -->
+        <g class="b" id="e_aiko">
+          <rect x="120" y="360" width="360" height="150" fill="var(--bg-raised)" stroke="var(--text-dim)" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <text x="148" y="398" class="strong" font-size="15">PRINCESS AIKO</text>
+          <text x="148" y="424" font-size="13">the emperor's own child · in her twenties</text>
+          <!-- lock -->
+          <rect x="148" y="446" width="34" height="26" rx="3" class="amber" fill="none"/>
+          <path d="M154 446 v-8 a11 11 0 0 1 22 0 v8" class="amber" fill="none" stroke-width="2"/>
+          <text x="196" y="466" class="flawtxt" font-size="14">BARRED — FOR ONE REASON: SHE IS A WOMAN</text>
+        </g>
+        <text x="120" y="548" class="b" id="e_marry" font-size="13">AND UNDER THE LAW, IF SHE MARRIES A COMMONER SHE LOSES HER STATUS AND LEAVES THE FAMILY.</text>
+        <!-- July 2026 fix -->
+        <g class="b" id="e_fix">
+          <rect x="560" y="360" width="610" height="150" class="ink"/>
+          <text x="588" y="398" class="strong" font-size="15">JULY 2026 · THE GOVERNMENT'S FIX</text>
+          <text x="588" y="430" font-size="13.5">NOT to allow a woman to inherit —</text>
+          <text x="588" y="458" font-size="13.5">but to ADOPT men from branches cut off decades ago.</text>
+          <text x="588" y="494" class="flawtxt" font-size="13.5">IN EVERY VERSION, THE THRONE STAYS CLOSED TO AIKO.</text>
+        </g>
+        <text x="560" y="556" class="big b" id="e_q" font-size="18">THE QUESTION ISN'T WHETHER THAT'S FAIR. IT'S WHY THE SHORTAGE EXISTS AT ALL.</text>
+      </svg>
+      <div class="figcap">Fig. 1 — the line of succession, and the fix that keeps it male · sources: CNN, IBTimes, Imperial Household Agency (via Wikipedia)</div>
+    </div>
+    <div class="prose">
+      <p>The line of succession to Emperor Naruhito now contains exactly three people: his brother, Crown Prince Akishino, who is sixty; Akishino's son, Prince Hisahito, who is nineteen; and an uncle, Prince Hitachi, who is ninety. Two of the three are near the end of their lives — which leaves one young man, Hisahito, to carry a fifteen-hundred-year line into the next generation on his own.</p>
+      <p>There is another candidate: Emperor Naruhito's own child, Princess Aiko, now in her twenties. But under the Imperial House Law she cannot inherit, for one reason — she is a woman — and if she marries a commoner she loses her royal status and leaves the family altogether. This month the government is passing changes to fix the shortage, but notice how: rather than allow a woman to inherit, the plan is to adopt men back in from branches cut off decades ago. In every version, the throne stays closed to Aiko. The question worth asking isn't whether that's fair. It's why the shortage exists at all.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="42.3">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pivot · Not "just tradition"</div>
+    <h2>A single point of failure.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 480" id="svg2">
+        <text x="740" y="110" text-anchor="middle" class="big b" font-size="24" id="pv_trad">"IT'S JUST TRADITION — AN OLD COUNTRY, SLOW TO CHANGE."</text>
+        <text x="740" y="190" text-anchor="middle" class="strong b" id="pv_time" font-size="16">BUT TRADITION DOESN'T EXPLAIN THE TIMING — THIS SAME THRONE RAN 1,000+ YEARS WITHOUT RUNNING THIS DRY.</text>
+        <text x="740" y="270" text-anchor="middle" class="b" id="pv_gen" font-size="15">THE SHORTAGE ISN'T ABOUT WHO'S ALLOWED ON THE THRONE. IT'S A DESIGN PROBLEM —</text>
+        <text x="740" y="298" text-anchor="middle" class="b" id="pv_gen2" font-size="15">THE SAME ONE THAT CAN SINK A COMPANY, A DATABASE, OR A POWER GRID.</text>
+        <text x="740" y="378" text-anchor="middle" class="big flawtxt b" id="pv_spof" font-size="26">A SINGLE POINT OF FAILURE — BUILT BY ACCIDENT, IN TWO STEPS.</text>
+      </svg>
+      <div class="figcap">Fig. 2 — reframe: not tradition, but a redundancy failure</div>
+    </div>
+    <div class="prose">
+      <p>It's tempting to file this under tradition — an old country, an old rule, slow to change. But that skips the interesting part, because tradition doesn't explain the timing: this same throne ran for over a thousand years without ever running this dry. So something changed. And when you look closely, the shortage isn't really about who's allowed on the throne. It's a design problem that has nothing to do with monarchies at all — the same one that can sink a company, a database, or a power grid. Engineers call it a single point of failure. And Japan built one by accident, in two steps.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM (panning world) ================= -->
+<section class="ep" id="s3" data-duration="171.4">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · A reserve that can only drain</div>
+    <h2>Two steps that emptied the bench.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 660" id="svg3">
+        <defs>
+          <marker id="ah3" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+          <clipPath id="clip3"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+          <clipPath id="clipW1"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+          <clipPath id="clipW2"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+          <clipPath id="clipW3"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+        </defs>
+        <g clip-path="url(#clip3)"><g id="world3">
+
+          <!-- ===== STATION 1: what continuity needs ===== -->
+          <g id="w1" clip-path="url(#clipW1)">
+            <text x="120" y="70" class="flawtxt" font-size="15">STATION 1 · A CRITICAL SYSTEM KEEPS SPARES</text>
+            <text x="120" y="150" class="strong b" id="m_crit" font-size="15">ONE ROLE, CARRIED UNBROKEN ACROSS CENTURIES — IT MUST OUTLIVE EVERYONE WHO HOLDS IT.</text>
+            <!-- plane analogy -->
+            <g class="b" id="m_plane">
+              <path class="ink" d="M1050 160 l150 0 l40 24 l-40 24 l-150 0 z"/>
+              <line x1="1110" y1="184" x2="1110" y2="150" class="ink"/><line x1="1110" y1="184" x2="1110" y2="218" class="ink"/>
+              <circle cx="1110" cy="140" r="10" class="ink"/><circle cx="1110" cy="228" r="10" class="ink"/>
+              <text x="1010" y="270" font-size="12">MORE THAN ONE ENGINE — ON PURPOSE</text>
+            </g>
+            <!-- the full bench: a tree with collateral branches -->
+            <g class="b" id="m_tree">
+              <line x1="360" y1="470" x2="360" y2="300" class="ink"/><circle cx="360" cy="290" r="12" class="ink"/>
+              <text x="330" y="500" font-size="12">MAIN LINE</text>
+              <g id="m_branches"></g>
+              <text x="120" y="560" class="strong" font-size="14">A DEEP BENCH OF COLLATERAL BRANCHES — COUSINS, SIDE HOUSES — READY WHEN A LINE RAN OUT OF SONS.</text>
+            </g>
+            <!-- 8 empresses as bridges -->
+            <g class="b" id="m_emp">
+              <g id="m_empdots"></g>
+              <text x="120" y="628" font-size="13">8 REIGNING EMPRESSES BRIDGED THESE GAPS — EACH MALE-LINE, EACH HANDING THE THRONE BACK TO A MALE HEIR.</text>
+            </g>
+          </g>
+
+          <!-- ===== STATION 2: the rule that only drains ===== -->
+          <g id="w2" transform="translate(1480,0)" clip-path="url(#clipW2)">
+            <text x="120" y="70" class="flawtxt" font-size="15">STATION 2 · STEP ONE — THE RULE ITSELF</text>
+            <text x="120" y="140" class="strong b" id="m_rule" font-size="15">THE THRONE PASSES ONLY TO A MAN, ONLY THROUGH THE MALE LINE.</text>
+            <!-- son stays / daughter exits -->
+            <g class="b" id="m_son">
+              <rect x="180" y="200" width="300" height="90" class="nodebox"/>
+              <text x="208" y="240" class="strong fact" font-size="15">A SON</text><text x="208" y="268" class="fact" font-size="13">stays — keeps the line going</text>
+              <path class="blue" d="M480 245 L640 245" marker-end="url(#ah3)" stroke="var(--fact)"/>
+            </g>
+            <g class="b" id="m_dau">
+              <rect x="180" y="330" width="300" height="90" class="ink" stroke="var(--flaw)"/>
+              <text x="208" y="370" class="strong flawtxt" font-size="15">A DAUGHTER</text><text x="208" y="398" class="flawtxt" font-size="13">marries a commoner → exits the family</text>
+              <path class="amber" d="M480 375 L640 470" marker-end="url(#ah3)"/>
+            </g>
+            <!-- draining reserve -->
+            <g class="b" id="m_drain">
+              <rect x="720" y="230" width="560" height="46" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
+              <rect x="720" y="230" width="560" height="46" fill="var(--flaw)" id="m_drainbar" opacity=".8"/>
+              <text x="720" y="212" class="strong" font-size="13">THE POOL OF HEIRS, GENERATION BY GENERATION</text>
+            </g>
+            <text x="720" y="360" class="big flawtxt b" id="m_count1" font-size="20">SONS KEEP THE LINE. DAUGHTERS LEAVE.</text>
+            <text x="720" y="400" class="big flawtxt b" id="m_count2" font-size="20">SO THE RESERVE CAN ONLY DO ONE THING — SHRINK.</text>
+            <text x="720" y="470" class="strong b" id="m_count3" font-size="16">A RESERVE THAT CAN ONLY DRAIN IS NOT A RESERVE. IT'S A COUNTDOWN.</text>
+          </g>
+
+          <!-- ===== STATION 3: the 1947 cut ===== -->
+          <g id="w3" transform="translate(2960,0)" clip-path="url(#clipW3)">
+            <text x="120" y="70" class="flawtxt" font-size="15">STATION 3 · STEP TWO — 1947, THE BENCH IS EMPTIED</text>
+            <text x="120" y="140" class="strong b" id="m_47" font-size="15">POSTWAR, MONEY SHORT: A SLIMMER MONARCHY. 11 BRANCHES CUT LOOSE IN A SINGLE STROKE.</text>
+            <g class="b" id="m_cut"><g id="m_cutbranches"></g></g>
+            <text x="120" y="470" class="b" id="m_budget" font-size="14">IT LOOKED LIKE SENSIBLE BUDGETING — IT PULLED THE SPARE ENGINES OFF THE PLANE.</text>
+            <!-- narrowing to one -->
+            <g class="b" id="m_spof">
+              <path class="amber" id="m_spofpath" d="M900 430 L1160 300" marker-end="url(#ah3)"/>
+              <circle cx="1200" cy="290" r="30" class="amber" fill="var(--bg-raised)"/>
+              <circle cx="1200" cy="278" r="8" class="amber"/><line x1="1200" y1="286" x2="1200" y2="306" class="amber"/>
+              <text x="1200" y="352" text-anchor="middle" class="flawtxt strong" font-size="14">ONE HEIR · 19</text>
+              <text x="1200" y="374" text-anchor="middle" class="flawtxt" font-size="12.5">the single point of failure</text>
+            </g>
+            <text x="120" y="560" class="strong b" id="m_sum" font-size="16">A RULE THAT GUARANTEES THE RESERVE SHRINKS · A ONE-TIME CUT THAT DELETED WHAT WAS LEFT.</text>
+            <text x="120" y="600" class="big flawtxt b" id="m_sum2" font-size="19">NEITHER WAS CRAZY. TOGETHER: 15 CENTURIES, HELD UP BY A SINGLE TEENAGER.</text>
+          </g>
+
+        </g></g>
+      </svg>
+      <div class="figcap">Fig. 3 — a deep bench, a rule that only drains it, and the cut that emptied it · pan: spares → rule → 1947</div>
+    </div>
+    <div class="prose">
+      <p>Stripped of ceremony, the throne is a system with one job: to carry a single role, unbroken, across centuries — which means it has to survive the death of everyone who ever holds it. Engineers call a system like that critical, and the first rule of anything critical is that you never let it depend on a single component. You keep spares. A plane has more than one engine for exactly this reason. For most of its history the throne had that redundancy — a deep bench of collateral branches, cousins and side houses. Japan even had eight reigning empresses who bridged these gaps; each was born of the male line and handed the throne back to a male heir, keeping it intact.</p>
+      <p>Then, two steps removed the bench. First, the rule: the throne passes only to a man, through the male line, and a woman leaves the family the moment she marries a commoner. Sons keep the line; daughters exit — so the pool can only shrink. A reserve that can only drain isn't a reserve; it's a countdown. Second, the step almost no one remembers: in 1947, in the wreckage after the war, the imperial family was dramatically downsized, and eleven entire branches — the exact cousins who had always served as backup — were cut loose in a single stroke. It looked like sensible budgeting. What it did was pull the spare engines off the plane, decades before anyone noticed it was flying on one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF ================= -->
+<section class="ep" id="s4" data-duration="203">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three moves, three costs</div>
+    <h2>No option keeps everything.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <!-- MOVE 1: deeper male bench -->
+        <g class="b" id="a_bench">
+          <text x="120" y="80" class="alttxt" font-size="15">MOVE 1 · KEEP IT MALE — KEEP THE BENCH DEEP</text>
+          <g class="b" id="a_saudi"><rect x="120" y="140" width="600" height="150" class="nodebox" stroke="var(--alt)"/>
+            <text x="148" y="180" class="strong alttxt" font-size="14.5">SAUDI ARABIA — BROTHER TO BROTHER</text>
+            <text x="148" y="212" class="alttxt" font-size="13.5">crown passes across the founder's many sons</text>
+            <text x="148" y="242" class="alttxt" font-size="13.5">FRANCE'S SALIC LAW — jump to the nearest male cousin,</text>
+            <text x="148" y="268" class="alttxt" font-size="13.5">never through a daughter (Valois 1328 · Bourbon 1589)</text></g>
+          <g class="b" id="a_jpn"><rect x="760" y="140" width="600" height="150" fill="none" stroke="var(--grid)" stroke-width="1.5"/>
+            <text x="788" y="180" class="strong" font-size="14.5">JAPAN'S VERSION — RE-ADOPT THE 1947 MEN</text>
+            <text x="788" y="212" font-size="13.5">it already threw its spare branches away —</text>
+            <text x="788" y="240" font-size="13.5">so invite their male descendants back in.</text></g>
+          <text x="120" y="360" class="flawtxt b" id="a_benchcost" font-size="14.5">TRADE-OFF: A PATCH, NOT A REPAIR — STILL NEEDS THOSE MEN TO HAVE SONS · PUBLIC SUPPORT LIMITED (~¼ IN FAVOR, 2025)</text>
+        </g>
+        <!-- MOVE 2: woman as a bridge -->
+        <g class="b" id="a_bridge">
+          <text x="120" y="80" class="alttxt" font-size="15">MOVE 2 · A WOMAN REIGNS — BUT ONLY AS A BRIDGE</text>
+          <g id="a_bridgeviz">
+            <line x1="180" y1="230" x2="1300" y2="230" stroke="var(--grid)" stroke-width="2"/>
+            <circle cx="240" cy="230" r="10" fill="var(--text)"/><text x="240" y="204" text-anchor="middle" font-size="12">MALE</text>
+            <circle cx="740" cy="230" r="14" class="amber" fill="var(--bg-raised)"/><text x="740" y="200" text-anchor="middle" class="flawtxt" font-size="12">EMPRESS (BRIDGE)</text>
+            <circle cx="1240" cy="230" r="10" fill="var(--text)"/><text x="1240" y="204" text-anchor="middle" font-size="12">MALE</text>
+            <path class="green" d="M254 230 L726 230" marker-end="url(#ah4)"/><path class="green" d="M754 230 L1226 230" marker-end="url(#ah4)"/>
+          </g>
+          <text x="120" y="330" class="strong b" id="a_bridge8" font-size="15">JAPAN HAS DONE THIS EIGHT TIMES — NO NEED TO LOOK ABROAD. IT HAS DEEP PRECEDENT.</text>
+          <text x="120" y="410" class="big flawtxt b" id="a_bridgecost" font-size="19">BUT A BRIDGE ONLY SPANS THE GAP IT STANDS ON —</text>
+          <text x="120" y="450" class="flawtxt b" id="a_bridgecost2" font-size="15">IT BUYS ONE GENERATION, IT DOES NOT REFILL THE RESERVE. THE SHORTAGE RETURNS AT THE NEXT HANDOVER.</text>
+        </g>
+        <!-- MOVE 3: absolute primogeniture -->
+        <g class="b" id="a_prim">
+          <text x="120" y="80" class="alttxt" font-size="15">MOVE 3 · ABSOLUTE PRIMOGENITURE — THE ELDEST CHILD INHERITS, LINE PASSES THROUGH THEM</text>
+          <!-- europe timeline -->
+          <g id="a_euline"></g>
+          <text x="120" y="330" class="alttxt b" id="a_sweden" font-size="14.5">SWEDEN 1980 — APPLIED BACKWARDS: VICTORIA BECOMES HEIR OVER HER YOUNGER BROTHER.</text>
+          <text x="120" y="410" class="strong b" id="a_primfix" font-size="16">THE ONLY MOVE THAT ENDS THE SHORTAGE FOR GOOD — THE POOL STOPS DRAINING.</text>
+          <text x="120" y="470" class="flawtxt b" id="a_primcost" font-size="14.5">TRADE-OFF: IT ENDS THE UNBROKEN MALE LINE (126 EMPERORS, FATHER TO SON) · NO PRECEDENT IN JAPAN · "A DIFFERENT INSTITUTION THAT SHARES A NAME"</text>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="a_syn">
+          <text x="740" y="210" text-anchor="middle" class="big" font-size="26" id="a_s0">TWO MOVES BUY TIME · ONE STOPS THE COUNTDOWN</text>
+          <text x="740" y="290" text-anchor="middle" class="strong b" font-size="17" id="a_s1">A DEEPER BENCH, OR A BRIDGE — BOTH KEEP THE MALE LINE, AND BOTH ONLY DELAY.</text>
+          <text x="740" y="345" text-anchor="middle" class="b" font-size="16" id="a_s2">ONLY THE THIRD ENDS IT — BY ENDING THE VERY THING THE FIRST TWO PROTECT.</text>
+          <text x="740" y="420" text-anchor="middle" class="flawtxt big b" font-size="19" id="a_s3">THERE IS NO OPTION THAT KEEPS EVERYTHING.</text>
+        </g>
+        <defs><marker id="ah4" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--alt)"/></marker></defs>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 4 — bench · bridge · primogeniture — dashed green = revision markup · josei (a woman reigns) vs jokei (the line passes through her)</div>
+    </div>
+    <div class="prose">
+      <p>Every monarchy that has faced this has really had only three moves. The first keeps the throne male and just keeps the pool of men deep — Saudi Arabia passes the crown brother to brother across a founder's many sons; France once did it by law, jumping to the nearest male cousin (Valois 1328, Bourbon 1589) rather than through a daughter. Japan's version is to re-adopt the male descendants of the branches it cut in 1947. It changes nothing about the tradition, which is why it can pass — but it's a patch that still needs those men to have sons, and public support is limited.</p>
+      <p>The second move lets a woman reign, but only as a bridge, with the line returning to a male heir — and Japan has done exactly this eight times before. It has deep precedent, but it buys a single generation; it doesn't refill the reserve, so the shortage returns at the next handover. The third is the one most of Europe took: absolute primogeniture, where the eldest child inherits and the line passes through them. Sweden went first in 1980, applied backwards so Victoria outranked her brother; the Netherlands, Norway, Belgium, Denmark, Luxembourg and Britain followed. It's the only move that ends the shortage for good, because the pool finally stops draining — and that is its cost: it ends the unbroken male line, with no precedent in Japan. Two moves keep the line but only buy time; only the third stops the countdown, by ending the very thing the first two exist to protect. There is no option that keeps everything.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 CLOSE ================= -->
+<section class="ep" id="s5" data-duration="73.8">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · What are we down to just one of?</div>
+    <h2>Redundancy looks like waste — until it isn't.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <!-- the single lit figure again -->
+        <g class="b" id="c_fig">
+          <line x1="120" y1="200" x2="1000" y2="200" class="ghost" id="c_axis"/>
+          <circle cx="1000" cy="200" r="26" class="amber" fill="var(--bg-raised)"/>
+          <circle cx="1000" cy="188" r="7" class="amber"/><line x1="1000" y1="195" x2="1000" y2="214" class="amber"/>
+          <text x="1000" y="258" text-anchor="middle" class="flawtxt" font-size="13">ONE · AGE 19 · AT THE END OF 15 CENTURIES</text>
+        </g>
+        <text x="120" y="300" class="strong b" id="c_l1" font-size="16">FRAGILE NOT BECAUSE ANYTHING IS WRONG WITH HIM — BECAUSE THE SYSTEM STOPPED KEEPING SPARES.</text>
+        <!-- generalize -->
+        <g class="b" id="c_gen">
+          <text x="180" y="356" class="b" id="c_g1" font-size="13.5">· THE COMPANY THAT RUNS ON ONE IRREPLACEABLE ENGINEER</text>
+          <text x="180" y="384" class="b" id="c_g2" font-size="13.5">· THE SYSTEM ON ONE AGING PROGRAM NOBODY CAN REBUILD</text>
+          <text x="180" y="412" class="b" id="c_g3" font-size="13.5">· THE SUPPLY CHAIN WITH A SINGLE FACTORY BEHIND IT</text>
+        </g>
+        <text x="740" y="462" text-anchor="middle" class="big b" font-size="22" id="c_q">WHAT ARE WE DOWN TO JUST ONE OF —</text>
+        <text x="740" y="500" text-anchor="middle" class="big flawtxt b" font-size="20" id="c_q2">AND WHAT HAPPENS ON THE DAY WE LOSE IT?</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>So come back to that one nineteen-year-old, standing at the end of fifteen centuries. He isn't fragile because anything is wrong with him. He's fragile because the system around him quietly stopped keeping spares — first with a rule that could only ever subtract, and then with a single budget decision that swept the reserve away, seventy-nine years before the bill came due. And that reaches far beyond one throne. Every institution that has to outlive the people inside it faces this exact problem: the company that depends on one irreplaceable engineer, the system running on one aging program nobody can rebuild, the supply chain with a single factory behind it. Redundancy always looks like waste, right up until the moment it's the only thing that would have saved you. So the real question was never about kings and queens. It's the quietest question an institution can ask itself, and the easiest to put off: what are we down to just one of — and what happens on the day we lose it?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <line x1="40" y1="330" x2="500" y2="330" stroke="var(--text-dim)" stroke-width="4" stroke-dasharray="6 8"/>
+    <g stroke="var(--text-dim)" stroke-width="3" opacity=".5">
+      <line x1="90" y1="315" x2="90" y2="345"/><line x1="170" y1="315" x2="170" y2="345"/><line x1="250" y1="315" x2="250" y2="345"/><line x1="330" y1="315" x2="330" y2="345"/><line x1="410" y1="315" x2="410" y2="345"/>
+    </g>
+    <circle cx="520" cy="330" r="40" fill="none" stroke="var(--flaw)" stroke-width="8"/>
+    <circle cx="520" cy="314" r="11" fill="var(--flaw)"/><line x1="520" y1="326" x2="520" y2="356" stroke="var(--flaw)" stroke-width="8"/>
+  </svg>
+  <div class="ttxt">1,500 years<br><em>one heir</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <line x1="330" y1="140" x2="330" y2="300" stroke="var(--text)" stroke-width="6"/>
+    <g stroke="var(--text-dim)" stroke-width="5" stroke-dasharray="7 7" fill="none" opacity=".5">
+      <line x1="330" y1="200" x2="160" y2="300"/><line x1="330" y1="240" x2="200" y2="360"/><line x1="330" y1="200" x2="500" y2="300"/><line x1="330" y1="240" x2="470" y2="360"/>
+    </g>
+    <circle cx="330" cy="330" r="34" fill="none" stroke="var(--flaw)" stroke-width="8"/>
+  </svg>
+  <div class="ttxt">Who keeps<br><em>the spares?</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:o.from||0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);
+  if(p.classList.contains('green'))tl.set(p,{strokeDasharray:'7 6',strokeDashoffset:0},pos+dur);
+  if(p.classList.contains('ghost'))tl.set(p,{strokeDasharray:'5 5',strokeDashoffset:0},pos+dur);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+
+/* ---------- dynamic bits ---------- */
+// S0: faint emperor ticks along the timeline
+(()=>{const g=$('h_ticks');let s='';for(let i=0;i<44;i++){const x=140+i*24.5;
+  s+=`<line class="etick" data-i="${i}" x1="${x}" y1="318" x2="${x}" y2="342" stroke="var(--text-dim)" stroke-width="1.5" opacity="0"/>`;}
+  g.innerHTML=s;})();
+// S3 station 1: collateral branches around the trunk
+(()=>{const g=$('m_branches');let s='';const xs=[180,250,470,540,610];
+  xs.forEach((x,i)=>{const y=470;
+    s+=`<g class="br" data-i="${i}" opacity="0"><line x1="360" y1="360" x2="${x}" y2="${y-30}" stroke="var(--text)" stroke-width="1.5"/>
+    <circle cx="${x}" cy="${y-40}" r="9" fill="none" stroke="var(--text)" stroke-width="1.5"/></g>`;});
+  g.innerHTML=s;})();
+// S3 station 1: 8 empress bridge dots
+(()=>{const g=$('m_empdots');let s='';for(let i=0;i<8;i++){const x=140+i*40;
+  s+=`<circle class="empd" data-i="${i}" cx="${x}" cy="600" r="8" fill="none" stroke="var(--flaw)" stroke-width="2" opacity="0"/>`;}
+  g.innerHTML=s;})();
+// S3 station 3: the 11 branches that go dark
+(()=>{const g=$('m_cutbranches');let s='';for(let i=0;i<11;i++){const c=i%6,r=(i/6|0);
+  const x=160+c*130,y=240+r*90;
+  s+=`<g class="cutbr" data-i="${i}" opacity="0"><circle cx="${x}" cy="${y}" r="16" fill="none" stroke="var(--text)" stroke-width="1.5"/>
+  <line x1="${x-11}" y1="${y-11}" x2="${x+11}" y2="${y+11}" class="cutx" stroke="var(--flaw)" stroke-width="2" opacity="0"/></g>`;}
+  g.innerHTML=s;})();
+// S4 europe timeline
+(()=>{const g=$('a_euline');const data=[['SE','1980'],['NL','1983'],['NO','1990'],['BE','1991'],['DK','2009'],['LU','2011'],['UK','2013']];
+  let s='<line x1="180" y1="200" x2="1320" y2="200" stroke="var(--grid)" stroke-width="2"/>';
+  data.forEach((d,i)=>{const x=210+i*180;
+    s+=`<g class="euct" data-i="${i}" opacity="0"><circle cx="${x}" cy="200" r="9" fill="var(--alt)"/>
+    <text x="${x}" y="176" text-anchor="middle" class="alttxt strong" font-size="15">${d[0]}</text>
+    <text x="${x}" y="232" text-anchor="middle" font-size="12">${d[1]}</text></g>`;});
+  g.innerHTML=s;})();
+
+/* ---------- scene timelines ---------- */
+function sc0(D){const tl=gsap.timeline();
+  say(tl,'h_line1',0.5);say(tl,'h_line2',1.6);
+  tl.fromTo($('h_axis'),{opacity:0},{opacity:1,duration:.5},2.6);tl.set($('h_start'),{opacity:1},2.6);
+  [...document.querySelectorAll('.etick')].forEach((t,i)=>tl.to(t,{opacity:.5,duration:.05},3.0+i*.05));
+  pop(tl,'h_now',6.0);shake(tl,'h_now',6.4,4,4);
+  tl.to($('h_now').querySelector('circle'),{opacity:.6,duration:1.0,repeat:2,yoyo:true},7.2);
+  say(tl,'h_l3',9.5);say(tl,'h_l4',11.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},14.5);
+  if(isAuto)tl.to({},{duration:3.5},15.1);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},18.0);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  say(tl,'e_hdr',0.5);
+  pop(tl,'e_c1',1.5);pop(tl,'e_c3',2.1);pop(tl,'e_c2',2.9);
+  tl.to([$('e_c1'),$('e_c3')],{opacity:.4,duration:.8},5.0);
+  tl.to($('e_c2'),{opacity:1},5.0);
+  say(tl,'e_note',6.5);
+  pop(tl,'e_aiko',9.5);
+  say(tl,'e_marry',13.0);
+  pop(tl,'e_fix',16.5);say(tl,'e_q',20.0);
+  tl.to($('e_q'),{opacity:.6,duration:1.1,repeat:2,yoyo:true},22.0);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  say(tl,'pv_trad',0.5);tl.to($('pv_trad'),{opacity:.25,duration:.8},3.2);
+  say(tl,'pv_time',4.0);
+  say(tl,'pv_gen',7.5);say(tl,'pv_gen2',8.6);
+  say(tl,'pv_spof',11.5);
+  tl.to($('pv_spof'),{opacity:.6,duration:1.1,repeat:2,yoyo:true},13.5);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();
+  const world=$('world3');
+  // STATION 1 (0–56)
+  say(tl,'m_crit',0.5);
+  pop(tl,'m_plane',3.5);
+  say(tl,'m_tree',6.5);
+  [...document.querySelectorAll('.br')].forEach((b,i)=>tl.fromTo(b,{opacity:0,scale:.6,transformOrigin:'360px 360px'},{opacity:1,scale:1,duration:.35},8.0+i*.4));
+  tl.set($('m_emp'),{opacity:1},11.0);
+  [...document.querySelectorAll('.empd')].forEach((d,i)=>tl.fromTo(d,{opacity:0},{opacity:1,duration:.2},11.0+i*.25));
+  // TRAVEL to STATION 2
+  tl.to(world,{x:-1480,duration:1.6,ease:'power2.inOut'},20.0);
+  // STATION 2 (22–40)
+  say(tl,'m_rule',22.0);
+  pop(tl,'m_son',24.5);pop(tl,'m_dau',26.5);
+  tl.set($('m_drain'),{opacity:1},28.5).to($('m_drainbar'),{attr:{width:120},duration:2.0,ease:'power1.in'},29.0);
+  say(tl,'m_count1',31.5);say(tl,'m_count2',33.0);say(tl,'m_count3',35.0);
+  tl.to($('m_count3'),{opacity:.6,duration:1.0,repeat:1,yoyo:true},37.0);
+  // TRAVEL to STATION 3
+  tl.to(world,{x:-2960,duration:1.6,ease:'power2.inOut'},40.0);
+  // STATION 3 (42–end)
+  say(tl,'m_47',42.0);
+  tl.set($('m_cut'),{opacity:1},44.0);
+  [...document.querySelectorAll('.cutbr')].forEach((b,i)=>tl.fromTo(b,{opacity:0},{opacity:1,duration:.2},44.0+i*.18));
+  [...document.querySelectorAll('.cutx')].forEach((x,i)=>tl.to(x,{opacity:1,duration:.2},46.2+i*.15));
+  tl.to([...document.querySelectorAll('.cutbr')],{opacity:.28,duration:.8},48.8);
+  say(tl,'m_budget',49.5);
+  tl.set($('m_spof'),{opacity:1},51.5);draw(tl,'m_spofpath',1.0,51.5);
+  say(tl,'m_sum',54.5);say(tl,'m_sum2',56.2);
+  tl.to($('m_sum2'),{opacity:.6,duration:1.1,repeat:2,yoyo:true},58.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  const show=(el,t)=>tl.fromTo($(el),{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to($(el),{opacity:0,duration:.5},t);
+  // MOVE 1 (0–56)
+  show('a_bench',0.5);pop(tl,'a_saudi',2.5);pop(tl,'a_jpn',6.5);say(tl,'a_benchcost',11.0);
+  hide('a_bench',54.0);
+  // MOVE 2 (56–104)
+  show('a_bridge',56.0);
+  tl.set($('a_bridgeviz'),{opacity:1},57.0);
+  say(tl,'a_bridge8',58.0);
+  say(tl,'a_bridgecost',63.0);say(tl,'a_bridgecost2',65.0);
+  hide('a_bridge',102.0);
+  // MOVE 3 (104–168)
+  show('a_prim',104.0);
+  tl.set($('a_euline'),{opacity:1},106.0);
+  [...document.querySelectorAll('.euct')].forEach((c,i)=>tl.fromTo(c,{opacity:0,y:10},{opacity:1,y:0,duration:.4},106.5+i*.7));
+  say(tl,'a_sweden',112.0);say(tl,'a_primfix',116.0);say(tl,'a_primcost',119.0);
+  hide('a_prim',166.0);
+  // SYNTHESIS
+  show('a_syn',168.0);say(tl,'a_s1',170.5);say(tl,'a_s2',173.0);say(tl,'a_s3',176.0);
+  tl.to($('a_s3'),{opacity:.6,duration:1.2,repeat:2,yoyo:true},179.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  tl.set($('c_fig'),{opacity:1},0.5);draw(tl,'c_axis',1.0,0.5);
+  pop(tl,'c_fig',1.4);
+  say(tl,'c_l1',3.5);
+  tl.set($('c_gen'),{opacity:1},6.5);
+  say(tl,'c_g1',6.5);say(tl,'c_g2',7.6);say(tl,'c_g3',8.7);
+  say(tl,'c_q',11.5);say(tl,'c_q2',13.0);
+  tl.to($('c_q2'),{opacity:.6,duration:1.2,repeat:3,yoyo:true},15.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode) — reveals the three "as it could be" moves */
+function setRedline(on){
+  ['a_saudi','a_bridgeviz','a_euline'].forEach(id=>{const e=$(id);if(e)e.style.opacity=on?1:0;});
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+if($('btnBuilt')){$('btnBuilt').onclick=()=>setRedline(false);$('btnCould').onclick=()=>setRedline(true);}
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.2);
+    if(s.id==='s3'||s.id==='s4')tl.timeScale(3.4);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
