@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Leader You Can Fire on a Tuesday — Why Britain Has Had 7 PMs in 10 Years | Trace Upstream</title>
+<meta name="description" content="Seven British prime ministers in ten years, none serving a full term — no coup, just a rule doing what it was built to do. A blueprint of how a head of government is removed, and three designs that balance removable against stable: a fixed term, Germany's constructive vote, or proportional representation.">
+<link rel="canonical" href="https://traceupstream.com/episodes/011-prime-minister-tenure/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Leader You Can Fire on a Tuesday">
+<meta property="og:description" content="An interactive blueprint: why the UK burns through prime ministers while Germany doesn't, and the trade-off between a leader you can remove and one stable enough to govern.">
+<meta property="og:url" content="https://traceupstream.com/episodes/011-prime-minister-tenure/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#96626B; /* desaturated claret — Westminster despatch-box accent */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text:not([font-size]){font-size:13px}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.topictxt{fill:var(--topic)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .ghost{stroke:var(--text-dim);fill:none;stroke-width:1.5;stroke-dasharray:5 5;opacity:.5}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:112px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.011 — 2026-07-18</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 10:20</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="39.5">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.011</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <text x="120" y="90" class="strong b" id="h_hdr" font-size="15">SEVEN BRITISH PRIME MINISTERS · TEN YEARS · TENURE = BAR LENGTH</text>
+        <g id="h_bars"></g>
+        <text x="120" y="500" class="strong b" id="h_l1" font-size="16">NOT ONE SERVED A FULL TERM. THE FASTEST TURNOVER IN NEARLY 200 YEARS.</text>
+        <text x="120" y="536" class="b" id="h_l2" font-size="14">NO COUP. NO REVOLUTION. THE SAME QUIET MECHANISM, DOING WHAT IT WAS BUILT TO DO.</text>
+        <text x="120" y="588" class="big flawtxt b" id="h_q" font-size="21">HOW EASY SHOULD IT BE TO REMOVE THE PERSON IN CHARGE?</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The leader you can<br>fire on a Tuesday.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>Cameron. May. Johnson. Truss — who lasted forty-nine days. Sunak. Starmer. And now Burnham. That is seven British prime ministers in ten years, and not one of them served a full term — the fastest turnover of national leaders Britain has seen in almost two hundred years.</p>
+      <p>There was no coup, no revolution, no tanks in the street. Each one was removed, quietly and legally, by the same simple mechanism — a mechanism doing exactly what it was built to do. And it all comes down to one question every democracy has to answer: how easy should it be to remove the person in charge?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="78">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · United Kingdom · June–July 2026</div>
+    <h2>A landslide, gone with no election.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg1">
+        <!-- Starmer majority → gone -->
+        <g class="b" id="e_maj">
+          <text x="120" y="90" class="strong" font-size="15">KEIR STARMER · JULY 2024</text>
+          <rect x="120" y="110" width="900" height="52" class="nodebox"/>
+          <text x="146" y="144" class="strong fact" font-size="17">174-SEAT MAJORITY — ONE OF THE BIGGEST IN MODERN BRITISH HISTORY</text>
+        </g>
+        <g class="b" id="e_gone">
+          <text x="120" y="216" class="flawtxt strong" font-size="16">JUNE 2026 — GONE.</text>
+          <text x="330" y="216" font-size="14">NO ELECTION. NOT EVEN A FORMAL VOTE. HIS OWN MPs SIMPLY STOPPED BACKING HIM.</text>
+          <text x="120" y="252" font-size="14">HIS REPLACEMENT, ANDY BURNHAM, STEPS IN THIS MONTH — AGAIN, WITH NO GENERAL ELECTION.</text>
+        </g>
+        <!-- the tally -->
+        <g class="b" id="e_tally">
+          <text x="120" y="330" class="strong" font-size="15">"MAYBE POLITICIANS ARE JUST BAD?" — BUT LOOK WHO THE CHURN HIT:</text>
+          <g id="e_dots"></g>
+          <text x="120" y="470" class="strong" font-size="15">5 CONSERVATIVE · 1 LABOUR — LEFT AND RIGHT, LANDSLIDE AND NARROW, ALL THE SAME.</text>
+        </g>
+        <text x="120" y="548" class="big b" id="e_r1" font-size="19">A PROBLEM THAT SHOWS UP NO MATTER WHO IS IN CHARGE</text>
+        <text x="120" y="590" class="big flawtxt b" id="e_r2" font-size="19">IS NOT A PEOPLE PROBLEM. IT'S A DESIGN PROBLEM.</text>
+      </svg>
+      <div class="figcap">Fig. 1 — a 174-seat majority ended without a single vote from the public · sources: NPR, NBC, Al Jazeera, CNN</div>
+    </div>
+    <div class="prose">
+      <p>Two years ago Keir Starmer won a landslide — a majority of 174 seats, one of the biggest in modern British history. This June he was gone: no election, not even a formal vote to remove him. His own MPs simply stopped supporting him after a run of bad results, and he walked away. His replacement, Andy Burnham, steps into the job this month — again, with no general election; the public doesn't get a say until the next one, years from now.</p>
+      <p>It would be easy to conclude that British politicians are just uniquely bad at their jobs. But the list rules that out: five of the seven were Conservatives, one was Labour. The churn hit left and right, landslide winners and narrow ones, the scandal-ridden and the simply unlucky, all the same. When a problem shows up no matter who is in charge, you're not looking at a people problem — you're looking at a design problem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="38.2">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pivot · Same democracy, different stability</div>
+    <h2>Removable versus stable.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 500" id="svg2">
+        <!-- UK vs Germany contrast -->
+        <g class="b" id="pv_uk"><text x="300" y="130" text-anchor="middle" class="big flawtxt" font-size="70" id="pv_uk_n">7</text>
+          <text x="300" y="168" text-anchor="middle" font-size="14">UK PRIME MINISTERS · 10 YEARS</text></g>
+        <g class="b" id="pv_de"><text x="1180" y="130" text-anchor="middle" class="big" font-size="70" id="pv_de_n">≈2</text>
+          <text x="1180" y="168" text-anchor="middle" font-size="14">GERMAN CHANCELLORS · SAME 10 YEARS</text></g>
+        <text x="740" y="130" text-anchor="middle" class="b" id="pv_same" font-size="15">SAME KIND OF DEMOCRACY —</text>
+        <text x="740" y="158" text-anchor="middle" class="b" id="pv_same2" font-size="15">THE POLITICIANS AREN'T THE VARIABLE. THE RULES ARE.</text>
+        <!-- the dial -->
+        <g class="b" id="pv_dial">
+          <line x1="300" y1="330" x2="1180" y2="330" class="ink" stroke-width="2"/>
+          <text x="300" y="300" text-anchor="middle" class="flawtxt strong" font-size="15">REMOVABLE</text>
+          <text x="300" y="322" text-anchor="middle" font-size="11">accountable, but fragile</text>
+          <text x="1180" y="300" text-anchor="middle" class="fact strong" font-size="15">STABLE</text>
+          <text x="1180" y="322" text-anchor="middle" font-size="11">can govern, but hard to remove</text>
+          <text x="740" y="400" text-anchor="middle" class="strong b" id="pv_tension" font-size="16">YOU WANT BOTH — AND THE TWO WISHES PULL IN OPPOSITE DIRECTIONS.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 2 — the one hard trade-off underneath every design</div>
+    </div>
+    <div class="prose">
+      <p>Over the exact same ten years that Britain burned through seven prime ministers, Germany had roughly two chancellors. Same kind of democracy, wildly different stability — the politicians aren't the variable, the rules are. And underneath those rules sits a single, genuinely hard trade-off: you want a leader you can remove when they're bad, but you also want one stable enough to actually govern. Those two wishes pull in opposite directions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM (panning world) ================= -->
+<section class="ep" id="s3" data-duration="152.9">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · Not a mystery — a machine</div>
+    <h2>Three parts that build a revolving door.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 660" id="svg3">
+        <defs>
+          <marker id="ah3" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+          <clipPath id="clip3"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+          <clipPath id="clipW1"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+          <clipPath id="clipW2"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+          <clipPath id="clipW3"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+        </defs>
+        <g clip-path="url(#clip3)"><g id="world3">
+
+          <!-- ===== STATION 1: the PM's real electorate ===== -->
+          <g id="w1" clip-path="url(#clipW1)">
+            <text x="120" y="70" class="flawtxt" font-size="15">STATION 1 · WHO ACTUALLY FIRES THE PM</text>
+            <text x="120" y="140" class="strong b" id="m_vote" font-size="15">VOTERS DON'T ELECT A PM. THEY ELECT A LOCAL MP — THE BIGGEST PARTY FORMS A GOVERNMENT.</text>
+            <!-- 60 million vs the room -->
+            <g class="b" id="m_public">
+              <g id="m_crowd"></g>
+              <text x="120" y="470" font-size="13">~60 MILLION VOTERS — NO SAY UNTIL THE NEXT ELECTION</text>
+            </g>
+            <path class="amber b" id="m_no" d="M540 380 L720 380" marker-end="url(#ah3)"/>
+            <g class="b" id="m_room">
+              <rect x="740" y="300" width="560" height="150" class="nodebox" stroke="var(--flaw)"/>
+              <text x="768" y="342" class="strong flawtxt" font-size="16">THE PM'S REAL ELECTORATE:</text>
+              <text x="768" y="378" class="flawtxt" font-size="15">~300 MPs OF THEIR OWN PARTY — "THE ROOM DOWN THE HALL"</text>
+              <text x="768" y="418" font-size="13.5">back you → you rule · enough of them stop → you're finished</text>
+            </g>
+          </g>
+
+          <!-- ===== STATION 2: the low bar ===== -->
+          <g id="w2" transform="translate(1480,0)" clip-path="url(#clipW2)">
+            <text x="120" y="70" class="flawtxt" font-size="15">STATION 2 · THE BAR IS SET SO LOW IT ONLY NEEDS UNHAPPINESS</text>
+            <g class="b" id="m_go">
+              <rect x="180" y="150" width="470" height="120" class="nodebox" stroke="var(--alt)"/>
+              <text x="208" y="192" class="strong alttxt" font-size="15">TO REMOVE: AGREE ON ONE THING —</text>
+              <text x="208" y="226" class="alttxt" font-size="15">"THE LEADER SHOULD GO."</text>
+              <text x="208" y="256" font-size="13">easy · a party in a panic can always agree it's unhappy</text>
+            </g>
+            <g class="b" id="m_next">
+              <rect x="180" y="320" width="470" height="120" class="ink" stroke="var(--flaw)"/>
+              <text x="208" y="362" class="strong flawtxt" font-size="15">NOT REQUIRED: AGREE ON WHO'S NEXT —</text>
+              <text x="208" y="396" class="flawtxt" font-size="15">OR ON ANY PLAN AT ALL.</text>
+              <text x="208" y="426" font-size="13">hard · it rarely agrees on what to build</text>
+            </g>
+            <text x="740" y="230" class="big b" id="m_tear" font-size="19">TEARING DOWN IS EASY.</text>
+            <text x="740" y="272" class="big b" id="m_build" font-size="19">AGREEING WHAT TO BUILD IS NOT.</text>
+            <text x="740" y="380" class="strong flawtxt b" id="m_trigger" font-size="16">SO THE TRIGGER IS FEAR — BAD POLLS, A LOST LOCAL VOTE —</text>
+            <text x="740" y="416" class="strong flawtxt b" id="m_trigger2" font-size="16">NOT THE ARRIVAL OF A BETTER ALTERNATIVE.</text>
+          </g>
+
+          <!-- ===== STATION 3: the FPTP amplifier ===== -->
+          <g id="w3" transform="translate(2960,0)" clip-path="url(#clipW3)">
+            <text x="120" y="70" class="flawtxt" font-size="15">STATION 3 · FIRST-PAST-THE-POST POURS ON THE FUEL</text>
+            <text x="120" y="130" class="strong b" id="m_fptp" font-size="15">MOST VOTES IN EACH DISTRICT WINS IT — WINNER TAKE ALL.</text>
+            <!-- small swing → big seat loss -->
+            <g class="b" id="m_swing">
+              <text x="180" y="200" font-size="13">A SMALL DROP IN VOTES…</text>
+              <rect x="180" y="215" width="240" height="30" fill="none" stroke="var(--text-dim)"/>
+              <rect x="180" y="215" width="200" height="30" fill="var(--text-dim)" opacity=".5"/>
+              <path class="amber" d="M440 230 L560 230" marker-end="url(#ah3)"/>
+              <text x="600" y="200" class="flawtxt" font-size="13">…BECOMES A HUGE LOSS OF SEATS</text>
+              <rect x="600" y="215" width="240" height="30" fill="none" stroke="var(--flaw)"/>
+              <rect x="600" y="215" width="70" height="30" fill="var(--flaw)" opacity=".8"/>
+            </g>
+            <!-- the panic loop -->
+            <g class="b" id="m_loop">
+              <path class="amber" id="m_looppath" d="M360 340 h760 a40 40 0 0 1 40 40 v40 a40 40 0 0 1 -40 40 h-760 a40 40 0 0 1 -40 -40 v-40 a40 40 0 0 1 40 -40 z"/>
+              <text x="400" y="368" class="flawtxt strong" font-size="13.5">BAD POLLS →</text>
+              <text x="640" y="368" class="flawtxt strong" font-size="13.5">MPs FEAR FOR THEIR SEATS →</text>
+              <text x="980" y="368" class="flawtxt strong" font-size="13.5">KNIFE THE LEADER →</text>
+              <text x="400" y="440" font-size="13">new leader · less authority · even shorter fuse · the loop spins faster</text>
+            </g>
+            <text x="120" y="560" class="strong b" id="m_sum" font-size="16">NONE OF THE THREE IS CORRUPT · EACH WAS REASONABLE ON ITS OWN.</text>
+            <text x="120" y="600" class="big flawtxt b" id="m_sum2" font-size="19">TOGETHER: A MACHINE THAT OPTIMIZES TO REPLACE THE LEADER — ON A HORIZON OF MONTHS.</text>
+          </g>
+
+        </g></g>
+      </svg>
+      <div class="figcap">Fig. 3 — a captive electorate, a low bar, and an amplifier · pan: who fires → the bar → the loop</div>
+    </div>
+    <div class="prose">
+      <p>British voters don't elect a prime minister — they elect a local MP, and the biggest party forms a government with its leader as PM. So the person who can fire the PM isn't the public; it's their own party, a few hundred MPs. Your real electorate isn't sixty million people — it's the room down the hall. And to remove a leader, those MPs only have to agree on one thing: that the leader should go. They don't have to agree on who replaces them, or on any plan — and that's a very low bar, because tearing down is far easier than agreeing what to build. So the trigger is fear (bad polls, a lost local election), not the arrival of a better alternative.</p>
+      <p>Then first-past-the-post pours on the fuel. Because whoever gets the most votes in each district wins it, a small drop in a party's popularity can mean an enormous loss of seats — so when the polls dip, every ordinary MP sees their own seat disappearing, and the fastest fix is to swap the leader and hope for a bounce. Bad polls create fear, fear takes out the leader, the new leader inherits less authority and a shorter fuse, and the loop spins faster. None of the three is corrupt; each was reasonable alone. Together they build a machine that optimizes for one thing — replacing the leader — on a timescale of months, when governing takes years.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF ================= -->
+<section class="ep" id="s4" data-duration="174.1">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three levers on one dial</div>
+    <h2>No setting gives you everything.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <defs>
+          <marker id="ah4" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--alt)"/></marker>
+        </defs>
+        <!-- LEVER A: fix the term -->
+        <g class="b" id="a_term">
+          <text x="120" y="80" class="alttxt" font-size="15">LEVER A · FIX THE TERM — THE US PRESIDENTIAL MODEL</text>
+          <g class="b" id="a_termbox"><rect x="120" y="130" width="1240" height="150" class="nodebox" stroke="var(--alt)"/>
+            <text x="148" y="172" class="strong alttxt" font-size="15">ELECTED FOR A SET TERM · REMOVED ONLY FOR SERIOUS WRONGDOING (IMPEACHMENT)</text>
+            <text x="148" y="208" class="alttxt" font-size="14">a leader can govern through terrible polls — a horizon of years, not months</text>
+            <text x="148" y="252" class="strong" font-size="14">GAIN: STABILITY.</text></g>
+          <text x="120" y="360" class="flawtxt b" id="a_termcost" font-size="15">COST: NO QUICK EXIT FROM A LEADER WHO FAILS FAST — REMEMBER TRUSS'S 49 DAYS? YOU WAIT THEM OUT.</text>
+        </g>
+        <!-- LEVER B: fix the removal -->
+        <g class="b" id="a_removal">
+          <text x="120" y="80" class="alttxt" font-size="15">LEVER B · FIX THE REMOVAL — GERMANY'S CONSTRUCTIVE VOTE</text>
+          <g class="b" id="a_weimar"><text x="120" y="150" class="flawtxt" font-size="14">BORN FROM CATASTROPHE — WEIMAR GERMANY:</text>
+            <text x="120" y="180" class="big flawtxt" font-size="40" id="a_weimar_n">20+</text>
+            <text x="122" y="210" class="flawtxt" font-size="13">GOVERNMENTS COLLAPSED IN 14 YEARS — CHAOS THAT HELPED OPEN THE DOOR TO THE NAZIS</text></g>
+          <g class="b" id="a_rule"><rect x="120" y="250" width="1240" height="110" class="nodebox" stroke="var(--alt)"/>
+            <text x="148" y="292" class="strong alttxt" font-size="15">THE FIX: REMOVE THE CHANCELLOR ONLY BY ELECTING A SUCCESSOR AT THE SAME MOMENT.</text>
+            <text x="148" y="326" class="alttxt" font-size="14">you can't just tear down — you must agree who builds next</text></g>
+          <text x="120" y="420" class="b" id="a_rulenote" font-size="14">USED SUCCESSFULLY ONCE IN 75 YEARS (1982) · ADOPTED BY SPAIN (2018) AND OTHERS.</text>
+          <text x="120" y="470" class="flawtxt b" id="a_removalcost" font-size="15">COST: A FRAGMENTED OPPOSITION THAT CAN'T AGREE ON ANYONE CAN LEAVE AN UNPOPULAR GOVERNMENT STUCK.</text>
+        </g>
+        <!-- LEVER C: fix the signal -->
+        <g class="b" id="a_signal">
+          <text x="120" y="80" class="alttxt" font-size="15">LEVER C · FIX THE SIGNAL — PROPORTIONAL REPRESENTATION</text>
+          <g class="b" id="a_prbox"><rect x="120" y="130" width="1240" height="150" class="nodebox" stroke="var(--alt)"/>
+            <text x="148" y="172" class="strong alttxt" font-size="15">SEATS MATCH VOTE SHARE — SO A DIP IN THE POLLS ISN'T A WIPEOUT FOR EVERY MP</text>
+            <text x="148" y="208" class="alttxt" font-size="14">the reflex to knife the leader loses its fuel — you defuse the panic itself</text>
+            <text x="148" y="252" class="strong" font-size="14">GAIN: THE LOOP LOSES ITS ENERGY.</text></g>
+          <text x="120" y="360" class="flawtxt b" id="a_signalcost" font-size="15">COST: PR TENDS TO PRODUCE COALITIONS — GOVERNMENTS STITCHED FROM SEVERAL PARTIES — WITH THEIR OWN INSTABILITY (ITALY: DOZENS SINCE THE WAR)</text>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="a_syn">
+          <text x="740" y="200" text-anchor="middle" class="big" font-size="25" id="a_s0">TERM · REMOVAL · SIGNAL — THREE POINTS ON ONE DIAL</text>
+          <text x="740" y="280" text-anchor="middle" class="strong b" font-size="17" id="a_s1">EACH BUYS MORE STABILITY BY GIVING SOMETHING UP —</text>
+          <text x="740" y="335" text-anchor="middle" class="b" font-size="16" id="a_s2">THE POWER TO REMOVE A BAD LEADER FAST, OR THE CLEAN ACCOUNTABILITY OF ONE PARTY IN CHARGE.</text>
+          <text x="740" y="415" text-anchor="middle" class="flawtxt big b" font-size="19" id="a_s3">NO SETTING GIVES YOU EVERYTHING.</text>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 4 — fix the term · fix the removal · fix the signal — dashed green = revision markup</div>
+    </div>
+    <div class="prose">
+      <p>There are really only three levers, each landing in a different place on that dial. The first is the term: in a presidential system like the US, the leader is elected for a fixed term and can only be removed for serious wrongdoing, through impeachment. The gain is stability — a horizon of years; the cost is that if you elect someone reckless or out of their depth, you're stuck. In a fixed-term system there's no quick exit from a leader who fails as fast as Truss did.</p>
+      <p>The second keeps the power to remove but changes how. Between the wars, Germany's parliament could throw out a chancellor with a simple no-confidence vote — and more than twenty governments collapsed in fourteen years, a chaos that helped open the door to the Nazis. So Germany added one rule: parliament can remove the chancellor only by electing a replacement at the same moment. You can't just tear down; you must agree who builds next — which is why this weapon has been used successfully only once in seventy-five years. The cost: a fragmented opposition can leave an unpopular government stuck. The third lever changes the voting system underneath: switch first-past-the-post for proportional representation, where seats match vote share, and a poll dip stops being a wipeout — so the reflex to knife the leader loses its fuel. The cost is coalitions, and their own instability. None of these is free, and none is obviously right — every setting buys stability by giving something up.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 CLOSE ================= -->
+<section class="ep" id="s5" data-duration="73.9">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Where is your dial set?</div>
+    <h2>Britain built a brake, then took it off.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <!-- FTPA brake -->
+        <g class="b" id="c_ftpa">
+          <rect x="120" y="90" width="1240" height="96" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="1.5"/>
+          <text x="148" y="128" class="strong" font-size="15">2011 · FIXED-TERM PARLIAMENTS ACT</text>
+          <text x="148" y="158" font-size="13.5">fixed elections to a schedule — a brake on one kind of political impulsiveness</text>
+          <line x1="120" y1="90" x2="1360" y2="186" class="amber b" id="c_strike" stroke-width="3"/>
+          <text x="1360" y="224" text-anchor="end" class="flawtxt b" id="c_repeal" font-size="15">2022 · REPEALED — THE BRAKE TAKEN BACK OFF</text>
+        </g>
+        <!-- the dial -->
+        <g class="b" id="c_dial">
+          <line x1="300" y1="300" x2="1180" y2="300" class="ink" stroke-width="2"/>
+          <text x="300" y="272" text-anchor="middle" class="flawtxt strong" font-size="14">ACCOUNTABLE — BUT FRAGILE</text>
+          <text x="1180" y="272" text-anchor="middle" class="fact strong" font-size="14">STABLE — BUT DANGEROUS WHEN WRONG</text>
+          <circle cx="420" cy="300" r="11" fill="var(--flaw)"/><text x="420" y="336" text-anchor="middle" font-size="12">every country sits somewhere</text>
+          <text x="740" y="336" text-anchor="middle" font-size="12">— usually without ever choosing the spot on purpose</text>
+        </g>
+        <!-- generalize -->
+        <text x="740" y="410" text-anchor="middle" class="strong b" id="c_gen" font-size="16">A COMPANY · A BOARD · A TEAM — SAME QUESTION: HOW EASY TO REMOVE THE PERSON AT THE TOP?</text>
+        <text x="740" y="466" text-anchor="middle" class="big b" font-size="21" id="c_q">WHERE WOULD YOU SET THE DIAL —</text>
+        <text x="740" y="502" text-anchor="middle" class="big flawtxt b" font-size="19" id="c_q2">AND DO YOU KNOW WHERE YOURS IS SET RIGHT NOW?</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Here's a detail that makes it sharper. Britain once tried to add a little stability: in 2011 it passed the Fixed-term Parliaments Act, fixing elections to a set schedule — a brake on one kind of political impulsiveness. And then, in 2022, it repealed it, taking even that brake back off. Because there's no obviously correct answer here. A leader you can remove the moment they fail is accountable — but fragile. A leader you can't remove is stable — but dangerous when they're wrong. Every country is quietly parked somewhere on that dial, usually without ever having chosen the spot on purpose. And this isn't really about prime ministers: any company, board, or team answers the same question — how easy is it to remove the person at the top? Make it too hard and you're trapped with your mistakes; too easy and no one can plan past next week. So where would you set the dial — and do you actually know where yours is set right now?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <g stroke="var(--text)" stroke-width="4" fill="none">
+      <rect x="90" y="120" width="360" height="34"/><rect x="90" y="176" width="300" height="34"/>
+      <rect x="90" y="232" width="250" height="34"/><rect x="90" y="288" width="40" height="34" stroke="var(--flaw)"/>
+      <rect x="90" y="344" width="200" height="34"/><rect x="90" y="400" width="180" height="34"/>
+      <rect x="90" y="456" width="24" height="34"/>
+    </g>
+    <text x="150" y="316" style="font-family:var(--font-mono);font-size:22px;fill:var(--flaw)">49 DAYS</text>
+  </svg>
+  <div class="ttxt">7 leaders<br><em>10 years</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <line x1="120" y1="330" x2="520" y2="330" stroke="var(--text)" stroke-width="6"/>
+    <text x="120" y="290" style="font-family:var(--font-mono);font-size:24px;fill:var(--flaw)">REMOVABLE</text>
+    <text x="520" y="290" text-anchor="end" style="font-family:var(--font-mono);font-size:24px;fill:var(--fact)">STABLE</text>
+    <circle cx="180" cy="330" r="20" fill="var(--flaw)"/>
+  </svg>
+  <div class="ttxt">Fire the boss<br><em>on a Tuesday</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:o.from||0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);
+  if(p.classList.contains('green'))tl.set(p,{strokeDasharray:'7 6',strokeDashoffset:0},pos+dur);
+  if(p.classList.contains('ghost'))tl.set(p,{strokeDasharray:'5 5',strokeDashoffset:0},pos+dur);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+
+/* ---------- dynamic bits ---------- */
+// S0 & S5: seven tenure bars
+const PMS=[['CAMERON',360,'2010–16'],['MAY',300,'2016–19'],['JOHNSON',300,'2019–22'],
+  ['TRUSS',40,'49 days'],['SUNAK',210,'2022–24'],['STARMER',200,'2024–26'],['BURNHAM',24,'2026–']];
+(()=>{const g=$('h_bars');let s='';PMS.forEach((p,i)=>{const y=118+i*50;
+  s+=`<g class="pmbar" data-i="${i}" opacity="0">
+    <rect x="120" y="${y}" width="${p[1]}" height="34" fill="${i===3?'var(--flaw)':'var(--text)'}"/>
+    <text x="${140+p[1]}" y="${y+23}" font-size="13" fill="${i===3?'var(--flaw)':'var(--text-dim)'}">${p[0]} · ${p[2]}</text>
+  </g>`;});
+  g.innerHTML=s;})();
+// S1: 7 neutral dots labelled by party (C/L) — kept ink-neutral so no party is colour-coded
+(()=>{const g=$('e_dots');const labs=['C','C','C','C','C','L','L'];let s='';
+  for(let i=0;i<7;i++){const x=140+i*150;
+    s+=`<g class="pdot" data-i="${i}" opacity="0"><circle cx="${x}" cy="410" r="26" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+    <text x="${x}" y="417" text-anchor="middle" class="strong" font-size="16">${labs[i]}</text>
+    <text x="${x}" y="452" text-anchor="middle" font-size="11">${PMS[i][0]}</text></g>`;}
+  g.innerHTML=s;})();
+// S3 station 1: a crowd of dots = the public
+(()=>{const g=$('m_crowd');let s='';for(let i=0;i<40;i++){const c=i%10,r=(i/10|0);
+  s+=`<circle cx="${150+c*38}" cy="${300+r*36}" r="7" fill="none" stroke="var(--text-dim)" stroke-width="1.3"/>`;}
+  g.innerHTML=s;})();
+
+/* ---------- scene timelines ---------- */
+function sc0(D){const tl=gsap.timeline();
+  say(tl,'h_hdr',0.5);
+  [...document.querySelectorAll('.pmbar')].forEach((b,i)=>{
+    tl.fromTo(b,{opacity:0,scaleX:0,transformOrigin:'120px 0'},{opacity:1,scaleX:1,duration:.4,ease:'power2.out'},1.5+i*.7);
+    if(i===3)shake(tl,b,1.5+i*.7+.4,4,4);});
+  say(tl,'h_l1',6.8);say(tl,'h_l2',8.2);
+  say(tl,'h_q',10.5);
+  tl.to($('h_q'),{opacity:.6,duration:1.0,repeat:2,yoyo:true},12.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},15.5);
+  if(isAuto)tl.to({},{duration:3.5},16.1);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},19.5);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  say(tl,'e_maj',0.5);
+  say(tl,'e_gone',4.0);shake(tl,'e_gone',4.5,5,5);
+  say(tl,'e_tally',9.0);
+  [...document.querySelectorAll('.pdot')].forEach((d,i)=>tl.fromTo(d,{opacity:0,y:10},{opacity:1,y:0,duration:.35},11.0+i*.35));
+  say(tl,'e_r1',16.0);say(tl,'e_r2',17.6);
+  tl.to($('e_r2'),{opacity:.6,duration:1.1,repeat:2,yoyo:true},19.6);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  count(tl,'pv_uk_n',7,1.0,0.5);say(tl,'pv_uk',0.5);
+  count(tl,'pv_de_n',2,1.0,2.0,{pre:'≈'});say(tl,'pv_de',2.0);
+  say(tl,'pv_same',4.0);say(tl,'pv_same2',5.0);
+  tl.set($('pv_dial'),{opacity:1},7.0);
+  tl.fromTo(['#pv_dial line','#pv_dial text'],{opacity:0},{opacity:1,duration:.5},7.0);
+  say(tl,'pv_tension',9.5);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();
+  const world=$('world3');
+  // STATION 1 (0–54)
+  say(tl,'m_vote',0.5);
+  tl.set($('m_public'),{opacity:1},3.5);
+  tl.fromTo($('m_crowd').children,{opacity:0},{opacity:1,duration:.02,stagger:.03},3.5);
+  draw(tl,'m_no',.6,6.5);
+  pop(tl,'m_room',7.5);
+  tl.to($('m_room'),{opacity:.7,duration:1.0,repeat:1,yoyo:true},10.0);
+  // TRAVEL to STATION 2
+  tl.to(world,{x:-1480,duration:1.6,ease:'power2.inOut'},14.0);
+  // STATION 2 (16–34)
+  pop(tl,'m_go',16.5);pop(tl,'m_next',18.5);
+  say(tl,'m_tear',21.0);say(tl,'m_build',22.4);
+  say(tl,'m_trigger',25.0);say(tl,'m_trigger2',26.4);
+  tl.to($('m_trigger'),{opacity:.65,duration:1.0,repeat:1,yoyo:true},28.0);
+  // TRAVEL to STATION 3
+  tl.to(world,{x:-2960,duration:1.6,ease:'power2.inOut'},32.0);
+  // STATION 3 (34–end)
+  say(tl,'m_fptp',34.0);
+  say(tl,'m_swing',37.0);
+  tl.set($('m_loop'),{opacity:1},41.0);draw(tl,'m_looppath',2.0,41.0);
+  tl.fromTo(['#m_loop text'],{opacity:0},{opacity:1,duration:.5,stagger:.4},42.0);
+  say(tl,'m_sum',49.0);say(tl,'m_sum2',50.6);
+  tl.to($('m_sum2'),{opacity:.6,duration:1.1,repeat:2,yoyo:true},52.5);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  const show=(el,t)=>tl.fromTo($(el),{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to($(el),{opacity:0,duration:.5},t);
+  // LEVER A (0–56)
+  show('a_term',0.5);pop(tl,'a_termbox',2.5);say(tl,'a_termcost',9.0);
+  hide('a_term',54.0);
+  // LEVER B (56–116)
+  show('a_removal',56.0);
+  say(tl,'a_weimar',58.0);count(tl,'a_weimar_n',20,1.2,58.5,{suf:'+'});
+  pop(tl,'a_rule',63.0);say(tl,'a_rulenote',68.0);say(tl,'a_removalcost',72.0);
+  hide('a_removal',114.0);
+  // LEVER C (116–160)
+  show('a_signal',116.0);pop(tl,'a_prbox',118.0);say(tl,'a_signalcost',124.0);
+  hide('a_signal',158.0);
+  // SYNTHESIS
+  show('a_syn',160.0);say(tl,'a_s1',162.5);say(tl,'a_s2',165.0);say(tl,'a_s3',168.0);
+  tl.to($('a_s3'),{opacity:.6,duration:1.2,repeat:2,yoyo:true},171.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  pop(tl,'c_ftpa',0.5,.6);
+  draw(tl,'c_strike',.6,4.5);shake(tl,'c_ftpa',5.0,5,5);say(tl,'c_repeal',5.2);
+  tl.set($('c_dial'),{opacity:1},8.0);
+  tl.fromTo(['#c_dial line','#c_dial text','#c_dial circle'],{opacity:0},{opacity:1,duration:.5},8.0);
+  say(tl,'c_gen',11.5);
+  say(tl,'c_q',14.5);say(tl,'c_q2',16.0);
+  tl.to($('c_q2'),{opacity:.6,duration:1.2,repeat:3,yoyo:true},18.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode) — reveals the three "as it could be" fixes */
+function setRedline(on){
+  ['a_termbox','a_rule','a_prbox'].forEach(id=>{const e=$(id);if(e)e.style.opacity=on?1:0;});
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+if($('btnBuilt')){$('btnBuilt').onclick=()=>setRedline(false);$('btnCould').onclick=()=>setRedline(true);}
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.2);
+    if(s.id==='s3'||s.id==='s4')tl.timeScale(3.4);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
