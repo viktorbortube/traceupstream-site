@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Number That Closed the World's Oil Tap — How an Insurance Premium Shut the Strait of Hormuz | Trace Upstream</title>
+<meta name="description" content="A quarter of the world's seaborne oil flows through one strait — and this year it stopped, with no blockade ever declared. A blueprint of how war-risk insurance premiums quietly switch global trade off, why the chokepoint never got a backup, and three designs that could buffer it: bypass pipelines, strategic reserves, or a state-backed premium cap.">
+<link rel="canonical" href="https://traceupstream.com/episodes/012-hormuz-chokepoint-insurance/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Number That Closed the World's Oil Tap">
+<meta property="og:description" content="Nobody closed the Strait of Hormuz. An insurance premium did. An interactive blueprint of the chokepoint that carries 25% of seaborne oil — and the price switch attached to it.">
+<meta property="og:url" content="https://traceupstream.com/episodes/012-hormuz-chokepoint-insurance/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#6E8B9E; /* desaturated sea-slate — gulf water on a chart */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text:not([font-size]){font-size:13px}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.topictxt{fill:var(--topic)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .ghost{stroke:var(--text-dim);fill:none;stroke-width:1.5;stroke-dasharray:5 5;opacity:.5}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim{border:1px solid var(--grid);background:var(--bg-raised);padding:18px 22px;margin-top:14px;max-width:680px;
+  font-family:var(--font-mono);font-size:13px}
+.sim label{display:block;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);font-size:11.5px;margin-bottom:8px}
+.sim input[type=range]{width:100%;accent-color:var(--flaw)}
+.sim .simrow{display:flex;gap:26px;flex-wrap:wrap;margin-top:10px}
+.sim .simrow b{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text)}
+.sim .simrow .lab{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.07em}
+.sim #simverdict.no{color:var(--flaw)} .sim #simverdict.go{color:var(--alt)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:104px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:30px;top:30px;width:640px;height:660px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .sim{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.012 — 2026-07-18</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 10:07</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="37.5">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.012</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <defs>
+          <marker id="ah0" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+        </defs>
+        <text x="120" y="78" class="strong b" id="h_hdr" font-size="15">WAR-RISK INSURANCE · ONE TANKER · ONE TRIP THROUGH THE STRAIT OF HORMUZ</text>
+        <g class="b" id="h_p1">
+          <text x="340" y="160" text-anchor="middle" font-size="14">START OF THIS YEAR</text>
+          <text x="340" y="238" text-anchor="middle" class="big fact" font-size="58" id="h_p1n">$0</text>
+        </g>
+        <path class="amber b" id="h_arr" d="M610 210 L850 210" marker-end="url(#ah0)"/>
+        <g class="b" id="h_p2">
+          <text x="1120" y="160" text-anchor="middle" font-size="14">THIS WEEK · SAME SHIP · SAME WATER</text>
+          <text x="1120" y="244" text-anchor="middle" class="big flawtxt" font-size="66" id="h_p2n">$0</text>
+        </g>
+        <text x="740" y="318" text-anchor="middle" class="strong b" id="h_same" font-size="15">NO BLOCKADE DECLARED · NO FLEET BARRING THE WAY · OPEN WATER, ABOUT 40 KM ACROSS</text>
+        <g class="b" id="h_map">
+          <path class="ink" d="M120 384 C 320 368, 520 400, 700 388 S 1100 372, 1360 386" stroke-width="2.5"/>
+          <path class="ink" d="M120 512 C 340 528, 560 496, 760 508 S 1160 524, 1360 510" stroke-width="2.5"/>
+          <path class="ghost" d="M140 448 L1340 448"/>
+          <g id="h_ships"></g>
+          <text x="132" y="412" font-size="11" class="topictxt">IRAN — NORTH SHORE</text>
+          <text x="132" y="498" font-size="11" class="topictxt">OMAN / UAE — SOUTH SHORE</text>
+        </g>
+        <text x="120" y="574" class="strong b" id="h_l1" font-size="15">PAST 24 HOURS: <tspan class="flawtxt">6 SHIPS</tspan> — ON THE LANE THAT CARRIED 25% OF ALL SEABORNE OIL</text>
+        <text x="120" y="608" class="big flawtxt b" id="h_q" font-size="21">NOBODY CLOSED IT. A NUMBER DID.</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The number that closed<br>the world's oil tap.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>At the start of this year, insuring one oil tanker for one trip through the Strait of Hormuz cost about a quarter of a million dollars. This week, that same single trip can cost ten million. The ship is the same. The water is the same. No blockade has been declared, and no fleet is barring the way — the strait is open water, about forty kilometers across at its narrowest point.</p>
+      <p>And yet, in the past twenty-four hours, only six ships have passed through a strait that used to carry a quarter of all the oil that travels by sea. Nobody closed the world's most important shipping lane. A number did. This is the story of that number.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="91.7">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Strait of Hormuz · February–July 2026</div>
+    <h2>A war zone where a quarter of seaborne oil lives.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg1">
+        <!-- timeline -->
+        <g class="b" id="e_tl">
+          <line x1="120" y1="104" x2="1360" y2="104" class="ink"/>
+          <circle cx="180" cy="104" r="7" fill="var(--flaw)"/>
+          <text x="180" y="72" text-anchor="middle" class="flawtxt" font-size="12">FEB 28</text>
+          <text x="180" y="136" text-anchor="middle" font-size="11.5">STRIKES BEGIN — IRAN HITS BACK AT SHIPPING</text>
+          <circle cx="800" cy="104" r="7" fill="var(--fact)" class="b" id="e_tl_truce"/>
+          <text x="800" y="72" text-anchor="middle" class="fact b" id="e_tl_trucet" font-size="12">JUN 18 · TRUCE</text>
+          <circle cx="1120" cy="104" r="7" fill="var(--flaw)" class="b" id="e_tl_resume"/>
+          <text x="1120" y="72" text-anchor="middle" class="flawtxt b" id="e_tl_resumet" font-size="12">JUL 7 · FIGHTING RESUMES</text>
+        </g>
+        <!-- flow stats -->
+        <g class="b" id="e_flow">
+          <text x="120" y="208" class="big fact" font-size="40" id="e_flow_n">0M</text>
+          <text x="120" y="238" font-size="12">BARRELS OF OIL · EVERY DAY · PRE-WAR</text>
+          <text x="640" y="208" class="big" font-size="40">25%</text>
+          <text x="640" y="238" font-size="12">OF THE WORLD'S SEABORNE OIL</text>
+          <text x="1080" y="208" class="big" font-size="40">20%</text>
+          <text x="1080" y="238" font-size="12">OF ITS LIQUEFIED NATURAL GAS</text>
+        </g>
+        <!-- captive exporters -->
+        <g class="b" id="e_only">
+          <text x="120" y="296" class="strong" font-size="14">FOR FOUR EXPORTERS, ESSENTIALLY THE ONLY WAY TO THE OCEAN:</text>
+          <g id="e_flags"></g>
+        </g>
+        <!-- july hits -->
+        <g class="b" id="e_hit">
+          <rect x="120" y="392" width="620" height="88" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="146" y="428" class="strong flawtxt" font-size="14.5">THIS WEEK: CRUISE MISSILES HIT TWO UAE SUPERTANKERS</text>
+          <text x="146" y="460" font-size="13">ONE SAILOR KILLED · WAR INSURANCE SNAPS BACK TOWARD ITS WARTIME PEAK</text>
+        </g>
+        <g class="b" id="e_india">
+          <rect x="780" y="392" width="580" height="88" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="1.5"/>
+          <text x="806" y="428" class="strong" font-size="14.5">INDIA ORDERS ITS 300,000 SEAFARERS OFF THE ROUTE</text>
+          <text x="806" y="460" font-size="13">~6,000 CREW NOW STUCK ON SHIPS THAT AREN'T MOVING</text>
+        </g>
+        <!-- oil price -->
+        <g class="b" id="e_oil">
+          <text x="120" y="546" font-size="12">BRENT-TYPE CRUDE, $/BARREL</text>
+          <polyline id="e_oilline" class="blue" points="120,620 260,564 400,568 540,600 680,616 820,596 960,610 1100,588" />
+          <text x="270" y="558" class="fact" font-size="12">$144</text>
+          <text x="690" y="634" class="fact" font-size="12">$68</text>
+          <text x="1108" y="584" class="fact" font-size="12">$77</text>
+        </g>
+        <text x="740" y="560" class="big b" id="e_quote" font-size="18">IEA: "THE LARGEST ENERGY SECURITY CRISIS IN HISTORY"</text>
+      </svg>
+      <div class="figcap">Fig. 1 — one waterway, one war, one market convulsing · sources: IEA, CNN, The National, MarineTraffic</div>
+    </div>
+    <div class="prose">
+      <p>In late February, the United States and Israel began striking Iran, and Iran struck back — at shipping. Drones, missiles, and fast attack boats turned the Strait of Hormuz into a war zone. Before the war, about twenty million barrels of oil passed through it every single day — a quarter of the world's seaborne oil, plus a fifth of its liquefied natural gas. For Kuwait, Iraq, Qatar, and Bahrain, it is essentially the only way their energy exports reach the ocean.</p>
+      <p>In June, a truce was signed, and the strait began to breathe again. Then, in early July, the fighting resumed. This week, Iranian cruise missiles hit two supertankers from the United Arab Emirates, killing one sailor. Within days, war insurance prices shot back up toward their wartime peak. India ordered its three hundred thousand seafarers to stay off the route entirely; around six thousand crew members are stuck in the region. Oil prices spiked to $144 a barrel, crashed to $68, and are climbing again. The International Energy Agency calls this the largest energy security crisis in history.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="54.5">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pivot · Closed — by nobody</div>
+    <h2>Who actually closed the strait?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg2">
+        <defs>
+          <marker id="ah2" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+        </defs>
+        <text x="120" y="70" class="strong b" id="p_hdr" font-size="15">THE USUAL SUSPECTS:</text>
+        <g id="p_sus"></g>
+        <text x="120" y="238" class="strong b" id="p_convoy" font-size="14.5">THE US EVEN OFFERED NAVAL ESCORTS — SHIPS PROMISED A WARSHIP ALONGSIDE STILL STAYED HOME.</text>
+        <g class="b" id="p_cards">
+          <text x="120" y="300" class="strong" font-size="14">AND IT KEEPS HAPPENING:</text>
+          <g id="p_chokes"></g>
+        </g>
+        <path class="amber b" id="p_dive" d="M740 452 L740 500" marker-end="url(#ah2)"/>
+        <text x="740" y="534" text-anchor="middle" class="big flawtxt b" id="p_follow" font-size="19">FOLLOW THE MONEY — INTO THE INSURANCE MARKET.</text>
+      </svg>
+      <div class="figcap">Fig. 2 — Suez 2021 · Red Sea 2024 · Hormuz 2026 — closed, with no closure ever declared · hover the cards</div>
+    </div>
+    <div class="prose">
+      <p>But here is the strange part: Iran never actually closed the strait. There is no minefield sealing it, and no wall of warships. The United States even offered naval escorts — and ships that were promised a warship alongside them still stayed home.</p>
+      <p>And this keeps happening. In 2021, one stuck container ship stopped traffic in the Suez Canal. In 2024, attacks in the Red Sea pushed thousands of ships on a two-week detour around Africa. The places and the causes were different — but each time, a critical trade route closed without anyone ever declaring it closed. So if no fleet is blocking the strait, and no government ordered it shut, what actually closed it? To answer that, you have to follow the money — into the insurance market.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM I (panning world) ================= -->
+<section class="ep" id="s3" data-duration="95.2">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Switch</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The mechanism · Part I · How danger gets a price</div>
+    <h2>The switch is a percentage.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 660" id="svg3">
+        <defs>
+          <marker id="ah3" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+          <clipPath id="clip3"><rect x="0" y="0" width="1480" height="660"/></clipPath>
+        </defs>
+        <g clip-path="url(#clip3)"><g id="world3">
+
+          <!-- ===== STATION 1: pricing danger ===== -->
+          <g id="w1">
+            <text x="120" y="70" class="flawtxt" font-size="15">STATION 1 · HOW DANGER GETS A PRICE</text>
+            <text x="120" y="130" class="strong b" id="m_ins" font-size="15">EVERY LARGE SHIP CARRIES INSURANCE. IN PEACETIME — A BORING ANNUAL BILL.</text>
+            <g class="b" id="m_zone">
+              <rect x="120" y="170" width="1240" height="104" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2"/>
+              <text x="148" y="208" class="strong flawtxt" font-size="15">LISTED WAR-RISK ZONE → EACH SINGLE VOYAGE NEEDS EXTRA PERMISSION, AT AN EXTRA PRICE</text>
+              <text x="148" y="244" font-size="13.5">set as % OF THE SHIP'S VALUE · repriced constantly · in London, by underwriters who put numbers on danger</text>
+            </g>
+            <g class="b" id="m_gauge">
+              <line x1="220" y1="400" x2="1260" y2="400" class="ink"/>
+              <text x="220" y="440" text-anchor="middle" class="fact strong" font-size="15">0.25%</text>
+              <text x="220" y="464" text-anchor="middle" font-size="11">BEFORE THE WAR</text>
+              <text x="880" y="440" text-anchor="middle" class="flawtxt strong" font-size="17">≈5%</text>
+              <text x="880" y="464" text-anchor="middle" font-size="11">TODAY'S GOING RATE</text>
+              <text x="1260" y="440" text-anchor="middle" class="flawtxt strong" font-size="15">10%</text>
+              <text x="1260" y="464" text-anchor="middle" font-size="11">AT THE WORST MOMENTS</text>
+              <circle cx="220" cy="400" r="9" fill="var(--fact)" id="m_needle"/>
+            </g>
+            <g class="b" id="m_money">
+              <text x="120" y="546" class="strong" font-size="15">FOR A $100,000,000 TANKER:</text>
+              <text x="560" y="552" class="big flawtxt" font-size="34" id="m_moneyn">$0</text>
+              <text x="560" y="584" font-size="12">PER TRIP — ONE THAT USED TO COST $250,000</text>
+            </g>
+          </g>
+
+          <!-- ===== STATION 2: the cascade ===== -->
+          <g id="w2" transform="translate(1480,0)">
+            <text x="120" y="70" class="flawtxt" font-size="15">STATION 2 · THE QUIET CASCADE</text>
+            <g class="b" id="m_pl">
+              <text x="120" y="130" class="strong" font-size="14">ONE VOYAGE, ONE SHIPOWNER'S MATH:</text>
+              <rect x="120" y="150" width="420" height="34" fill="var(--fact)" opacity=".85"/>
+              <text x="132" y="173" font-size="12.5" style="fill:#F8F9FB">EARNINGS FOR THE CARGO ≈ A FEW $M</text>
+              <rect x="120" y="196" width="0" height="34" fill="var(--flaw)" id="m_plbar"/>
+              <text x="132" y="219" font-size="12.5" class="b" id="m_pllab" style="fill:#F8F9FB">WAR PREMIUM — UP TO $10M</text>
+              <text x="970" y="219" class="strong flawtxt b" id="m_plno" font-size="16">THE TRIP MAKES NO SENSE → THE OWNER SAYS NO.</text>
+            </g>
+            <text x="120" y="292" class="strong b" id="m_noorder" font-size="15">NOBODY ORDERED THEM TO STOP — THE MATH SIMPLY STOPPED WORKING.</text>
+            <g class="b" id="m_fleetg">
+              <g id="m_fleet"></g>
+              <text x="120" y="500" font-size="13" class="b" id="m_fleetlab">× THOUSANDS OF INDEPENDENT SHIPOWNERS → THE BUSIEST OIL LANE ON EARTH GOES QUIET IN DAYS</text>
+            </g>
+            <text x="120" y="556" class="b" id="m_ok" font-size="14">NOTHING HERE IS BROKEN · THE MARKET TRANSLATES DANGER INTO PRICE — QUICKLY, HONESTLY</text>
+            <text x="120" y="606" class="big flawtxt b" id="m_flawcard" font-size="20">THE PROBLEM IS NOT THE MARKET. IT'S WHAT THE WORLD PLUGGED INTO IT.</text>
+          </g>
+
+        </g></g>
+      </svg>
+      <div class="sim" id="premiumSim">
+        <label>Try the switch yourself — war-risk premium, % of a $100M ship's value</label>
+        <input type="range" id="simRange" min="0.25" max="10" step="0.25" value="0.25">
+        <div class="simrow">
+          <div><b id="simPct">0.25%</b><div class="lab">premium rate</div></div>
+          <div><b id="simCost">$250,000</b><div class="lab">insurance per trip</div></div>
+          <div><b id="simverdict" class="go">SAILS</b><div class="lab">vs ≈$3M voyage earnings</div></div>
+        </div>
+      </div>
+      <div class="figcap">Fig. 3 — a missile on Tuesday has a dollar value by Wednesday · pan: the price → the cascade</div>
+    </div>
+    <div class="prose">
+      <p>Every large ship carries insurance, and in peacetime, that is a boring annual bill. But when a region is officially listed as a war-risk zone, each single voyage through it needs extra permission from the insurer, at an extra price — set as a percentage of the ship's value and recalculated constantly, in London, by a small market of underwriters who do nothing but put numbers on danger. Before the war, crossing Hormuz cost about a quarter of one percent of a ship's value. Today the going rate is around five percent, and at the worst moments it has touched ten — up to ten million dollars for one trip that used to cost two hundred and fifty thousand.</p>
+      <p>Now watch what that number does. A shipowner earns a few million dollars for delivering a cargo. If the insurance alone can eat the entire earnings of the voyage, the trip makes no sense, so the owner says no. Nobody ordered them to stop — the math simply stopped working. Multiply that decision by thousands of independent shipowners, and the busiest oil lane on Earth goes quiet in days. Nothing here is broken: the insurance market is doing exactly what it was built to do — translating danger into price, quickly and honestly. The problem is not the market. The problem is what the world plugged into it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 MECHANISM II ================= -->
+<section class="ep" id="s4" data-duration="79.6">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">One Door</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The mechanism · Part II · A 40-year-old known flaw</div>
+    <h2>A quarter of seaborne oil. One door.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <defs>
+          <marker id="ah4" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--flaw)"/></marker>
+        </defs>
+        <!-- six pipes into one door -->
+        <g class="b" id="d_door">
+          <g id="d_pipes"></g>
+          <rect x="1090" y="210" width="150" height="130" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1165" y="188" text-anchor="middle" class="flawtxt strong" font-size="14">HORMUZ — ONE DOOR</text>
+          <path class="amber" d="M1240 275 L1350 275" marker-end="url(#ah4)"/>
+        </g>
+        <text x="120" y="404" class="strong b" id="d_clock" font-size="14.5">KNOWN FOR 40+ YEARS — 1980s TANKER WAR: <tspan class="flawtxt">HUNDREDS OF TANKERS ATTACKED</tspan> IN THESE SAME WATERS</text>
+        <!-- economics chain -->
+        <g class="b" id="d_econ">
+          <rect x="120" y="436" width="330" height="64" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="1.5"/>
+          <text x="140" y="462" font-size="12.5" class="strong">A BACKUP PIPELINE</text>
+          <text x="140" y="486" font-size="12">COSTS BILLIONS</text>
+          <path class="amber" d="M450 468 L500 468" marker-end="url(#ah4)"/>
+          <rect x="504" y="436" width="330" height="64" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="1.5"/>
+          <text x="524" y="462" font-size="12.5" class="strong">SITS HALF-EMPTY</text>
+          <text x="524" y="486" font-size="12">EVERY PEACEFUL YEAR</text>
+          <path class="amber" d="M834 468 L884 468" marker-end="url(#ah4)"/>
+          <rect x="888" y="436" width="472" height="64" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="1.5"/>
+          <text x="908" y="462" font-size="12.5" class="strong">PAYOFF — STABLE PRICES FOR THE PLANET —</text>
+          <text x="908" y="486" font-size="12">GOES TO EVERYONE EXCEPT WHOEVER PAYS</text>
+        </g>
+        <text x="120" y="546" class="strong flawtxt b" id="d_under" font-size="16">PRIVATE EXPENSE · PUBLIC GOOD · RELIABLY UNDERBUILT.</text>
+        <!-- the bar -->
+        <g class="b" id="d_bar">
+          <text x="900" y="560" font-size="12">THE FLOW: 20M B/D</text>
+          <rect x="900" y="570" width="440" height="20" fill="none" stroke="var(--text)" stroke-width="1.5"/>
+          <rect x="900" y="570" width="110" height="20" fill="var(--alt)" opacity=".8" id="d_bypassbar"/>
+          <text x="900" y="620" font-size="12" class="alttxt">BYPASS BUILT: ≈5M B/D · OWNED BY JUST 2 OF 6 EXPORTERS</text>
+        </g>
+        <text x="120" y="606" class="big b" id="d_sum" font-size="18">ONE WATERWAY · ONE PRICE SWITCH · ALMOST NO BACKUP.</text>
+      </svg>
+      <div class="figcap">Fig. 4 — six exporters, one exit · click a country for its options</div>
+    </div>
+    <div class="prose">
+      <p>Here is the real design flaw: a quarter of the world's seaborne oil flows through a single door — and for more than forty years, everyone has known this door can jam. In the 1980s, during the Iran–Iraq war, hundreds of tankers were attacked in these same waters. The lesson was obvious even then: this route needs a backup.</p>
+      <p>So why was so little built? Because a backup pipeline is a strange kind of investment. It costs billions, then sits half-empty through every peaceful year — while the payoff, stable oil prices for the whole planet, goes to everyone except the company paying for it. Redundancy here is a private expense that produces a public good, and things that work like that reliably get underbuilt. The result: against twenty million daily barrels, the world has built bypass routes for roughly five, owned by just two countries. Kuwait, Iraq, Qatar, and Bahrain have exactly zero alternatives — their oil either goes through the strait or stays in the ground. So the system is one narrow waterway, one price switch attached to it, and almost no backup. What would a better one look like?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 WHAT IF ================= -->
+<section class="ep" id="s5" data-duration="149.3">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three places to put one buffer</div>
+    <h2>Steel, oil, or public risk.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg5">
+        <defs>
+          <marker id="ah5" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 4 L0 8 z" fill="var(--alt)"/></marker>
+        </defs>
+        <!-- OPTION A: another door -->
+        <g class="b" id="b_a">
+          <text x="120" y="80" class="alttxt" font-size="15">OPTION 1 · BUILD ANOTHER DOOR — PIPELINES PAST THE STRAIT</text>
+          <g class="b" id="b_map">
+            <path class="ink" d="M420 150 C 560 138, 900 142, 1060 168 C 1180 190, 1220 260, 1180 330 C 1140 396, 900 420, 700 408 C 520 398, 420 340, 400 260 C 390 210, 396 172, 420 150 z" stroke-width="2"/>
+            <text x="760" y="386" text-anchor="middle" class="topictxt" font-size="13">ARABIAN PENINSULA</text>
+            <circle cx="1178" cy="252" r="8" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+            <text x="1214" y="246" class="flawtxt" font-size="12">HORMUZ</text>
+          </g>
+          <path class="green b" id="b_petro" d="M1080 220 C 880 200, 560 216, 430 262" marker-end="url(#ah5)"/>
+          <text x="740" y="300" text-anchor="middle" class="alttxt b" id="b_petrot1" font-size="13">TO THE RED SEA — PETROLINE</text>
+          <text x="740" y="326" text-anchor="middle" class="b" id="b_petrot2" font-size="12">BUILT IN THE 1980s TANKER WAR · NOW 7M B/D · ≈60% OF SAUDI EXPORTS</text>
+          <path class="green b" id="b_adcop" d="M1060 320 C 1140 340, 1210 360, 1268 388" marker-end="url(#ah5)"/>
+          <text x="1420" y="430" text-anchor="end" class="alttxt b" id="b_adcopt" font-size="12">UAE → FUJAIRAH · OUTSIDE THE STRAIT · DOUBLING</text>
+          <g class="b" id="b_acost">
+            <text x="120" y="490" class="strong flawtxt" font-size="14.5">THE PRICE TAG:</text>
+            <text x="120" y="524" font-size="13.5">BILLIONS SPENT, DECADES BELOW CAPACITY · A DRONE STRIKE ONCE CUT 700,000 B/D</text>
+            <text x="120" y="556" font-size="13.5">AND ALL THE BACKUPS COMBINED COVER ONLY ABOUT <tspan class="flawtxt">¼ OF WHAT THE STRAIT CARRIES</tspan></text>
+          </g>
+        </g>
+        <!-- OPTION B: reserves -->
+        <g class="b" id="b_b">
+          <text x="120" y="80" class="alttxt" font-size="15">OPTION 2 · STORE OIL AHEAD OF TIME — STRATEGIC RESERVES</text>
+          <g id="b_tanks"></g>
+          <text x="120" y="150" class="strong b" id="b_pact" font-size="14.5">AFTER THE 1970s OIL SHOCK, IMPORTING COUNTRIES MADE A PACT: KEEP ≥ 90 DAYS OF IMPORTS IN STORAGE.</text>
+          <g class="b" id="b_release">
+            <text x="120" y="420" class="big alttxt" font-size="44" id="b_reln">0M</text>
+            <text x="120" y="452" font-size="12.5">BARRELS RELEASED THIS SPRING — THE LARGEST COORDINATED RELEASE IN HISTORY · IT IS CUSHIONING YOU RIGHT NOW</text>
+          </g>
+          <g class="b" id="b_bcost">
+            <text x="120" y="510" class="strong flawtxt" font-size="14.5">THE CATCH:</text>
+            <text x="120" y="544" font-size="13.5">A RESERVE BUYS MONTHS — IT FIXES NOTHING · PROJECTED TO RUN LOW BY LATE SUMMER</text>
+            <text x="120" y="576" font-size="13.5">REFILLING PUSHES PRICES UP LATER · COUNTRIES OUTSIDE THE PACT: <tspan class="flawtxt">NO CUSHION AT ALL</tspan></text>
+          </g>
+        </g>
+        <!-- OPTION C: cap the switch -->
+        <g class="b" id="b_c">
+          <text x="120" y="80" class="alttxt" font-size="15">OPTION 3 · CAP THE SWITCH — A LIMIT ON THE PRICE OF RISK</text>
+          <g class="b" id="b_cgauge">
+            <line x1="220" y1="190" x2="1260" y2="190" class="ink"/>
+            <circle cx="880" cy="190" r="9" fill="var(--flaw)"/>
+            <text x="880" y="164" text-anchor="middle" class="flawtxt" font-size="12">MARKET PREMIUM, RUNNING FREE</text>
+            <line x1="640" y1="140" x2="640" y2="240" class="green" id="b_capline"/>
+            <text x="640" y="270" text-anchor="middle" class="alttxt strong" font-size="13">THE CAP — STATE ABSORBS THE EXTREME RISK</text>
+          </g>
+          <g class="b" id="b_norway">
+            <rect x="120" y="310" width="580" height="96" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2" stroke-dasharray="7 6"/>
+            <text x="146" y="340" class="strong alttxt" font-size="14">NORWAY · SINCE 1935</text>
+            <text x="146" y="366" font-size="12.5">SHIPOWNERS RUN THEIR OWN</text>
+            <text x="146" y="390" font-size="12.5">SHARED WAR-RISK POOL</text>
+          </g>
+          <g class="b" id="b_911">
+            <rect x="760" y="310" width="600" height="96" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2" stroke-dasharray="7 6"/>
+            <text x="786" y="340" class="strong alttxt" font-size="14">AFTER 9/11 · AVIATION</text>
+            <text x="786" y="366" font-size="12.5">INSURERS PULLED OUT IN A WEEK → GOVERNMENTS BACKSTOPPED</text>
+            <text x="786" y="390" font-size="12.5">→ PLANES KEPT FLYING</text>
+          </g>
+          <g class="b" id="b_ccost">
+            <text x="120" y="470" class="strong flawtxt" font-size="14.5">THE SHARPEST EDGE:</text>
+            <text x="120" y="504" font-size="13.5">CATASTROPHIC RISK MOVES ONTO TAXPAYERS</text>
+            <text x="120" y="536" font-size="13.5">A SUBSIDIZED PREMIUM SENDS CREWS INTO WATER WHERE MISSILES ARE LANDING — <tspan class="flawtxt">A SAILOR DIED THIS WEEK</tspan></text>
+            <text x="120" y="568" font-size="13.5">A CHEAP PREMIUM CAN QUIETLY DECIDE A DELIVERY IS WORTH RISKING THE LIVES OF THE CREW</text>
+          </g>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="b_syn">
+          <text x="740" y="180" text-anchor="middle" class="big" font-size="24" id="b_s0">PIPELINES IN ADVANCE · OIL IN ADVANCE · PUBLIC MONEY MID-CRISIS</text>
+          <text x="740" y="260" text-anchor="middle" class="strong b" font-size="17" id="b_s1">THREE DIFFERENT PLACES TO PUT THE SAME BUFFER —</text>
+          <text x="740" y="315" text-anchor="middle" class="big alttxt b" font-size="20" id="b_s2">THE BUFFER THE MARKET, ON ITS OWN, WILL NEVER BUILD.</text>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 5 — dashed green = revision markup: another door, a battery of oil, a cap on the switch</div>
+    </div>
+    <div class="prose">
+      <p>Option one: build another door. This is not a theory — it was born the last time this strait caught fire. During the 1980s tanker war, Saudi Arabia built a pipeline all the way across the peninsula to the Red Sea. This year it was pushed to seven million barrels a day, and it is keeping roughly sixty percent of Saudi exports flowing; the Emirates built their own line to a port outside the strait and are doubling it. But the price tag is real: billions spent on capacity that idled for decades, pipelines that can themselves be attacked — one drone strike cut seven hundred thousand barrels a day — and even now all the backups combined cover only about a quarter of what the strait carries.</p>
+      <p>Option two: if you can't build another route, store oil ahead of time. After the 1970s oil shock, importing countries made a pact to keep at least ninety days of imports in storage — and that pact is cushioning you right now: four hundred million barrels released this spring, the largest coordinated release in history. The catch is that a reserve buys months and fixes nothing; this one is projected to run low by late summer, refilling it will push prices up later, and countries outside the pact have no cushion at all.</p>
+      <p>Option three: cap the switch itself. Norway's shipowners have run a shared war-risk pool since 1935; after September 11th, when private insurers pulled war coverage from airlines within a week, governments stepped in as the backstop and planes kept flying. The same design could cap the premium for critical cargo, with the state absorbing the extreme risk. But this one has the sharpest edge of all: it moves catastrophic risk onto taxpayers, and a subsidized premium sends human beings into water where missiles are landing — a sailor died there this week. So the choice is pipelines built in advance, oil stored in advance, or public money spent mid-crisis: three places to put the same buffer, the buffer the market on its own will never build.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="61.2">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Who holds the switch?</div>
+    <h2>Priced shut.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g class="b" id="c_wrongq">
+          <text x="740" y="80" text-anchor="middle" class="strong" font-size="16">THE WORLD KEPT ASKING: "WILL IRAN CLOSE THE STRAIT?"</text>
+          <line x1="440" y1="96" x2="1040" y2="60" class="amber b" id="c_strike"/>
+        </g>
+        <text x="740" y="140" text-anchor="middle" class="big flawtxt b" id="c_answer" font-size="21">THE STRAIT WAS NEVER CLOSED. IT WAS PRICED SHUT.</text>
+        <text x="740" y="176" text-anchor="middle" class="b" id="c_market" font-size="13.5">BY A MARKET THAT MEASURES DANGER HONESTLY — AND OWES NOTHING TO THE SYSTEM IT SWITCHES OFF</text>
+        <g class="b" id="c_nets">
+          <text x="740" y="240" text-anchor="middle" class="strong" font-size="14.5">ONCE YOU SEE THAT SWITCH, YOU NOTICE THEM EVERYWHERE:</text>
+          <g id="c_chips"></g>
+          <text x="740" y="356" text-anchor="middle" font-size="13">UNDER EACH — A QUIET NUMBER NOBODY VOTES ON, TRANSLATING FEAR INTO PRICE</text>
+        </g>
+        <g class="b" id="c_tags">
+          <text x="440" y="424" text-anchor="middle" class="fact strong" font-size="16">$250,000 — OIL FLOWED</text>
+          <text x="1040" y="424" text-anchor="middle" class="flawtxt strong" font-size="16">$10,000,000 — THE SEA IS EMPTY</text>
+        </g>
+        <text x="740" y="490" text-anchor="middle" class="big b" font-size="21" id="c_q">NEXT TIME SOMETHING "CLOSES" — <tspan class="flawtxt">WHO IS ACTUALLY HOLDING THE SWITCH?</tspan></text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>For months, the world has been asking one question: will Iran close the strait? But that was never quite the right question. The strait was never closed. It was priced shut — by a market that measures danger honestly and owes nothing to the system it switches off. And once you see that switch, you start noticing them everywhere. The power grid, the food supply, the shipping lanes — beneath each one sits some quiet number that nobody votes on, that translates fear into price, and decides what moves and what stops.</p>
+      <p>At the start of this year, that number was a quarter of a million dollars, and oil flowed. Today it is ten million, and the sea is empty. So the next time you hear that a strait, a canal, or a border has "closed" — it's worth asking who is actually holding the switch.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 640 660">
+    <path stroke="var(--text)" stroke-width="4" fill="none" d="M60 200 C 200 186, 380 210, 580 196"/>
+    <path stroke="var(--text)" stroke-width="4" fill="none" d="M60 430 C 240 448, 420 420, 580 436"/>
+    <line x1="80" y1="318" x2="560" y2="318" stroke="var(--text-dim)" stroke-width="2" stroke-dasharray="8 8"/>
+    <circle cx="180" cy="318" r="10" fill="var(--fact)"/>
+    <circle cx="330" cy="318" r="10" fill="var(--fact)"/>
+    <text x="320" y="120" text-anchor="middle" style="font-family:var(--font-mono);font-size:30px;fill:var(--flaw)">×40 TO CROSS</text>
+    <text x="320" y="560" text-anchor="middle" style="font-family:var(--font-mono);font-size:26px;fill:var(--text-dim)">NO BLOCKADE DECLARED</text>
+  </svg>
+  <div class="ttxt">$250k → $10m<br><em>one boat trip</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 640 660">
+    <rect x="150" y="150" width="340" height="240" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <line x1="150" y1="270" x2="490" y2="270" stroke="var(--grid)" stroke-width="3"/>
+    <line x1="320" y1="150" x2="320" y2="390" stroke="var(--grid)" stroke-width="3"/>
+    <rect x="320" y="270" width="170" height="120" fill="var(--flaw)" opacity=".9"/>
+    <text x="405" y="342" text-anchor="middle" style="font-family:var(--font-mono);font-size:34px;fill:#F8F9FB">5.0%</text>
+    <text x="320" y="480" text-anchor="middle" style="font-family:var(--font-mono);font-size:24px;fill:var(--text-dim)">25% OF SEABORNE OIL · 6 SHIPS A DAY</text>
+  </svg>
+  <div class="ttxt">A spreadsheet<br><em>closed the sea</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:o.from||0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);
+  if(p.classList.contains('green'))tl.set(p,{strokeDasharray:'7 6',strokeDashoffset:0},pos+dur);
+  if(p.classList.contains('ghost'))tl.set(p,{strokeDasharray:'5 5',strokeDashoffset:0},pos+dur);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+
+/* ---------- dynamic bits ---------- */
+// S0: six lonely ships on the lane
+(()=>{const g=$('h_ships');let s='';
+  for(let i=0;i<6;i++){const x=200+i*190;
+    s+=`<g class="hship" opacity="0"><rect x="${x}" y="440" width="34" height="10" fill="var(--fact)"/><rect x="${x+10}" y="432" width="12" height="8" fill="var(--fact)"/></g>`;}
+  g.innerHTML=s;})();
+// S1: four captive-exporter chips
+(()=>{const g=$('e_flags');const cs=['KUWAIT','IRAQ','QATAR','BAHRAIN'];let s='';
+  cs.forEach((c,i)=>{const x=120+i*310;
+    s+=`<g class="echip" opacity="0"><rect x="${x}" y="316" width="280" height="42" fill="none" stroke="var(--text)" stroke-width="1.5"/>
+    <text x="${x+22}" y="343" class="strong" font-size="14">${c}</text>
+    <text x="${x+180}" y="343" font-size="11" class="flawtxt">ONLY EXIT</text></g>`;});
+  g.innerHTML=s;})();
+// S2: suspects + chokepoint cards
+(()=>{const g=$('p_sus');const items=['A MINEFIELD?','A WALL OF WARSHIPS?','A GOVERNMENT ORDER?'];let s='';
+  items.forEach((t,i)=>{const x=120+i*430;
+    s+=`<g class="psus" opacity="0"><rect x="${x}" y="96" width="390" height="60" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="1.5"/>
+    <text x="${x+24}" y="133" class="strong" font-size="14.5">${t}</text>
+    <g class="psno" opacity="0"><line x1="${x+310}" y1="106" x2="${x+366}" y2="146" stroke="var(--flaw)" stroke-width="4"/>
+    <line x1="${x+366}" y1="106" x2="${x+310}" y2="146" stroke="var(--flaw)" stroke-width="4"/></g></g>`;});
+  g.innerHTML=s;})();
+(()=>{const g=$('p_chokes');
+  const cards=[['SUEZ · 2021','ONE STUCK SHIP','tip:For six days in March 2021, the container ship Ever Given wedged across the canal — ~12% of global trade queued behind one hull.'],
+               ['RED SEA · 2024','A 2-WEEK DETOUR','tip:Attacks on shipping pushed thousands of vessels around the Cape of Good Hope — adding roughly two weeks per voyage.'],
+               ['HORMUZ · 2026','6 SHIPS A DAY','tip:War-risk premiums near 5% of hull value per transit; traffic collapsed from a quarter of seaborne oil to a handful of crossings.']];
+  let s='';cards.forEach((c,i)=>{const x=120+i*430;
+    s+=`<g class="pcard" data-tip="${c[2].slice(4)}" opacity="0"><rect x="${x}" y="320" width="390" height="110" fill="var(--bg-raised)" stroke="var(--text-dim)" stroke-width="1.5" stroke-dasharray="5 5"/>
+    <text x="${x+24}" y="356" class="strong" font-size="14.5">${c[0]}</text>
+    <text x="${x+24}" y="386" class="flawtxt" font-size="13">${c[1]}</text>
+    <text x="${x+24}" y="414" font-size="11">CLOSED — WITH NO CLOSURE DECLARED</text></g>`;});
+  g.innerHTML=s;})();
+// S3 station 2: fleet of ships going dark
+(()=>{const g=$('m_fleet');let s='';
+  for(let i=0;i<48;i++){const c=i%16,r=(i/16|0);
+    s+=`<g class="mship"><rect x="${120+c*78}" y="${340+r*44}" width="30" height="9" fill="var(--fact)"/><rect x="${129+c*78}" y="${333+r*44}" width="10" height="7" fill="var(--fact)"/></g>`;}
+  g.innerHTML=s;})();
+// S4: six pipes into one door
+(()=>{const g=$('d_pipes');
+  const cs=[['SAUDI ARABIA',80,'tip:The only exporter with large bypass capacity — the 7M b/d East-West pipeline to the Red Sea.'],
+            ['UAE',132,'tip:Owns the 1.8M b/d Habshan–Fujairah line to a port outside the strait; a second line is planned.'],
+            ['KUWAIT',184,'tip:No bypass pipeline. Every exported barrel transits Hormuz.'],
+            ['IRAQ',236,'tip:Almost fully Hormuz-dependent; northern routes are small and unreliable.'],
+            ['QATAR',288,'tip:The world’s largest LNG exporter — all of it through Hormuz.'],
+            ['BAHRAIN',340,'tip:No alternative export route.']];
+  let s='';cs.forEach((c,i)=>{
+    s+=`<g class="dpipe" data-tip="${c[2].slice(4)}" opacity="0">
+      <text x="120" y="${c[1]+5}" font-size="12.5" class="strong">${c[0]}</text>
+      <path class="blue" d="M320 ${c[1]} C 620 ${c[1]}, 860 ${230+i*18}, 1090 ${240+i*14}"/>
+    </g>`;});
+  g.innerHTML=s;})();
+// S5: reserve tanks
+(()=>{const g=$('b_tanks');let s='';
+  for(let i=0;i<9;i++){const x=140+i*140;
+    s+=`<g class="btank" opacity="0"><rect x="${x}" y="200" width="90" height="120" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="7 6"/>
+    <rect x="${x+4}" y="316" width="82" height="0" fill="var(--alt)" opacity=".55" class="bfill"/></g>`;}
+  g.innerHTML=s;})();
+// S6: quiet-number chips
+(()=>{const g=$('c_chips');const cs=['POWER GRID','FOOD SUPPLY','SHIPPING LANES'];let s='';
+  cs.forEach((c,i)=>{const x=270+i*340;
+    s+=`<g class="cchip" opacity="0"><rect x="${x}" y="264" width="300" height="52" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="1.5"/>
+    <text x="${x+150}" y="296" text-anchor="middle" class="strong" font-size="14">${c}</text></g>`;});
+  g.innerHTML=s;})();
+
+/* ---------- scene timelines ---------- */
+function sc0(D){const tl=gsap.timeline();
+  say(tl,'h_hdr',0.5);
+  say(tl,'h_p1',2.0);count(tl,'h_p1n',250000,1.4,2.2,{pre:'$'});
+  draw(tl,'h_arr',.5,5.0);
+  say(tl,'h_p2',5.6);count(tl,'h_p2n',10000000,1.8,5.8,{pre:'$'});
+  shake(tl,'h_p2',7.8,6,6);
+  say(tl,'h_same',9.5);
+  tl.set($('h_map'),{opacity:1},12.0);
+  tl.fromTo('#h_map path',{opacity:0},{opacity:1,duration:.6,stagger:.2},12.0);
+  [...document.querySelectorAll('.hship')].forEach((sh,i)=>{
+    tl.to(sh,{opacity:1,duration:.3},14.0+i*.8);
+    tl.to(sh,{x:60,duration:3.0,ease:'none'},14.3+i*.8);});
+  say(tl,'h_l1',18.5);
+  say(tl,'h_q',21.5);
+  tl.to($('h_q'),{opacity:.6,duration:1.0,repeat:2,yoyo:true},23.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},26.5);
+  if(isAuto)tl.to({},{duration:3.5},27.1);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},30.5);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  say(tl,'e_tl',0.5);
+  say(tl,'e_flow',3.5);count(tl,'e_flow_n',20,1.2,3.7,{suf:'M'});
+  say(tl,'e_only',8.0);
+  [...document.querySelectorAll('.echip')].forEach((c,i)=>tl.fromTo(c,{opacity:0,y:10},{opacity:1,y:0,duration:.35},9.5+i*.5));
+  say(tl,'e_tl_truce',13.5);say(tl,'e_tl_trucet',13.5);
+  say(tl,'e_tl_resume',16.0);say(tl,'e_tl_resumet',16.0);
+  pop(tl,'e_hit',18.5);shake(tl,'e_hit',19.2,7,7);
+  pop(tl,'e_india',22.5);
+  tl.set($('e_oil'),{opacity:1},26.0);
+  draw(tl,'e_oilline',2.2,26.0);
+  say(tl,'e_quote',29.5);
+  tl.to($('e_quote'),{opacity:.65,duration:1.0,repeat:1,yoyo:true},31.5);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  say(tl,'p_hdr',0.5);
+  [...document.querySelectorAll('.psus')].forEach((el,i)=>{
+    tl.fromTo(el,{opacity:0,y:10},{opacity:1,y:0,duration:.4},1.5+i*1.4);
+    tl.to(el.querySelector('.psno'),{opacity:1,duration:.25},2.3+i*1.4);
+    shake(tl,el,2.4+i*1.4,4,4);});
+  say(tl,'p_convoy',6.5);
+  tl.set($('p_cards'),{opacity:1},9.0);
+  [...document.querySelectorAll('.pcard')].forEach((el,i)=>tl.fromTo(el,{opacity:0,y:12},{opacity:1,y:0,duration:.45},9.5+i*1.2));
+  draw(tl,'p_dive',.6,14.0);
+  say(tl,'p_follow',14.8);
+  tl.to($('p_follow'),{opacity:.6,duration:1.0,repeat:2,yoyo:true},16.2);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();
+  const world=$('world3');
+  // STATION 1
+  say(tl,'m_ins',0.5);
+  pop(tl,'m_zone',4.0);
+  tl.set($('m_gauge'),{opacity:1},9.0);
+  tl.fromTo(['#m_gauge line','#m_gauge text'],{opacity:0},{opacity:1,duration:.5},9.0);
+  tl.to($('m_needle'),{attr:{cx:880},fill:'var(--flaw)',duration:2.2,ease:'power2.inOut'},11.0);
+  tl.to($('m_needle'),{attr:{cx:1260},duration:1.0,ease:'power1.inOut'},14.0);
+  tl.to($('m_needle'),{attr:{cx:880},duration:.8},15.2);
+  say(tl,'m_money',16.5);count(tl,'m_moneyn',10000000,1.8,16.8,{pre:'$'});
+  shake(tl,'m_money',18.8,5,5);
+  // TRAVEL
+  tl.to(world,{x:-1480,duration:1.6,ease:'power2.inOut'},22.5);
+  // STATION 2
+  say(tl,'m_pl',24.5);
+  tl.to($('m_plbar'),{attr:{width:820},duration:1.6,ease:'power2.in'},26.5);
+  tl.set($('m_pllab'),{opacity:1},27.2);
+  say(tl,'m_plno',28.6);
+  say(tl,'m_noorder',31.5);
+  tl.set($('m_fleetg'),{opacity:1},34.0);
+  tl.fromTo('.mship',{opacity:0},{opacity:1,duration:.02,stagger:.02},34.0);
+  tl.to('.mship',{opacity:.12,duration:.06,stagger:{each:.045,from:'random'}},36.5);
+  tl.set($('m_fleetlab'),{opacity:1},37.5);
+  say(tl,'m_ok',40.5);
+  say(tl,'m_flawcard',44.0);
+  tl.to($('m_flawcard'),{opacity:.6,duration:1.1,repeat:2,yoyo:true},46.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  tl.set($('d_door'),{opacity:1},0.5);
+  [...document.querySelectorAll('.dpipe')].forEach((p,i)=>{
+    tl.fromTo(p,{opacity:0},{opacity:1,duration:.4},0.8+i*.7);
+    const path=p.querySelector('path');const L=path.getTotalLength();
+    tl.set(path,{strokeDasharray:L+' '+L,strokeDashoffset:L},0.8+i*.7)
+      .to(path,{strokeDashoffset:0,duration:1.0,ease:'power1.inOut'},0.9+i*.7);});
+  say(tl,'d_clock',7.5);shake(tl,'d_clock',8.4,4,4);
+  say(tl,'d_econ',12.0);
+  say(tl,'d_under',17.5);
+  tl.set($('d_bar'),{opacity:1},20.5);
+  tl.fromTo($('d_bypassbar'),{attr:{width:0}},{attr:{width:110},duration:1.2,ease:'power2.out'},20.7);
+  say(tl,'d_sum',24.0);
+  tl.to($('d_sum'),{opacity:.6,duration:1.1,repeat:2,yoyo:true},26.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  const show=(el,t)=>tl.fromTo($(el),{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to($(el),{opacity:0,duration:.5},t);
+  // OPTION A (0–56)
+  show('b_a',0.5);show('b_map',1.2);
+  draw(tl,'b_petro',1.6,4.5);say(tl,'b_petrot1',6.2);say(tl,'b_petrot2',7.4);
+  draw(tl,'b_adcop',1.0,10.5);say(tl,'b_adcopt',11.6);
+  say(tl,'b_acost',15.5);
+  hide('b_a',53.5);
+  // OPTION B (55–110)
+  show('b_b',55.5);say(tl,'b_pact',57.0);
+  [...document.querySelectorAll('.btank')].forEach((t,i)=>{
+    tl.to(t,{opacity:1,duration:.3},59.0+i*.4);
+    tl.to(t.querySelector('.bfill'),{attr:{y:236,height:80},duration:.8,ease:'power1.out'},59.3+i*.4);});
+  show('b_release',64.5);count(tl,'b_reln',400,1.6,64.7,{suf:'M'});
+  say(tl,'b_bcost',69.0);
+  hide('b_b',108.5);
+  // OPTION C (110–162)
+  show('b_c',110.5);
+  show('b_cgauge',112.0);draw(tl,'b_capline',.7,114.0);
+  pop(tl,'b_norway',117.0);pop(tl,'b_911',120.0);
+  say(tl,'b_ccost',124.5);
+  hide('b_c',160.0);
+  // SYNTHESIS
+  show('b_syn',162.0);say(tl,'b_s1',164.0);say(tl,'b_s2',166.5);
+  tl.to($('b_s2'),{opacity:.6,duration:1.2,repeat:2,yoyo:true},169.0);
+  return tl;}
+
+function sc6(D){const tl=gsap.timeline();
+  say(tl,'c_wrongq',0.5);
+  draw(tl,'c_strike',.5,3.5);
+  say(tl,'c_answer',4.5);
+  say(tl,'c_market',7.0);
+  tl.set($('c_nets'),{opacity:1},10.0);
+  tl.fromTo('#c_nets > text',{opacity:0},{opacity:1,duration:.5,stagger:.6},10.0);
+  [...document.querySelectorAll('.cchip')].forEach((c,i)=>tl.fromTo(c,{opacity:0,y:10},{opacity:1,y:0,duration:.4},11.0+i*.7));
+  say(tl,'c_tags',15.5);
+  say(tl,'c_q',18.5);
+  tl.to($('c_q'),{opacity:.6,duration:1.2,repeat:3,yoyo:true},20.5);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+/* redline toggle (web mode) — hides the dashed-green revision layer */
+function setRedline(on){
+  ['b_petro','b_petrot1','b_petrot2','b_adcop','b_adcopt','b_capline','b_norway','b_911'].forEach(id=>{const e=$(id);if(e)e.style.opacity=on?1:0;});
+  document.querySelectorAll('.btank').forEach(e=>e.style.opacity=on?1:0);
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+if($('btnBuilt')){$('btnBuilt').onclick=()=>setRedline(false);$('btnCould').onclick=()=>setRedline(true);}
+
+/* premium simulator (web mode) */
+if($('simRange')){
+  const upd=()=>{const p=parseFloat($('simRange').value);
+    $('simPct').textContent=p.toFixed(2)+'%';
+    const cost=p/100*100000000;
+    $('simCost').textContent='$'+Math.round(cost).toLocaleString('en-US');
+    const go=cost<3000000;
+    $('simverdict').textContent=go?'SAILS':'STAYS HOME';
+    $('simverdict').className=go?'go':'no';};
+  $('simRange').addEventListener('input',upd);upd();}
+
+/* tooltips (web mode) */
+if(!isAuto&&!thumb){
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='pointer';
+    el.addEventListener('mousemove',e=>{tip.textContent=el.dataset.tip;
+      tip.style.left=Math.min(innerWidth-300,e.clientX+16)+'px';tip.style.top=(e.clientY+18)+'px';tip.style.opacity=1;});
+    el.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+}
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.2);
+    if(s.id==='s3'||s.id==='s5')tl.timeScale(3.4);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
