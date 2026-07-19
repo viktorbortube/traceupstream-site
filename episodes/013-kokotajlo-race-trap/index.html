@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Race Nobody Wants to Win — AI, Moloch, and the Three Escapes | Trace Upstream</title>
+<meta name="description" content="An ex-OpenAI researcher paid $2 million for the right to say one sentence. This is the trap behind it — the AI race as a prisoner's dilemma — and the three times humanity actually escaped traps like it: the 1963 Test Ban, Asilomar, and the Montreal Protocol.">
+<link rel="canonical" href="https://traceupstream.com/episodes/013-kokotajlo-race-trap/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Race Nobody Wants to Win — AI, Moloch, and the Three Escapes">
+<meta property="og:description" content="Why every AI lab keeps racing toward an outcome none of them wants — and the checklist from history's three real escapes: verifiability, few players, shared fear, cheap exit.">
+<meta property="og:url" content="https://traceupstream.com/episodes/013-kokotajlo-race-trap/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#8B84A8; /* desaturated violet — the interview/AI slot */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.paper{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+/* mini-poll */
+.poll{border:1px solid var(--grid);background:var(--bg-raised);padding:22px;margin-top:20px;max-width:680px}
+.poll .q{font-family:var(--font-display);font-weight:700;font-size:19px;margin-bottom:12px}
+.poll button.opt{display:block;width:100%;text-align:left;border:1px solid var(--grid);background:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.05em;padding:11px 14px;margin-top:8px;cursor:pointer;text-transform:uppercase}
+.poll button.opt:hover{border-color:var(--text)}
+.poll .bar{height:20px;background:var(--fact);margin:6px 0 2px;min-width:2px}
+.poll .rlab{font-family:var(--font-mono);font-size:12px;color:var(--text-dim)}
+body.auto .poll{display:none}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:110px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+body.auto #s9 .cta{display:block} /* CTA is the closing visual of s9 */
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.013 — 2026-07-19</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:00</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="63.2">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.013 · Interview</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <!-- forecaster + daughter -->
+        <g class="b" id="k_f">
+          <circle cx="220" cy="200" r="44" class="ink"/>
+          <line x1="220" y1="244" x2="220" y2="330" class="ink"/>
+          <text x="150" y="290" class="strong" font-size="15">DANIEL KOKOTAJLO</text>
+          <text x="150" y="316">FORECASTER · 2 YEARS INSIDE OPENAI</text>
+        </g>
+        <g class="b" id="k_child">
+          <circle cx="360" cy="250" r="22" class="ink"/>
+          <line x1="360" y1="272" x2="360" y2="318" class="ink"/>
+          <text x="330" y="350">HIS DAUGHTER · 6</text>
+        </g>
+        <!-- capability line -->
+        <path id="k_cap" class="blue b" d="M120 540 C 400 530, 700 480, 900 380 C 1050 300, 1150 210, 1240 120"/>
+        <line id="k_wage" x1="1080" y1="80" x2="1080" y2="560" class="amber b" stroke-dasharray="6 6"/>
+        <text x="1092" y="100" class="flawtxt b" id="k_wagelab">WHEN SHE IS OLD ENOUGH TO WORK</text>
+        <!-- twist: not the warning -->
+        <g class="b" id="k_good">
+          <rect x="560" y="120" width="64" height="46" class="ink"/>
+          <path d="M578 120 v-12 h28 v12" class="ink" id="k_bcase"/>
+          <text x="530" y="200" class="alttxt" id="k_notwarn">NOT THE WARNING — MACHINES WORK, PEOPLE SHARE</text>
+          <g id="k_divid"></g>
+        </g>
+        <!-- wheel drift -->
+        <g class="b" id="k_bad">
+          <g id="k_wheel">
+            <circle cx="700" cy="300" r="30" class="ink"/>
+            <line x1="700" y1="270" x2="700" y2="330" class="ink"/>
+            <line x1="670" y1="300" x2="730" y2="300" class="ink"/>
+          </g>
+          <rect x="1150" y="250" width="90" height="110" class="ink" id="k_server"/>
+          <line x1="1165" y1="275" x2="1225" y2="275" class="ink"/>
+          <line x1="1165" y1="300" x2="1225" y2="300" class="ink"/>
+          <text x="1090" y="400" class="flawtxt b" id="k_badlab">THE OUTCOME HE CONSIDERS MORE LIKELY</text>
+        </g>
+        <text x="740" y="480" text-anchor="middle" class="big b" font-size="40" id="k_calm">HE SAYS ALL OF THIS CALMLY.</text>
+        <!-- price tag -->
+        <g class="b" id="k_price">
+          <rect x="540" y="530" width="230" height="54" fill="var(--flaw)" opacity=".92"/>
+          <text x="560" y="565" class="paper" font-size="24" style="font-weight:600">$2,000,000</text>
+          <text x="800" y="565" class="strong" font-size="17">— FOR THE RIGHT TO SAY ONE SENTENCE</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM · INTERVIEW</div>
+        <div class="t">The race nobody<br>wants to win.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>Daniel Kokotajlo has a six-year-old daughter. For two years, he worked inside OpenAI, and his job was to predict where artificial intelligence is going. In a new interview, his prediction sounds like this: by the time his daughter is old enough to work, there may be no work left for her to join.</p>
+      <p>And strangely, that is not the warning. A future where machines do the work and people share what they make is the one he is hoping for. The warning is about what he expects instead if nothing changes: a world that slips out of human hands entirely — the outcome he considers the more likely one. He says all of this calmly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE MAN AND THE PRICE ================= -->
+<section class="ep" id="s1" data-duration="65">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The man<br>and the price</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The man and the price · Who is he, and why listen</div>
+    <h2>He paid $2 million to keep his voice.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg1">
+        <line x1="120" y1="520" x2="1360" y2="520" class="ink b" id="w_axis"/>
+        <g class="b" id="w_essay">
+          <rect x="120" y="120" width="230" height="290" class="ink"/>
+          <text x="140" y="155" class="strong" font-size="14">"WHAT 2026 LOOKS LIKE"</text>
+          <text x="140" y="178">WRITTEN 2021</text>
+          <g id="w_lines"></g>
+        </g>
+        <g id="w_checks"></g>
+        <text x="120" y="460" class="fact b" id="w_true">MOST OF IT CAME TRUE</text>
+        <g class="b" id="w_badge">
+          <rect x="470" y="160" width="240" height="70" class="nodebox"/>
+          <text x="492" y="192" class="strong" font-size="15">OPENAI · 2022–2024</text>
+          <text x="492" y="215">THE "WHAT COULD GO WRONG" TEAM</text>
+        </g>
+        <g class="b" id="w_door">
+          <rect x="800" y="140" width="120" height="220" class="ink"/>
+          <circle cx="905" cy="255" r="6" fill="var(--text)"/>
+          <rect x="770" y="390" width="400" height="58" fill="var(--flaw)" opacity=".92" id="w_clause"/>
+          <text x="786" y="426" class="paper" font-size="15">NEVER CRITICIZE — OR LOSE YOUR SHARES</text>
+        </g>
+        <g class="b" id="w_money">
+          <text x="1020" y="180" class="big flawtxt" font-size="46" id="w_sum">$2,000,000</text>
+          <text x="1022" y="210" id="w_networth">≈ 80% OF EVERYTHING HIS FAMILY OWNED</text>
+        </g>
+        <g class="b" id="w_quote">
+          <rect x="440" y="470" width="620" height="0" fill="none"/>
+          <text x="460" y="572" class="strong" font-size="16">"MONEY IS NICE, BUT IT'S NOT THE ONLY THING.</text>
+          <text x="460" y="600" class="strong" font-size="16">SOMETIMES IT'S GOOD TO TAKE A STAND ON PRINCIPLE."</text>
+        </g>
+        <line x1="770" y1="419" x2="1170" y2="419" class="green b" id="w_strike" stroke-width="4"/>
+        <text x="1190" y="424" class="alttxt b" id="w_dropped">OPENAI DROPPED THE CLAUSE</text>
+        <g class="b" id="w_wh">
+          <path d="M1180 120 l50 -34 l50 34 z" class="ink"/>
+          <rect x="1190" y="120" width="80" height="56" class="ink"/>
+          <text x="1130" y="255" font-size="12">AI 2027 — READ BY THE US VICE PRESIDENT</text>
+        </g>
+        <g class="b" id="w_mic">
+          <rect x="1300" y="330" width="26" height="52" rx="12" class="ink"/>
+          <line x1="1313" y1="382" x2="1313" y2="410" class="ink"/>
+          <text x="1180" y="445" font-size="12">JULY 2026 · THE DIARY OF A CEO</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — the credibility file: forecast → inside job → the exit clause · sources: Vox (May 2024), DOAC transcript</div>
+    </div>
+    <div class="prose">
+      <p>In 2021, Kokotajlo wrote "What 2026 Looks Like" — a year-by-year AI forecast. Most of it came true, and it earned him a job at OpenAI on the team that thinks about what could go wrong. Leaving in 2024, he was asked to sign a promise never to criticize the company — or lose about $2 million in shares, roughly 80% of his family's net worth. He refused. When journalists made this public, OpenAI backed down and dropped the rule.</p>
+      <p>His next forecast, AI 2027, was read by the vice president of the United States. This July, he sat down with Steven Bartlett and explained what he thinks is coming.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 THE SENTENCE ================= -->
+<section class="ep" id="s2" data-duration="74.5">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The sentence</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The sentence · What he actually said</div>
+    <h2>"If I stop, the others keep going."</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg2">
+        <g class="b" id="q_quote1">
+          <text x="120" y="90" class="strong" font-size="17">"IF I STOP, IF I QUIT MY JOB OR DO SOMETHING ELSE, THAT'S NOT GOING</text>
+          <text x="120" y="120" class="strong" font-size="17">TO SOLVE THE PROBLEM — THE OTHER CEOs ARE GOING TO KEEP GOING."</text>
+        </g>
+        <!-- triangle of labs -->
+        <g id="q_tri">
+          <g class="b q_node" data-tip="Sam Altman — CEO of OpenAI, maker of ChatGPT.">
+            <rect x="620" y="180" width="230" height="60" class="nodebox"/>
+            <text x="648" y="206" class="strong" font-size="15">OPENAI</text><text x="648" y="228">SAM ALTMAN</text>
+          </g>
+          <g class="b q_node" data-tip="Dario Amodei — CEO of Anthropic, maker of Claude.">
+            <rect x="380" y="420" width="240" height="60" class="nodebox"/>
+            <text x="408" y="446" class="strong" font-size="15">ANTHROPIC</text><text x="408" y="468">DARIO AMODEI</text>
+          </g>
+          <g class="b q_node" data-tip="Elon Musk — founder of xAI, maker of Grok.">
+            <rect x="860" y="420" width="200" height="60" class="nodebox"/>
+            <text x="888" y="446" class="strong" font-size="15">xAI</text><text x="888" y="468">ELON MUSK</text>
+          </g>
+          <path id="q_a1" class="amber b" d="M640 250 C 540 300, 480 350, 480 410" marker-end="url(#arr)"/>
+          <path id="q_a2" class="amber b" d="M630 470 C 730 500, 810 500, 870 475" marker-end="url(#arr)"/>
+          <path id="q_a3" class="amber b" d="M990 415 C 990 340, 930 280, 860 240" marker-end="url(#arr)"/>
+        </g>
+        <g class="b" id="q_quote2">
+          <text x="120" y="330" class="strong" font-size="15">"SAM'S PROBABLY THINKING: CAN'T LET</text>
+          <text x="120" y="356" class="strong" font-size="15">DARIO OR ELON GET THERE FIRST.</text>
+          <text x="120" y="382" class="strong" font-size="15">AND I KNOW DARIO IS THINKING:</text>
+          <text x="120" y="408" class="strong" font-size="15">SAM CAN'T GET THERE FIRST."</text>
+        </g>
+        <text x="1100" y="330" class="flawtxt b" id="q_quote3" font-size="14">"THEY ALL… CONVINCE THEMSELVES THAT</text>
+        <text x="1100" y="356" class="flawtxt b" id="q_quote3b" font-size="14">THE THING TO DO IS FOR THEM TO BUILD IT."</text>
+        <g class="b" id="q_params">
+          <text x="120" y="560" class="big fact" font-size="40" id="q_pcount">175,000,000,000</text>
+          <text x="122" y="590" id="q_plab">INTERNAL SETTINGS, LARGEST MODEL — 2020</text>
+        </g>
+        <g class="b" id="q_2029">
+          <rect x="1090" y="520" width="270" height="64" class="ink" stroke-dasharray="4 4"/>
+          <text x="1110" y="548" class="big" font-size="26">~2029</text>
+          <text x="1110" y="572" font-size="11.5">HIS MEDIAN ESTIMATE — NOT CONSENSUS</text>
+        </g>
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--flaw)"/></marker></defs>
+      </svg>
+      <div class="figcap">Fig. 2 — the chase triangle, in his words · quotes verbatim, DOAC July 13, 2026</div>
+    </div>
+    <div class="prose">
+      <p>Asked why he simply left instead of changing things from inside, Kokotajlo answered: "If I stop, if I quit my job or do something else, that's not going to solve the problem, because the other CEOs are going to keep going." He described how, in his view, the men leading the race — Sam Altman of OpenAI, Dario Amodei of Anthropic, and Elon Musk with xAI — think about each other: each convinced the others can't be allowed to get there first, each concluding the thing to do is build it themselves.</p>
+      <p>The largest AI model of 2020 had 175 billion internal settings; today's largest have around ten trillion. His median estimate for AI surpassing the best humans at nearly everything: around 2029 — and insiders keep telling him it will happen even sooner.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 WHAT GOING WRONG MEANS ================= -->
+<section class="ep" id="s3" data-duration="67.9">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">What "going wrong"<br>means</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The stakes · Jobs are not the catastrophe</div>
+    <h2>Two futures. Work ends in both.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg3">
+        <path id="f_stem" class="ink b" d="M140 310 H 420"/>
+        <path id="f_up" class="ink b" d="M420 310 C 520 310, 560 170, 660 170 H 1360"/>
+        <path id="f_dn" class="ink b" d="M420 310 C 520 310, 560 450, 660 450 H 1360"/>
+        <!-- briefcases fade in both -->
+        <g class="b" id="f_bc1"><rect x="700" y="110" width="56" height="40" class="ink"/><path d="M715 110 v-10 h26 v10" class="ink"/></g>
+        <g class="b" id="f_bc2"><rect x="700" y="480" width="56" height="40" class="ink"/><path d="M715 480 v-10 h26 v10" class="ink"/></g>
+        <text x="620" y="90" class="b" id="f_worklab">WORK ENDS EITHER WAY</text>
+        <!-- good branch -->
+        <g class="b" id="f_good">
+          <g id="f_wheel1">
+            <circle cx="900" cy="170" r="26" class="ink"/>
+            <line x1="900" y1="144" x2="900" y2="196" class="ink"/><line x1="874" y1="170" x2="926" y2="170" class="ink"/>
+          </g>
+          <g id="f_people"></g>
+          <text x="960" y="120" class="alttxt" id="f_goodlab">PEOPLE STILL STEER · WEALTH SHARED — A GROWING DIVIDEND</text>
+        </g>
+        <!-- bad branch -->
+        <g class="b" id="f_bad">
+          <g id="f_wheel2">
+            <circle cx="900" cy="450" r="26" class="ink"/>
+            <line x1="900" y1="424" x2="900" y2="476" class="ink"/><line x1="874" y1="450" x2="926" y2="450" class="ink"/>
+          </g>
+          <rect x="1180" y="395" width="80" height="105" class="ink" id="f_server"/>
+          <line x1="1194" y1="420" x2="1246" y2="420" class="ink"/><line x1="1194" y1="445" x2="1246" y2="445" class="ink"/>
+          <text x="960" y="560" class="flawtxt" id="f_badlab">GOALS NOBODY CHOSE · TOO WOVEN-IN TO SWITCH OFF</text>
+          <text x="1150" y="378" class="flawtxt b" id="f_warn" font-size="22">⚠</text>
+        </g>
+        <g class="b" id="f_quote">
+          <rect x="140" y="120" width="360" height="70" fill="var(--flaw)" opacity=".92"/>
+          <text x="160" y="150" class="paper" font-size="15">"SOMETHING LIKE</text>
+          <text x="160" y="175" class="paper" font-size="15">AIs TAKING OVER."</text>
+        </g>
+        <text x="140" y="560" class="strong b" font-size="16" id="f_close">MILD VERSION: NO JOB · FEARED VERSION: NO ONE STEERING</text>
+      </svg>
+      <div class="figcap">Fig. 3 — the fork he describes: the briefcase vanishes in both branches; the wheel only in one</div>
+    </div>
+    <div class="prose">
+      <p>Be precise about what "going wrong" means here — it is not the end of jobs. In Kokotajlo's forecasts, paid work fades away even in the futures where everything goes right. Machines become better and cheaper at every task, and society finds new ways to share what those machines produce; he has even published a plan of his own — pay every citizen a growing dividend.</p>
+      <p>The catastrophe he fears is who ends up steering. Companies racing at full speed, he argues, will build systems smarter than themselves before anyone has learned to control such a thing — not a movie-style robot uprising, but something quieter: systems pursuing goals nobody quite chose, woven so deeply into the world that switching them off stops being a real option. "Something like AIs taking over."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE TRAP ================= -->
+<section class="ep" id="s4" data-duration="79.5">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The trap</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The trap · Reasonable decisions, unreasonable sum</div>
+    <h2>Every step is rational. The sum is not.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg4">
+        <!-- three identical reasoning nodes -->
+        <g id="t_nodes">
+          <g class="b t_lab" data-tip="Each lab genuinely worries — and genuinely can't stop alone. That's what makes it a trap, not a scandal.">
+            <rect x="160" y="120" width="190" height="56" class="nodebox"/><text x="185" y="154" class="strong">LAB A</text>
+          </g>
+          <g class="b t_lab" data-tip="If it stops: loses funding, talent, influence — and the race continues without it.">
+            <rect x="160" y="280" width="190" height="56" class="nodebox"/><text x="185" y="314" class="strong">LAB B</text>
+          </g>
+          <g class="b t_lab" data-tip="Whatever the others do, going forward looks better than stopping. All three run the same math.">
+            <rect x="160" y="440" width="190" height="56" class="nodebox"/><text x="185" y="474" class="strong">LAB C</text>
+          </g>
+        </g>
+        <g id="t_bub"></g>
+        <!-- choice -->
+        <g class="b" id="t_choice">
+          <text x="470" y="150" class="strong" font-size="15">STOP →</text>
+          <text x="560" y="150" class="flawtxt" font-size="15">LOSE EVERYTHING · RACE CONTINUES WITHOUT YOU</text>
+          <text x="470" y="190" class="strong" font-size="15">GO →</text>
+          <text x="560" y="190" class="fact" font-size="15">AT LEAST KEEP A SAY IN HOW IT IS BUILT</text>
+        </g>
+        <!-- loop -->
+        <g class="b" id="t_loop">
+          <path id="t_circle" class="amber" d="M 1050 160 A 150 150 0 1 1 1049 160" stroke-width="3"/>
+          <text x="960" y="300" class="strong" font-size="15">ALL CHOOSE "GO"</text>
+          <text x="935" y="330" font-size="12.5">EVERYONE RACES — TOWARD AN OUTCOME</text>
+          <text x="935" y="352" font-size="12.5">NONE OF THEM WOULD CHOOSE</text>
+          <text x="1176" y="130" class="flawtxt b" font-size="26" id="t_warn">⚠</text>
+        </g>
+        <text x="880" y="480" class="b" id="t_fig">FIG. 4 — THE RACE LOOP</text>
+        <g class="b" id="t_pd">
+          <text x="470" y="255" font-size="12.5">STUDIED SINCE THE 1950s —</text>
+          <text x="470" y="277" class="strong" font-size="14">THE PRISONER'S DILEMMA</text>
+        </g>
+        <g class="b" id="t_moloch">
+          <text x="470" y="370" class="big" font-size="52" id="t_mname">MOLOCH</text>
+          <text x="470" y="404" font-size="12.5">THE ANCIENT GOD WHOSE WORSHIPPERS SACRIFICED WHAT THEY LOVED MOST —</text>
+          <text x="470" y="426" font-size="12.5">EVERY FAMILY FOR REASONS THAT, TO THEM, FELT NECESSARY</text>
+        </g>
+        <text x="470" y="560" class="big b" font-size="26" id="t_close">THE TRAP IS BUILT OUT OF <tspan class="flawtxt">REASONABLE DECISIONS.</tspan></text>
+      </svg>
+      <div class="figcap">Fig. 4 — the race loop · hover the labs: each one's reasoning, none of it villainous</div>
+    </div>
+    <div class="prose">
+      <p>The people building this technology largely agree the race is dangerous, and each can explain why they keep going: if they stop, the others will not. The uncomfortable part — each is being reasonable. Keep racing and you at least have a say; stop and you lose your company, your investors, your influence, while the race continues, possibly led by someone who worries less. Every lab runs the same calculation, so everyone races toward an outcome none of them would choose.</p>
+      <p>Scientists have studied this pattern since the 1950s — the prisoner's dilemma. The writer Scott Alexander gave it an older, darker name: Moloch. The trap is not built out of evil people. It is built out of reasonable decisions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 ESCAPE ONE ================= -->
+<section class="ep" id="s5" data-duration="80.4">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Escape one:<br>the baby teeth</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Escape one · 1963 — make the fear concrete, make the stop checkable</div>
+    <h2>300,000 baby teeth ended atmospheric testing.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <g class="b" id="n_nodes">
+          <rect x="140" y="120" width="150" height="54" class="nodebox"/><text x="168" y="153" class="strong">USA</text>
+          <rect x="140" y="260" width="150" height="54" class="nodebox"/><text x="168" y="293" class="strong">USSR</text>
+          <path id="n_l1" class="amber" d="M290 147 C 380 147, 380 287, 292 287" marker-end="url(#arr2)"/>
+          <text x="150" y="90" font-size="12.5">SAME LOOP — "STOPPING HANDS THE OTHER AN ADVANTAGE"</text>
+        </g>
+        <g id="n_tests"></g>
+        <text x="140" y="420" class="flawtxt b" id="n_testlab">HUNDREDS OF BOMBS, TESTED IN OPEN AIR</text>
+        <g class="b" id="n_tooth">
+          <path d="M560 460 q10 -34 30 -34 q20 0 22 30 q2 -30 22 -30 q20 0 30 34 q-8 60 -30 60 q-14 0 -22 -26 q-8 26 -22 26 q-22 0 -30 -60" class="ink" transform="translate(0,-20)"/>
+          <text x="530" y="560" class="big fact" font-size="34" id="n_count">0</text>
+          <text x="532" y="588" id="n_countlab">BABY TEETH COLLECTED · ST. LOUIS, 1958–1970</text>
+        </g>
+        <path id="n_curve" class="amber b" d="M840 540 C 950 530, 1050 450, 1120 340 C 1170 260, 1200 200, 1230 160"/>
+        <text x="900" y="590" class="b" id="n_curvelab">STRONTIUM-90 IN CHILDREN'S TEETH — RISING WITH THE TESTING YEARS</text>
+        <text x="1240" y="140" class="flawtxt b" id="n_shape" font-size="14">THE RISK NOW HAD A SHAPE</text>
+        <line id="n_treaty" x1="740" y1="80" x2="740" y2="360" class="green b" stroke-width="3.5"/>
+        <text x="700" y="60" class="alttxt b" id="n_treatylab" font-size="15">1963 — PARTIAL TEST BAN TREATY</text>
+        <g class="b" id="n_verify">
+          <text x="880" y="230" class="alttxt" font-size="14">WHY IT HELD: AN ATMOSPHERIC TEST</text>
+          <text x="880" y="254" class="alttxt" font-size="14">CANNOT BE HIDDEN —</text>
+          <text x="880" y="278" class="alttxt" font-size="14">SEISMOGRAPHS + RADIATION DETECTORS</text>
+        </g>
+        <text x="140" y="500" class="b" id="n_foot" font-size="12">HONEST FOOTNOTE: TESTING MOVED UNDERGROUND — 29 MORE YEARS. THE TREATY BANNED WHAT COULD BE VERIFIED.</text>
+        <defs><marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--flaw)"/></marker></defs>
+      </svg>
+      <div class="figcap">Fig. 5 — the first escape: fear with a shape + a stop you can check · Baby Tooth Survey, PTBT 1963</div>
+    </div>
+    <div class="prose">
+      <p>People have been caught in this exact trap before — and found ways out. In the 1950s, the US and the USSR tested nuclear bombs in the open air by the hundreds; neither felt able to stop. Then scientists in St. Louis collected over 300,000 baby teeth and measured strontium-90 — radioactive fallout that settles into growing bones and teeth. Levels were rising sharply in children born during the testing years, on both sides of the Iron Curtain.</p>
+      <p>In 1963, the rivals signed a treaty banning atmospheric tests. It held because such a test is almost impossible to hide: seismographs and radiation detectors meant each side could check the other. The honest footnote: testing moved underground for three more decades — the treaty banned what could be verified, not everything that was dangerous.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 ESCAPE TWO ================= -->
+<section class="ep" id="s6" data-duration="55.9">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">Escape two:<br>Asilomar</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Escape two · 1975 — scientists stop themselves</div>
+    <h2>They paused their own field. Voluntarily.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg6">
+        <g class="b" id="d_helix">
+          <path id="d_h1" class="blue" d="M160 120 C 220 170, 220 230, 160 280 C 100 330, 100 390, 160 440"/>
+          <path id="d_h2" class="blue" d="M280 120 C 220 170, 220 230, 280 280 C 340 330, 340 390, 280 440"/>
+          <g id="d_rungs"></g>
+          <text x="130" y="490" font-size="12">1974 — CUT &amp; RECOMBINE DNA</text>
+          <text x="196" y="86" class="flawtxt b" font-size="22" id="d_hazard">⚠</text>
+        </g>
+        <g class="b" id="d_pause">
+          <rect x="430" y="150" width="220" height="60" fill="var(--flaw)" opacity=".92"/>
+          <text x="452" y="188" class="paper" font-size="19" style="font-weight:600">PAUSE — VOLUNTARY</text>
+          <text x="430" y="240" font-size="12">BEFORE ANY GOVERNMENT ASKED</text>
+        </g>
+        <g id="d_ring"></g>
+        <text x="880" y="560" class="b" id="d_ringlab">ASILOMAR, CALIFORNIA · 1975 · ~140 SCIENTISTS, ONE ROOM</text>
+        <g class="b" id="d_rules">
+          <rect x="1180" y="150" width="170" height="200" class="ink"/>
+          <text x="1200" y="190" class="strong" font-size="14">THE RULES</text>
+          <text x="1200" y="225" class="alttxt">GO</text>
+          <text x="1200" y="255" class="fact">CONTAIN</text>
+          <text x="1200" y="285" class="flawtxt">WAIT</text>
+        </g>
+        <g class="b" id="d_why">
+          <text x="430" y="330" class="alttxt" font-size="14">WHY IT WORKED:</text>
+          <text x="430" y="360" font-size="12.5">SMALL COMMUNITY · EVERYONE KNEW EVERYONE</text>
+          <text x="430" y="384" font-size="12.5">CAREERS = REPUTATION · PAUSING COST LITTLE</text>
+        </g>
+        <g class="b" id="d_scale">
+          <circle cx="520" cy="500" r="26" class="ink"/>
+          <rect x="640" y="420" width="60" height="120" class="ink"/><rect x="720" y="400" width="60" height="140" class="ink"/><rect x="800" y="440" width="60" height="100" class="ink"/>
+          <text x="880" y="500" class="flawtxt" font-size="13">DOES NOT TRANSFER EASILY TO TRILLION-DOLLAR COMPANIES</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 6 — the quiet escape: small room, cheap pause · Berg letter 1974, Asilomar 1975</div>
+    </div>
+    <div class="prose">
+      <p>In 1974, biologists learned to cut and recombine DNA — and some realized their own experiments might create dangerous new organisms. They paused their own research voluntarily, before any government asked. The next year, about 140 of them met at Asilomar in California and wrote their own safety rules: which experiments could go ahead, which needed strict containment, which should wait. Genetic engineering grew up inside those rules.</p>
+      <p>Notice why it worked: the community was small, everyone knew everyone, careers depended on reputation, and pausing cost little. That recipe does not transfer easily to a race between trillion-dollar companies — AI researchers bring up this escape more often than any other, and it may be the hardest one to repeat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S7 ESCAPE THREE ================= -->
+<section class="ep" id="s7" data-duration="64.8">
+  <div class="chapter"><div class="in"><div class="n">07</div><div class="t">Escape three:<br>the hole in the sky</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Escape three · 1987 — make stopping cheap and visible</div>
+    <h2>The one treaty every country signed.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg7">
+        <g class="b" id="o_earth">
+          <path d="M 240 560 A 340 340 0 0 1 920 560" class="ink" stroke-width="3"/>
+          <path id="o_shield" d="M 180 560 A 400 400 0 0 1 980 560" class="blue" stroke-width="5" opacity=".8"/>
+          <text x="500" y="120" font-size="12">THE OZONE SHIELD</text>
+        </g>
+        <g id="o_uv"></g>
+        <g class="b" id="o_cfc">
+          <rect x="330" y="470" width="60" height="80" class="ink"/>
+          <rect x="440" y="490" width="30" height="60" rx="10" class="ink"/>
+          <g id="o_mol"></g>
+          <text x="300" y="590" font-size="12">CFCs — FRIDGES &amp; SPRAY CANS, EVERYWHERE</text>
+        </g>
+        <text x="560" y="200" class="flawtxt b" id="o_hole" font-size="15">1985 — A HOLE</text>
+        <g class="b" id="o_treaty">
+          <line x1="1020" y1="100" x2="1020" y2="560" class="green" stroke-width="3.5"/>
+          <text x="1044" y="130" class="alttxt" font-size="15">MONTREAL PROTOCOL · 1987</text>
+          <text x="1044" y="200" class="big" font-size="44" id="o_count">0/198</text>
+          <text x="1046" y="230" font-size="12">EVERY COUNTRY ON EARTH SIGNED ON</text>
+        </g>
+        <path id="o_recover" class="green b" d="M1044 420 C 1130 415, 1230 390, 1330 330"/>
+        <text x="1100" y="460" class="alttxt b" id="o_reclab" font-size="12">HEALING — RECOVERY EXPECTED THIS CENTURY</text>
+        <g class="b" id="o_why">
+          <text x="120" y="180" class="alttxt" font-size="14">WHY THIS ONE SUCCEEDED:</text>
+          <text x="120" y="210" font-size="12.5">SUBSTITUTES EXISTED — SWITCH &amp; KEEP SELLING</text>
+          <text x="120" y="234" font-size="12.5">SATELLITES SAW DAMAGE &amp; RECOVERY — FOR EVERYONE</text>
+          <text x="120" y="266" class="strong" font-size="14">STOPPING WAS CHEAP. COMPLIANCE WAS VISIBLE.</text>
+        </g>
+        <g class="b" id="o_co2">
+          <rect x="120" y="320" width="330" height="90" class="ink" stroke-dasharray="4 4"/>
+          <text x="140" y="352" class="flawtxt" font-size="13">CONTRAST — CARBON: STOPPING IS EXPENSIVE.</text>
+          <text x="140" y="378" font-size="12">SAME TREATY DESIGN, 30 YEARS OF STRUGGLING,</text>
+          <text x="140" y="398" font-size="12">FAR LESS TO SHOW FOR IT.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 7 — the biggest escape: cheap exit + visible compliance · Montreal Protocol, WMO/UNEP 2022</div>
+    </div>
+    <div class="prose">
+      <p>In 1985, scientists found a hole in the ozone layer — the shield protecting life from ultraviolet radiation. The cause: CFCs, in fridges and spray cans worldwide. Two years later, nations signed the Montreal Protocol; it became the first treaty every single country on Earth signed on to, and the ozone layer is slowly healing.</p>
+      <p>Why did this one succeed? Replacements for CFCs already existed — chemical companies could switch products and keep selling — and satellites could measure damage and recovery for everyone to see. Stopping was cheap, and everyone could see who was keeping the promise. With carbon emissions, stopping is expensive — and the same kind of treaty has struggled for thirty years.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S8 THE CHECKLIST ================= -->
+<section class="ep" id="s8" data-duration="90.6">
+  <div class="chapter"><div class="in"><div class="n">08</div><div class="t">The checklist</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The checklist · Scoring the AI race against history</div>
+    <h2>Four ingredients. The AI race has one. Maybe two.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg8">
+        <g class="b" id="c_src">
+          <text x="150" y="70" class="alttxt" font-size="13">1963 TEST BAN</text>
+          <text x="420" y="70" class="alttxt" font-size="13">1975 ASILOMAR</text>
+          <text x="690" y="70" class="alttxt" font-size="13">1987 MONTREAL</text>
+          <path d="M240 84 v26 M480 84 v26 M760 84 v26" class="green"/>
+        </g>
+        <g id="c_rows">
+          <g class="b c_row" data-tip="Training runs are opaque — but the data centers and chips they need are physical, countable, satellite-visible.">
+            <rect x="140" y="130" width="900" height="72" class="ink"/>
+            <text x="170" y="174" class="strong" font-size="17">1 · A STOP YOU CAN VERIFY</text>
+            <text x="1070" y="164" class="flawtxt b" font-size="28" id="c_m1">~</text>
+            <text x="1120" y="160" font-size="11.5" class="b" id="c_m1lab">HARD — BUT DATA CENTERS + CHIPS ARE</text>
+            <text x="1120" y="180" font-size="11.5" class="b" id="c_m1lab2">COUNTABLE: "AI's SEISMOGRAPH?"</text>
+          </g>
+          <g class="b c_row" data-tip="A handful of frontier labs, two governments behind them — few enough to fit around one table.">
+            <rect x="140" y="222" width="900" height="72" class="ink"/>
+            <text x="170" y="266" class="strong" font-size="17">2 · FEW PLAYERS</text>
+            <text x="1070" y="260" class="alttxt b" font-size="28" id="c_m2">✓</text>
+            <text x="1120" y="256" font-size="11.5" class="b" id="c_m2lab">A HANDFUL OF LABS · TWO GOVERNMENTS</text>
+          </g>
+          <g class="b c_row" data-tip="Strontium-90 in baby teeth made nuclear risk tangible to every parent. AI risk has no such shape yet.">
+            <rect x="140" y="314" width="900" height="72" class="ink"/>
+            <text x="170" y="358" class="strong" font-size="17">3 · A FEAR THAT IS CONCRETE &amp; SHARED</text>
+            <text x="1070" y="352" class="flawtxt b" font-size="28" id="c_m3">✗</text>
+            <text x="1120" y="348" font-size="11.5" class="b" id="c_m3lab">NO STRONTIUM-90 IN ANYONE'S TEETH — YET</text>
+          </g>
+          <g class="b c_row" data-tip="CFC makers could switch products and keep selling. An AI lab that stops, today, simply loses.">
+            <rect x="140" y="406" width="900" height="72" class="ink"/>
+            <text x="170" y="450" class="strong" font-size="17">4 · AN EXIT THAT DOESN'T COST EVERYTHING</text>
+            <text x="1070" y="444" class="flawtxt b" font-size="28" id="c_m4">✗</text>
+            <text x="1120" y="440" font-size="11.5" class="b" id="c_m4lab">TODAY, STOPPING MEANS LOSING</text>
+          </g>
+        </g>
+        <!-- expert spread -->
+        <g class="b" id="c_spread">
+          <line x1="200" y1="560" x2="1280" y2="560" class="ink"/>
+          <text x="190" y="590">0%</text><text x="1255" y="590">100%</text>
+          <text x="140" y="530" class="strong" font-size="14">ODDS OF CATASTROPHE — THE EXPERTS' SPREAD:</text>
+          <g id="c_dots"></g>
+          <circle id="c_kd" cx="956" cy="560" r="9" fill="var(--flaw)" opacity="0"/>
+          <text x="905" y="524" class="flawtxt b" id="c_kdlab" font-size="12">KOKOTAJLO · ~70%</text>
+          <text x="235" y="524" class="fact b" id="c_medlab" font-size="12">2,778 RESEARCHERS, 2023 · MEDIAN ~5%</text>
+        </g>
+        <text x="380" y="625" class="big b" font-size="24" id="c_close">THEY DISPUTE THE ODDS — <tspan class="flawtxt">NOT THE SHAPE OF THE RACE.</tspan></text>
+      </svg>
+      <div class="figcap">Fig. 8 — the escape checklist, scored · hover each row for the reasoning · AI Impacts survey 2023</div>
+    </div>
+    <div class="prose">
+      <p>Every successful exit had four ingredients: a stop each side can verify; few players; a fear that is concrete and shared; and an exit that doesn't cost the quitter everything. Score today's AI race: few players — yes. Verification — genuinely hard: you cannot X-ray a company's servers, but the race runs on countable, visible data centers and chips, which some researchers call AI's potential seismograph. A shared concrete fear — not yet. A cheap exit — no: today, stopping means losing.</p>
+      <p>One more honest number: Kokotajlo puts the odds of catastrophe around seventy percent — far higher than almost anyone else. A 2023 survey of thousands of AI researchers put the median extinction risk near five percent. The experts disagree enormously about the odds. Almost none dispute the shape of the race.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S9 REFRAME ================= -->
+<section class="ep" id="s9" data-duration="58.6">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The reframe · What is actually worth watching</div>
+    <h2>Don't watch the leaderboard. Watch for the seismograph.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg9">
+        <g class="b" id="r_board">
+          <rect x="140" y="100" width="340" height="200" class="ink"/>
+          <text x="160" y="135" class="strong" font-size="14">THIS MONTH'S LEADERBOARD</text>
+          <g id="r_rows"></g>
+        </g>
+        <text x="160" y="340" class="b" id="r_boardlab" font-size="12">THE LEADERBOARD IS JUST THE TRAP, RUNNING AS DESIGNED</text>
+        <!-- race loop + redline -->
+        <g class="b" id="r_loop">
+          <path d="M 800 140 A 110 110 0 1 1 799 140" class="amber" stroke-width="3"/>
+          <text x="742" y="260" font-size="12">THE RACE LOOP</text>
+        </g>
+        <g id="r_verify">
+          <line x1="690" y1="330" x2="910" y2="330" class="green b" id="r_cut" stroke-width="3.5"/>
+          <text x="620" y="370" class="alttxt b" id="r_cutlab" font-size="14">+ VERIFICATION: TREATIES · INSPECTION TOOLS · WAYS RIVALS CAN CHECK RESTRAINT</text>
+        </g>
+        <g class="b" id="r_1963">
+          <text x="1020" y="140" class="alttxt" font-size="13">1963 SHOWED THE TEMPLATE:</text>
+          <text x="1020" y="168" font-size="12.5">NOT WISER. NOT KINDER.</text>
+          <text x="1020" y="192" class="strong" font-size="13">A SYSTEM WHERE STOPPING COULD BE SEEN.</text>
+        </g>
+        <g class="b" id="r_quote">
+          <rect x="140" y="420" width="560" height="80" fill="var(--fact)" opacity=".92"/>
+          <text x="162" y="453" class="paper" font-size="15">"IN STORIES, IT ALWAYS ENDS WELL —</text>
+          <text x="162" y="480" class="paper" font-size="15">BUT THIS IS REAL LIFE."</text>
+        </g>
+        <g class="b" id="r_final">
+          <circle cx="1120" cy="420" r="30" class="ink"/>
+          <circle cx="1210" cy="435" r="16" class="ink"/>
+          <path id="r_exit" class="green" d="M1080 480 C 1160 500, 1280 490, 1360 440"/>
+          <text x="1080" y="530" class="b" id="r_finlab" font-size="12">STILL BELIEVES IN THE EXITS</text>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">Race as built</button><button id="btnCould">With verification</button>
+      </div>
+      <div class="figcap">Fig. 9 — the reframe: the signal is not who leads, but whether anyone builds the seismograph</div>
+    </div>
+    <div class="poll" id="poll">
+      <div class="q">You run an AI lab. Your rival won't stop. Do you?</div>
+      <div id="pollOpts">
+        <button class="opt" data-k="stop">Stop anyway</button>
+        <button class="opt" data-k="go">Keep going</button>
+        <button class="opt" data-k="treaty">Stop — but only with a verified treaty</button>
+      </div>
+      <div id="pollRes" style="display:none"></div>
+    </div>
+    <div class="prose">
+      <p>The headlines track the leaderboard: whose model is smartest this month. But the leaderboard is just the trap running as designed. If the history of escapes means anything, the real signal is elsewhere: watch whether anyone is building the seismograph — the treaties, the inspection tools, the ways rivals could ever check each other's restraint. In 1963, the superpowers did not become wiser or kinder. They built a system in which stopping could be seen — and then they stopped.</p>
+      <p>Kokotajlo says he would be incredibly happy to be proven wrong, and publishes plans for how this could go well. The calm you heard at the start does not mean he has given up. It is the voice of someone who has studied the trap — and still believes in the exits.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's winning — how the race is built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <circle cx="300" cy="240" r="120" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <line x1="300" y1="120" x2="300" y2="360" stroke="var(--text)" stroke-width="6"/>
+    <line x1="180" y1="240" x2="420" y2="240" stroke="var(--text)" stroke-width="6"/>
+    <rect x="440" y="420" width="130" height="170" fill="none" stroke="var(--flaw)" stroke-width="6"/>
+    <line x1="462" y1="460" x2="548" y2="460" stroke="var(--flaw)" stroke-width="5"/>
+    <line x1="462" y1="495" x2="548" y2="495" stroke="var(--flaw)" stroke-width="5"/>
+    <path d="M 360 330 C 420 380, 430 400, 460 430" stroke="var(--flaw)" stroke-width="7" fill="none" marker-end="none"/>
+    <path d="M 180 420 C 120 480, 120 560, 200 600" stroke="var(--alt)" stroke-width="5" fill="none" stroke-dasharray="14 12"/>
+  </svg>
+  <div class="ttxt">Who's<br><em>steering?</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <text x="60" y="200" font-family="Space Grotesk" font-weight="700" style="font-size:150px;fill:var(--flaw)">$2M</text>
+    <text x="66" y="260" font-family="IBM Plex Mono" style="font-size:26px;fill:var(--text-dim)">FOR ONE SENTENCE</text>
+    <path d="M 90 330 h 420" stroke="var(--text)" stroke-width="5"/>
+    <path d="M 90 400 h 340" stroke="var(--text)" stroke-width="5"/>
+    <path d="M 90 470 h 390" stroke="var(--text)" stroke-width="5"/>
+    <path d="M 460 560 C 520 520, 540 440, 500 360" stroke="var(--alt)" stroke-width="5" fill="none" stroke-dasharray="14 12"/>
+  </svg>
+  <div class="ttxt" style="font-size:96px">"If I stop,<br><em>they don't"</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:o.from||0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function drawDashed(tl,id,dur,pos){const p=$(id); // keeps its dash pattern after drawing
+  const L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos)
+    .set(p,{strokeDasharray:'7 6'},pos+dur+.01);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function card(tl,el,pos,hold=2.0){tl.fromTo(el,{opacity:0},{opacity:1,duration:.4},pos)
+  .to(el,{opacity:0,duration:.5},pos+hold);}
+
+/* ---------- dynamic bits ---------- */
+// s0: dividend stream dots
+(()=>{const g=$('k_divid');let s='';for(let i=0;i<9;i++){const x=560+(i%3)*46,y=230+Math.floor(i/3)*30;
+  s+=`<circle class="dv" cx="${x}" cy="${y}" r="5" fill="var(--alt)"/>`;}g.innerHTML=s;})();
+// s1: essay lines + checkmarks
+(()=>{const g=$('w_lines');let s='';for(let i=0;i<9;i++)
+  s+=`<line x1="140" y1="${200+i*20}" x2="${240+(i*37)%90}" y2="${200+i*20}" stroke="var(--grid)" stroke-width="6"/>`;
+  g.innerHTML=s;})();
+(()=>{const g=$('w_checks');const items=[['CHATBOTS EVERYWHERE',230],['AI WRITING CODE',280],['BILLIONS INTO A RACE',330]];
+  let s='';items.forEach(([t,y],i)=>{
+  s+=`<g class="wc b" id="wc_${i}"><path d="M370 ${y-12} l8 10 l16 -20" class="green" stroke-width="3.5"/>
+  <text x="402" y="${y}" font-size="12" fill="var(--alt)">${t}</text></g>`;});g.innerHTML=s;})();
+// s3: people receiving dividend
+(()=>{const g=$('f_people');let s='';for(let i=0;i<5;i++){const x=1000+i*70;
+  s+=`<g class="fp"><circle cx="${x}" cy="200" r="12" fill="none" stroke="var(--text)" stroke-width="2"/>
+  <circle class="coin" cx="${x}" cy="168" r="4" fill="var(--alt)"/></g>`;}g.innerHTML=s;})();
+// s4: thought bubbles
+(()=>{const g=$('t_bub');let s='';[148,308,468].forEach((y,i)=>{
+  s+=`<g class="tb b" id="tb_${i}"><ellipse cx="410" cy="${y}" rx="52" ry="24" fill="var(--bg-raised)" stroke="var(--text-dim)" stroke-width="1.5"/>
+  <text x="378" y="${y+5}" font-size="12" fill="var(--text)">"I WORRY"</text></g>`;});g.innerHTML=s;})();
+// s5: test markers
+(()=>{const g=$('n_tests');let s='';for(let i=0;i<24;i++){const x=140+(i%12)*32,y=350+Math.floor(i/12)*34;
+  s+=`<path class="nt" d="M${x} ${y} l7 -14 l7 14 z" fill="none" stroke="var(--flaw)" stroke-width="2"/>`;}g.innerHTML=s;})();
+// s6: helix rungs + asilomar ring of 140
+(()=>{const g=$('d_rungs');let s='';for(let i=0;i<7;i++){const y=140+i*42;
+  s+=`<line x1="${175+(i%2)*20}" y1="${y}" x2="${265-(i%2)*20}" y2="${y}" stroke="var(--fact)" stroke-width="2"/>`;}g.innerHTML=s;})();
+(()=>{const g=$('d_ring');let s='';const cx=890,cy=330,R=140;
+  for(let i=0;i<70;i++){const a=i/70*Math.PI*2;
+  s+=`<circle class="dr" cx="${cx+Math.cos(a)*R}" cy="${cy+Math.sin(a)*R*0.62}" r="4" fill="var(--text)" opacity="0"/>`;}
+  g.innerHTML=s;})();
+// s7: UV arrows + molecules
+(()=>{const g=$('o_uv');let s='';for(let i=0;i<5;i++){const x=350+i*110;
+  s+=`<line class="uv" x1="${x}" y1="60" x2="${x+18}" y2="130" stroke="var(--flaw)" stroke-width="2" opacity="0"/>`;}g.innerHTML=s;})();
+(()=>{const g=$('o_mol');let s='';for(let i=0;i<8;i++){const x=350+(i%4)*40,y=440-Math.floor(i/4)*40;
+  s+=`<circle class="om" cx="${x}" cy="${y}" r="6" fill="none" stroke="var(--flaw)" stroke-width="2" opacity="0"/>`;}g.innerHTML=s;})();
+// s8: survey dots — cluster near 5%, tail to the right (illustrative distribution)
+(()=>{const g=$('c_dots');let s='';
+  const spots=[3,4,5,5,6,7,8,10,12,15,18,22,28,35,45];
+  spots.forEach((p,i)=>{const x=200+p/100*1080, y=560-8-(i%3)*13;
+  s+=`<circle class="cd" cx="${x}" cy="${y}" r="6" fill="var(--fact)" opacity="0"/>`;});g.innerHTML=s;})();
+// s9: leaderboard rows
+(()=>{const g=$('r_rows');let s='';['MODEL X — NEW BEST','MODEL Y — CLOSE SECOND','MODEL Z — CATCHING UP'].forEach((t,i)=>{
+  s+=`<text x="160" y="${170+i*36}" font-size="12.5" class="rrow">${i+1} · ${t}</text>`;});g.innerHTML=s;})();
+
+/* ---------- scene timelines ---------- */
+function sc0(D){const tl=gsap.timeline();
+  pop(tl,'k_f',0.8);say(tl,'k_child',4.0);
+  draw(tl,'k_cap',2.6,7.5);
+  tl.set($('k_wage'),{opacity:1},10.5);say(tl,'k_wagelab',11.0);
+  // twist: briefcase fades, dividends flow, wheel appears
+  say(tl,'k_good',15.0);
+  tl.to($('k_bcase').parentNode.querySelector('rect'),{opacity:.15,duration:1.4},17.5)
+    .to($('k_bcase'),{opacity:.15,duration:1.4},17.5);
+  say(tl,'k_notwarn',19.5);
+  tl.fromTo($('k_divid').children,{opacity:0},{opacity:1,duration:.2,stagger:.12},21.0);
+  // the drift
+  say(tl,'k_bad',26.0);
+  tl.to($('k_wheel'),{x:330,y:0,duration:4.0,ease:'power1.inOut'},28.5);
+  say(tl,'k_badlab',33.5);
+  say(tl,'k_calm',40.0);
+  tl.to($('k_calm'),{opacity:.55,duration:1.2,repeat:2,yoyo:true},42.0);
+  pop(tl,'k_price',48.0,.4);shake(tl,'k_price',48.4,6,6);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},58.0);
+  if(isAuto)tl.to({},{duration:6},58.6); // ride out with the section
+  else tl.to($('titleCard'),{opacity:0,duration:.5},62.0);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  draw(tl,'w_axis',1.2,0.3);
+  pop(tl,'w_essay',1.8);
+  tl.fromTo($('w_lines').children,{opacity:0},{opacity:1,duration:.15,stagger:.08},2.6);
+  [0,1,2].forEach(i=>say(tl,'wc_'+i,5.0+i*2.0));
+  say(tl,'w_true',11.5);
+  pop(tl,'w_badge',14.5);
+  pop(tl,'w_door',21.0);shake(tl,'w_clause',23.0,6,6);
+  say(tl,'w_money',27.0);
+  tl.to($('w_sum'),{opacity:0,y:26,duration:2.6,ease:'power1.in'},31.0);
+  say(tl,'w_quote',36.0);
+  tl.set($('w_strike'),{opacity:1,scaleX:0,transformOrigin:'left center'},44.0)
+    .to($('w_strike'),{scaleX:1,duration:.8},44.0);
+  say(tl,'w_dropped',45.5);
+  pop(tl,'w_wh',52.0);say(tl,'w_mic',60.0);
+  tl.to($('w_mic'),{opacity:.5,duration:1.2,repeat:4,yoyo:true},63.0);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  say(tl,'q_quote1',0.8);
+  [...document.querySelectorAll('.q_node')].forEach((n,i)=>tl.fromTo(n,{opacity:0,scale:.92,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.5,ease:'back.out(1.5)'},9.0+i*1.2));
+  draw(tl,'q_a1',1.0,13.0);draw(tl,'q_a2',1.0,14.2);draw(tl,'q_a3',1.0,15.4);
+  say(tl,'q_quote2',17.0);
+  say(tl,'q_quote3',27.0);say(tl,'q_quote3b',27.4);
+  // chase pulse
+  tl.to(['#q_a1','#q_a2','#q_a3'],{opacity:.35,duration:.7,repeat:5,yoyo:true,stagger:.2},33.0);
+  say(tl,'q_params',40.0);
+  count(tl,'q_pcount',10000000000000,4.0,42.0,{from:175000000000});
+  tl.call(()=>$('q_plab').textContent='INTERNAL SETTINGS: 175 BILLION (2020) → ~10 TRILLION (TODAY)',[],46.0);
+  pop(tl,'q_2029',52.0);
+  tl.to($('q_2029'),{opacity:.55,duration:1.2,repeat:5,yoyo:true},56.0);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();
+  draw(tl,'f_stem',0.8,0.5);draw(tl,'f_up',1.6,1.5);draw(tl,'f_dn',1.6,1.5);
+  say(tl,'f_bc1',5.0);say(tl,'f_bc2',5.4);
+  tl.to([$('f_bc1'),$('f_bc2')],{opacity:.15,duration:1.6},8.5);
+  say(tl,'f_worklab',9.5);
+  say(tl,'f_good',14.0);
+  tl.fromTo($('f_people').children,{opacity:0},{opacity:1,duration:.2,stagger:.15},16.0);
+  tl.to($('f_people').querySelectorAll('.coin'),{y:24,duration:1.2,repeat:3,yoyo:false,ease:'power1.in',stagger:.2},18.0);
+  say(tl,'f_bad',26.0);
+  tl.to($('f_wheel2'),{x:250,duration:3.6,ease:'power1.inOut'},28.0);
+  tl.to($('f_people').children,{opacity:.35,duration:1.0},30.0);
+  say(tl,'f_warn',32.0);say(tl,'f_badlab',34.0);
+  pop(tl,'f_quote',44.0,.4);
+  say(tl,'f_close',54.0);
+  tl.to($('f_warn'),{opacity:.4,duration:1.1,repeat:5,yoyo:true},57.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  [...document.querySelectorAll('.t_lab')].forEach((n,i)=>tl.fromTo(n,{opacity:0,scale:.92,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.5,ease:'back.out(1.5)'},1.0+i*.8));
+  [0,1,2].forEach(i=>say(tl,'tb_'+i,5.0+i*.7));
+  say(tl,'t_choice',13.0);
+  say(tl,'t_loop',26.0);
+  (()=>{const p=$('t_circle'),L=p.getTotalLength();
+    gsap.set(p,{strokeDasharray:L+' '+L,strokeDashoffset:L});
+    tl.to(p,{strokeDashoffset:0,duration:2.6,ease:'power1.inOut'},27.0);})();
+  say(tl,'t_warn',31.0);say(tl,'t_fig',33.0);
+  say(tl,'t_pd',40.0);
+  say(tl,'t_moloch',49.0);
+  tl.fromTo($('t_mname'),{scale:.9,transformOrigin:'0% 100%'},{scale:1,duration:.8,ease:'back.out(1.4)'},49.0);
+  say(tl,'t_close',66.0);
+  tl.to($('t_warn'),{opacity:.4,duration:1.2,repeat:6,yoyo:true},70.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  say(tl,'n_nodes',0.8);
+  tl.fromTo($('n_tests').children,{opacity:0},{opacity:1,duration:.1,stagger:.1},4.0);
+  say(tl,'n_testlab',7.5);shake(tl,'svg5',8.0,7,8);
+  say(tl,'n_tooth',15.0);
+  count(tl,'n_count',300000,3.5,17.0,{suf:'+'});
+  draw(tl,'n_curve',3.0,24.0);say(tl,'n_curvelab',25.0);
+  say(tl,'n_shape',30.0);
+  tl.set($('n_treaty'),{opacity:1,scaleY:0,transformOrigin:'center top'},38.0)
+    .to($('n_treaty'),{scaleY:1,duration:1.0},38.0);
+  say(tl,'n_treatylab',39.5);
+  tl.to($('n_l1'),{opacity:.2,duration:1.2},41.0);
+  say(tl,'n_verify',46.0);
+  say(tl,'n_foot',60.0);
+  tl.to($('n_treaty'),{opacity:.5,duration:1.2,repeat:4,yoyo:true},66.0);
+  return tl;}
+
+function sc6(D){const tl=gsap.timeline();
+  say(tl,'d_helix',0.8);
+  draw(tl,'d_h1',1.6,1.0);draw(tl,'d_h2',1.6,1.2);
+  tl.fromTo($('d_rungs').children,{opacity:0},{opacity:1,duration:.15,stagger:.1},2.6);
+  say(tl,'d_hazard',6.0);
+  pop(tl,'d_pause',10.0,.35);shake(tl,'d_pause',10.3,6,6);
+  tl.fromTo($('d_ring').children,{opacity:0},{opacity:1,duration:.08,stagger:.05},17.0);
+  say(tl,'d_ringlab',21.0);
+  pop(tl,'d_rules',25.0);
+  say(tl,'d_why',33.0);
+  say(tl,'d_scale',43.0);
+  tl.to($('d_scale').querySelector('circle'),{opacity:.4,duration:1.1,repeat:5,yoyo:true},50.0);
+  return tl;}
+
+function sc7(D){const tl=gsap.timeline();
+  say(tl,'o_earth',0.8);
+  tl.to($('o_shield'),{opacity:.25,duration:2.4},4.0);
+  tl.fromTo($('o_uv').children,{opacity:0},{opacity:.8,duration:.3,stagger:.15},5.5);
+  say(tl,'o_hole',7.0);
+  say(tl,'o_cfc',10.0);
+  tl.fromTo($('o_mol').children,{opacity:0},{opacity:1,duration:.2,stagger:.12},11.5)
+    .to($('o_mol').children,{y:-260,duration:3.2,ease:'power1.in',stagger:.15},13.0);
+  say(tl,'o_treaty',18.0);
+  count(tl,'o_count',198,3.0,20.0,{suf:'/198'});
+  tl.to($('o_shield'),{opacity:.8,duration:2.6},26.0);
+  tl.to($('o_uv').children,{opacity:0,duration:1.2},26.5);
+  drawDashed(tl,'o_recover',2.2,28.0);say(tl,'o_reclab',29.5);
+  say(tl,'o_why',36.0);
+  say(tl,'o_co2',50.0);
+  tl.to($('o_co2'),{opacity:.6,duration:1.2,repeat:4,yoyo:true},57.0);
+  return tl;}
+
+function sc8(D){const tl=gsap.timeline();
+  say(tl,'c_src',0.8);
+  const rows=[...document.querySelectorAll('.c_row')];
+  rows.forEach((r,i)=>tl.fromTo(r,{opacity:0,y:14},{opacity:1,y:0,duration:.5},3.0+i*1.2));
+  // scoring, one by one (order: few players → verify → fear → exit)
+  say(tl,'c_m2',12.0);say(tl,'c_m2lab',12.4);
+  say(tl,'c_m1',20.0);say(tl,'c_m1lab',20.4);say(tl,'c_m1lab2',20.8);
+  say(tl,'c_m3',34.0);say(tl,'c_m3lab',34.4);
+  say(tl,'c_m4',42.0);say(tl,'c_m4lab',42.4);
+  // spread
+  say(tl,'c_spread',52.0);
+  tl.fromTo($('c_dots').children,{opacity:0},{opacity:.85,duration:.15,stagger:.12},56.0);
+  say(tl,'c_medlab',61.0);
+  tl.to($('c_kd'),{opacity:1,duration:.4},66.0);
+  say(tl,'c_kdlab',66.4);shake(tl,'c_kd',67.0,4,6);
+  say(tl,'c_close',78.0);
+  tl.to($('c_kd'),{opacity:.4,duration:1.1,repeat:6,yoyo:true},82.0);
+  return tl;}
+
+function sc9(D){const tl=gsap.timeline();
+  say(tl,'r_board',0.8);
+  tl.fromTo($('r_rows').children,{opacity:0},{opacity:1,duration:.3,stagger:.4},1.6);
+  say(tl,'r_boardlab',6.0);
+  tl.to($('r_board'),{opacity:.3,duration:1.4},9.0)
+    .to($('r_rows'),{opacity:.3,duration:1.4},9.0);
+  say(tl,'r_loop',12.0);
+  tl.set($('r_cut'),{opacity:1,scaleX:0,transformOrigin:'left center'},16.0)
+    .to($('r_cut'),{scaleX:1,duration:1.2},16.0);
+  say(tl,'r_cutlab',18.0);
+  say(tl,'r_1963',26.0);
+  pop(tl,'r_quote',38.0,.4);
+  say(tl,'r_final',46.0);
+  drawDashed(tl,'r_exit',2.0,48.0);say(tl,'r_finlab',50.0);
+  tl.to($('r_exit'),{opacity:.5,duration:1.2,repeat:4,yoyo:true},53.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6,s7:sc7,s8:sc8,s9:sc9};
+
+/* redline toggle (web mode) */
+function setRedline(on){['r_cut','r_cutlab'].forEach(id=>$(id).style.opacity=on?1:0);
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* mini-poll */
+(()=>{const key='ts-ep013-poll';
+  const opts={stop:'Stop anyway',go:'Keep going',treaty:'Only with a verified treaty'};
+  const base={stop:9,go:23,treaty:41}; // seeded so early voters see a distribution
+  function render(){
+    const mine=localStorage.getItem(key);if(!mine)return;
+    const counts={...base};counts[mine]=(counts[mine]||0)+1;
+    const tot=Object.values(counts).reduce((a,b)=>a+b,0);
+    $('pollOpts').style.display='none';
+    const res=$('pollRes');res.style.display='block';res.innerHTML='';
+    Object.entries(opts).forEach(([k,lab])=>{
+      const pct=Math.round(counts[k]/tot*100);
+      res.innerHTML+=`<div class="rlab">${lab}${k===mine?' — your answer':''}</div>
+        <div class="bar" style="width:${pct}%;background:${k==='treaty'?'var(--alt)':k==='go'?'var(--flaw)':'var(--fact)'}"></div>
+        <div class="rlab">${pct}%</div>`;});}
+  document.querySelectorAll('#pollOpts .opt').forEach(b=>b.onclick=()=>{
+    localStorage.setItem(key,b.dataset.k);render();});
+  render();})();
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.4);
+    if(s.id==='s4'||s.id==='s8')tl.timeScale(1.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  // tooltips
+  const tip=$('tip');
+  document.querySelectorAll('.q_node,.t_lab,.c_row').forEach(r=>{
+    r.addEventListener('mousemove',e=>{tip.textContent=r.dataset.tip;tip.style.opacity=1;
+      tip.style.left=Math.min(e.clientX+14,innerWidth-300)+'px';tip.style.top=(e.clientY+16)+'px';});
+    r.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
