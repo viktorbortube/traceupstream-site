@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Weapon That Weakens Every Time You Fire It — Sanctions, SWIFT and the Chokepoint | Trace Upstream</title>
+<meta name="description" content="Financial sanctions work because nearly every payment crosses one chokepoint. But a chokepoint's power is spent by using it: Iran 2012, Russia 2022, Libya 2026. An interactive blueprint of the loop — and three redesigns, each with its price.">
+<link rel="canonical" href="https://traceupstream.com/episodes/014-dollar-sanctions-loop/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Weapon That Weakens Every Time You Fire It">
+<meta property="og:description" content="How the dollar chokepoint works, why every use erodes it, and what the three alternatives actually cost.">
+<meta property="og:url" content="https://traceupstream.com/episodes/014-dollar-sanctions-loop/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#9B7B94;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.paper{fill:var(--bg)} svg text.topictxt{fill:var(--topic)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .thin{stroke:var(--text-dim);fill:none;stroke-width:1.5}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:300px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:106px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+body.auto #s8 .cta{display:block}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.014 — 2026-07-20</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:25</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="41.1">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.014</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <!-- holster -->
+        <g class="b" id="h_holster">
+          <path d="M120 200 h150 v190 q0 40 -75 60 q-75 -20 -75 -60 z" class="ink"/>
+          <rect x="150" y="150" width="90" height="70" class="ink" id="h_bank"/>
+          <path d="M165 150 v-18 a30 30 0 0 1 60 0 v18" class="ink" id="h_lock"/>
+          <text x="120" y="480" class="strong" font-size="15">NO EXPLOSIVES · NO SOLDIERS</text>
+        </g>
+        <!-- funnel map -->
+        <g id="h_lines"></g>
+        <g class="b" id="h_node">
+          <circle cx="900" cy="300" r="46" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="856" y="368" class="fact" font-size="13">THE CHOKEPOINT</text>
+        </g>
+        <g class="b" id="h_blocked">
+          <rect x="820" y="180" width="164" height="46" fill="var(--flaw)" opacity=".92"/>
+          <text x="846" y="211" class="paper" font-size="19" style="font-weight:600">BLOCKED</text>
+        </g>
+        <path id="h_bypass" class="green b" d="M1180 470 C 1050 470, 980 420, 1010 300 C 1040 190, 1140 160, 1300 150"/>
+        <text x="1160" y="510" class="alttxt b" id="h_bypasslab" font-size="13">…AND THE FIRST WAY AROUND IT IS DRAWN</text>
+        <text x="740" y="580" text-anchor="middle" class="big b" font-size="34" id="h_holsterline">IT ONLY WORKS WHILE IT STAYS IN THE HOLSTER.</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The weapon that weakens<br>every time you fire it.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>The United States owns a weapon that has never fired a single shot. It has no explosives and no soldiers, and over the past twenty years it has changed more governments' behaviour than any aircraft carrier. It works like this: you are simply disconnected from money. Your bank cannot pay anyone, and nobody can pay you.</p>
+      <p>But this weapon has a strange property. It only works while it stays in the holster. Every time it is drawn, it gets a little weaker — and last Saturday, one more country quietly started building its way out.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="84.1">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Beijing, July 19, 2026</div>
+    <h2>A signature, not a switch.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg1">
+        <g class="b" id="e_seals">
+          <circle cx="300" cy="180" r="62" class="ink"/>
+          <text x="258" y="176" class="strong" font-size="14">LIBYA</text>
+          <text x="238" y="198" font-size="11">CENTRAL BANK</text>
+          <text x="238" y="272" font-size="12">NAJI ISSA</text>
+          <circle cx="520" cy="180" r="62" class="ink"/>
+          <text x="482" y="176" class="strong" font-size="14">CHINA</text>
+          <text x="462" y="198" font-size="11">PEOPLE'S BANK</text>
+          <text x="452" y="272" font-size="12">PAN GONGSHENG</text>
+          <line x1="362" y1="180" x2="458" y2="180" class="ink" id="e_link"/>
+        </g>
+        <g id="e_deals">
+          <g class="b" id="e_d1"><rect x="700" y="120" width="380" height="52" class="nodebox"/>
+            <text x="722" y="152" class="strong" font-size="14">ACCESS TO CIPS PAYMENT SYSTEM</text></g>
+          <g class="b" id="e_d2"><rect x="700" y="186" width="380" height="52" class="nodebox"/>
+            <text x="722" y="218" class="strong" font-size="14">CHINESE BANKS GUARANTEE TRADE DEALS</text></g>
+          <g class="b" id="e_d3"><rect x="700" y="252" width="380" height="52" class="nodebox"/>
+            <text x="722" y="284" class="strong" font-size="14">SAVINGS INTO CHINESE GOVT DEBT</text></g>
+        </g>
+        <g class="b" id="e_precise">
+          <rect x="120" y="350" width="520" height="120" class="ink" stroke-dasharray="5 5"/>
+          <text x="144" y="386" class="flawtxt strong" font-size="16">AGREED TO CONNECT ≠ CONNECTED</text>
+          <text x="144" y="416" font-size="12">NOTHING HAS SWITCHED ON YET.</text>
+          <text x="144" y="440" font-size="12">NO LIBYAN BANK ON THE CIPS PARTICIPANT LIST.</text>
+        </g>
+        <g class="b" id="e_scale">
+          <text x="700" y="390" class="big fact" font-size="42" id="e_countries">0</text>
+          <text x="702" y="418" font-size="12">COUNTRIES CIPS ALREADY REACHES</text>
+          <text x="1050" y="390" class="big fact" font-size="42" id="e_record">0</text>
+          <text x="1052" y="418" font-size="12">TRILLION YUAN IN ONE DAY · MARCH 2026</text>
+          <text x="1052" y="440" font-size="11">≈ $180 BILLION</text>
+        </g>
+        <text x="120" y="545" class="big b" font-size="28" id="e_line">NOT PUNISHED. NOT PRESSURED. <tspan class="topictxt">NOT AT WAR.</tspan></text>
+        <text x="120" y="585" class="b" id="e_line2" font-size="13">— AND STILL BUILDING A SECOND ROUTE</text>
+      </svg>
+      <div class="figcap">Fig. 1 — what was signed in Beijing · sources: Anadolu Agency, Middle East Monitor, Libya Herald (April 2026)</div>
+    </div>
+    <div class="prose">
+      <p>On Saturday the nineteenth of July, in Beijing, the governor of the Central Bank of Libya, Naji Issa, met the governor of the People's Bank of China, Pan Gongsheng. They agreed to connect Libya's commercial banks to CIPS — the Cross-Border Interbank Payment System — to let Chinese banks guarantee Libyan trade deals, and to put some of Libya's savings into Chinese government debt.</p>
+      <p>Nothing has switched on yet: no Libyan bank appears on the CIPS participant list, and a banking forum is only planned for early next year. What was signed is an intention. But CIPS is real — it reaches banks in more than 180 countries, and in March it moved a record 1.22 trillion yuan in a single day. And Libya is not being punished, pressured, or fought. It simply decided that having one way to move money is a risk worth paying to fix.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 THE CHOKEPOINT ================= -->
+<section class="ep" id="s2" data-duration="96.9">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">How the chokepoint<br>works</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The mechanism · Where a payment actually goes</div>
+    <h2>Libya pays Vietnam. The money goes to New York.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg2">
+        <!-- endpoints -->
+        <g class="b" id="p_ends">
+          <rect x="90" y="250" width="170" height="70" class="nodebox"/>
+          <text x="112" y="280" class="strong" font-size="14">LIBYAN BANK</text>
+          <text x="112" y="303" font-size="11">PAYING</text>
+          <rect x="1220" y="250" width="170" height="70" class="nodebox"/>
+          <text x="1242" y="280" class="strong" font-size="14">VIETNAM BANK</text>
+          <text x="1242" y="303" font-size="11">BEING PAID</text>
+        </g>
+        <!-- layer 1: messages -->
+        <path id="p_swift" class="thin b" d="M260 200 H 1220" stroke-dasharray="0"/>
+        <g class="b" id="p_swiftlab">
+          <text x="590" y="180" class="strong" font-size="15">1 · THE MESSAGE — SWIFT</text>
+          <text x="560" y="158" font-size="12">11,500+ BANKS · THE POSTAL SERVICE BETWEEN BANKS</text>
+        </g>
+        <g id="p_env"></g>
+        <!-- layer 2: money -->
+        <g class="b" id="p_moneylab">
+          <text x="120" y="400" class="strong" font-size="15">2 · THE MONEY</text>
+          <text x="120" y="426" font-size="12">BANKS DON'T SHIP CASH —</text>
+          <text x="120" y="448" font-size="12">THEY KEEP ACCOUNTS WITH EACH OTHER</text>
+        </g>
+        <path id="p_money" class="blue b" d="M260 300 C 420 300, 500 350, 640 350 H 840 C 980 350, 1060 300, 1220 300"/>
+        <!-- New York box -->
+        <g class="b" id="p_ny">
+          <rect x="620" y="300" width="240" height="150" class="ink" stroke-width="2.5"/>
+          <text x="646" y="330" class="strong" font-size="15">A BANK IN NEW YORK</text>
+          <rect x="646" y="345" width="86" height="34" fill="none" stroke="var(--fact)" stroke-width="2"/>
+          <text x="654" y="367" class="fact" font-size="11">LIBYA $</text>
+          <rect x="748" y="345" width="86" height="34" fill="none" stroke="var(--fact)" stroke-width="2"/>
+          <text x="756" y="367" class="fact" font-size="11">VIETNAM $</text>
+          <path id="p_hop" class="blue" d="M736 362 H 744" marker-end="url(#a2)"/>
+          <text x="646" y="410" font-size="11">THE PAYMENT IS JUST A NUMBER</text>
+          <text x="646" y="430" font-size="11">MOVING BETWEEN THESE TWO ACCOUNTS</text>
+        </g>
+        <text x="560" y="490" class="b" id="p_neither" font-size="14">NEITHER THE BUYER NOR THE SELLER IS AMERICAN — THE DOLLARS STILL SIT HERE</text>
+        <!-- valve -->
+        <g class="b" id="p_valve">
+          <line x1="600" y1="530" x2="880" y2="530" class="ink" stroke-width="6"/>
+          <circle cx="740" cy="530" r="30" fill="var(--flaw)" opacity=".95"/>
+          <g id="p_handle">
+            <line x1="726" y1="516" x2="754" y2="544" stroke="var(--bg)" stroke-width="5"/>
+            <line x1="754" y1="516" x2="726" y2="544" stroke="var(--bg)" stroke-width="5"/>
+          </g>
+          <text x="900" y="524" class="flawtxt strong" font-size="15">"THIS ACCOUNT IS CLOSED."</text>
+          <text x="900" y="548" font-size="12">MESSAGES STILL ARRIVE.</text>
+          <text x="900" y="570" font-size="12">THE MONEY STOPS.</text>
+        </g>
+        <text x="120" y="600" class="big b" font-size="26" id="p_whole">THAT IS THE WHOLE WEAPON.</text>
+        <defs><marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--fact)"/></marker></defs>
+      </svg>
+      <div class="figcap">Fig. 2 — two layers of a cross-border payment: messages travel one way, the money never leaves New York</div>
+    </div>
+    <div class="prose">
+      <p>Say a company in Libya pays a supplier in Vietnam. First the banks have to talk — this account, that account, this amount — and that messaging runs on SWIFT, a network connecting more than eleven thousand banks. Think of it as the postal service between banks: it carries the instructions, never the money.</p>
+      <p>Second, the money moves. Banks don't ship cash; they keep accounts with each other. And because nearly every bank needs to handle dollars, nearly every bank keeps a dollar account inside an American bank. So both banks' dollars sit in New York, and the payment is just a number moving between two accounts there — within reach of American law. When Washington sanctions a bank, it tells American banks: this account is closed. The messages still arrive. The money stops.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE LOOP ================= -->
+<section class="ep" id="s3" data-duration="97">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The loop</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · A weapon with a budget</div>
+    <h2>A gun stays dangerous after you fire it. This doesn't.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg3">
+        <!-- the loop -->
+        <g id="l_loop">
+          <path id="l_a1" class="amber b" d="M420 130 C 560 100, 700 110, 780 170" marker-end="url(#a3)"/>
+          <path id="l_a2" class="amber b" d="M820 210 C 880 300, 860 380, 780 440" marker-end="url(#a3)"/>
+          <path id="l_a3" class="amber b" d="M720 470 C 600 510, 460 500, 380 440" marker-end="url(#a3)"/>
+          <path id="l_a4" class="amber b" d="M330 400 C 270 310, 290 220, 380 160" marker-end="url(#a3)"/>
+          <g class="b l_node" id="l_n1" data-tip="A sanction is imposed. On its own, entirely reasonable.">
+            <rect x="250" y="90" width="190" height="56" class="nodebox"/><text x="274" y="124" class="strong" font-size="14">SANCTION APPLIED</text></g>
+          <g class="b l_node" id="l_n2" data-tip="The target's payments break. It must find another route — or stop trading.">
+            <rect x="780" y="150" width="200" height="56" class="nodebox"/><text x="804" y="184" class="strong" font-size="14">TARGET IS CUT OFF</text></g>
+          <g class="b l_node" id="l_n3" data-tip="Once a country is on a rival rail, it is out of reach for good — and it makes that rail more useful for everyone else.">
+            <rect x="740" y="440" width="230" height="56" class="nodebox"/><text x="764" y="474" class="strong" font-size="13">RIVAL RAIL GROWS</text></g>
+          <g class="b l_node" id="l_n4" data-tip="Fewer people inside the chokepoint means the next sanction must be harsher to bite — which sends more users out.">
+            <rect x="230" y="440" width="220" height="56" class="nodebox"/><text x="254" y="474" class="strong" font-size="14">REACH SHRINKS</text></g>
+          <text x="1176" y="118" class="flawtxt b" font-size="30" id="l_warn">⚠</text>
+          <text x="1010" y="150" class="flawtxt b" id="l_warnlab" font-size="12">THE FLAW IS THE LOOP —</text>
+          <text x="1010" y="172" class="flawtxt b" id="l_warnlab2" font-size="12">NOT ANY ACTOR ON IT</text>
+        </g>
+        <!-- cases -->
+        <g class="b" id="l_c1">
+          <rect x="1020" y="230" width="360" height="72" class="ink" stroke-dasharray="4 4"/>
+          <text x="1042" y="258" class="strong" font-size="14">IRAN · 2012</text>
+          <text x="1042" y="282" font-size="11.5">US + EUROPE CUT IRAN'S BANKS OFF THE DOLLAR</text>
+        </g>
+        <g class="b" id="l_c2">
+          <rect x="1020" y="318" width="360" height="118" class="ink" stroke-dasharray="4 4"/>
+          <text x="1042" y="346" class="strong" font-size="14">RUSSIA · 2022</text>
+          <text x="1042" y="382" class="big flawtxt" font-size="30" id="l_frozen">$0B</text>
+          <text x="1042" y="404" font-size="11.5">OF SAVINGS HELD ABROAD, FROZEN</text>
+          <text x="1042" y="424" font-size="11.5">→ MOVED TO THE YUAN, JOINED CIPS</text>
+        </g>
+        <g class="b" id="l_c3">
+          <rect x="1020" y="452" width="360" height="112" class="ink" stroke-dasharray="4 4"/>
+          <text x="1042" y="480" class="strong" font-size="14">EVERYONE ELSE · SINCE</text>
+          <text x="1042" y="506" font-size="11.5">CENTRAL BANKS BUY GOLD —</text>
+          <text x="1042" y="526" font-size="11.5">NOBODY CAN SWITCH IT OFF</text>
+          <text x="1042" y="550" class="topictxt" font-size="11.5">LIBYA BOOKS A FLIGHT TO BEIJING</text>
+        </g>
+        <text x="230" y="590" class="big b" font-size="24" id="l_close">NOBODY HERE IS IRRATIONAL. <tspan class="flawtxt">EVERY STEP IS SELF-PROTECTION.</tspan></text>
+        <defs><marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--flaw)"/></marker></defs>
+      </svg>
+      <div class="figcap">Fig. 3 — the self-eroding loop · hover each node: none of them is behaving badly</div>
+    </div>
+    <div class="prose">
+      <p>A chokepoint gives you power because everyone must pass through it. But a gun is just as dangerous after you fire it; this one is not. Every use forces the target to find another route — and once it does, that country is out of reach for good, and becomes a customer making a rival system more useful to everyone else.</p>
+      <p>In 2012, the US and Europe cut Iran's banks off the dollar. In 2022, Western governments froze around $300 billion of Russia's savings held abroad — and officials everywhere noticed at once that money kept abroad is only yours until someone decides otherwise. Russia moved into the yuan and joined CIPS. Then countries nobody had sanctioned started watching: central banks bought gold, which cannot be switched off, and Libya's central bank booked a flight to Beijing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE HONEST PART ================= -->
+<section class="ep" id="s4" data-duration="96.5">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The honest part</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The counter-evidence · What the data does and doesn't show</div>
+    <h2>The dollar is not falling. The leverage is thinning.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg4">
+        <!-- long chart -->
+        <g class="b" id="c_axes">
+          <line x1="120" y1="440" x2="700" y2="440" class="ink"/>
+          <line x1="120" y1="120" x2="120" y2="440" class="ink"/>
+          <text x="80" y="132" font-size="11">80%</text><text x="80" y="446" font-size="11">40%</text>
+          <text x="112" y="466" font-size="11">2001</text><text x="656" y="466" font-size="11">2026</text>
+          <text x="120" y="96" class="strong" font-size="14">DOLLAR SHARE OF THE WORLD'S SAVINGS</text>
+        </g>
+        <path id="c_curve" class="blue b" d="M120 168 C 260 200, 340 250, 430 268 C 520 286, 600 300, 700 306"/>
+        <text x="126" y="158" class="fact b" id="c_72" font-size="13">72% (2001)</text>
+        <text x="640" y="292" class="fact b" id="c_57" font-size="13">57%</text>
+        <line id="c_2022" x1="586" y1="120" x2="586" y2="440" class="thin b" stroke-dasharray="5 5"/>
+        <text x="540" y="112" class="flawtxt b" id="c_2022lab" font-size="11">2022 FREEZE</text>
+        <!-- zoom -->
+        <g class="b" id="c_zoom">
+          <rect x="790" y="120" width="300" height="200" class="ink"/>
+          <text x="790" y="108" class="strong" font-size="13">ZOOMED: LAST TWO QUARTERS</text>
+          <path id="c_up" class="blue" d="M830 260 L 1050 210"/>
+          <text x="812" y="286" font-size="11">56.42%</text>
+          <text x="1000" y="196" class="fact" font-size="12">57.13% ↑</text>
+          <text x="812" y="308" class="strong" font-size="12">IT WENT UP, NOT DOWN</text>
+        </g>
+        <!-- yuan bars -->
+        <g class="b" id="c_yuan">
+          <text x="1140" y="140" class="strong" font-size="13">THE YUAN, MEANWHILE</text>
+          <rect x="1140" y="160" width="14" height="34" fill="var(--topic)"/>
+          <text x="1164" y="182" font-size="11.5">2% OF RESERVES</text>
+          <rect x="1140" y="206" width="20" height="34" fill="var(--topic)"/>
+          <text x="1170" y="228" font-size="11.5">3% OF PAYMENTS</text>
+          <rect x="1140" y="252" width="250" height="54" fill="var(--fact)" opacity=".9"/>
+          <text x="1156" y="274" class="paper" font-size="12">DOLLAR: ~90% OF ALL</text>
+          <text x="1156" y="294" class="paper" font-size="12">CURRENCY TRADES</text>
+        </g>
+        <!-- CEPR -->
+        <g class="b" id="c_cepr">
+          <rect x="120" y="500" width="600" height="96" class="ink" stroke-dasharray="4 4"/>
+          <text x="142" y="528" class="strong" font-size="14">THE COUNTER-ARGUMENT (CEPR)</text>
+          <text x="142" y="552" font-size="11.5">NO CLEAR STATISTICAL LINK BETWEEN SANCTIONS AND THE DECLINE.</text>
+          <text x="142" y="574" font-size="11.5">SANCTIONS ARE USUALLY JOINT — EURO, POUND AND YEN ARE NO REFUGE EITHER.</text>
+        </g>
+        <g class="b" id="c_split">
+          <text x="790" y="400" class="strong" font-size="14">WHAT THAT ARGUMENT IS ABOUT:</text>
+          <text x="790" y="428" class="fact" font-size="13">✓ THE DOLLAR'S SHARE OF SAVINGS — PROBABLY RIGHT</text>
+          <text x="790" y="470" class="strong" font-size="14">WHAT IT IS NOT ABOUT:</text>
+          <text x="790" y="498" class="flawtxt" font-size="13">HOW MANY COUNTRIES BUILT A SECOND ROUTE —</text>
+          <text x="790" y="520" class="flawtxt" font-size="13">AND THAT NUMBER MOVES ONE WAY</text>
+        </g>
+        <text x="790" y="570" class="big b" font-size="24" id="c_claim">EROSION OF LEVERAGE ≠ COLLAPSE OF THE DOLLAR</text>
+      </svg>
+      <div class="figcap">Fig. 4 — both pictures, honestly · sources: IMF COFER (2026Q1), OMFIF, CEPR/VoxEU</div>
+    </div>
+    <div class="prose">
+      <p>This is the point where a lot of videos would tell you the dollar is collapsing. It isn't. The dollar's share of the world's savings fell from about 72% in 2001 to roughly 57% today — but in the first quarter of this year it went <em>up</em>. The yuan is about 2% of reserves and 3% of payments; the dollar is one of the two currencies in nearly 90% of all currency trades.</p>
+      <p>And economists at the Centre for Economic Policy Research find no clear statistical link between sanctions and the dollar's decline, pointing to exchange-rate effects and ordinary diversification — and noting that sanctions are usually joint with Europe, Britain and Japan, so the euro, pound and yen are no refuge either. Notice what that argument is about: the dollar's share of savings. It is not about how many countries have built a second route — and that number only moves one way.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 ALT ONE ================= -->
+<section class="ep" id="s5" data-duration="65.9">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Redesign one:<br>do it together</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Redesign one · 2012 vs 2018 — the same tool, two ways</div>
+    <h2>When the exits are closed too, nobody runs.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <line x1="740" y1="90" x2="740" y2="560" stroke="var(--grid)" stroke-width="2" class="b" id="m_div"/>
+        <!-- 2012 -->
+        <g class="b" id="m_2012">
+          <text x="120" y="120" class="alttxt" font-size="15">2012 — TOGETHER</text>
+          <rect x="140" y="160" width="150" height="54" class="nodebox"/><text x="176" y="193" class="strong" font-size="13">USA</text>
+          <rect x="330" y="160" width="150" height="54" class="nodebox"/><text x="358" y="193" class="strong" font-size="13">EUROPE</text>
+          <path d="M215 214 L 300 300" class="amber"/><path d="M405 214 L 320 300" class="amber"/>
+          <circle cx="310" cy="330" r="30" fill="var(--flaw)" opacity=".95"/>
+          <line x1="296" y1="316" x2="324" y2="344" stroke="var(--bg)" stroke-width="5"/>
+          <line x1="324" y1="316" x2="296" y2="344" stroke="var(--bg)" stroke-width="5"/>
+          <text x="180" y="400" class="strong" font-size="13">IRAN'S BANKS CUT OFF THE DOLLAR</text>
+          <g id="m_deadends"></g>
+          <text x="140" y="516" class="alttxt" font-size="14">NOWHERE TO RUN —</text>
+          <text x="140" y="540" class="alttxt" font-size="14">THE EXITS WERE CLOSED TOO</text>
+        </g>
+        <!-- 2018 -->
+        <g class="b" id="m_2018">
+          <text x="800" y="120" class="flawtxt" font-size="15">2018 — ALONE</text>
+          <rect x="820" y="160" width="150" height="54" class="nodebox"/><text x="856" y="193" class="strong" font-size="13">USA</text>
+          <rect x="1080" y="160" width="180" height="54" class="ink"/><text x="1104" y="193" class="strong" font-size="13">EUROPE — STAYS IN</text>
+          <path id="m_arrow" class="amber b" d="M975 190 H 1070" marker-end="url(#a5)"/>
+          <text x="960" y="240" class="flawtxt b" id="m_threat" font-size="12">"TRADE WITH IRAN AND YOU LOSE</text>
+          <text x="960" y="262" class="flawtxt b" id="m_threat2" font-size="12">YOUR OWN ACCESS TO US BANKS"</text>
+          <path id="m_ally" class="green b" d="M1170 220 C 1200 300, 1140 380, 980 420"/>
+          <text x="860" y="452" class="alttxt b" id="m_allylab" font-size="14">AN ALLY STARTS DESIGNING A WAY AROUND</text>
+        </g>
+        <g class="b" id="m_trade">
+          <rect x="380" y="560" width="720" height="46" fill="var(--alt)" opacity=".92"/>
+          <text x="404" y="590" class="paper" font-size="14">TRADE-OFF: WEAKER PUNISHMENT TODAY — ALLIES WHO STAY INSIDE TOMORROW</text>
+        </g>
+        <defs><marker id="a5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--flaw)"/></marker></defs>
+      </svg>
+      <div class="figcap">Fig. 5 — the same sanction, applied jointly and applied alone</div>
+    </div>
+    <div class="prose">
+      <p>In 2012 the United States and Europe sanctioned Iran together, and Iran's banks were cut off with everyone's agreement — there was nowhere to run, because the exits were closed too. In 2018 the US walked out of the agreement limiting Iran's nuclear programme; Europe wanted to stay in, so Washington warned European companies they would lose their own access to American banking. That was when Europe — an ally — started designing a way around it.</p>
+      <p>The trade-off is time. Getting twenty-seven governments to agree is slow, and the sanction that emerges is weaker. It buys weaker punishment today in exchange for allies who stay inside the system tomorrow.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 ALT TWO ================= -->
+<section class="ep" id="s6" data-duration="63.5">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">Redesign two:<br>build your own pipe</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Redesign two · INSTEX, 2019–2023</div>
+    <h2>Europe built the pipe. The banks didn't come.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg6">
+        <g class="b" id="i_pipe">
+          <rect x="200" y="180" width="620" height="80" class="ink" stroke-dasharray="6 5"/>
+          <text x="230" y="228" class="strong" font-size="16">INSTEX — EUROPE'S OWN PAYMENT PIPE, 2019</text>
+          <text x="230" y="160" font-size="12">FRANCE · GERMANY · BRITAIN</text>
+        </g>
+        <!-- scale -->
+        <g class="b" id="i_scale">
+          <line x1="540" y1="330" x2="540" y2="300" class="ink" id="i_post"/>
+          <line x1="380" y1="330" x2="700" y2="330" class="ink" id="i_beam"/>
+          <g id="i_left">
+            <rect x="330" y="340" width="120" height="46" class="ink"/>
+            <text x="344" y="368" font-size="11.5">IRANIAN TRADE</text>
+          </g>
+          <g id="i_right">
+            <rect x="630" y="340" width="160" height="46" fill="var(--fact)" opacity=".9"/>
+            <text x="644" y="360" class="paper" font-size="11.5">ACCESS TO THE DOLLAR</text>
+            <text x="644" y="378" class="paper" font-size="10.5">= MOST OF THE WORLD ECONOMY</text>
+          </g>
+        </g>
+        <g id="i_banks"></g>
+        <text x="880" y="230" class="b" id="i_bankslab" font-size="13">THE BANKS DID THE MATHS —</text>
+        <text x="880" y="252" class="b" id="i_bankslab2" font-size="13">AND WALKED AWAY</text>
+        <g class="b" id="i_count">
+          <text x="900" y="380" class="big flawtxt" font-size="72" id="i_num">0</text>
+          <text x="902" y="412" font-size="13">TRANSACTIONS PROCESSED — THEN SHUT DOWN, 2023</text>
+        </g>
+        <g class="b" id="i_lesson">
+          <rect x="200" y="470" width="880" height="96" class="ink" stroke-dasharray="4 4"/>
+          <text x="224" y="500" class="strong" font-size="15">THE TECHNOLOGY WAS NEVER THE HARD PART</text>
+          <text x="224" y="526" font-size="12">PAYMENT SYSTEMS RUN ON HABIT AND SCALE: A NEW PIPE IS WORTHLESS</text>
+          <text x="224" y="548" font-size="12">UNLESS ENOUGH BANKS ALREADY USE IT.</text>
+        </g>
+        <text x="200" y="600" class="big b" font-size="26" id="i_close">BUT SLOW IS NOT THE SAME AS <tspan class="alttxt">NEVER.</tspan></text>
+      </svg>
+      <div class="figcap">Fig. 6 — the honest failure: a rail with no traffic · INSTEX, created 2019, wound down 2023</div>
+    </div>
+    <div class="prose">
+      <p>In 2019, France, Germany and Britain created INSTEX so European companies could keep trading with Iran without touching the American system. It processed essentially one transaction and was shut down in 2023.</p>
+      <p>The failure teaches more than a success would. The technology was never the hard part: payment systems run on habit and scale, and a new pipe is worthless unless enough banks already use it. On one side of the scale sat a small amount of Iranian trade; on the other, access to the dollar and therefore most of the world economy. The banks chose the dollar, and their governments could not make them choose otherwise. Building a way around the chokepoint is slow and expensive — but slow is not the same as never.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S7 ALT THREE ================= -->
+<section class="ep" id="s7" data-duration="64.4">
+  <div class="chapter"><div class="in"><div class="n">07</div><div class="t">Redesign three:<br>many rails on purpose</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Redesign three · mBridge and the multi-rail world</div>
+    <h2>Nobody can be switched off. That's the problem too.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg7">
+        <!-- single node fading -->
+        <g id="r_single">
+          <circle cx="420" cy="300" r="44" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3" id="r_node"/>
+          <g id="r_spokes"></g>
+          <text x="360" y="380" class="fact" id="r_nodelab" font-size="12">ONE CHOKEPOINT</text>
+        </g>
+        <!-- mesh -->
+        <g id="r_mesh"></g>
+        <g class="b" id="r_mbridge">
+          <text x="940" y="130" class="alttxt strong" font-size="15">mBRIDGE — A WORKING PROTOTYPE</text>
+          <text x="940" y="156" font-size="11.5">BUILT BY THE CENTRAL BANKS' OWN BANK IN SWITZERLAND</text>
+          <text x="940" y="178" font-size="11.5">WITH CHINA · THAILAND · UAE · HONG KONG</text>
+          <text x="940" y="204" font-size="11.5">+ DOZENS OF NATIONAL DIGITAL CURRENCIES</text>
+        </g>
+        <text x="940" y="270" class="big alttxt b" id="r_nobody" font-size="28">NO ONE CAN BE SWITCHED OFF.</text>
+        <!-- the cost -->
+        <g class="b" id="r_cost">
+          <rect x="940" y="330" width="420" height="46" fill="var(--flaw)" opacity=".92"/>
+          <text x="962" y="360" class="paper" font-size="15">AND THAT IS ALSO THE PROBLEM</text>
+          <text x="940" y="410" font-size="12">SANCTIONS ARE THE MAIN WAY TO PUNISH A GOVERNMENT</text>
+          <text x="940" y="432" font-size="12">WITHOUT SHOOTING AT IT.</text>
+        </g>
+        <g class="b" id="r_agg">
+          <path id="r_aggpath" class="ink" d="M200 520 C 500 500, 900 500, 1280 520" stroke-dasharray="0"/>
+          <text x="200" y="556" class="flawtxt" font-size="13">AN AGGRESSOR'S PAYMENTS FLOW THROUGH THE MESH, UNTOUCHED</text>
+          <g id="r_stamp">
+            <rect x="600" y="440" width="180" height="50" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+            <text x="622" y="474" class="flawtxt" font-size="20" style="font-weight:600">BLOCKED</text>
+          </g>
+          <text x="800" y="474" class="flawtxt" id="r_nowhere" font-size="12">— NOWHERE TO LAND</text>
+        </g>
+        <text x="200" y="600" class="big b" font-size="24" id="r_exchange">LESS VULNERABILITY TO BEING CUT OFF · <tspan class="flawtxt">FEWER WAYS TO STOP SOMEONE WITHOUT VIOLENCE</tspan></text>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">One rail (as built)</button><button id="btnCould">Many rails</button>
+      </div>
+      <div class="figcap">Fig. 7 — the multi-rail world, with its price named · toggle to compare architectures</div>
+    </div>
+    <div class="prose">
+      <p>The third design gives up the chokepoint entirely: instead of one dominant rail with alternatives slowly growing around it, you build several from the start. A working prototype already exists — mBridge, built by the central banks' own bank in Switzerland with the central banks of China, Thailand, the UAE and Hong Kong, alongside dozens of national digital currencies.</p>
+      <p>In that world, no one can be switched off. That sounds like good news, and it is exactly the problem. Financial sanctions are the main tool the world has for punishing a government without shooting at it; cutting a country off has stopped wars from being financed and forced governments to the table. Remove the chokepoint and you remove that too — not only from Washington, but from any future coalition that would rather sanction an aggressor than fight one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S8 CLOSE ================= -->
+<section class="ep" id="s8" data-duration="51.2">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · A weapon with a budget</div>
+    <h2>The question isn't whether the dollar falls.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg8">
+        <g class="b" id="f_holster">
+          <path d="M120 160 h150 v190 q0 40 -75 60 q-75 -20 -75 -60 z" class="ink"/>
+          <rect x="150" y="110" width="90" height="70" class="ink"/>
+          <path d="M165 110 v-18 a30 30 0 0 1 60 0 v18" class="ink"/>
+        </g>
+        <g class="b" id="f_node">
+          <circle cx="820" cy="250" r="0" fill="none" stroke="var(--fact)" stroke-width="3" id="f_circle"/>
+          <text x="700" y="392" class="fact" id="f_nodelab" font-size="12">STILL THE MAIN ROUTE</text>
+        </g>
+        <g id="f_bypasses"></g>
+        <g class="b" id="f_cost">
+          <text x="400" y="440" class="strong" font-size="17">USING IT COSTS SOMETHING EVERY TIME —</text>
+          <text x="400" y="470" class="flawtxt" font-size="17">BUT THE COST NEVER SHOWS UP ON ANYONE'S DESK</text>
+        </g>
+        <text x="400" y="520" class="b" id="f_libya" font-size="13">LIBYA'S LINE WAS DRAWN BY A COUNTRY NOBODY WAS PUNISHING</text>
+        <text x="740" y="80" text-anchor="middle" class="big b" font-size="34" id="f_q">HOW OFTEN DOES THE WEAPON GET DRAWN?</text>
+      </svg>
+      <div class="figcap">Fig. 8 — the same map as the opening frame, with the bypasses that have since been drawn</div>
+    </div>
+    <div class="prose">
+      <p>The strange thing about a chokepoint is that its power is measured by how much of the world has no alternative — and using it is precisely what gives people a reason to find one. Using it costs something every time, but that cost never shows up on anyone's desk. Each decision to draw the weapon can be completely reasonable on its own, and the bill still arrives.</p>
+      <p>Libya's agreement changes almost nothing on its own. Nothing has switched on, and the yuan remains a rounding error next to the dollar. But it is one more line on a map, drawn by a country nobody was punishing — which is exactly the kind of line that tells you where a system is heading. The question worth watching is not whether the dollar falls. It is how often the weapon gets drawn.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's right — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <path d="M180 180 h150 v190 q0 40 -75 60 q-75 -20 -75 -60 z" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <rect x="210" y="130" width="90" height="70" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <path d="M225 130 v-18 a30 30 0 0 1 60 0 v18" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <path d="M380 300 C 460 300, 520 240, 540 160" stroke="var(--alt)" stroke-width="6" fill="none" stroke-dasharray="16 12"/>
+    <circle cx="470" cy="470" r="70" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <line x1="420" y1="520" x2="520" y2="420" stroke="var(--flaw)" stroke-width="7"/>
+  </svg>
+  <div class="ttxt">The weapon<br><em>that weakens</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <g id="tb_lines" stroke="var(--text)" stroke-width="4" fill="none">
+      <path d="M60 120 C 220 160, 260 240, 300 300"/><path d="M60 260 C 200 280, 250 290, 300 300"/>
+      <path d="M60 400 C 200 380, 250 320, 300 300"/><path d="M60 540 C 220 480, 260 380, 300 300"/>
+      <path d="M540 120 C 400 160, 340 240, 300 300"/><path d="M540 540 C 400 480, 340 380, 300 300"/>
+    </g>
+    <circle cx="300" cy="300" r="56" fill="var(--bg)" stroke="var(--fact)" stroke-width="8"/>
+    <path d="M300 356 C 180 460, 420 520, 560 430" stroke="var(--alt)" stroke-width="6" fill="none" stroke-dasharray="16 12"/>
+  </svg>
+  <div class="ttxt" style="font-size:92px">Everyone pays<br><em>through here</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:o.from||0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function drawDashed(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos)
+    .set(p,{strokeDasharray:'7 6'},pos+dur+.01);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+
+/* ---------- dynamic bits ---------- */
+// s0: payment lines funnelling into the node
+(()=>{const g=$('h_lines');let s='';
+  const starts=[[380,110],[340,200],[330,300],[350,400],[400,490],[1280,120],[1330,230],[1340,380],[1290,490],[1180,540],[420,560],[1120,90]];
+  starts.forEach((p,i)=>{s+=`<path class="hl" id="hl_${i}" d="M${p[0]} ${p[1]} C ${(p[0]+900)/2} ${(p[1]+300)/2}, ${(p[0]+900)/2} ${(p[1]+300)/2}, 900 300" fill="none" stroke="var(--text-dim)" stroke-width="1.5" opacity="0"/>`;});
+  g.innerHTML=s;})();
+// s2: envelopes on the SWIFT wire
+(()=>{const g=$('p_env');let s='';for(let i=0;i<5;i++){
+  s+=`<g class="env" opacity="0"><rect x="${300+i*10}" y="190" width="26" height="18" fill="var(--bg-raised)" stroke="var(--text-dim)" stroke-width="1.5"/>
+  <path d="M${300+i*10} 190 l13 10 l13 -10" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/></g>`;}
+  g.innerHTML=s;})();
+// s5: dead-end exits
+(()=>{const g=$('m_deadends');let s='';[[200,420],[300,436],[400,420]].forEach((p,i)=>{
+  s+=`<g class="de b" id="de_${i}"><path d="M${p[0]} ${p[1]} l0 28" stroke="var(--text-dim)" stroke-width="2" fill="none"/>
+  <line x1="${p[0]-14}" y1="${p[1]+28}" x2="${p[0]+14}" y2="${p[1]+28}" stroke="var(--flaw)" stroke-width="3"/></g>`;});
+  g.innerHTML=s;})();
+// s6: banks approaching the pipe
+(()=>{const g=$('i_banks');let s='';for(let i=0;i<5;i++){const x=880+i*70;
+  s+=`<g class="bank b" id="bk_${i}"><rect x="${x}" y="150" width="46" height="40" fill="none" stroke="var(--text)" stroke-width="2"/>
+  <path d="M${x} 150 l23 -18 l23 18" fill="none" stroke="var(--text)" stroke-width="2"/></g>`;}
+  g.innerHTML=s;})();
+// s7: spokes into the single node, then the mesh
+(()=>{const g=$('r_spokes');let s='';for(let i=0;i<8;i++){const a=i/8*Math.PI*2;
+  s+=`<line class="spoke" x1="${420+Math.cos(a)*160}" y1="${300+Math.sin(a)*130}" x2="${420+Math.cos(a)*46}" y2="${300+Math.sin(a)*46}" stroke="var(--text-dim)" stroke-width="1.5"/>`;}
+  g.innerHTML=s;})();
+(()=>{const g=$('r_mesh');let s='';
+  const pts=[[150,170],[400,120],[660,180],[860,260],[190,360],[450,300],[700,380],[300,500],[580,530],[840,470]];
+  pts.forEach((p,i)=>{pts.forEach((q,j)=>{if(j<=i)return;
+    const d=Math.hypot(p[0]-q[0],p[1]-q[1]); if(d>300)return;
+    s+=`<line class="mesh b" x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6" opacity="0"/>`;});});
+  pts.forEach(p=>{s+=`<circle class="meshn b" cx="${p[0]}" cy="${p[1]}" r="7" fill="var(--alt)" opacity="0"/>`;});
+  g.innerHTML=s;})();
+// s8: bypass lines accumulating
+(()=>{const g=$('f_bypasses');let s='';
+  const paths=['M540 250 C 620 170, 700 150, 900 160','M540 300 C 640 340, 760 360, 980 330',
+               'M560 210 C 660 120, 820 100, 1020 110','M560 340 C 680 420, 820 430, 1040 400'];
+  const labs=['IRAN 2012','RUSSIA 2022','GOLD','LIBYA 2026'];
+  paths.forEach((d,i)=>{s+=`<path class="byp b" id="byp_${i}" d="${d}" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6" opacity="0"/>
+    <text class="byplab b" id="byplab_${i}" x="1090" y="${[164,336,114,406][i]}" font-size="12" fill="var(--alt)" opacity="0">${labs[i]}</text>`;});
+  g.innerHTML=s;})();
+
+/* ---------- scenes ---------- */
+function sc0(D){const tl=gsap.timeline();
+  pop(tl,'h_holster',0.6);
+  tl.fromTo($('h_lines').children,{opacity:0},{opacity:.7,duration:.3,stagger:.12},4.0);
+  pop(tl,'h_node',7.5);
+  pop(tl,'h_blocked',14.0,.3);shake(tl,'h_blocked',14.3,7,6);
+  tl.to(['#hl_2','#hl_3'],{opacity:.12,duration:1.0},15.5);
+  drawDashed(tl,'h_bypass',2.4,20.0);say(tl,'h_bypasslab',22.0);
+  say(tl,'h_holsterline',30.0);
+  tl.to($('h_holsterline'),{opacity:.55,duration:1.2,repeat:2,yoyo:true},33.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},44.0);
+  if(isAuto)tl.to({},{duration:6},44.6);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},48.5);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  pop(tl,'e_seals',0.8);
+  say(tl,'e_d1',9.0);say(tl,'e_d2',13.0);say(tl,'e_d3',17.0);
+  say(tl,'e_precise',26.0);shake(tl,'e_precise',26.6,5,5);
+  say(tl,'e_scale',44.0);
+  count(tl,'e_countries',180,2.4,45.0,{suf:'+'});
+  count(tl,'e_record',1.22,2.4,52.0,{dec:2});
+  say(tl,'e_line',66.0);say(tl,'e_line2',72.0);
+  tl.to($('e_line2'),{opacity:.5,duration:1.2,repeat:4,yoyo:true},76.0);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  pop(tl,'p_ends',0.8);
+  draw(tl,'p_swift',1.6,10.0);say(tl,'p_swiftlab',11.0);
+  tl.to($('p_env').children,{opacity:1,duration:.2,stagger:.15},14.0)
+    .to($('p_env').children,{x:900,duration:3.2,ease:'none',stagger:.25},14.5)
+    .to($('p_env').children,{opacity:0,duration:.3},18.5);
+  say(tl,'p_moneylab',26.0);
+  draw(tl,'p_money',2.6,30.0);
+  pop(tl,'p_ny',36.0);
+  tl.fromTo($('p_hop'),{opacity:0},{opacity:1,duration:.4,repeat:5,yoyo:true},42.0);
+  say(tl,'p_neither',52.0);
+  pop(tl,'p_valve',62.0,.4);
+  tl.fromTo($('p_handle'),{opacity:0,scale:.6,transformOrigin:'50% 50%'},
+    {opacity:1,scale:1,duration:.4,ease:'back.out(2)'},64.0);
+  tl.to($('p_money'),{opacity:.15,duration:1.2},64.8);
+  say(tl,'p_whole',78.0);
+  tl.to($('p_valve'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},82.0);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();
+  pop(tl,'l_n1',0.8);draw(tl,'l_a1',1.0,2.0);
+  pop(tl,'l_n2',3.2);draw(tl,'l_a2',1.0,4.4);
+  pop(tl,'l_n3',5.6);draw(tl,'l_a3',1.0,6.8);
+  pop(tl,'l_n4',8.0);draw(tl,'l_a4',1.0,9.2);
+  say(tl,'l_warn',11.0);say(tl,'l_warnlab',11.4);say(tl,'l_warnlab2',11.8);
+  say(tl,'l_c1',26.0);
+  say(tl,'l_c2',40.0);count(tl,'l_frozen',300,2.4,42.0,{pre:'$',suf:'B'});
+  tl.to($('l_frozen'),{opacity:.4,duration:.8,repeat:3,yoyo:true},46.0);
+  say(tl,'l_c3',66.0);
+  say(tl,'l_close',88.0);
+  tl.to($('l_warn'),{opacity:.4,duration:1.2,repeat:5,yoyo:true},92.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  say(tl,'c_axes',0.8);
+  draw(tl,'c_curve',3.0,3.0);say(tl,'c_72',3.4);say(tl,'c_57',6.2);
+  say(tl,'c_2022',16.0);say(tl,'c_2022lab',16.4);
+  say(tl,'c_zoom',26.0);
+  draw(tl,'c_up',1.4,28.0);
+  say(tl,'c_yuan',40.0);
+  say(tl,'c_cepr',56.0);
+  say(tl,'c_split',76.0);
+  say(tl,'c_claim',92.0);
+  tl.to($('c_claim'),{opacity:.55,duration:1.2,repeat:4,yoyo:true},96.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  say(tl,'m_div',0.5);
+  say(tl,'m_2012',1.2);
+  tl.fromTo($('m_deadends').children,{opacity:0},{opacity:1,duration:.3,stagger:.3},8.0);
+  say(tl,'m_2018',22.0);
+  draw(tl,'m_arrow',.8,30.0);say(tl,'m_threat',31.0);say(tl,'m_threat2',31.4);
+  drawDashed(tl,'m_ally',2.0,40.0);say(tl,'m_allylab',42.0);
+  say(tl,'m_trade',54.0);
+  tl.to($('m_ally'),{opacity:.5,duration:1.2,repeat:3,yoyo:true},58.0);
+  return tl;}
+
+function sc6(D){const tl=gsap.timeline();
+  say(tl,'i_pipe',0.8);
+  say(tl,'i_scale',10.0);
+  tl.fromTo($('i_banks').children,{opacity:0},{opacity:1,duration:.3,stagger:.2},16.0);
+  say(tl,'i_bankslab',20.0);say(tl,'i_bankslab2',20.4);
+  // the scale tips to the dollar
+  tl.to($('i_beam'),{rotation:9,transformOrigin:'50% 50%',duration:1.2,ease:'power2.inOut'},24.0)
+    .to($('i_left'),{y:-22,duration:1.2,ease:'power2.inOut'},24.0)
+    .to($('i_right'),{y:22,duration:1.2,ease:'power2.inOut'},24.0);
+  tl.to($('i_banks').children,{x:260,opacity:.15,duration:1.6,stagger:.12,ease:'power1.in'},27.0);
+  say(tl,'i_count',33.0);
+  say(tl,'i_lesson',42.0);
+  say(tl,'i_close',54.0);
+  return tl;}
+
+function sc7(D){const tl=gsap.timeline();
+  tl.fromTo($('r_spokes').children,{opacity:0},{opacity:.7,duration:.2,stagger:.08},0.6);
+  tl.to([$('r_node'),$('r_spokes')],{opacity:.1,duration:1.6},8.0)
+    .to($('r_nodelab'),{opacity:0,duration:1.2},8.0);
+  tl.to($('r_mesh').querySelectorAll('.meshn'),{opacity:1,duration:.3,stagger:.15},9.0);
+  tl.to($('r_mesh').querySelectorAll('.mesh'),{opacity:.9,duration:.4,stagger:.09},10.0);
+  say(tl,'r_mbridge',16.0);
+  say(tl,'r_nobody',28.0);
+  say(tl,'r_cost',40.0);
+  say(tl,'r_agg',52.0);
+  draw(tl,'r_aggpath',2.2,52.5);
+  tl.to($('r_stamp'),{opacity:.25,y:-20,duration:2.0,ease:'power1.out'},60.0);
+  say(tl,'r_exchange',66.0);
+  return tl;}
+
+function sc8(D){const tl=gsap.timeline();
+  pop(tl,'f_holster',0.8);
+  tl.set($('f_node'),{opacity:1},4.0).to($('f_circle'),{attr:{r:120},duration:1.6,ease:'power2.out'},4.0);
+  say(tl,'f_nodelab',6.0);
+  [0,1,2,3].forEach((i,k)=>{drawDashed(tl,'byp_'+i,1.4,12.0+k*2.6);say(tl,'byplab_'+i,13.0+k*2.6);});
+  tl.to($('f_circle'),{attr:{r:78},duration:2.0,ease:'power2.inOut'},26.0);
+  say(tl,'f_cost',32.0);
+  say(tl,'f_libya',42.0);
+  say(tl,'f_q',48.0);
+  tl.to($('f_q'),{opacity:.55,duration:1.2,repeat:3,yoyo:true},51.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6,s7:sc7,s8:sc8};
+
+/* redline toggle (web) */
+function setRedline(on){
+  gsap.to([$('r_node'),$('r_spokes')],{opacity:on?.1:1,duration:.4});
+  gsap.to($('r_nodelab'),{opacity:on?0:1,duration:.4});
+  gsap.to($('r_mesh').children,{opacity:on?.9:0,duration:.4});
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.4);
+    if(s.id==='s2'||s.id==='s3'||s.id==='s4')tl.timeScale(1.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  const tip=$('tip');
+  document.querySelectorAll('.l_node').forEach(r=>{
+    r.addEventListener('mousemove',e=>{tip.textContent=r.dataset.tip;tip.style.opacity=1;
+      tip.style.left=Math.min(e.clientX+14,innerWidth-320)+'px';tip.style.top=(e.clientY+16)+'px';});
+    r.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
