@@ -466,13 +466,13 @@ body.auto #s8 .cta{display:block}
           <line x1="540" y1="330" x2="540" y2="300" class="ink" id="i_post"/>
           <line x1="380" y1="330" x2="700" y2="330" class="ink" id="i_beam"/>
           <g id="i_left">
-            <rect x="330" y="340" width="120" height="46" class="ink"/>
-            <text x="344" y="368" font-size="11.5">IRANIAN TRADE</text>
+            <rect x="326" y="340" width="150" height="46" class="ink"/>
+            <text x="342" y="368" font-size="12">IRANIAN TRADE</text>
           </g>
           <g id="i_right">
-            <rect x="630" y="340" width="160" height="46" fill="var(--fact)" opacity=".9"/>
-            <text x="644" y="360" class="paper" font-size="11.5">ACCESS TO THE DOLLAR</text>
-            <text x="644" y="378" class="paper" font-size="10.5">= MOST OF THE WORLD ECONOMY</text>
+            <rect x="620" y="340" width="210" height="46" fill="var(--fact)" opacity=".92"/>
+            <text x="636" y="368" class="paper" font-size="12">ACCESS TO THE DOLLAR</text>
+            <text x="620" y="408" font-size="11.5">= MOST OF THE WORLD ECONOMY</text>
           </g>
         </g>
         <g id="i_banks"></g>
@@ -779,17 +779,17 @@ function sc5(D){const tl=gsap.timeline();
 
 function sc6(D){const tl=gsap.timeline();
   say(tl,'i_pipe',0.8);
-  say(tl,'i_scale',10.0);
-  tl.fromTo($('i_banks').children,{opacity:0},{opacity:1,duration:.3,stagger:.2},16.0);
-  say(tl,'i_bankslab',20.0);say(tl,'i_bankslab2',20.4);
+  say(tl,'i_scale',6.0);
+  tl.fromTo($('i_banks').children,{opacity:0},{opacity:1,duration:.3,stagger:.25},12.0);
+  say(tl,'i_bankslab',16.0);say(tl,'i_bankslab2',16.4);
   // the scale tips to the dollar
-  tl.to($('i_beam'),{rotation:9,transformOrigin:'50% 50%',duration:1.2,ease:'power2.inOut'},24.0)
-    .to($('i_left'),{y:-22,duration:1.2,ease:'power2.inOut'},24.0)
-    .to($('i_right'),{y:22,duration:1.2,ease:'power2.inOut'},24.0);
-  tl.to($('i_banks').children,{x:260,opacity:.15,duration:1.6,stagger:.12,ease:'power1.in'},27.0);
-  say(tl,'i_count',33.0);
-  say(tl,'i_lesson',42.0);
-  say(tl,'i_close',54.0);
+  tl.to($('i_beam'),{rotation:9,transformOrigin:'50% 50%',duration:1.2,ease:'power2.inOut'},21.0)
+    .to($('i_left'),{y:-22,duration:1.2,ease:'power2.inOut'},21.0)
+    .to($('i_right'),{y:22,duration:1.2,ease:'power2.inOut'},21.0);
+  tl.to($('i_banks').children,{x:260,opacity:.15,duration:1.6,stagger:.12,ease:'power1.in'},24.5);
+  say(tl,'i_count',31.0);
+  say(tl,'i_lesson',40.0);
+  say(tl,'i_close',52.0);
   return tl;}
 
 function sc7(D){const tl=gsap.timeline();
