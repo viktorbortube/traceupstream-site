@@ -122,10 +122,10 @@ body.auto #s9 .cta{display:block}
         <line x1="80" y1="520" x2="1400" y2="520" class="ink b" id="k_floor" stroke-width="3"/>
         <g id="k_doors"></g>
         <g class="b" id="k_seal">
-          <circle cx="1210" cy="330" r="52" fill="none" stroke="var(--flaw)" stroke-width="5"/>
-          <text x="1163" y="326" class="flawtxt" font-size="14" style="font-weight:600">SUPREME</text>
-          <text x="1177" y="348" class="flawtxt" font-size="14" style="font-weight:600">COURT</text>
-          <text x="1120" y="430" class="flawtxt" id="k_seallab" font-size="13">6–3 · FEBRUARY 2026</text>
+          <circle cx="1152" cy="352" r="54" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="5"/>
+          <text x="1152" y="348" text-anchor="middle" class="flawtxt" font-size="14" style="font-weight:600">SUPREME</text>
+          <text x="1152" y="370" text-anchor="middle" class="flawtxt" font-size="14" style="font-weight:600">COURT</text>
+          <text x="1152" y="452" text-anchor="middle" class="flawtxt" id="k_seallab" font-size="13">6–3 · FEBRUARY 2026</text>
         </g>
         <g class="b" id="k_refund">
           <text x="120" y="120" class="big fact" font-size="46" id="k_refnum">$0</text>
@@ -608,11 +608,11 @@ function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$
 
 /* ---------- the five doors (shared data) ---------- */
 const DOORS=[
- {y:'1930',p:'RESPOND TO UNFAIR TREATMENT OF US GOODS',tip:'Section 338, Tariff Act of 1930. Up to 50%. Requires only that the President "find as a fact" that discrimination exists. Used to impose a tariff for the first time on July 20, 2026.'},
- {y:'1962',p:'NATIONAL SECURITY',tip:'Section 232. Tariffs justified by national-security grounds, after a Commerce Department investigation.'},
- {y:'1974',p:'A SUDDEN CRISIS IN THE NATION’S FINANCES',tip:'Section 122. The only one with a fuse: 15% ceiling, 150 days, then Congress must act. Used in February 2026; expires July 24.'},
- {y:'1974',p:'UNFAIR TRADING PRACTICES ABROAD',tip:'Section 301. Requires an investigation and findings before action.'},
- {y:'1977',p:'GENUINE NATIONAL EMERGENCIES',tip:'IEEPA. The authority the Supreme Court ruled does not cover tariffs, 6-3, in February 2026.'}];
+ {y:'1930',s:'UNFAIR TREATMENT',p:'RESPOND TO UNFAIR TREATMENT OF US GOODS',tip:'Section 338, Tariff Act of 1930. Up to 50%. Requires only that the President "find as a fact" that discrimination exists. Used to impose a tariff for the first time on July 20, 2026.'},
+ {y:'1962',s:'NATIONAL SECURITY',p:'NATIONAL SECURITY',tip:'Section 232. Tariffs justified by national-security grounds, after a Commerce Department investigation.'},
+ {y:'1974',s:'FINANCE CRISIS',p:'A SUDDEN CRISIS IN THE NATION’S FINANCES',tip:'Section 122. The only one with a fuse: 15% ceiling, 150 days, then Congress must act. Used in February 2026; expires July 24.'},
+ {y:'1974',s:'TRADE PRACTICES',p:'UNFAIR TRADING PRACTICES ABROAD',tip:'Section 301. Requires an investigation and findings before action.'},
+ {y:'1977',s:'EMERGENCIES',p:'GENUINE NATIONAL EMERGENCIES',tip:'IEEPA. The authority the Supreme Court ruled does not cover tariffs, 6-3, in February 2026.'}];
 
 // word-wrap helper for SVG labels (no mid-word breaks)
 function wrap(text,max){const words=text.split(' ');const lines=[];let cur='';
@@ -628,6 +628,7 @@ function buildWall(gid,{sealIdx=-1,openIdx=-1,y=200,h=320,w=180,gap=48,x0=150}={
       <rect x="${x}" y="${y}" width="${w}" height="${h}" class="door"/>
       <circle cx="${x+w-24}" cy="${y+h/2}" r="7" fill="var(--text)"/>
       <text x="${x+16}" y="${y+42}" class="strong" font-size="22">${d.y}</text>
+      <text x="${x+16}" y="${y+66}" font-size="10.5">${d.s}</text>
       ${i===openIdx?`<rect x="${x+6}" y="${y+6}" width="${w-12}" height="${h-12}" fill="var(--topic)" opacity=".28"/>`:''}
       ${i===sealIdx?`<g><circle cx="${x+w/2}" cy="${y+h-84}" r="38" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="4"/>
         <text x="${x+w/2}" y="${y+h-88}" text-anchor="middle" class="flawtxt" font-size="11" style="font-weight:600">COURT</text>
@@ -636,7 +637,7 @@ function buildWall(gid,{sealIdx=-1,openIdx=-1,y=200,h=320,w=180,gap=48,x0=150}={
   g.innerHTML=s;}
 
 /* ---------- dynamic bits ---------- */
-buildWall('k_doors',{sealIdx:4});
+buildWall('k_doors');   // S0 has its own animated seal (#k_seal) — no static one here
 buildWall('c_doors',{openIdx:0,sealIdx:4,y:170,h:290,w:170,gap:44,x0:140});
 // s1 goods
 (()=>{const g=$('e_goods');const items=[['WINE',640],['HOCKEY STICKS',760],['CEMENT',920]];let s='';
