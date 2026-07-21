@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Court Closed the Door. There Were Four More. — Tariffs, Delegated Power and the Shelf | Trace Upstream</title>
+<meta name="description" content="In February the Supreme Court struck down the President's tariffs 6-3. In July the tariffs came back, twice as large, under a law untouched since 1930. An interactive blueprint of the shelf of delegated powers — and three redesigns, each with its price.">
+<link rel="canonical" href="https://traceupstream.com/episodes/015-tariff-authority-shelf/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Court Closed the Door. There Were Four More.">
+<meta property="og:description" content="Why a Supreme Court ruling against tariffs changed almost nothing — and what a delegated power with an expiry date would look like.">
+<meta property="og:url" content="https://traceupstream.com/episodes/015-tariff-authority-shelf/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#8A9B84;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.paper{fill:var(--bg)} svg text.topictxt{fill:var(--topic)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .thin{stroke:var(--text-dim);fill:none;stroke-width:1.5}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .door{fill:var(--bg-raised);stroke:var(--text);stroke-width:2.5}
+svg .b{opacity:0}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:104px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+body.auto #s9 .cta{display:block}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.015 — 2026-07-21</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:25</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="54.9">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.015</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <line x1="80" y1="520" x2="1400" y2="520" class="ink b" id="k_floor" stroke-width="3"/>
+        <g id="k_doors"></g>
+        <g class="b" id="k_seal">
+          <circle cx="1210" cy="330" r="52" fill="none" stroke="var(--flaw)" stroke-width="5"/>
+          <text x="1163" y="326" class="flawtxt" font-size="14" style="font-weight:600">SUPREME</text>
+          <text x="1177" y="348" class="flawtxt" font-size="14" style="font-weight:600">COURT</text>
+          <text x="1120" y="430" class="flawtxt" id="k_seallab" font-size="13">6–3 · FEBRUARY 2026</text>
+        </g>
+        <g class="b" id="k_refund">
+          <text x="120" y="120" class="big fact" font-size="46" id="k_refnum">$0</text>
+          <text x="122" y="150" font-size="12.5">OWED BACK TO IMPORTERS — ESTIMATE</text>
+        </g>
+        <text x="740" y="580" text-anchor="middle" class="big b" font-size="30" id="k_line">NOBODY DEFIED THE COURT. THEY USED A DIFFERENT LAW.</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The court closed the door.<br>There were four more.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>In February, the Supreme Court of the United States told the President he could not impose tariffs the way he had been imposing them. The vote was six justices against three. The ruling was obeyed the same day: the tariffs were switched off, and importers are owed refunds that could reach a hundred and seventy billion dollars.</p>
+      <p>This Monday, the same kind of tariffs came back, at fifty percent — double the rate the struck-down ones had reached. Nobody defied the court. Nobody ignored the ruling. The tariffs were issued under a different law: one that has been sitting on the shelf, unused, for ninety-six years.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="69.8">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Monday, July 20, 2026</div>
+    <h2>Three signatures. Fifty percent.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg1">
+        <g id="e_procs">
+          <g class="b" id="e_p1"><rect x="110" y="90" width="300" height="58" class="nodebox"/>
+            <text x="132" y="126" class="strong" font-size="15">MOTOR VEHICLES</text></g>
+          <g class="b" id="e_p2"><rect x="110" y="164" width="300" height="58" class="nodebox"/>
+            <text x="132" y="200" class="strong" font-size="15">ALCOHOL</text></g>
+          <g class="b" id="e_p3"><rect x="110" y="238" width="300" height="58" class="nodebox"/>
+            <text x="132" y="274" class="strong" font-size="15">DAIRY</text></g>
+        </g>
+        <g class="b" id="e_rate">
+          <rect x="450" y="150" width="150" height="86" fill="var(--flaw)" opacity=".93"/>
+          <text x="470" y="212" class="paper" font-size="50" style="font-weight:700">50%</text>
+        </g>
+        <g id="e_goods"></g>
+        <g class="b" id="e_cal">
+          <rect x="110" y="360" width="230" height="120" class="ink"/>
+          <line x1="110" y1="396" x2="340" y2="396" class="ink"/>
+          <text x="132" y="386" font-size="12">EFFECTIVE</text>
+          <text x="132" y="444" class="big" font-size="34" id="e_date">AUG 19</text>
+          <text x="132" y="468" font-size="11.5">30 DAYS AFTER SIGNING</text>
+        </g>
+        <g class="b" id="e_shield">
+          <path d="M430 370 l90 -22 l90 22 v70 q0 46 -90 74 q-90 -28 -90 -74 z" class="ink" stroke-dasharray="5 5"/>
+          <text x="447" y="425" font-size="11">USMCA</text>
+          <text x="437" y="446" font-size="11">COVERAGE</text>
+          <path id="e_through" class="amber b" d="M380 470 L 690 400" marker-end="url(#a1)"/>
+        </g>
+        <g class="b" id="e_law">
+          <rect x="760" y="330" width="600" height="160" class="ink"/>
+          <text x="786" y="372" class="strong" font-size="19">SECTION 338</text>
+          <text x="786" y="400" font-size="12.5">TARIFF ACT OF 1930 — ONE OF THE OLDEST TRADE</text>
+          <text x="786" y="422" font-size="12.5">LAWS STILL ON THE BOOKS</text>
+          <rect x="786" y="440" width="360" height="34" fill="var(--flaw)" opacity=".93"/>
+          <text x="800" y="463" class="paper" font-size="13">"FINDS AS A FACT" — NO INQUIRY</text>
+        </g>
+        <g class="b" id="e_never">
+          <text x="760" y="560" class="big flawtxt" font-size="44" id="e_zero">0</text>
+          <text x="820" y="560" class="strong" font-size="17">TIMES USED TO IMPOSE A TARIFF, IN 96 YEARS</text>
+        </g>
+        <defs><marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--flaw)"/></marker></defs>
+      </svg>
+      <div class="figcap">Fig. 1 — what was signed · sources: White House proclamations, NPR, CNBC, Fortune</div>
+    </div>
+    <div class="prose">
+      <p>On Monday the twentieth of July, the President signed three proclamations placing fifty percent tariffs on Canadian goods — one covering motor vehicles, one alcohol, one dairy. Between them they reach a long list of products, from wine to hockey sticks to cement. Energy, fish and critical minerals are among the exemptions. The tariffs take effect on the nineteenth of August, and they apply to goods the North American trade agreement normally covers.</p>
+      <p>The legal basis is Section 338 of the Tariff Act of 1930, one of the oldest trade laws still on the books. It lets a president add duties of up to fifty percent on any country he determines is discriminating against American commerce — and it only requires that the President "find as a fact" that discrimination exists. No investigation is required. Until Monday, no president had ever used it to actually impose a tariff.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 THE FACTORY ================= -->
+<section class="ep" id="s2" data-duration="70.7">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The factory</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Why it lands hard · One piston, six borders</div>
+    <h2>Thirty days of notice. Thirty years of payback.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg2">
+        <g class="b" id="p_map">
+          <path d="M120 300 H 1360" class="thin" stroke-dasharray="4 6"/>
+          <g id="p_stops"></g>
+        </g>
+        <g class="b" id="p_piston">
+          <rect x="110" y="278" width="34" height="44" rx="4" class="ink" id="p_body"/>
+          <line x1="127" y1="322" x2="127" y2="352" class="ink"/>
+        </g>
+        <g class="b" id="p_count">
+          <text x="120" y="140" class="big fact" font-size="56" id="p_num">0</text>
+          <text x="122" y="170" font-size="12.5">BORDER CROSSINGS — ONE COMPONENT</text>
+        </g>
+        <text x="620" y="140" class="b" id="p_avg" font-size="14">AVERAGE CAR PART: ABOUT 6 CROSSINGS · INDUSTRY ESTIMATES UP TO 8</text>
+        <text x="620" y="168" class="b" id="p_share" font-size="14">ABOUT 75% OF CANADA'S EXPORTS GO TO ONE NEIGHBOUR</text>
+        <!-- horizons -->
+        <g class="b" id="p_bars">
+          <text x="120" y="430" class="strong" font-size="14">NOTICE GIVEN</text>
+          <rect x="120" y="444" width="0" height="30" fill="var(--flaw)" id="p_bar1"/>
+          <text x="126" y="466" class="paper b" id="p_bar1lab" font-size="13">30 DAYS</text>
+          <text x="120" y="510" class="strong" font-size="14">FACTORY PAYBACK</text>
+          <rect x="120" y="524" width="0" height="30" fill="var(--fact)" id="p_bar2"/>
+          <text x="126" y="546" class="paper b" id="p_bar2lab" font-size="13">DECADES</text>
+        </g>
+        <!-- certainty -->
+        <g class="b" id="p_cert">
+          <text x="900" y="430" class="strong" font-size="14">TRADE-AGREEMENT CERTAINTY, JULY 1</text>
+          <rect x="900" y="446" width="440" height="34" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <rect x="900" y="446" width="440" height="34" fill="var(--topic)" opacity=".55" id="p_certfill"/>
+          <text x="916" y="470" class="strong" id="p_certlab" font-size="14">16 YEARS</text>
+          <text x="900" y="512" font-size="12">US DECLINED TO EXTEND — NOW REVIEWED EVERY YEAR</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 2 — the piston's route and the mismatch of horizons · sources: PM Carney, Cato Institute, NBC News, White &amp; Case</div>
+    </div>
+    <div class="prose">
+      <p>Follow a single piston. It is cast in one country, machined in another, sent north for assembly with its rings and rods, shipped to yet another plant, and finally dropped into an engine that crosses the border one more time to be fitted into a car. That is six international crossings for a single component — and that is normal. Canada's prime minister says the average car part crosses about six times; industry estimates run to eight. Roughly three quarters of everything Canada sells abroad goes to the United States.</p>
+      <p>None of that was built for a world of thirty-day notice. A factory line is an investment measured in decades. And on the first of July, the United States, Canada and Mexico met for the trade agreement's scheduled six-year review, where the United States declined to extend it. The agreement survives, but instead of being locked in for another sixteen years, it now comes up for review every single year.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE SHELF ================= -->
+<section class="ep" id="s3" data-duration="101.4">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The shelf</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · Five doors into one room</div>
+    <h2>Congress gave the power away. One law at a time.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg3">
+        <g class="b" id="s_art1">
+          <rect x="110" y="60" width="1260" height="58" class="ink"/>
+          <text x="134" y="97" class="strong" font-size="17">ARTICLE I — "CONGRESS SHALL HAVE POWER TO LAY AND COLLECT DUTIES"</text>
+        </g>
+        <g id="s_shelf"></g>
+        <text x="110" y="560" class="b" id="s_five" font-size="15">FIVE SEPARATE LAWS · FIVE DECADES · ALL STILL ON THE BOOKS</text>
+        <g class="b" id="s_flaw">
+          <text x="760" y="560" class="flawtxt strong" font-size="16">⚠ NONE OF THEM EXPIRES ON ITS OWN</text>
+          <text x="760" y="586" class="flawtxt" font-size="13">A LAW THAT IS NEVER USED NEVER GOES AWAY — IT WAITS</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — the shelf of delegated tariff powers · hover each door for what it was created to do</div>
+    </div>
+    <div class="prose">
+      <p>Under the American constitution, tariffs belong to Congress. Article One is explicit: Congress shall have the power to lay and collect duties. It does not say the President.</p>
+      <p>But over ninety years, Congress handed pieces of that power to the executive branch, one law at a time, and each had a reason that seemed sensible on the day it passed. The oldest is from 1930 — Section 338, the one used this week — for responding to countries that treat American goods unfairly. In 1962 came a second, for national security. In 1974, two more in a single year: one for a sudden crisis in the country's finances, one for unfair trading practices abroad. In 1977, a fifth, for genuine national emergencies.</p>
+      <p>Any one of them is defensible on its own; a legislature of 535 people is not built for speed. But together they are five different legal doors into the same room — and because these powers were handed over permanently, none of them expires on its own. A law that is never used never goes away. It just gathers dust, waiting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE TIMELINE ================= -->
+<section class="ep" id="s4" data-duration="69.8">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The timeline</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The demonstration · February to August 2026</div>
+    <h2>The ruling was obeyed. The output never changed.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg4">
+        <line x1="110" y1="300" x2="1370" y2="300" class="ink b" id="t_axis"/>
+        <g id="t_points"></g>
+        <g class="b" id="t_quote">
+          <rect x="150" y="90" width="560" height="86" fill="var(--fact)" opacity=".93"/>
+          <text x="172" y="126" class="paper" font-size="15">"CONTAINS NO REFERENCE TO</text>
+          <text x="172" y="152" class="paper" font-size="15">TARIFFS OR DUTIES"</text>
+          <text x="150" y="196" font-size="12">CHIEF JUSTICE ROBERTS, FOR THE 6–3 MAJORITY</text>
+        </g>
+        <g class="b" id="t_fuse">
+          <text x="430" y="252" class="strong" font-size="13">15% CAP · 150-DAY FUSE</text>
+          <path id="t_fusepath" class="amber" d="M430 268 H 900" stroke-dasharray="6 5"/>
+        </g>
+        <!-- output line -->
+        <g class="b" id="t_out">
+          <text x="110" y="470" class="strong" font-size="14">TARIFF POWER IN USE:</text>
+          <path id="t_outline" class="ink" d="M110 510 H 1370" stroke-width="4"/>
+          <text x="1120" y="496" class="flawtxt" id="t_outlab" font-size="13">FLAT THE WHOLE WAY</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 4 — click any point for context · sources: Supreme Court opinion 24-1287, SCOTUSblog, CRS, White House</div>
+    </div>
+    <div class="prose">
+      <p>The tariffs the President had imposed across dozens of countries were built on the 1977 emergency law. Importers sued, and in February the Supreme Court ruled against the government, six to three. Chief Justice Roberts wrote that the emergency law "contains no reference to tariffs or duties," and that until now, no president had read it that way. The government lost the case, and the tariffs were switched off that same day.</p>
+      <p>And on the same day, a different law was used: the 1974 law for a sudden crisis in the country's finances, allowing a temporary extra charge on imports from every country at once. That one has a limit — fifteen percent maximum, and a hard stop after a hundred and fifty days, after which Congress has to vote. Those days run out on the twenty-fourth of July. The new tariffs were signed on the twentieth, under the law from 1930. Whatever the reasoning behind the timing, the structure made that handover available: when one authority runs out, another one is already there.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THE SECOND LOOP ================= -->
+<section class="ep" id="s5" data-duration="69">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">The second loop</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The loop · Where the legal trigger comes from</div>
+    <h2>Each side's defence is the other side's trigger.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <g class="b l_node" id="l_us" data-tip="Acting on what it considers unfair conditions abroad. Every step defensible from inside.">
+          <rect x="200" y="230" width="240" height="80" class="nodebox"/>
+          <text x="228" y="266" class="strong" font-size="17">UNITED STATES</text>
+          <text x="228" y="292" font-size="12">TARIFFS, 2025</text>
+        </g>
+        <g class="b l_node" id="l_ca" data-tip="Responding to tariffs already imposed. Also defensible from inside — that is what makes it a loop.">
+          <rect x="1040" y="230" width="240" height="80" class="nodebox"/>
+          <text x="1068" y="266" class="strong" font-size="17">CANADA</text>
+          <text x="1068" y="292" font-size="12">25% ON SOME US VEHICLES</text>
+        </g>
+        <path id="l_a1" class="amber b" d="M440 258 C 640 190, 850 190, 1040 258" marker-end="url(#a5)"/>
+        <path id="l_a2" class="amber b" d="M1040 292 C 850 370, 640 370, 440 292" marker-end="url(#a5)"/>
+        <text x="640" y="176" class="b" id="l_lab1" font-size="13">APRIL 2025 — AND PROVINCES STOP SELLING US ALCOHOL</text>
+        <g class="b" id="l_trigger">
+          <rect x="560" y="400" width="380" height="46" fill="var(--flaw)" opacity=".93"/>
+          <text x="580" y="430" class="paper" font-size="14">= THE "DISCRIMINATION" FINDING</text>
+          <text x="560" y="474" font-size="12.5">— WHICH IS WHAT SECTION 338 REQUIRES</text>
+        </g>
+        <g class="b" id="l_noorigin">
+          <text x="180" y="540" class="strong" font-size="15">TRACE IT BACK FAR ENOUGH AND THERE IS NO CLEAN FIRST MOVE.</text>
+          <text x="180" y="568" font-size="13">RETALIATING AND NEGOTIATING ARE BOTH RATIONAL — BOTH FEED THE SAME LOOP.</text>
+        </g>
+        <defs><marker id="a5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--flaw)"/></marker></defs>
+      </svg>
+      <div class="figcap">Fig. 5 — the escalation loop, drawn symmetrically · hover either side</div>
+    </div>
+    <div class="prose">
+      <p>Section 338 requires that finding of discrimination. Where does it come from? From Canada's own measures — a twenty-five percent duty on certain American vehicles since April 2025, and the decision by almost every Canadian province to stop buying and selling American alcohol.</p>
+      <p>But those measures were themselves a response to earlier American tariffs, which were themselves argued as an answer to conditions the American side considered unfair. Trace it back far enough and there is no clean first move, which is exactly what makes this a loop rather than a line. Ontario's premier has called for matching new tariffs "dollar for dollar"; Canada's prime minister says his government believes in free and fair trade and is ready to negotiate. Both are true at once — inside this structure, retaliating and negotiating are not opposites.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 REDESIGN ONE ================= -->
+<section class="ep" id="s6" data-duration="63.2">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">Redesign one:<br>the fuse</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Redesign one · The fix already in the code</div>
+    <h2>One of the five gives the power back by itself.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg6">
+        <g class="b" id="f_door">
+          <rect x="150" y="130" width="230" height="360" class="door"/>
+          <circle cx="345" cy="310" r="8" fill="var(--text)"/>
+          <text x="150" y="112" class="strong" font-size="16">THE 1974 LAW</text>
+          <text x="150" y="522" font-size="12.5">USED IN FEBRUARY</text>
+        </g>
+        <g class="b" id="f_fuse">
+          <path id="f_fusepath" class="amber" d="M380 210 C 560 210, 620 210, 760 210"/>
+          <text x="400" y="188" class="flawtxt" font-size="13">150-DAY FUSE</text>
+          <circle id="f_spark" cx="380" cy="210" r="7" fill="var(--flaw)" opacity="0"/>
+        </g>
+        <g class="b" id="f_congress">
+          <rect x="770" y="170" width="250" height="80" class="nodebox"/>
+          <text x="796" y="206" class="strong" font-size="15">CONGRESS</text>
+          <text x="796" y="230" font-size="11.5">MUST VOTE TO CONTINUE</text>
+        </g>
+        <path id="f_return" class="green b" d="M770 250 C 620 320, 500 330, 385 300"/>
+        <text x="470" y="356" class="alttxt b" id="f_returnlab" font-size="13">THE POWER GOES BACK TO ITS OWNER</text>
+        <g class="b" id="f_cap">
+          <rect x="1060" y="130" width="300" height="120" class="ink"/>
+          <text x="1084" y="168" class="strong" font-size="14">THE LIMITS</text>
+          <text x="1084" y="196" font-size="12.5">MAXIMUM 15%</text>
+          <text x="1084" y="220" font-size="12.5">MAXIMUM 150 DAYS</text>
+        </g>
+        <g class="b" id="f_cost">
+          <rect x="150" y="420" width="1210" height="150" class="ink" stroke-dasharray="5 5"/>
+          <text x="176" y="456" class="flawtxt strong" font-size="15">THE HONEST COST</text>
+          <text x="176" y="486" font-size="13">150 DAYS OF TARIFFS STILL HAPPEN.</text>
+          <text x="176" y="510" font-size="13">A 15% CEILING GIVES A NEGOTIATOR LESS TO PUSH WITH —</text>
+          <text x="176" y="532" font-size="13">THE OTHER SIDE KNOWS EXACTLY HOW HIGH IT GOES AND WHEN IT ENDS.</text>
+          <text x="176" y="558" class="strong" font-size="14">A FUSE SLOWS THE POWER DOWN. IT DOES NOT STOP IT.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 6 — the only door on the shelf with a return spring</div>
+    </div>
+    <div class="prose">
+      <p>Look again at that 1974 law, the one used in February. Alone among the five, it has a fuse: the tariffs it allows are capped at fifteen percent, they expire automatically after a hundred and fifty days, and to continue them Congress has to act. The power goes back to its owner unless somebody deliberately renews it. And you can watch that design working — that fuse burns out this week, which is why the question of what comes next arose this month at all.</p>
+      <p>The honest cost is real. A hundred and fifty days of tariffs still happen, and a fifteen percent ceiling gives a negotiator less to push with, because the other side knows exactly how high it can go and exactly when it ends. A fuse slows the power down. It does not stop it. But it is the only one of the five that hands the power back by itself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S7 REDESIGN TWO ================= -->
+<section class="ep" id="s7" data-duration="51.2">
+  <div class="chapter"><div class="in"><div class="n">07</div><div class="t">Redesign two:<br>no shelf at all</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Redesign two · The European arrangement</div>
+    <h2>A wall with no doors in it.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg7">
+        <g class="b" id="u_court">
+          <rect x="480" y="70" width="480" height="70" class="ink"/>
+          <text x="506" y="114" class="strong" font-size="16">THE EU COURT — ENFORCES THE RESULT</text>
+        </g>
+        <g class="b" id="u_three">
+          <rect x="200" y="210" width="260" height="76" class="nodebox"/>
+          <text x="226" y="244" class="strong" font-size="14">COMMISSION</text>
+          <text x="226" y="268" font-size="11.5">NEGOTIATES</text>
+          <rect x="490" y="210" width="260" height="76" class="nodebox"/>
+          <text x="516" y="244" class="strong" font-size="14">MEMBER GOVERNMENTS</text>
+          <text x="516" y="268" font-size="11.5">MUST APPROVE</text>
+          <rect x="780" y="210" width="260" height="76" class="nodebox"/>
+          <text x="806" y="244" class="strong" font-size="14">EU PARLIAMENT</text>
+          <text x="806" y="268" font-size="11.5">MUST APPROVE</text>
+        </g>
+        <text x="200" y="332" class="b" id="u_above" font-size="14">EUROPEAN LAW SITS ABOVE THE LAW OF ANY SINGLE MEMBER COUNTRY</text>
+        <!-- member state room: blank wall -->
+        <g class="b" id="u_room">
+          <rect x="200" y="380" width="620" height="180" class="ink"/>
+          <text x="226" y="416" class="strong" font-size="14">ONE MEMBER COUNTRY'S OWN WALL</text>
+          <text x="226" y="470" class="alttxt" font-size="26" id="u_nodoors">NO DOORS IN IT</text>
+          <text x="226" y="510" font-size="12">A NATIONAL DECREE CANNOT CANCEL THE AGREEMENT</text>
+        </g>
+        <g class="b" id="u_bounce">
+          <path id="u_decree" class="amber" d="M980 470 L 830 470" marker-end="url(#a7)"/>
+          <text x="1000" y="474" class="flawtxt" font-size="13">DECREE</text>
+        </g>
+        <g class="b" id="u_cost">
+          <rect x="880" y="380" width="480" height="180" class="ink" stroke-dasharray="5 5"/>
+          <text x="906" y="416" class="flawtxt strong" font-size="15">THE HONEST COST</text>
+          <text x="906" y="448" font-size="13">SLOW — 27 GOVERNMENTS MUST AGREE.</text>
+          <text x="906" y="476" font-size="13">A COUNTRY GIVES UP DEFENDING ITSELF</text>
+          <text x="906" y="498" font-size="13">QUICKLY, INCLUDING WHEN FAST IS RIGHT.</text>
+          <text x="906" y="530" class="strong" font-size="14">A REAL HANDOVER OF NATIONAL CONTROL.</text>
+        </g>
+        <defs><marker id="a7" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--flaw)"/></marker></defs>
+      </svg>
+      <div class="figcap">Fig. 7 — trade power held one level up, and what that costs</div>
+    </div>
+    <div class="prose">
+      <p>The second redesign is to remove the shelf entirely — roughly what the European Union did, though not on purpose. In the EU, trade policy is not a national power at all. It belongs to the Union: the European Commission negotiates, but agreements need approval from the member governments and from the European Parliament, and the EU's court enforces the result. And European law sits above the law of any single member country, so a national government cannot cancel a trade agreement with a decision of its own. There is no national door to reach for.</p>
+      <p>The cost is exactly what it sounds like. It is slow, because twenty-seven governments have to agree. And an individual country gives up the ability to defend itself quickly, including in the cases where moving fast would have been the right call. That is a real handover of national control.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S8 REDESIGN THREE ================= -->
+<section class="ep" id="s8" data-duration="74.8">
+  <div class="chapter"><div class="in"><div class="n">08</div><div class="t">Redesign three:<br>take it apart</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Redesign three · Give every handed-over power an expiry date</div>
+    <h2>Not a review. Not a report. An expiry.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg8">
+        <g id="x_doors"></g>
+        <g class="b" id="x_bill">
+          <rect x="110" y="400" width="600" height="150" class="ink" stroke-dasharray="5 5"/>
+          <text x="136" y="436" class="strong" font-size="15">THE NARROW VERSION — A BILL</text>
+          <text x="136" y="466" font-size="12.5">WOULD STRIKE THE 1930 POWER FROM THE LAW ENTIRELY.</text>
+          <text x="136" y="490" font-size="12.5">INTRODUCED 2025 BY DEMOCRATS ON WAYS AND MEANS.</text>
+          <text x="136" y="518" class="flawtxt" font-size="13">IT HAS NOT PASSED.</text>
+          <text x="136" y="540" font-size="12">TIME-LIMIT PROPOSALS HAVE COME FROM BOTH PARTIES — NONE PASSED.</text>
+        </g>
+        <g class="b" id="x_cost">
+          <rect x="760" y="400" width="600" height="150" class="ink" stroke-dasharray="5 5"/>
+          <text x="786" y="436" class="flawtxt strong" font-size="15">THE HONEST COST</text>
+          <text x="786" y="466" font-size="12.5">A LEGISLATURE THAT MUST VOTE IS SLOWER THAN A CRISIS.</text>
+          <text x="786" y="492" font-size="12.5">AND RENEWALS TEND TO BECOME ROUTINE —</text>
+          <text x="786" y="516" font-size="12.5">THE FUSE QUIETLY TURNS INTO A FORMALITY.</text>
+          <g id="x_stamp" opacity="0">
+            <rect x="1150" y="452" width="180" height="52" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+            <text x="1172" y="486" class="flawtxt" font-size="19" style="font-weight:600">RENEWED</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">Shelf as built</button><button id="btnCould">With expiry dates</button>
+      </div>
+      <div class="figcap">Fig. 8 — the same five doors, with timers bolted on · toggle to compare</div>
+    </div>
+    <div class="prose">
+      <p>The third redesign is the most direct: take the shelf apart. One narrow version already exists as a bill, introduced in 2025 by Democratic members of the House Ways and Means Committee, which would strike Section 338 from the law entirely on the grounds that a power from 1930 that no president had used in ninety years should not remain available. It has not passed. Proposals to put time limits on handed-over powers have come from both parties over the years, and none of those has passed either.</p>
+      <p>The broader version is a design principle: give every one of these handed-over powers an expiry date. Not a review, and not a report — the power would simply switch itself off, so that keeping it alive requires the legislature to vote again, the way some war powers and security laws already work. The costs are real too. A legislature that must vote is slower than a crisis, and sometimes a country genuinely needs to move in days. And renewals tend to become routine, so the fuse quietly turns into a formality.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S9 CLOSE ================= -->
+<section class="ep" id="s9" data-duration="51.9">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Who owns the shelf</div>
+    <h2>A court can only answer the question in front of it.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg9">
+        <line x1="60" y1="470" x2="1420" y2="470" class="ink b" id="c_floor" stroke-width="3"/>
+        <g id="c_doors"></g>
+        <g class="b" id="c_q">
+          <text x="110" y="90" class="strong" font-size="17">DOES THIS PARTICULAR LAW PERMIT THIS PARTICULAR ACTION?</text>
+          <text x="110" y="120" class="flawtxt" font-size="15">— THE ONLY QUESTION A COURT CAN ANSWER</text>
+        </g>
+        <g class="b" id="c_owner">
+          <text x="880" y="90" class="strong" font-size="16">THE SHELF BELONGS TO CONGRESS</text>
+          <text x="880" y="118" font-size="12.5">BUILT ONE REASONABLE DECISION AT A TIME,</text>
+          <text x="880" y="140" font-size="12.5">ACROSS DOZENS OF ADMINISTRATIONS OF BOTH PARTIES</text>
+        </g>
+        <text x="740" y="530" text-anchor="middle" class="big b" font-size="30" id="c_final">THREE DOORS ARE STILL SHUT. <tspan class="flawtxt">NONE OF THEM IS LOCKED.</tspan></text>
+      </svg>
+      <div class="figcap">Fig. 9 — the same wall as the opening frame</div>
+    </div>
+    <div class="prose">
+      <p>The court did its job. It read one law, decided that law did not authorise what was being done with it, and said so. That ruling stands, and the tariffs it struck down are gone. What the ruling could not do is reduce the total amount of power on the other side of the wall, because a court can only answer the question in front of it: does this particular law permit this particular action? When other laws are available, a ruling of no does not stop the action. It just sends it to a different door.</p>
+      <p>The shelf belongs to Congress. It was built by Congress, one reasonable decision at a time, across dozens of administrations of both parties. It is the only body that can take it apart, and it has never had a deadline forcing it to look. Three doors on that wall are still shut. None of them is locked.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's right — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <line x1="20" y1="560" x2="600" y2="560" stroke="var(--text)" stroke-width="6"/>
+    <rect x="40" y="250" width="120" height="310" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <rect x="190" y="250" width="120" height="310" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <rect x="340" y="250" width="120" height="310" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <rect x="490" y="250" width="110" height="310" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <circle cx="545" cy="405" r="46" fill="none" stroke="var(--flaw)" stroke-width="9"/>
+    <line x1="512" y1="438" x2="578" y2="372" stroke="var(--flaw)" stroke-width="9"/>
+    <path d="M100 250 L100 150" stroke="var(--alt)" stroke-width="6" stroke-dasharray="16 12" fill="none"/>
+    <circle cx="145" cy="405" r="9" fill="var(--text)"/>
+  </svg>
+  <div class="ttxt">One door<br><em>closed</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <text x="40" y="180" font-family="Space Grotesk" font-weight="700" style="font-size:130px;fill:var(--flaw)">1930</text>
+    <text x="46" y="235" font-family="IBM Plex Mono" style="font-size:24px;fill:var(--text-dim)">UNUSED FOR 96 YEARS</text>
+    <line x1="40" y1="300" x2="580" y2="300" stroke="var(--text)" stroke-width="5"/>
+    <rect x="60" y="340" width="140" height="230" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <rect x="240" y="340" width="140" height="230" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <rect x="420" y="340" width="140" height="230" fill="none" stroke="var(--text)" stroke-width="6"/>
+    <path d="M130 340 L130 250" stroke="var(--alt)" stroke-width="6" stroke-dasharray="16 12" fill="none"/>
+  </svg>
+  <div class="ttxt" style="font-size:88px">Still<br><em>on the shelf</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:o.from||0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function drawDashed(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos)
+    .set(p,{strokeDasharray:'7 6'},pos+dur+.01);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+
+/* ---------- the five doors (shared data) ---------- */
+const DOORS=[
+ {y:'1930',p:'RESPOND TO UNFAIR TREATMENT OF US GOODS',tip:'Section 338, Tariff Act of 1930. Up to 50%. Requires only that the President "find as a fact" that discrimination exists. Used to impose a tariff for the first time on July 20, 2026.'},
+ {y:'1962',p:'NATIONAL SECURITY',tip:'Section 232. Tariffs justified by national-security grounds, after a Commerce Department investigation.'},
+ {y:'1974',p:'A SUDDEN CRISIS IN THE NATION’S FINANCES',tip:'Section 122. The only one with a fuse: 15% ceiling, 150 days, then Congress must act. Used in February 2026; expires July 24.'},
+ {y:'1974',p:'UNFAIR TRADING PRACTICES ABROAD',tip:'Section 301. Requires an investigation and findings before action.'},
+ {y:'1977',p:'GENUINE NATIONAL EMERGENCIES',tip:'IEEPA. The authority the Supreme Court ruled does not cover tariffs, 6-3, in February 2026.'}];
+
+// word-wrap helper for SVG labels (no mid-word breaks)
+function wrap(text,max){const words=text.split(' ');const lines=[];let cur='';
+  words.forEach(w=>{if((cur+' '+w).trim().length>max){if(cur)lines.push(cur.trim());cur=w;}
+    else cur=(cur+' '+w).trim();});
+  if(cur)lines.push(cur.trim());return lines;}
+
+// s0 + s9: the wall of doors
+function buildWall(gid,{sealIdx=-1,openIdx=-1,y=200,h=320,w=180,gap=48,x0=150}={}){
+  const g=$(gid);let s='';
+  DOORS.forEach((d,i)=>{const x=x0+i*(w+gap);
+    s+=`<g class="wd b" id="${gid}_d${i}" data-tip="${d.tip}">
+      <rect x="${x}" y="${y}" width="${w}" height="${h}" class="door"/>
+      <circle cx="${x+w-24}" cy="${y+h/2}" r="7" fill="var(--text)"/>
+      <text x="${x+16}" y="${y+42}" class="strong" font-size="22">${d.y}</text>
+      ${i===openIdx?`<rect x="${x+6}" y="${y+6}" width="${w-12}" height="${h-12}" fill="var(--topic)" opacity=".28"/>`:''}
+      ${i===sealIdx?`<g><circle cx="${x+w/2}" cy="${y+h-84}" r="38" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="4"/>
+        <text x="${x+w/2}" y="${y+h-88}" text-anchor="middle" class="flawtxt" font-size="11" style="font-weight:600">COURT</text>
+        <text x="${x+w/2}" y="${y+h-72}" text-anchor="middle" class="flawtxt" font-size="11" style="font-weight:600">SEALED</text></g>`:''}
+    </g>`;});
+  g.innerHTML=s;}
+
+/* ---------- dynamic bits ---------- */
+buildWall('k_doors',{sealIdx:4});
+buildWall('c_doors',{openIdx:0,sealIdx:4,y:170,h:290,w:170,gap:44,x0:140});
+// s1 goods
+(()=>{const g=$('e_goods');const items=[['WINE',640],['HOCKEY STICKS',760],['CEMENT',920]];let s='';
+  items.forEach(([t,x],i)=>{s+=`<g class="gd b" id="gd_${i}"><rect x="${x}" y="96" width="${t.length*9+28}" height="40" class="ink"/>
+  <text x="${x+14}" y="122" font-size="12">${t}</text></g>`;});g.innerHTML=s;})();
+// s2 route stops
+(()=>{const g=$('p_stops');const stops=['CAST','MACHINED','ASSEMBLED','ENGINE','CAR'];let s='';
+  for(let i=0;i<6;i++){const x=310+i*180;
+    s+=`<g class="st b" id="st_${i}"><line x1="${x}" y1="240" x2="${x}" y2="360" stroke="var(--text-dim)" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <text x="${x-26}" y="228" font-size="11">BORDER</text></g>`;}
+  stops.forEach((t,i)=>{const x=220+i*230;
+    s+=`<text class="stp b" id="stp_${i}" x="${x}" y="392" font-size="11.5">${t}</text>`;});
+  g.innerHTML=s;})();
+// s3 shelf doors with purposes
+(()=>{const g=$('s_shelf');let s='';
+  DOORS.forEach((d,i)=>{const x=120+i*258;
+    const lines=wrap(d.p,24).map((t,k)=>`<text x="${x+18}" y="${266+k*21}" font-size="11.5">${t}</text>`).join('');
+    s+=`<g class="sd b" id="sd_${i}" data-tip="${d.tip}">
+      <rect x="${x}" y="170" width="230" height="300" class="door"/>
+      <circle cx="${x+206}" cy="360" r="7" fill="var(--text)"/>
+      <text x="${x+18}" y="222" class="big" font-size="34">${d.y}</text>
+      ${lines}
+    </g>`;});
+  g.innerHTML=s;})();
+// s4 timeline points
+const TL=[
+ {x:190,d:'FEB 20',t:'SUPREME COURT: 6–3',tip:'Learning Resources v. Trump. The 1977 emergency law does not authorise tariffs.',c:'flaw'},
+ {x:430,d:'FEB 20',t:'1974 LAW SWITCHED ON',tip:'A temporary extra charge on imports from every country: 15% cap, 150-day limit.',c:'fact'},
+ {x:700,d:'JUL 1',t:'TRADE REVIEW',tip:'The US declined to extend the agreement for 16 more years. It now comes up annually.',c:'fact'},
+ {x:930,d:'JUL 20',t:'1930 LAW USED',tip:'Three proclamations, 50% duties — the first tariffs ever imposed under this provision.',c:'flaw'},
+ {x:1120,d:'JUL 24',t:'FUSE BURNS OUT',tip:'The 150 days allowed by the 1974 law run out.',c:'flaw'},
+ {x:1330,d:'AUG 19',t:'TARIFFS BITE',tip:'The 50% duties take effect.',c:'flaw'}];
+(()=>{const g=$('t_points');let s='';
+  TL.forEach((p,i)=>{s+=`<g class="tp b" id="tp_${i}" data-tip="${p.tip}">
+    <circle cx="${p.x}" cy="300" r="9" fill="var(--${p.c})"/>
+    <line x1="${p.x}" y1="300" x2="${p.x}" y2="${i%2?350:250}" stroke="var(--text-dim)" stroke-width="1.5"/>
+    <text x="${p.x-40}" y="${i%2?372:238}" class="strong" font-size="14">${p.d}</text>
+    <text x="${p.x-40}" y="${i%2?392:220}" font-size="11">${p.t}</text></g>`;});
+  g.innerHTML=s;})();
+// s8 doors with timers
+(()=>{const g=$('x_doors');let s='';
+  DOORS.forEach((d,i)=>{const x=120+i*258;
+    s+=`<g class="xd b" id="xd_${i}">
+      <rect x="${x}" y="110" width="230" height="240" class="door"/>
+      <text x="${x+18}" y="160" class="big" font-size="30">${d.y}</text>
+      <g class="timer b" id="tm_${i}">
+        <rect x="${x+18}" y="270" width="194" height="46" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="6 5"/>
+        <text x="${x+32}" y="299" class="alttxt" font-size="13">EXPIRES · REVOTE</text>
+      </g></g>`;});
+  g.innerHTML=s;})();
+
+/* ---------- scenes ---------- */
+function sc0(D){const tl=gsap.timeline();
+  say(tl,'k_floor',0.4);
+  tl.fromTo($('k_doors').children,{opacity:0,y:20},{opacity:1,y:0,duration:.5,stagger:.35},1.0);
+  pop(tl,'k_seal',10.0,.4);shake(tl,'k_seal',10.4,7,6);
+  say(tl,'k_seallab',11.5);
+  count(tl,'k_refnum',170,2.6,17.0,{pre:'$',suf:'B'});say(tl,'k_refund',17.0);
+  // the 1930 door opens
+  tl.to('#k_doors_d0 rect',{fill:'var(--topic)',fillOpacity:.3,duration:1.2},30.0);
+  tl.fromTo('#k_doors_d0',{x:0},{x:-6,duration:.5,ease:'power2.out'},30.0);
+  say(tl,'k_line',40.0);
+  tl.to($('k_line'),{opacity:.55,duration:1.2,repeat:2,yoyo:true},43.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.6},50.0);
+  if(isAuto)tl.to({},{duration:6},50.6);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},54.5);
+  return tl;}
+
+function sc1(D){const tl=gsap.timeline();
+  say(tl,'e_p1',0.8);say(tl,'e_p2',2.4);say(tl,'e_p3',4.0);
+  pop(tl,'e_rate',7.0,.4);shake(tl,'e_rate',7.4,7,6);
+  [0,1,2].forEach(i=>say(tl,'gd_'+i,11.0+i*2.0));
+  say(tl,'e_cal',22.0);
+  say(tl,'e_shield',30.0);
+  draw(tl,'e_through',1.2,34.0);
+  say(tl,'e_law',42.0);
+  say(tl,'e_never',62.0);
+  count(tl,'e_zero',0,.4,62.0);
+  tl.to($('e_never'),{opacity:.55,duration:1.2,repeat:4,yoyo:true},68.0);
+  return tl;}
+
+function sc2(D){const tl=gsap.timeline();
+  say(tl,'p_map',0.5);
+  tl.fromTo($('p_stops').querySelectorAll('.st'),{opacity:0},{opacity:1,duration:.25,stagger:.2},1.4);
+  say(tl,'p_piston',3.0);
+  say(tl,'p_count',3.4);
+  // travel: 6 crossings
+  for(let i=0;i<6;i++){
+    tl.to($('p_piston'),{x:200+i*180,duration:1.1,ease:'power1.inOut'},5.0+i*2.2)
+      .call(()=>{const n=$('p_num');n.textContent=String(Math.min(6,+n.textContent+1));},[],5.9+i*2.2);
+    if(i<5)tl.fromTo('#stp_'+i,{opacity:0},{opacity:1,duration:.3},6.0+i*2.2);
+  }
+  say(tl,'p_avg',20.0);say(tl,'p_share',23.5);
+  // bars
+  say(tl,'p_bars',30.0);
+  tl.to($('p_bar1'),{attr:{width:90},duration:.8},31.0);say(tl,'p_bar1lab',31.6);
+  tl.to($('p_bar2'),{attr:{width:1140},duration:2.4,ease:'power2.out'},34.0);say(tl,'p_bar2lab',35.4);
+  // certainty
+  say(tl,'p_cert',44.0);
+  tl.to($('p_certfill'),{attr:{width:28},duration:2.0,ease:'power2.inOut'},50.0)
+    .call(()=>{$('p_certlab').textContent='1 YEAR';},[],51.2);
+  tl.to($('p_cert'),{opacity:.6,duration:1.2,repeat:3,yoyo:true},56.0);
+  return tl;}
+
+function sc3(D){const tl=gsap.timeline();
+  say(tl,'s_art1',0.6);
+  const sd=[...$('s_shelf').children];
+  sd.forEach((el,i)=>tl.fromTo(el,{opacity:0,y:24},{opacity:1,y:0,duration:.6,ease:'power2.out'},8.0+i*7.5));
+  say(tl,'s_five',48.0);
+  say(tl,'s_flaw',62.0);
+  // dust: doors dim slightly one by one, then the flaw pulses
+  tl.to(sd,{opacity:.72,duration:1.4,stagger:.25},68.0);
+  tl.to($('s_flaw'),{opacity:.55,duration:1.3,repeat:6,yoyo:true},76.0);
+  return tl;}
+
+function sc4(D){const tl=gsap.timeline();
+  draw(tl,'t_axis',1.4,0.4);
+  const tp=[...$('t_points').children];
+  say(tl,'tp_0',3.0);
+  say(tl,'t_quote',7.0);
+  say(tl,'tp_1',20.0);
+  say(tl,'t_fuse',23.0);
+  draw(tl,'t_fusepath',3.0,24.0);
+  say(tl,'tp_2',34.0);
+  say(tl,'tp_3',46.0);
+  say(tl,'tp_4',54.0);
+  say(tl,'tp_5',60.0);
+  // the flat output line
+  say(tl,'t_out',66.0);
+  draw(tl,'t_outline',2.6,67.0);
+  say(tl,'t_outlab',70.0);
+  tl.to($('t_outline'),{opacity:.5,duration:1.2,repeat:4,yoyo:true},74.0);
+  return tl;}
+
+function sc5(D){const tl=gsap.timeline();
+  say(tl,'l_us',0.8);
+  say(tl,'l_ca',6.0);
+  draw(tl,'l_a1',1.6,10.0);say(tl,'l_lab1',12.0);
+  draw(tl,'l_a2',1.6,20.0);
+  say(tl,'l_trigger',30.0);shake(tl,'l_trigger',30.6,6,6);
+  // loop pulse — both sides equally
+  tl.to([$('l_a1'),$('l_a2')],{opacity:.4,duration:.8,repeat:5,yoyo:true,stagger:.15},40.0);
+  say(tl,'l_noorigin',52.0);
+  tl.to([$('l_us'),$('l_ca')],{opacity:.7,duration:1.1,repeat:4,yoyo:true},62.0);
+  return tl;}
+
+function sc6(D){const tl=gsap.timeline();
+  say(tl,'f_door',0.8);
+  say(tl,'f_cap',6.0);
+  say(tl,'f_fuse',12.0);
+  // spark travels the fuse
+  tl.set($('f_spark'),{opacity:1},14.0)
+    .to($('f_spark'),{x:380,duration:6.0,ease:'none'},14.0)
+    .to($('f_spark'),{opacity:0,duration:.4},20.0);
+  say(tl,'f_congress',22.0);
+  drawDashed(tl,'f_return',2.0,26.0);say(tl,'f_returnlab',28.0);
+  say(tl,'f_cost',44.0);
+  tl.to($('f_return'),{opacity:.5,duration:1.2,repeat:4,yoyo:true},60.0);
+  return tl;}
+
+function sc7(D){const tl=gsap.timeline();
+  say(tl,'u_three',0.8);
+  say(tl,'u_court',8.0);
+  say(tl,'u_above',16.0);
+  say(tl,'u_room',24.0);
+  say(tl,'u_bounce',32.0);
+  // the decree bounces off
+  tl.to($('u_decree'),{x:-120,duration:.9,ease:'power2.in'},33.0)
+    .to($('u_decree'),{x:-40,duration:.5,ease:'power2.out'},33.9)
+    .to($('u_decree'),{opacity:.3,duration:.6},34.4);
+  shake(tl,'u_room',33.9,6,5);
+  say(tl,'u_cost',44.0);
+  tl.to($('u_nodoors'),{opacity:.55,duration:1.2,repeat:4,yoyo:true},54.0);
+  return tl;}
+
+function sc8(D){const tl=gsap.timeline();
+  const xd=[...$('x_doors').children];
+  tl.fromTo(xd,{opacity:0},{opacity:1,duration:.5,stagger:.25},0.6);
+  // timers bolt on
+  xd.forEach((el,i)=>{const t=el.querySelector('.timer');
+    tl.fromTo(t,{opacity:0,scale:.85,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.45,ease:'back.out(2)'},6.0+i*1.3);});
+  say(tl,'x_bill',18.0);
+  // one door expires and dims
+  tl.to(xd[1],{opacity:.3,duration:1.4},34.0);
+  tl.to(xd[3],{opacity:.3,duration:1.4},37.0);
+  say(tl,'x_cost',48.0);
+  tl.fromTo($('x_stamp'),{opacity:0,scale:1.5,transformOrigin:'50% 50%'},
+    {opacity:1,scale:1,duration:.35,ease:'power3.in'},62.0);
+  shake(tl,'x_stamp',62.4,6,5);
+  tl.to(xd,{opacity:1,duration:1.0,stagger:.15},64.0);
+  return tl;}
+
+function sc9(D){const tl=gsap.timeline();
+  say(tl,'c_floor',0.4);
+  tl.fromTo($('c_doors').children,{opacity:0},{opacity:1,duration:.5,stagger:.25},1.0);
+  say(tl,'c_q',10.0);
+  say(tl,'c_owner',24.0);
+  // three unmarked doors pulse gently
+  tl.to(['#c_doors_d1','#c_doors_d2','#c_doors_d3'],{opacity:.65,duration:1.3,repeat:5,yoyo:true,stagger:.2},38.0);
+  say(tl,'c_final',46.0);
+  tl.to($('c_final'),{opacity:.6,duration:1.2,repeat:3,yoyo:true},50.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6,s7:sc7,s8:sc8,s9:sc9};
+
+/* redline toggle (web) — shelf as built vs with expiry dates */
+function setRedline(on){
+  document.querySelectorAll('#x_doors .timer').forEach(t=>gsap.to(t,{opacity:on?1:0,duration:.4}));
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id](D).paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id](+s.dataset.duration);
+    tl.timeScale(2.4);
+    if(s.id==='s3'||s.id==='s4')tl.timeScale(1.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  const tip=$('tip');
+  document.querySelectorAll('.sd,.tp,.l_node,.wd').forEach(r=>{
+    r.addEventListener('mousemove',e=>{tip.textContent=r.dataset.tip;tip.style.opacity=1;
+      tip.style.left=Math.min(e.clientX+14,innerWidth-340)+'px';tip.style.top=(e.clientY+16)+'px';});
+    r.addEventListener('mouseleave',()=>tip.style.opacity=0);});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){
+    const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
