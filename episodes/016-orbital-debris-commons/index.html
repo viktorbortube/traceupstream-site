@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Line You Can't See — Why Earth's Orbit Is Filling With Debris | Trace Upstream</title>
+<meta name="description" content="Earth's busiest orbits just crossed the Kessler line, where collisions breed collisions on their own. The cause isn't one company — it's a commons with no price and no owner. Three redesigns, each with a real cost.">
+<link rel="canonical" href="https://traceupstream.com/episodes/016-orbital-debris-commons/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Line You Can't See — Earth's Orbit Is Filling With Debris">
+<meta property="og:description" content="An interactive blueprint: why orbit fills with junk nobody pays for, and three real redesigns — a price, an owner, a cleanup crew.">
+<meta property="og:url" content="https://traceupstream.com/episodes/016-orbital-debris-commons/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#8A7CA8; /* desaturated slate-violet — orbit accent; decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+/* stage */
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice — :not([font-size]) so font-size attributes win (EP.008 fix) */
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)} /* text on filled accent plates — Paper, never grey */
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0} /* beat element, revealed by timeline */
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+/* listen mode */
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:118px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1720px;padding:40px 30px}
+body.auto h2{font-size:48px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.016 — 2026-07-22</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 11:00</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="61">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.016</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <!-- Earth curve -->
+        <path id="k_earth" class="ink b" stroke-width="2.5" d="M -40 610 C 380 470, 1100 470, 1520 610"/>
+        <text x="120" y="588" class="b" id="k_earthlab">EARTH</text>
+        <!-- the invisible line -->
+        <line id="k_line" class="b" x1="60" y1="300" x2="1420" y2="300" stroke="var(--text)" stroke-width="2" stroke-dasharray="2 8"/>
+        <text x="60" y="288" class="strong b" id="k_linelab">THE KESSLER LINE</text>
+        <!-- BELOW: a dead satellite sinks and burns -->
+        <text x="120" y="360" class="b" id="k_belowlab">BELOW — ORBIT HEALS ITSELF</text>
+        <rect id="k_sat" class="ink b" x="250" y="330" width="34" height="20"/>
+        <line class="ink b" id="k_satpanel" x1="238" y1="340" x2="296" y2="340"/>
+        <circle id="k_burn" cx="267" cy="470" r="0" fill="var(--flaw)" opacity=".8"/>
+        <text x="360" y="475" class="b" id="k_burnlab">DRAGGED DOWN · BURNS AWAY</text>
+        <!-- ABOVE: one collision multiplies -->
+        <text x="820" y="120" class="b" id="k_abovelab">ABOVE — ONE HIT BREEDS MORE</text>
+        <circle id="k_a" class="b" cx="900" cy="200" r="9" fill="var(--text)"/>
+        <circle id="k_b" class="b" cx="1040" cy="200" r="9" fill="var(--text)"/>
+        <g id="k_frags"></g>
+        <!-- Kessler label -->
+        <text x="820" y="565" class="b" id="k_kess" font-size="15">DONALD KESSLER · NASA · 1978 — DESCRIBED THIS LINE</text>
+        <!-- amber crossed tag -->
+        <g id="k_cross" class="b">
+          <rect x="560" y="270" width="360" height="34" fill="var(--flaw)"/>
+          <text x="580" y="293" class="onplate" font-size="15">2026 — WE HAVE CROSSED IT</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The line<br>you can't see.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>There is a line in space you cannot see. Below it, the sky above your head slowly repairs itself: a dead satellite is dragged down by the thin edge of the atmosphere and burns away. Above it, one collision scatters fragments that hit more satellites, which shatter into more fragments — debris multiplying on its own, even if we never launch again.</p>
+      <p>A NASA scientist, Donald Kessler, described this line in 1978. This year the European Space Agency reported that across several of the busiest orbits, we have quietly crossed it. This is not really a story about space — it is a story about what we all share but nobody owns.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="67.6">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · ESA Space Environment Report, 2026</div>
+    <h2>Up twenty percent in a single year.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg1">
+        <!-- risk headline -->
+        <text x="120" y="90" class="b" id="e_risklab">COLLISION RISK IN LOW EARTH ORBIT, THIS YEAR</text>
+        <text x="120" y="180" class="big flawtxt b" font-size="92" id="e_risk">0</text>
+        <!-- two stat blocks -->
+        <text x="120" y="300" class="big fact b" font-size="56" id="e_track">0</text>
+        <text x="122" y="332" class="b" id="e_tracklab">OBJECTS BIG ENOUGH TO TRACK</text>
+        <text x="120" y="430" class="big flawtxt b" font-size="56" id="e_frag">0</text>
+        <text x="122" y="462" class="b" id="e_fraglab">FRAGMENTS OVER 1 CM — TOO SMALL TO FOLLOW</text>
+        <!-- marble → impact -->
+        <circle id="e_marble" class="b" cx="880" cy="150" r="12" fill="var(--text)"/>
+        <text x="905" y="145" class="strong b" id="e_speed" font-size="15">A MARBLE AT 28,000 KM/H</text>
+        <text x="905" y="172" class="b" id="e_speed2">≈ 10× A RIFLE BULLET</text>
+        <g id="e_plate" class="b">
+          <rect x="880" y="210" width="470" height="52" fill="var(--flaw)"/>
+          <text x="902" y="243" class="onplate" font-size="16">HITS LIKE A SMALL CAR INTO A WALL</text>
+        </g>
+        <text x="880" y="300" class="b" id="e_needlab">IT NEED NOT BE BIG — ONLY IN THE WAY</text>
+        <!-- crowded band -->
+        <rect x="880" y="360" width="470" height="200" fill="none" stroke="var(--grid)" stroke-width="1.5" class="b" id="e_bandbox"/>
+        <rect x="880" y="430" width="470" height="60" fill="var(--flaw)" opacity=".14" class="b" id="e_band"/>
+        <text x="900" y="390" class="b" id="e_bandlab">ORBITAL ALTITUDE 600–900 KM — THE BUSIEST LANE</text>
+        <g id="e_pings"></g>
+        <text x="900" y="540" class="flawtxt b" id="e_pingslab" font-size="15">CLOSE-APPROACH ALERTS: 5–10× MORE THAN A DECADE AGO</text>
+      </svg>
+      <div class="figcap">Fig. 1 — the 2026 debris picture · sources: ESA Space Environment Report, Mapshock LEO briefing</div>
+    </div>
+    <div class="prose">
+      <p>The European Space Agency found the chance of a collision in low Earth orbit rose twenty percent in one year. We can track more than forty thousand objects; the fragments too small to track, but big enough to destroy a spacecraft, pass 1.2 million. A marble-sized piece travels at ~28,000 km/h — about ten times a rifle bullet — and hits with the energy of a small car into a wall.</p>
+      <p>In the busiest lane, 600–900 km up, alerts that two objects are about to pass dangerously close now arrive five to ten times as often as a decade ago.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 THE CASCADE ================= -->
+<section class="ep" id="s2" data-duration="78.3">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Cascade</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The mechanism · Why the line matters</div>
+    <h2>Above the line, it feeds itself.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg2">
+        <!-- axes: time → , debris ↑ -->
+        <line class="ink b" id="c2_yax" x1="220" y1="80" x2="220" y2="500"/>
+        <line class="ink b" id="c2_xax" x1="220" y1="500" x2="1060" y2="500"/>
+        <text x="150" y="90" class="b" id="c2_ylab">DEBRIS</text>
+        <text x="980" y="528" class="b" id="c2_xlab">TIME →</text>
+        <!-- atmosphere haze note -->
+        <text x="240" y="120" class="b" id="c2_hazelab">THE ATMOSPHERE'S FAINT DRAG = A CLEANING SERVICE</text>
+        <!-- settle curve (below the line) -->
+        <path id="c2_settle" class="ink b" d="M220 300 C 420 360, 700 420, 1040 450"/>
+        <text x="700" y="470" class="strong b" id="c2_settlelab">BELOW THE LINE — SWEPT AWAY AS FAST AS IT PILES UP</text>
+        <!-- runaway curve (above the line) -->
+        <path id="c2_run" class="amber b" d="M220 300 C 520 300, 760 200, 1040 90"/>
+        <text x="760" y="150" class="flawtxt b" id="c2_runlab">ABOVE THE LINE — COLLISIONS OUTPACE THE CLEANING</text>
+        <!-- density dial -->
+        <g id="c2_dial" class="b" transform="translate(1290,300)">
+          <circle r="96" class="ink"/>
+          <text x="-40" y="150" class="strong">DENSITY</text>
+          <line id="c2_needle" x1="0" y1="0" x2="0" y2="-84" stroke="var(--flaw)" stroke-width="4" transform="rotate(-60)"/>
+          <circle r="7" fill="var(--text)"/>
+          <text x="-90" y="-70" class="b">LOW</text>
+          <text x="58" y="-70" class="flawtxt b">HIGH</text>
+        </g>
+        <!-- 0 new launches stamp -->
+        <g id="c2_stamp" class="b">
+          <rect x="300" y="180" width="300" height="48" fill="var(--flaw)"/>
+          <text x="322" y="211" class="onplate" font-size="17">0 NEW LAUNCHES</text>
+        </g>
+        <text x="300" y="260" class="flawtxt b" id="c2_stamplab" font-size="15">— AND IT STILL CLIMBS (2025 ESTIMATE: 520–1,000 KM)</text>
+      </svg>
+      <div class="figcap">Fig. 2 — below a density, orbit settles; above it, the debris curve runs away · Kessler 1978 model</div>
+    </div>
+    <div class="prose">
+      <p>Orbit has a natural cleaning service: a whisper of atmosphere reaches hundreds of kilometres up and gently drags things down. Below a certain crowding, debris is swept away about as fast as it piles up. Kessler's insight was that above a certain density that balance flips — collisions generate fragments faster than the atmosphere can remove them, and every fragment is a new bullet.</p>
+      <p>Once you are above the line, you need add nothing for the problem to grow. A 2025 study estimates the hardware already up there crosses that tipping point across almost every altitude from 500 to 1,000 km. The debris we already have is enough.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE COMMONS ================= -->
+<section class="ep" id="s3" data-duration="116.4">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · A commons with no price</div>
+    <h2>Everyone shares it. Nobody owns it.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg3">
+        <!-- LEFT: the pasture -->
+        <text x="120" y="80" class="strong b" id="cm_plab" font-size="15">A SHARED VILLAGE PASTURE</text>
+        <line x1="120" y1="250" x2="640" y2="250" class="ink b" id="cm_ground"/>
+        <g id="cm_grass"></g>
+        <g id="cm_cow" class="b">
+          <rect x="300" y="200" width="60" height="38" class="ink"/>
+          <text x="300" y="192" class="b" id="cm_cowlab">+1 COW → FULL GAIN TO YOU</text>
+        </g>
+        <g id="cm_herd"></g>
+        <text x="120" y="300" class="b" id="cm_sharelab">THE COST — LESS GRASS — SPLITS THIN ACROSS ALL</text>
+        <text x="120" y="360" class="big flawtxt b" font-size="26" id="cm_bare">THE PASTURE IS STRIPPED BARE</text>
+        <!-- divider -->
+        <line x1="740" y1="60" x2="740" y2="470" stroke="var(--grid)" stroke-width="2" class="b" id="cm_div"/>
+        <!-- RIGHT: orbit mirror -->
+        <text x="820" y="80" class="strong b" id="cm_olab" font-size="15">ORBIT — THE SAME PASTURE, PLANET-SCALE</text>
+        <rect id="cm_sat" class="nodebox b" x="820" y="150" width="150" height="52"/>
+        <text x="842" y="182" class="fact b" id="cm_satlab">YOUR SATELLITE</text>
+        <text x="820" y="228" class="b" id="cm_satlab2">FULL VALUE TO YOU</text>
+        <g id="cm_slivers"></g>
+        <text x="820" y="336" class="b" id="cm_risklab">THE RISK YOU ADD SPLITS ACROSS EVERY OPERATOR</text>
+        <!-- treaty across the bottom -->
+        <line x1="120" y1="520" x2="1360" y2="520" class="blue b" id="cm_treaty" stroke-dasharray="0"/>
+        <text x="120" y="508" class="fact b" id="cm_treatylab" font-size="15">OUTER SPACE TREATY, 1967 — NO NATION MAY OWN SPACE</text>
+        <!-- amber tag -->
+        <g id="cm_tag" class="b">
+          <rect x="470" y="548" width="540" height="46" fill="var(--flaw)"/>
+          <text x="492" y="578" class="onplate" font-size="18">NO PRICE · NO OWNER</text>
+        </g>
+        <!-- tiny risk counter (top-right, clear of the satellite label) -->
+        <text x="1150" y="178" class="big fact b" font-size="34" id="cm_pct">0.0%</text>
+        <text x="1150" y="208" class="b" id="cm_pctlab">OF SATELLITE VALUE / YR<tspan x="1150" dy="20">— INVISIBLY SMALL TODAY</tspan></text>
+        <!-- ownerless stages -->
+        <g id="cm_orphans"></g>
+        <text x="820" y="470" class="b" id="cm_orphlab">MOST DANGER: DECADES-OLD ROCKET STAGES — NO OWNER LEFT</text>
+      </svg>
+      <div class="figcap">Fig. 3 — the tragedy of the commons, in orbit · one gain to the launcher, the risk split across all</div>
+    </div>
+    <div class="prose">
+      <p>Graze one more cow and you get the whole cow; the cost — less grass — spreads thin across the village, so you barely feel your share. Every herder reasons the same way, and the pasture is stripped bare. Orbit is that pasture. You get your satellite's full value, while the risk you add spreads across every operator who will ever fly that altitude.</p>
+      <p>And under the 1967 Outer Space Treaty, no country can claim orbit — so no one can charge for crowding it, and no market signals that a lane is full. The price of the risk is invisibly small: about a tenth of one percent of satellite value a year. This is no single company's fault; much of the worst debris is decades-old rocket stages with no owner left.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE ALTERNATIVES ================= -->
+<section class="ep" id="s4" data-duration="200">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The Alternatives</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three redesigns, three costs</div>
+    <h2>A price, an owner, a cleanup crew.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <!-- PRICE -->
+        <g class="b" id="a_price">
+          <text x="120" y="80" class="alttxt" font-size="16">DESIGN A · PRICE THE RISK — AN ORBITAL-USE FEE</text>
+          <rect x="120" y="130" width="180" height="60" class="nodebox"/>
+          <text x="142" y="167" class="strong">SATELLITE</text>
+          <path id="pr_meter" class="green revision" d="M300 160 L470 160"/>
+          <text x="330" y="145" class="alttxt b" id="pr_meterlab">FEE / YEAR — RISES AS THE LANE FILLS</text>
+          <text x="120" y="255" class="b" id="pr_study">MODELLED — US NATIONAL ACADEMY OF SCIENCES, 2020</text>
+          <text x="120" y="330" class="big fact b" font-size="40" id="pr_fee">$0</text>
+          <text x="120" y="362" class="b" id="pr_feelab">PER SATELLITE / YEAR BY 2040</text>
+          <!-- value bars -->
+          <rect x="820" y="360" width="90" height="60" fill="var(--text-dim)" class="b" id="pr_bar0"/>
+          <text x="820" y="440" class="b" id="pr_bar0lab">$0.6T — AS BUILT</text>
+          <rect x="960" y="120" width="90" height="0" fill="var(--alt)" class="revision" id="pr_bar3" opacity="0"/>
+          <text x="960" y="440" class="alttxt b" id="pr_bar3lab">$3T — WITH THE FEE</text>
+          <text x="1100" y="250" class="b" id="pr_barnote" font-size="15">A USABLE ORBIT IS<tspan x="1100" dy="22">WORTH FAR MORE</tspan><tspan x="1100" dy="22">THAN A RUINED ONE</tspan></text>
+          <!-- cost panel -->
+          <g id="pr_cost" class="b">
+            <rect x="120" y="470" width="620" height="120" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="142" y="505" class="flawtxt" font-size="15">THE COST: ONLY WORKS IF EVERYONE CHARGES IT</text>
+            <rect x="150" y="525" width="34" height="24" class="ink"/>
+            <path id="pr_hop" class="amber" d="M190 537 C 380 480, 520 480, 640 537"/>
+            <rect x="640" y="525" width="34" height="24" class="ink" stroke="var(--flaw)"/>
+            <text x="150" y="575" class="b">HOME FLAG</text>
+            <text x="560" y="575" class="flawtxt b" id="pr_haven">ORBITAL TAX HAVEN</text>
+          </g>
+        </g>
+        <!-- OWNER -->
+        <g class="b" id="a_owner">
+          <text x="120" y="80" class="alttxt" font-size="16">DESIGN B · GIVE IT AN OWNER — TRADABLE SLOTS</text>
+          <!-- radio analogy -->
+          <text x="120" y="150" class="b" id="ow_radiolab">PRECEDENT: RADIO SPECTRUM → LICENSED, AUCTIONED</text>
+          <g id="ow_radio"></g>
+          <!-- fishing analogy -->
+          <text x="120" y="300" class="b" id="ow_fishlab">PRECEDENT: FISHERIES → TRADABLE CATCH QUOTAS</text>
+          <g id="ow_fish"></g>
+          <!-- orbit slots -->
+          <text x="780" y="150" class="b" id="ow_slotlab">ORBIT: A CAPPED NUMBER OF SLOTS PER LANE, OWNED &amp; TRADED</text>
+          <g id="ow_slots"></g>
+          <!-- OST block -->
+          <g id="ow_ost" class="b">
+            <rect x="780" y="430" width="560" height="120" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="800" y="468" class="flawtxt" font-size="15">THE COST: THE 1967 TREATY BLOCKS OWNERSHIP</text>
+            <text x="800" y="512" class="big b" font-size="34" id="ow_own">OWN</text>
+            <text x="900" y="512" class="big" font-size="34">→</text>
+            <text x="970" y="512" class="big alttxt b" font-size="34" id="ow_use">USE</text>
+            <text x="800" y="540" class="b">A RIGHT TO USE, AGREED BY THE WHOLE WORLD</text>
+          </g>
+        </g>
+        <!-- CLEANUP -->
+        <g class="b" id="a_clean">
+          <text x="120" y="80" class="alttxt" font-size="16">DESIGN C · CLEAN IT UP — DEORBIT RULES + REMOVAL</text>
+          <rect x="120" y="130" width="160" height="60" class="nodebox"/>
+          <text x="142" y="167" class="strong">SATELLITE</text>
+          <text x="320" y="150" class="alttxt b" id="cl_timerlab">MUST LEAVE WITHIN</text>
+          <text x="320" y="184" class="big alttxt b" font-size="30" id="cl_timer">5 YR</text>
+          <text x="320" y="212" class="b" id="cl_timernote">(DOWN FROM A LOOSE 25 · US, UK, FR, JP)</text>
+          <!-- removal demo, top-right, drags DOWN to burn -->
+          <text x="920" y="150" class="alttxt b" id="cl_clawlab">FIRST REMOVAL MISSION · ~€100M</text>
+          <path id="cl_claw" class="green revision" d="M940 178 C 1090 240, 1170 320, 1240 400"/>
+          <circle cx="940" cy="178" r="10" fill="var(--flaw)" class="b" id="cl_dead"/>
+          <text x="1120" y="440" class="b" id="cl_burnlab">DRAGGED DOWN · BURNS</text>
+          <!-- twist, left -->
+          <g id="cl_twist" class="b">
+            <rect x="120" y="300" width="620" height="160" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="142" y="336" class="flawtxt" font-size="15">THE TWIST: CLEANUP ALONE CAN MAKE IT WORSE</text>
+            <text x="142" y="386" class="big flawtxt b" font-size="34" id="cl_recover">&lt; 10%</text>
+            <text x="272" y="386" class="b" id="cl_recoverlab">OF LOST VALUE RECOVERED (SAME 2020 STUDY)</text>
+            <path id="cl_rebound" class="amber b" d="M160 424 C 360 462, 560 462, 700 424"/>
+            <text x="300" y="450" class="flawtxt b" id="cl_reboundlab">CLEANER ORBIT → MORE LAUNCHES → REFILLS</text>
+          </g>
+          <!-- orphan, bottom-right -->
+          <g id="cl_orphan" class="b">
+            <rect x="820" y="490" width="520" height="130" fill="none" stroke="var(--grid)" stroke-width="1.5"/>
+            <rect x="850" y="530" width="70" height="26" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+            <text x="850" y="588" class="b">DEAD STAGE — NO OWNER</text>
+            <text x="1060" y="548" class="big flawtxt b" font-size="30" id="cl_who">WHO PAYS?</text>
+            <text x="1060" y="580" class="b">THE BILL LANDS ON THE PUBLIC</text>
+          </g>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="a_syn">
+          <text x="200" y="150" class="big" font-size="30">THREE DESIGNS, ONE SHARED SHAPE:</text>
+          <text x="200" y="230" class="alttxt b" id="sy1" font-size="20">→ A PRICE — MAKE CROWDING COST SOMETHING</text>
+          <text x="200" y="290" class="alttxt b" id="sy2" font-size="20">→ AN OWNER — CAPPED, TRADABLE SLOTS</text>
+          <text x="200" y="350" class="alttxt b" id="sy3" font-size="20">→ A CLEANUP CREW — REMOVE WHAT'S ALREADY THERE</text>
+          <g id="sy_wall" class="b">
+            <rect x="200" y="410" width="1080" height="56" fill="var(--flaw)"/>
+            <text x="222" y="447" class="onplate" font-size="19">EACH ONLY WORKS IF THE WHOLE WORLD AGREES — AT THE SAME TIME</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 4 — three redlined redesigns · dashed green = revision markup · each with its named cost</div>
+    </div>
+    <div class="prose">
+      <p><b>Price it:</b> charge a fee per satellite-year that rises as an orbit fills. A 2020 National Academy of Sciences model found a fee reaching ~$235,000/satellite/year by 2040 would more than quadruple the industry's value ($0.6T → ~$3T) — but only if everyone charges it, or launches flee to an orbital tax haven.</p>
+      <p><b>Own it:</b> like radio-spectrum licences or tradable fishing quotas, cap and trade orbital slots — but the 1967 treaty blocks ownership, so it must be a right to <em>use</em>, agreed worldwide.</p>
+      <p><b>Clean it:</b> 5-year deorbit rules and ~€100M removal missions help — yet cleanup alone recovers under 10% of lost value, a cleaner orbit invites more launches, and someone must pay to remove ownerless stages.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THE CLOSE ================= -->
+<section class="ep" id="s5" data-duration="67.6">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · A threat we cannot see</div>
+    <h2>No headline in the sky.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <!-- the line returns -->
+        <line id="cl2_line" class="b" x1="60" y1="150" x2="1420" y2="150" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="2 8"/>
+        <text x="60" y="138" class="flawtxt b" id="cl2_linelab">THE LINE — STILL THERE, STILL INVISIBLE</text>
+        <!-- +20% floats up from a report -->
+        <rect x="150" y="230" width="150" height="110" class="ink b" id="cl2_report"/>
+        <text x="168" y="258" class="b" id="cl2_reportlab">REPORT</text>
+        <text x="330" y="300" class="big flawtxt b" font-size="40" id="cl2_pct">+20%</text>
+        <text x="330" y="335" class="b" id="cl2_pctlab">— THE ONLY MARK IT LEFT</text>
+        <text x="640" y="270" class="b" id="cl2_states">CLEANS ITSELF → <tspan class="flawtxt">BREAKS ITSELF</tspan></text>
+        <!-- three branches into one wall -->
+        <path class="green revision b" id="cl2_br1" d="M620 350 C 760 320, 900 320, 1020 345"/>
+        <path class="green revision b" id="cl2_br2" d="M620 375 C 760 375, 900 375, 1020 375"/>
+        <path class="green revision b" id="cl2_br3" d="M620 400 C 760 430, 900 430, 1020 405"/>
+        <g id="cl2_wall" class="b">
+          <rect x="1020" y="320" width="14" height="90" fill="var(--flaw)"/>
+          <text x="620" y="300" class="flawtxt b" id="cl2_walllab" font-size="15">FEE · OWNER · CLEANUP — EACH HITS ONE WALL:<tspan x="620" dy="22">THE WHOLE WORLD MUST AGREE, AT ONCE</tspan></text>
+        </g>
+        <text x="740" y="478" text-anchor="middle" class="big b" font-size="34" id="cl2_undo">AND IT HAS NO UNDO BUTTON.</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Nothing dramatic marked the moment we crossed the line — no explosion, just a twenty-percent rise in a technical report, a slow shift from a place that cleans itself to one that slowly breaks itself. Every fix — a fee, a market, a cleanup crew — hits the same wall: orbit belongs to everyone, so it belongs to no one, and the whole world must agree before any of them can work.</p>
+      <p>We have solved shared problems before, but usually when the fear was vivid and the fix was cheap. Orbit offers neither. The real question is whether we can act on a threat we cannot see — before the cascade decides for us.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <path d="M-20 560 C 200 430, 440 430, 660 560" stroke="var(--text)" stroke-width="4" fill="none"/>
+    <line x1="20" y1="300" x2="600" y2="300" stroke="var(--text)" stroke-width="3" stroke-dasharray="3 10"/>
+    <g fill="var(--flaw)">
+      <circle cx="330" cy="180" r="10"/><circle cx="400" cy="150" r="7"/><circle cx="270" cy="140" r="6"/>
+      <circle cx="450" cy="210" r="8"/><circle cx="360" cy="110" r="5"/><circle cx="240" cy="205" r="6"/>
+      <circle cx="500" cy="160" r="5"/><circle cx="300" cy="235" r="5"/>
+    </g>
+    <rect x="150" y="420" width="34" height="20" fill="none" stroke="var(--text)" stroke-width="4"/>
+    <path d="M167 460 C 175 490, 160 505, 167 540" stroke="var(--flaw)" stroke-width="5" fill="none" stroke-dasharray="10 8"/>
+  </svg>
+  <div class="ttxt">The line<br><em>you can't see</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <circle cx="330" cy="200" r="9" fill="var(--text)"/>
+    <circle cx="470" cy="200" r="9" fill="var(--text)"/>
+    <g fill="var(--flaw)">
+      <circle cx="360" cy="150" r="6"/><circle cx="420" cy="250" r="7"/><circle cx="300" cy="260" r="5"/>
+      <circle cx="500" cy="150" r="6"/><circle cx="250" cy="180" r="5"/><circle cx="540" cy="250" r="5"/>
+    </g>
+    <path d="M120 470 C 260 470, 360 610, 500 560" stroke="var(--alt)" stroke-width="5" fill="none" stroke-dasharray="14 12"/>
+    <text x="120" y="150" font-family="Space Grotesk" font-weight="700" font-size="52" fill="var(--flaw)">+20%</text>
+  </svg>
+  <div class="ttxt" style="font-size:96px">Nobody<br><em>owns orbit</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function ring(tl,id,pos,rMax=160,d=2.2,rep=2){tl.set($(id),{opacity:1},pos)
+  .fromTo($(id),{attr:{r:10},opacity:.9},{attr:{r:rMax},opacity:0,duration:d,repeat:rep,ease:'power1.out'},pos);}
+// keep-alive: gently pulse an already-visible element across a span so no frame goes static
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.5,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+/* ---------- dynamic bits ---------- */
+// S0 fragment cloud (grows from the collision point)
+(()=>{const g=$('k_frags');let s='';for(let i=0;i<26;i++){
+  const ang=i*0.63, r=30+i*7, x=970+Math.cos(ang)*r*1.4, y=200+Math.sin(ang)*r;
+  s+=`<circle class="kf" cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${3+(i%3)}" fill="var(--flaw)" opacity="0"/>`;}g.innerHTML=s;})();
+// S1 warning pings inside the band
+(()=>{const g=$('e_pings');let s='';for(let i=0;i<16;i++){const x=905+(i%8)*54,y=445+Math.floor(i/8)*30;
+  s+=`<circle class="pg" cx="${x}" cy="${y}" r="4" fill="var(--flaw)" opacity="0"/>`;}g.innerHTML=s;})();
+// S3 grass tufts
+(()=>{const g=$('cm_grass');let s='';for(let i=0;i<24;i++){const x=130+i*21;
+  s+=`<line class="gt" x1="${x}" y1="250" x2="${x}" y2="228" stroke="var(--alt)" stroke-width="3"/>`;}g.innerHTML=s;})();
+// S3 herd (stick figures sharing the cost)
+(()=>{const g=$('cm_herd');let s='';for(let i=0;i<8;i++){const x=140+i*60;
+  s+=`<g class="hf" opacity="0"><circle cx="${x}" cy="410" r="8" fill="none" stroke="var(--text)" stroke-width="2"/>
+      <line x1="${x}" y1="418" x2="${x}" y2="445" stroke="var(--text)" stroke-width="2"/></g>`;}g.innerHTML=s;})();
+// S3 risk slivers spreading from the satellite
+(()=>{const g=$('cm_slivers');let s='';for(let i=0;i<10;i++){const x=830+i*54;
+  s+=`<line class="sl" x1="895" y1="205" x2="${x}" y2="300" stroke="var(--flaw)" stroke-width="1.5" opacity="0"/>`;}g.innerHTML=s;})();
+// S3 ownerless stages
+(()=>{const g=$('cm_orphans');let s='';for(let i=0;i<5;i++){const x=830+i*52;
+  s+=`<rect class="orp" x="${x}" y="420" width="34" height="16" fill="none" stroke="var(--text-dim)" stroke-width="2" opacity="0"/>`;}g.innerHTML=s;})();
+// S4 radio bands
+(()=>{const g=$('ow_radio');let s='';for(let i=0;i<7;i++){const x=120+i*88;
+  s+=`<rect class="rb" x="${x}" y="170" width="70" height="44" fill="none" stroke="var(--fact)" stroke-width="2" opacity="0"/>`;}g.innerHTML=s;})();
+// S4 fish → quota tokens
+(()=>{const g=$('ow_fish');let s='';for(let i=0;i<8;i++){const x=130+i*74;
+  s+=`<rect class="qt" x="${x}" y="320" width="52" height="34" rx="3" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="5 4" opacity="0"/>`;}g.innerHTML=s;})();
+// S4 orbit slots
+(()=>{const g=$('ow_slots');let s='';for(let i=0;i<6;i++){const x=790+i*90;
+  s+=`<g class="os" opacity="0"><rect x="${x}" y="180" width="66" height="60" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="6 5"/>
+      <circle cx="${x+33}" cy="270" r="6" fill="none" stroke="var(--text)" stroke-width="2"/></g>`;}g.innerHTML=s;})();
+// S5 report figure column
+(()=>{const g=$('cl2_report');})();
+
+/* ---------- scene timelines (positions in real seconds, matched to script beats) ---------- */
+function sc0(){const tl=gsap.timeline();
+  draw(tl,'k_earth',2.4,0.5);say(tl,'k_earthlab',2.0);
+  draw(tl,'k_line',2.0,3.5);say(tl,'k_linelab',5.0);
+  // below: satellite sinks + burns
+  say(tl,'k_belowlab',8.0);pop(tl,'k_sat',9.5,.5);say(tl,'k_satpanel',9.5,.5);
+  tl.to([$('k_sat'),$('k_satpanel')],{y:120,opacity:.15,duration:3.4,ease:'power1.in'},11.0);
+  tl.set($('k_burn'),{opacity:1},14.5).fromTo($('k_burn'),{attr:{r:0},opacity:.85},{attr:{r:26},opacity:0,duration:1.6},14.5);
+  say(tl,'k_burnlab',15.2);
+  // above: collision → cloud
+  say(tl,'k_abovelab',20.0);pop(tl,'k_a',21.5,.4);pop(tl,'k_b',21.5,.4);
+  tl.to($('k_b'),{x:-70,duration:1.6,ease:'power1.in'},22.5);
+  shake(tl,'svg0',25.0,7,12);
+  tl.to($('k_frags').children,{opacity:1,duration:.1,stagger:.14,ease:'none'},25.2);
+  tl.to($('k_frags').children,{scale:1.15,transformOrigin:'970px 200px',duration:2.2,yoyo:true,repeat:3},29.5);
+  // kessler label
+  say(tl,'k_kess',33.0);
+  idle(tl,'k_frags',35.5,6);
+  // amber crossed
+  pop(tl,'k_cross',42.0,.5);tl.to($('k_line'),{attr:{stroke:'var(--flaw)'},duration:.7},42.0);
+  tl.to($('k_cross'),{opacity:.55,duration:1.2,repeat:5,yoyo:true},44.0);
+  // title card
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},53.5);
+  if(isAuto)tl.to({},{duration:6.0},54.2);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},57.5);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_risklab',0.5);
+  count(tl,'e_risk',20,2.8,1.5,{pre:'+',suf:'%'});
+  count(tl,'e_track',40000,3.0,7.0);say(tl,'e_tracklab',10.0);
+  count(tl,'e_frag',1200000,3.4,14.0);say(tl,'e_fraglab',17.5);
+  // marble → impact
+  pop(tl,'e_marble',22.0,.4);say(tl,'e_speed',22.6);say(tl,'e_speed2',24.0);
+  tl.to($('e_marble'),{x:420,duration:.6,ease:'power2.in'},26.5);
+  pop(tl,'e_plate',27.1,.35);shake(tl,'svg1',27.1,9,10);
+  say(tl,'e_needlab',30.5);
+  idle(tl,'e_risk',33.0,5);
+  // band + pings
+  say(tl,'e_bandbox',39.0,.4);say(tl,'e_bandlab',39.4);pop(tl,'e_band',40.5,.4);
+  tl.to($('e_pings').children,{opacity:1,duration:.14,stagger:.12,ease:'none'},42.0);
+  say(tl,'e_pingslab',45.0);
+  tl.to($('e_pings').children,{opacity:.2,duration:.9,stagger:{each:.14,repeat:9,yoyo:true}},47.0);
+  idle(tl,'e_band',49.0,14);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'c2_yax',0.5,.5);say(tl,'c2_xax',0.8,.5);say(tl,'c2_ylab',1.4);say(tl,'c2_xlab',1.4);
+  say(tl,'c2_hazelab',4.0);
+  // dial low, settle curve
+  pop(tl,'c2_dial',8.0,.5);
+  draw(tl,'c2_settle',3.0,12.0);say(tl,'c2_settlelab',16.0);
+  idle(tl,'c2_settlelab',19.0,5);
+  // dial turns to HIGH, runaway curve
+  tl.to($('c2_needle'),{rotation:120,transformOrigin:'0px 0px',duration:2.6,ease:'power2.inOut'},26.0);
+  draw(tl,'c2_run',3.2,29.0);say(tl,'c2_runlab',33.0);
+  idle(tl,'c2_runlab',36.0,6);
+  // 0 new launches, still climbs
+  pop(tl,'c2_stamp',44.0,.5);say(tl,'c2_stamplab',46.0);
+  tl.to($('c2_run'),{y:-16,duration:1.6,yoyo:true,repeat:9,ease:'sine.inOut'},49.0);
+  idle(tl,'c2_stamp',50.0,22);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  // --- pasture 0–40 ---
+  say(tl,'cm_plab',0.5);say(tl,'cm_ground',1.5,.5);
+  tl.to($('cm_grass').children,{opacity:1,duration:.14,stagger:.05},2.5);
+  pop(tl,'cm_cow',6.0,.5);say(tl,'cm_cowlab',6.6);
+  tl.to($('cm_herd').children,{opacity:1,duration:.2,stagger:.14},11.0);
+  say(tl,'cm_sharelab',12.0);
+  idle(tl,'cm_cowlab',15.0,5);
+  // grass stripped
+  tl.to($('cm_grass').children,{attr:{y2:250},opacity:.15,duration:2.0,stagger:.05},21.0);
+  say(tl,'cm_bare',26.0);
+  idle(tl,'cm_bare',29.0,9);
+  // --- orbit mirror 40–78 ---
+  say(tl,'cm_div',40.0,.5);say(tl,'cm_olab',41.0);
+  pop(tl,'cm_sat',44.0,.5);say(tl,'cm_satlab',44.6);say(tl,'cm_satlab2',46.5);
+  tl.to($('cm_slivers').children,{opacity:1,duration:.16,stagger:.14},49.0);
+  say(tl,'cm_risklab',53.0);
+  idle(tl,'cm_slivers',56.0,8);
+  // --- treaty + tag 78–114 ---
+  draw(tl,'cm_treaty',2.4,66.0);say(tl,'cm_treatylab',68.0);
+  pop(tl,'cm_tag',74.0,.5);
+  count(tl,'cm_pct',0.1,2.2,78.0,{dec:1,suf:'%'});say(tl,'cm_pctlab',81.0);
+  tl.to($('cm_tag'),{opacity:.55,duration:1.2,repeat:5,yoyo:true},84.0);
+  // ownerless stages
+  tl.to($('cm_orphans').children,{opacity:1,duration:.24,stagger:.16},94.0);
+  say(tl,'cm_orphlab',96.0);
+  tl.to($('cm_orphans').children,{opacity:.4,duration:1.1,stagger:{each:.2,repeat:5,yoyo:true}},100.0);
+  idle(tl,'cm_pct',103.0,9);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  const groups=[$('a_price'),$('a_owner'),$('a_clean'),$('a_syn')];
+  const show=(el,t)=>tl.fromTo(el,{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to(el,{opacity:0,duration:.5},t);
+  // ---- PRICE 0–58 ----
+  show(groups[0],0.5);
+  draw(tl,'pr_meter',1.8,2.0);say(tl,'pr_meterlab',3.0);
+  say(tl,'pr_study',6.0);
+  count(tl,'pr_fee',235000,3.0,9.0,{pre:'$'});say(tl,'pr_feelab',12.0);
+  // value bars
+  tl.to($('pr_bar0'),{duration:.01},14.0);say(tl,'pr_bar0lab',14.2);
+  tl.set($('pr_bar3'),{opacity:1},15.0).to($('pr_bar3'),{attr:{y:120,height:300},duration:2.0,ease:'power2.out'},15.0);
+  say(tl,'pr_bar3lab',17.0);say(tl,'pr_barnote',18.5);
+  // cost
+  say(tl,'pr_cost',22.0,.5);draw(tl,'pr_hop',1.6,24.0);say(tl,'pr_haven',25.5);
+  tl.to($('pr_haven'),{opacity:.6,duration:1.0,repeat:2,yoyo:true},27.0);
+  hide(groups[0],55.0);
+  // ---- OWNER 58–130 ----
+  show(groups[1],57.0);
+  say(tl,'ow_radiolab',59.0);
+  tl.to($('ow_radio').children,{opacity:1,duration:.15,stagger:.1},60.0);
+  say(tl,'ow_fishlab',64.0);
+  tl.to($('ow_fish').children,{opacity:1,duration:.15,stagger:.1},65.0);
+  say(tl,'ow_slotlab',69.0);
+  tl.to($('ow_slots').children,{opacity:1,duration:.2,stagger:.14},70.5);
+  // OST block OWN→USE
+  say(tl,'ow_ost',76.0,.5);
+  tl.to($('ow_own'),{opacity:.2,duration:.8},80.0);pop(tl,'ow_use',80.5,.4);
+  hide(groups[1],128.0);
+  // ---- CLEANUP 130–200 ----
+  show(groups[2],129.0);
+  say(tl,'cl_timerlab',131.0);pop(tl,'cl_timer',132.0,.4);say(tl,'cl_timernote',133.5);
+  say(tl,'cl_clawlab',137.0);draw(tl,'cl_claw',2.2,138.0);pop(tl,'cl_dead',138.0,.3);
+  tl.to($('cl_dead'),{x:300,y:222,duration:2.2,ease:'power1.in'},139.0);
+  tl.to($('cl_dead'),{opacity:0,duration:.6},141.6);say(tl,'cl_burnlab',141.0);
+  // twist
+  say(tl,'cl_twist',145.0,.5);
+  count(tl,'cl_recover',10,1.6,147.0,{pre:'< ',suf:'%'});say(tl,'cl_recoverlab',149.0);
+  draw(tl,'cl_rebound',1.8,152.0);say(tl,'cl_reboundlab',153.5);
+  idle(tl,'cl_recover',156.0,6);
+  // orphan
+  say(tl,'cl_orphan',164.0,.5);say(tl,'cl_who',166.0);
+  tl.to($('cl_who'),{opacity:.55,duration:1.1,repeat:5,yoyo:true},168.0);
+  hide(groups[2],198.0);
+  // ---- SYNTHESIS 200–226 ----
+  show(groups[3],199.0);
+  say(tl,'sy1',201.0);say(tl,'sy2',203.5);say(tl,'sy3',206.0);
+  pop(tl,'sy_wall',209.0,.5);
+  tl.to($('sy_wall'),{opacity:.7,duration:1.2,repeat:3,yoyo:true},211.0);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  say(tl,'cl2_line',0.5,.5);say(tl,'cl2_linelab',1.5);
+  say(tl,'cl2_report',5.0,.4);say(tl,'cl2_reportlab',5.4);
+  tl.fromTo($('cl2_pct'),{opacity:0,y:60},{opacity:1,y:0,duration:1.2,ease:'power2.out'},7.5);
+  say(tl,'cl2_pctlab',10.0);
+  idle(tl,'cl2_pct',13.0,5);
+  say(tl,'cl2_states',19.0);
+  idle(tl,'cl2_states',22.0,6);
+  // branches into the wall
+  draw(tl,'cl2_br1',1.4,30.0);draw(tl,'cl2_br2',1.4,30.8);draw(tl,'cl2_br3',1.4,31.6);
+  pop(tl,'cl2_wall',34.0,.5);say(tl,'cl2_walllab',34.6);
+  shake(tl,'cl2_wall',36.0,6,10);
+  // undo
+  say(tl,'cl2_undo',42.0,.8);
+  tl.to($('cl2_undo'),{opacity:.55,duration:1.4,repeat:9,yoyo:true},44.5);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode) — dashed-green revision markup */
+function setRedline(on){document.querySelectorAll('.revision').forEach(el=>el.style.opacity=on?1:0);
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  setRedline(false); // start "as built"
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.2);
+    if(s.id==='s4')tl.timeScale(3.0);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
