@@ -174,12 +174,12 @@ body.auto h2{font-size:48px}
         <!-- safety refusal dial -->
         <g id="e_dial" class="b" transform="translate(560,200)">
           <circle r="72" class="ink"/>
-          <line id="e_needle" x1="0" y1="0" x2="0" y2="-62" stroke="var(--flaw)" stroke-width="4" transform="rotate(-55)"/>
           <circle r="6" fill="var(--text)"/>
           <text x="-58" y="112" class="strong">SAFETY REFUSALS</text>
           <text x="-40" y="-88" class="b" id="e_dialhi">HIGH</text>
           <text x="30" y="-88" class="flawtxt b" id="e_diallo">LOW</text>
         </g>
+        <line id="e_needle" class="b" x1="560" y1="200" x2="560" y2="138" stroke="var(--flaw)" stroke-width="4"/>
         <text x="480" y="330" class="flawtxt b" id="e_diallab" font-size="15">TURNED DOWN — TO MEASURE THE TRUE CEILING OF ATTACK SKILL</text>
         <!-- benchmark -->
         <text x="120" y="330" class="fact b" id="e_bench" font-size="15">TEST: ExploitGym<tspan x="120" dy="22">— FIND &amp; EXPLOIT FLAWS</tspan></text>
@@ -513,7 +513,8 @@ function sc0(){const tl=gsap.timeline();
 function sc1(){const tl=gsap.timeline();
   pop(tl,'e_c1',0.5,.5);pop(tl,'e_c2',2.0,.5);
   pop(tl,'e_dial',5.0,.5);say(tl,'e_dialhi',5.5);say(tl,'e_diallo',6.0);
-  tl.to($('e_needle'),{rotation:60,transformOrigin:'0px 0px',duration:2.2,ease:'power2.inOut'},8.0);
+  tl.set($('e_needle'),{opacity:1,rotation:-55,svgOrigin:'560 200'},5.2);
+  tl.to($('e_needle'),{rotation:60,svgOrigin:'560 200',duration:2.2,ease:'power2.inOut'},8.0);
   say(tl,'e_diallab',11.0);
   say(tl,'e_bench',15.0);
   idle(tl,'e_dial',18.0,6);
