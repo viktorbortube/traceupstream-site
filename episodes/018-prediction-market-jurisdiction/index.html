@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Same Bet, Twice — How a Label Picks Your Regulator | Trace Upstream</title>
+<meta name="description" content="The same $10 bet is gambling if you call it a bet and a federally-legal investment if you call it a 'contract' — and the company picks the label. Inside a $220B market that lives in the seam between two regulators, and three real redesigns.">
+<link rel="canonical" href="https://traceupstream.com/episodes/018-prediction-market-jurisdiction/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Same Bet, Twice — How a Label Picks Your Regulator">
+<meta property="og:description" content="An interactive blueprint: how prediction markets route around 50 states' gambling laws by relabeling a bet, and three real redesigns.">
+<meta property="og:url" content="https://traceupstream.com/episodes/018-prediction-market-jurisdiction/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#7C8A80; /* desaturated sage-slate — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+/* stage */
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice — :not([font-size]) so font-size attributes win (EP.008 fix) */
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)} /* text on filled accent plates — Paper, never grey */
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0} /* beat element, revealed by timeline */
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:280px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+/* listen mode */
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:112px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1720px;padding:40px 30px}
+body.auto h2{font-size:48px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.018 — 2026-07-24</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 11:15</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="57.3">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.018</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg0">
+        <!-- the single bet slip -->
+        <g id="h_slip" class="b">
+          <rect x="650" y="60" width="180" height="110" class="nodebox"/>
+          <text x="672" y="98" class="strong">$10 BET</text>
+          <text x="672" y="122">YOUR TEAM WINS</text>
+          <text x="672" y="146">TONIGHT</text>
+        </g>
+        <!-- split into two lanes -->
+        <path id="h_lsplit" class="ink b" d="M700 170 C 600 220, 420 240, 340 280"/>
+        <path id="h_rsplit" class="ink b" d="M780 170 C 880 220, 1060 240, 1140 280"/>
+        <!-- LEFT lane: BET -->
+        <g id="h_left" class="b">
+          <rect x="220" y="290" width="240" height="70" class="nodebox" stroke="var(--flaw)"/>
+          <text x="242" y="322" class="flawtxt strong">STAMP: "BET"</text>
+          <text x="242" y="346" class="flawtxt">→ GAMBLING REGULATOR (STATE)</text>
+        </g>
+        <g id="h_lmap"></g>
+        <text x="220" y="520" class="flawtxt b" id="h_llab">LEGAL IN SOME STATES · BANNED IN OTHERS · TAXED · 21+</text>
+        <!-- RIGHT lane: CONTRACT -->
+        <g id="h_right" class="b">
+          <rect x="1020" y="290" width="240" height="70" class="nodebox" stroke="var(--alt)"/>
+          <text x="1042" y="322" class="alttxt strong">STAMP: "CONTRACT"</text>
+          <text x="1042" y="346" class="alttxt">→ FUTURES REGULATOR (FEDERAL)</text>
+        </g>
+        <g id="h_rmap"></g>
+        <text x="1020" y="520" class="alttxt b" id="h_rlab">LEGAL IN ALL 50 STATES · NO AGE GATE</text>
+        <!-- identical note -->
+        <text x="740" y="565" text-anchor="middle" class="strong b" id="h_same" font-size="16">SAME BET · SAME MONEY · SAME GAME — ONLY THE STAMP DIFFERS</text>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The same<br>bet, twice.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>Bet ten dollars that your team wins tonight. Do it through a bookmaker, and it's gambling: legal in some states, banned in others, taxed, and locked behind an age check. Now make the exact same bet through an app that calls it a "financial contract" — suddenly it's a regulated investment, legal in all fifty states, overseen by the federal agency that polices markets for wheat and oil.</p>
+      <p>Same bet, same money, same game. The only thing that changed was the word stamped on it — and that word changed who regulates it, where it's legal, and whether it's taxed. This isn't a story about whether betting is good or bad. It's about what happens when a product's rules are decided by which box it's filed in — and the company gets to pick the box.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="69.5">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · a $220 billion market</div>
+    <h2>Two courts, opposite answers.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg1">
+        <!-- timeline -->
+        <line class="ink b" id="e_axis" x1="120" y1="300" x2="1160" y2="300"/>
+        <g id="e_p1" class="b"><circle cx="180" cy="300" r="6" fill="var(--text)"/>
+          <text x="150" y="270" class="strong">JAN 2025</text><text x="150" y="340">KALSHI LISTS SPORTS CONTRACTS</text>
+          <text x="150" y="360">— SELF-CERTIFIED; CFTC SILENT</text></g>
+        <g id="e_p2" class="b"><circle cx="470" cy="300" r="6" fill="var(--text)"/>
+          <text x="440" y="270" class="strong">STATES</text><text x="440" y="340">CEASE-AND-DESIST →</text><text x="440" y="360">KALSHI SUES BACK</text></g>
+        <g id="e_p3" class="b"><circle cx="760" cy="300" r="6" fill="var(--alt)"/>
+          <text x="700" y="270" class="alttxt strong">APRIL 2026</text><text x="700" y="340" class="alttxt">APPEALS COURT</text><text x="700" y="360" class="alttxt">→ FOR THE PLATFORM</text></g>
+        <g id="e_p4" class="b"><circle cx="980" cy="300" r="6" fill="var(--flaw)"/>
+          <text x="920" y="270" class="flawtxt strong">JULY 2026</text><text x="920" y="340" class="flawtxt">NEW YORK COURT</text><text x="920" y="360" class="flawtxt">→ FOR THE STATES</text></g>
+        <g id="e_scotus" class="b"><rect x="1120" y="250" width="120" height="100" class="ink"/>
+          <path d="M1120 250 l60 -34 l60 34" class="ink"/>
+          <text x="1128" y="380" class="strong">SUPREME COURT?</text></g>
+        <!-- volume counter -->
+        <text x="120" y="120" class="b" id="e_vollab">MONTHLY TRADING, KALSHI + POLYMARKET</text>
+        <text x="120" y="185" class="big flawtxt b" font-size="64" id="e_vol">$0B</text>
+        <text x="420" y="185" class="b" id="e_volfrom">↑ FROM ~$28B A YEAR AGO — ROUGHLY 8×</text>
+        <text x="120" y="470" class="strong b" id="e_over" font-size="16">2026: PREDICTION MARKETS OVERTOOK SPORTS BETTING FOR THE FIRST TIME</text>
+      </svg>
+      <div class="figcap">Fig. 1 — one product, a self-certified label, and a court split · sources: Semafor, Norton Rose Fulbright, court filings</div>
+    </div>
+    <div class="prose">
+      <p>The platform at the centre is Kalshi. Since January 2025 it has offered contracts that pay out on the result of sporting events — betting on games, in plain terms — listed by certifying, itself, that they were financial products, while the federal futures regulator (the CFTC) took no action to stop it.</p>
+      <p>Then the money arrived: monthly trading across Kalshi and Polymarket jumped roughly eightfold in a year, from about $28 billion to around $220 billion, and prediction markets overtook traditional sports betting for the first time. States sent legal warnings; Kalshi sued back. In April a federal appeals court sided with the platform; this July a New York court sided with the states. Same question, opposite answers — which usually means only the Supreme Court can settle it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 THE LABEL PICKS THE REGULATOR ================= -->
+<section class="ep" id="s2" data-duration="88.4">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Label</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The mechanism · The seller writes the label</div>
+    <h2>The parcel is the same. The label decides.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg2">
+        <!-- customs analogy -->
+        <text x="120" y="80" class="strong b" id="s_cuslab" font-size="15">A PARCEL AT CUSTOMS —</text>
+        <rect id="s_parcel" class="ink b" x="120" y="110" width="90" height="70"/>
+        <path id="s_fork" class="ink b" d="M210 145 L320 110 M210 145 L320 210"/>
+        <g id="s_gift" class="b"><rect x="330" y="88" width="150" height="48" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="348" y="118">"GIFT" — RULES A</text></g>
+        <g id="s_goods" class="b"><rect x="330" y="188" width="200" height="48" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="348" y="218">"GOODS" — RULES B (TAX, LIMITS)</text></g>
+        <text x="120" y="290" class="b" id="s_cusnote">SAME PARCEL EITHER WAY — THE LABEL DECIDES ITS FATE</text>
+        <!-- the bet version -->
+        <line x1="120" y1="330" x2="1360" y2="330" stroke="var(--grid)" stroke-width="1.5" class="b" id="s_div"/>
+        <g id="s_betbox" class="b"><rect x="120" y="360" width="150" height="60" class="nodebox"/>
+          <text x="152" y="396" class="strong">THE BET</text></g>
+        <path id="s_drop" class="amber b" d="M270 390 C 380 390, 440 400, 520 400" stroke-dasharray="4 5"/>
+        <g id="s_swap" class="b"><rect x="520" y="368" width="260" height="64" fill="none" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="538" y="398" class="flawtxt strong">SELF-LABELLED: "SWAP"</text>
+          <text x="538" y="420">— THE SELLER WRITES IT</text></g>
+        <g id="s_cftc" class="b"><rect x="840" y="368" width="230" height="64" class="nodebox" stroke="var(--text-dim)"/>
+          <text x="858" y="398">CFTC GLANCES…</text><text x="858" y="420" class="flawtxt">"NO ACTION" FOR A YEAR</text></g>
+        <!-- exclusive -->
+        <text x="1110" y="392" class="big flawtxt b" font-size="30" id="s_excl">"EXCLUSIVE"</text>
+        <text x="1110" y="418" class="b" id="s_excllab">ONE WORD → 50 STATE LAWS OFF</text>
+        <!-- the flaw -->
+        <g id="s_flaw" class="b">
+          <rect x="120" y="480" width="1240" height="56" fill="var(--flaw)"/>
+          <text x="142" y="516" class="onplate" font-size="17">THE REGULATED PARTY CHOSE ITS OWN REGULATOR — AND REASONABLY CHOSE THE LIGHTEST, WIDEST ONE</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 2 — self-certification: the seller places its own product in the box · one word routes 50 states' laws</div>
+    </div>
+    <div class="prose">
+      <p>Picture a parcel at customs. Labelled "a gift," one set of rules applies; labelled "goods for sale," a different set — different taxes, different limits. The parcel is identical; the label decides its fate. Financial products work the same way, and here is the crucial part: for these contracts, the company writes its own label. Under <b>self-certification</b>, a registered exchange can launch a product simply by certifying, itself, that it's a legitimate financial contract. The regulator can object — but if it stays quiet, the label sticks. For over a year, it stayed quiet.</p>
+      <p>So the platform placed its own bet into the box marked "financial swap" — a category built for traders hedging prices, not for bettors. That word pulls it under the futures regulator, which Congress gave <b>exclusive</b> authority over such contracts. And "exclusive" is powerful: courts have found it can switch off the gambling laws of all fifty states at once. The regulated party effectively chose its own regulator.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE CLAUSE THAT BECAME A WEAPON ================= -->
+<section class="ep" id="s3" data-duration="97.9">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · A clause aimed the wrong way</div>
+    <h2>Built for wheat. Aimed at sports bets.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg3">
+        <!-- US map (simplified grid of states) -->
+        <g id="l_map"></g>
+        <text x="120" y="90" class="b" id="l_maplab">STATE GAMBLING LAWS — ENFORCED FOR GENERATIONS</text>
+        <!-- federal shield drops -->
+        <g id="l_shield" class="b">
+          <path d="M740 120 l120 34 v70 q0 90 -120 150 q-120 -60 -120 -150 v-70 z" fill="var(--fact)" opacity=".92"/>
+          <text x="662" y="230" class="onplate" font-size="15">EXCLUSIVE</text>
+          <text x="666" y="252" class="onplate" font-size="15">JURISDICTION</text>
+        </g>
+        <text x="120" y="470" class="b" id="l_origin">THE CLAUSE WAS WRITTEN FOR DERIVATIVES — WHEAT &amp; OIL PRICE HEDGING — TO STOP 50 RULEBOOKS SPLITTING ONE NATIONAL MARKET</text>
+        <!-- reframed meaning -->
+        <text x="120" y="510" class="flawtxt b" id="l_reframe">AIMED AT SPORTS BETS, "NO OVERLAP" BECOMES "STATE LAW DOES NOT APPLY" (PREEMPTION)</text>
+        <!-- counterweight -->
+        <text x="120" y="555" class="fact b" id="l_counter">COUNTERWEIGHT: "PRESUMPTION AGAINST PREEMPTION" WHERE STATES HAVE ALWAYS GOVERNED — LIKE GAMBLING</text>
+        <!-- who stands where -->
+        <g id="l_sides" class="b">
+          <rect x="880" y="120" width="480" height="150" fill="none" stroke="var(--grid)" stroke-width="1.5"/>
+          <text x="900" y="152" class="strong" font-size="15">IT DEFIES THE USUAL SCRIPT:</text>
+          <text x="900" y="190" class="fact">FEDERAL GOV'T (DOJ + CFTC) → DEFENDS THE PLATFORMS</text>
+          <text x="900" y="222" class="flawtxt">STATES SUING BACK → RED AND BLUE ALIKE</text>
+          <text x="900" y="254" class="strong">NOT LEFT vs RIGHT — CENTRE vs STATES</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — an anti-overlap clause becomes a preemption weapon · the split runs through the statute, not the parties</div>
+    </div>
+    <div class="prose">
+      <p>The word "exclusive" comes from a law written to organise the <b>derivatives</b> markets — the futures and swaps that let farmers and airlines lock in prices. Congress gave the futures regulator exclusive authority there so a single national market wouldn't be pulled apart by fifty state rulebooks. It was meant to remove overlap.</p>
+      <p>But a clause built to prevent chaos in wheat and oil is now aimed at sports bets — and pointed there, "exclusive" stops meaning "no overlap" and starts meaning "state law does not apply." Courts call this <b>preemption</b>: federal law overriding state law in a field Congress has claimed. The counterweight is a long-standing "presumption against preemption" where states have always governed, like gambling — and that is exactly what the courts can't agree on. Notice who stands where: the federal government has sued to defend the platforms; the states lining up against them are red and blue alike. This isn't left versus right — it's the centre versus the states.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE ALTERNATIVES ================= -->
+<section class="ep" id="s4" data-duration="151">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The Alternatives</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Move the decision off the label</div>
+    <h2>Judge by function, draw the line, or carve it out.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg4">
+        <!-- FUNCTION -->
+        <g class="b" id="a_func">
+          <text x="120" y="80" class="alttxt" font-size="16">DESIGN A · REGULATE BY WHAT IT DOES, NOT ITS NAME</text>
+          <rect x="120" y="150" width="200" height="60" class="nodebox" stroke="var(--flaw)"/>
+          <text x="142" y="187">CALLED "A BET"</text>
+          <rect x="120" y="240" width="200" height="60" class="nodebox" stroke="var(--alt)"/>
+          <text x="142" y="277">CALLED "A SWAP"</text>
+          <path id="a_f1" class="green revision" d="M320 180 C 480 180, 540 220, 640 230"/>
+          <path id="a_f2" class="green revision" d="M320 270 C 480 270, 540 240, 640 240"/>
+          <g id="a_onebook" class="b"><rect x="640" y="205" width="280" height="70" class="nodebox"/>
+            <text x="662" y="238" class="strong">ONE RULEBOOK</text><text x="662" y="262">— STAMPED BY ACTIVITY &amp; RISK</text></g>
+          <text x="120" y="360" class="b" id="a_funclab">"SAME ACTIVITY, SAME RISK, SAME RULES" — ADOPTED FOR CRYPTO BY GLOBAL REGULATORS</text>
+          <g id="a_funccost" class="b">
+            <rect x="980" y="150" width="380" height="150" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="1002" y="186" class="flawtxt" font-size="14">THE COST:</text>
+            <text x="1002" y="220">DECIDING WHAT IS THE "SAME ACTIVITY"</text>
+            <text x="1002" y="244">IS ITSELF A JUDGEMENT CALL —</text>
+            <text x="1002" y="280" class="flawtxt">IT DOESN'T SAY WHICH RULES TO APPLY</text>
+          </g>
+        </g>
+        <!-- LINE -->
+        <g class="b" id="a_line">
+          <text x="120" y="80" class="alttxt" font-size="16">DESIGN B · DRAW THE LINE BY STATUTE, NOT BY THE SELLER</text>
+          <rect x="180" y="180" width="240" height="70" class="nodebox" stroke="var(--alt)"/>
+          <text x="202" y="220" class="strong">DERIVATIVE</text>
+          <line id="a_statline" class="green revision" x1="560" y1="140" x2="560" y2="320"/>
+          <text x="470" y="130" class="alttxt b" id="a_linelab2">CONGRESS DEFINES "EVENT CONTRACT"</text>
+          <rect x="700" y="180" width="240" height="70" class="nodebox" stroke="var(--flaw)"/>
+          <text x="722" y="220" class="strong">A BET</text>
+          <text x="180" y="360" class="b" id="a_linelab">THE BOUNDARY IS SET BY LAWMAKERS — NOT BY A COMPANY CERTIFYING ITS OWN PRODUCT</text>
+          <g id="a_linecost" class="b">
+            <rect x="980" y="150" width="380" height="180" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="1002" y="186" class="flawtxt" font-size="14">THE COST:</text>
+            <text x="1002" y="220">SLOW &amp; POLITICAL (STATES LOSE CASINO $)</text>
+            <text x="1002" y="252">A LINE TODAY FREEZES A MOVING PRODUCT</text>
+            <text x="1002" y="290" class="flawtxt">WHOEVER WINS THE RIGHT TO REGULATE</text>
+            <text x="1002" y="312" class="flawtxt">SHAPES THE WHOLE MARKET</text>
+          </g>
+        </g>
+        <!-- CARVE-OUT -->
+        <g class="b" id="a_carve">
+          <text x="120" y="80" class="alttxt" font-size="16">DESIGN C · CARVE IT OUT BY LAW — THE UK MODEL</text>
+          <g id="a_gamb"><rect x="180" y="170" width="240" height="90" class="nodebox" stroke="var(--flaw)"/>
+            <text x="202" y="205" class="flawtxt">GAMBLING REGULATOR</text><text x="202" y="232">(spread betting)</text></g>
+          <path id="a_lift" class="green revision" d="M420 200 C 560 180, 640 200, 760 210"/>
+          <g id="a_fca"><rect x="760" y="170" width="260" height="90" class="nodebox" stroke="var(--alt)"/>
+            <text x="782" y="205" class="alttxt">FINANCIAL REGULATOR (FCA)</text><text x="782" y="232">+ LEVERAGE CAPS</text></g>
+          <text x="180" y="330" class="b" id="a_carvelab">PARLIAMENT MOVED SPREAD BETTING OUT OF GAMBLING, INTO FINANCE — BOUNDARY SET BY LAW, NOT THE SELLER</text>
+          <g id="a_carvecost" class="b">
+            <rect x="180" y="380" width="900" height="120" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="202" y="416" class="flawtxt" font-size="14">THE COST:</text>
+            <text x="202" y="452">A LASTING ODDITY — THE TAXMAN STILL CALLS IT "GAMBLING" WHILE THE FCA CALLS IT "FINANCE";</text>
+            <text x="202" y="480">ARGUMENTS OVER WHICH EVENTS COUNT AS "FINANCIAL" NEVER FULLY WENT AWAY</text>
+          </g>
+        </g>
+        <!-- SYNTHESIS -->
+        <g class="b" id="a_syn">
+          <text x="200" y="150" class="big" font-size="28">THREE WAYS TO MOVE THE DECISION OFF THE LABEL:</text>
+          <text x="200" y="230" class="alttxt b" id="sy1" font-size="20">→ JUDGE BY FUNCTION — SAME ACTIVITY, SAME RULES</text>
+          <text x="200" y="290" class="alttxt b" id="sy2" font-size="20">→ DRAW THE LINE — CONGRESS DEFINES THE BOUNDARY</text>
+          <text x="200" y="350" class="alttxt b" id="sy3" font-size="20">→ CARVE IT OUT — STATUTE ASSIGNS ONE REGULATOR</text>
+          <g id="sy_wall" class="b">
+            <rect x="200" y="410" width="1120" height="56" fill="var(--flaw)"/>
+            <text x="222" y="447" class="onplate" font-size="18">EACH TRADES SPEED, SIMPLICITY, OR SETTLED TURF TO GET THERE</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 4 — three redlined redesigns · dashed green = revision markup · each with its named cost</div>
+    </div>
+    <div class="prose">
+      <p><b>Judge by function:</b> regulate what a product does, not what it's called — "same activity, same risk, same rules," the principle global regulators adopted for crypto. The cost: deciding when two products really are the "same activity" is itself a judgement call, and the principle doesn't say which rules to apply.</p>
+      <p><b>Draw the line:</b> Congress could define an "event contract" precisely and mark where a derivative ends and a bet begins — set by lawmakers, not a self-certifying company. The cost: slow and political (states lose casino revenue), a bright line freezes a fast-moving product, and whoever wins the right to regulate shapes the whole market.</p>
+      <p><b>Carve it out:</b> Britain lifted financial spread betting out of the gambling regulator and into the financial one, with leverage caps — boundary set by statute. The cost: a lasting tax-versus-rules oddity, and disputes over which events count as "financial" never fully went away.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THE CLOSE ================= -->
+<section class="ep" id="s5" data-duration="51.3">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · What a thing is, or what we call it</div>
+    <h2>Who gets to choose the box?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg5">
+        <!-- two identical slips -->
+        <g id="c_left" class="b"><rect x="260" y="120" width="200" height="130" class="nodebox"/>
+          <text x="282" y="158" class="strong">$10 · TEAM WINS</text><text x="282" y="184">STAMP:</text>
+          <text x="282" y="214" class="flawtxt strong" id="c_lstamp" font-size="18">"BET"</text></g>
+        <g id="c_right" class="b"><rect x="1020" y="120" width="200" height="130" class="nodebox"/>
+          <text x="1042" y="158" class="strong">$10 · TEAM WINS</text><text x="1042" y="184">STAMP:</text>
+          <text x="1042" y="214" class="alttxt strong" id="c_rstamp" font-size="18">"CONTRACT"</text></g>
+        <text x="740" y="150" text-anchor="middle" class="b" id="c_ident">WORD-FOR-WORD IDENTICAL</text>
+        <text x="740" y="300" text-anchor="middle" class="strong b" id="c_flow" font-size="16">EVERYTHING THAT DIFFERS — REGULATOR, LEGALITY, TAX, AGE GATE — FLOWS FROM ONE STAMPED WORD</text>
+        <text x="740" y="380" text-anchor="middle" class="big b" font-size="30" id="c_q1">WHO GETS TO CHOOSE THE BOX —</text>
+        <text x="740" y="425" text-anchor="middle" class="big flawtxt b" font-size="30" id="c_q2">AND SHOULD IT BE THE ONE SELLING IT?</text>
+        <text x="740" y="490" text-anchor="middle" class="b" id="c_end">SET THE RULE BY WHAT A THING IS — OR BY WHAT WE AGREE TO CALL IT?</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Go back to the two slips. They are word-for-word identical: the same ten dollars, on the same game, at the same odds. Everything that differs — the regulator, the map of where it's legal, the tax, the age gate — flows from a single word someone chose to stamp on top.</p>
+      <p>That's the quiet machinery under a two-hundred-billion-dollar market: not a verdict on whether the bet is wise, but a question the law never cleanly answered. When a new product can be filed in more than one box, who gets to choose the box — and should the answer really be the person selling it? The market has already grown faster than the courts can decide. The open question is whether we set the rule by what a thing is, or by what we agree to call it.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <rect x="120" y="120" width="180" height="120" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <text x="140" y="175" class="onplate" font-family="IBM Plex Mono" font-size="26" style="fill:var(--flaw)">"BET"</text>
+    <rect x="330" y="120" width="180" height="120" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <text x="350" y="175" font-family="IBM Plex Mono" font-size="22" style="fill:var(--alt)">"CONTRACT"</text>
+    <text x="212" y="215" font-family="IBM Plex Mono" font-size="20" style="fill:var(--text-dim)">$10</text>
+    <text x="405" y="215" font-family="IBM Plex Mono" font-size="20" style="fill:var(--text-dim)">$10</text>
+    <path d="M120 330 L510 330" stroke="var(--text)" stroke-width="3" stroke-dasharray="2 10"/>
+    <text x="150" y="400" font-family="IBM Plex Mono" font-size="24" style="fill:var(--flaw)">state law</text>
+    <text x="330" y="400" font-family="IBM Plex Mono" font-size="24" style="fill:var(--alt)">50 states OK</text>
+  </svg>
+  <div class="ttxt">The same<br><em>bet, twice</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <rect x="150" y="140" width="320" height="90" fill="none" stroke="var(--text)" stroke-width="5"/>
+    <text x="185" y="198" font-family="Space Grotesk" font-weight="700" font-size="40" style="fill:var(--text)">$220B</text>
+    <path d="M200 300 C 300 300, 320 420, 200 480" stroke="var(--flaw)" stroke-width="6" fill="none"/>
+    <path d="M420 300 C 320 300, 300 420, 420 480" stroke="var(--alt)" stroke-width="6" fill="none" stroke-dasharray="14 12"/>
+    <text x="250" y="400" font-family="IBM Plex Mono" font-size="26" style="fill:var(--text-dim)">gambling?</text>
+    <text x="330" y="560" font-family="IBM Plex Mono" font-size="26" style="fill:var(--text-dim)">or futures?</text>
+  </svg>
+  <div class="ttxt" style="font-size:92px">Gamble or<br><em>investment?</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.5,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+/* ---------- dynamic bits ---------- */
+// S0 mini US maps (left patchy red/green, right all green)
+function miniMap(gid,mode){const g=$(gid);let s='';for(let r=0;r<4;r++)for(let c=0;c<6;c++){
+  const x=(gid==='h_lmap'?220:1020)+c*38, y=380+r*30;
+  let fill='none',stroke=mode==='patchy'?((r*6+c)%3===0?'var(--flaw)':'var(--text-dim)'):'var(--alt)';
+  if(mode==='patchy'&&(r*6+c)%3===0)fill='var(--flaw)'; if(mode==='green')fill='var(--alt)';
+  s+=`<rect class="ms" x="${x}" y="${y}" width="30" height="24" fill="${fill}" fill-opacity="${fill==='none'?0:.18}" stroke="${stroke}" stroke-width="1.5"/>`;}
+  g.innerHTML=s;}
+miniMap('h_lmap','patchy'); miniMap('h_rmap','green');
+// S3 big US map grid
+(()=>{const g=$('l_map');let s='';for(let r=0;r<5;r++)for(let c=0;c<9;c++){const x=120+c*82,y=120+r*62;
+  s+=`<rect class="st" x="${x}" y="${y}" width="70" height="50" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
+      <line class="sf" x1="${x+10}" y1="${y+40}" x2="${x+60}" y2="${y+40}" stroke="var(--fact)" stroke-width="3" opacity="0"/>`;}g.innerHTML=s;})();
+
+/* ---------- scene timelines (positions in real seconds, matched to script beats) ---------- */
+function sc0(){const tl=gsap.timeline();
+  pop(tl,'h_slip',0.5,.5);
+  draw(tl,'h_lsplit',1.4,4.0);draw(tl,'h_rsplit',1.4,4.0);
+  // LEFT
+  pop(tl,'h_left',8.0,.5);
+  tl.to($('h_lmap').children,{opacity:1,duration:.1,stagger:.03},11.0);say(tl,'h_llab',14.0);
+  idle(tl,'h_llab',17.0,4);
+  // RIGHT
+  pop(tl,'h_right',23.0,.5);
+  tl.to($('h_rmap').children,{opacity:1,duration:.1,stagger:.03},26.0);say(tl,'h_rlab',29.0);
+  idle(tl,'h_rlab',32.0,4);
+  // identical note
+  say(tl,'h_same',40.0);
+  tl.to([$('h_left'),$('h_right')],{opacity:.6,duration:1.1,repeat:5,yoyo:true},43.0);
+  // title
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},57.0);
+  if(isAuto)tl.to({},{duration:5.5},57.7);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},61.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_axis',0.5,.5);
+  say(tl,'e_p1',3.0,.5);
+  say(tl,'e_vollab',7.0);count(tl,'e_vol',220,3.0,8.0,{pre:'$',suf:'B'});say(tl,'e_volfrom',11.5);
+  say(tl,'e_over',15.0);
+  idle(tl,'e_vol',18.0,6);
+  say(tl,'e_p2',26.0,.5);
+  say(tl,'e_p3',33.0,.5);
+  say(tl,'e_p4',39.0,.5);
+  shake(tl,'svg1',44.0,6,8);
+  pop(tl,'e_scotus',47.0,.5);
+  idle(tl,'e_scotus',50.0,10);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'s_cuslab',0.5);say(tl,'s_parcel',1.2,.4);draw(tl,'s_fork',1.0,2.2);
+  pop(tl,'s_gift',4.0,.4);pop(tl,'s_goods',5.5,.4);say(tl,'s_cusnote',8.0);
+  idle(tl,'s_cusnote',11.0,5);
+  // the bet
+  say(tl,'s_div',20.0,.4);pop(tl,'s_betbox',21.0,.4);
+  draw(tl,'s_drop',1.6,23.0);pop(tl,'s_swap',25.0,.4);say(tl,'s_swap',25.0,.1);
+  pop(tl,'s_cftc',31.0,.4);
+  idle(tl,'s_swap',35.0,5);
+  // exclusive
+  pop(tl,'s_excl',44.0,.5);say(tl,'s_excllab',46.0);
+  tl.to($('s_excl'),{opacity:.55,duration:1.0,repeat:5,yoyo:true},48.0);
+  // flaw plate
+  pop(tl,'s_flaw',58.0,.6);shake(tl,'s_flaw',59.0,6,8);
+  idle(tl,'s_flaw',61.0,26);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  tl.to($('l_map').querySelectorAll('.st'),{opacity:1,duration:.1,stagger:.02},0.5);
+  tl.to($('l_map').querySelectorAll('.sf'),{opacity:1,duration:.1,stagger:.02},2.0);
+  say(tl,'l_maplab',3.0);
+  idle(tl,'l_maplab',6.0,5);
+  // shield drops
+  tl.fromTo($('l_shield'),{opacity:0,y:-80},{opacity:1,y:0,duration:1.0,ease:'power2.in'},16.0);
+  shake(tl,'svg3',17.0,7,8);
+  tl.to($('l_map').querySelectorAll('.sf'),{opacity:.12,duration:1.2},17.5); // state laws switch off
+  say(tl,'l_origin',24.0);
+  idle(tl,'l_origin',28.0,6);
+  say(tl,'l_reframe',40.0);
+  say(tl,'l_counter',48.0);
+  idle(tl,'l_counter',52.0,6);
+  // who stands where
+  say(tl,'l_sides',66.0,.6);
+  idle(tl,'l_sides',72.0,34);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  const groups=[$('a_func'),$('a_line'),$('a_carve'),$('a_syn')];
+  const show=(el,t)=>tl.fromTo(el,{opacity:0},{opacity:1,duration:.6},t);
+  const hide=(el,t)=>tl.to(el,{opacity:0,duration:.5},t);
+  // ---- FUNCTION 0–48 ----
+  show(groups[0],0.5);
+  draw(tl,'a_f1',1.6,3.0);draw(tl,'a_f2',1.6,3.0);pop(tl,'a_onebook',5.0,.5);
+  say(tl,'a_funclab',9.0);
+  say(tl,'a_funccost',16.0,.5);
+  idle(tl,'a_onebook',24.0,20);
+  hide(groups[0],46.0);
+  // ---- LINE 48–104 ----
+  show(groups[1],47.0);
+  draw(tl,'a_statline',1.4,50.0);say(tl,'a_linelab2',51.5);
+  say(tl,'a_linelab',56.0);
+  say(tl,'a_linecost',63.0,.5);
+  idle(tl,'a_linelab2',72.0,26);
+  hide(groups[1],102.0);
+  // ---- CARVE 104–152 ----
+  show(groups[2],103.0);
+  draw(tl,'a_lift',2.0,106.0);
+  say(tl,'a_carvelab',112.0);
+  say(tl,'a_carvecost',119.0,.5);
+  idle(tl,'a_carvelab',126.0,22);
+  hide(groups[2],150.0);
+  // ---- SYNTHESIS 152–182 ----
+  show(groups[3],151.0);
+  say(tl,'sy1',154.0);say(tl,'sy2',157.0);say(tl,'sy3',160.0);
+  pop(tl,'sy_wall',164.0,.5);
+  tl.to($('sy_wall'),{opacity:.7,duration:1.2,repeat:6,yoyo:true},166.0);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  pop(tl,'c_left',0.5,.5);pop(tl,'c_right',0.5,.5);say(tl,'c_ident',3.0);
+  say(tl,'c_flow',8.0);
+  // the stamps swap
+  tl.to([$('c_lstamp'),$('c_rstamp')],{opacity:0,duration:.4},13.0)
+    .call(()=>{$('c_lstamp').textContent='"CONTRACT"';$('c_lstamp').setAttribute('class','alttxt strong');
+               $('c_rstamp').textContent='"BET"';$('c_rstamp').setAttribute('class','flawtxt strong');},[],13.5)
+    .to([$('c_lstamp'),$('c_rstamp')],{opacity:1,duration:.4},13.6);
+  say(tl,'c_q1',18.0);say(tl,'c_q2',20.5);
+  say(tl,'c_end',26.0);
+  tl.to($('c_q2'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},29.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5};
+
+/* redline toggle (web mode) — dashed-green revision markup */
+function setRedline(on){document.querySelectorAll('.revision').forEach(el=>el.style.opacity=on?1:0);
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>master.play();
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  setRedline(false); // start "as built"
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.2);
+    if(s.id==='s4')tl.timeScale(3.0);
+    if(s.id==='s3')tl.timeScale(2.4);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
