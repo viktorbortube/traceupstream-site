@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fires We Fought Too Well — Europe's Wildfire Design Flaw | Trace Upstream</title>
+<meta name="description" content="Europe has never been better at putting out fires, and the fires have never been worse. Every small fire stopped is fuel that did not burn — until a hillside carries more than any fire service can physically fight. The blueprint, and three real redesigns.">
+<link rel="canonical" href="https://traceupstream.com/episodes/019-wildfire-fuel-maintenance/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="The Fires We Fought Too Well">
+<meta property="og:description" content="An interactive blueprint: why a continent that keeps getting better at fighting wildfires keeps getting worse wildfires — and what it costs to fix.">
+<meta property="og:url" content="https://traceupstream.com/episodes/019-wildfire-fuel-maintenance/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#8B9179; /* desaturated olive-grey — pasture / dry hillside; decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice — :not([font-size]) so font-size attributes win (EP.008 fix) */
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)} /* text on filled accent plates — Paper, never grey */
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:300px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+/* listen mode */
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+/* controls (interactive-only) */
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim{margin-top:14px;border:1px solid var(--grid);background:var(--bg-raised);padding:18px 20px;
+  display:grid;grid-template-columns:1fr 1fr;gap:16px 28px;align-items:center}
+.sim label{font-family:var(--font-mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-dim);display:block;margin-bottom:7px}
+.sim input[type=range]{width:100%;accent-color:var(--text)}
+.sim .out{grid-column:1/-1;border-top:1px solid var(--grid);padding-top:14px;display:flex;
+  align-items:baseline;gap:14px;flex-wrap:wrap}
+.sim .out b{font-family:var(--font-display);font-size:34px;color:var(--flaw)}
+.sim .out span{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+body.auto .sim{display:none}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .ttxt{position:absolute;left:70px;bottom:80px;font-family:var(--font-display);font-weight:700;
+  font-size:104px;line-height:1.0;text-transform:uppercase;color:var(--text)}
+.thumbframe .ttxt em{font-style:normal;color:var(--flaw)}
+.thumbframe svg{position:absolute;right:40px;top:40px;width:620px;height:640px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.019 — 2026-07-25</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 15:58</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="79.2">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.019</div>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg0">
+        <!-- ---- coast scene ---- -->
+        <g id="h_coast">
+          <path id="hc_shore" class="ink b" d="M60 400 C 300 360, 520 424, 780 392 C 1020 362, 1240 420, 1420 386"/>
+          <g id="hc_sea" class="b">
+            <path class="hair" d="M100 448 h180 M340 448 h150 M560 448 h200 M820 448 h160 M1050 448 h190"/>
+            <path class="hair" d="M140 486 h220 M430 486 h180 M690 486 h210 M960 486 h230"/>
+            <path class="hair" d="M180 524 h260 M520 524 h200 M790 524 h240 M1090 524 h180"/>
+          </g>
+          <g id="hc_glow" class="b">
+            <path d="M120 340 C 260 296, 420 330, 560 300 C 700 270, 860 316, 1000 288 C 1140 262, 1300 306, 1420 280"
+                  stroke="var(--flaw)" stroke-width="3" fill="none"/>
+            <path d="M120 300 C 280 262, 440 292, 600 262 C 760 232, 920 276, 1080 248 C 1220 224, 1340 262, 1420 244"
+                  stroke="var(--flaw)" stroke-width="2" fill="none" opacity=".55"/>
+            <text x="1180" y="212" class="flawtxt strong" font-size="16">FIRE FRONT — INLAND</text>
+          </g>
+          <g id="hc_road" class="b">
+            <path d="M620 392 L 660 250" stroke="var(--text)" stroke-width="3" fill="none"/>
+            <text x="672" y="248" class="strong">THE ROAD OUT</text>
+          </g>
+          <g id="hc_roadx" class="b">
+            <path d="M604 336 L 690 296 M604 296 L 690 336" stroke="var(--flaw)" stroke-width="5" fill="none"/>
+          </g>
+          <g id="hc_people" class="b">
+            <g stroke="var(--text)" stroke-width="2.5" fill="none">
+              <path d="M300 392 v-22 M292 380 h16 M300 370 v-8"/><circle cx="300" cy="362" r="6"/>
+              <path d="M330 392 v-22 M322 380 h16 M330 370 v-8"/><circle cx="330" cy="362" r="6"/>
+              <path d="M360 392 v-22 M352 380 h16 M360 370 v-8"/><circle cx="360" cy="362" r="6"/>
+            </g>
+            <text x="286" y="424" class="strong">CAP FERRET — FULL EVACUATION</text>
+          </g>
+          <g id="hc_boat" class="b">
+            <path d="M430 452 l112 0 l-16 30 l-80 0 z" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+            <path d="M486 452 v-30 l40 22 z" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          </g>
+          <g id="hc_nums" class="b">
+            <text x="60" y="90" class="big flawtxt" font-size="60" id="hc_n1">0</text>
+            <text x="60" y="122" font-size="14">LEFT THEIR HOMES · FRANCE + SPAIN</text>
+            <text x="600" y="90" class="strong" font-size="20">NATIONAL EMERGENCY</text>
+            <text x="600" y="122" font-size="14">DECLARED IN SPAIN</text>
+            <text x="1080" y="90" class="strong flawtxt" font-size="20">3 FIREFIGHTERS KILLED</text>
+            <text x="1080" y="122" font-size="14">IN ONE WEEK, ACROSS THREE COUNTRIES</text>
+          </g>
+        </g>
+        <!-- ---- portugal chart ---- -->
+        <g id="h_chart" class="b">
+          <text x="120" y="86" class="strong" font-size="18">PORTUGAL — FIRES CAUGHT WHILE STILL SMALL</text>
+          <text x="120" y="112" font-size="14">THE LONGEST FIRE RECORDS IN EUROPE</text>
+          <line class="hair" x1="200" y1="480" x2="1320" y2="480"/>
+          <line class="hair" x1="200" y1="180" x2="200" y2="480"/>
+          <text x="130" y="486" font-size="14">0%</text>
+          <text x="122" y="186" font-size="14">100%</text>
+          <path id="hch_line" class="blue" stroke-width="4" d="M200 330 C 520 322, 760 250, 1080 218 C 1180 208, 1260 206, 1320 204"/>
+          <g id="hch_p1" class="b"><circle cx="200" cy="330" r="7" fill="var(--fact)"/>
+            <text x="176" y="520" class="fact strong" font-size="18">1980 · 50%</text></g>
+          <g id="hch_p2" class="b"><circle cx="1080" cy="218" r="7" fill="var(--fact)"/>
+            <text x="1010" y="520" class="fact strong" font-size="18">2006 · 91%</text></g>
+          <text x="200" y="560" class="strong b" id="hch_q" font-size="22">SO WHY ARE THE FIRES GETTING WORSE?</text>
+        </g>
+        <!-- ---- sheep ---- -->
+        <g id="h_sheep" class="b">
+          <text x="120" y="120" class="strong" font-size="18">SPAIN — SHEEP, LAST 25 YEARS</text>
+          <g id="hs_flock"></g>
+          <text x="120" y="520" class="big flawtxt" font-size="56" id="hs_n">0</text>
+          <text x="120" y="556" font-size="16">ANIMALS GONE — AND NOBODY TOOK OVER THEIR JOB</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">The fires we<br>fought too well.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>This week, on a peninsula in south-west France, people were taken off the beaches by boat — not because the holiday had ended, but because the road out was gone. Across France and Spain, more than 250,000 people left their homes in a matter of days. Spain declared a national emergency. Three firefighters were killed.</p>
+      <p>And here is the part that is hard to square. Europe has never been better at fighting fires than it is right now. Portugal, which keeps the longest fire records in Europe, caught about half its fires while they were still small in 1980; by 2006 it was catching nine out of ten. So how does a continent get better at stopping fires every year and end up with worse fires anyway? The answer starts somewhere that sounds unrelated: over 25 years, Spain has lost almost eleven million sheep — and nobody took over the job those sheep were doing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="95.2">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · 23–25 July 2026</div>
+    <h2>Two countries, one week.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg1">
+        <!-- schematic France / Spain -->
+        <g id="e_land" class="b">
+          <path class="ink" d="M380 104 L684 90 L760 194 L703 293 L503 320 L380 236 Z"/>
+          <text x="494" y="158" class="strong" font-size="17">FRANCE</text>
+          <path class="ink" d="M408 375 L712 350 L759 483 L650 570 L447 546 L380 456 Z"/>
+          <text x="525" y="456" class="strong" font-size="17">SPAIN</text>
+        </g>
+        <!-- gironde -->
+        <g id="e_gir" class="b"><circle cx="420" cy="263" r="7" fill="var(--flaw)"/>
+          <text x="120" y="252" class="flawtxt strong">GIRONDE · 23 JUL</text></g>
+        <g id="e_break" class="b">
+          <path d="M380 286 C 418 272, 462 294, 498 279" stroke="var(--flaw)" stroke-width="3" fill="none" stroke-dasharray="6 7"/>
+          <text x="120" y="290" class="flawtxt">CONTAINMENT LINE BREACHED</text>
+        </g>
+        <g id="e_boats" class="b">
+          <path d="M130 344 l40 0 l-6 12 l-28 0 z M152 344 v-12 l14 8 z" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="120" y="392" class="strong">CAP FERRET — EVACUATED BY SEA</text>
+        </g>
+        <!-- counters right column -->
+        <g id="e_c1" class="b">
+          <text x="800" y="120" class="big flawtxt" font-size="58" id="e_n1">0</text>
+          <text x="800" y="150" font-size="15">OUT OF THEIR HOMES — GIRONDE + LANDES ALONE</text>
+          <text x="800" y="174" font-size="13">SOURCE: FRENCH INTERIOR MINISTRY, 24 JUL</text>
+        </g>
+        <g id="e_quote" class="b">
+          <rect x="800" y="206" width="560" height="86" fill="none" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="820" y="244" class="flawtxt strong" font-size="18">"AN XXL WILDFIRE"</text>
+          <text x="820" y="272" class="flawtxt">— THE REGION'S SENIOR GOVERNMENT OFFICIAL</text>
+        </g>
+        <g id="e_mil" class="b"><text x="800" y="326" class="strong">MILITARY MOBILISED AS THE FIRE MOVED TOWARD BORDEAUX</text></g>
+        <!-- spain -->
+        <g id="e_mad" class="b"><circle cx="549" cy="456" r="7" fill="var(--flaw)"/>
+          <text x="800" y="382" class="strong" font-size="17">MADRID REGION — NATIONAL EMERGENCY</text>
+          <text x="800" y="410" class="big flawtxt" font-size="42" id="e_n2">0</text>
+          <text x="960" y="410" font-size="15">MORE MOVED IN CENTRAL SPAIN</text></g>
+        <g id="e_care" class="b">
+          <rect x="800" y="436" width="560" height="62" fill="var(--flaw)"/>
+          <text x="820" y="462" class="onplate" font-size="15">430+ ELDERLY AND DISABLED RESIDENTS · 5 CARE HOMES</text>
+          <text x="820" y="486" class="onplate" font-size="15">— PEOPLE WHO COULD NOT LEAVE ON THEIR OWN</text>
+        </g>
+        <g id="e_temp" class="b">
+          <text x="800" y="540" class="strong flawtxt" font-size="20">44 °C / 111 °F FORECAST</text>
+        </g>
+        <!-- season bars -->
+        <g id="e_season" class="b">
+          <text x="150" y="590" class="strong" font-size="15">SEASON TO DATE — SPAIN</text>
+          <rect x="430" y="572" width="90" height="20" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+          <text x="530" y="588" font-size="14">25,133 ha — SAME DATE 2025</text>
+          <rect id="e_bar" x="430" y="600" width="0" height="20" fill="var(--flaw)"/>
+          <text x="850" y="616" class="flawtxt" font-size="14" id="e_barlab">114,796 ha — 2026 · LARGER THAN BERLIN</text>
+          <text x="150" y="616" class="flawtxt strong" font-size="15">29 MAJOR FIRES vs 9 AVERAGE</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — the week of 23–25 July 2026 · sources: CNN, France24, PBS, Al Jazeera, Euronews, Spanish environment ministry</div>
+    </div>
+    <div class="prose">
+      <p>On the night of 23 July a fire in the Gironde pushed through the containment line crews had cut around it. By the next afternoon authorities ordered the evacuation of the entire Cap Ferret peninsula, 70 km west of Bordeaux, and sent boats to three piers to take people out by sea. France's interior ministry counted 141,000 people out of their homes in Gironde and neighbouring Landes alone. The region's senior government official called it an XXL wildfire; the president sent in the military as the flames moved toward Bordeaux.</p>
+      <p>That same day Spain declared a national emergency as fires reached the region around Madrid. Sixty thousand more were moved in central Spain, among them over 430 elderly and disabled residents from five care homes — people who could not leave on their own. Forecast temperatures reached 44 °C. Step back from the week and the season looks worse still: 29 major forest fires against an average of nine, and 114,796 hectares burned — an area larger than Berlin, and more than four times the figure at the same date a year earlier.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 WHAT ACTUALLY BURNS ================= -->
+<section class="ep" id="s2" data-duration="151.5">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">What Actually Burns</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The mechanism · Fuel, and whether it is joined up</div>
+    <h2>The patchwork became a carpet.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg2">
+        <!-- paradox restated -->
+        <g id="w_para" class="b">
+          <text x="120" y="70" class="fact strong" font-size="19">BETTER AT FIGHTING FIRES THAN EVER</text>
+          <text x="820" y="70" class="flawtxt strong" font-size="19">WORSE FIRES THAN EVER</text>
+          <line class="hair" x1="120" y1="92" x2="1360" y2="92"/>
+        </g>
+        <!-- hillside cross-section -->
+        <g id="w_hill">
+          <line id="w_ground" class="ink b" x1="100" y1="530" x2="1380" y2="530"/>
+          <!-- canopy -->
+          <g id="w_canopy" class="b">
+            <path class="ink" d="M200 400 q60 -110 120 0 z"/><path class="ink" d="M400 400 q60 -110 120 0 z"/>
+            <path class="ink" d="M620 400 q60 -110 120 0 z"/><path class="ink" d="M840 400 q60 -110 120 0 z"/>
+            <path class="ink" d="M1060 400 q60 -110 120 0 z"/>
+            <text x="1220" y="330" class="strong">CANOPY</text>
+          </g>
+          <!-- ladder layer -->
+          <g id="w_ladder" class="b">
+            <g stroke="var(--text-dim)" stroke-width="2" fill="none">
+              <path d="M200 528 v-70 M230 528 v-86 M260 528 v-64 M290 528 v-80 M320 528 v-70"/>
+              <path d="M420 528 v-78 M450 528 v-64 M480 528 v-84 M510 528 v-70"/>
+              <path d="M640 528 v-70 M670 528 v-86 M700 528 v-62 M730 528 v-80"/>
+              <path d="M860 528 v-80 M890 528 v-66 M920 528 v-84 M950 528 v-70"/>
+              <path d="M1080 528 v-72 M1110 528 v-86 M1140 528 v-64 M1170 528 v-80"/>
+            </g>
+            <line class="amber" x1="150" y1="446" x2="1250" y2="446" stroke-dasharray="5 6"/>
+            <text x="1220" y="440" class="flawtxt strong">LADDER FUEL · 0.5–2 m</text>
+          </g>
+          <!-- fine fuel -->
+          <g id="w_fine" class="b">
+            <g stroke="var(--text-dim)" stroke-width="1.5">
+              <path d="M120 528 v-16 M136 528 v-12 M152 528 v-18 M168 528 v-13 M184 528 v-17"/>
+              <path d="M340 528 v-15 M356 528 v-18 M372 528 v-12 M388 528 v-16 M404 528 v-14"/>
+              <path d="M540 528 v-17 M556 528 v-12 M572 528 v-16 M588 528 v-18 M604 528 v-13"/>
+              <path d="M760 528 v-14 M776 528 v-18 M792 528 v-12 M808 528 v-17 M824 528 v-15"/>
+              <path d="M980 528 v-16 M996 528 v-13 M1012 528 v-18 M1028 528 v-12 M1044 528 v-16"/>
+              <path d="M1200 528 v-15 M1216 528 v-17 M1232 528 v-13 M1248 528 v-18 M1264 528 v-14"/>
+            </g>
+            <text x="1290" y="524" class="strong">FINE FUEL</text>
+            <text x="1290" y="546" font-size="12">GRASS · LITTER · TWIGS · SHOOTS</text>
+          </g>
+          <!-- running flame -->
+          <g id="w_flame" class="b">
+            <path d="M0 530 l-16 -34 l12 6 l6 -26 l14 30 l10 -8 l4 32 z" fill="var(--flaw)"/>
+          </g>
+          <text x="120" y="596" class="b" id="w_speedlab" font-size="15">FINE FUEL CATCHES EASILY — AND IT SETS THE SPEED OF THE FRONT</text>
+          <text x="120" y="620" class="b" id="w_trunklab" font-size="14">THE HEAVY TRUNKS BURN LATER, LONG AFTER THE FIRE HAS DECIDED WHERE IT IS GOING</text>
+          <!-- horizontal carpet marker -->
+          <g id="w_carpet" class="b">
+            <rect x="110" y="504" width="1160" height="30" fill="var(--flaw)" fill-opacity=".14" stroke="var(--flaw)" stroke-width="2"/>
+            <text x="120" y="494" class="flawtxt strong">JOINED UP ACROSS THE GROUND — AN UNBROKEN CARPET</text>
+          </g>
+          <!-- climb -->
+          <g id="w_climb" class="b">
+            <path d="M700 520 C 690 480, 700 440, 686 396" stroke="var(--flaw)" stroke-width="4" fill="none"/>
+            <text x="716" y="372" class="flawtxt strong" font-size="16">ONCE IT IS IN THE CROWNS,</text>
+            <text x="716" y="394" class="flawtxt strong" font-size="16">NOTHING ON THE GROUND STOPS IT</text>
+          </g>
+        </g>
+        <!-- 1957 patchwork overlay -->
+        <g id="w_1957" class="b">
+          <rect x="0" y="0" width="1480" height="640" fill="var(--bg-raised)"/>
+          <text x="120" y="110" class="strong" font-size="18">THE SAME HILLSIDE, MAINTAINED — AS IT WAS FOR A THOUSAND YEARS</text>
+          <line class="ink" x1="100" y1="530" x2="1380" y2="530"/>
+          <g id="w_patches">
+            <g><rect x="140" y="470" width="200" height="60" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+               <text x="152" y="506">GRAZED SLOPE</text></g>
+            <g><rect x="380" y="470" width="180" height="60" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+               <text x="392" y="506">FIELD</text></g>
+            <g><rect x="600" y="470" width="200" height="60" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+               <text x="612" y="506">OLIVE GROVE</text></g>
+            <g><rect x="840" y="440" width="200" height="90" fill="none" stroke="var(--text)" stroke-width="2"/>
+               <text x="852" y="506">STAND OF TREES</text></g>
+            <g><rect x="1080" y="470" width="200" height="60" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+               <text x="1092" y="506">TERRACES</text></g>
+          </g>
+          <g id="w_stall" class="b">
+            <path d="M340 530 l0 -60" stroke="var(--alt)" stroke-width="4" stroke-dasharray="7 6" fill="none"/>
+            <text x="352" y="420" class="alttxt strong" font-size="16">THE FRONT RUNS OUT OF THINGS TO BURN</text>
+          </g>
+          <text x="120" y="596" class="b" id="w_who" font-size="15">STRIPPED OUT EVERY YEAR — BY PEOPLE WHO WERE NOT THINKING ABOUT FIRE AT ALL</text>
+        </g>
+        <!-- abandonment stats -->
+        <g id="w_stats" class="b">
+          <rect x="0" y="0" width="1480" height="640" fill="var(--bg-raised)"/>
+          <text x="120" y="130" class="strong" font-size="18">THEN THE COUNTRYSIDE EMPTIED</text>
+          <text x="120" y="230" class="big flawtxt" font-size="64" id="w_sheep">0</text>
+          <text x="120" y="266" font-size="16">SPANISH SHEEP GONE IN 25 YEARS — A FALL OF 44%</text>
+          <text x="120" y="292" font-size="13">AND NOT EVENLY: WHOLE REGIONS NOW HAVE NOTHING GRAZING THEM</text>
+          <g id="w_forest" class="b">
+            <text x="120" y="376" class="strong" font-size="17">AND THE STRANGE CONSEQUENCE — SPAIN HAS MORE FOREST NOW</text>
+            <rect x="120" y="404" width="260" height="40" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+            <text x="392" y="430" font-size="15">1990 — A BIT MORE THAN A QUARTER OF THE COUNTRY</text>
+            <rect id="w_fbar" x="120" y="456" width="0" height="40" fill="var(--topic)"/>
+            <text x="392" y="482" font-size="15" id="w_fbarlab">2020 — WELL OVER A THIRD</text>
+            <text x="120" y="536" font-size="14">THE MAIN REASON IS NOT PLANTING. IT IS DEPOPULATION, AND LAND GROWING BACK ON ITS OWN.</text>
+          </g>
+          <g id="w_carpet2" class="b">
+            <rect x="120" y="560" width="1240" height="52" fill="var(--flaw)"/>
+            <text x="142" y="594" class="onplate" font-size="18">DENSE, YOUNG, CONTINUOUS SCRUB ON GROUND NOBODY TENDS — THE PATCHWORK BECAME A CARPET</text>
+          </g>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 2 — fuel is not just how much, but how joined up · hover the layers for detail · sources: World Bank, Environmental Research Letters, EC Science for Environment Policy</div>
+    </div>
+    <div class="prose">
+      <p>What carries a fire across a landscape is the light material — dry grass, fallen leaves, thin twigs, young shrub shoots. Firefighters call it <b>fine fuel</b>: it catches easily and sets the speed of the flame front. What matters just as much is whether it is joined up. Across the ground it gives the flames an unbroken carpet; upwards, it forms a layer of shrubs and low branches half a metre to two metres off the ground — <b>ladder fuels</b>, because they let a fire already burning along the ground climb into the crowns. Once a fire is in the crowns, nothing done on the ground will stop it.</p>
+      <p>For thousands of years the hills of southern Europe had that fuel stripped out every year by people who were not thinking about fire at all: herds ate the grass and new shoots, dead wood went into stoves, hillsides were terraced and farmed. The result was a patchwork, and a fire moving through a patchwork keeps running out of things to burn. Then the countryside emptied. Spain's sheep population fell 44% in 25 years — almost eleven million animals — and not evenly. Meanwhile Spain has considerably <i>more</i> forest than a generation ago: from a bit more than a quarter of the country in 1990 to well over a third by 2020, driven not by planting but by depopulation and land growing back on its own. That growth is dense, young, continuous scrub on ground nobody tends.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE CEILING ================= -->
+<section class="ep" id="s3" data-duration="195.6">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · A ceiling no budget raises</div>
+    <h2>Every fire caught small is fuel that did not get eaten.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 660" id="svg3">
+        <!-- ---- station 1: the two causes + the fuel debt ---- -->
+        <g id="k_debt" class="b">
+          <g id="k_c1" class="b">
+            <rect x="110" y="70" width="580" height="86" fill="none" stroke="var(--text)" stroke-width="2"/>
+            <text x="132" y="106" class="strong" font-size="16">CAUSE 1</text>
+            <text x="132" y="134" font-size="15">NOBODY TAKES THE FUEL AWAY ANY MORE</text>
+          </g>
+          <g id="k_c2" class="b">
+            <rect x="790" y="70" width="580" height="86" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+            <text x="812" y="106" class="flawtxt strong" font-size="16">CAUSE 2</text>
+            <text x="812" y="134" class="flawtxt" font-size="15">AND THIS ONE WE DID ON PURPOSE</text>
+          </g>
+          <!-- the old regime -->
+          <g id="k_old" class="b">
+            <text x="110" y="226" class="strong" font-size="16">BEFORE: A SMALL FIRE EVERY FEW YEARS</text>
+            <rect x="110" y="248" width="620" height="70" fill="var(--flaw)" fill-opacity=".12" stroke="var(--flaw)" stroke-width="2"/>
+            <text x="132" y="290" class="flawtxt">IT ATE EXACTLY WHAT THE SHEEP ATE — ~300 ha OF SCRUB</text>
+          </g>
+          <!-- the new regime -->
+          <g id="k_new" class="b">
+            <text x="790" y="226" class="strong" font-size="16">NOW: CAUGHT EARLY</text>
+            <rect x="790" y="248" width="26" height="70" fill="var(--fact)" fill-opacity=".3" stroke="var(--fact)" stroke-width="2"/>
+            <text x="826" y="278" class="fact strong">STOPPED AT 2 ha</text>
+            <rect x="826" y="248" width="544" height="70" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 6"/>
+            <text x="848" y="304" class="flawtxt">— AND ALL OF THIS IS STILL STANDING NEXT SUMMER</text>
+          </g>
+          <!-- stacking debt -->
+          <g id="k_stack" class="b">
+            <text x="110" y="380" class="strong" font-size="16">SEASON AFTER SEASON, THE UNBURNED FUEL STACKS UP</text>
+            <g id="k_bars"></g>
+            <text x="110" y="624" class="flawtxt strong b" id="k_stacklab" font-size="17">A LIMIT THAT COMES FROM PHYSICS RATHER THAN FROM MONEY</text>
+          </g>
+        </g>
+        <!-- ---- station 2: the intensity gauge ---- -->
+        <g id="k_gauge" class="b">
+          <text x="110" y="70" class="strong" font-size="17">THE POWER OF A FLAME FRONT — KILOWATTS PER METRE OF BURNING EDGE</text>
+          <text x="110" y="96" font-size="14">THE NUMBERS THEMSELVES WON'T MEAN MUCH. WHAT MATTERS IS WHERE THINGS STOP WORKING.</text>
+          <!-- scale -->
+          <line class="ink" x1="240" y1="600" x2="240" y2="140"/>
+          <g id="k_band1" class="b">
+            <line x1="240" y1="470" x2="1140" y2="470" stroke="var(--fact)" stroke-width="2.5" stroke-dasharray="8 6"/>
+            <text x="1156" y="464" class="fact strong" font-size="15">2,000</text>
+            <text x="1156" y="488" class="fact" font-size="13">GROUND CREWS NEED AIRCRAFT</text>
+          </g>
+          <g id="k_band2" class="b">
+            <line x1="240" y1="368" x2="1140" y2="368" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="8 6"/>
+            <text x="1156" y="362" class="flawtxt strong" font-size="15">4,000</text>
+            <text x="1156" y="386" class="flawtxt" font-size="13">AIRCRAFT BEGIN LOSING EFFECT</text>
+          </g>
+          <g id="k_band3" class="b">
+            <line x1="240" y1="222" x2="1140" y2="222" stroke="var(--flaw)" stroke-width="4"/>
+            <text x="1156" y="216" class="flawtxt strong" font-size="17">10,000</text>
+            <text x="1156" y="240" class="flawtxt" font-size="13">NOTHING HOLDS THE LINE</text>
+          </g>
+          <!-- the needle / column -->
+          <rect id="k_col" x="420" y="600" width="150" height="0" fill="var(--flaw)" fill-opacity=".22" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="420" y="628" class="strong" font-size="14">THIS FIRE</text>
+          <!-- sliders as schematic -->
+          <g id="k_sliders" class="b">
+            <text x="700" y="600" class="strong" font-size="15">WEATHER — HOW FAST IT MOVES</text>
+            <line x1="700" y1="612" x2="1000" y2="612" stroke="var(--text-dim)" stroke-width="3"/>
+            <circle id="k_sw" cx="740" cy="612" r="9" fill="var(--fact)"/>
+            <text x="700" y="652" class="strong" font-size="15">FUEL — HOW MUCH THERE IS TO BURN</text>
+            <line x1="700" y1="664" x2="1000" y2="664" stroke="var(--text-dim)" stroke-width="3"/>
+            <circle id="k_sf" cx="740" cy="664" r="9" fill="var(--flaw)"/>
+          </g>
+          <!-- multiplication -->
+          <g id="k_mult" class="b">
+            <rect x="240" y="120" width="900" height="70" fill="var(--flaw)"/>
+            <text x="262" y="164" class="onplate" font-size="18">THEY DO NOT ADD TOGETHER — THEY MULTIPLY</text>
+          </g>
+          <g id="k_flaw" class="b">
+            <text x="600" y="290" class="flawtxt big" font-size="30">⚠ HARD CEILING</text>
+            <text x="600" y="320" class="flawtxt" font-size="15">NO BUDGET RAISES IT</text>
+          </g>
+        </g>
+        <!-- ---- station 3: concentration ---- -->
+        <g id="k_conc" class="b">
+          <text x="110" y="90" class="strong" font-size="18">PORTUGAL, 2024 — THOUSANDS OF FIRES</text>
+          <g id="k_dots"></g>
+          <g id="k_conc2" class="b">
+            <text x="110" y="470" class="flawtxt strong" font-size="20">35 OF THEM GREW PAST 500 ha</text>
+            <rect x="110" y="500" width="1250" height="46" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+            <rect id="k_84" x="110" y="500" width="0" height="46" fill="var(--flaw)"/>
+            <text x="130" y="530" class="onplate b" id="k_84lab" font-size="18">84% OF EVERYTHING THAT BURNED THAT YEAR</text>
+          </g>
+          <text x="110" y="614" class="strong b" id="k_ninety" font-size="19">A FIRE SERVICE CAN REPORT 90% SUCCESS EVERY YEAR — AND BARELY TOUCH THE OUTCOME</text>
+        </g>
+      </svg>
+      <div class="sim" id="sim" aria-label="Fire intensity simulator">
+        <div>
+          <label for="simW">Weather — heat, wind, dryness</label>
+          <input type="range" id="simW" min="1" max="10" value="3">
+        </div>
+        <div>
+          <label for="simF">Fuel load on the hillside</label>
+          <input type="range" id="simF" min="1" max="10" value="3">
+        </div>
+        <div class="out">
+          <b id="simOut">180</b><span id="simUnit">kW / metre of fire line</span>
+          <span id="simVerdict" style="color:var(--alt)">Ground crews can hold this</span>
+        </div>
+      </div>
+      <div class="figcap">Fig. 3 — move both sliders: intensity is fuel × rate of spread, so the two multiply · thresholds after Alexander &amp; de Groot 1988, Hirsch &amp; Martell 1996 — operational guidance, not fixed constants</div>
+    </div>
+    <div class="prose">
+      <p>Modern fire services stop almost every fire while it is still small — and every fire caught small is a patch of fuel that did not get eaten. Before anyone was putting them out, small fires crept through the undergrowth every few years and ate exactly the same light material the sheep did. A fire that would once have cleared a few hundred hectares of scrub now gets caught at two hectares, and everything it would have eaten is still standing the following summer.</p>
+      <p>Crews measure the power of a flame front in kilowatts per metre of burning edge. Around 2,000, ground crews can no longer hold a line without aircraft. Around 4,000, the aircraft themselves begin to lose their effect. Above about 10,000, even the heaviest air tankers cannot hold a line at all. That is a hard ceiling, and no budget raises it. Two things push a fire through it: weather sets how fast it moves — and climate change is pushing that side up hard — while fuel sets how much there is to burn, and we let that side grow for seventy years. They multiply. Which is why, in Portugal in 2024, 35 fires that grew past 500 hectares produced 84% of everything that burned.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE MONEY ================= -->
+<section class="ep" id="s4" data-duration="75.2">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Why The Money Stays Put</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The loop · Success starves the alternative</div>
+    <h2>One kind of spending arrives with helicopters.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg4">
+        <!-- emergency pipe -->
+        <g id="m_em" class="b">
+          <rect x="140" y="120" width="500" height="150" fill="var(--fact)" fill-opacity=".12" stroke="var(--fact)" stroke-width="3"/>
+          <text x="164" y="164" class="fact strong" font-size="20">EMERGENCY SPENDING</text>
+          <text x="164" y="196" class="fact" font-size="14">FAST · VISIBLE · ON THE EVENING NEWS</text>
+          <text x="164" y="222" class="fact" font-size="14">ALMOST NOBODY ARGUES ABOUT IT</text>
+          <text x="164" y="252" class="strong" font-size="14">→ PUTTING THE FIRE OUT</text>
+        </g>
+        <!-- prevention pipe -->
+        <g id="m_pv" class="b">
+          <rect id="m_pvbox" x="840" y="150" width="400" height="92" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="864" y="188" class="alttxt strong" font-size="18">ORDINARY BUDGET LINE</text>
+          <text x="864" y="216" class="alttxt" font-size="14">→ CLEARING THE FUEL BEFOREHAND</text>
+        </g>
+        <g id="m_comp" class="b">
+          <text x="840" y="278" font-size="14">COMPETES WITH: SCHOOLS · ROADS · EVERYTHING ELSE</text>
+          <text x="840" y="304" class="strong" font-size="14">WHEN IT WORKS, NOTHING HAPPENS AT ALL</text>
+        </g>
+        <g id="m_smoke" class="b">
+          <text x="840" y="340" class="flawtxt" font-size="14">AND DOING IT PRODUCES: SMOKE · COMPLAINTS ·</text>
+          <text x="840" y="364" class="flawtxt" font-size="14">THE RISK A DELIBERATE BURN GETS AWAY FROM THE CREW</text>
+        </g>
+        <!-- ratio -->
+        <g id="m_ratio" class="b">
+          <text x="140" y="352" class="strong" font-size="16">PORTUGAL, SINCE 2000</text>
+          <text x="140" y="418" class="big flawtxt" font-size="56">≈ 3×</text>
+          <text x="300" y="410" font-size="15">AS MUCH SPENT ON FIGHTING FIRES</text>
+          <text x="300" y="434" font-size="15">AS ON PREVENTING THEM</text>
+          <text x="140" y="466" font-size="13">"TOO MUCH MONEY WENT TO CONSEQUENCES INSTEAD OF CAUSES" — HEAD OF PORTUGAL'S FIRE AGENCY</text>
+        </g>
+        <!-- the loop -->
+        <g id="m_loop" class="b">
+          <path id="m_arc" class="amber" d="M640 195 C 760 60, 1120 60, 1180 140" stroke-dasharray="none"/>
+          <path d="M1180 140 l-14 -16 M1180 140 l4 -20" class="amber"/>
+          <text x="720" y="52" class="flawtxt strong" font-size="16">FEWER BAD YEARS → LESS JUSTIFICATION TO SPEND ON PREVENTION</text>
+        </g>
+        <g id="m_plate" class="b">
+          <rect x="140" y="496" width="1200" height="52" fill="var(--flaw)"/>
+          <text x="162" y="530" class="onplate" font-size="18">SUCCESS IN FIGHTING FIRES TAKES MONEY AWAY FROM THE ONE THING THAT WOULD REDUCE THEM</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 4 — the reinforcing loop · source: AGIF, "Portugal Wildfire Management in a New Era"</div>
+    </div>
+    <div class="prose">
+      <p>Fire scientists have been saying this for decades, so why doesn't the money move? Because there are two different kinds of spending here and they are not treated the same way at all. Putting out a fire is emergency spending: fast, visible, arriving with helicopters on the evening news. Clearing fuel beforehand is an ordinary annual budget line competing with schools and roads — and when it works, nothing happens at all.</p>
+      <p>Portugal has spent close to three times as much on fighting fires as on preventing them since 2000. And that sets up a loop: the better the fire service gets, the fewer bad years there are, and the less anyone can justify spending on clearing fuel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THE ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="209">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">The Alternatives</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Pay the grazer, put fire back, or change the duty</div>
+    <h2>The cheapest method is funded last.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 640" id="svg5">
+        <!-- ---- cost chart ---- -->
+        <g id="a_cost" class="b">
+          <text x="110" y="80" class="strong" font-size="18">COST OF CLEARING ONE HECTARE OF FUEL — PORTUGAL'S OWN ESTIMATE</text>
+          <g class="costrow" data-tip="Machines and hand tools: €900–1,000 per hectare. Source: AGIF, Portugal Wildfire Management in a New Era.">
+            <rect id="a_b1" x="380" y="130" width="0" height="62" fill="var(--flaw)"/>
+            <text x="110" y="170" class="strong" font-size="16">MACHINES</text>
+            <text x="110" y="192" font-size="13">&amp; HAND TOOLS</text>
+            <text x="1240" y="170" class="flawtxt big b" id="a_v1" font-size="30">~€1,000</text>
+          </g>
+          <g class="costrow" data-tip="Controlled (prescribed) fire: €160–180 per hectare.">
+            <rect id="a_b2" x="380" y="230" width="0" height="62" fill="var(--fact)"/>
+            <text x="110" y="270" class="strong" font-size="16">CONTROLLED</text>
+            <text x="110" y="292" font-size="13">FIRE</text>
+            <text x="1240" y="270" class="fact big b" id="a_v2" font-size="30">&lt;€200</text>
+          </g>
+          <g class="costrow" data-tip="Paying shepherds to graze it: €60–80 per hectare — more than ten times cheaper than machines.">
+            <rect id="a_b3" x="380" y="330" width="0" height="62" fill="var(--alt)"/>
+            <text x="110" y="370" class="strong" font-size="16">PAYING A</text>
+            <text x="110" y="392" font-size="13">SHEPHERD TO GRAZE</text>
+            <text x="1240" y="370" class="alttxt big b" id="a_v3" font-size="30">~€70</text>
+          </g>
+          <g id="a_last" class="b">
+            <rect x="110" y="432" width="1250" height="52" fill="var(--flaw)"/>
+            <text x="132" y="466" class="onplate" font-size="18">MORE THAN TEN TIMES CHEAPER — AND IT IS THE ONE THAT GETS FUNDED LAST</text>
+          </g>
+          <g id="a_planes" class="b">
+            <rect x="110" y="520" width="1250" height="88" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+            <text x="132" y="556" class="strong" font-size="15">MORE AIRCRAFT, MORE CREWS — NECESSARY, AND THEY SAVE LIVES BELOW THE CEILING</text>
+            <text x="132" y="586" class="flawtxt" font-size="15">— BUT THEY REMOVE NO FUEL AT ALL</text>
+          </g>
+        </g>
+        <!-- ---- design A: grazing ---- -->
+        <g id="a_graze" class="b">
+          <text x="110" y="76" class="alttxt" font-size="17">DESIGN A · PAY SOMEONE TO DO THE MAINTENANCE AGAIN</text>
+          <g id="a_and" class="b">
+            <rect x="110" y="116" width="600" height="120" class="nodebox" stroke="var(--alt)"/>
+            <text x="132" y="154" class="strong" font-size="16">ANDALUSIA — SINCE 2003</text>
+            <text x="132" y="184" font-size="15">220 SHEPHERDS · 6,000 ha OF FIREBREAKS GRAZED</text>
+            <text x="132" y="212" font-size="14">PAID WITH CHEAPER ACCESS TO PUBLIC PASTURE, NOT A CHEQUE</text>
+          </g>
+          <g id="a_fb" class="b">
+            <text x="760" y="146" class="strong" font-size="15">A FIREBREAK —</text>
+            <rect x="760" y="164" width="600" height="72" fill="var(--alt)" fill-opacity=".16" stroke="var(--alt)" stroke-width="2"/>
+            <text x="780" y="194" class="alttxt" font-size="14">A STRIP KEPT DELIBERATELY BARE —</text>
+            <text x="780" y="220" class="alttxt" font-size="14">SO THE FIRE HAS NOTHING TO CROSS</text>
+          </g>
+          <g id="a_cat" class="b">
+            <rect x="110" y="268" width="1250" height="122" class="nodebox" stroke="var(--alt)"/>
+            <text x="132" y="306" class="strong" font-size="16">CATALONIA WENT FURTHER</text>
+            <text x="132" y="336" font-size="15">FIREFIGHTERS MAP WHERE A LARGE FIRE WOULD ACTUALLY RUN → FLOCKS GRAZE EXACTLY THOSE STRIPS</text>
+            <text x="132" y="366" class="alttxt" font-size="15">→ THE MEAT AND CHEESE CARRY A LABEL → SHOPPERS PAY A LITTLE MORE</text>
+          </g>
+          <g id="a_rev" class="b">
+            <path id="a_revpath" class="green revision" d="M700 390 C 860 430, 980 430, 1180 424"/>
+            <text x="700" y="452" class="alttxt strong" font-size="16">THE SHEPHERD EARNS REVENUE, NOT A SUBSIDY —</text>
+            <text x="700" y="476" class="alttxt strong" font-size="16">AT ABOUT A QUARTER OF THE COST OF MACHINES</text>
+          </g>
+          <g id="a_goat" class="b">
+            <text x="110" y="452" class="strong" font-size="15">MOST OF THESE FLOCKS ARE GOATS —</text>
+            <text x="110" y="478" font-size="14">THEY BROWSE UPWARD, EATING PRECISELY THE LADDER LAYER, TO ~2 m</text>
+            <line class="amber" x1="110" y1="500" x2="620" y2="500" stroke-dasharray="5 6"/>
+            <text x="110" y="524" class="alttxt" font-size="14">AND A GRAZED PATCH KEEPS ITSELF CLEAR AS LONG AS THE ANIMALS COME BACK</text>
+          </g>
+          <g id="a_gcost" class="b">
+            <rect x="110" y="546" width="1250" height="76" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="132" y="576" class="flawtxt" font-size="14">THE COST:</text>
+            <text x="240" y="576" font-size="14">6,000 ha IS A NETWORK OF STRIPS, NOT A COUNTRY · GRAZING HILLSIDES HAS NEVER PAID WELL —</text>
+            <text x="240" y="604" font-size="14">SOMEBODY MUST KEEP PAYING, PERMANENTLY · REBUILDING A HERDING ECONOMY TAKES A DECADE</text>
+          </g>
+        </g>
+        <!-- ---- design B: prescribed fire ---- -->
+        <g id="a_fire" class="b">
+          <text x="110" y="76" class="alttxt" font-size="17">DESIGN B · PUT FIRE BACK ON PURPOSE</text>
+          <g id="a_pg" class="b">
+            <rect x="110" y="116" width="1250" height="110" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+            <text x="132" y="154" class="flawtxt strong" font-size="17">PEDRÓGÃO GRANDE, CENTRAL PORTUGAL — 2017</text>
+            <text x="132" y="186" class="flawtxt" font-size="15">64 PEOPLE KILLED · 45,000 ha · MOST OF IT WITHIN TWO DAYS</text>
+            <text x="132" y="214" font-size="14">SOURCE: MDPI APPLIED SCIENCES; OECD COUNTRY CASE STUDY</text>
+          </g>
+          <g id="a_agif" class="b">
+            <path id="a_agifpath" class="green revision" d="M180 226 C 200 280, 220 300, 260 316"/>
+            <rect x="260" y="284" width="1100" height="106" class="nodebox" stroke="var(--alt)"/>
+            <text x="282" y="322" class="strong" font-size="16">PORTUGAL'S RESPONSE</text>
+            <text x="282" y="352" font-size="15">A NATIONAL FIRE AGENCY REPORTING DIRECTLY TO THE PRIME MINISTER</text>
+            <text x="282" y="380" class="alttxt" font-size="15">+ CREWS TRAINED TO LIGHT FIRES DELIBERATELY, IN COOL DAMP CONDITIONS, WHEN THE FLAMES CAN BE STEERED</text>
+          </g>
+          <g id="a_fcost" class="b">
+            <rect x="110" y="428" width="1250" height="180" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="132" y="464" class="flawtxt" font-size="15">THE COST — HOW LITTLE OF IT HAPPENS:</text>
+            <rect x="132" y="486" width="1200" height="34" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+            <rect x="132" y="486" width="6" height="34" fill="var(--alt)"/>
+            <text x="132" y="546" font-size="15">PORTUGAL BURNS ~0.5% OF ITS LANDSCAPE DELIBERATELY EACH YEAR</text>
+            <text x="132" y="574" class="flawtxt" font-size="15">RESEARCHERS SAY IT WOULD NEED ROUGHLY TEN TIMES THAT TO MATTER</text>
+            <text x="132" y="600" font-size="14">THE WINDOWS OF SAFE WEATHER ARE NARROW, CLIMATE IS CLOSING THEM, AND ONE ESCAPED BURN CAN SHUT A PROGRAMME DOWN</text>
+          </g>
+        </g>
+        <!-- ---- design C: the duty ---- -->
+        <g id="a_duty" class="b">
+          <text x="110" y="76" class="alttxt" font-size="17">DESIGN C · DON'T CHANGE HOW IT IS DONE — CHANGE WHO MUST DO IT</text>
+          <!-- rings -->
+          <g id="a_rings" class="b">
+            <circle cx="420" cy="330" r="180" class="green revision" fill="none"/>
+            <circle cx="420" cy="330" r="112" class="green revision" fill="none"/>
+            <rect x="392" y="302" width="56" height="56" class="ink"/>
+            <text x="404" y="336" class="strong">HOUSE</text>
+            <text x="620" y="220" class="alttxt strong" font-size="16">100 m AROUND A VILLAGE</text>
+            <text x="620" y="330" class="alttxt strong" font-size="16">50 m AROUND A HOUSE IN THE COUNTRY</text>
+            <text x="620" y="356" font-size="14">— ROUGHLY A SWIMMING POOL IN EVERY DIRECTION</text>
+            <text x="620" y="430" class="alttxt strong" font-size="16">10 m ALONG A ROAD</text>
+            <text x="620" y="456" font-size="14">ALL OF IT BACKED BY FINES</text>
+          </g>
+          <g id="a_dcost" class="b">
+            <rect x="110" y="500" width="1250" height="122" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="132" y="536" class="flawtxt" font-size="15">THE COST — IT LANDS ON PEOPLE:</text>
+            <text x="132" y="566" font-size="14">A PERSISTENT GAP BETWEEN WHAT IS SUPPOSED TO BE CLEARED AND WHAT ACTUALLY IS</text>
+            <text x="132" y="594" font-size="14">THE DUTY OFTEN FALLS ON OWNERS WHO ARE ELDERLY, LIVE IN A CITY, OR HOLD TINY SCATTERED PLOTS</text>
+            <text x="132" y="616" class="flawtxt" font-size="15">FIFTY METRES OF CLEARING IS A GREAT DEAL OF WORK FOR ONE PENSIONER</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 5 — three redlined redesigns · dashed green = revision markup · each with its named cost · sources: AGIF, Varela et al. (Forests/MDPI), European Forest Institute, Pau Costa Foundation, OECD</div>
+    </div>
+    <div class="prose">
+      <p><b>Pay the grazer.</b> In Andalusia a scheme running since 2003 pays 220 shepherds to graze 6,000 hectares of firebreaks, paid with cheaper access to public pasture. Catalonia went further: firefighters map where a large fire would actually run, shepherds graze exactly those strips, and the meat and cheese carry a label so shoppers pay a little more — the shepherd earns revenue rather than a subsidy, at about a quarter of the cost of machines. Most of these flocks are goats, which browse upward through precisely the ladder layer. <i>The cost:</i> 6,000 hectares is a network of strips, not a country; grazing has never paid well, so somebody must keep paying permanently; and rebuilding a herding economy takes a decade.</p>
+      <p><b>Put fire back.</b> After the 2017 fire at Pedrógão Grande, which killed 64 people, Portugal built a national fire agency reporting to the prime minister and trained crews to light fires deliberately in cool, damp conditions. <i>The cost:</i> it burns about 0.5% of its landscape each year, roughly a tenth of what researchers say is needed; the safe-weather windows are narrow and closing; and one escaped burn can shut a programme down.</p>
+      <p><b>Change the duty.</b> Portugal now writes clearance into law — 50 m around a rural house, 100 m around a village, 10 m along a road, backed by fines. <i>The cost:</i> a persistent gap between what should be cleared and what is, and a duty landing on owners who are elderly, absent, or hold tiny plots.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 THE CLOSE ================= -->
+<section class="ep" id="s6" data-duration="54.8">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · The side we can still reach</div>
+    <h2>Nothing failed on that peninsula.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_coast" class="b">
+          <path class="ink" d="M60 250 C 300 214, 520 274, 780 242 C 1020 212, 1240 268, 1420 234"/>
+          <path d="M430 258 l112 0 l-16 30 l-80 0 z M486 258 v-30 l40 22 z" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="60" y="90" class="strong" font-size="19">IT DID EXACTLY WHAT IT WAS BUILT TO DO —</text>
+          <text x="60" y="120" font-size="16">STOP SMALL FIRES QUICKLY, AND TREAT THE LANDSCAPE AS SOMEWHERE YOU ARRIVE IN AN EMERGENCY</text>
+          <text x="60" y="146" font-size="16">RATHER THAN SOMEWHERE YOU MAINTAIN</text>
+        </g>
+        <g id="z_two" class="b">
+          <rect x="120" y="330" width="560" height="86" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+          <text x="142" y="366" class="strong" font-size="16">HOW HARD THE WEATHER PUSHES</text>
+          <text x="142" y="396" font-size="14">WE CANNOT TURN THE HEAT DOWN THIS DECADE</text>
+          <text x="712" y="382" class="big" font-size="30">×</text>
+          <rect x="780" y="330" width="580" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5"/>
+          <text x="802" y="366" class="alttxt strong" font-size="16">HOW MUCH THERE IS TO BURN</text>
+          <text x="802" y="396" class="alttxt" font-size="14">THE SIDE WE CAN STILL REACH</text>
+        </g>
+        <g id="z_strip" class="b">
+          <line class="green" x1="140" y1="466" x2="1340" y2="466" stroke-width="5"/>
+          <text x="140" y="502" class="alttxt strong" font-size="17">— AND THE ONE WE QUIETLY STOPPED PAYING FOR WHEN THE VILLAGES EMPTIED</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Nothing failed on that peninsula. The system did exactly what it was built to do, and has done it well for decades: stop small fires quickly, and treat the landscape as somewhere you arrive in an emergency rather than somewhere you maintain.</p>
+      <p>The weather really is getting worse, and that isn't in dispute. But a fire's power comes from two things: how hard the weather pushes it, and how much there is to burn. We cannot turn the heat down this decade. How much there is to burn is the side we can still reach — and it is the one we quietly stopped paying for when the villages emptied. Which makes the question less about why Europe can't fight these fires, and more about why we stopped doing the slow, boring work that kept them fightable at all. It may turn out that one of the most effective tools we have is a herd of goats, and somebody paid to walk behind them.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 620 640">
+    <line x1="60" y1="470" x2="560" y2="470" stroke="var(--text)" stroke-width="5"/>
+    <g stroke="var(--text-dim)" stroke-width="4">
+      <path d="M90 468 v-60 M130 468 v-80 M170 468 v-56 M210 468 v-74 M250 468 v-64
+               M290 468 v-82 M330 468 v-58 M370 468 v-76 M410 468 v-62 M450 468 v-80 M490 468 v-58"/>
+    </g>
+    <path d="M60 350 h500" stroke="var(--flaw)" stroke-width="6" stroke-dasharray="3 14"/>
+    <text x="60" y="320" font-family="IBM Plex Mono" font-size="26" style="fill:var(--flaw)">10,000 kW/m</text>
+    <text x="60" y="530" font-family="IBM Plex Mono" font-size="24" style="fill:var(--text-dim)">nothing holds the line</text>
+  </svg>
+  <div class="ttxt" style="font-size:76px">The fires<br>we fought<br><em>too well</em></div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 620 640">
+    <rect x="80" y="120" width="440" height="80" fill="none" stroke="var(--flaw)" stroke-width="6"/>
+    <text x="110" y="176" font-family="Space Grotesk" font-weight="700" font-size="42" style="fill:var(--flaw)">€1,000</text>
+    <text x="330" y="176" font-family="IBM Plex Mono" font-size="24" style="fill:var(--text-dim)">machines</text>
+    <rect x="80" y="300" width="150" height="80" fill="none" stroke="var(--alt)" stroke-width="6" stroke-dasharray="14 10"/>
+    <text x="106" y="356" font-family="Space Grotesk" font-weight="700" font-size="42" style="fill:var(--alt)">€70</text>
+    <text x="260" y="356" font-family="IBM Plex Mono" font-size="24" style="fill:var(--text-dim)">a shepherd</text>
+    <text x="80" y="470" font-family="IBM Plex Mono" font-size="26" style="fill:var(--text-dim)">per hectare cleared</text>
+  </svg>
+  <div class="ttxt" style="font-size:88px">Ten times<br><em>cheaper</em></div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const fmt=(n,d)=>d?n.toFixed(d):Math.round(n).toLocaleString('en-US');
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function count(tl,id,end,dur,pos,o={}){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos)
+    .to(st,{v:end,duration:dur,ease:o.ease||'power1.inOut',
+      onUpdate:()=>el.textContent=(o.pre||'')+fmt(st.v,o.dec||0)+(o.suf||''),
+      onComplete:()=>el.textContent=(o.pre||'')+fmt(end,o.dec||0)+(o.suf||'')},pos);}
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.5,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function grow(tl,id,w,dur,pos){tl.set($(id),{opacity:1},pos).fromTo($(id),{attr:{width:0}},
+  {attr:{width:w},duration:dur,ease:'power2.out'},pos);}
+
+/* ---------- generated bits ---------- */
+// S0 flock
+(()=>{const g=$('hs_flock');let s='';for(let r=0;r<4;r++)for(let c=0;c<22;c++){
+  s+=`<g class="sh" opacity="0"><ellipse cx="${150+c*52}" cy="${190+r*70}" rx="17" ry="12" fill="none" stroke="var(--topic)" stroke-width="2"/>`+
+     `<circle cx="${167+c*52}" cy="${183+r*70}" r="6" fill="none" stroke="var(--topic)" stroke-width="2"/></g>`;}
+  g.innerHTML=s;})();
+// S3 stacking fuel bars
+(()=>{const g=$('k_bars');let s='';for(let i=0;i<14;i++){
+  s+=`<rect class="fb" x="${110+i*90}" y="${560}" width="70" height="0" fill="var(--flaw)" fill-opacity="${.25+i*.05}" stroke="var(--flaw)" stroke-width="1.5"/>`;}
+  g.innerHTML=s;})();
+// S3 fire dots
+(()=>{const g=$('k_dots');let s='';for(let r=0;r<8;r++)for(let c=0;c<44;c++){
+  s+=`<circle class="fd" cx="${120+c*29}" cy="${130+r*38}" r="4" fill="var(--text-dim)" opacity="0"/>`;}
+  g.innerHTML=s;})();
+
+/* ---------- scenes (section-relative seconds) ---------- */
+function sc0(){const tl=gsap.timeline();
+  say(tl,'hc_shore',0.4,.6);say(tl,'hc_sea',1.0,.6);
+  say(tl,'hc_people',3.0,.5);
+  say(tl,'hc_road',6.0,.5);pop(tl,'hc_roadx',8.5,.4);
+  tl.fromTo($('hc_boat'),{opacity:0,x:0},{opacity:1,duration:.5},10.0)
+    .to($('hc_boat'),{x:-320,duration:5.0,ease:'power1.inOut'},10.6);
+  say(tl,'hc_glow',12.0,.7);
+  idle(tl,'hc_glow',14.0,3);
+  // counters
+  tl.set($('hc_nums'),{opacity:1},16.0);
+  count(tl,'hc_n1',250000,3.0,16.0,{suf:'+'});
+  // to the chart
+  tl.to($('h_coast'),{opacity:0,duration:.8},26.5);
+  tl.fromTo($('h_chart'),{opacity:0},{opacity:1,duration:.8},27.3);
+  draw(tl,'hch_line',3.2,31.0);
+  pop(tl,'hch_p1',31.5,.5);pop(tl,'hch_p2',36.0,.5);
+  say(tl,'hch_q',44.0,.7);
+  idle(tl,'hch_q',47.0,6);
+  // sheep
+  tl.to($('h_chart'),{opacity:0,duration:.8},59.5);
+  tl.fromTo($('h_sheep'),{opacity:0},{opacity:1,duration:.6},60.3);
+  tl.to($('hs_flock').querySelectorAll('.sh'),{opacity:1,duration:.05,stagger:.012},61.0);
+  count(tl,'hs_n',10700000,4.5,66.0);
+  tl.to($('hs_flock').querySelectorAll('.sh'),{opacity:.08,duration:.05,stagger:.012},66.0);
+  idle(tl,'hs_n',72.0,6);
+  // title
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},80.0);
+  if(isAuto)tl.to({},{duration:7.0},80.7);
+  else tl.to($('titleCard'),{opacity:0,duration:.5},84.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_land',0.4,.7);
+  pop(tl,'e_gir',3.0,.5);
+  say(tl,'e_break',6.0,.6);shake(tl,'svg1',6.4,6,8);
+  say(tl,'e_boats',12.0,.6);
+  tl.to($('e_boats'),{x:-90,duration:4.0,ease:'power1.inOut'},14.0);
+  // counters
+  tl.set($('e_c1'),{opacity:1},22.0);count(tl,'e_n1',141000,3.0,22.0);
+  pop(tl,'e_quote',30.0,.5);
+  say(tl,'e_mil',38.0,.5);
+  // spain
+  pop(tl,'e_mad',46.0,.5);count(tl,'e_n2',60000,2.4,49.0);
+  say(tl,'e_care',56.0,.6);
+  idle(tl,'e_care',60.0,6);
+  say(tl,'e_temp',70.0,.5);
+  // season
+  say(tl,'e_season',78.0,.6);
+  grow(tl,'e_bar',930,2.6,81.0);
+  say(tl,'e_barlab',84.0);
+  idle(tl,'e_barlab',88.0,10);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'w_para',0.4,.6);
+  idle(tl,'w_para',3.0,7);
+  // fine fuel
+  say(tl,'w_ground',12.0,.5);say(tl,'w_fine',13.5,.6);
+  say(tl,'w_speedlab',17.0);
+  tl.set($('w_flame'),{opacity:1,x:120},19.0).to($('w_flame'),{x:1240,duration:6.0,ease:'none'},19.0);
+  say(tl,'w_canopy',26.0,.6);say(tl,'w_trunklab',28.0);
+  // joined up
+  say(tl,'w_carpet',36.0,.6);
+  idle(tl,'w_carpet',39.0,7);
+  say(tl,'w_ladder',50.0,.7);
+  idle(tl,'w_ladder',54.0,6);
+  say(tl,'w_climb',62.0,.7);shake(tl,'svg2',62.4,6,8);
+  idle(tl,'w_climb',66.0,6);
+  // 1957
+  tl.fromTo($('w_1957'),{opacity:0},{opacity:1,duration:.9},73.0);
+  say(tl,'w_who',78.0);
+  tl.set($('w_flame'),{opacity:1,x:120,y:0},84.0).to($('w_flame'),{x:230,duration:3.0,ease:'none'},84.0);
+  say(tl,'w_stall',88.0,.6);
+  tl.to($('w_flame'),{opacity:0,duration:.6},89.0);
+  idle(tl,'w_stall',92.0,10);
+  // abandonment
+  tl.fromTo($('w_stats'),{opacity:0},{opacity:1,duration:.9},104.0);
+  count(tl,'w_sheep',10700000,4.0,108.0);
+  idle(tl,'w_sheep',114.0,8);
+  say(tl,'w_forest',128.0,.6);
+  grow(tl,'w_fbar',352,2.4,132.0);
+  idle(tl,'w_forest',138.0,8);
+  pop(tl,'w_carpet2',151.0,.6);shake(tl,'w_carpet2',152.0,6,8);
+  idle(tl,'w_carpet2',154.0,8);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  tl.set($('k_debt'),{opacity:1},0);
+  say(tl,'k_c1',0.5,.6);
+  say(tl,'k_c2',7.0,.6);shake(tl,'k_c2',7.4,5,6);
+  idle(tl,'k_c2',10.0,6);
+  // old vs new
+  say(tl,'k_old',20.0,.6);
+  say(tl,'k_new',32.0,.6);
+  idle(tl,'k_new',38.0,8);
+  // stacking
+  say(tl,'k_stack',56.0,.5);
+  tl.to($('k_bars').querySelectorAll('.fb'),
+    {attr:{height:(i)=>60+i*11,y:(i)=>600-(60+i*11)},duration:.5,stagger:.35,ease:'power2.out'},58.0);
+  say(tl,'k_stacklab',76.0);
+  idle(tl,'k_stacklab',80.0,6);
+  // ---- gauge ----
+  tl.to($('k_debt'),{opacity:0,duration:.7},87.0);
+  tl.fromTo($('k_gauge'),{opacity:0},{opacity:1,duration:.7},88.0);
+  tl.fromTo($('k_col'),{attr:{height:0,y:600}},{attr:{height:80,y:520},duration:1.4,ease:'power2.out'},92.0);
+  say(tl,'k_band1',98.0,.5);
+  tl.to($('k_col'),{attr:{height:135,y:465},duration:1.2},99.5);
+  say(tl,'k_band2',110.0,.5);
+  tl.to($('k_col'),{attr:{height:238,y:362},duration:1.2},111.5);
+  say(tl,'k_band3',122.0,.6);
+  tl.to($('k_col'),{attr:{height:384,y:216},duration:1.4},124.0);
+  shake(tl,'svg3',125.0,7,10);
+  pop(tl,'k_flaw',128.0,.6);
+  idle(tl,'k_flaw',131.0,8);
+  // sliders + multiplication
+  say(tl,'k_sliders',146.0,.5);
+  tl.to($('k_sw'),{attr:{cx:960},duration:2.0,ease:'power1.inOut'},149.0);
+  tl.to($('k_sf'),{attr:{cx:980},duration:2.0,ease:'power1.inOut'},153.0);
+  pop(tl,'k_mult',162.0,.6);
+  tl.to($('k_mult'),{opacity:.7,duration:1.1,repeat:7,yoyo:true},164.0);
+  // ---- concentration ----
+  tl.to($('k_gauge'),{opacity:0,duration:.7},178.0);
+  tl.fromTo($('k_conc'),{opacity:0},{opacity:1,duration:.7},179.0);
+  tl.to($('k_dots').querySelectorAll('.fd'),{opacity:1,duration:.05,stagger:.004},181.0);
+  say(tl,'k_conc2',188.0,.5);
+  tl.to($('k_dots').querySelectorAll('.fd'),{opacity:.1,duration:.6},189.0);
+  grow(tl,'k_84',1050,2.2,190.5);
+  say(tl,'k_84lab',192.0);
+  say(tl,'k_ninety',200.0,.6);
+  idle(tl,'k_ninety',203.0,7);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'m_em',0.5,.6);
+  say(tl,'m_pv',7.0,.6);
+  say(tl,'m_comp',13.0,.6);
+  idle(tl,'m_pvbox',17.0,7);
+  say(tl,'m_smoke',26.0,.6);
+  say(tl,'m_ratio',36.0,.7);
+  idle(tl,'m_ratio',41.0,7);
+  draw(tl,'m_arc',2.2,53.0);say(tl,'m_loop',54.0,.6);
+  tl.to($('m_pvbox'),{attr:{width:200},duration:1.6,ease:'power2.in'},57.0);
+  pop(tl,'m_plate',66.0,.6);shake(tl,'m_plate',67.0,6,8);
+  idle(tl,'m_plate',69.0,8);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  // ---- cost chart 0–42 ----
+  tl.set($('a_cost'),{opacity:1},0);
+  grow(tl,'a_b1',860,1.8,1.0);say(tl,'a_v1',2.4);
+  grow(tl,'a_b2',172,1.4,7.0);say(tl,'a_v2',8.0);
+  grow(tl,'a_b3',60,1.0,12.0);say(tl,'a_v3',12.8);
+  pop(tl,'a_last',18.0,.6);
+  idle(tl,'a_last',21.0,5);
+  say(tl,'a_planes',28.0,.6);
+  idle(tl,'a_planes',32.0,7);
+  // ---- design A 42–142 ----
+  tl.to($('a_cost'),{opacity:0,duration:.7},41.0);
+  tl.fromTo($('a_graze'),{opacity:0},{opacity:1,duration:.7},42.0);
+  say(tl,'a_and',44.0,.6);
+  say(tl,'a_fb',52.0,.6);
+  idle(tl,'a_fb',56.0,6);
+  say(tl,'a_cat',68.0,.7);
+  draw(tl,'a_revpath',2.0,84.0);say(tl,'a_rev',85.0,.6);
+  idle(tl,'a_rev',90.0,7);
+  say(tl,'a_goat',100.0,.6);
+  idle(tl,'a_goat',105.0,8);
+  say(tl,'a_gcost',120.0,.6);
+  idle(tl,'a_gcost',124.0,14);
+  // ---- design B 142–192 ----
+  tl.to($('a_graze'),{opacity:0,duration:.7},141.0);
+  tl.fromTo($('a_fire'),{opacity:0},{opacity:1,duration:.7},142.0);
+  say(tl,'a_pg',144.0,.6);shake(tl,'a_pg',145.0,6,8);
+  draw(tl,'a_agifpath',1.6,154.0);say(tl,'a_agif',155.0,.6);
+  idle(tl,'a_agif',160.0,7);
+  say(tl,'a_fcost',170.0,.6);
+  idle(tl,'a_fcost',175.0,13);
+  // ---- design C 192–243 ----
+  tl.to($('a_fire'),{opacity:0,duration:.7},191.0);
+  tl.fromTo($('a_duty'),{opacity:0},{opacity:1,duration:.7},192.0);
+  say(tl,'a_rings',194.0,.7);
+  idle(tl,'a_rings',200.0,14);
+  say(tl,'a_dcost',218.0,.6);
+  idle(tl,'a_dcost',223.0,16);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_coast',0.5,.7);
+  idle(tl,'z_coast',4.0,12);
+  say(tl,'z_two',20.0,.7);
+  idle(tl,'z_two',25.0,14);
+  say(tl,'z_strip',44.0,.7);
+  tl.to($('z_strip'),{opacity:.6,duration:1.2,repeat:9,yoyo:true},48.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+/* redline toggle (web mode) */
+function setRedline(on){document.querySelectorAll('.revision').forEach(el=>el.style.opacity=on?1:0);
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO: one master timeline ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  /* void return on purpose: record.mjs does page.evaluate(()=>window.__play()),
+     and returning the GSAP timeline makes Playwright fail to serialise it
+     ("object reference chain is too long") on a timeline this deep. */
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB (interactive) ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  setRedline(false);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.4);
+    if(s.id==='s5')tl.timeScale(3.4);
+    if(s.id==='s3')tl.timeScale(3.0);
+    if(s.id==='s2')tl.timeScale(2.6);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- tooltips on the cost rows ----
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity=1;});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(innerWidth-320,e.clientX+16)+'px';
+      tip.style.top=(e.clientY+16)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity=0;});
+  });
+
+  // ---- parameter simulator: intensity = fuel x rate of spread ----
+  const simW=$('simW'),simF=$('simF'),simOut=$('simOut'),simVerdict=$('simVerdict');
+  function runSim(){
+    const w=+simW.value,f=+simF.value;
+    // schematic model: rate of spread grows with weather, load with fuel; product scaled to kW/m
+    const kw=Math.round(w*f*w*3.6/10)*10*4;
+    simOut.textContent=kw.toLocaleString('en-US');
+    let v,c;
+    if(kw<2000){v='Ground crews can hold this';c='var(--alt)';}
+    else if(kw<4000){v='Ground crews now need aircraft';c='var(--fact)';}
+    else if(kw<10000){v='Aircraft are losing their effect';c='var(--flaw)';}
+    else {v='Nothing holds the line — evacuate';c='var(--flaw)';}
+    simVerdict.textContent=v;simVerdict.style.color=c;
+    simOut.style.color=kw>=4000?'var(--flaw)':(kw>=2000?'var(--fact)':'var(--alt)');
+    // reflect on the schematic column (only once the gauge station is on screen)
+    const h=Math.min(460,kw/10000*384);
+    gsap.to($('k_col'),{attr:{height:h,y:600-h},duration:.35,overwrite:true});
+  }
+  simW.addEventListener('input',runSim);simF.addEventListener('input',runSim);
+  runSim();
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){const r=secs[i].getBoundingClientRect();
+      if(r.top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i;
+    player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');
+    playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
