@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When Fuel Costs More, Your Government Earns More | Trace Upstream</title>
+<meta name="description" content="Sales tax is a percentage, fuel duty is fixed — so when a war moves the oil price, the state's share rises on its own, with nobody deciding anything. Italy built a mechanism to hand that back. It needs a fresh decree every month, and it expires.">
+<link rel="canonical" href="https://traceupstream.com/episodes/020-fuel-tax-on-tax/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="When Fuel Costs More, Your Government Earns More">
+<meta property="og:description" content="An interactive blueprint: how a fuel tax base makes the treasury rise with the oil price automatically, and three real redesigns — each with its price.">
+<meta property="og:url" content="https://traceupstream.com/episodes/020-fuel-tax-on-tax/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#9A8B9E; /* desaturated mauve — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice — :not([font-size]) so font-size attributes win (EP.008 fix) */
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)} /* text on filled accent plates — Paper, never grey */
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:300px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+/* listen mode */
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+/* controls */
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim{margin-top:14px;border:1px solid var(--grid);background:var(--bg-raised);padding:18px 20px}
+.sim label{font-family:var(--font-mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-dim);display:block;margin-bottom:7px}
+.sim input[type=range]{width:100%;accent-color:var(--text)}
+.sim .out{border-top:1px solid var(--grid);margin-top:14px;padding-top:14px;display:flex;
+  align-items:baseline;gap:10px 22px;flex-wrap:wrap}
+.sim .out b{font-family:var(--font-display);font-size:30px}
+.sim .out span{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+body.auto .sim{display:none}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails — a saturated plate is MANDATORY (docs/branding.md §6) */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:132px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.020 — 2026-07-26</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 13:33</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK =================
+     Mobile floor applies here: viewBox 1000 wide → scale 1.78 → every
+     font-size must be >= 31 to clear 54px on a 1080 frame. Max 12 words per group. -->
+<section class="ep" id="s0" data-duration="75.1">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.020</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <!-- state 1: the litre -->
+        <g id="h_s1" class="b">
+          <rect x="120" y="90" width="200" height="380" class="ink"/>
+          <line id="h_half" x1="120" y1="280" x2="320" y2="280" stroke="var(--flaw)" stroke-width="4"/>
+          <text x="132" y="530" class="big" font-size="54">€2.70</text>
+          <text x="400" y="200" class="strong" font-size="38">A LITRE OF DIESEL</text>
+          <text x="400" y="270" class="flawtxt" font-size="38">ABOUT HALF IS TAX</text>
+        </g>
+        <!-- state 2: two taxes -->
+        <g id="h_s2" class="b">
+          <rect x="70" y="130" width="400" height="290" class="ink"/>
+          <text x="100" y="200" class="strong" font-size="38">FUEL DUTY</text>
+          <text x="100" y="290" class="big" font-size="62">67c</text>
+          <text x="100" y="360" class="flawtxt" font-size="38">FIXED</text>
+          <rect x="530" y="130" width="400" height="290" class="ink"/>
+          <text x="560" y="200" class="strong" font-size="38">SALES TAX</text>
+          <text x="560" y="290" class="big fact" font-size="62">22%</text>
+          <text x="560" y="360" class="fact" font-size="38">A PERCENTAGE</text>
+        </g>
+        <!-- state 3: it grows by itself -->
+        <g id="h_s3" class="b">
+          <text x="70" y="120" class="strong" font-size="40">OIL PRICE UP</text>
+          <path id="h_arrow" d="M560 430 L560 130" stroke="var(--flaw)" stroke-width="6" fill="none"/>
+          <path d="M560 130 l-22 34 M560 130 l22 34" stroke="var(--flaw)" stroke-width="6" fill="none"/>
+          <rect id="h_grow" x="120" y="380" width="330" height="60" fill="var(--fact)" fill-opacity=".25" stroke="var(--fact)" stroke-width="3"/>
+          <text x="70" y="500" class="flawtxt" font-size="40">THE STATE'S SHARE GROWS BY ITSELF</text>
+        </g>
+        <!-- state 4: on and off -->
+        <g id="h_s4" class="b">
+          <text x="70" y="150" class="strong" font-size="40">ON THREE TIMES. OFF THREE TIMES.</text>
+          <rect x="70" y="230" width="260" height="70" fill="var(--alt)" fill-opacity=".3" stroke="var(--alt)" stroke-width="3"/>
+          <rect x="380" y="230" width="150" height="70" fill="var(--alt)" fill-opacity=".3" stroke="var(--alt)" stroke-width="3"/>
+          <rect x="580" y="230" width="300" height="70" fill="var(--alt)" fill-opacity=".3" stroke="var(--alt)" stroke-width="3"/>
+          <text x="70" y="430" class="big flawtxt" font-size="56">SHORTEST RUN: 12 DAYS</text>
+        </g>
+        <!-- state 5: tax on tax -->
+        <g id="h_s5" class="b">
+          <rect x="60" y="180" width="880" height="220" fill="var(--flaw)"/>
+          <text x="95" y="270" class="onplate" font-size="52">TAX CHARGED ON TAX</text>
+          <text x="95" y="345" class="onplate" font-size="38">ABOUT 15 CENTS A LITRE</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">When fuel costs more,<br>your government earns more.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>A litre of diesel on an Italian motorway now costs more than €2.70. About half of that is tax — and it is two different taxes that behave in opposite ways. Fuel duty is a fixed amount per litre (67 cents in Italy) and does not move when oil moves. Sales tax is 22% — and a percentage of a bigger number is a bigger number.</p>
+      <p>So when a war pushes up the price of crude, the state's share grows at the same time, entirely on its own. Nobody votes on it; nobody signs anything. Italy built a mechanism 18 years ago to hand that extra money back. This year it was switched on three times and off three times; the shortest run lasted twelve days. And one more detail shows how the whole thing is assembled: that 22% is charged on the fuel duty too — about 15 cents a litre of sales tax, levied on money that was already tax.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="57.2">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Italy, 26 July 2026</div>
+    <h2>Four weeks with no discount at all.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg1">
+        <line class="hair" x1="120" y1="470" x2="1380" y2="470"/>
+        <text x="120" y="510" font-size="15">1 MARCH</text>
+        <text x="1290" y="510" font-size="15">26 JULY</text>
+        <!-- crude line -->
+        <path id="e_crude" class="blue" stroke-width="4" d="M120 380 C 400 372, 620 350, 800 330 C 980 310, 1160 210, 1380 150"/>
+        <text x="1140" y="120" class="fact strong b" id="e_crudelab" font-size="17">BRENT — UP ROUGHLY A QUARTER SINCE 8 JULY</text>
+        <!-- relief bars -->
+        <g id="e_bars" class="b">
+          <rect x="330" y="420" width="120" height="50" fill="var(--alt)" fill-opacity=".3" stroke="var(--alt)" stroke-width="2"/>
+          <text x="330" y="410" class="alttxt" font-size="14">20 DAYS</text>
+          <rect x="620" y="420" width="72" height="50" fill="var(--alt)" fill-opacity=".3" stroke="var(--alt)" stroke-width="2"/>
+          <text x="620" y="410" class="alttxt" font-size="14">12 DAYS</text>
+          <rect x="820" y="420" width="150" height="50" fill="var(--alt)" fill-opacity=".3" stroke="var(--alt)" stroke-width="2"/>
+          <text x="820" y="410" class="alttxt" font-size="14">UNDER 4 WEEKS</text>
+        </g>
+        <g id="e_gap" class="b">
+          <rect x="985" y="420" width="395" height="50" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="1000" y="452" class="flawtxt" font-size="16">NO DISCOUNT SINCE 3 JULY</text>
+        </g>
+        <!-- pump figures -->
+        <g id="e_pump" class="b">
+          <text x="120" y="180" class="strong" font-size="17">AT AN ORDINARY PUMP, NATIONAL AVERAGE</text>
+          <text x="120" y="240" class="big" font-size="46">€2.00</text>
+          <text x="300" y="240" font-size="16">PETROL</text>
+          <text x="450" y="240" class="big" font-size="46">€2.20</text>
+          <text x="630" y="240" font-size="16">DIESEL</text>
+          <text x="120" y="300" class="flawtxt strong" font-size="17">ON THE MOTORWAY, DIESEL HAS PASSED €2.70</text>
+        </g>
+        <g id="e_cgia" class="b">
+          <text x="120" y="360" class="big flawtxt" font-size="40" id="e_n1">€0</text>
+          <text x="420" y="360" font-size="16">MORE ON FUEL THIS YEAR — ABOUT A FIFTH</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — March to July 2026 · three short reliefs, then nothing · sources: Euronews, Sky TG24, CGIA di Mestre</div>
+    </div>
+    <div class="prose">
+      <p>Prices at Italian pumps have been climbing since 3 July — the day the last discount on fuel duty expired. Since 8 July, Brent crude has risen by roughly a quarter, and this week it passed $100 a barrel. At an ordinary pump the national average is now about €2.00 a litre for petrol and €2.20 for diesel; on the motorway, diesel has passed the €2.70 we started with.</p>
+      <p>Italy's small-business research office estimates households and companies will spend around €13.5 billion more on petrol and diesel this year than last — an increase of about a fifth, in one year. The government says it will step in using something called the mobile excise duty.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 HOW THE PRICE IS ASSEMBLED ================= -->
+<section class="ep" id="s2" data-duration="97.4">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">How The Price Is Assembled</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The mechanism · One base, two consequences</div>
+    <h2>A percentage charged on a fixed tax.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg2">
+        <!-- the litre, built bottom-up -->
+        <g id="p_l1" class="b">
+          <rect x="180" y="380" width="240" height="160" fill="var(--topic)" fill-opacity=".35" stroke="var(--text)" stroke-width="2"/>
+          <text x="460" y="450" class="strong" font-size="17">THE FUEL ITSELF</text>
+          <text x="460" y="478" font-size="14">MOVES EVERY DAY · NO GOVERNMENT CONTROLS IT</text>
+        </g>
+        <g id="p_l2" class="b">
+          <rect x="180" y="290" width="240" height="90" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <text x="460" y="330" class="strong" font-size="17">FUEL DUTY — 67 CENTS, FIXED</text>
+          <text x="460" y="358" font-size="14">WHATEVER THE FUEL BENEATH IT COSTS · THIS PAYS FOR ROADS</text>
+        </g>
+        <g id="p_l3" class="b">
+          <rect x="180" y="200" width="240" height="90" fill="var(--fact)" fill-opacity=".2" stroke="var(--fact)" stroke-width="2"/>
+          <text x="460" y="240" class="fact strong" font-size="17">SALES TAX — 22%</text>
+        </g>
+        <!-- the base bracket -->
+        <g id="p_base" class="b">
+          <path d="M150 200 L120 200 L120 380 L150 380" class="amber"/>
+          <text x="40" y="180" class="flawtxt strong" font-size="16">THE BASE</text>
+          <text x="460" y="268" class="flawtxt" font-size="15">CHARGED ON THE FUEL <tspan font-weight="600">AND</tspan> THE DUTY TOGETHER</text>
+          <text x="460" y="296" class="flawtxt" font-size="15">— EU RULES REQUIRE IT</text>
+        </g>
+        <!-- consequence one -->
+        <g id="p_c1" class="b">
+          <rect x="900" y="120" width="480" height="150" fill="var(--flaw)"/>
+          <text x="924" y="164" class="onplate" font-size="16">CONSEQUENCE ONE</text>
+          <text x="924" y="212" class="onplate" font-size="34">~15c A LITRE</text>
+          <text x="924" y="248" class="onplate" font-size="15">SALES TAX ON ITS OWN TAX — NEVER MOVES</text>
+        </g>
+        <!-- consequence two -->
+        <g id="p_c2" class="b">
+          <rect x="900" y="300" width="480" height="180" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="924" y="344" class="flawtxt strong" font-size="16">CONSEQUENCE TWO</text>
+          <text x="924" y="392" class="big flawtxt" font-size="30" id="p_take">€0.00</text>
+          <text x="924" y="424" font-size="15">THE STATE'S TAKE PER LITRE</text>
+          <text x="924" y="458" class="flawtxt" font-size="15">RISES WITH OIL — NOBODY DECIDES IT</text>
+        </g>
+        <text x="180" y="576" class="strong b" id="p_keep" font-size="16">KEEP THESE APART: ONE IS A CONSTANT, THE OTHER IS A SLOPE</text>
+      </svg>
+      <div class="sim" id="sim" aria-label="Pump price simulator">
+        <label for="simOil">Crude oil — dollars per barrel</label>
+        <input type="range" id="simOil" min="40" max="140" value="100">
+        <div class="out">
+          <b id="simPump">€0.00</b><span>at the pump</span>
+          <b id="simState" style="color:var(--flaw)">€0.00</b><span>the state's share</span>
+          <b id="simTot" style="color:var(--text-dim)">0%</b><span>of the price is tax</span>
+        </div>
+        <div class="out" style="border:0;padding-top:4px">
+          <span style="text-transform:none;color:var(--text-dim)">Fuel duty stays at 67c whatever you do with the slider. The 22% is what moves.</span>
+        </div>
+      </div>
+      <div class="figcap">Fig. 2 — move the slider: the duty block never changes height · schematic, illustrating structure rather than forecasting a price</div>
+    </div>
+    <div class="prose">
+      <p>At the bottom of the litre is the fuel itself — what the oil cost, refined and delivered. On top sits <b>fuel duty</b>: a fixed number of cents on every litre whatever the fuel underneath costs. In Italy it has been 67 cents since 1 January, now identical for petrol and diesel. This is also the money that pays for roads.</p>
+      <p>Then comes sales tax at 22% — and the detail that does the work is that it is calculated on the fuel <b>and</b> the duty together, not the fuel alone. European rules require the duty to sit inside the base, in every member state. That has two separate consequences worth keeping apart. First: 22% of 67 cents is about 15 cents a litre of sales tax charged on the state's own tax — and that never moves. Second, the one that matters today: the sales tax on the fuel part is a percentage, so when crude rises the state's total take per litre rises with it, automatically, without a single decision being taken.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE CORRECTOR ================= -->
+<section class="ep" id="s3" data-duration="110.1">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Design Flaw</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The design flaw · Automatic in, manual out</div>
+    <h2>The collecting happens by itself.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 670" id="svg3">
+        <!-- collection arrow -->
+        <g id="c_coll" class="b">
+          <path id="c_line" class="blue" stroke-width="5" d="M140 150 L1240 150"/>
+          <path d="M1240 150 l-26 -14 M1240 150 l-26 14" class="blue" stroke-width="5"/>
+          <text x="140" y="120" class="fact strong" font-size="18">COLLECTION — CONTINUOUS, UNATTENDED</text>
+          <rect id="c_treas" x="1260" y="110" width="110" height="0" fill="var(--fact)" fill-opacity=".3" stroke="var(--fact)" stroke-width="2"/>
+        </g>
+        <!-- the idea -->
+        <g id="c_idea" class="b">
+          <text x="140" y="230" class="strong" font-size="17">THE MOBILE EXCISE DUTY — MOBILE BECAUSE THE RATE IS MEANT TO MOVE</text>
+          <text x="140" y="262" font-size="15">SURPLUS SALES TAX → CUT THE DUTY BY THE SAME AMOUNT → PRICE STAYS STILL</text>
+        </g>
+        <g id="c_cross" class="b">
+          <text x="140" y="308" font-size="15">BUILT BY A CENTRE-LEFT GOVERNMENT IN 2008 · REFORMED BY A RIGHT-WING ONE IN 2023</text>
+          <text x="140" y="334" class="strong" font-size="15">— SO WHAT IS WRONG WITH IT IS NOT POLITICAL</text>
+        </g>
+        <!-- restitution, interrupted -->
+        <g id="c_rest" class="b">
+          <text x="140" y="400" class="alttxt strong" font-size="18">GIVING IT BACK — INTERRUPTED THREE TIMES</text>
+          <path class="green" d="M140 430 L400 430"/>
+          <path class="green" d="M520 430 L760 430"/>
+          <path class="green" d="M880 430 L1120 430"/>
+        </g>
+        <g id="c_stamps" class="b">
+          <g><rect x="410" y="405" width="100" height="50" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+             <text x="424" y="436" class="flawtxt" font-size="14">MINISTRY</text></g>
+          <g><rect x="770" y="405" width="100" height="50" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+             <text x="790" y="436" class="flawtxt" font-size="14">DECREE</text></g>
+          <g><rect x="1130" y="405" width="110" height="50" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+             <text x="1146" y="436" class="flawtxt" font-size="14">EXPIRY</text></g>
+        </g>
+        <!-- the 2026 record -->
+        <g id="c_rec" class="b">
+          <text x="140" y="510" class="strong" font-size="16">WHAT THAT PRODUCED IN 2026</text>
+          <rect x="140" y="530" width="200" height="46" fill="var(--alt)" fill-opacity=".25" stroke="var(--alt)" stroke-width="2"/>
+          <text x="156" y="560" class="alttxt" font-size="15">MARCH — 20 DAYS</text>
+          <rect x="360" y="530" width="120" height="46" fill="var(--alt)" fill-opacity=".25" stroke="var(--alt)" stroke-width="2"/>
+          <text x="376" y="560" class="alttxt" font-size="15">MAY — 12</text>
+          <rect x="500" y="530" width="230" height="46" fill="var(--alt)" fill-opacity=".25" stroke="var(--alt)" stroke-width="2"/>
+          <text x="516" y="560" class="alttxt" font-size="15">JUNE — UNDER 4 WKS</text>
+          <rect x="750" y="530" width="620" height="46" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="766" y="560" class="flawtxt" font-size="15">SINCE 3 JULY — NOTHING</text>
+        </g>
+        <g id="c_flaw" class="b">
+          <rect x="140" y="600" width="1230" height="52" fill="var(--flaw)"/>
+          <text x="164" y="634" class="onplate" font-size="19">THE COLLECTING HAPPENS BY ITSELF · THE GIVING BACK REQUIRES A SIGNATURE</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — one side runs by itself; the other needs a signature every month · sources: VAT Review, Il Sole 24 Ore, Il Politico</div>
+    </div>
+    <div class="prose">
+      <p>Italy has known about this for a long time. In 2008 it built a mechanism aimed at exactly this problem: the <b>mobile excise duty</b> — mobile because the rate is meant to move, down when oil goes up and back again when it comes down. When crude rises the state collects extra sales tax it never budgeted for, and that surplus is used to cut the duty by a matching amount. It was created under a centre-left government and reformed by a right-wing one, which tells you the problem with it is not political.</p>
+      <p>The problem is that it is not really a mechanism. The finance ministry has to calculate how much extra sales tax actually arrived last month — a figure not ready until after the first week of the following month. Then two ministries sign a decree. And the decree carries an expiry date. In March an emergency decree cut the duty by 25 cents (more than the surplus alone would have covered) and ran 20 days; a May cut funded from April's surplus ran 12 days; a June decree expired on 3 July. Not one lasted a full month. <b>The collecting happens by itself. The giving back requires a signature.</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE SECOND DECISION ================= -->
+<section class="ep" id="s4" data-duration="90.8">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The Second Decision</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The second decision · Two rooms, no third</div>
+    <h2>Nobody made a mistake here.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 580" id="svg4">
+        <g id="r_left" class="b">
+          <rect x="110" y="110" width="560" height="230" class="nodebox" stroke="var(--alt)"/>
+          <text x="134" y="152" class="alttxt strong" font-size="17">ROOM ONE · 2025 · ENVIRONMENT</text>
+          <text x="134" y="188" font-size="15">DIESEL WAS TAXED MORE LIGHTLY THAN PETROL</text>
+          <text x="134" y="218" font-size="15">THE EU CALLED THAT GAP A HARMFUL SUBSIDY</text>
+          <text x="134" y="256" class="strong" font-size="15">DECISION: DIESEL +4c, PETROL −4c</text>
+          <text x="134" y="300" font-size="14">PLANNED TO ARRIVE GRADUALLY, OVER FIVE YEARS</text>
+        </g>
+        <g id="r_ramp" class="b">
+          <path id="r_slope" class="green" d="M150 320 L620 250"/>
+          <text x="150" y="345" class="alttxt" font-size="14">A FRACTION OF A CENT AT A TIME</text>
+        </g>
+        <g id="r_step" class="b">
+          <path d="M150 320 L560 320 L560 250 L620 250" stroke="var(--flaw)" stroke-width="4" fill="none"/>
+          <text x="150" y="345" class="flawtxt strong" font-size="15">PULLED FORWARD — FIVE YEARS LANDED ON ONE DAY</text>
+        </g>
+        <g id="r_right" class="b">
+          <rect x="810" y="110" width="560" height="230" class="nodebox" stroke="var(--fact)"/>
+          <text x="834" y="152" class="fact strong" font-size="17">ROOM TWO · 2026 · THE OIL MARKET</text>
+          <text x="834" y="188" font-size="15">THE FIGHTING WITH IRAN MOVES THE CRUDE PRICE</text>
+          <text x="834" y="218" font-size="15">SALES TAX RISES WITH IT, AUTOMATICALLY</text>
+          <text x="834" y="262" font-size="14">NEITHER ROOM CAN SEE THE OTHER</text>
+        </g>
+        <g id="r_stack" class="b">
+          <rect x="640" y="400" width="200" height="60" fill="var(--flaw)" fill-opacity=".3" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="660" y="438" class="flawtxt strong" font-size="16">SAME LITRE</text>
+          <path class="amber" d="M390 340 C 470 380, 560 390, 640 415"/>
+          <path class="amber" d="M1090 340 C 1010 380, 920 390, 840 415"/>
+        </g>
+        <g id="r_none" class="b">
+          <rect x="500" y="490" width="480" height="70" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="8 7"/>
+          <text x="524" y="522" class="flawtxt strong" font-size="17">NO THIRD ROOM ⚠</text>
+          <text x="524" y="548" class="flawtxt" font-size="15">WHERE ANYONE LOOKS AT THE TOTAL</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 4 — two defensible decisions, two processes, one litre · the environmental decision is shown neutrally, not as a blunder</div>
+    </div>
+    <div class="prose">
+      <p>On 1 January the duty on diesel went up by 4 cents a litre — on top of the 67 — and petrol came down by the same 4 cents. The reason had nothing to do with oil prices: for years diesel had been taxed more lightly, and the EU classified that gap as an environmentally harmful subsidy, because diesel engines emit more of the fine particles and nitrogen oxides that damage lungs. The plan was drawn up in 2025 and meant to arrive gradually over five years. Then it was pulled forward into this year's budget, and five years' worth landed on a single day.</p>
+      <p>Judged on its own terms that is a defensible decision, taken a year in advance for stated environmental reasons. And it arrived in the same year the fighting with Iran moved the price of oil. Nobody made a mistake here. The environment people were doing environmental policy; the tax people were doing tax policy. What nobody had, anywhere in the process, was a room where the two decisions were added together and someone looked at the total.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THE ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="179.8">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">The Alternatives</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · A rule, the base, or Chile</div>
+    <h2>None of them is free.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <!-- design A -->
+        <g id="a_rule" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN A · MAKE THE GIVING-BACK A RULE, NOT A DECISION</text>
+          <g id="a_r1" class="b">
+            <rect x="110" y="130" width="620" height="120" class="nodebox" stroke="var(--alt)"/>
+            <text x="134" y="172" class="strong" font-size="16">THE FORMULA IS WRITTEN INTO THE LAW</text>
+            <text x="134" y="206" font-size="15">REVENUE ABOVE BUDGET → THE DUTY FALLS AUTOMATICALLY</text>
+            <text x="134" y="234" class="alttxt" font-size="15">NO MINISTER SIGNS · NO EXPIRY DATE</text>
+          </g>
+          <g id="a_r2" class="b">
+            <path id="a_rpath" class="green revision" d="M730 190 C 830 190, 880 190, 960 190"/>
+            <rect x="960" y="150" width="410" height="80" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="984" y="196" class="alttxt strong" font-size="16">SAME SPEED BOTH WAYS</text>
+          </g>
+          <g id="a_rcost" class="b">
+            <rect x="110" y="300" width="1260" height="180" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="338" class="flawtxt" font-size="15">THE COST — THREE THINGS:</text>
+            <text x="134" y="378" font-size="15">1 · THE TREASURY LOSES MONEY IT HAS USUALLY ALREADY PROMISED ELSEWHERE</text>
+            <text x="134" y="412" font-size="15">2 · A BUDGET WRITTEN IN OCTOBER WOULD DEPEND ON WHERE OIL GOES IN MARCH</text>
+            <text x="134" y="452" class="flawtxt" font-size="15">3 · HIGH PRICES ARE WHAT MAKES PEOPLE DRIVE LESS — THIS SOFTENS THEM EVERY TIME</text>
+          </g>
+        </g>
+        <!-- design B -->
+        <g id="a_base" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN B · GO AFTER THE BASE INSTEAD OF THE SPEED</text>
+          <g id="a_b1" class="b">
+            <rect x="110" y="140" width="300" height="90" fill="none" stroke="var(--text)" stroke-width="3"/>
+            <text x="134" y="180" class="strong" font-size="16">FUEL DUTY 67c</text>
+            <rect x="450" y="140" width="300" height="90" fill="var(--fact)" fill-opacity=".2" stroke="var(--fact)" stroke-width="2"/>
+            <text x="474" y="180" class="fact strong" font-size="16">22% ON FUEL ONLY</text>
+            <path id="a_bpath" class="green revision" d="M410 185 L450 185"/>
+            <text x="790" y="180" class="alttxt strong" font-size="17">THE 15 CENTS DISAPPEARS</text>
+          </g>
+          <g id="a_bcost" class="b">
+            <rect x="110" y="290" width="1260" height="190" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">THE COST — TWO PARTS:</text>
+            <text x="134" y="372" font-size="15">1 · 15 CENTS ON EVERY LITRE SOLD, PERMANENTLY — A HOLE ANOTHER TAX MUST FILL</text>
+            <text x="134" y="418" class="flawtxt" font-size="15">2 · ITALY CANNOT DECIDE THIS. THE BASE IS SET IN EUROPEAN LAW,</text>
+            <text x="134" y="450" class="flawtxt" font-size="15">     SO IT IS A EUROPEAN NEGOTIATION MEASURED IN YEARS</text>
+          </g>
+        </g>
+        <!-- design C: Chile -->
+        <g id="a_chile" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN C · CHILE — DESIGN A, FINISHED, RUNNING SINCE 2014</text>
+          <g id="a_c1" class="b">
+            <text x="110" y="126" font-size="15">THE FINANCE MINISTRY ADDS AN EXTRA AMOUNT TO THE DUTY — PLUS, MINUS, OR ZERO</text>
+            <text x="110" y="156" class="alttxt" font-size="15">NOBODY SIGNS IT · IT NEVER EXPIRES</text>
+          </g>
+          <g id="a_flat" class="b">
+            <path class="hair" d="M110 300 L1370 300"/>
+            <path id="a_crude2" class="blue" stroke-width="3" d="M110 300 C 400 290, 640 240, 900 190 C 1060 160, 1200 140, 1370 120"/>
+            <path id="a_pump2" class="green" stroke-width="4" d="M110 300 L980 300"/>
+            <text x="1180" y="112" class="fact" font-size="14">WORLD PRICE</text>
+            <text x="640" y="330" class="alttxt" font-size="14">PUMP PRICE, HELD FLAT</text>
+          </g>
+          <g id="a_meter" class="b">
+            <text x="110" y="380" class="big flawtxt" font-size="34" id="a_cost">$0M</text>
+            <text x="330" y="380" font-size="15">SPENT HOLDING THE PRICE STILL</text>
+            <text x="110" y="414" class="flawtxt" font-size="15">$140M OF IT IN A SINGLE WEEK IN MARCH</text>
+          </g>
+          <g id="a_snap" class="b">
+            <path id="a_jump" d="M980 300 L980 150 L1370 130" stroke="var(--flaw)" stroke-width="5" fill="none"/>
+            <text x="1000" y="470" class="flawtxt strong" font-size="17">THE BUDGET SAID NO</text>
+            <text x="1000" y="500" class="flawtxt" font-size="16">PETROL +32% · DIESEL +62% OVERNIGHT</text>
+          </g>
+          <g id="a_pol" class="b">
+            <text x="110" y="470" class="strong" font-size="15">APPROVAL FELL 6 POINTS IN A WEEK</text>
+            <text x="110" y="500" font-size="15">THE TRUCKERS BEGAN ORGANISING</text>
+          </g>
+          <g id="a_lesson" class="b">
+            <rect x="110" y="536" width="1260" height="66" fill="var(--flaw)"/>
+            <text x="134" y="578" class="onplate" font-size="18">AUTOMATION DOESN'T REMOVE THE COST — IT MOVES IT INTO THE BUDGET AND STORES IT</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 5 — three redlined redesigns · dashed green = revision markup · sources: Ministerio de Hacienda, CNE, MercoPress, Enerdata</div>
+    </div>
+    <div class="prose">
+      <p><b>A rule instead of a decision.</b> Write the formula into the law: revenue above budget, and the duty falls automatically — no signature, no expiry. <i>The cost:</i> the treasury loses money it has usually already promised elsewhere; a budget written in October would depend on where oil goes in March; and high prices are the one thing that reliably makes people drive less, so this design softens them exactly when they would have worked — in the same country that raised diesel duty this year to clean the air.</p>
+      <p><b>Go after the base.</b> Charge the 22% on the fuel alone and the 15 cents disappears. <i>The cost:</i> 15 cents on every litre sold, permanently, is a hole another tax must fill — and Italy cannot decide this anyway, because the base is written into European law.</p>
+      <p><b>Chile.</b> Since 2014 the finance ministry has added a variable amount to the duty — plus, minus or zero, with nobody signing and no expiry. This is design A, finished. <i>The cost is visible in this same oil shock:</i> about $220M spent holding pump prices still, $140M of it in one week in March; then an emergency lever in the same law sent petrol up 32% and diesel 62% overnight, the president's approval fell six points in a week, and the truckers began organising. Automation doesn't remove the cost of a shock — it moves it into the budget and stores it there, until the budget says no.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 THE CLOSE ================= -->
+<section class="ep" id="s6" data-duration="67.6">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Not the money — the speed</div>
+    <h2>Who decides, and how quickly?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_litre" class="b">
+          <rect x="120" y="70" width="180" height="360" class="ink"/>
+          <line x1="120" y1="250" x2="300" y2="250" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="130" y="470" class="big" font-size="40">€2.70</text>
+          <text x="340" y="140" font-size="16">ABOUT HALF IS TAX</text>
+          <text x="340" y="176" font-size="16">A SLICE OF IT IS TAX CHARGED ON TAX</text>
+          <text x="340" y="224" class="strong" font-size="16">NONE OF IT IS HIDDEN · NONE OF IT IS AN ACCIDENT</text>
+          <text x="340" y="262" font-size="15">THE DUTY PAYS FOR ROADS · THE BASE IS EUROPEAN LAW</text>
+          <text x="340" y="292" font-size="15">THE DIESEL CHANGE WAS MADE TO CLEAN THE AIR</text>
+        </g>
+        <g id="z_speed" class="b">
+          <path class="blue" stroke-width="5" d="M340 360 L1360 360"/>
+          <text x="340" y="340" class="fact strong" font-size="17">RUNS BY ITSELF, IN REAL TIME</text>
+          <path class="green" d="M340 420 L560 420"/><path class="green" d="M700 420 L900 420"/>
+          <path class="green" d="M1040 420 L1180 420"/>
+          <text x="340" y="462" class="alttxt strong" font-size="17">NEEDS ARITHMETIC, TWO SIGNATURES, A NEW DECISION EVERY MONTH</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="510" text-anchor="middle" class="big" font-size="26">ONE ANSWER IS LATE. THE OTHER IS EXPENSIVE.</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>About half of that litre is tax, and a slice of it is sales tax charged on tax. None of this is hidden and none of it is an accident — every piece was built deliberately by people with reasons they could defend: the duty pays for roads, the shape of the base is written into European law, and the change to diesel was made to clean the air.</p>
+      <p>What is lopsided isn't the money. It is the speed. One side runs entirely by itself: oil goes up, the state's share goes up with it, in real time, attended by nobody. The other needs a ministry to finish its arithmetic, two signatures, and a fresh decision every month — and then it expires. So the question worth carrying out of this isn't whether fuel should be taxed. It is who decides, and how quickly, when a tax grows on its own because a war moved a price somewhere else. A minister with a decree each month, or a formula that nobody has to sign. One of those answers is late. The other one is expensive. There is no third answer that is neither.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails — saturated plate mandatory, text <= 12 chars -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <rect x="120" y="60" width="150" height="280" fill="none" stroke="var(--text)" stroke-width="7"/>
+    <line x1="120" y1="200" x2="270" y2="200" stroke="var(--flaw)" stroke-width="7"/>
+    <text x="310" y="150" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">67c FIXED</text>
+    <text x="310" y="230" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">+ 22% ON IT</text>
+    <text x="310" y="310" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text-dim)">= 15c of tax on tax</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">Tax on tax</div>
+  <div class="sub">Italy, €2.70 a litre</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <line x1="120" y1="300" x2="1160" y2="300" stroke="var(--text)" stroke-width="6"/>
+    <rect x="180" y="150" width="200" height="150" fill="none" stroke="var(--alt)" stroke-width="7"/>
+    <rect x="480" y="150" width="110" height="150" fill="none" stroke="var(--alt)" stroke-width="7"/>
+    <rect x="690" y="150" width="230" height="150" fill="none" stroke="var(--alt)" stroke-width="7"/>
+    <text x="120" y="110" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text-dim)">the relief, 2026</text>
+    <text x="960" y="270" font-family="IBM Plex Mono" font-size="34" style="fill:var(--flaw)">then nothing</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">12 days</div>
+  <div class="sub">The shortest run of three</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+const eur=n=>'€'+n.toFixed(2);
+
+/* ---------- primitives ---------- */
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function grow(tl,id,attrs,dur,pos){tl.set($(id),{opacity:1},pos).to($(id),{attr:attrs,duration:dur,ease:'power2.out'},pos);}
+function money(tl,id,end,dur,pos,pre='€',suf=''){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos).to(st,{v:end,duration:dur,ease:'power1.inOut',
+    onUpdate:()=>el.textContent=pre+Math.round(st.v).toLocaleString('en-US')+suf,
+    onComplete:()=>el.textContent=pre+Math.round(end).toLocaleString('en-US')+suf},pos);}
+
+/* ---------- scenes ---------- */
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.7); idle(tl,'h_s1',4,12);
+  tl.to($('h_s1'),{opacity:0,duration:.6},19.0);
+  say(tl,'h_s2',20.0,.7); idle(tl,'h_s2',25,16);
+  tl.to($('h_s2'),{opacity:0,duration:.6},45.0);
+  say(tl,'h_s3',46.0,.7);
+  tl.to($('h_grow'),{attr:{width:640},duration:3.0,ease:'power1.inOut'},49.0);
+  idle(tl,'h_s3',53,12);
+  tl.to($('h_s3'),{opacity:0,duration:.6},67.0);
+  say(tl,'h_s4',68.0,.7); idle(tl,'h_s4',71,4);
+  tl.to($('h_s4'),{opacity:0,duration:.5},75.5);
+  pop(tl,'h_s5',76.0,.7); shake(tl,'h_s5',77.0,6,8); idle(tl,'h_s5',79,4);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},84.0);
+  if(isAuto)tl.to({},{duration:5.5},84.7); else tl.to($('titleCard'),{opacity:0,duration:.5},88.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  draw(tl,'e_crude',2.6,0.5); say(tl,'e_crudelab',2.4);
+  say(tl,'e_pump',7.0,.7); idle(tl,'e_pump',12,7);
+  say(tl,'e_bars',22.0,.7); idle(tl,'e_bars',26,6);
+  money(tl,'e_n1',13500000000,3.0,36.0);
+  tl.call(()=>{$('e_n1').textContent='€13.5bn';},[],39.2);
+  say(tl,'e_cgia',36.0,.1);
+  say(tl,'e_gap',48.0,.7); shake(tl,'svg1',48.4,6,8); idle(tl,'e_gap',51,12);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'p_l1',0.5,.7);
+  say(tl,'p_l2',14.0,.7); idle(tl,'p_l2',20,8);
+  say(tl,'p_l3',36.0,.7);
+  say(tl,'p_base',48.0,.7); shake(tl,'svg2',48.4,5,6); idle(tl,'p_base',53,8);
+  say(tl,'p_c1',70.0,.7); idle(tl,'p_c1',74,8);
+  say(tl,'p_c2',88.0,.7);
+  money(tl,'p_take',0,0.1,90.0);
+  tl.call(()=>{const el=$('p_take');const st={v:0.90};
+    gsap.to(st,{v:1.42,duration:6,ease:'power1.inOut',
+      onUpdate:()=>el.textContent=eur(st.v)});},[],90.5);
+  say(tl,'p_keep',104.0,.6); idle(tl,'p_keep',107,8);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'c_coll',0.5,.7);
+  grow(tl,'c_treas',{height:180,y:110},4.0,3.0);
+  say(tl,'c_idea',14.0,.7); idle(tl,'c_idea',19,8);
+  say(tl,'c_cross',34.0,.7); idle(tl,'c_cross',38,8);
+  say(tl,'c_rest',54.0,.7);
+  say(tl,'c_stamps',60.0,.7); shake(tl,'c_stamps',61.0,5,6); idle(tl,'c_stamps',64,10);
+  say(tl,'c_rec',84.0,.7); idle(tl,'c_rec',89,10);
+  pop(tl,'c_flaw',112.0,.7); shake(tl,'c_flaw',113.0,6,8);
+  idle(tl,'c_flaw',115,12);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'r_left',0.5,.7); idle(tl,'r_left',6,10);
+  draw(tl,'r_slope',1.8,24.0); say(tl,'r_ramp',24.0,.1);
+  tl.to($('r_ramp'),{opacity:0,duration:.5},38.0);
+  say(tl,'r_step',39.0,.7); shake(tl,'r_step',40.0,6,8); idle(tl,'r_step',42,8);
+  say(tl,'r_right',58.0,.7); idle(tl,'r_right',63,8);
+  say(tl,'r_stack',78.0,.7);
+  say(tl,'r_none',88.0,.7); idle(tl,'r_none',91,8);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  // ---- design A ----
+  tl.set($('a_rule'),{opacity:1},0);
+  say(tl,'a_r1',0.5,.7);
+  draw(tl,'a_rpath',1.4,12.0); say(tl,'a_r2',12.0,.1); idle(tl,'a_r2',16,6);
+  say(tl,'a_rcost',28.0,.7); idle(tl,'a_rcost',33,22);
+  tl.to($('a_rule'),{opacity:0,duration:.7},63.0);
+  // ---- design B ----
+  tl.fromTo($('a_base'),{opacity:0},{opacity:1,duration:.7},64.0);
+  say(tl,'a_b1',66.0,.7); draw(tl,'a_bpath',1.0,68.0); idle(tl,'a_b1',72,8);
+  say(tl,'a_bcost',86.0,.7); idle(tl,'a_bcost',91,14);
+  tl.to($('a_base'),{opacity:0,duration:.7},110.0);
+  // ---- design C: Chile ----
+  tl.fromTo($('a_chile'),{opacity:0},{opacity:1,duration:.7},111.0);
+  say(tl,'a_c1',113.0,.7); idle(tl,'a_c1',117,8);
+  say(tl,'a_flat',132.0,.7); draw(tl,'a_crude2',3.0,133.0); draw(tl,'a_pump2',3.0,133.0);
+  idle(tl,'a_flat',138,8);
+  money(tl,'a_cost',220,3.5,152.0,'$','M'); say(tl,'a_meter',152.0,.1);
+  idle(tl,'a_meter',157,8);
+  draw(tl,'a_jump',1.2,172.0); say(tl,'a_snap',172.0,.1);
+  shake(tl,'svg5',172.6,8,10); idle(tl,'a_snap',176,8);
+  say(tl,'a_pol',190.0,.7); idle(tl,'a_pol',194,6);
+  pop(tl,'a_lesson',204.0,.7); idle(tl,'a_lesson',206,6);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_litre',0.5,.8); idle(tl,'z_litre',6,18);
+  say(tl,'z_speed',30.0,.8); idle(tl,'z_speed',35,18);
+  say(tl,'z_q',60.0,.8);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:7,yoyo:true},63.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+/* redline toggle */
+function setRedline(on){document.querySelectorAll('.revision').forEach(el=>el.style.opacity=on?1:0);
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  /* void return on purpose: record.mjs does page.evaluate(()=>window.__play()),
+     and returning the GSAP timeline breaks Playwright serialisation. */
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  setRedline(false);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.4);
+    if(s.id==='s5')tl.timeScale(3.4);
+    if(s.id==='s3'||s.id==='s2')tl.timeScale(2.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- pump price simulator: duty is fixed, VAT is a percentage ----
+  const DUTY=0.6729, VAT=0.22, MARGIN=0.28;   // margin = refining + distribution, schematic
+  const simOil=$('simOil');
+  function runSim(){
+    const brent=+simOil.value;
+    const fuel=brent/159*1.0+MARGIN;          // barrel → litre, schematic
+    const net=fuel+DUTY;
+    const vat=net*VAT;
+    const pump=net+vat;
+    const state=DUTY+vat;
+    $('simPump').textContent=eur(pump);
+    $('simState').textContent=eur(state);
+    $('simTot').textContent=Math.round(state/pump*100)+'%';
+    gsap.set($('p_take'),{opacity:1});
+    $('p_take').textContent=eur(state);
+  }
+  simOil.addEventListener('input',runSim); runSim();
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){if(secs[i].getBoundingClientRect().top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i; player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
