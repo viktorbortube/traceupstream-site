@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why One Exam for 2.3 Million Students Was Built to Leak | Trace Upstream</title>
+<meta name="description" content="India centralized its medical exam to kill corruption — and made one sheet of paper so valuable that stealing it became an industry. The mechanism, the failed deterrence, and three real redesigns with their prices.">
+<link rel="canonical" href="https://traceupstream.com/episodes/021-exam-centralization-leak/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="Why One Exam for 2.3 Million Students Was Built to Leak">
+<meta property="og:description" content="An interactive blueprint: how an anti-corruption reform concentrated 2.27 million futures onto one exam paper, why a 10-year prison law failed to protect it, and three designs that make the paper worth less.">
+<meta property="og:url" content="https://traceupstream.com/episodes/021-exam-centralization-leak/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#B07E85; /* desaturated rose — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice — :not([font-size]) so font-size attributes win (EP.008 fix) */
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)} /* text on filled accent plates — Paper, never grey */
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+/* listen mode */
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+/* controls */
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim{margin-top:14px;border:1px solid var(--grid);background:var(--bg-raised);padding:18px 20px}
+.sim label{font-family:var(--font-mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-dim);display:block;margin-bottom:7px}
+.sim input[type=range]{width:100%;accent-color:var(--text)}
+.sim .out{border-top:1px solid var(--grid);margin-top:14px;padding-top:14px;display:flex;
+  align-items:baseline;gap:10px 22px;flex-wrap:wrap}
+.sim .out b{font-family:var(--font-display);font-size:30px}
+.sim .out span{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+body.auto .sim{display:none}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails — a saturated plate is MANDATORY (docs/branding.md §6) */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:132px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.021 — 2026-07-27</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:26</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK =================
+     Mobile floor applies here: viewBox 1000 wide → scale ~1.78 → every
+     font-size must be >= 31 to clear 54px on a 1080 frame. Max 12 words per group. -->
+<section class="ep" id="s0" data-duration="76.5">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.021</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <!-- state 1: the sheet -->
+        <g id="h_s1" class="b">
+          <rect x="390" y="90" width="220" height="300" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <line x1="420" y1="150" x2="580" y2="150" class="ink"/>
+          <line x1="420" y1="190" x2="580" y2="190" class="ink"/>
+          <line x1="420" y1="230" x2="560" y2="230" class="ink"/>
+          <line x1="420" y1="270" x2="580" y2="270" class="ink"/>
+          <line x1="420" y1="310" x2="540" y2="310" class="ink"/>
+          <text x="500" y="470" text-anchor="middle" class="strong" font-size="38">A SINGLE SHEET OF PAPER</text>
+          <text x="500" y="530" text-anchor="middle" class="flawtxt" font-size="36">THE MINISTER RESIGNED OVER IT</text>
+        </g>
+        <!-- state 2: the funnel -->
+        <g id="h_s2" class="b">
+          <text x="80" y="150" class="big" font-size="72" id="h_count">0</text>
+          <text x="80" y="215" class="strong" font-size="36">STUDENTS · ONE EXAM</text>
+          <path d="M80 260 L620 260 L760 380 L620 500 L80 500" fill="none" stroke="var(--text)" stroke-width="4"/>
+          <rect x="760" y="330" width="24" height="100" fill="var(--text)"/>
+          <text x="80" y="330" class="fact" font-size="36">130,000 PLACES</text>
+          <text x="80" y="450" class="flawtxt" font-size="40">ONE IN EIGHTEEN GETS THROUGH</text>
+        </g>
+        <!-- state 3: the price -->
+        <g id="h_s3" class="b">
+          <path d="M300 130 L640 130 L700 200 L640 270 L300 270 Z" fill="none" stroke="var(--flaw)" stroke-width="5"/>
+          <circle cx="650" cy="200" r="10" fill="var(--flaw)"/>
+          <text x="330" y="220" class="big flawtxt" font-size="58" id="h_price">₹0</text>
+          <text x="300" y="360" class="strong" font-size="38">PER LEAKED COPY — $36,000</text>
+          <text x="300" y="430" font-size="32">MANY YEARS OF A GOOD SALARY</text>
+        </g>
+        <!-- state 4: the reform -->
+        <g id="h_s4" class="b">
+          <text x="120" y="200" class="strong" font-size="44">BUILT TO KILL CORRUPTION</text>
+          <text x="120" y="320" class="alttxt" font-size="44">AND IT WORKED</text>
+          <text x="120" y="440" class="flawtxt" font-size="40">ON ITS OWN TERMS</text>
+        </g>
+        <!-- state 5: the prize -->
+        <g id="h_s5" class="b">
+          <rect x="60" y="180" width="880" height="220" fill="var(--flaw)"/>
+          <text x="100" y="275" class="onplate" font-size="52">NOW THE PAPER ITSELF</text>
+          <text x="100" y="350" class="onplate" font-size="52">IS THE PRIZE</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">Why one exam for 2.3 million<br>students was built to leak.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>This week, India's education minister resigned — because of a single sheet of paper: the question paper for one exam. That exam decides who becomes a doctor in India. This year 2.27 million people sat it, for about 130,000 medical school places — one place for every eighteen students.</p>
+      <p>A sheet of paper with that much power is worth extraordinary money: the last time it leaked, copies reportedly sold for over ₹3 million each (~$36,000). The strange part: India created this exam deliberately, ten years ago, as a weapon against corruption. It worked — against the corruption it was aimed at. It also gathered two million families' hopes onto one document, and quietly turned the document itself into one of the most valuable pieces of paper in the country.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="78.4">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · India, May–July 2026</div>
+    <h2>From exam day to a resignation, in twelve weeks.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg1">
+        <line class="hair" x1="110" y1="420" x2="1380" y2="420"/>
+        <text x="110" y="460" font-size="15">3 MAY</text>
+        <text x="1300" y="460" font-size="15">25 JULY</text>
+        <!-- exam day -->
+        <g id="e_exam" class="b" data-tip="NEET-UG 2026, 3 May: 2.27 million candidates for ~130,000 MBBS places. Sources: Wikipedia, NTA.">
+          <circle cx="180" cy="420" r="9" fill="var(--fact)"/>
+          <text x="130" y="360" class="fact strong" font-size="17">EXAM DAY</text>
+          <text x="130" y="388" font-size="15">2.27M CANDIDATES</text>
+        </g>
+        <!-- cancelled -->
+        <g id="e_cancel" class="b" data-tip="12 May: the government cancels NEET after a pre-circulated 'guess paper' matches the real questions too closely. CBI takes the case.">
+          <circle cx="330" cy="420" r="9" fill="var(--flaw)"/>
+          <rect x="240" y="150" width="230" height="64" fill="none" stroke="var(--flaw)" stroke-width="3" transform="rotate(-6 355 182)"/>
+          <text x="262" y="192" class="flawtxt strong" font-size="26" transform="rotate(-6 355 182)">CANCELLED</text>
+          <text x="250" y="290" font-size="15">12 MAY — A LEAKED "GUESS PAPER"</text>
+          <text x="250" y="316" font-size="15">MATCHED THE REAL QUESTIONS</text>
+        </g>
+        <!-- retake -->
+        <g id="e_retake" class="b" data-tip="21 June: the retake. New leak claims circulate within days; the NTA calls them fake and threatens legal action.">
+          <circle cx="700" cy="420" r="9" fill="var(--fact)"/>
+          <text x="620" y="360" class="strong" font-size="16">21 JUNE — RETAKE</text>
+          <rect x="620" y="240" width="250" height="46" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="636" y="270" class="flawtxt" font-size="14">NEW CLAIMS — DISPUTED</text>
+          <text x="620" y="316" font-size="14">TRUST HAD RUN OUT</text>
+        </g>
+        <!-- protest -->
+        <g id="e_protest" class="b" data-tip="July: the 'Cockroach movement' — named after widely reported remarks by a senior judge — becomes India's largest youth movement in over a decade.">
+          <circle cx="1000" cy="420" r="9" fill="var(--text)"/>
+          <circle cx="960" cy="330" r="14" class="ink"/>
+          <circle cx="1000" cy="318" r="18" class="ink"/>
+          <circle cx="1042" cy="330" r="22" class="ink"/>
+          <text x="920" y="270" class="strong" font-size="16">THE COCKROACH MOVEMENT</text>
+          <text x="920" y="296" font-size="14">LARGEST YOUTH PROTEST IN A DECADE</text>
+        </g>
+        <!-- hunger strike -->
+        <g id="e_strike" class="b" data-tip="Sonam Wangchuk's hunger strike: 28 June – 24 July. On 18 July police move him to a hospital against his will; the crowds multiply.">
+          <text x="920" y="180" class="big flawtxt" font-size="44" id="e_days">0</text>
+          <text x="1010" y="180" font-size="15">DAYS OF HUNGER STRIKE</text>
+          <text x="920" y="210" font-size="14">MOVED TO HOSPITAL — CROWDS MULTIPLY</text>
+        </g>
+        <!-- resignation -->
+        <g id="e_resign" class="b" data-tip="25 July: Education Minister Dharmendra Pradhan hands in his resignation. The exam system itself is unchanged.">
+          <circle cx="1320" cy="420" r="11" fill="var(--flaw)"/>
+          <text x="1120" y="510" class="flawtxt strong" font-size="18">25 JULY — THE MINISTER RESIGNS</text>
+        </g>
+        <g id="e_unchanged" class="b">
+          <rect x="110" y="490" width="880" height="46" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="128" y="520" class="flawtxt" font-size="16">THE EXAM SYSTEM DID NOT CHANGE THAT DAY</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — twelve weeks, click each point for detail · sources: CNN, Al Jazeera, NPR, India TV</div>
+    </div>
+    <div class="prose">
+      <p>On 3 May, more than two million students took the national medical entrance exam — NEET. Nine days later the government cancelled it: a so-called guess paper — a coaching-shop prediction of likely questions, sold before exam day — matched the real questions too closely to be a guess. The case went to federal investigators, and every one of those students was told to take the exam again. The retake came in late June; within days new leak claims were circulating. The testing agency says those particular claims were fake. True or not, by then trust had run out.</p>
+      <p>Through July a protest grew into the largest youth movement India has seen in over a decade — the Cockroach movement, named after widely reported remarks in which a senior judge described unemployed young Indians as cockroaches and parasites. Engineer and educator Sonam Wangchuk went on a 26-day hunger strike; when police moved him into a hospital against his will, the crowds multiplied. On 25 July the education minister, Dharmendra Pradhan, handed in his resignation. The exam system itself did not change that day.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 THE PATTERN ================= -->
+<section class="ep" id="s2" data-duration="80">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pattern</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The pattern · 2024, then 2026</div>
+    <h2>Ten years in prison did not stop it.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg2">
+        <!-- 2024 chain -->
+        <g id="p_24" class="b">
+          <text x="110" y="90" class="strong" font-size="18">2024 — THE SAME EXAM, THE DAY BEFORE TEST DAY</text>
+          <rect x="110" y="130" width="180" height="64" class="nodebox"/>
+          <text x="132" y="170" font-size="14">PRINTED</text>
+          <path class="ink" d="M290 162 L390 162"/>
+          <rect x="390" y="130" width="220" height="64" class="nodebox"/>
+          <text x="412" y="170" font-size="14">TRANSPORTED</text>
+          <path class="ink" d="M610 162 L710 162"/>
+        </g>
+        <g id="p_break" class="b">
+          <rect x="710" y="130" width="180" height="64" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="736" y="170" class="flawtxt strong" font-size="15">LEAK ⚠</text>
+          <text x="710" y="240" class="flawtxt" font-size="14">ONE STORAGE ROOM, ONE TOWN</text>
+        </g>
+        <g id="p_sold" class="b">
+          <path class="amber" d="M890 162 L990 162"/>
+          <rect x="990" y="130" width="225" height="64" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1008" y="170" class="flawtxt strong" font-size="14">SOLD, COPY BY COPY</text>
+          <text x="990" y="240" class="flawtxt" font-size="14">AT THE PRICE FROM THE HOOK — ₹3M+</text>
+        </g>
+        <g id="p_67" class="b">
+          <text x="1240" y="150" class="big flawtxt" font-size="40">67</text>
+          <text x="1240" y="186" font-size="14">SHARED THE TOP RANK</text>
+          <text x="1240" y="212" font-size="14">NEVER SEEN BEFORE</text>
+        </g>
+        <!-- the law -->
+        <g id="p_law" class="b">
+          <rect x="110" y="300" width="1260" height="90" fill="var(--text)"/>
+          <text x="140" y="340" class="onplate" font-size="20">NEW LAW, 2024 — UP TO 10 YEARS IN PRISON · FINES TO ₹10,000,000</text>
+          <text x="140" y="372" class="onplate" font-size="15">AMONG THE MOST HEAVILY PUNISHED NON-VIOLENT CRIMES IN THE COUNTRY</text>
+        </g>
+        <!-- 2026 repeats -->
+        <g id="p_26" class="b">
+          <text x="110" y="460" class="strong" font-size="18">2026 — FULLY IN FORCE. THE PAPER LEAKED ANYWAY.</text>
+          <path class="amber" d="M110 490 L890 490" stroke-dasharray="0"/>
+          <rect x="890" y="458" width="180" height="64" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="916" y="498" class="flawtxt strong" font-size="15">LEAK ⚠</text>
+        </g>
+        <g id="p_verdict" class="b">
+          <rect x="110" y="540" width="1260" height="52" fill="var(--flaw)"/>
+          <text x="140" y="574" class="onplate" font-size="19">TEN YEARS OF PRISON IS NOT A WALL — IT IS A COST OF DOING BUSINESS</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 2 — the 2024 chain, the law between, the 2026 repeat · sources: Careers360, Outlook, newsonair</div>
+    </div>
+    <div class="prose">
+      <p>Two years ago the same exam leaked the day before test day. Police traced it: an organised network had obtained the paper through a gap in how it was transported and stored, and sold it, copy by copy, at the price you heard a minute ago. That year's results showed 67 students sharing the very top rank — a result the exam had never produced before.</p>
+      <p>India's response sounded strong: a new law against exam fraud — up to ten years in prison, fines up to ₹10 million. That law was fully in force when the 2026 paper leaked anyway. And that is the detail worth pausing on: when you raise the punishment and the crime happens again on schedule, punishment is not the variable that matters. What matters is the price. A stolen paper is worth whatever buyers will pay, and the buyers are two million families staring at odds of one in eighteen. Against a prize like that, ten years of prison is not a wall. It is a cost of doing business.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE REFORM ================= -->
+<section class="ep" id="s3" data-duration="89.7">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Reform</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The reform · 2016, and what it replaced</div>
+    <h2>Eighty exams became one — on purpose.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <!-- field of 80 nodes, drawn by JS into #p_field -->
+        <g id="r_field"></g>
+        <g id="r_tags" class="b">
+          <text x="1120" y="120" class="flawtxt strong" font-size="16">₹ SEAT FOR SALE</text>
+          <text x="1120" y="150" font-size="14">CAPITATION FEES · SCATTERED, LOCAL</text>
+          <text x="1120" y="190" font-size="14">WHO YOU KNEW,</text>
+          <text x="1120" y="216" font-size="14">WHAT YOU COULD PAY</text>
+        </g>
+        <g id="r_hinge" class="b">
+          <rect x="500" y="20" width="480" height="52" fill="var(--fact)"/>
+          <text x="530" y="54" class="onplate" font-size="19">2016 · SUPREME COURT — ONE EXAM</text>
+        </g>
+        <g id="r_one" class="b">
+          <circle cx="740" cy="330" r="86" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="4"/>
+          <text x="740" y="322" text-anchor="middle" class="fact strong" font-size="17">ONE PAPER</text>
+          <text x="740" y="350" text-anchor="middle" class="fact" font-size="14">ONE MERIT LIST</text>
+          <text x="740" y="472" text-anchor="middle" class="alttxt strong" font-size="16">THE SIDE DOORS CLOSED — IT LARGELY SUCCEEDED</text>
+        </g>
+        <g id="r_price" class="b">
+          <path d="M840 250 L1080 160 L1330 160 L1330 300 L1080 300 Z" fill="none" stroke="var(--flaw)" stroke-width="4"/>
+          <text x="1100" y="222" class="big flawtxt" font-size="34">₹3,000,000</text>
+          <text x="1100" y="262" class="flawtxt" font-size="14">ONE PRIZE, NATIONAL IN SCALE</text>
+        </g>
+        <g id="r_upstream" class="b">
+          <path class="amber" d="M300 520 C 450 500, 560 440, 660 390"/>
+          <path class="amber" d="M1150 520 C 1050 490, 940 440, 830 395"/>
+          <text x="480" y="560" class="flawtxt strong" font-size="17">THE DEMAND MOVED UPSTREAM, TO ONE DOCUMENT</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — ~80 separate exams swept into one national gate · sources: Supreme Court Observer, sarvgyan</div>
+    </div>
+    <div class="prose">
+      <p>Before 2016, India did not have one medical entrance exam — it had around eighty, run by states and individual universities. That system was rotten in its own way: private colleges sold seats for so-called capitation fees — officially donations, sometimes tens of thousands of dollars. Families with money bought their children into medicine; families without watched it happen.</p>
+      <p>So in 2016 India's Supreme Court ordered a clean sweep: one national exam for every medical college in the country. One paper, one merit list, no side doors. The explicit goal was to end the corruption and the seat-selling — and on those terms it largely succeeded. But look at what the same decision did to the geometry of the system: eighty exams meant eighty smaller prizes, each worth stealing only to a local market. One exam means a single prize, national in scale. The money that once flowed through a college's back door did not disappear — the demand behind it moved upstream, to the one document that now controls everything.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE MECHANISM ================= -->
+<section class="ep" id="s4" data-duration="99.3">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The Mechanism</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The mechanism · Stakes × crowd</div>
+    <h2>The value of stealing an exam, in one line.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg4">
+        <!-- the equation -->
+        <g id="m_eq" class="b">
+          <rect x="110" y="60" width="1260" height="86" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <text x="140" y="114" class="strong" font-size="21">VALUE OF THE STOLEN PAPER  =  STAKES PER STUDENT  ×  STUDENTS BEHIND THE SAME PAPER</text>
+        </g>
+        <g id="m_two" class="b">
+          <text x="140" y="196" font-size="16">TWO WAYS TO MAKE IT CHEAP: LOWER THE STAKES, OR SPLIT THE CROWD</text>
+          <text x="140" y="228" class="flawtxt strong" font-size="17">INDIA'S DESIGN DOES THE OPPOSITE OF BOTH</text>
+        </g>
+        <g id="m_stakes" class="b">
+          <rect x="140" y="260" width="560" height="70" fill="var(--flaw)" fill-opacity=".15" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="162" y="290" class="flawtxt strong" font-size="15">STAKES — A DOCTOR'S LIFE, OR STARTING OVER</text>
+          <text x="162" y="316" font-size="14">ONE SCORE DECIDES</text>
+        </g>
+        <g id="m_crowd" class="b">
+          <rect x="740" y="260" width="630" height="70" fill="var(--flaw)" fill-opacity=".15" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="762" y="290" class="flawtxt strong" font-size="15">CROWD — EVERY CANDIDATE, SAME MORNING, SAME QUESTIONS</text>
+          <text x="762" y="316" font-size="14">2.27 MILLION BEHIND ONE PAPER</text>
+        </g>
+        <!-- wall vs arrow -->
+        <g id="m_wall" class="b">
+          <text x="140" y="392" class="strong" font-size="16">DEFENCE MUST BE PERFECT EVERYWHERE</text>
+          <g id="m_segs"></g>
+          <path id="m_probe" class="amber" stroke-width="4" d="M140 470 L1210 470"/>
+          <path d="M1210 470 l-22 -12 M1210 470 l-22 12" class="amber" stroke-width="4"/>
+          <text x="960" y="446" class="flawtxt" font-size="15">ATTACK ONLY HAS TO SUCCEED SOMEWHERE</text>
+        </g>
+        <g id="m_gap" class="b">
+          <text x="1240" y="476" class="flawtxt strong" font-size="16">THE GAP</text>
+        </g>
+        <!-- blast radius -->
+        <g id="m_blast" class="b">
+          <text x="140" y="548" class="strong" font-size="16">AND WHEN IT FAILS:</text>
+          <g id="m_circles"></g>
+          <circle cx="1090" cy="545" r="52" fill="var(--flaw)" fill-opacity=".18" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1160" y="538" class="flawtxt" font-size="15">ONE LEAK = EVERYONE'S EXAM,</text>
+          <text x="1160" y="564" class="flawtxt" font-size="15">THE SAME DAY</text>
+        </g>
+      </svg>
+      <div class="sim" id="sim" aria-label="Prize splitting simulator">
+        <label for="simN">Split the same exam into N independent sittings — schematic</label>
+        <input type="range" id="simN" min="1" max="12" value="1">
+        <div class="out">
+          <b id="simVal">₹3.0M</b><span>value of one stolen paper</span>
+          <b id="simHit" style="color:var(--flaw)">2,270,000</b><span>futures hit by one leak</span>
+          <b id="simSit" style="color:var(--text-dim)">1</b><span>sittings</span>
+        </div>
+        <div class="out" style="border:0;padding-top:4px">
+          <span style="text-transform:none;color:var(--text-dim)">The stakes per student don't change — only how many stand behind each paper. That alone divides the prize.</span>
+        </div>
+      </div>
+      <div class="figcap">Fig. 4 — move the slider: the prize divides as the crowd splits · schematic, illustrating structure</div>
+    </div>
+    <div class="prose">
+      <p>The mechanism in one sentence: the value of stealing an exam equals the stakes for one student, multiplied by the number of students standing behind the same paper. You can make that sheet cheap in two ways — lower the stakes, or split the crowd. India's design does the opposite of both: the one score is the difference between a doctor's life and starting over, and every candidate in the country answers the same questions on the same morning.</p>
+      <p>That does two dangerous things at once. First, it sets up a contest the defenders have to win every single time: the guardians spend on sealed boxes, tracking, secure printing — the thieves only need one weak link, once, anywhere in a chain reaching thousands of exam centres. In 2024 the weak link was one storage room in one town. Defence has to be perfect everywhere; attack only has to succeed somewhere. Second — this is what turns a crime into a national crisis — the same centralisation that created the prize removed the walls between failures. When one of eighty exams leaked, one region re-sat a test. When the one exam leaks, 2.27 million people lose their exam on the same day, and every family in the country learns at the same moment that the system can be bought — exactly the belief that ended up on the streets of Delhi this month.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THE ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="177.7">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">The Alternatives</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Time, chance, or space</div>
+    <h2>Three ways to make the paper worth less.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <!-- design A: split in time -->
+        <g id="a_time" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN A · SPLIT THE PRIZE IN TIME</text>
+          <g id="a_t1" class="b">
+            <rect x="110" y="130" width="150" height="200" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+            <g id="a_deck" class="b">
+              <rect x="290" y="140" width="130" height="170" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+              <rect x="440" y="140" width="130" height="170" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+              <rect x="590" y="140" width="130" height="170" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+              <text x="300" y="200" class="alttxt" font-size="14">MAR</text>
+              <text x="450" y="200" class="alttxt" font-size="14">MAY</text>
+              <text x="600" y="200" class="alttxt" font-size="14">OCT…</text>
+            </g>
+            <text x="110" y="370" font-size="15">SEVEN DATES A YEAR · QUESTIONS FROM A ROTATING POOL</text>
+            <text x="110" y="400" class="alttxt strong" font-size="16">STEAL ONE PAPER = ONE SITTING OF MANY. THE VALUE COLLAPSES.</text>
+            <text x="800" y="200" class="big alttxt" font-size="34" id="a_div">₹3.0M → ₹0.4M</text>
+          </g>
+          <g id="a_tcost" class="b">
+            <rect x="110" y="440" width="1260" height="150" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="478" class="flawtxt" font-size="15">THE COST:</text>
+            <text x="134" y="514" font-size="15">1 · PRINTING, SEALING, ESCORTING, GUARDING — ALL YEAR ROUND, 2M PEOPLE AT A TIME</text>
+            <text x="134" y="546" font-size="15">2 · SITTINGS MUST BE EXACTLY EQUALLY HARD — EVERY DIFFERENCE BECOMES A LAWSUIT</text>
+            <text x="134" y="578" class="flawtxt" font-size="15">3 · SMALLER PRIZES ARE STILL PRIZES — IT SHRINKS THE CRIME, NOT ABOLISHES IT</text>
+          </g>
+        </g>
+        <!-- design B: lottery above the bar -->
+        <g id="a_lot" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN B · A LOTTERY ABOVE THE BAR — THE NETHERLANDS, FOR DECADES</text>
+          <g id="a_l1" class="b">
+            <path class="ink" stroke-width="3" d="M110 240 L820 240"/>
+            <text x="110" y="270" font-size="15">THE QUALIFYING BAR — CLEAR IT FIRST</text>
+            <circle cx="470" cy="160" r="46" fill="none" stroke="var(--alt)" stroke-width="3" stroke-dasharray="7 6"/>
+            <text x="470" y="152" text-anchor="middle" class="alttxt strong" font-size="15">CHANCE</text>
+            <text x="470" y="176" text-anchor="middle" class="alttxt" font-size="13">×3 FOR TOP GRADES</text>
+            <text x="850" y="170" class="alttxt strong" font-size="16">ABOVE THE BAR, NO ONE'S FUTURE</text>
+            <text x="850" y="198" class="alttxt strong" font-size="16">HANGS ON ONE FINAL MARK</text>
+            <text x="850" y="240" font-size="15">A LEAKED ANSWER KEY BUYS FAR LESS</text>
+          </g>
+          <g id="a_loop" class="b">
+            <line class="hair" x1="110" y1="360" x2="1370" y2="360"/>
+            <circle cx="200" cy="360" r="7" fill="var(--alt)"/><text x="170" y="396" font-size="14">1972 — LOTTERY</text>
+            <circle cx="560" cy="360" r="7" fill="var(--flaw)"/><text x="480" y="396" class="flawtxt" font-size="14">1996 — TOP STUDENT REJECTED ×3</text>
+            <circle cx="920" cy="360" r="7" fill="var(--flaw)"/><text x="870" y="396" class="flawtxt" font-size="14">2017 — BANNED</text>
+            <circle cx="1230" cy="360" r="7" fill="var(--alt)"/><text x="1130" y="396" class="alttxt" font-size="14">2023 — LEGAL AGAIN</text>
+          </g>
+          <g id="a_lcost" class="b">
+            <rect x="110" y="440" width="1260" height="150" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="478" class="flawtxt" font-size="15">THE COST:</text>
+            <text x="134" y="514" font-size="15">1 · A SOCIETY MUST SAY OUT LOUD: BEYOND A POINT, WE CANNOT MEASURE WHO DESERVES IT MORE</text>
+            <text x="134" y="546" font-size="15">2 · THE DUTCH THEMSELVES REVOLTED, BANNED IT — THEN BROUGHT IT BACK</text>
+            <text x="134" y="578" class="flawtxt" font-size="15">3 · THE SELECTION THAT REPLACED IT CARRIED BIASES OF ITS OWN — PRETENDING HAS COSTS TOO</text>
+          </g>
+        </g>
+        <!-- design C: split in space -->
+        <g id="a_space" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN C · SPLIT THE PRIZE IN SPACE — THE SYSTEM INDIA ABOLISHED</text>
+          <g id="a_s1" class="b">
+            <g id="a_regrid"></g>
+            <text x="850" y="170" class="alttxt strong" font-size="16">EIGHTY DOORS INSTEAD OF ONE GATE</text>
+            <text x="850" y="200" font-size="15">A LEAK IN ONE PLACE STAYS IN ONE PLACE</text>
+          </g>
+          <g id="a_sback" class="b">
+            <text x="850" y="260" class="flawtxt strong" font-size="16">AND THE OLD TAGS FLICKER BACK ON:</text>
+            <text x="850" y="290" class="flawtxt" font-size="15">₹ SEAT FOR SALE · CAPITATION FEES</text>
+            <text x="850" y="320" font-size="14">A THOUSAND SMALL CORRUPTIONS NO ONE SEES AT ONCE</text>
+          </g>
+          <g id="a_scost" class="b">
+            <rect x="110" y="440" width="1260" height="150" fill="var(--flaw)"/>
+            <text x="134" y="492" class="onplate" font-size="19">INDIA TRADED A THOUSAND INVISIBLE FAILURES FOR ONE ENORMOUS VISIBLE ONE</text>
+            <text x="134" y="540" class="onplate" font-size="19">THAT WAS A TRADE — NOT A RESCUE</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 5 — three redlined redesigns · dashed green = revision markup · sources: JGME/PMC, iamexpat, College Board</div>
+    </div>
+    <div class="prose">
+      <p><b>Split the prize in time.</b> In the US the college admission test runs seven times a year, and the version for graduate schools draws each student's questions from a rotating pool. Steal one paper and you have stolen one sitting of many; a suspicious score can be checked against other attempts. <i>The cost:</i> the whole security apparatus runs all year round for two million people at a time; sittings must be exactly equally difficult, and every difference becomes a lawsuit; and the American tests have had their own leaks in Asia — smaller prizes are still prizes.</p>
+      <p><b>A lottery above the bar.</b> In the Netherlands, from the 1970s, you first cleared a qualifying bar — and above it, medical places were assigned by weighted lottery (top grades tripled your odds). If crossing the bar is what matters and the rest is chance, a leaked answer key buys far less. <i>The cost is written in Dutch history:</i> in 1996 a straight-A student was rejected three times, the country's sense of fairness revolted, the lottery was banned by 2017 — and in 2023 the ban was lifted, because the interviews that replaced it carried biases of their own. A society must say out loud: beyond a point, we cannot measure who deserves it more.</p>
+      <p><b>Split the prize in space.</b> Many exams instead of one — the system India abolished. A leak in one place stays in one place. <i>The cost is the reason NEET exists:</i> scattered admissions meant seat-selling, capitation fees, a thousand small corruptions no investigator could see at once. India traded a thousand invisible failures for one enormous visible one. That was a trade — not a rescue.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 THE CLOSE ================= -->
+<section class="ep" id="s6" data-duration="79.5">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Stakes × futures</div>
+    <h2>What is the one place worth to a thief?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_sheet" class="b">
+          <rect x="140" y="70" width="180" height="250" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <line x1="165" y1="120" x2="295" y2="120" class="ink"/>
+          <line x1="165" y1="155" x2="295" y2="155" class="ink"/>
+          <line x1="165" y1="190" x2="275" y2="190" class="ink"/>
+          <text x="140" y="360" class="strong" font-size="16">STILL ONE EXAM</text>
+          <text x="140" y="390" class="flawtxt" font-size="15">STILL WORTH MORE THAN A HOUSE</text>
+          <text x="140" y="420" class="flawtxt" font-size="15">THE NEXT LEAK — ALREADY PRICED IN</text>
+        </g>
+        <g id="z_villain" class="b">
+          <text x="470" y="110" font-size="15">A CARELESS OFFICIAL?</text>
+          <text x="470" y="146" font-size="15">A CRIMINAL GANG?</text>
+          <text x="470" y="182" font-size="15">A NEGLIGENT AGENCY?</text>
+          <line x1="460" y1="100" x2="700" y2="176" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="470" y="240" class="strong" font-size="17">THE UNCOMFORTABLE VERSION IS ABOUT GEOMETRY</text>
+        </g>
+        <g id="z_eq" class="b">
+          <rect x="470" y="280" width="880" height="70" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <text x="500" y="325" class="strong" font-size="19">STAKES OF ONE TEST × FUTURES BEHIND EACH PAPER = THE BOUNTY</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="790" y="472" text-anchor="middle" class="big" font-size="26">ONE EXAM · ONE REGISTER · ONE GATE — WHAT IS IT WORTH TO A THIEF?</text>
+          <text x="790" y="508" text-anchor="middle" class="flawtxt" font-size="17">AND WHO PAYS ON THE MORNING IT IS STOLEN?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>The crowds in Delhi won what they asked for. But notice what did not change on the day the minister left: the exam is still one exam; the paper is still worth more than a house; the conditions for the next leak are all still in place. The comfortable version of this story has a villain. The uncomfortable version is about geometry: any system that pushes two million lives through one door, on one morning, makes the key to that door worth stealing at industrial scale. Guard it harder, and you have only made the theft more expensive — not impossible.</p>
+      <p>Every country decides how much of a life one test is allowed to determine, and how many futures stand behind each paper. Those two numbers, multiplied, are the bounty on that sheet of paper. So the next time a reform promises to end corruption by putting everything in one place — one exam, one register, one gate — it may well be right. Just ask the question India is asking this week: what will that one place be worth to a thief — and who pays on the morning it is stolen?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails — saturated plate mandatory, text <= 12 chars -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <rect x="140" y="50" width="200" height="280" fill="none" stroke="var(--text)" stroke-width="7"/>
+    <line x1="175" y1="110" x2="305" y2="110" stroke="var(--text)" stroke-width="5"/>
+    <line x1="175" y1="160" x2="305" y2="160" stroke="var(--text)" stroke-width="5"/>
+    <line x1="175" y1="210" x2="285" y2="210" stroke="var(--text)" stroke-width="5"/>
+    <text x="400" y="140" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">1 exam paper</text>
+    <text x="400" y="230" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">sold for ₹3,000,000</text>
+    <text x="400" y="315" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text-dim)">the minister resigned</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">2,270,000</div>
+  <div class="sub">students · one leaked paper</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="140" y="60" width="170" height="240" fill="none" stroke="var(--text)" stroke-width="7"/>
+    <path d="M420 100 L760 100 L820 180 L760 260 L420 260 Z" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <text x="460" y="196" font-family="Space Grotesk" font-weight="700" font-size="56" style="fill:var(--flaw)">$36,000</text>
+    <text x="880" y="150" font-family="IBM Plex Mono" font-size="36" style="fill:var(--text)">per copy,</text>
+    <text x="880" y="210" font-family="IBM Plex Mono" font-size="36" style="fill:var(--text)">leaked twice</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">10 yrs jail</div>
+  <div class="sub">didn't stop the leak</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+/* ---------- generated geometry ---------- */
+/* S3: field of 80 exam nodes (10×8), a few flagged amber */
+(function(){
+  const g=$('r_field'); const NS='http://www.w3.org/2000/svg';
+  const flagged=new Set([7,18,26,41,55,63,72]);
+  for(let i=0;i<80;i++){
+    const col=i%10,row=Math.floor(i/10);
+    const x=150+col*92, y=120+row*54;
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',x);r.setAttribute('y',y);
+    r.setAttribute('width',34);r.setAttribute('height',24);
+    r.setAttribute('fill','var(--bg-raised)');
+    r.setAttribute('stroke',flagged.has(i)?'var(--flaw)':'var(--text)');
+    r.setAttribute('stroke-width',flagged.has(i)?'2.5':'1.6');
+    r.setAttribute('class','fieldnode'+(flagged.has(i)?' flagged':''));
+    r.setAttribute('opacity','0');
+    g.appendChild(r);
+  }
+})();
+/* S4: defence wall segments */
+(function(){
+  const g=$('m_segs'); const NS='http://www.w3.org/2000/svg';
+  for(let i=0;i<22;i++){
+    const x=140+i*50;
+    if(i===19)continue; // the gap
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',x);r.setAttribute('y',415);
+    r.setAttribute('width',40);r.setAttribute('height',22);
+    r.setAttribute('fill','var(--bg-raised)');r.setAttribute('stroke','var(--text)');
+    r.setAttribute('stroke-width','2');r.setAttribute('class','wallseg');
+    r.setAttribute('opacity','0');
+    g.appendChild(r);
+  }
+})();
+/* S4: eighty small blast circles */
+(function(){
+  const g=$('m_circles'); const NS='http://www.w3.org/2000/svg';
+  for(let i=0;i<16;i++){
+    const c=document.createElementNS(NS,'circle');
+    c.setAttribute('cx',420+(i%8)*62);c.setAttribute('cy',530+Math.floor(i/8)*36);
+    c.setAttribute('r',12);c.setAttribute('fill','none');
+    c.setAttribute('stroke','var(--alt)');c.setAttribute('stroke-width','2');
+    c.setAttribute('stroke-dasharray','5 4');c.setAttribute('class','smallblast');
+    c.setAttribute('opacity','0');
+    g.appendChild(c);
+  }
+})();
+/* S5: re-stippled grid for design C */
+(function(){
+  const g=$('a_regrid'); const NS='http://www.w3.org/2000/svg';
+  for(let i=0;i<40;i++){
+    const col=i%8,row=Math.floor(i/8);
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',130+col*82);r.setAttribute('y',120+row*46);
+    r.setAttribute('width',30);r.setAttribute('height',20);
+    r.setAttribute('fill','var(--bg-raised)');
+    r.setAttribute('stroke','var(--alt)');r.setAttribute('stroke-width','2');
+    r.setAttribute('stroke-dasharray','5 4');
+    r.setAttribute('class','regridnode revision');
+    r.setAttribute('opacity','0');
+    g.appendChild(r);
+  }
+})();
+
+/* ---------- primitives ---------- */
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function count(tl,id,end,dur,pos,pre='',suf=''){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos).to(st,{v:end,duration:dur,ease:'power1.inOut',
+    onUpdate:()=>el.textContent=pre+Math.round(st.v).toLocaleString('en-US')+suf,
+    onComplete:()=>el.textContent=pre+Math.round(end).toLocaleString('en-US')+suf},pos);}
+function staggerIn(tl,selector,pos,total=2.0){const els=document.querySelectorAll(selector);
+  tl.to(els,{opacity:1,duration:.3,stagger:total/Math.max(1,els.length),ease:'power1.out'},pos);}
+
+/* ---------- scenes ---------- */
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.7); idle(tl,'h_s1',5,8);
+  tl.to($('h_s1'),{opacity:0,duration:.6},14.0);
+  say(tl,'h_s2',15.0,.7);
+  count(tl,'h_count',2270000,3.0,15.5);
+  idle(tl,'h_s2',22,14);
+  tl.to($('h_s2'),{opacity:0,duration:.6},38.5);
+  say(tl,'h_s3',40.0,.7);
+  count(tl,'h_price',3000000,2.6,40.5,'₹');
+  idle(tl,'h_s3',46,7);
+  tl.to($('h_s3'),{opacity:0,duration:.6},54.5);
+  say(tl,'h_s4',56.0,.7); idle(tl,'h_s4',60,8);
+  tl.to($('h_s4'),{opacity:0,duration:.5},68.5);
+  pop(tl,'h_s5',70.0,.7); shake(tl,'h_s5',71.0,6,8); idlePlate(tl,'h_s5',73,3);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},77.5);
+  if(isAuto)tl.to({},{duration:5.5},78.2); else tl.to($('titleCard'),{opacity:0,duration:.5},81.5);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_exam',0.5,.7); idle(tl,'e_exam',3,7);
+  pop(tl,'e_cancel',12.0,.6); shake(tl,'svg1',12.6,7,8); idle(tl,'e_cancel',15,8);
+  say(tl,'e_retake',36.0,.7); idle(tl,'e_retake',40,6);
+  say(tl,'e_protest',48.0,.7); idle(tl,'e_protest',52,8);
+  say(tl,'e_strike',62.0,.4);
+  count(tl,'e_days',26,3.0,62.5);
+  idle(tl,'e_strike',67,5);
+  pop(tl,'e_resign',74.0,.6); shake(tl,'e_resign',74.8,5,6);
+  say(tl,'e_unchanged',79.0,.6); idle(tl,'e_unchanged',81,5);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'p_24',0.5,.7);
+  pop(tl,'p_break',12.0,.6); shake(tl,'svg2',12.6,6,8); idle(tl,'p_break',15,7);
+  say(tl,'p_sold',24.0,.7); idle(tl,'p_sold',28,5);
+  say(tl,'p_67',34.0,.7); idle(tl,'p_67',38,6);
+  pop(tl,'p_law',46.0,.7); shake(tl,'p_law',47.0,6,8); idlePlate(tl,'p_law',50,8);
+  say(tl,'p_26',60.0,.7); idle(tl,'p_26',64,8);
+  pop(tl,'p_verdict',74.0,.7); shake(tl,'p_verdict',75.0,5,6); idlePlate(tl,'p_verdict',77,10);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  staggerIn(tl,'#r_field .fieldnode',0.5,4.0);
+  say(tl,'r_tags',12.0,.7);
+  tl.to(document.querySelectorAll('#r_field .flagged'),{opacity:.35,duration:.5,repeat:5,yoyo:true},13.0);
+  idle(tl,'r_tags',18,18);
+  pop(tl,'r_hinge',40.0,.6); shake(tl,'r_hinge',40.8,5,6);
+  tl.to(document.querySelectorAll('#r_field .fieldnode'),
+    {opacity:0,scale:.3,transformOrigin:'50% 50%',duration:1.6,stagger:.008,ease:'power2.in'},42.0);
+  say(tl,'r_one',44.5,.8); idle(tl,'r_one',50,14);
+  say(tl,'r_price',68.0,.7);
+  tl.fromTo($('r_price'),{scale:.85,transformOrigin:'1100px 230px'},{scale:1.0,duration:2.2,ease:'power1.out'},68.4);
+  idle(tl,'r_price',72,8);
+  say(tl,'r_upstream',82.0,.7);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'m_eq',0.5,.8); idle(tl,'m_eq',5,7);
+  say(tl,'m_two',14.0,.7);
+  say(tl,'m_stakes',30.0,.7); idle(tl,'m_stakes',33,7);
+  say(tl,'m_crowd',42.0,.7); idle(tl,'m_crowd',45,5);
+  tl.set($('m_wall'),{opacity:1},52.0);
+  staggerIn(tl,'#m_segs .wallseg',52.0,2.4);
+  draw(tl,'m_probe',6.0,56.0);
+  say(tl,'m_gap',68.0,.5); shake(tl,'svg4',68.4,7,9); idle(tl,'m_gap',71,7);
+  tl.set($('m_blast'),{opacity:1},80.0);
+  staggerIn(tl,'#m_circles .smallblast',80.0,2.0);
+  idle(tl,'m_blast',96,12);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  // ---- design A: time ----
+  tl.set($('a_time'),{opacity:1},0);
+  say(tl,'a_t1',0.5,.7);
+  tl.fromTo(document.querySelectorAll('#a_deck rect, #a_deck text'),
+    {opacity:0,x:-40},{opacity:1,x:0,duration:.6,stagger:.25,ease:'power2.out'},4.0);
+  tl.set($('a_deck'),{opacity:1},4.0);
+  idle(tl,'a_t1',12,10);
+  say(tl,'a_tcost',30.0,.7); idle(tl,'a_tcost',35,18);
+  tl.to($('a_time'),{opacity:0,duration:.7},56.0);
+  // ---- design B: chance ----
+  tl.fromTo($('a_lot'),{opacity:0},{opacity:1,duration:.7},58.0);
+  say(tl,'a_l1',60.0,.7); idle(tl,'a_l1',66,14);
+  say(tl,'a_loop',86.0,.7); idle(tl,'a_loop',92,12);
+  say(tl,'a_lcost',108.0,.7); idle(tl,'a_lcost',113,12);
+  tl.to($('a_lot'),{opacity:0,duration:.7},128.0);
+  // ---- design C: space ----
+  tl.fromTo($('a_space'),{opacity:0},{opacity:1,duration:.7},130.0);
+  tl.set($('a_s1'),{opacity:1},132.0);
+  staggerIn(tl,'#a_regrid .regridnode',132.0,3.0);
+  idle(tl,'a_s1',140,10);
+  say(tl,'a_sback',152.0,.7); idle(tl,'a_sback',156,8);
+  pop(tl,'a_scost',168.0,.7); shake(tl,'a_scost',169.0,5,6); idlePlate(tl,'a_scost',172,16);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_sheet',0.5,.8); idle(tl,'z_sheet',5,16);
+  say(tl,'z_villain',24.0,.8); idle(tl,'z_villain',29,7);
+  say(tl,'z_eq',38.0,.8); idle(tl,'z_eq',42,8);
+  say(tl,'z_q',52.0,.8);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:7,yoyo:true},56.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+/* redline toggle */
+function setRedline(on){document.querySelectorAll('.revision').forEach(el=>el.style.opacity=on?1:0);
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  /* void return on purpose: record.mjs does page.evaluate(()=>window.__play()),
+     and returning the GSAP timeline breaks Playwright serialisation. */
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  setRedline(false);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.4);
+    if(s.id==='s5')tl.timeScale(3.4);
+    if(s.id==='s3'||s.id==='s4')tl.timeScale(2.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- timeline tooltips (S1) ----
+  const tip=$('tip');
+  document.querySelectorAll('#svg1 [data-tip]').forEach(g=>{
+    g.style.cursor='pointer';
+    g.addEventListener('mousemove',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;});
+    g.addEventListener('mouseleave',()=>tip.style.opacity=0);
+    g.addEventListener('click',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;
+      setTimeout(()=>tip.style.opacity=0,3500);});
+  });
+
+  // ---- prize-splitting simulator: value ÷ N, blast ÷ N ----
+  const BASE_VAL=3.0, BASE_CROWD=2270000;
+  const simN=$('simN');
+  function runSim(){
+    const n=+simN.value;
+    $('simVal').textContent='₹'+(BASE_VAL/n).toFixed(1)+'M';
+    $('simHit').textContent=Math.round(BASE_CROWD/n).toLocaleString('en-US');
+    $('simSit').textContent=n;
+  }
+  simN.addEventListener('input',runSim); runSim();
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){if(secs[i].getBoundingClientRect().top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i; player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
