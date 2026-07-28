@@ -753,6 +753,7 @@ function sc3(){const tl=gsap.timeline();
   tl.to(document.querySelectorAll('#r_field .fieldnode'),
     {opacity:0,scale:.3,transformOrigin:'50% 50%',duration:1.6,stagger:.008,ease:'power2.in'},42.0);
   say(tl,'r_one',44.5,.8); idle(tl,'r_one',50,14);
+  tl.to($('r_tags'),{opacity:0,duration:.6},66.5);
   say(tl,'r_price',68.0,.7);
   tl.fromTo($('r_price'),{scale:.85,transformOrigin:'1100px 230px'},{scale:1.0,duration:2.2,ease:'power1.out'},68.4);
   idle(tl,'r_price',72,8);
