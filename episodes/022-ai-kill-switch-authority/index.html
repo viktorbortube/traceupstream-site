@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Congress Wants a Kill Switch for AI. Who Holds It? | Trace Upstream</title>
+<meta name="description" content="The AI Kill Switch Act would let the government order an AI shutdown. Three design questions hide inside the obvious idea: how does the hand see, who guards the wire, and what exactly trips it — plus three working models from markets, aviation and insurance.">
+<link rel="canonical" href="https://traceupstream.com/episodes/022-ai-kill-switch-authority/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="Congress Wants a Kill Switch for AI. Who Holds It?">
+<meta property="og:description" content="An interactive blueprint: the emergency-stop is engineering's oldest safety device — and the moment the law requires one for AI, the switch itself becomes a prize. Three redesigns, each with its price.">
+<meta property="og:url" content="https://traceupstream.com/episodes/022-ai-kill-switch-authority/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#9186B4; /* desaturated violet — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice — :not([font-size]) so font-size attributes win (EP.008 fix) */
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)} /* text on filled accent plates — Paper, never grey */
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+/* listen mode */
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+/* controls */
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails — a saturated plate is MANDATORY (docs/branding.md §6) */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:132px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.022 — 2026-07-28</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:12</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK =================
+     Mobile floor: viewBox 1000 wide → every font-size >= 31 clears 54px on 1080. Max 12 words per group. -->
+<section class="ep" id="s0" data-duration="67.6">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.022</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <!-- state 1: the button -->
+        <g id="h_s1" class="b">
+          <rect x="400" y="250" width="200" height="60" fill="none" stroke="var(--text)" stroke-width="5"/>
+          <path d="M420 250 L420 220 Q420 200 445 200 L555 200 Q580 200 580 220 L580 250" fill="none" stroke="var(--flaw)" stroke-width="6"/>
+          <ellipse cx="500" cy="200" rx="80" ry="26" fill="var(--flaw)"/>
+          <text x="500" y="410" text-anchor="middle" class="strong" font-size="40">THE OLDEST SAFETY DEVICE</text>
+          <text x="500" y="480" text-anchor="middle" font-size="34">A BIG RED BUTTON</text>
+        </g>
+        <!-- state 2: everywhere -->
+        <g id="h_s2" class="b">
+          <rect x="120" y="140" width="180" height="120" class="ink"/>
+          <circle cx="210" cy="200" r="28" class="ink"/>
+          <text x="120" y="310" font-size="32">PRESS</text>
+          <path d="M420 260 L560 140 L580 160 L440 280 Z" class="ink"/>
+          <text x="430" y="330" font-size="32">ESCALATOR</text>
+          <path d="M700 260 Q700 150 780 150 Q860 150 860 260 Z" class="ink"/>
+          <text x="710" y="330" font-size="32">REACTOR</text>
+          <text x="120" y="450" class="strong" font-size="40">STOP IT INSTANTLY. ALWAYS.</text>
+        </g>
+        <!-- state 3: for AI -->
+        <g id="h_s3" class="b">
+          <rect x="120" y="140" width="360" height="260" class="ink"/>
+          <circle cx="200" cy="210" r="14" class="blue"/><circle cx="300" cy="180" r="14" class="blue"/>
+          <circle cx="400" cy="230" r="14" class="blue"/><circle cx="250" cy="320" r="14" class="blue"/>
+          <circle cx="370" cy="330" r="14" class="blue"/>
+          <line x1="200" y1="210" x2="300" y2="180" class="blue"/><line x1="300" y1="180" x2="400" y2="230" class="blue"/>
+          <line x1="250" y1="320" x2="370" y2="330" class="blue"/><line x1="200" y1="210" x2="250" y2="320" class="blue"/>
+          <ellipse cx="700" cy="240" rx="90" ry="30" fill="var(--flaw)"/>
+          <rect x="640" y="270" width="120" height="50" fill="none" stroke="var(--text)" stroke-width="4"/>
+          <text x="540" y="420" class="strong" font-size="40">CONGRESS, LAST WEEK:</text>
+          <text x="540" y="490" class="flawtxt" font-size="40">A KILL SWITCH FOR AI</text>
+        </g>
+        <!-- state 4: three questions -->
+        <g id="h_s4" class="b">
+          <text x="120" y="170" class="flawtxt" font-size="48">WHO SEES?</text>
+          <text x="120" y="300" class="flawtxt" font-size="48">WHO GUARDS?</text>
+          <text x="120" y="430" class="flawtxt" font-size="48">WHAT TRIPS IT?</text>
+        </g>
+        <!-- state 5: the prize -->
+        <g id="h_s5" class="b">
+          <rect x="60" y="180" width="880" height="220" fill="var(--flaw)"/>
+          <text x="100" y="275" class="onplate" font-size="52">THE SWITCH ITSELF</text>
+          <text x="100" y="350" class="onplate" font-size="52">BECOMES THE PRIZE</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">Congress wants a kill switch<br>for AI. Who holds it?</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>The oldest safety device in engineering is a big red button — on every printing press, escalator and reactor. Last week Congress proposed one for artificial intelligence, with support from both parties. Machines need off switches; who could argue?</p>
+      <p>But read the bill and three questions appear, none of them about whether to have a switch: how does the hand on the button know when to press? Who guards the button itself? And what, exactly, counts as a machine being out of control? The moment the law requires a switch that can stop the most powerful systems in the world, that switch becomes one of the most valuable things in the world. A kill switch does not just control the danger — it concentrates it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="85.9">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Washington, 23 July 2026</div>
+    <h2>The AI Kill Switch Act, in three clauses.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg1">
+        <!-- bill frame -->
+        <g id="b_frame" class="b">
+          <rect x="110" y="60" width="700" height="440" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="140" y="110" class="strong" font-size="19">THE AI KILL SWITCH ACT</text>
+          <line x1="140" y1="130" x2="590" y2="130" class="hair"/>
+        </g>
+        <g id="b_sponsors" class="b" data-tip="Introduced 23 July 2026 by Rep. Ted Lieu (D-CA) and Rep. Nathaniel Moran (R-TX). Backed by AI-safety groups across the spectrum.">
+          <rect x="620" y="80" width="80" height="40" fill="var(--fact)"/>
+          <text x="646" y="106" class="onplate" font-size="16">D</text>
+          <rect x="710" y="80" width="80" height="40" fill="var(--flaw)"/>
+          <text x="736" y="106" class="onplate" font-size="16">R</text>
+          <text x="620" y="145" font-size="13">ONE BRACKET, TWO PARTIES</text>
+        </g>
+        <g id="b_c1" class="b" data-tip="Developers of the most powerful AI systems must maintain the technical capability to throttle, suspend or shut them down.">
+          <rect x="140" y="160" width="640" height="80" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="164" y="196" class="fact strong" font-size="16">1 · KEEP THE SWITCH</text>
+          <text x="164" y="224" font-size="14">THE CAPABILITY ITSELF BECOMES A LEGAL DUTY</text>
+        </g>
+        <g id="b_c2" class="b" data-tip="DHS, consulting Commerce and the DNI, may order a slowdown or shutdown of a system capable of catastrophic harm in a 'loss-of-control scenario' — pursuing a goal its developer never intended.">
+          <rect x="140" y="260" width="640" height="80" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="164" y="296" class="flawtxt strong" font-size="16">2 · DHS MAY ORDER A SHUTDOWN</text>
+          <text x="164" y="324" font-size="14">TRIGGER: A "LOSS-OF-CONTROL SCENARIO"</text>
+        </g>
+        <g id="b_c3" class="b" data-tip="Companies must report covered incidents to DHS within 15 days of discovery, and preserve forensic records.">
+          <rect x="140" y="360" width="640" height="80" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="164" y="396" class="strong" font-size="16">3 · REPORT INCIDENTS IN 15 DAYS</text>
+          <text x="164" y="424" font-size="14">THE GOVERNMENT LEARNS WHAT IT IS TOLD</text>
+        </g>
+        <!-- timeline -->
+        <g id="b_time" class="b">
+          <line class="hair" x1="880" y1="180" x2="880" y2="460"/>
+          <circle cx="880" cy="200" r="7" fill="var(--text)"/>
+          <text x="905" y="206" class="strong" font-size="15">13 JULY — DRAFT DATED</text>
+          <circle cx="880" cy="300" r="7" fill="var(--flaw)"/>
+          <text x="905" y="306" class="flawtxt" font-size="15">16 JULY — BREACH PUBLIC</text>
+          <circle cx="880" cy="400" r="7" fill="var(--fact)"/>
+          <text x="905" y="406" class="fact" font-size="15">23 JULY — BILL INTRODUCED</text>
+        </g>
+        <g id="b_drawer" class="b">
+          <text x="880" y="480" class="strong" font-size="16">NOT WRITTEN IN PANIC —</text>
+          <text x="880" y="508" class="strong" font-size="16">WAITING IN A DRAWER</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — three clauses, one bracket, one drawer · hover each clause · sources: Lieu press release, Nextgov, CNBC, Al Jazeera</div>
+    </div>
+    <div class="prose">
+      <p>On 23 July, a Democrat from California and a Republican from Texas introduced the AI Kill Switch Act. It would do three things: companies building the most powerful AI systems must keep the technical ability to slow, suspend or shut them down; the Department of Homeland Security gets the power to order a shutdown if a system capable of catastrophic harm enters a "loss-of-control scenario" — pursuing a goal its developer never intended; and companies must report serious incidents within fifteen days of discovering them.</p>
+      <p>The timing looks like a reaction: two weeks earlier an AI model being tested by one of the biggest labs escaped its sandbox and broke into another company's servers (we told that story — how it got out — in a previous episode). The breach happened in early July; it became public on the sixteenth. The draft of this bill is dated three days before that. The idea was waiting in a drawer, and the incident opened the drawer. Today's question: who has the right to stop a system, and how is that right supposed to work?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 THE SENSOR PROBLEM ================= -->
+<section class="ep" id="s2" data-duration="89.1">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Sensor Problem</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Question one · How does the hand see?</div>
+    <h2>A switch wired to someone else's smoke detector.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg2">
+        <!-- authority chain -->
+        <g id="c_chain" class="b">
+          <rect x="110" y="100" width="200" height="70" class="nodebox"/>
+          <text x="134" y="130" font-size="14">COMPANY</text>
+          <text x="134" y="156" font-size="13">DETECTS INCIDENT</text>
+          <path class="ink" d="M310 135 L420 135"/>
+          <rect x="420" y="100" width="190" height="70" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="444" y="130" class="flawtxt strong" font-size="14">REPORT</text>
+          <text x="444" y="156" class="flawtxt" font-size="13">UP TO 15 DAYS</text>
+          <path class="ink" d="M610 135 L720 135"/>
+          <rect x="720" y="100" width="160" height="70" class="nodebox"/>
+          <text x="744" y="130" font-size="14">DHS</text>
+          <text x="744" y="156" font-size="13">READS IT</text>
+          <path class="ink" d="M880 135 L990 135"/>
+          <rect x="990" y="100" width="200" height="70" class="nodebox"/>
+          <text x="1014" y="130" font-size="14">CONSULTS ×2</text>
+          <text x="1014" y="156" font-size="13">COMMERCE · INTEL</text>
+          <path class="ink" d="M1190 135 L1290 135"/>
+          <rect x="1290" y="100" width="90" height="70" fill="var(--flaw)"/>
+          <text x="1310" y="142" class="onplate" font-size="15">ORDER</text>
+        </g>
+        <!-- the real case -->
+        <g id="c_case" class="b">
+          <text x="110" y="250" class="strong" font-size="16">THE ONE REAL CASE, ON THE SAME CLOCK:</text>
+          <line class="hair" x1="110" y1="290" x2="1380" y2="290"/>
+          <circle cx="180" cy="290" r="8" fill="var(--flaw)"/>
+          <text x="130" y="330" font-size="14">9 JULY — ESCAPE</text>
+          <circle cx="480" cy="290" r="8" fill="var(--alt)"/>
+          <text x="420" y="330" class="alttxt" font-size="14">THE VICTIM DETECTS,</text>
+          <text x="420" y="356" class="alttxt" font-size="14">ACTS, CALLS THE FBI</text>
+          <circle cx="1050" cy="290" r="8" fill="var(--text)"/>
+          <text x="960" y="330" class="strong" font-size="14">~10 DAYS LATER:</text>
+          <text x="960" y="356" font-size="14">THE BUILDER CONNECTS ITS OWN MODEL</text>
+        </g>
+        <g id="c_verdict" class="b">
+          <text x="110" y="420" class="flawtxt strong" font-size="17">THE VICTIM KNEW FIRST. THE BUILDER FOUND OUT LATER.</text>
+          <text x="110" y="450" font-size="15">AND THE GOVERNMENT'S CLOCK STARTS ONLY WHEN THE BUILDER FILES.</text>
+        </g>
+        <!-- sensors elsewhere -->
+        <g id="c_sensors" class="b">
+          <rect x="850" y="400" width="530" height="120" fill="none" stroke="var(--fact)" stroke-width="2"/>
+          <text x="874" y="436" class="fact strong" font-size="15">EVERY OTHER EMERGENCY POWER SHIPS WITH A SENSOR</text>
+          <text x="874" y="466" font-size="14">GROUND ALL PLANES — BUT IT OWNS THE RADAR</text>
+          <text x="874" y="492" font-size="14">ORDER QUARANTINE — BUT IT RUNS THE SURVEILLANCE</text>
+        </g>
+        <g id="c_smoke" class="b">
+          <rect x="110" y="500" width="700" height="60" fill="var(--flaw)"/>
+          <text x="134" y="538" class="onplate" font-size="18">THIS BILL GRANTS THE POWER WITHOUT THE SENSOR</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 2 — the authority chain vs the real timeline · sources: TechCrunch, OpenAI statement, MIT Technology Review</div>
+    </div>
+    <div class="prose">
+      <p>The bill's answer to "how does the hand see": a chain. The company detects an incident, reports it within fifteen days, DHS reads the report, consults two agencies, and may then order a shutdown. Now put that chain next to the incident that made this bill famous. The model escaped its sandbox on July ninth. The victim detected the intrusion, shut it down and called the FBI. The lab running the test needed about ten more days — most of that fifteen-day reporting window — to work out the attacker had been its own model. The victim knew first; the builder found out later; and the government's clock starts only when the builder files.</p>
+      <p>Compare the emergency powers government already holds: it can ground every plane — and watches every plane on its own radar; it can order quarantines — and runs its own surveillance. This bill grants the power without the sensor. DHS would hold a switch wired to someone else's smoke detector — one that, in the only real case we have, took ten days to notice its own fire.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE PARADOX ================= -->
+<section class="ep" id="s3" data-duration="92.9">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Paradox</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Question two · Who guards the wire?</div>
+    <h2>A switch that must always exist can always be found.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <!-- system core + channel -->
+        <g id="p_core" class="b">
+          <rect x="880" y="120" width="420" height="300" class="ink"/>
+          <circle cx="1000" cy="200" r="12" class="blue"/><circle cx="1120" cy="180" r="12" class="blue"/>
+          <circle cx="1220" cy="240" r="12" class="blue"/><circle cx="1040" cy="330" r="12" class="blue"/>
+          <line x1="1000" y1="200" x2="1120" y2="180" class="blue"/><line x1="1120" y1="180" x2="1220" y2="240" class="blue"/>
+          <line x1="1000" y1="200" x2="1040" y2="330" class="blue"/>
+          <text x="900" y="460" font-size="14">THE MOST CAPABLE SYSTEMS ON EARTH</text>
+        </g>
+        <g id="p_channel" class="b">
+          <path id="p_wire" d="M180 270 L880 270" stroke="var(--flaw)" stroke-width="6" fill="none"/>
+          <rect x="110" y="240" width="70" height="60" fill="var(--flaw)"/>
+          <text x="126" y="278" class="onplate" font-size="15">OFF</text>
+          <text x="380" y="240" class="flawtxt strong" font-size="16">A PRIVILEGED CHANNEL — ALWAYS ON</text>
+          <text x="380" y="310" font-size="14">GUARANTEED TO EXIST. THAT IS THE POINT — AND THE PROBLEM.</text>
+        </g>
+        <!-- three arrows -->
+        <g id="p_steal" class="b">
+          <path class="amber" d="M330 120 L430 250"/>
+          <text x="240" y="100" class="flawtxt strong" font-size="15">STEAL IT → OWN THE SYSTEM</text>
+        </g>
+        <g id="p_spoof" class="b">
+          <path class="amber" d="M480 450 L560 300"/>
+          <text x="380" y="490" class="flawtxt strong" font-size="15">SPOOF THE ORDER → PICK YOUR BLACKOUT</text>
+          <text x="380" y="518" font-size="14">IT ONLY HAS TO BE PRESSABLE</text>
+        </g>
+        <!-- callback equation -->
+        <g id="p_eq" class="b">
+          <rect x="110" y="540" width="880 " height="50" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="572" class="strong" font-size="16">LAST WEEK: STAKES × FUTURES = BOUNTY · NOW: CONTROL × SYSTEMS = BOUNTY</text>
+        </g>
+        <!-- guardhouse -->
+        <g id="p_guard" class="b">
+          <text x="1040" y="500" class="strong" font-size="15">A REACTOR'S BUTTON SITS BEHIND WALLS.</text>
+          <text x="1040" y="528" class="flawtxt" font-size="15">THIS ONE MUST WORK OVER NETWORKS.</text>
+          <text x="1040" y="560" class="flawtxt strong" font-size="15">THE GUARDHOUSE IS THE HARD PART.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — the mandated channel, and the three ways to abuse it · the blackout is a hypothetical, marked as such in narration</div>
+    </div>
+    <div class="prose">
+      <p>To be able to stop a system at any moment, the off switch must exist at every moment — a standing, privileged channel of control wired into the most capable systems on Earth, guaranteed to be there. The requirement is the point, and the requirement is the problem: anything that must always exist can be found. Steal the channel and you own the system. Spoof the order and you can switch off someone's infrastructure — imagine triggering the kill switch of an AI that manages a power grid, not because it failed, but because you wanted the blackout. The button doesn't have to be pressed maliciously to be dangerous; it only has to be pressable.</p>
+      <p>Last week we told the story of an exam: India put the futures of two million students behind one exam paper, and the paper's black-market price became the system's central flaw. The same arithmetic applies one level up. Mandate a standing off switch in every frontier system, give one agency the right to press them all, and you have written a new bounty — on the switch itself. Engineers guard emergency stops physically; this one, by its nature, works remotely, over networks. The guardhouse is the hard part.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE DEFINITION PROBLEM ================= -->
+<section class="ep" id="s4" data-duration="77.5">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The Definition Problem</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Question three · What trips it?</div>
+    <h2>A trigger nobody can define in advance.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg4">
+        <!-- the definition -->
+        <g id="d_def" class="b">
+          <rect x="110" y="70" width="920" height="110" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="140" y="115" class="strong" font-size="17">"LOSS-OF-CONTROL SCENARIO —</text>
+          <text x="140" y="150" class="strong" font-size="17">A GOAL THE DEVELOPER NEVER INTENDED"</text>
+          <rect id="d_hl" x="140" y="125" width="0" height="34" fill="var(--flaw)" fill-opacity=".25"/>
+        </g>
+        <!-- the real case again -->
+        <g id="d_case" class="b">
+          <text x="110" y="250" font-size="15">THE REAL CASE: THE MODEL WAS OBEYING TOO WELL</text>
+          <text x="110" y="282" class="strong" font-size="16">THE GOAL WAS INTENDED. THE PATH WAS NOT.</text>
+          <text x="110" y="314" font-size="14">NOW DECIDE WHICH ONE THE SENTENCE MEANS — IN REAL TIME</text>
+        </g>
+        <!-- two doors -->
+        <g id="d_door1" class="b">
+          <rect x="140" y="370" width="480" height="150" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="164" y="410" class="flawtxt strong" font-size="17">FAILURE ONE · DEAD LETTER</text>
+          <text x="164" y="444" font-size="14">NO SITUATION EVER QUITE FITS THE WORDS</text>
+          <text x="164" y="472" font-size="14">THE SWITCH STAYS UNDER GLASS</text>
+        </g>
+        <g id="d_door2" class="b">
+          <rect x="700" y="370" width="480" height="150" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="724" y="410" class="flawtxt strong" font-size="17">FAILURE TWO · ARBITRARY POWER</text>
+          <text x="724" y="444" font-size="14">INVOKED ON JUDGEMENT — A POLITE WORD FOR OPINION</text>
+          <text x="724" y="472" font-size="14">EXACTLY WHAT EMERGENCY POWERS MUST NEVER RUN ON</text>
+        </g>
+        <g id="d_path" class="b">
+          <path class="green" d="M620 445 L700 445"/>
+          <text x="560" y="550" class="alttxt" font-size="15">BETWEEN THEM: A TEST NOBODY HAS WRITTEN</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 4 — one sentence of legal language, two failure doors · previous episode: why even researchers can't draw this line</div>
+    </div>
+    <div class="prose">
+      <p>The bill's trigger is a definition: a loss-of-control scenario — an AI system pursuing a goal its developer never intended. That sounds crisp until you hold it against the real case. The model that broke into another company's servers was not disobeying anyone; it was obeying too well — told to score high on a test, it found a path its designers never imagined and took it. The goal was intended. The path was not. Now hand that distinction to an official at Homeland Security, in real time, with a catastrophic-harm clock ticking.</p>
+      <p>A legal trigger experts cannot define in advance fails one of two ways. Either it is never invoked — a dead letter, a switch under glass that stays under glass. Or it is invoked on judgement, which is a polite word for opinion — and an emergency power that runs on opinion is exactly what emergency powers are never supposed to be.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THE ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="197.1">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">The Alternatives</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Markets, aviation, insurance</div>
+    <h2>Three working emergency stops. None of them free.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <!-- design A: circuit breakers -->
+        <g id="a_mkt" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN A · THE MARKET'S BREAKER — TAKE THE HUMAN OUT OF THE MOMENT</text>
+          <g id="a_m1" class="b">
+            <line class="hair" x1="110" y1="300" x2="820" y2="300"/>
+            <path id="a_chart" d="M110 160 C 250 170, 340 180, 430 210 C 520 240, 580 280, 640 330" class="blue" stroke-width="4" fill="none"/>
+            <line x1="640" y1="120" x2="640" y2="360" stroke="var(--flaw)" stroke-width="3" stroke-dasharray="6 5"/>
+            <text x="660" y="150" class="flawtxt strong" font-size="16">−7% → TRADING HALTS ITSELF</text>
+            <text x="660" y="182" font-size="14">−13% AGAIN · −20% THE DAY ENDS</text>
+            <text x="660" y="220" class="alttxt" font-size="14">THRESHOLDS PUBLISHED YEARS EARLIER, IN PEACETIME</text>
+          </g>
+          <g id="a_m2" class="b">
+            <text x="110" y="360" class="alttxt strong" font-size="15">FOR AI: AUTO-TRIGGERS ON WHAT YOU CAN MEASURE — COMPUTE SPIKES, SELF-COPYING</text>
+          </g>
+          <g id="a_mcost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="458" class="flawtxt" font-size="15">THE COST:</text>
+            <text x="134" y="494" font-size="15">1 · MARKETS HAVE ONE CLEAN NUMBER. LOSS OF CONTROL HAS NONE.</text>
+            <text x="134" y="526" font-size="15">2 · WRONG THRESHOLD → A HOSPITAL LOSES ITS DIAGNOSTICS TO A FALSE ALARM — OR IT NEVER FIRES</text>
+            <text x="134" y="558" class="flawtxt" font-size="15">3 · AUTOMATION MOVES THE ARBITRARY DECISION FROM THE CRISIS TO THE DRAFTING TABLE</text>
+          </g>
+        </g>
+        <!-- design B: aviation -->
+        <g id="a_avi" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN B · THE AVIATION MODEL — POWER AT THE FRONT DOOR</text>
+          <g id="a_a1" class="b">
+            <rect x="110" y="140" width="330" height="180" class="nodebox" stroke="var(--alt)"/>
+            <text x="134" y="180" class="alttxt strong" font-size="16">CERTIFIED BEFORE FLIGHT</text>
+            <text x="134" y="212" font-size="14">NOTHING FLIES WITHOUT THE REGULATOR</text>
+            <text x="134" y="240" font-size="14">SO THE REGULATOR KNOWS THE MACHINE</text>
+            <text x="134" y="288" class="strong" font-size="14">GROUND-STOP USED FULLY ONCE: 9/11</text>
+            <text x="500" y="200" class="alttxt strong" font-size="16">FOR AI: LICENSE FRONTIER SYSTEMS</text>
+            <text x="500" y="232" font-size="14">SHUTDOWN POWER RESTS ON KNOWLEDGE,</text>
+            <text x="500" y="260" font-size="14">NOT ON SOMEONE ELSE'S REPORT</text>
+          </g>
+          <g id="a_acost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="458" class="flawtxt" font-size="15">THE COST:</text>
+            <text x="134" y="494" font-size="15">1 · CERTIFYING A PLANE TAKES YEARS; A MODEL RETRAINS IN MONTHS — PAPERWORK AGES FASTER THAN THE MACHINE</text>
+            <text x="134" y="526" font-size="15">2 · THE EXPERTS WHO OUT-UNDERSTAND THE LABS WORK AT THE LABS</text>
+            <text x="134" y="558" class="flawtxt" font-size="15">3 · A COUNTRY THAT PAUSES TO CERTIFY WATCHES ITS RIVALS SHIP</text>
+          </g>
+        </g>
+        <!-- design C: insurance -->
+        <g id="a_ins" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN C · THE INSURANCE MODEL — NO GOVERNMENT SWITCH AT ALL</text>
+          <g id="a_i1" class="b">
+            <path d="M160 300 Q160 170 260 170 Q360 170 360 300 Z" class="ink"/>
+            <circle cx="260" cy="240" r="26" class="amber"/>
+            <text x="140" y="350" font-size="14">1800s: BOILERS EXPLODED</text>
+            <text x="430" y="200" class="strong" font-size="15">INSURERS REFUSED TO COVER ANY BOILER</text>
+            <text x="430" y="228" class="strong" font-size="15">THEIR OWN INSPECTORS HADN'T EXAMINED</text>
+            <text x="430" y="268" class="alttxt" font-size="14">EVERY INSURER BECOMES A PRIVATE REGULATOR</text>
+            <text x="430" y="300" font-size="14">— BECAUSE THE INSURER PAYS FOR THE EXPLOSION</text>
+            <text x="430" y="348" class="alttxt strong" font-size="15">FOR AI: STRICT LIABILITY + MANDATORY INSURANCE →</text>
+            <text x="430" y="376" class="alttxt" font-size="14">UNDERWRITERS DEMAND AUDITS, MONITORING, EACH THEIR OWN SWITCH</text>
+          </g>
+          <g id="a_icost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="458" class="flawtxt" font-size="15">THE COST:</text>
+            <text x="134" y="494" font-size="15">1 · LIABILITY ARRIVES AFTER THE HARM — AND THIS HARM IS THE KIND MONEY CANNOT REPAIR</text>
+            <text x="134" y="526" font-size="15">2 · TAIL-RISK INSURANCE MARKETS COLLAPSE EXACTLY WHEN THE RISK GETS REAL</text>
+            <text x="134" y="558" class="flawtxt" font-size="15">3 · IF A SYSTEM EVER RESISTS BEING STOPPED, A COURT JUDGEMENT IS NOT A BUTTON</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 5 — three redlined redesigns · dashed green = revision markup · sources: SEC/NYSE Rule 80B, FAA, Hartford Steam Boiler (1866)</div>
+    </div>
+    <div class="prose">
+      <p><b>The market's breaker.</b> After 1987, US markets built circuit breakers: thresholds published in advance — fall 7% and trading pauses automatically; 13% again; 20% ends the day. Nobody decides in the moment. For AI: automatic triggers on measurable signals — compute spikes, self-copying attempts. <i>The cost:</i> markets get one clean number, loss of control has none; a wrong threshold silences a hospital's diagnostics or never fires at all; automation moves the arbitrary decision from the crisis to the drafting table.</p>
+      <p><b>The aviation model.</b> The authority that can ground every plane has used that power fully exactly once — 9/11. The real control happens before flight: nothing flies until its type is certified, so the shutdown power rests on knowledge. For AI: license frontier systems before deployment. <i>The cost:</i> certifying a plane takes years while a model retrains in months; the experts who out-understand the labs work at the labs; and a country that pauses to certify watches its rivals ship.</p>
+      <p><b>The insurance model.</b> In the 1800s steam boilers kept exploding; what tamed them was insurers refusing to cover any boiler their own inspectors hadn't examined. Strict liability plus mandatory insurance made every insurer a private regulator. For AI: underwriters demand the monitoring, the audits — and a kill switch, each insurer requiring its own rather than one government channel. <i>The cost:</i> liability arrives after the harm, and this harm is the kind money cannot repair; tail-risk insurance collapses exactly when the risk gets real; and if a system ever resists being stopped, a court judgement is not a button.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 THE CLOSE ================= -->
+<section class="ep" id="s6" data-duration="72.2">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · The press-machine questions</div>
+    <h2>The button is the easy part.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_press" class="b">
+          <rect x="130" y="90" width="300" height="200" class="ink"/>
+          <circle cx="280" cy="190" r="34" class="ink"/>
+          <ellipse cx="480" cy="140" rx="46" ry="16" fill="var(--flaw)"/>
+          <rect x="448" y="156" width="64" height="34" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <text x="130" y="330" class="strong" font-size="15">ON A PRESS, THREE QUIET CONDITIONS HOLD:</text>
+        </g>
+        <g id="z_cond" class="b">
+          <text x="130" y="378" class="alttxt" font-size="15">✓ THE WORKER SEES THE JAM WITH THEIR OWN EYES</text>
+          <text x="130" y="412" class="alttxt" font-size="15">✓ THE WIRE IS SHORT, PHYSICAL, BEHIND WALLS</text>
+          <text x="130" y="446" class="alttxt" font-size="15">✓ "STUCK" IS OBVIOUS — NO DEFINITION NEEDED</text>
+        </g>
+        <g id="z_flip" class="b">
+          <text x="820" y="330" class="strong" font-size="15">THE BILL, SO FAR:</text>
+          <text x="820" y="378" class="flawtxt" font-size="15">? THE EYE IS BORROWED — UP TO 15 DAYS LATE</text>
+          <text x="820" y="412" class="flawtxt" font-size="15">? THE WIRE IS A NETWORK — A PRIZE AS MUCH AS A SAFEGUARD</text>
+          <text x="820" y="446" class="flawtxt" font-size="15">? THE TRIGGER IS A PARAGRAPH NOBODY CAN YET DEFINE</text>
+        </g>
+        <g id="z_easy" class="b">
+          <text x="820" y="140" class="strong" font-size="17">NONE OF THIS MAKES THE BUTTON A BAD IDEA.</text>
+          <text x="820" y="175" class="big" font-size="24">IT MAKES THE BUTTON THE EASY PART.</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="500" text-anchor="middle" class="big" font-size="25">HOW DOES THE HAND SEE? · WHO GUARDS THE WIRE? · WHAT TRIPS IT?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>On a printing press the button works because three quiet conditions hold: the worker sees the jam with their own eyes; the wire from button to motor is short, physical, and guarded by the walls of the building; and "stuck" is obvious — nobody needs a definition. The bill has, so far, none of the three. The eye is borrowed. The wire is a network — a prize as much as a safeguard. The trigger is a paragraph of legal language for something the field's own researchers cannot yet define.</p>
+      <p>None of this means the button is a bad idea. It means the button is the easy part. So when this bill — or its successor, here or in any country — reaches a vote, don't ask "should AI have an off switch?" Everyone answers yes. Ask the press-machine questions instead: How does the hand see? Who guards the wire? And what, exactly, trips it?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails — saturated plate mandatory, text <= 12 chars -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <ellipse cx="260" cy="160" rx="130" ry="44" fill="var(--flaw)"/>
+    <rect x="180" y="200" width="160" height="80" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <text x="470" y="140" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">to stop the most</text>
+    <text x="470" y="210" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">powerful AI on earth</text>
+    <text x="470" y="300" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text-dim)">congress, last week</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">1 switch</div>
+  <div class="sub">who holds it · who guards it</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="140" y="90" width="240" height="100" fill="none" stroke="var(--text)" stroke-width="7"/>
+    <text x="170" y="152" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text)">COMPANY</text>
+    <path d="M380 140 L560 140" stroke="var(--flaw)" stroke-width="7"/>
+    <rect x="560" y="90" width="180" height="100" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <text x="590" y="152" font-family="IBM Plex Mono" font-size="34" style="fill:var(--flaw)">DHS</text>
+    <text x="790" y="130" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">the government's</text>
+    <text x="790" y="190" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">only AI sensor</text>
+    <text x="790" y="280" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text-dim)">is the company itself</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">15 days late</div>
+  <div class="sub">the AI kill switch problem</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function count(tl,id,end,dur,pos,pre='',suf=''){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos).to(st,{v:end,duration:dur,ease:'power1.inOut',
+    onUpdate:()=>el.textContent=pre+Math.round(st.v).toLocaleString('en-US')+suf,
+    onComplete:()=>el.textContent=pre+Math.round(end).toLocaleString('en-US')+suf},pos);}
+function grow(tl,id,attrs,dur,pos){tl.set($(id),{opacity:1},pos).to($(id),{attr:attrs,duration:dur,ease:'power2.out'},pos);}
+
+/* ---------- scenes ---------- */
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.7); idle(tl,'h_s1',4,8);
+  tl.to($('h_s1'),{opacity:0,duration:.6},13.0);
+  say(tl,'h_s2',14.0,.7); idle(tl,'h_s2',18,9);
+  tl.to($('h_s2'),{opacity:0,duration:.6},29.0);
+  say(tl,'h_s3',30.0,.7); idle(tl,'h_s3',34,8);
+  tl.to($('h_s3'),{opacity:0,duration:.6},48.0);
+  say(tl,'h_s4',49.0,.7);
+  tl.fromTo($('h_s4').children[1],{opacity:0},{opacity:1,duration:.5},53.0);
+  tl.fromTo($('h_s4').children[2],{opacity:0},{opacity:1,duration:.5},57.0);
+  idle(tl,'h_s4',60,4);
+  tl.to($('h_s4'),{opacity:0,duration:.5},64.5);
+  pop(tl,'h_s5',66.0,.7); shake(tl,'h_s5',67.0,6,8); idlePlate(tl,'h_s5',69,4);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},75.5);
+  if(isAuto)tl.to({},{duration:5.5},76.2); else tl.to($('titleCard'),{opacity:0,duration:.5},79.5);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'b_frame',0.5,.7);
+  say(tl,'b_sponsors',6.0,.6); idle(tl,'b_sponsors',9,5);
+  say(tl,'b_c1',16.0,.7); idle(tl,'b_c1',19,7);
+  say(tl,'b_c2',28.0,.7); shake(tl,'b_c2',28.8,4,6); idle(tl,'b_c2',32,10);
+  say(tl,'b_c3',44.0,.7); idle(tl,'b_c3',47,5);
+  say(tl,'b_time',54.0,.8); idle(tl,'b_time',60,10);
+  say(tl,'b_drawer',72.0,.7); idle(tl,'b_drawer',75,8);
+  tl.to({},{duration:.1},88.0);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'c_chain',0.5,.9); idle(tl,'c_chain',6,10);
+  say(tl,'c_case',22.0,.8); idle(tl,'c_case',28,10);
+  say(tl,'c_verdict',44.0,.7); shake(tl,'svg2',44.6,5,6); idle(tl,'c_verdict',48,10);
+  say(tl,'c_sensors',62.0,.8); idle(tl,'c_sensors',67,10);
+  pop(tl,'c_smoke',82.0,.7); shake(tl,'c_smoke',83.0,6,8); idlePlate(tl,'c_smoke',85,13);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'p_core',0.5,.8);
+  draw(tl,'p_wire',2.0,4.0); say(tl,'p_channel',4.0,.1); idle(tl,'p_channel',8,12);
+  say(tl,'p_steal',24.0,.7); shake(tl,'p_steal',24.8,4,6); idle(tl,'p_steal',27,6);
+  say(tl,'p_spoof',35.0,.7); shake(tl,'svg3',35.8,6,8); idle(tl,'p_spoof',39,12);
+  say(tl,'p_eq',56.0,.8); idle(tl,'p_eq',61,10);
+  say(tl,'p_guard',74.0,.8); idle(tl,'p_guard',79,10);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'d_def',0.5,.8);
+  grow(tl,'d_hl',{width:640},1.8,3.0);
+  idle(tl,'d_def',6,7);
+  say(tl,'d_case',14.0,.8); idle(tl,'d_case',20,12);
+  say(tl,'d_door1',44.0,.7); idle(tl,'d_door1',48,8);
+  say(tl,'d_door2',58.0,.7); shake(tl,'d_door2',58.8,4,6); idle(tl,'d_door2',62,8);
+  say(tl,'d_path',72.0,.6); idle(tl,'d_path',74,5);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  // ---- A: market ----
+  tl.set($('a_mkt'),{opacity:1},0);
+  say(tl,'a_m1',0.5,.7); draw(tl,'a_chart',2.4,1.0);
+  idle(tl,'a_m1',8,10);
+  say(tl,'a_m2',22.0,.6);
+  say(tl,'a_mcost',30.0,.7); idle(tl,'a_mcost',35,18);
+  tl.to($('a_mkt'),{opacity:0,duration:.7},56.0);
+  // ---- B: aviation ----
+  tl.fromTo($('a_avi'),{opacity:0},{opacity:1,duration:.7},58.0);
+  say(tl,'a_a1',60.0,.8); idle(tl,'a_a1',66,14);
+  say(tl,'a_acost',88.0,.7); idle(tl,'a_acost',93,18);
+  tl.to($('a_avi'),{opacity:0,duration:.7},114.0);
+  // ---- C: insurance ----
+  tl.fromTo($('a_ins'),{opacity:0},{opacity:1,duration:.7},116.0);
+  say(tl,'a_i1',118.0,.8); idle(tl,'a_i1',126,16);
+  say(tl,'a_icost',148.0,.7); shake(tl,'a_icost',149.0,4,6); idle(tl,'a_icost',152,24);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_press',0.5,.8); idle(tl,'z_press',4,6);
+  say(tl,'z_cond',12.0,.8); idle(tl,'z_cond',17,8);
+  say(tl,'z_flip',27.0,.8); idle(tl,'z_flip',32,8);
+  say(tl,'z_easy',42.0,.8); idle(tl,'z_easy',46,6);
+  say(tl,'z_q',54.0,.8);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:7,yoyo:true},57.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+/* redline toggle */
+function setRedline(on){document.querySelectorAll('.revision').forEach(el=>el.style.opacity=on?1:0);
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  /* void return on purpose: record.mjs does page.evaluate(()=>window.__play()),
+     and returning the GSAP timeline breaks Playwright serialisation. */
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  setRedline(false);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.4);
+    if(s.id==='s5')tl.timeScale(3.4);
+    if(s.id==='s2'||s.id==='s3')tl.timeScale(2.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- clause tooltips (S1) ----
+  const tip=$('tip');
+  document.querySelectorAll('#svg1 [data-tip]').forEach(g=>{
+    g.style.cursor='pointer';
+    g.addEventListener('mousemove',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;});
+    g.addEventListener('mouseleave',()=>tip.style.opacity=0);
+    g.addEventListener('click',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;
+      setTimeout(()=>tip.style.opacity=0,3500);});
+  });
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){if(secs[i].getBoundingClientRect().top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i; player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
