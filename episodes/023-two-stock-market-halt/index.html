@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Stocks Halted a Nation's Entire Stock Market | Trace Upstream</title>
+<meta name="description" content="Korea's market was halted two days in a row — a historic first — after a +300% rally. Not by a crash villain: by three reasonable rules. Uncapped index weights, retail leverage, and a circuit breaker that fires so often it became a metronome.">
+<link rel="canonical" href="https://traceupstream.com/episodes/023-two-stock-market-halt/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="Two Stocks Halted a Nation's Entire Stock Market">
+<meta property="og:description" content="An interactive blueprint: how index weighting, single-stock leveraged ETFs and a visible brake threshold compound into a national-halt machine — and three redesigns, each with its price.">
+<meta property="og:url" content="https://traceupstream.com/episodes/023-two-stock-market-halt/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#9B7FA0; /* desaturated plum — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice — :not([font-size]) so font-size attributes win (EP.008 fix) */
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+/* listen mode */
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+/* controls */
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim{margin-top:14px;border:1px solid var(--grid);background:var(--bg-raised);padding:18px 20px}
+.sim label{font-family:var(--font-mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-dim);display:block;margin-bottom:7px}
+.sim input[type=range]{width:100%;accent-color:var(--text)}
+.sim .out{border-top:1px solid var(--grid);margin-top:14px;padding-top:14px;display:flex;
+  align-items:baseline;gap:10px 22px;flex-wrap:wrap}
+.sim .out b{font-family:var(--font-display);font-size:30px}
+.sim .out span{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+body.auto .sim{display:none}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails — a saturated plate is MANDATORY (docs/branding.md §6) */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:132px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.023 — 2026-07-29</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:12</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK =================
+     Mobile floor: viewBox 1000 wide → every font-size >= 31 clears 54px. Max 12 words per group. -->
+<section class="ep" id="s0" data-duration="68.5">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.023</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <!-- state 1: record profit, halted -->
+        <g id="h_s1" class="b">
+          <rect x="120" y="120" width="360" height="200" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <text x="150" y="200" class="strong" font-size="36">RECORD</text>
+          <text x="150" y="260" class="strong" font-size="36">QUARTER</text>
+          <path d="M480 220 L620 220" class="amber" stroke-width="6"/>
+          <path d="M620 220 l-24 -14 M620 220 l-24 14" class="amber" stroke-width="6"/>
+          <rect x="620" y="150" width="330" height="140" fill="var(--flaw)"/>
+          <text x="646" y="212" class="onplate" font-size="38">ALL TRADING</text>
+          <text x="646" y="264" class="onplate" font-size="38">STOPPED</text>
+          <text x="120" y="430" font-size="34">MINUTES AFTER THE BEST RESULTS EVER</text>
+        </g>
+        <!-- state 2: second day -->
+        <g id="h_s2" class="b">
+          <text x="120" y="200" class="strong" font-size="44">SECOND DAY IN A ROW</text>
+          <text x="120" y="330" class="flawtxt" font-size="44">NEVER HAPPENED BEFORE</text>
+        </g>
+        <!-- state 3: 917 vs 2 -->
+        <g id="h_s3" class="b">
+          <g id="h_ticks"></g>
+          <text x="120" y="470" class="strong" font-size="40">917 COMPANIES TRADE THERE</text>
+          <text x="120" y="530" class="flawtxt" font-size="44">IT TOOK TWO TO STOP THEM ALL</text>
+        </g>
+        <!-- state 4: the ride -->
+        <g id="h_s4" class="b">
+          <path id="h_up" d="M120 420 C 300 400, 480 330, 620 190" class="blue" stroke-width="6"/>
+          <path id="h_dn" d="M620 190 L820 400" class="amber" stroke-width="6"/>
+          <text x="150" y="160" class="big fact" font-size="56">+300%</text>
+          <text x="640" y="480" class="big flawtxt" font-size="56">−34%</text>
+          <text x="640" y="530" font-size="32">IN ONE MONTH</text>
+        </g>
+        <!-- state 5: three rules -->
+        <g id="h_s5" class="b">
+          <rect x="60" y="180" width="880" height="220" fill="var(--flaw)"/>
+          <text x="100" y="275" class="onplate" font-size="52">THREE REASONABLE RULES</text>
+          <text x="100" y="350" class="onplate" font-size="52">DID THIS</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">Two stocks halted a nation's<br>entire stock market.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>This week a company announced the most profitable quarter in its history — and within minutes, trading stopped on the whole national market. It was the second day in a row South Korea's market had to be halted. That has never happened before. On that market 917 companies are traded; to stop all of them, it took two.</p>
+      <p>The index had risen ~300% in about a year, then gave a third back in a month — and on the way down the emergency brake fired again and again. Nobody broke a law. Three reasonable-sounding rules did this: how you weigh an index, who may borrow for a bet, and when a falling market is paused.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="85.2">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Seoul, 28–29 July 2026</div>
+    <h2>Two days, two halts, one apology.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <!-- day one -->
+        <g id="e_d1" class="b" data-tip="28 July: KOSPI −10.84% to 6,023.66. Samsung −14.4% (worst since Oct 2008), SK Hynix −14.7%. Only 36 of 917 main-board stocks rose.">
+          <text x="110" y="90" class="strong" font-size="18">TUESDAY 28 JULY</text>
+          <rect x="110" y="120" width="120" height="220" fill="var(--flaw)" fill-opacity=".2" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="124" y="380" class="big flawtxt" font-size="40">−11%</text>
+          <text x="270" y="150" font-size="15">SAMSUNG AND SK HYNIX: −14% EACH</text>
+          <text x="270" y="180" font-size="15">36 OF 917 STOCKS ENDED HIGHER</text>
+        </g>
+        <!-- breaker rule -->
+        <g id="e_rule" class="b" data-tip="KRX market-wide circuit breaker: index down 8%+ held for one minute → all trading halts 20 minutes. Fired for the 8th time in 2026.">
+          <rect x="270" y="220" width="500" height="120" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <text x="294" y="262" class="strong" font-size="16">THE BRAKE: −8% HELD FOR 1 MINUTE</text>
+          <text x="294" y="294" font-size="15">→ ALL TRADING STOPS FOR 20 MINUTES</text>
+          <text x="294" y="322" class="flawtxt" font-size="15">FIRED 8 TIMES THIS YEAR</text>
+        </g>
+        <!-- day two -->
+        <g id="e_d2" class="b" data-tip="29 July: SK Hynix posts its most profitable quarter ever — still under consensus. The breaker fires again: first back-to-back halt in KRX history.">
+          <text x="850" y="90" class="strong" font-size="18">WEDNESDAY 29 JULY</text>
+          <rect x="850" y="120" width="330" height="90" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5"/>
+          <text x="874" y="158" class="alttxt strong" font-size="15">RECORD PROFIT — BEST QUARTER EVER</text>
+          <text x="874" y="188" font-size="14">STILL LESS THAN THE MARKET EXPECTED</text>
+          <rect x="850" y="240" width="120" height="100" fill="var(--flaw)" fill-opacity=".2" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="864" y="300" class="flawtxt strong" font-size="17">−8%</text>
+          <rect x="1000" y="240" width="380" height="100" fill="var(--flaw)"/>
+          <text x="1024" y="282" class="onplate" font-size="18">HALTED AGAIN —</text>
+          <text x="1024" y="316" class="onplate" font-size="18">FIRST BACK-TO-BACK IN HISTORY</text>
+        </g>
+        <!-- totals -->
+        <g id="e_tot" class="b">
+          <text x="110" y="460" class="big flawtxt" font-size="44">−18%</text>
+          <text x="290" y="460" font-size="16">IN TWO DAYS · JULY ON TRACK FOR THE WORST MONTH EVER RECORDED</text>
+          <text x="290" y="492" font-size="15">AFTER, BY MOST COUNTS, THE BEST-PERFORMING MAJOR MARKET ON EARTH</text>
+        </g>
+        <g id="e_apology" class="b">
+          <rect x="110" y="520" width="900" height="56" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="556" class="strong" font-size="17">IN PARLIAMENT, THE FINANCE MINISTER APOLOGISED. WHAT FOR — IS THE STORY.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — hover each block for detail · sources: UPI, Bloomberg, TechTimes, CNBC</div>
+    </div>
+    <div class="prose">
+      <p>Tuesday, 28 July: the KOSPI falls almost 11% in a single day; Samsung and SK Hynix each drop more than 14% — for Samsung, the worst day since 2008. Of 917 main-board stocks, 36 end higher. Halfway down, the automatic brake kicks in: index 8% down held for one minute → all trading stops for 20 minutes. This year alone, that rule has fired eight times.</p>
+      <p>Wednesday, 29 July: SK Hynix publishes the most profitable quarter in its history — the market expected more. The selling resumes, and the brake fires a second consecutive day: a first in the exchange's history. Two days, −18%; July on track for the worst month ever recorded — after a year as, by most counts, the best-performing major market on Earth. By Wednesday afternoon the finance minister had summoned the country's top financial authorities; in parliament, he apologised. What exactly for — that is the story.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 RULE ONE: THE UNCAPPED INDEX ================= -->
+<section class="ep" id="s2" data-duration="92.5">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">Rule One: The Uncapped Index</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Rule one · Success concentrates by design</div>
+    <h2>Two companies, six-tenths of the market.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg2">
+        <!-- donut -->
+        <g id="w_donut">
+          <g id="w_arcbg"></g>
+          <path id="w_arc" fill="none" stroke="var(--flaw)" stroke-width="46"/>
+          <text id="w_pct" x="360" y="298" text-anchor="middle" class="big flawtxt" font-size="52">40%</text>
+          <text x="360" y="340" text-anchor="middle" font-size="14">TWO COMPANIES</text>
+          <text id="w_year" x="360" y="150" text-anchor="middle" class="strong" font-size="16">2024</text>
+        </g>
+        <g id="w_note" class="b">
+          <text x="110" y="604" class="strong" font-size="16">NOBODY DECIDED THIS — THE WEIGHTING RULE DID IT, DAY BY DAY</text>
+        </g>
+        <!-- comparisons -->
+        <g id="w_cmp" class="b">
+          <circle cx="760" cy="180" r="52" fill="none" stroke="var(--grid)" stroke-width="18"/>
+          <path d="M760 128 A52 52 0 0 1 810 196" fill="none" stroke="var(--fact)" stroke-width="18"/>
+          <text x="700" y="270" font-size="14">NASDAQ TOP-2 ≈ 20%</text>
+          <circle cx="980" cy="180" r="52" fill="none" stroke="var(--grid)" stroke-width="18"/>
+          <path d="M980 128 A52 52 0 0 1 1010 138" fill="none" stroke="var(--fact)" stroke-width="18"/>
+          <text x="930" y="270" font-size="14">NIKKEI TOP-2 &lt; 10%</text>
+        </g>
+        <!-- arithmetic -->
+        <g id="w_math" class="b">
+          <rect x="700" y="320" width="670" height="110" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="724" y="362" class="flawtxt strong" font-size="18">TWO STOCKS −14%  ×  60% WEIGHT  =  INDEX −8.4%</text>
+          <text x="724" y="398" font-size="15">EVEN IF ALL 900 OTHER COMPANIES END THE DAY FLAT</text>
+        </g>
+        <g id="w_wash" class="b">
+          <rect x="700" y="460" width="670" height="110" fill="var(--flaw)"/>
+          <text x="724" y="502" class="onplate" font-size="17">+1 POINT OF WEIGHT → US FUND RULES FORCE ~$2B OF SELLING</text>
+          <text x="724" y="538" class="onplate" font-size="16">A CLIFF IN SEOUL, WRITTEN IN WASHINGTON</text>
+        </g>
+      </svg>
+      <div class="sim" id="sim" aria-label="Concentration simulator">
+        <label>Top-2 weight in the index — and a bad day for that sector (schematic)</label>
+        <input type="range" id="simW" min="10" max="70" value="60">
+        <input type="range" id="simD" min="0" max="20" value="14" style="margin-top:8px">
+        <div class="out">
+          <b id="simIdx">−8.4%</b><span>index move</span>
+          <b id="simWv" style="color:var(--flaw)">60%</b><span>top-2 weight</span>
+          <b id="simDv" style="color:var(--text-dim)">−14%</b><span>sector day</span>
+          <b id="simBrk" style="color:var(--flaw)">HALT</b><span>−8% breaker</span>
+        </div>
+      </div>
+      <div class="figcap">Fig. 2 — drag both sliders: concentration converts a sector day into a national halt · sources: Businesskorea, BigGo, KRX</div>
+    </div>
+    <div class="prose">
+      <p>Rule one: weigh every company by its size, with no upper limit. Watch what that does in a boom: the AI build-out made memory chips precious, and Korea makes the world's memory. Two years ago Samsung and SK Hynix were ~40% of the index. By May, 47. Mid-June, 55. End of June, 60% — two companies, six-tenths of a 900-company market. On the Nasdaq the top two are ~20%; on Japan's index they don't reach 10. Nobody decided this: the weighting rule converted the rally into dominance automatically. Success concentrates by design.</p>
+      <p>Concentration is fragility waiting for a direction change: two stocks at 60% falling 14% move the index more than 8% — the brake threshold crossed by two stocks alone. And one twist from outside: analysts warned that one more percentage point of weight would force foreign funds bound by American diversification rules to sell about $2 billion of Korean stock. A cliff in Seoul, written in Washington.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 RULE TWO: THE AMPLIFIER ================= -->
+<section class="ep" id="s3" data-duration="97.4">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Rule Two: The Amplifier</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Rule two · Who may borrow to bet</div>
+    <h2>A machine that sells into the fall.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg3">
+        <!-- product -->
+        <g id="a_prod" class="b">
+          <rect x="110" y="90" width="360" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="134" y="140" class="strong" font-size="20">2× ONE STOCK</text>
+          <text x="134" y="176" font-size="14">DOUBLE THE DAILY MOVE OF A SINGLE TICKER</text>
+          <rect x="134" y="196" width="200" height="30" fill="var(--fact)"/>
+          <text x="146" y="217" class="onplate" font-size="14">APPROVED · MAY 27</text>
+          <text x="110" y="280" class="flawtxt" font-size="15">LAUNCHED NEAR THE VERY TOP OF THE RALLY</text>
+        </g>
+        <g id="a_inflow" class="b">
+          <text x="560" y="130" class="big fact" font-size="44" id="a_bn">$0B</text>
+          <text x="560" y="170" font-size="15">RETAIL MONEY IN TWO MONTHS — 5× THE FOREIGN INFLOW</text>
+          <text x="560" y="200" font-size="14">BORROWED MONEY MARKET-WIDE: ALL-TIME RECORD</text>
+        </g>
+        <!-- mechanism loop -->
+        <g id="a_loop" class="b">
+          <rect x="110" y="330" width="240" height="70" class="nodebox"/>
+          <text x="134" y="372" font-size="14">PRICE FALLS</text>
+          <path class="amber" d="M350 365 L470 365"/>
+          <rect x="470" y="330" width="280" height="70" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="494" y="364" class="flawtxt strong" font-size="14">THE FUND MUST SELL</text>
+          <text x="494" y="388" class="flawtxt" font-size="12">DAILY REBALANCE — BY CONSTRUCTION</text>
+          <path class="amber" d="M750 365 L870 365"/>
+          <rect x="870" y="330" width="280" height="70" class="nodebox" stroke="var(--flaw)"/>
+          <text x="894" y="372" class="flawtxt" font-size="14">PRICE FALLS FURTHER</text>
+          <path class="amber" d="M1010 400 C 1010 470, 230 470, 230 400"/>
+        </g>
+        <!-- collapse bars -->
+        <g id="a_bars" class="b">
+          <rect x="1220" y="120" width="70" height="220" fill="var(--flaw)" fill-opacity=".2" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="1215" y="370" class="flawtxt strong" font-size="16">−80%</text>
+          <text x="1195" y="398" font-size="13">SK HYNIX 2×</text>
+          <rect x="1340" y="150" width="70" height="190" fill="var(--flaw)" fill-opacity=".2" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="1338" y="370" class="flawtxt strong" font-size="16">−75%</text>
+          <text x="1320" y="398" font-size="13">SAMSUNG 2×</text>
+        </g>
+        <!-- parliament -->
+        <g id="a_quote" class="b">
+          <rect x="110" y="500" width="620" height="90" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="536" class="strong" font-size="16">"THE COUNTRY HAS TURNED INTO A CASINO"</text>
+          <text x="134" y="566" font-size="14">— A LAWMAKER, TO THE FINANCE MINISTER</text>
+        </g>
+        <g id="a_sorry" class="b">
+          <rect x="760" y="500" width="610" height="90" fill="var(--flaw)"/>
+          <text x="784" y="536" class="onplate" font-size="16">THE MINISTER: SORRY FOR INTRODUCING IT</text>
+          <text x="784" y="566" class="onplate" font-size="16">WITHOUT CAREFUL CONSIDERATION</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — the daily-rebalance loop sells into the fall by construction · sources: CNBC, MarketScreener, KB Financial</div>
+    </div>
+    <div class="prose">
+      <p>This spring Korea's regulators approved a retail product delivering twice the daily move of a single stock. It launched on 27 May — near the very top. Retail investors poured in about $10 billion in two months — five times the foreign inflow; borrowed money market-wide hit an all-time record. The mechanical part matters: a fund promising double the daily move must rebalance every day — forced to sell after every fall. By construction, it sells into the fall.</p>
+      <p>When chips turned, the machine ran in reverse: the 2× SK Hynix fund lost more than 80% from its June peak, the Samsung version 75%; brokers selling out accounts to recover loans unloaded roughly $1.7 billion of stock. In parliament a lawmaker said the country had turned into a casino; the minister said he was sorry — for introducing the product without careful consideration. A rare thing: the author of a rule naming the rule as the defect. The apology unwinds no one's losses.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 RULE THREE: THE BRAKE ================= -->
+<section class="ep" id="s4" data-duration="90.3">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Rule Three: The Brake</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Rule three · A pause against the wrong enemy</div>
+    <h2>A brake that fires nine times is a metronome.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <!-- ladder -->
+        <g id="b_ladder" class="b">
+          <rect x="110" y="100" width="360" height="70" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <text x="134" y="142" class="strong" font-size="16">−8% HELD 1 MIN → PAUSE 20 MIN</text>
+          <rect x="110" y="190" width="360" height="70" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <text x="134" y="232" class="strong" font-size="16">−15% → PAUSE AGAIN</text>
+          <rect x="110" y="280" width="360" height="70" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="134" y="322" class="flawtxt strong" font-size="16">−20% → THE DAY IS OVER</text>
+        </g>
+        <g id="b_enemy" class="b">
+          <text x="560" y="130" class="strong" font-size="16">BUILT FOR A SPECIFIC ENEMY: PANIC — A WRONG PRICE</text>
+          <text x="560" y="162" font-size="14">AUTOMATIC SELL CASCADES · A MISTYPED TRADE · A RUMOUR</text>
+          <text x="560" y="210" class="flawtxt strong" font-size="16">BUT THIS LOOKS LIKE A REPRICING OF A BELIEF —</text>
+          <text x="560" y="242" class="flawtxt" font-size="15">20 MINUTES DOES NOT CHANGE WHAT CHIPS WILL EARN</text>
+        </g>
+        <!-- calendar -->
+        <g id="b_cal" class="b">
+          <text x="110" y="430" class="strong" font-size="15">2026, MARKET-WIDE FIRINGS:</text>
+          <g id="b_marks"></g>
+          <text x="110" y="474" class="flawtxt" font-size="14">TWO ADJACENT — A FIRST</text>
+        </g>
+        <!-- magnet -->
+        <g id="b_mag" class="b">
+          <line x1="770" y1="330" x2="1370" y2="330" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="8 7"/>
+          <text x="1180" y="318" class="flawtxt" font-size="13">THE −8% LINE</text>
+          <path id="b_curve" d="M790 252 C 950 268, 1120 296, 1290 328" class="ink" stroke-width="3.5"/>
+          <text x="770" y="382" font-size="14">NEAR THE TRIGGER, SELLING ACCELERATES —</text>
+          <text x="770" y="410" font-size="14">EVERYONE OUT BEFORE THE DOORS CLOSE</text>
+          <text x="770" y="452" class="flawtxt strong" font-size="15">THE MAGNET EFFECT: THE BRAKE,</text>
+          <text x="770" y="480" class="flawtxt strong" font-size="15">APPROACHED, BECOMES AN ACCELERATOR</text>
+        </g>
+        <g id="b_metr" class="b">
+          <rect x="110" y="500" width="1260" height="60" fill="var(--flaw)"/>
+          <text x="134" y="540" class="onplate" font-size="19">ONCE A DECADE: AN EMERGENCY DEVICE · NINE TIMES A YEAR: A METRONOME</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 4 — the ladder, the calendar, the magnet · sources: KRX rules, market-microstructure literature on threshold magnet effects</div>
+    </div>
+    <div class="prose">
+      <p>Korea's ladder is precise: 8% down held a minute — everything pauses 20 minutes; 15% — again; 20% — the day is over. Brakes like this were designed after past crashes for a specific enemy: panic, a wrong price — cascades of automatic sell orders, a mistyped trade, a rumour. Twenty minutes of forced calm lets reality catch up.</p>
+      <p>But that does not look like Korea this week. This looks like the repricing of a belief — what a year of AI spending will actually earn — and a pause does not change what memory chips will earn. So the brake fires again: nine times in a year, twice in two days. Worse, a visible threshold creates its own gravity — the documented magnet effect: as the index approaches the trigger, selling accelerates, everyone out before the doors close. A brake that fires once a decade is an emergency device. Nine times a year, it is a metronome — setting the fall's rhythm in eight-percent slices.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THE ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="161.4">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">The Alternatives</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three dials, three prices</div>
+    <h2>Cap the weight, gate the leverage, redesign the pause.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <!-- dial A -->
+        <g id="d_cap" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DIAL ONE · CAP THE WEIGHT</text>
+          <g id="d_c1" class="b">
+            <circle cx="320" cy="250" r="110" fill="none" stroke="var(--grid)" stroke-width="40"/>
+            <path d="M320 140 A110 110 0 1 1 216 284" fill="none" stroke="var(--flaw)" stroke-width="40"/>
+            <path id="d_capline" class="green" stroke-width="4" d="M320 118 A132 132 0 0 1 445 208"/>
+            <text x="290" y="260" class="big" font-size="34">60%</text>
+            <text x="480" y="180" class="alttxt strong" font-size="16">NO COMPANY ABOVE A FIXED SHARE</text>
+            <text x="480" y="212" font-size="15">EXCESS REDISTRIBUTED TO THE OTHER 900</text>
+            <text x="480" y="256" class="strong" font-size="15">DONE LIVE: NASDAQ-100 TRIMMED ITS GIANTS, 2023 — MID-YEAR, BY RULE</text>
+          </g>
+          <g id="d_ccost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="458" class="flawtxt" font-size="15">THE COST:</text>
+            <text x="134" y="494" font-size="15">1 · KOREA'S ECONOMY GENUINELY IS THIS CONCENTRATED — A CAPPED INDEX STOPS TELLING THE TRUTH</text>
+            <text x="134" y="526" font-size="15">2 · EVERY TRACKING FUND MUST SELL THE NATIONAL CHAMPIONS BECAUSE THEY SUCCEEDED</text>
+            <text x="134" y="558" class="flawtxt" font-size="15">3 · A TAX ON WINNING — PAID ON THE WAY UP, RESENTED ALL THE WAY</text>
+          </g>
+        </g>
+        <!-- dial B -->
+        <g id="d_gate" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DIAL TWO · GATE THE LEVERAGE</text>
+          <g id="d_g1" class="b">
+            <rect x="110" y="140" width="300" height="130" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+            <text x="134" y="190" class="strong" font-size="18">2× ONE STOCK</text>
+            <path class="green" stroke-width="5" d="M470 130 L470 290"/>
+            <text x="446" y="320" class="alttxt" font-size="14">THE GATE</text>
+            <text x="560" y="170" class="alttxt strong" font-size="15">EUROPE AFTER ITS RETAIL LOSSES: LEVERAGE LIMITS, BANS</text>
+            <text x="560" y="202" font-size="15">KOREA NOW WEIGHING: CAPS, LOWER RATIOS, PROFESSIONALS-ONLY</text>
+            <path class="amber" d="M410 220 C 700 260, 900 320, 1120 350"/>
+            <text x="1000" y="330" class="flawtxt" font-size="14">THE OFFSHORE LEAK</text>
+            <text x="560" y="250" font-size="14">DEMAND MIGRATES — OFFSHORE BROKERS, CRYPTO COPIES, NO PROTECTIONS</text>
+          </g>
+          <g id="d_gcost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="458" class="flawtxt" font-size="15">THE COST:</text>
+            <text x="134" y="494" font-size="15">1 · THE STATE DECIDES WHO MAY RISK THEIR OWN MONEY</text>
+            <text x="134" y="526" font-size="15">2 · WITHIN DAYS OF THE CRASH, A CRYPTO COPY OF THE SAME BET HAD ALREADY BROKEN</text>
+            <text x="134" y="558" class="flawtxt" font-size="15">3 · CLOSING THE COUNTER READS AS THE ELITE PULLING UP THE LADDER — THAT IS POLITICS</text>
+          </g>
+        </g>
+        <!-- dial C -->
+        <g id="d_pause" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DIAL THREE · REDESIGN THE PAUSE</text>
+          <g id="d_p1" class="b">
+            <rect x="110" y="140" width="420" height="150" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="180" class="alttxt strong" font-size="15">END THE HALT WITH AN AUCTION</text>
+            <text x="134" y="212" font-size="14">COLLECT EVERYONE'S ORDERS WHILE CLOSED,</text>
+            <text x="134" y="240" font-size="14">REOPEN AT ONE PRICE SET BY ALL — NOT A STAMPEDE</text>
+            <rect x="580" y="140" width="420" height="150" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="604" y="180" class="alttxt strong" font-size="15">OR ONE-WAY LIMITS, NOT FULL STOPS</text>
+            <text x="604" y="212" font-size="14">PRICES FALL ONLY SO FAR PER STEP —</text>
+            <text x="604" y="240" font-size="14">AMERICA'S REDESIGN AFTER THE 2010 FLASH CRASH</text>
+          </g>
+          <g id="d_china" class="b">
+            <rect x="1060" y="140" width="310" height="150" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+            <text x="1084" y="185" class="flawtxt strong" font-size="17">CHINA · JAN 2016</text>
+            <text x="1084" y="220" font-size="14">TIGHT MARKET-WIDE BREAKER</text>
+            <text x="1084" y="252" class="flawtxt strong" font-size="16">SCRAPPED IN 4 TRADING DAYS</text>
+          </g>
+          <g id="d_pcost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="458" class="flawtxt" font-size="15">THE COST:</text>
+            <text x="134" y="494" font-size="15">1 · LONGER PAUSE → A TALLER WALL OF UNFILLED ORDERS BEHIND IT</text>
+            <text x="134" y="526" font-size="15">2 · RARER → WHY DOES IT EXIST · TIGHTER → YOU INSTALLED A MAGNET</text>
+            <text x="134" y="558" class="flawtxt" font-size="15">3 · NO NEUTRAL SETTING — THE DIAL ONLY CHOOSES WHO PANICS, AND WHEN</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 5 — three redlined redesigns · dashed green = revision markup · sources: Nasdaq 2023 rebalance, ESMA measures, China 2016</div>
+    </div>
+    <div class="prose">
+      <p><b>Cap the weight.</b> Index providers sell capped versions — no company above a fixed share. Done live: in 2023 the Nasdaq-100's giants outgrew its limits and the exchange stepped in and trimmed them, mid-year, by rule. <i>The cost:</i> Korea's economy genuinely is this concentrated — a capped index stops telling the truth; and every tracking fund must sell the national champions precisely because they succeeded. A tax on winning.</p>
+      <p><b>Gate the leverage.</b> Europe, after its own wave of retail losses, capped leverage and banned the worst products; Korea is weighing position caps, lower ratios, professionals-only. <i>The cost:</i> the state decides who may risk their own money; demand migrates to offshore brokers and crypto copies with no protections at all — one such copy had already broken within days; and closing the counter reads as the elite pulling up the ladder. That is politics.</p>
+      <p><b>Redesign the pause.</b> End halts with a reopening auction — one price set by everyone's collected orders, not a stampede; or one-way limits per step, America's redesign after the 2010 flash crash. <i>The cost is written in the most famous experiment on this question:</i> China's tight market-wide breaker of January 2016, scrapped in four trading days as the magnet effect made falls faster. Longer → a taller wall of waiting orders; rarer → why exist; tighter → a magnet. No neutral setting: the dial only chooses who panics, and when.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 THE CLOSE ================= -->
+<section class="ep" id="s6" data-duration="75">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Which dial did it?</div>
+    <h2>The answer is almost never the one in the headline.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_ride" class="b">
+          <path d="M130 300 C 250 290, 340 240, 420 150" class="blue" stroke-width="4"/>
+          <path d="M420 150 L540 290" class="amber" stroke-width="4"/>
+          <rect x="560" y="240" width="120" height="50" fill="var(--flaw)"/>
+          <text x="580" y="272" class="onplate" font-size="16">HALT ×2</text>
+          <text x="130" y="360" class="strong" font-size="15">THE MOST PROFITABLE QUARTER IN A COMPANY'S HISTORY</text>
+          <text x="130" y="390" font-size="14">HELPED STOP A NATION'S MARKET — TWICE</text>
+        </g>
+        <g id="z_chain" class="b">
+          <text x="800" y="130" class="strong" font-size="16">NO VILLAIN TO ARREST:</text>
+          <text x="800" y="166" font-size="15">WEIGHING BY SIZE — FAIR · LEVERAGE — FREEDOM · PAUSING — PRUDENCE</text>
+          <text x="800" y="210" class="flawtxt strong" font-size="15">THE SUM: SUCCESS CONCENTRATES → INVITES LEVERAGE →</text>
+          <text x="800" y="240" class="flawtxt strong" font-size="15">CASCADES → SLAMS INTO A BRAKE NOT BUILT FOR IT</text>
+        </g>
+        <g id="z_dials" class="b">
+          <circle cx="220" cy="450" r="26" class="ink"/><line x1="220" y1="450" x2="236" y2="432" class="amber"/>
+          <text x="260" y="444" font-size="14">WEIGHT</text>
+          <circle cx="470" cy="450" r="26" class="ink"/><line x1="470" y1="450" x2="486" y2="432" class="amber"/>
+          <text x="510" y="444" font-size="14">LEVERAGE</text>
+          <circle cx="740" cy="450" r="26" class="ink"/><line x1="740" y1="450" x2="756" y2="432" class="amber"/>
+          <text x="780" y="444" font-size="14">BRAKE</text>
+          <text x="900" y="444" class="strong" font-size="15">THE MINISTER APOLOGISED FOR ONE OF THREE</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="330" text-anchor="middle" class="big" font-size="27">WHEN A MARKET NEXT HALTS — WHICH DIAL ACTUALLY DID IT?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>The most profitable quarter in a company's history helped stop a nation's stock market — twice. There is no villain to arrest: weighing by size is fair, investing with conviction is freedom, pausing a crash is prudence. The sum is a machine: success concentrates, concentration invites leverage, leverage cascades, and the cascade slams into a brake never designed for it. The minister apologised for one of the three dials; the other two are still set exactly where they were on Tuesday morning.</p>
+      <p>And this is not a Korean machine — every stock market on Earth runs on the same three dials: how success is weighted, how much conviction may borrow, when falling is paused. So when a market next halts, any market, any country, carry this question in: which of the three dials actually did it? The answer is almost never the one in the headline.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails — saturated plate mandatory, text <= 12 chars -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <path d="M140 300 C 320 280, 480 220, 640 90" stroke="var(--fact)" stroke-width="9" fill="none"/>
+    <path d="M640 90 L840 300" stroke="var(--flaw)" stroke-width="9" fill="none"/>
+    <text x="200" y="120" font-family="Space Grotesk" font-weight="700" font-size="64" style="fill:var(--fact)">+300%</text>
+    <text x="880" y="180" font-family="Space Grotesk" font-weight="700" font-size="64" style="fill:var(--flaw)">−34%</text>
+    <text x="880" y="250" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text-dim)">in one month</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">2 stocks</div>
+  <div class="sub">halted a whole country's market</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <circle cx="260" cy="195" r="120" fill="none" stroke="var(--grid)" stroke-width="44"/>
+    <path d="M260 75 A120 120 0 1 1 146 232" fill="none" stroke="var(--flaw)" stroke-width="44"/>
+    <text x="215" y="210" font-family="Space Grotesk" font-weight="700" font-size="48" style="fill:var(--text)">60%</text>
+    <text x="440" y="150" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">of a 900-company</text>
+    <text x="440" y="215" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">market = 2 companies</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">halted ×2</div>
+  <div class="sub">first back-to-back in history</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+/* ---------- generated geometry ---------- */
+/* S0: field of 917-ish ticks, two giants */
+(function(){
+  const g=$('h_ticks'); const NS='http://www.w3.org/2000/svg';
+  for(let i=0;i<210;i++){
+    const col=i%30,row=Math.floor(i/30);
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',120+col*26);r.setAttribute('y',120+row*34);
+    r.setAttribute('width',12);r.setAttribute('height',20);
+    r.setAttribute('fill','var(--grid)');
+    g.appendChild(r);
+  }
+  const b1=document.createElementNS(NS,'rect');
+  b1.setAttribute('x',420);b1.setAttribute('y',100);b1.setAttribute('width',80);b1.setAttribute('height',140);
+  b1.setAttribute('fill','var(--flaw)');b1.setAttribute('id','h_big1');
+  const b2=document.createElementNS(NS,'rect');
+  b2.setAttribute('x',520);b2.setAttribute('y',120);b2.setAttribute('width',70);b2.setAttribute('height',120);
+  b2.setAttribute('fill','var(--flaw)');b2.setAttribute('id','h_big2');
+  g.appendChild(b1);g.appendChild(b2);
+})();
+/* S2: donut arc helper */
+function arcPath(cx,cy,r,frac){
+  const a0=-Math.PI/2, a1=a0+frac*2*Math.PI;
+  const x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0);
+  const x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);
+  return `M${x0} ${y0} A${r} ${r} 0 ${frac>0.5?1:0} 1 ${x1} ${y1}`;
+}
+(function(){
+  const NS='http://www.w3.org/2000/svg';
+  const bg=document.createElementNS(NS,'circle');
+  bg.setAttribute('cx',360);bg.setAttribute('cy',280);bg.setAttribute('r',110);
+  bg.setAttribute('fill','none');bg.setAttribute('stroke','var(--grid)');bg.setAttribute('stroke-width',46);
+  $('w_arcbg').appendChild(bg);
+  $('w_arc').setAttribute('d',arcPath(360,280,110,0.40));
+})();
+/* S4: nine calendar marks */
+(function(){
+  const g=$('b_marks'); const NS='http://www.w3.org/2000/svg';
+  const xs=[370,410,450,490,530,570,610,668,690]; // last two adjacent
+  xs.forEach((x,i)=>{
+    const c=document.createElementNS(NS,'rect');
+    c.setAttribute('x',x);c.setAttribute('y',408);c.setAttribute('width',18);c.setAttribute('height',26);
+    c.setAttribute('fill','var(--flaw)');c.setAttribute('class','calmark');
+    c.setAttribute('opacity','0');
+    g.appendChild(c);
+  });
+})();
+
+/* ---------- primitives ---------- */
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function count(tl,id,end,dur,pos,pre='',suf=''){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos).to(st,{v:end,duration:dur,ease:'power1.inOut',
+    onUpdate:()=>el.textContent=pre+Math.round(st.v).toLocaleString('en-US')+suf,
+    onComplete:()=>el.textContent=pre+Math.round(end).toLocaleString('en-US')+suf},pos);}
+/* donut tween: animate weight fraction + label */
+function donutTo(tl,frac,label,pos,dur=1.4){
+  const st={f:null};
+  tl.call(()=>{},[],pos);
+  tl.to({},{duration:dur},pos); // hold slot
+  tl.call(()=>{
+    gsap.to({f:parseFloat($('w_pct').dataset.f||0.40)},{f:frac,duration:dur,ease:'power1.inOut',
+      onUpdate:function(){const v=this.targets()[0].f;
+        $('w_arc').setAttribute('d',arcPath(360,280,110,v));
+        $('w_pct').textContent=Math.round(v*100)+'%';},
+      onComplete:()=>{ $('w_pct').dataset.f=frac; $('w_pct').textContent=Math.round(frac*100)+'%'; $('w_year').textContent=label; }});
+    $('w_year').textContent=label;
+  },[],pos);
+}
+
+/* ---------- scenes ---------- */
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.7); shake(tl,'h_s1',2.0,6,8); idle(tl,'h_s1',5,7);
+  tl.to($('h_s1'),{opacity:0,duration:.6},13.5);
+  say(tl,'h_s2',14.5,.7); idle(tl,'h_s2',18,5);
+  tl.to($('h_s2'),{opacity:0,duration:.6},24.5);
+  say(tl,'h_s3',25.5,.7); idle(tl,'h_s3',30,7);
+  tl.to($('h_s3'),{opacity:0,duration:.6},38.5);
+  tl.set($('h_s4'),{opacity:1},39.5);
+  draw(tl,'h_up',2.2,39.5); draw(tl,'h_dn',1.2,42.0);
+  idle(tl,'h_s4',44,8);
+  tl.to($('h_s4'),{opacity:0,duration:.5},54.0);
+  pop(tl,'h_s5',55.5,.7); shake(tl,'h_s5',56.5,6,8); idlePlate(tl,'h_s5',58,10);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},73.5);
+  if(isAuto)tl.to({},{duration:5.5},74.2); else tl.to($('titleCard'),{opacity:0,duration:.5},77.5);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_d1',0.5,.8); idle(tl,'e_d1',5,8);
+  say(tl,'e_rule',20.0,.8); idle(tl,'e_rule',25,8);
+  say(tl,'e_d2',38.0,.8); shake(tl,'svg1',44.0,6,8); idle(tl,'e_d2',46,10);
+  say(tl,'e_tot',60.0,.8); idle(tl,'e_tot',65,8);
+  say(tl,'e_apology',78.0,.7); idle(tl,'e_apology',81,7);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  tl.set($('w_donut'),{opacity:1},0);
+  say(tl,'w_donut',0.5,.7);
+  donutTo(tl,0.47,'MAY 2026',16.0,1.2);
+  donutTo(tl,0.55,'MID-JUNE',20.0,1.2);
+  donutTo(tl,0.60,'END OF JUNE',24.0,1.4);
+  say(tl,'w_cmp',34.0,.8); idle(tl,'w_cmp',38,8);
+  say(tl,'w_note',48.0,.7); idle(tl,'w_note',51,7);
+  say(tl,'w_math',60.0,.8); shake(tl,'w_math',61.0,5,6); idle(tl,'w_math',64,10);
+  pop(tl,'w_wash',84.0,.7); shake(tl,'w_wash',85.0,5,6); idlePlate(tl,'w_wash',87,15);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'a_prod',0.5,.8); idle(tl,'a_prod',5,6);
+  say(tl,'a_inflow',14.0,.4);
+  count(tl,'a_bn',10,2.4,14.5,'$','B');
+  idle(tl,'a_inflow',19,8);
+  say(tl,'a_loop',34.0,.9); idle(tl,'a_loop',40,12);
+  say(tl,'a_bars',58.0,.8); shake(tl,'a_bars',59.0,5,6); idle(tl,'a_bars',62,8);
+  say(tl,'a_quote',76.0,.8); idle(tl,'a_quote',80,7);
+  pop(tl,'a_sorry',90.0,.7); idlePlate(tl,'a_sorry',92,12);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'b_ladder',0.5,.9); idle(tl,'b_ladder',6,7);
+  say(tl,'b_enemy',18.0,.9); idle(tl,'b_enemy',24,12);
+  tl.set($('b_cal'),{opacity:1},42.0);
+  tl.to(document.querySelectorAll('#b_marks .calmark'),{opacity:1,duration:.25,stagger:.35},42.0);
+  idle(tl,'b_cal',48,6);
+  tl.set($('b_mag'),{opacity:1},56.0);
+  draw(tl,'b_curve',3.0,56.5);
+  idle(tl,'b_mag',62,8);
+  pop(tl,'b_metr',74.0,.7); shake(tl,'b_metr',75.0,5,6); idlePlate(tl,'b_metr',77,13);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  // dial A
+  tl.set($('d_cap'),{opacity:1},0);
+  say(tl,'d_c1',0.5,.8); draw(tl,'d_capline',1.4,4.0); idle(tl,'d_c1',8,12);
+  say(tl,'d_ccost',26.0,.7); idle(tl,'d_ccost',31,20);
+  tl.to($('d_cap'),{opacity:0,duration:.7},56.0);
+  // dial B
+  tl.fromTo($('d_gate'),{opacity:0},{opacity:1,duration:.7},58.0);
+  say(tl,'d_g1',60.0,.8); idle(tl,'d_g1',67,14);
+  say(tl,'d_gcost',90.0,.7); idle(tl,'d_gcost',95,18);
+  tl.to($('d_gate'),{opacity:0,duration:.7},118.0);
+  // dial C
+  tl.fromTo($('d_pause'),{opacity:0},{opacity:1,duration:.7},120.0);
+  say(tl,'d_p1',122.0,.8); idle(tl,'d_p1',129,12);
+  pop(tl,'d_china',146.0,.7); shake(tl,'d_china',147.0,6,8); idle(tl,'d_china',150,8);
+  say(tl,'d_pcost',162.0,.7); idle(tl,'d_pcost',167,15);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_ride',0.5,.8); idle(tl,'z_ride',5,8);
+  say(tl,'z_chain',16.0,.8); idle(tl,'z_chain',21,10);
+  say(tl,'z_dials',36.0,.8); idle(tl,'z_dials',41,8);
+  say(tl,'z_q',52.0,.8);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:7,yoyo:true},55.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+/* redline toggle */
+function setRedline(on){document.querySelectorAll('.revision').forEach(el=>el.style.opacity=on?1:0);
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  /* void return on purpose: record.mjs does page.evaluate(()=>window.__play()),
+     and returning the GSAP timeline breaks Playwright serialisation. */
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  setRedline(false);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.4);
+    if(s.id==='s5')tl.timeScale(3.4);
+    if(s.id==='s2'||s.id==='s3')tl.timeScale(2.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- tooltips (S1) ----
+  const tip=$('tip');
+  document.querySelectorAll('#svg1 [data-tip]').forEach(g=>{
+    g.style.cursor='pointer';
+    g.addEventListener('mousemove',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;});
+    g.addEventListener('mouseleave',()=>tip.style.opacity=0);
+    g.addEventListener('click',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;
+      setTimeout(()=>tip.style.opacity=0,3500);});
+  });
+
+  // ---- concentration simulator ----
+  const simW=$('simW'), simD=$('simD');
+  function runSim(){
+    const w=+simW.value, d=+simD.value;
+    const idx=w/100*d;
+    $('simIdx').textContent='−'+idx.toFixed(1)+'%';
+    $('simWv').textContent=w+'%';
+    $('simDv').textContent='−'+d+'%';
+    const halt=idx>=8;
+    $('simBrk').textContent=halt?'HALT':'no halt';
+    $('simBrk').style.color=halt?'var(--flaw)':'var(--alt)';
+    // reflect on donut
+    $('w_arc').setAttribute('d',arcPath(360,280,110,w/100));
+    gsap.set($('w_pct'),{opacity:1}); $('w_pct').textContent=w+'%';
+  }
+  simW.addEventListener('input',runSim); simD.addEventListener('input',runSim); runSim();
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){if(secs[i].getBoundingClientRect().top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i; player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
