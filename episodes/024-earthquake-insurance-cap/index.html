@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Japan Is Earthquake-Proof. 65% of Homes Aren't Insured | Trace Upstream</title>
+<meta name="description" content="Japan built the world's most elaborate earthquake-insurance machine — and wrote its incompleteness into the same 1966 law: a rider-only product capped at half the house, a ¥12 trillion ceiling that legally shrinks every claim, and free state relief competing with the product it sells.">
+<link rel="canonical" href="https://traceupstream.com/episodes/024-earthquake-insurance-cap/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="Japan Is Earthquake-Proof. 65% of Homes Aren't Insured">
+<meta property="og:description" content="An interactive blueprint: the 1966 Act built a system that cannot go bankrupt — at the price of never paying in full. Four redesigns from NZ, Turkey, California and parametric insurance, each with its price.">
+<meta property="og:url" content="https://traceupstream.com/episodes/024-earthquake-insurance-cap/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#A57A86; /* desaturated wine — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice — :not([font-size]) so font-size attributes win (EP.008 fix) */
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+/* listen mode */
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+/* controls */
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim{margin-top:14px;border:1px solid var(--grid);background:var(--bg-raised);padding:18px 20px}
+.sim label{font-family:var(--font-mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-dim);display:block;margin-bottom:7px}
+.sim input[type=range]{width:100%;accent-color:var(--text)}
+.sim .out{border-top:1px solid var(--grid);margin-top:14px;padding-top:14px;display:flex;
+  align-items:baseline;gap:10px 22px;flex-wrap:wrap}
+.sim .out b{font-family:var(--font-display);font-size:30px}
+.sim .out span{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+body.auto .sim{display:none}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails — a saturated plate is MANDATORY (docs/branding.md §6) */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:132px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.024 — 2026-07-30</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:10</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK =================
+     Mobile floor: viewBox 1000 wide → every font-size >= 31 clears 54px. Max 12 words per group. -->
+<section class="ep" id="s0" data-duration="76.7">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.024</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <!-- state 1: the mall -->
+        <g id="h_s1" class="b">
+          <g id="h_mall">
+            <rect x="240" y="140" width="520" height="220" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="5"/>
+            <line x1="240" y1="210" x2="760" y2="210" class="ink" stroke-width="3"/>
+            <rect x="290" y="250" width="90" height="110" class="ink"/>
+            <rect x="440" y="250" width="120" height="80" class="ink"/>
+            <rect x="620" y="250" width="90" height="110" class="ink"/>
+          </g>
+          <rect x="240" y="60" width="470" height="50" fill="var(--fact)"/>
+          <text x="262" y="94" class="onplate" font-size="32">REOPENED · JUNE 2026</text>
+          <text id="h_cap1" x="240" y="450" class="strong" font-size="38">AFTER TEN YEARS OF REBUILDING</text>
+        </g>
+        <!-- state 2: it came down -->
+        <g id="h_s2" class="b">
+          <path id="h_crack" d="M500 140 L470 220 L520 300 L480 360" stroke="var(--flaw)" stroke-width="6" fill="none"/>
+          <text x="240" y="450" class="flawtxt" font-size="40">ONE MONTH LATER: DOWN AGAIN</text>
+          <text x="240" y="520" class="strong" font-size="36">34 DEAD OR FEARED DEAD</text>
+        </g>
+        <!-- state 3: uninsured field -->
+        <g id="h_s3" class="b">
+          <g id="h_houses"></g>
+          <text x="120" y="470" class="strong" font-size="38">ACROSS JAPAN, 2 OF 3 HOMES</text>
+          <text x="120" y="530" class="flawtxt" font-size="40">HAVE NO EARTHQUAKE INSURANCE</text>
+        </g>
+        <!-- state 4: the law -->
+        <g id="h_s4" class="b">
+          <rect x="360" y="100" width="280" height="200" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="5"/>
+          <line x1="400" y1="150" x2="600" y2="150" class="ink"/>
+          <line x1="400" y1="190" x2="600" y2="190" class="ink"/>
+          <line x1="400" y1="230" x2="560" y2="230" class="ink"/>
+          <text x="500" y="380" text-anchor="middle" class="strong" font-size="36">THE 1966 INSURANCE ACT</text>
+          <text x="500" y="450" text-anchor="middle" class="flawtxt" font-size="38">UNDER-INSURANCE, BY DESIGN</text>
+        </g>
+        <!-- state 5: the deal -->
+        <g id="h_s5" class="b">
+          <rect x="60" y="180" width="880" height="220" fill="var(--flaw)"/>
+          <text x="100" y="275" class="onplate" font-size="50">CANNOT GO BANKRUPT.</text>
+          <text x="100" y="350" class="onplate" font-size="50">CANNOT PAY IN FULL.</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">Japan is earthquake-proof.<br>65% of homes aren't insured.</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>On Tuesday a shopping mall collapsed in southern Japan — a mall that had reopened just last month, after ten years of rebuilding from the last big earthquake in the same region. Thirty-four people are dead or feared dead across Kumamoto, a number still being confirmed.</p>
+      <p>Japan rehearses this day better than any country on Earth. And yet, across Japan, roughly two homes out of three have no earthquake insurance at all. Not carelessness, not poverty — a design, written in 1966, that built the world's most elaborate earthquake-insurance machine and decided, in the same pages, exactly how incomplete it would be.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="82.8">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Kumamoto, 28 July 2026</div>
+    <h2>The second disaster arrives in envelopes.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 580" id="svg1">
+        <!-- map inset -->
+        <g id="e_map" class="b" data-tip="28 July 2026, late afternoon: MJMA 7.1 (Mww 6.8), ~10 km deep, Kumamoto Prefecture, Kyushu.">
+          <path d="M180 140 C 150 190, 160 260, 200 300 C 240 340, 300 330, 330 280 C 360 230, 350 170, 300 140 C 260 115, 210 110, 180 140 Z" class="ink" stroke-width="3"/>
+          <circle id="e_epi" cx="255" cy="230" r="10" fill="var(--flaw)"/>
+          <circle id="e_ring" cx="255" cy="230" r="10" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="150" y="360" class="strong" font-size="16">KYUSHU · M7.1 · SHALLOW</text>
+        </g>
+        <!-- cards -->
+        <g id="e_mall" class="b" data-tip="Kashima: the mall partially collapsed; ~3,000 shoppers evacuated before a gas explosion brought down more of the structure.">
+          <rect x="460" y="100" width="440" height="80" class="nodebox" stroke="var(--flaw)"/>
+          <text x="484" y="134" class="flawtxt strong" font-size="15">THE MALL — 3,000 EVACUATED, THEN THE EXPLOSION</text>
+          <text x="484" y="162" font-size="14">REOPENED LAST MONTH AFTER THE 2016 QUAKE</text>
+        </g>
+        <g id="e_mill" class="b" data-tip="Yatsushiro: eight workers died at a Nippon Paper mill; bullet trains suspended across Kyushu; Kumamoto Castle's walls — still under repair since 2016 — fell again.">
+          <rect x="460" y="200" width="440" height="80" class="nodebox"/>
+          <text x="484" y="234" class="strong" font-size="15">A PAPER MILL — EIGHT WORKERS DEAD</text>
+          <text x="484" y="262" font-size="14">TRAINS STOPPED · THE CASTLE WALLS FELL AGAIN</text>
+        </g>
+        <!-- echo -->
+        <g id="e_echo" class="b">
+          <line class="hair" x1="180" y1="470" x2="1300" y2="470"/>
+          <circle cx="330" cy="470" r="8" fill="var(--flaw)"/>
+          <text x="270" y="510" font-size="15">2016 — NEARLY 300 DEAD</text>
+          <circle cx="1150" cy="470" r="8" fill="var(--flaw)"/>
+          <text x="1090" y="510" font-size="15">2026 — SAME PREFECTURE</text>
+          <path id="e_arc" d="M330 462 C 600 380, 900 380, 1150 462" class="amber" stroke-dasharray="8 7" fill="none"/>
+          <text x="600" y="420" class="flawtxt" font-size="15">STILL FINISHING THE LAST RECOVERY</text>
+        </g>
+        <!-- clock + envelope -->
+        <g id="e_clock" class="b">
+          <circle cx="1080" cy="180" r="52" class="ink"/>
+          <line x1="1080" y1="180" x2="1080" y2="140" class="amber"/>
+          <line x1="1080" y1="180" x2="1112" y2="196" class="ink"/>
+          <text x="1000" y="270" font-size="14">THE 72-HOUR WINDOW FOR SURVIVORS</text>
+        </g>
+        <g id="e_env" class="b">
+          <rect x="1180" y="120" width="180" height="110" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <path d="M1180 120 L1270 185 L1360 120" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1160" y="330" class="flawtxt strong" font-size="15">THE SECOND DISASTER:</text>
+          <text x="1160" y="358" class="flawtxt" font-size="14">THE BILLS — DECIDED 60 YEARS AGO</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — hover the cards for detail · sources: Japan Times, Al Jazeera, NPR, Nippon.com</div>
+    </div>
+    <div class="prose">
+      <p>Tuesday, 28 July, late afternoon: a magnitude 7.1 quake strikes Kumamoto Prefecture — shallow, the dangerous kind. The mall in Kashima partially collapsed; ~3,000 shoppers were evacuated before a gas explosion brought down more of the structure. Eight workers died at a paper mill; bullet trains stopped; the castle walls — still under repair since the last disaster — fell again. Ten years ago the same prefecture was hit by a quake that killed nearly 300 people counting the aftermath; the region was still finishing that recovery when Tuesday arrived.</p>
+      <p>For days the cameras will count what earthquakes make us count: the dead, the missing, the 72-hour window in which survivors can still be found. But a second disaster arrives weeks later, in envelopes — repair estimates, demolition orders, bills. Who pays them was decided sixty years ago.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 THE MACHINE ================= -->
+<section class="ep" id="s2" data-duration="99.7">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Machine</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The machine · A cathedral of solvency</div>
+    <h2>One company, state backing, nothing leaves Japan.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg2">
+        <!-- 1964 -->
+        <g id="m_niigata" class="b">
+          <rect x="110" y="80" width="480" height="110" class="nodebox" stroke="var(--flaw)"/>
+          <text x="134" y="120" class="flawtxt strong" font-size="16">1964 · NIIGATA</text>
+          <text x="134" y="150" font-size="14">ONE QUAKE COULD EXCEED THE INDUSTRY'S ASSETS</text>
+          <text x="134" y="176" font-size="14">SO FOR TWO YEARS, THE PRODUCT DID NOT EXIST</text>
+        </g>
+        <!-- pyramid -->
+        <g id="m_p1" class="b">
+          <rect x="240" y="500" width="560" height="70" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="380" y="544" class="strong" font-size="16">YOUR POLICY · ANY INSURER</text>
+        </g>
+        <g id="m_p2" class="b">
+          <rect x="300" y="420" width="440" height="70" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="356" y="464" font-size="15">PASSED ON — 100% — TO ONE COMPANY</text>
+          <text x="756" y="464" class="strong" font-size="14">3%</text>
+        </g>
+        <g id="m_p3" class="b">
+          <rect x="360" y="340" width="320" height="70" class="nodebox"/>
+          <text x="404" y="384" class="fact strong" font-size="15">JER — THE SINGLE REINSURER</text>
+          <text x="700" y="384" class="strong" font-size="14">10%</text>
+        </g>
+        <g id="m_p4" class="b">
+          <rect x="420" y="260" width="200" height="70" fill="var(--flaw)"/>
+          <text x="452" y="304" class="onplate" font-size="16">THE STATE</text>
+          <text x="640" y="304" class="flawtxt strong" font-size="16">87%</text>
+        </g>
+        <g id="m_ring" class="b">
+          <ellipse cx="520" cy="420" rx="360" ry="215" fill="none" stroke="var(--text)" stroke-width="2" stroke-dasharray="4 6"/>
+          <text x="330" y="230" class="strong" font-size="15">NOTHING LEAVES JAPAN — HOUSEHOLD RISK HELD AT HOME</text>
+        </g>
+        <!-- article 1 -->
+        <g id="m_art" class="b">
+          <rect x="960" y="280" width="420" height="150" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5"/>
+          <text x="984" y="320" class="alttxt strong" font-size="15">ARTICLE 1 · THE PURPOSE:</text>
+          <text x="984" y="352" font-size="14">"…THE STABILITY OF THE LIVES</text>
+          <text x="984" y="380" font-size="14">OF DISASTER VICTIMS"</text>
+          <text x="984" y="412" class="alttxt" font-size="13">60 YEARS · PAID AFTER EVERY MAJOR QUAKE</text>
+        </g>
+        <g id="m_turn" class="b">
+          <rect x="960" y="470" width="420" height="100" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="984" y="510" class="flawtxt strong" font-size="15">AND THE SAME LAW DECIDED HOW MUCH</text>
+          <text x="984" y="540" class="flawtxt strong" font-size="15">PROTECTION IT WOULD REFUSE TO SELL</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 2 — the 1966 pyramid: 3% insurers · 10% JER · 87% the state · sources: MoF outline, JER annual report, GFDRR</div>
+    </div>
+    <div class="prose">
+      <p>In 1964 an earthquake flattened parts of Niigata, and Japan's insurers faced honest arithmetic: one big quake could produce claims larger than the industry's entire assets. For two more years, home earthquake insurance simply did not exist. Then the 1966 Act built something remarkable: every household earthquake policy, from any insurer, is passed on — 100% — to a single company (JER), which passes most of it upstream to the government. In the worst possible disaster the split is roughly: insurers 3%, JER 10%, the state 87%. Nothing is reinsured abroad: Japan holds its own household earthquake risk entirely at home.</p>
+      <p>The law states its purpose in Article 1: to spread earthquake insurance and thereby contribute to "the stability of the lives of disaster victims." It has paid after every major quake for sixty years and never failed. Which is what makes the next two design choices so interesting — because the same law decided, precisely, how much protection it would refuse to sell you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE TRUNCATED PRODUCT ================= -->
+<section class="ep" id="s3" data-duration="97.3">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Truncated Product</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Design choice one · Half a house, by statute</div>
+    <h2>An under-insured product, an under-insured nation.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg3">
+        <!-- rider -->
+        <g id="t_rider" class="b">
+          <rect x="110" y="100" width="300" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="134" y="140" class="strong" font-size="16">FIRE POLICY</text>
+          <text x="134" y="168" font-size="13">THE ONLY DOOR IN</text>
+          <rect x="330" y="200" width="220" height="110" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="352" y="240" class="flawtxt strong" font-size="14">EARTHQUAKE COVER</text>
+          <text x="352" y="266" class="flawtxt" font-size="13">RIDER ONLY — NEVER SOLD ALONE</text>
+          <path class="amber" d="M410 190 L410 210 L330 210"/>
+        </g>
+        <!-- crop -->
+        <g id="t_crop" class="b">
+          <g id="t_house">
+            <path d="M700 240 L800 160 L900 240 L900 360 L700 360 Z" class="ink" stroke-width="3"/>
+          </g>
+          <line x1="690" y1="288" x2="910" y2="288" stroke="var(--flaw)" stroke-width="3.5" stroke-dasharray="8 6"/>
+          <text x="700" y="410 " class="flawtxt strong" font-size="15">COVER = 30–50% OF THE FIRE SUM — BY STATUTE</text>
+          <text x="700" y="440" font-size="14">CEILING ¥50M (~$300K) · PAYOUTS IN FIXED STEPS</text>
+        </g>
+        <g id="t_steps" class="b">
+          <rect x="1080" y="300" width="90" height="60" fill="var(--flaw)" fill-opacity=".25" stroke="var(--flaw)" stroke-width="2"/>
+          <rect x="1180" y="270" width="90" height="90" fill="var(--flaw)" fill-opacity=".2" stroke="var(--flaw)" stroke-width="2"/>
+          <rect x="1280" y="230" width="90" height="130" fill="var(--flaw)" fill-opacity=".15" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="1085" y="468" font-size="13">PARTIAL · LARGE · TOTAL — NOT YOUR REPAIR BILL</text>
+        </g>
+        <!-- purpose -->
+        <g id="t_purpose" class="b">
+          <text x="110" y="360" class="strong" font-size="15">DELIBERATE: "TO RESTART A LIFE,</text>
+          <text x="110" y="388" class="strong" font-size="15">NOT TO REBUILD A HOUSE"</text>
+        </g>
+        <!-- consequence -->
+        <g id="t_donut" class="b">
+          <circle cx="330" cy="500" r="70" fill="none" stroke="var(--grid)" stroke-width="30"/>
+          <path id="t_arc" fill="none" stroke="var(--flaw)" stroke-width="30"/>
+          <text x="330" y="510" text-anchor="middle" class="big flawtxt" font-size="30">35%</text>
+          <text x="430" y="480" class="strong" font-size="15">7 IN 10 FIRE BUYERS ADD THE RIDER —</text>
+          <text x="430" y="508" class="strong" font-size="15">BUT ONLY 35% OF ALL HOMES ARE COVERED</text>
+          <text x="430" y="548" class="flawtxt" font-size="15">FULL PREMIUMS FOR HALF A HOUSE: MANY SAY NO</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — rider-only, cropped by statute, paid in steps · sources: MoF outline, JER, Insurance Business Asia</div>
+    </div>
+    <div class="prose">
+      <p>What the law lets you buy: earthquake cover exists only as an add-on to a fire policy — never on its own. The insured amount is set by statute at 30–50% of the fire policy's value, with hard ceilings (about ¥50 million for a building, roughly $300,000), and payouts come in fixed steps by damage category, not as your repair bill. Deliberate — the product exists "to restart a life, not to rebuild a house," because promising to rebuild every house is what bankrupts a system in a megaquake.</p>
+      <p>Follow the incentive downstream: full premiums for half a house, paid in steps — many households conclude it isn't worth it. Of those who buy fire insurance, about seven in ten add the earthquake rider; across all of Japan's homes, only about 35% carry earthquake cover. An under-insured product, truncated by law to keep the system alive, produces an under-insured nation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE CEILING AND THE FREE COMPETITOR ================= -->
+<section class="ep" id="s4" data-duration="96.9">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The Ceiling</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Design choice two · The check may shrink</div>
+    <h2>Solvency for the system, not for your check.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg4">
+        <!-- tank -->
+        <g id="c_tank" class="b">
+          <rect x="140" y="120" width="360" height="320" fill="none" stroke="var(--text)" stroke-width="3.5"/>
+          <rect id="c_fill" x="143" y="437" width="354" height="0" fill="var(--fact)" fill-opacity=".25"/>
+          <text x="160" y="100" class="strong" font-size="17">¥12 TRILLION — THE LEGAL MAXIMUM PER QUAKE (~$80B)</text>
+          <text x="160" y="480" font-size="14">CALIBRATED FOR A REPEAT OF 1923 GREAT KANTO</text>
+        </g>
+        <g id="c_valve" class="b">
+          <line x1="140" y1="120" x2="500" y2="120" stroke="var(--flaw)" stroke-width="4"/>
+          <text x="540" y="130" class="flawtxt strong" font-size="15">ABOVE THE RIM: EVERY CLAIM</text>
+          <text x="540" y="158" class="flawtxt strong" font-size="15">REDUCED PRO-RATA — BY LAW</text>
+          <text x="540" y="196" font-size="14">THE PLEDGE TO DO MORE IS EFFORT; THE REDUCTION IS STATUTE</text>
+        </g>
+        <!-- relief -->
+        <g id="c_relief" class="b">
+          <text x="140" y="560" class="strong" font-size="15">AFTER EVERY DISASTER, STATE RELIEF FLOWS TO ALL —</text>
+          <text x="140" y="588" class="flawtxt" font-size="15">THE VOLUNTARY PRODUCT COMPETES WITH A FREE, IMPLICIT ONE</text>
+        </g>
+        <g id="c_houses" class="b">
+          <path d="M980 300 L1030 260 L1080 300 L1080 370 L980 370 Z" class="ink"/>
+          <text x="985" y="398" font-size="12">INSURED</text>
+          <path d="M1160 300 L1210 260 L1260 300 L1260 370 L1160 370 Z" class="ink" stroke-dasharray="6 5"/>
+          <text x="1152" y="398" font-size="12">UNINSURED</text>
+          <path class="green" d="M1080 240 C 1100 210, 1150 210, 1170 240"/>
+          <text x="1000" y="220" class="alttxt" font-size="13">HELP CAME TO BOTH — 2016</text>
+        </g>
+        <!-- fear steps -->
+        <g id="c_steps" class="b">
+          <rect x="900" y="500" width="110" height="40" fill="var(--fact)" fill-opacity=".2" stroke="var(--fact)" stroke-width="2"/>
+          <text x="915" y="527" font-size="13">10% · 1994</text>
+          <rect x="1030" y="470" width="110" height="70" fill="var(--fact)" fill-opacity=".2" stroke="var(--fact)" stroke-width="2"/>
+          <text x="1042" y="512" font-size="13">KOBE 1995</text>
+          <rect x="1160" y="440" width="110" height="100" fill="var(--fact)" fill-opacity=".2" stroke="var(--fact)" stroke-width="2"/>
+          <text x="1176" y="497" font-size="13">2011</text>
+          <rect x="1290" y="410" width="110" height="130" fill="var(--fact)" fill-opacity=".25" stroke="var(--fact)" stroke-width="2"/>
+          <text x="1300" y="470" font-size="13">35% NOW</text>
+          <text x="900" y="580" class="strong" font-size="14">COVERAGE CLIMBS ONLY IN STEPS OF FEAR</text>
+        </g>
+      </svg>
+      <div class="sim" id="sim" aria-label="Cap simulator">
+        <label for="simL">Total event losses, ¥ trillion — what happens to a full policyholder's check (schematic)</label>
+        <input type="range" id="simL" min="1" max="24" value="8">
+        <div class="out">
+          <b id="simPct">100%</b><span>of your claim paid</span>
+          <b id="simLoss" style="color:var(--flaw)">¥8T</b><span>event total</span>
+          <b id="simCap" style="color:var(--text-dim)">¥12T</b><span>the legal cap</span>
+        </div>
+        <div class="out" style="border:0;padding-top:4px">
+          <span style="text-transform:none;color:var(--text-dim)">Below the cap: everyone paid in full. Above it: every check shrinks by the same fraction — the law's own mechanism.</span>
+        </div>
+      </div>
+      <div class="figcap">Fig. 4 — drag past ¥12T and watch every check shrink · sources: MoF official outline (cap revised 2021), Act on Earthquake Insurance</div>
+    </div>
+    <div class="prose">
+      <p>The whole system carries a legal maximum per earthquake: ¥12 trillion (~$80 billion), a number parliament reviews and raises; today it is calibrated to survive a repeat of the 1923 Great Kanto earthquake. If claims ever exceed it, the law is explicit: every payout may be reduced pro-rata until the total fits. The system cannot go bankrupt — because your check is allowed to shrink. The government pledges it would act beyond the framework in such a disaster; that pledge is effort — the reduction clause is law.</p>
+      <p>And the quieter force: after every disaster the state helps everyone — grants, rebuilt infrastructure, support flowing to insured and uninsured alike. A family deciding whether to buy the rider sees the uninsured neighbour's help arrive anyway; the voluntary product competes with a free, implicit one — and loses. So coverage climbs only in steps of fear: 10% before Kobe 1995, 35% today.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THE ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="168.4">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">The Alternatives</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Default, mandate, choice — or speed</div>
+    <h2>Four ways to insure the uninsurable.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <!-- A: NZ -->
+        <g id="a_nz" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN A · ATTACH BY DEFAULT — NEW ZEALAND</text>
+          <g id="a_n1" class="b">
+            <rect x="110" y="130" width="240" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+            <text x="134" y="170" class="strong" font-size="15">FIRE POLICY</text>
+            <rect x="230" y="190" width="240" height="150" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="3" stroke-dasharray="7 6"/>
+            <text x="254" y="230" class="alttxt strong" font-size="15">QUAKE COVER — FUSED ON</text>
+            <text x="254" y="258" class="alttxt" font-size="13">A SMALL CHARGE ON EVERY POLICY</text>
+            <text x="530" y="200" class="alttxt strong" font-size="16">NOBODY OPTS IN, SO NOBODY IS OUT —</text>
+            <text x="530" y="230" class="alttxt" font-size="15">AMONG INSURED HOMES, EFFECTIVELY UNIVERSAL</text>
+          </g>
+          <g id="a_ncost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="458" class="flawtxt" font-size="15">THE COST — CHRISTCHURCH:</text>
+            <text x="134" y="494" font-size="15">1 · A CITY OF AUTO-COVERED HOMES = A FLOOD OF CLAIMS, ASSESSED HOUSE BY HOUSE</text>
+            <text x="134" y="526" font-size="15">2 · SETTLEMENTS DRAGGED FOR YEARS — THE ARGUING BECAME A NATIONAL TRAUMA</text>
+            <text x="134" y="558" class="flawtxt" font-size="15">3 · DEFAULT SOLVES WHO PAYS — NOT HOW FAST</text>
+          </g>
+        </g>
+        <!-- B: Turkey -->
+        <g id="a_tr" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN B · MAKE IT MANDATORY — TURKEY, AFTER IZMIT 1999</text>
+          <g id="a_t1" class="b">
+            <rect x="110" y="140" width="360" height="120" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="3"/>
+            <text x="134" y="185" class="alttxt strong" font-size="16">EARTHQUAKE INSURANCE:</text>
+            <text x="134" y="215" class="alttxt strong" font-size="16">REQUIRED BY LAW</text>
+            <path id="a_pipe" class="amber" d="M470 200 C 650 200, 800 240, 950 300" stroke-dasharray="0"/>
+            <text x="620" y="180" class="flawtxt" font-size="14">CHECKED MAINLY AT PROPERTY SALES AND UTILITY HOOKUPS</text>
+            <text x="980" y="320" class="flawtxt strong" font-size="15">→ ROUGHLY HALF COMPLY</text>
+            <text x="980" y="348" font-size="14">FEWER IN THE POOREST, SHAKIEST REGIONS</text>
+          </g>
+          <g id="a_tcost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="458" class="flawtxt" font-size="15">THE COST:</text>
+            <text x="134" y="494" font-size="15">1 · A LAW IS NOT A HABIT — ENFORCEMENT ONLY AT TRANSACTIONS</text>
+            <text x="134" y="526" font-size="15">2 · 2023: MANDATED PAYOUTS REAL BUT SMALL AGAINST THE DESTRUCTION</text>
+            <text x="134" y="558" class="flawtxt" font-size="15">3 · A MANDATE WITHOUT ENFORCEMENT IS A VOLUNTEER PROGRAM WITH EXTRA PAPERWORK</text>
+          </g>
+        </g>
+        <!-- C: California -->
+        <g id="a_ca" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN C · LEAVE IT TO CHOICE — CALIFORNIA</text>
+          <g id="a_c1" class="b">
+            <circle cx="330" cy="250" r="90" fill="none" stroke="var(--grid)" stroke-width="36"/>
+            <path d="M330 160 A90 90 0 0 1 383 178" fill="none" stroke="var(--flaw)" stroke-width="36"/>
+            <text x="300" y="262" class="big" font-size="34">10%</text>
+            <text x="480" y="210" class="strong" font-size="16">A GENUINE CHOICE — NO DEFAULT, NO MANDATE,</text>
+            <text x="480" y="240" class="strong" font-size="16">NO DEEP STATE GUARANTEE</text>
+            <text x="480" y="290" class="flawtxt strong" font-size="16">RESULT: ONE HOME IN TEN COVERED</text>
+          </g>
+          <g id="a_ccost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="var(--flaw)"/>
+            <text x="134" y="472" class="onplate" font-size="18">REMOVE JAPAN'S CATHEDRAL AND YOU GET A THIRD OF JAPAN'S COVERAGE</text>
+            <text x="134" y="514" class="onplate" font-size="17">THE TRUNCATION IS WHY COVERAGE STOPS AT 35% —</text>
+            <text x="134" y="550" class="onplate" font-size="17">THE CATHEDRAL IS WHY IT CLIMBS THAT HIGH AT ALL</text>
+          </g>
+        </g>
+        <!-- D: parametric -->
+        <g id="a_pm" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN D · PAY FAST, NOT EXACT — PARAMETRIC</text>
+          <g id="a_p1" class="b">
+            <path id="a_seis" class="ink" stroke-width="2.5" d="M110 220 L300 220 L330 160 L360 280 L390 190 L420 250 L450 220 L700 220"/>
+            <rect x="740" y="180" width="300 " height="80" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="3" stroke-dasharray="7 6"/>
+            <text x="764" y="215" class="alttxt strong" font-size="15">FIXED SUM, WITHIN DAYS</text>
+            <text x="764" y="243" class="alttxt" font-size="13">TRIGGERED BY MEASURED SHAKING</text>
+            <text x="1080" y="215" font-size="14">NO ASSESSORS · NO CATEGORIES</text>
+            <text x="1080" y="243" font-size="14">NO ENVELOPES</text>
+          </g>
+          <g id="a_pcost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="458" class="flawtxt" font-size="15">THE COST — BASIS RISK:</text>
+            <text x="134" y="494" font-size="15">1 · THE TRIGGER MEASURES THE GROUND, NOT YOUR HOUSE</text>
+            <text x="134" y="526" font-size="15">2 · A PAYMENT CAN ARRIVE FOR A FINE HOME — OR SKIP A RUINED ONE</text>
+            <text x="134" y="558" class="flawtxt" font-size="15">3 · SPEED BOUGHT WITH ACCURACY — A COMPLEMENT, NOT A REPLACEMENT</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Redline toggle">
+        <button id="btnBuilt" class="on">As built</button><button id="btnCould">As it could be</button>
+      </div>
+      <div class="figcap">Fig. 5 — four redlined redesigns · dashed green = revision markup · sources: NZ NHC, TCIP/DASK, CEA, parametric market reports</div>
+    </div>
+    <div class="prose">
+      <p><b>Attach by default (New Zealand).</b> Disaster cover fuses automatically to every home fire policy, funded by a small charge — nobody opts in, so nobody is out. <i>The cost came due in Christchurch:</i> a city of auto-covered homes produced a flood of claims assessed house by house; settlements dragged for years. Default solves who pays — not how fast.</p>
+      <p><b>Make it mandatory (Turkey).</b> After Izmit 1999, earthquake insurance became legally compulsory. <i>The cost</i> is the gap between a law and a habit: checked mainly at property sales, roughly half of homes comply, fewer in the poorest regions; in 2023 the payouts were real but small. A mandate without enforcement is a volunteer program with extra paperwork.</p>
+      <p><b>Leave it to choice (California).</b> A genuine choice — no default, no mandate, no deep guarantee: about one home in ten is covered. Remove Japan's cathedral and you get a third of Japan's coverage. The truncation is why coverage stops at 35%; the cathedral is why it climbs that high at all.</p>
+      <p><b>Pay fast, not exact (parametric).</b> A fixed sum within days, triggered by measured shaking — no assessors, no envelopes. <i>The cost is basis risk:</i> the trigger measures the ground, not your house. Speed bought with accuracy — a complement, not a replacement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 THE CLOSE ================= -->
+<section class="ep" id="s6" data-duration="77.6">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · The system, or your check?</div>
+    <h2>What exactly is guaranteed to survive?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_mall" class="b">
+          <rect x="130" y="90" width="360" height="160" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <line x1="130" y1="140" x2="490" y2="140" class="ink"/>
+          <rect x="170" y="170" width="70" height="80" class="ink"/>
+          <rect x="290" y="170" width="80" height="60" class="ink"/>
+          <rect x="410" y="170" width="60" height="80" class="ink"/>
+          <text x="130" y="290" class="strong" font-size="15">REBUILT ACROSS TEN YEARS · REOPENED ONE MONTH · SHAKEN AGAIN</text>
+          <text x="130" y="322" font-size="14">JAPAN ALWAYS REBUILDS — THE ENGINEERING QUESTION WAS ANSWERED</text>
+        </g>
+        <g id="z_mech" class="b">
+          <rect x="130" y="380" width="300" height="90" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="150" y="416" class="strong" font-size="14">ONE COMPANY + STATE</text>
+          <text x="150" y="444" font-size="13">60 YEARS, NO FAILURE</text>
+          <rect x="460" y="380" width="300" height="90" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="480" y="416" class="flawtxt strong" font-size="14">HALF A HOUSE, BY STATUTE</text>
+          <text x="480" y="444" class="flawtxt" font-size="13">2 OF 3 FAMILIES PRICED OUT</text>
+          <rect x="790" y="380" width="300" height="90" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="810" y="416" class="flawtxt strong" font-size="14">EVERY CHECK MAY SHRINK</text>
+          <text x="810" y="444" class="flawtxt" font-size="13">IN THE ONE MEGAQUAKE IT EXISTS FOR</text>
+        </g>
+        <g id="z_novillain" class="b">
+          <text x="620" y="120" class="strong" font-size="16">NO VILLAIN: IN 1966 THIS WAS THE ONLY HONEST DEAL —</text>
+          <text x="620" y="150" font-size="15">ITS LIMITS WRITTEN IN PLAIN TEXT, NOT DISCOVERED IN COURT</text>
+        </g>
+        <g id="z_gen" class="b">
+          <text x="620" y="210" font-size="14">FLOOD INSURANCE · PENSIONS · DEPOSIT INSURANCE — SAME QUESTION</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="505" text-anchor="middle" class="big" font-size="26">WHAT IS GUARANTEED TO SURVIVE — THE SYSTEM, OR YOUR CHECK?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Back to the mall — rebuilt across ten years, reopened for one month, shaken again on a Tuesday. Japan will rebuild it; the engineering question was answered decades ago. The financial question was answered too, more quietly: a machine built to survive anything — and the same law capped the product at half a house, priced two-thirds of families out of wanting it, and reserved the right to shrink every check in the one megaquake the machine exists for. There is no villain: in 1966 this was the only honest deal available, its limits written in plain text.</p>
+      <p>But it leaves a question for every country's safety systems — flood, pension, deposit insurance, all of them. When the state guarantees a system will survive the disaster, ask the follow-up: what exactly is guaranteed to survive — the system, or your check?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails — saturated plate mandatory, text <= 12 chars -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <circle cx="250" cy="195" r="120" fill="none" stroke="var(--grid)" stroke-width="44"/>
+    <path d="M250 75 A120 120 0 0 1 366 226" fill="none" stroke="var(--flaw)" stroke-width="44"/>
+    <text x="196" y="212" font-family="Space Grotesk" font-weight="700" font-size="52" style="fill:var(--text)">35%</text>
+    <text x="440" y="150" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">of homes in JAPAN</text>
+    <text x="440" y="215" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">have quake insurance</text>
+    <text x="440" y="300" font-family="IBM Plex Mono" font-size="32" style="fill:var(--text-dim)">by design — since 1966</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">only 35%</div>
+  <div class="sub">in the most earthquake-ready country</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="160" y="60" width="260" height="260" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <rect x="164" y="200" width="252" height="116" fill="var(--fact)" fill-opacity=".3"/>
+    <line x1="160" y1="60" x2="420" y2="60" stroke="var(--flaw)" stroke-width="8"/>
+    <text x="480" y="140" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">past this line,</text>
+    <text x="480" y="205" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">every payout shrinks</text>
+    <text x="480" y="290" font-family="IBM Plex Mono" font-size="32" style="fill:var(--text-dim)">it's written in the law</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">¥12T cap</div>
+  <div class="sub">then every check shrinks — by law</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+/* ---------- generated geometry ---------- */
+/* S0: house field, 2 of 3 dim */
+(function(){
+  const g=$('h_houses'); const NS='http://www.w3.org/2000/svg';
+  for(let i=0;i<24;i++){
+    const col=i%8,row=Math.floor(i/8);
+    const x=140+col*100, y=110+row*100;
+    const p=document.createElementNS(NS,'path');
+    p.setAttribute('d',`M${x} ${y+40} L${x+30} ${y+15} L${x+60} ${y+40} L${x+60} ${y+75} L${x} ${y+75} Z`);
+    const covered=(i%3===0);
+    p.setAttribute('fill',covered?'var(--fact)':'none');
+    p.setAttribute('fill-opacity',covered?'0.25':'0');
+    p.setAttribute('stroke',covered?'var(--fact)':'var(--grid)');
+    p.setAttribute('stroke-width',covered?'3':'2.5');
+    g.appendChild(p);
+  }
+})();
+/* S3 donut arc */
+function arcPath(cx,cy,r,frac){
+  const a0=-Math.PI/2, a1=a0+frac*2*Math.PI;
+  return `M${cx+r*Math.cos(a0)} ${cy+r*Math.sin(a0)} A${r} ${r} 0 ${frac>0.5?1:0} 1 ${cx+r*Math.cos(a1)} ${cy+r*Math.sin(a1)}`;
+}
+$('t_arc').setAttribute('d',arcPath(330,500,70,0.35));
+
+/* ---------- primitives ---------- */
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function grow(tl,id,attrs,dur,pos){tl.set($(id),{opacity:1},pos).to($(id),{attr:attrs,duration:dur,ease:'power2.out'},pos);}
+
+/* ---------- scenes ---------- */
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.8); idle(tl,'h_s1',5,9);
+  tl.to($('h_cap1'),{opacity:0,duration:.4},15.6);
+  draw(tl,'h_crack',1.0,16.0); shake(tl,'svg0',16.4,8,10);
+  say(tl,'h_s2',17.5,.6); idle(tl,'h_s2',21,8);
+  tl.to($('h_s1'),{opacity:0,duration:.5},31.0);
+  tl.to($('h_s2'),{opacity:0,duration:.5},31.0);
+  say(tl,'h_s3',32.0,.8); idle(tl,'h_s3',37,10);
+  tl.to($('h_s3'),{opacity:0,duration:.5},49.0);
+  say(tl,'h_s4',50.0,.8); idle(tl,'h_s4',55,8);
+  tl.to($('h_s4'),{opacity:0,duration:.5},64.0);
+  pop(tl,'h_s5',65.5,.7); shake(tl,'h_s5',66.5,6,8); idlePlate(tl,'h_s5',68,7);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},76.5);
+  if(isAuto)tl.to({},{duration:5.5},77.2); else tl.to($('titleCard'),{opacity:0,duration:.5},80.5);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_map',0.5,.8);
+  tl.to($('e_ring'),{attr:{r:60},opacity:0,duration:1.6,repeat:3,ease:'power1.out'},1.5);
+  say(tl,'e_mall',12.0,.7); shake(tl,'e_mall',13.0,5,6); idle(tl,'e_mall',16,6);
+  say(tl,'e_mill',26.0,.7); idle(tl,'e_mill',30,8);
+  tl.set($('e_echo'),{opacity:1},44.0);
+  draw(tl,'e_arc',2.2,44.5); idle(tl,'e_echo',48,8);
+  say(tl,'e_clock',60.0,.7);
+  tl.to($('e_clock').children[1],{rotation:360,transformOrigin:'1080px 180px',duration:14,ease:'none'},60.5);
+  say(tl,'e_env',70.0,.7); shake(tl,'e_env',71.0,4,6); idle(tl,'e_env',73,10);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'m_niigata',0.5,.8); idle(tl,'m_niigata',5,10);
+  say(tl,'m_p1',22.0,.6);
+  say(tl,'m_p2',28.0,.6);
+  say(tl,'m_p3',34.0,.6);
+  pop(tl,'m_p4',42.0,.7); shake(tl,'m_p4',43.0,5,6); idle(tl,'m_p4',45,6);
+  say(tl,'m_ring',56.0,.8); idle(tl,'m_ring',60,8);
+  say(tl,'m_art',70.0,.8); idle(tl,'m_art',75,10);
+  say(tl,'m_turn',90.0,.7); idle(tl,'m_turn',93,9);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'t_rider',0.5,.8); idle(tl,'t_rider',6,8);
+  say(tl,'t_crop',20.0,.8); shake(tl,'t_crop',21.0,4,6); idle(tl,'t_crop',24,8);
+  say(tl,'t_steps',36.0,.7); idle(tl,'t_steps',40,6);
+  say(tl,'t_purpose',48.0,.7); idle(tl,'t_purpose',52,8);
+  say(tl,'t_donut',66.0,.8); idle(tl,'t_donut',72,14);
+  tl.to({},{duration:.1},98.0);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'c_tank',0.5,.8);
+  grow(tl,'c_fill',{height:317,y:120},4.0,2.0);
+  say(tl,'c_valve',16.0,.8); shake(tl,'c_valve',17.0,5,6); idle(tl,'c_valve',20,10);
+  say(tl,'c_relief',44.0,.7);
+  say(tl,'c_houses',52.0,.8); idle(tl,'c_houses',57,8);
+  say(tl,'c_steps',74.0,.8); idle(tl,'c_steps',80,14);
+  tl.to({},{duration:.1},98.0);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  // A: NZ
+  tl.set($('a_nz'),{opacity:1},0);
+  say(tl,'a_n1',0.5,.8); idle(tl,'a_n1',6,10);
+  say(tl,'a_ncost',20.0,.7); idle(tl,'a_ncost',25,14);
+  tl.to($('a_nz'),{opacity:0,duration:.7},42.0);
+  // B: Turkey
+  tl.fromTo($('a_tr'),{opacity:0},{opacity:1,duration:.7},44.0);
+  say(tl,'a_t1',46.0,.8); draw(tl,'a_pipe',2.0,48.0); idle(tl,'a_t1',52,10);
+  say(tl,'a_tcost',66.0,.7); idle(tl,'a_tcost',71,12);
+  tl.to($('a_tr'),{opacity:0,duration:.7},86.0);
+  // C: California
+  tl.fromTo($('a_ca'),{opacity:0},{opacity:1,duration:.7},88.0);
+  say(tl,'a_c1',90.0,.8); idle(tl,'a_c1',95,10);
+  pop(tl,'a_ccost',108.0,.7); shake(tl,'a_ccost',109.0,5,6); idlePlate(tl,'a_ccost',111,12);
+  tl.to($('a_ca'),{opacity:0,duration:.7},126.0);
+  // D: parametric
+  tl.fromTo($('a_pm'),{opacity:0},{opacity:1,duration:.7},128.0);
+  tl.set($('a_p1'),{opacity:1},130.0);
+  draw(tl,'a_seis',2.4,130.5);
+  idle(tl,'a_p1',136,10);
+  say(tl,'a_pcost',150.0,.7); idle(tl,'a_pcost',155,16);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_mall',0.5,.8); idle(tl,'z_mall',5,8);
+  say(tl,'z_novillain',18.0,.8); idle(tl,'z_novillain',22,6);
+  say(tl,'z_mech',30.0,.9); idle(tl,'z_mech',36,10);
+  say(tl,'z_gen',50.0,.7);
+  say(tl,'z_q',58.0,.8);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},61.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+/* redline toggle */
+function setRedline(on){document.querySelectorAll('.revision').forEach(el=>el.style.opacity=on?1:0);
+  $('btnBuilt').classList.toggle('on',!on);$('btnCould').classList.toggle('on',on);}
+$('btnBuilt').onclick=()=>setRedline(false);
+$('btnCould').onclick=()=>setRedline(true);
+
+/* ---------- AUTO ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  /* void return on purpose: record.mjs does page.evaluate(()=>window.__play()),
+     and returning the GSAP timeline breaks Playwright serialisation. */
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  setRedline(false);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.4);
+    if(s.id==='s5')tl.timeScale(3.4);
+    if(s.id==='s2'||s.id==='s3')tl.timeScale(2.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- tooltips (S1) ----
+  const tip=$('tip');
+  document.querySelectorAll('#svg1 [data-tip]').forEach(g=>{
+    g.style.cursor='pointer';
+    g.addEventListener('mousemove',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;});
+    g.addEventListener('mouseleave',()=>tip.style.opacity=0);
+    g.addEventListener('click',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;
+      setTimeout(()=>tip.style.opacity=0,3500);});
+  });
+
+  // ---- cap simulator ----
+  const simL=$('simL');
+  function runSim(){
+    const L=+simL.value, CAP=12;
+    const pct=L<=CAP?100:Math.round(CAP/L*100);
+    $('simPct').textContent=pct+'%';
+    $('simPct').style.color=L<=CAP?'var(--alt)':'var(--flaw)';
+    $('simLoss').textContent='¥'+L+'T';
+  }
+  simL.addEventListener('input',runSim); runSim();
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){if(secs[i].getBoundingClientRect().top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i; player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
