@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Learned From Every Song. Who Sends the Bill? | Trace Upstream</title>
+<meta name="description" content="Munich just ruled that AI must license the music it learns from. The deeper story: copyright meters one atom — the copy — and a learning machine breaks the meter. It's the fifth broken meter in a century, and history repaired the last four with institutions, not bans.">
+<link rel="canonical" href="https://traceupstream.com/episodes/025-ai-training-copyright/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="AI Learned From Every Song. Who Sends the Bill?">
+<meta property="og:description" content="An interactive blueprint: 1908 said a piano roll is not a copy; 2026 says model weights are. Between them — the whole machinery of how music gets paid, and three repairs with their prices.">
+<meta property="og:url" content="https://traceupstream.com/episodes/025-ai-training-copyright/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#9C82AE; /* desaturated heather — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice — :not([font-size]) so font-size attributes win (EP.008 fix) */
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+/* listen mode */
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+/* controls */
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails — a saturated plate is MANDATORY (docs/branding.md §6) */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:132px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.025 — 2026-07-31</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:14</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK =================
+     Mobile floor: viewBox 1000 wide → every font-size >= 31 clears 54px. Max 12 words per group. -->
+<section class="ep" id="s0" data-duration="77.3">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.025</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <!-- state 1: 1908 piano roll -->
+        <g id="h_s1" class="b">
+          <rect x="330" y="90" width="340" height="260" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <g id="h_holes"></g>
+          <text x="500" y="430" text-anchor="middle" class="strong" font-size="40">1908 · NOT A COPY</text>
+          <text x="500" y="500" text-anchor="middle" font-size="34">"NO HUMAN CAN READ IT"</text>
+        </g>
+        <!-- state 2: 2026 weights -->
+        <g id="h_s2" class="b">
+          <g id="h_weights"></g>
+          <text x="500" y="430" text-anchor="middle" class="flawtxt" font-size="40">TODAY, MUNICH: A COPY</text>
+          <text x="500" y="500" text-anchor="middle" font-size="32">NO HUMAN CAN READ THESE EITHER</text>
+        </g>
+        <!-- state 3: the meter jams -->
+        <g id="h_s3" class="b">
+          <circle cx="500" cy="240" r="130" class="ink" stroke-width="5"/>
+          <line id="h_needle" x1="500" y1="240" x2="500" y2="130" stroke="var(--flaw)" stroke-width="6"/>
+          <circle cx="500" cy="240" r="12" fill="var(--text)"/>
+          <text x="500" y="470" text-anchor="middle" class="strong" font-size="38">HOW MUSIC GETS PAID</text>
+          <text x="500" y="530" text-anchor="middle" class="flawtxt" font-size="36">THE METER JUST JAMMED</text>
+        </g>
+        <!-- state 4: suno (two beats — <=12 words per group) -->
+        <g id="h_s4" class="b">
+          <rect x="220" y="140" width="560" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <text x="260" y="220" class="strong" font-size="40">TYPE A SENTENCE —</text>
+          <text x="260" y="285" class="strong" font-size="40">GET A SONG</text>
+        </g>
+        <g id="h_s4b" class="b">
+          <text x="220" y="420" class="fact" font-size="36">A $5,000,000,000 COMPANY</text>
+          <text x="220" y="490" class="flawtxt" font-size="34">SUED — AND IT LOST. FOR NOW.</text>
+        </g>
+        <!-- state 5: fifth broken meter -->
+        <g id="h_s5" class="b">
+          <rect x="60" y="180" width="880" height="220" fill="var(--flaw)"/>
+          <text x="100" y="275" class="onplate" font-size="50">THE FIFTH BROKEN METER</text>
+          <text x="100" y="350" class="onplate" font-size="50">IN A CENTURY</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">AI learned from every song.<br>Who sends the bill?</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>In 1908 America's Supreme Court ruled a piano roll is not a copy of a song — no human can read it. This week, 118 years later, a Munich judge looked at neural-network weights — billions of numbers no human can read — and ruled the opposite: if the song can be recovered from those numbers, they are a copy.</p>
+      <p>Between those two sentences sits the entire machinery of how music gets paid. This week it collided with Suno — a $5 billion company whose machine, by every appearance, learned from an enormous slice of recorded music — and the German royalties society won in court on almost every point. It is the fifth time in a little over a century that a new machine has broken the meter that bills for music.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="88.3">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Munich, this week</div>
+    <h2>Stop. Disclose. Pay.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 580" id="svg1">
+        <!-- scale -->
+        <g id="e_scale" class="b" data-tip="GEMA collects royalties for 100,000+ composers and lyricists; Suno generates songs from text prompts.">
+          <line x1="200" y1="120" x2="480" y2="120" class="ink" stroke-width="3"/>
+          <line x1="340" y1="120" x2="340" y2="90" class="ink" stroke-width="3"/>
+          <rect x="170" y="140" width="120" height="50" class="nodebox"/>
+          <text x="196" y="172" class="fact strong" font-size="15">GEMA</text>
+          <rect x="410" y="140" width="120" height="50" class="nodebox" stroke="var(--flaw)"/>
+          <text x="436" y="172" class="flawtxt strong" font-size="15">SUNO</text>
+          <text x="170" y="230" font-size="13">100,000+ COMPOSERS</text>
+          <text x="410" y="230" font-size="13">TYPE A SENTENCE,</text>
+          <text x="410" y="256" font-size="13">GET A SONG</text>
+        </g>
+        <!-- songs -->
+        <g id="e_songs" class="b" data-tip="Six works at issue; the court found generated tracks confusingly similar to Rasputin, Daddy Cool, Mambo No. 5 and others.">
+          <rect x="620" y="90" width="220" height="44" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="640" y="118" font-size="14">RASPUTIN</text>
+          <rect x="620" y="146" width="220" height="44" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="640" y="174" font-size="14">DADDY COOL</text>
+          <rect x="620" y="202" width="220" height="44" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="640" y="230" font-size="14">MAMBO NO. 5 — SIX IN ALL</text>
+        </g>
+        <!-- findings -->
+        <g id="e_f1" class="b" data-tip="Storing songs inside model weights, in a form they can be pulled back out, counts as reproduction under German law.">
+          <rect x="920" y="90" width="450" height="70" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="944" y="122" class="flawtxt strong" font-size="15">WEIGHTS, IF RECOVERABLE = A COPY</text>
+          <text x="944" y="148" font-size="13">TRAINING THAT SWALLOWS WHOLE = INFRINGEMENT</text>
+        </g>
+        <g id="e_f2" class="b" data-tip="Generating near-identical tracks infringes the making-available right — unauthorised publishing.">
+          <rect x="920" y="180" width="450" height="70" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="944" y="212" class="flawtxt strong" font-size="15">NEAR-IDENTICAL OUTPUTS = PUBLISHING</text>
+          <text x="944" y="238" font-size="13">WITHOUT PERMISSION — INFRINGED AGAIN</text>
+        </g>
+        <!-- remedy -->
+        <g id="e_rem" class="b">
+          <rect x="200" y="320" width="240" height="70" fill="var(--flaw)"/>
+          <text x="256" y="364" class="onplate" font-size="18">STOP</text>
+          <rect x="470" y="320" width="280" height="70" fill="var(--flaw)"/>
+          <text x="500" y="364" class="onplate" font-size="18">DISCLOSE REVENUE</text>
+          <rect x="780" y="320" width="240" height="70" fill="var(--flaw)"/>
+          <text x="822" y="364" class="onplate" font-size="18">PAY DAMAGES</text>
+        </g>
+        <!-- caveats -->
+        <g id="e_cav" class="b" data-tip="First-instance ruling; Suno disagrees and is weighing an appeal. The court's logic is about licensing and payment — not a ban on AI music.">
+          <rect x="200" y="440" width="920" height="60" fill="none" stroke="var(--text)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="224" y="478" class="strong" font-size="15">FIRST INSTANCE · APPEAL WEIGHED · NOT A BAN — ABOUT LICENSING, NOT EXISTENCE</text>
+        </g>
+        <g id="e_openai" class="b" data-tip="November 2025: the same court ruled against OpenAI over song lyrics. That case is on appeal at the Munich Higher Regional Court.">
+          <text x="200" y="545" font-size="14">NOV 2025 — SAME COURT, OPENAI, LYRICS · ALSO ON APPEAL</text>
+          <text x="820" y="545" class="fact" font-size="14">FIRST SUCH RULING IN EUROPE</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — hover each block for detail · sources: Variety, Music Ally, Music Week, TechTimes</div>
+    </div>
+    <div class="prose">
+      <p>GEMA — collecting royalties for 100,000+ composers — sued Suno over six songs, including Rasputin, Daddy Cool and Mambo No. 5; the court found Suno's outputs confusingly similar to the originals. The findings, in plain words: storing songs inside a model's weights, in a form they can be pulled back out, counts as making a copy — so training that swallows them whole, without permission, broke the law; and generating near-identical tracks breaks it again, as unauthorised publishing. Remedy: stop, open the books, pay — the amount to be set separately.</p>
+      <p>Two caveats, both important: this is a first-instance ruling, and Suno disagrees and is weighing an appeal; and it is not a ban on AI music — the logic is about licensing and payment. Still, the milestone is real: the first ruling in Europe that a generative AI company must license the music it learns from — and the second time this court has said something like it, after OpenAI in November. That case is on appeal too.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 THE METER ================= -->
+<section class="ep" id="s2" data-duration="95.2">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Meter</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The meter · One atom: the copy</div>
+    <h2>The value moved. The countable atom never occurred.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg2">
+        <!-- hub and spokes -->
+        <g id="m_hub" class="b">
+          <circle cx="420" cy="280" r="90" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3.5"/>
+          <text x="420" y="272" text-anchor="middle" class="strong" font-size="17">THE COPY</text>
+          <text x="420" y="300" text-anchor="middle" font-size="12">ONE COUNTABLE ATOM</text>
+        </g>
+        <g id="m_spokes" class="b">
+          <line x1="420" y1="190" x2="420" y2="90" class="blue"/>
+          <text x="330" y="70" font-size="14">SHEET SOLD · <tspan id="m_c1" class="fact">0</tspan></text>
+          <line x1="330" y1="280" x2="160" y2="280" class="blue"/>
+          <text x="90" y="250" font-size="14">RECORD PRESSED</text>
+          <text x="90" y="278" class="fact" font-size="14" id="m_c2">0</text>
+          <line x1="420" y1="370" x2="420" y2="470" class="blue"/>
+          <text x="330" y="505" font-size="14">RADIO PLAY · <tspan id="m_c3" class="fact">0</tspan></text>
+          <line x1="510" y1="280" x2="680" y2="280" class="blue"/>
+          <text x="700" y="250" font-size="14">STREAM LOGGED</text>
+          <text x="700" y="278" class="fact" font-size="14" id="m_c4">0</text>
+        </g>
+        <g id="m_readers" class="b">
+          <text x="90" y="560" class="strong" font-size="15">COLLECTING SOCIETIES = METER READERS: WATCH THE COUNTERS, SPLIT THE MONEY</text>
+        </g>
+        <!-- the model -->
+        <g id="m_model" class="b">
+          <rect x="960" y="120" width="400" height="280" class="ink" stroke-width="3"/>
+          <g id="m_wcells"></g>
+          <text x="980" y="440" class="strong" font-size="15">A LEARNING MODEL EATS THE CATALOGUE —</text>
+          <text x="980" y="468" font-size="14">MILLIONS OF SONGS, EACH NUDGING BILLIONS OF NUMBERS</text>
+        </g>
+        <g id="m_zero" class="b">
+          <rect x="960" y="500" width="410" height="60" fill="var(--flaw)"/>
+          <text x="984" y="538" class="onplate" font-size="17">EVERY COUNTER READS ZERO</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 2 — the hub every payment traces to, and the machine that bypasses it · 300 years of counting reproductions</div>
+    </div>
+    <div class="prose">
+      <p>Every payment in music is triggered by a countable event: a sheet sold, a record pressed, a radio play logged, a stream ticked. Collecting societies are essentially meter readers — they watch the counters and split the money. And every counter meters the same underlying atom: the copy. Three hundred years of copyright law, refined into machinery for counting reproductions.</p>
+      <p>Now watch a learning model eat the catalogue. It doesn't file songs away as files; it reads millions of them and nudges billions of internal numbers, each by a hair. Nothing is pressed, played, or streamed — the meter reads zero, while the machine has, in a real sense, drunk the entire catalogue. The value clearly moved; the atom the law knows how to count never occurred. Not a villain — a meter built for one physics, watching a machine that runs on another.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE STRETCH ================= -->
+<section class="ep" id="s3" data-duration="107.6">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Stretch</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The stretch · Old words, new objects</div>
+    <h2>One machine, three answers — which rounds to none.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <!-- mining vs memorising -->
+        <g id="t_rule" class="b">
+          <rect x="110" y="90" width="560" height="90" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5"/>
+          <text x="134" y="128" class="alttxt strong" font-size="15">EU RULE, 2019: MINING IS ALLOWED —</text>
+          <text x="134" y="158" class="alttxt" font-size="14">UNLESS THE RIGHTS HOLDER OPTS OUT</text>
+        </g>
+        <g id="t_line" class="b">
+          <rect x="110" y="210" width="560" height="110" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="134" y="248" class="flawtxt strong" font-size="15">THE COURT'S LINE: MINING ≠ MEMORISING</text>
+          <text x="134" y="278" font-size="14">A SONG RECOVERABLE FROM WEIGHTS IS STORED —</text>
+          <text x="134" y="304" font-size="14">AND STORAGE, BY A TAPE-ERA DEFINITION, IS A COPY</text>
+        </g>
+        <g id="t_hand" class="b">
+          <path d="M180 460 L180 400 L200 380 L220 400 L220 460" class="ink" stroke-width="3"/>
+          <text x="250" y="410" class="strong" font-size="15">GEMA RAISED ITS HAND TO OPT OUT —</text>
+          <text x="250" y="438" font-size="14">THE HAND TOOK A YEAR OF PAPERWORK</text>
+          <text x="250" y="464" font-size="14">TO BECOME LEGALLY VISIBLE</text>
+          <text x="250" y="500" class="flawtxt" font-size="14">NO STANDARD REGISTRY · LITTLE WAY TO POLICE IT</text>
+        </g>
+        <!-- three courts -->
+        <g id="t_courts" class="b">
+          <rect x="760" y="120" width="310" height="110" class="nodebox" stroke="var(--flaw)"/>
+          <text x="784" y="160" class="flawtxt strong" font-size="16">MUNICH</text>
+          <text x="784" y="192" font-size="14">INFRINGEMENT</text>
+          <rect x="760" y="260" width="310" height="110" class="nodebox"/>
+          <text x="784" y="300" class="strong" font-size="16">UNITED STATES</text>
+          <text x="784" y="332" font-size="14">CONTESTED — FAIR-USE SPLIT</text>
+          <rect x="760" y="400" width="310" height="110" class="nodebox" stroke="var(--alt)"/>
+          <text x="784" y="440" class="alttxt strong" font-size="16">JAPAN, SAME YEAR: 2019</text>
+          <text x="784" y="472" font-size="14">TRAINING LEGAL — OUTPUTS LIABLE</text>
+        </g>
+        <g id="t_one" class="b">
+          <rect x="1090" y="260" width="280" height="110" fill="var(--flaw)"/>
+          <text x="1114" y="302" class="onplate" font-size="16">ONE MACHINE,</text>
+          <text x="1114" y="334" class="onplate" font-size="16">THREE ANSWERS = NONE</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — the 2019 mining rule, the memorisation line, and three legal realities · sources: WBS Legal, KI-Codex, WIPO/Ueno</div>
+    </div>
+    <div class="prose">
+      <p>When the atom breaks, courts stretch old words over new objects. Munich's stretch: Europe's 2019 rule allows machine reading of text and data unless the rights holder opts out — and the court accepted that AI training, as such, can fall under it. But it drew a line at memorisation: a song recoverable from the weights is stored, and storage — by a definition first written in the tape-recorder era — is a copy. Even the opt-out has a story: GEMA raised its hand, and the hand took a year of paperwork to become legally visible. No standard registry, little way to police it — protection mostly on paper.</p>
+      <p>Meanwhile the same machine gets different answers elsewhere: American courts are split over whether training counts as fair use — their doctrine that some copying is allowed without asking — and Japan, that same year, wrote the opposite rule on purpose: training broadly free, liability only at the output. Munich: infringement. America: contested. Tokyo: legal. One global machine, three legal realities — which rounds to none.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE LOOP ================= -->
+<section class="ep" id="s4" data-duration="88.6">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The Loop</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The loop · Four broken meters, four repairs</div>
+    <h2>The fix was never to ban the machine.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <line class="hair" x1="110" y1="300" x2="1380" y2="300"/>
+        <g id="l_piano" class="b" data-tip="1908: Supreme Court — piano rolls are not copies. 1909: Congress answers with the compulsory license — anyone may record any song at a fixed price of 2 cents a copy.">
+          <circle cx="220" cy="300" r="9" fill="var(--text)"/>
+          <text x="150" y="250" class="strong" font-size="15">PIANO ROLL</text>
+          <rect x="130" y="330" width="230" height="70" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="146" y="360" class="alttxt strong" font-size="13">COMPULSORY LICENSE</text>
+          <text x="146" y="384" class="alttxt" font-size="13">ANYONE MAY RECORD · 2¢</text>
+        </g>
+        <g id="l_radio" class="b" data-tip="Radio: you cannot count copies in a million living rooms. The blanket license — stations pay the societies a lump sum for the whole catalogue.">
+          <circle cx="520" cy="300" r="9" fill="var(--text)"/>
+          <text x="470" y="250" class="strong" font-size="15">RADIO</text>
+          <rect x="430" y="330" width="230" height="70" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="446" y="360" class="alttxt strong" font-size="13">BLANKET LICENSE</text>
+          <text x="446" y="384" class="alttxt" font-size="13">LUMP SUM AT THE DOORWAY</text>
+        </g>
+        <g id="l_tape" class="b" data-tip="1960s: GEMA asks courts to identify recorder buyers; the court refuses — privacy. 1965: parliament invents the levy on the machines themselves. First in the world; dozens of countries copied it.">
+          <circle cx="820" cy="300" r="9" fill="var(--flaw)"/>
+          <text x="750" y="250" class="strong" font-size="15">TAPE RECORDER · GERMANY</text>
+          <rect x="730" y="330" width="230" height="70" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="746" y="360" class="alttxt strong" font-size="13">THE LEVY · 1965</text>
+          <text x="746" y="384" class="alttxt" font-size="13">A CHARGE ON THE MACHINE</text>
+          <text x="730" y="200" class="flawtxt" font-size="13">COURT TO GEMA: NAMES? NO — PRIVACY</text>
+        </g>
+        <g id="l_sampler" class="b" data-tip="The sampler, 1990s: clearance — license the snippet before you use it.">
+          <circle cx="1100" cy="300" r="9" fill="var(--text)"/>
+          <text x="1050" y="250" class="strong" font-size="15">SAMPLER</text>
+          <rect x="1000" y="330" width="252" height="70" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="1026" y="360" class="alttxt strong" font-size="13">CLEARANCE</text>
+          <text x="1026" y="384" class="alttxt" font-size="13">LICENSE THE SNIPPET FIRST</text>
+        </g>
+        <g id="l_ai" class="b">
+          <circle cx="1330" cy="300" r="11" fill="var(--flaw)"/>
+          <text x="1290" y="250" class="flawtxt strong" font-size="15">WEIGHTS</text>
+          <rect x="1270" y="330" width="110" height="70" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1310" y="374" class="flawtxt strong" font-size="20">?</text>
+        </g>
+        <g id="l_lesson" class="b">
+          <rect x="110" y="480" width="1260" height="60" fill="var(--flaw)"/>
+          <text x="134" y="518" class="onplate" font-size="17">EVERY REPAIR: AN INSTITUTION FOR COUNTING COLLECTIVELY — NEVER A BAN</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 5 — four broken meters, four institutions, one empty slot · hover each point</div>
+    </div>
+    <div class="prose">
+      <p>This has happened four times before, and the fix was never to ban the machine. The piano roll broke the meter first; after 1908's "not a copy," Congress answered within a year: the compulsory license — anyone may record any song at a fixed 2¢. Radio broke it next — you cannot count copies in a million living rooms — and the blanket license moved metering from the copy to the doorway.</p>
+      <p>Then the tape recorder — and this chapter belongs to Germany and the same plaintiff. GEMA asked courts to make recorder makers identify buyers; the court refused: privacy. So in 1965 parliament invented the levy — a small charge on every recorder sold, into a fund for rights holders. First in the world; dozens of countries copied it. The sampler broke the meter again in the nineties; the answer was clearance. Four repairs — every one an institution for counting collectively what could no longer be counted individually.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THE ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="170.8">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">The Alternatives</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three repairs from the shelf</div>
+    <h2>License everything, levy the machine, or charge the outputs.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <!-- A: blanket -->
+        <g id="a_bl" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">REPAIR ONE · ONE LICENSE FOR THE WHOLE CATALOGUE — FROM RADIO'S PLAYBOOK</text>
+          <g id="a_b1" class="b">
+            <rect x="110" y="130" width="300" height="170" class="ink"/>
+            <text x="134" y="170" class="strong" font-size="15">THE MODEL'S INTAKE</text>
+            <path class="green" stroke-width="4" d="M110 150 Q 260 100, 410 150"/>
+            <text x="440" y="160" class="alttxt strong" font-size="15">A BLANKET DEAL: TRAIN ON EVERYTHING,</text>
+            <text x="440" y="190" class="alttxt" font-size="14">PAY A SHARE OF REVENUE — BEFORE TRAINING STARTS</text>
+            <text x="440" y="230" font-size="14">GEMA'S SUIT OPENLY AIMS AT THIS · LABEL DEALS ALREADY SIGNED</text>
+          </g>
+          <g id="a_bcost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="458" class="flawtxt" font-size="15">THE COST — THE SPLIT:</text>
+            <text x="134" y="494" font-size="15">1 · A SONG'S SHARE OF THE WEIGHTS CANNOT BE MEASURED → DIVIDED BY MARKET SHARE</text>
+            <text x="134" y="526" font-size="15">2 · BIGGEST CATALOGUES PAID FIRST, SMALL SONGWRITERS LAST, NON-MEMBERS NEVER</text>
+            <text x="134" y="558" class="flawtxt" font-size="15">3 · SOCIETIES ARE NATIONAL, MODELS GLOBAL — ONE MACHINE, A HUNDRED NEGOTIATIONS</text>
+          </g>
+        </g>
+        <!-- B: levy -->
+        <g id="a_lv" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">REPAIR TWO · A LEVY ON THE MACHINE — GERMANY'S 1965 INVENTION, RE-AIMED</text>
+          <g id="a_l1" class="b">
+            <rect x="110" y="140" width="220" height="160" class="ink"/>
+            <rect x="130" y="160" width="180" height="20" fill="var(--grid)"/>
+            <rect x="130" y="190" width="180" height="20" fill="var(--grid)"/>
+            <rect x="130" y="220" width="180" height="20" fill="var(--grid)"/>
+            <text x="120" y="330" font-size="13">1965: EVERY RECORDER</text>
+            <path class="green" stroke-width="3" d="M340 220 L480 220"/>
+            <rect x="480" y="140" width="220" height="160" class="ink"/>
+            <rect x="500" y="160" width="180" height="120" fill="var(--fact)" fill-opacity=".12"/>
+            <text x="490" y="330" font-size="13">2026: EVERY GENERATIVE SERVICE</text>
+            <rect x="760" y="180" width="330" height="80" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="784" y="215" class="alttxt strong" font-size="15">A FIXED SLICE OF REVENUE</text>
+            <text x="784" y="243" class="alttxt" font-size="13">INTO A COMMON FUND, SPLIT BY RULE</text>
+          </g>
+          <g id="a_lcost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="458" class="flawtxt" font-size="15">THE COST — BLUNTNESS:</text>
+            <text x="134" y="494" font-size="15">1 · SAME SLICE WHETHER YOU TRAINED ON LICENSED DATA, SCRAPED DATA, OR NO MUSIC AT ALL</text>
+            <text x="134" y="526" font-size="15">2 · DISTRIBUTION STILL RUNS ON PROXIES</text>
+            <text x="134" y="558" class="flawtxt" font-size="15">3 · LEVIES ARE FAMOUSLY IMMORTAL — A TAX FOR ONE MACHINE OUTLIVES TEN</text>
+          </g>
+        </g>
+        <!-- C: outputs -->
+        <g id="a_out" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">REPAIR THREE · CHARGE ONLY THE OUTPUTS — JAPAN'S LINE, THE SAMPLER'S DISTANT HEIR</text>
+          <g id="a_o1" class="b">
+            <rect x="110" y="140" width="260" height="150" class="ink"/>
+            <text x="134" y="180" class="strong" font-size="15">TRAINING: FREE</text>
+            <text x="134" y="208" font-size="13">BY STATUTE</text>
+            <path class="ink" d="M370 215 L520 215" stroke-width="3"/>
+            <rect x="520" y="140" width="90" height="150" fill="none" stroke="var(--alt)" stroke-width="3" stroke-dasharray="7 6"/>
+            <text x="536" y="222" class="alttxt strong" font-size="14">GATE</text>
+            <path class="ink" d="M610 215 L740 215" stroke-width="3"/>
+            <rect x="740" y="170" width="420" height="90" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+            <text x="764" y="205" class="flawtxt strong" font-size="15">A BILL ARRIVES ONLY WHEN AN OUTPUT</text>
+            <text x="764" y="235" class="flawtxt" font-size="14">RESEMBLES A SPECIFIC SONG</text>
+          </g>
+          <g id="a_ocost" class="b">
+            <rect x="110" y="420" width="1260" height="170" fill="var(--flaw)"/>
+            <text x="134" y="466" class="onplate" font-size="17">THE COST SITS AT THE ENTRANCE IT WAIVES: THE CATALOGUE'S VALUE TRANSFERS FREE, FOREVER</text>
+            <text x="134" y="506" class="onplate" font-size="16">THE BETTER THE FILTER, THE SMALLER THE BILL —</text>
+            <text x="134" y="542" class="onplate" font-size="16">IT REWARDS HIDING THE RESEMBLANCE, NOT LICENSING THE SOURCE</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Repair selector">
+        <button id="btnR0" class="on">License</button><button id="btnR1">Levy</button><button id="btnR2">Outputs</button>
+      </div>
+      <div class="figcap">Fig. 5 — three redlined repairs · dashed green = revision markup · switch between them above · the EU opt-out sits in the defect column, not here</div>
+    </div>
+    <div class="prose">
+      <p><b>One license for the whole catalogue</b> (radio's playbook): societies sell AI companies the right to train on everything they represent, paid as a revenue share before training starts. <i>The cost hides in the split:</i> a song's share of the weights can't be measured, so money divides by market share — biggest catalogues first, small songwriters last, non-members never; and societies are national while models are global.</p>
+      <p><b>A levy on the machine</b> (Germany's 1965 invention, re-aimed): a fixed slice of every generative service's revenue into a common fund, split by rule. <i>The cost is bluntness:</i> the same slice whether you trained on licensed data, scraped data, or no music at all; distribution still runs on proxies; and levies are famously immortal.</p>
+      <p><b>Charge only the outputs</b> (Japan's line): training free by statute; a bill arrives only when a generated track resembles a specific song. <i>The cost sits at the entrance it waives:</i> the catalogue's value transfers free, forever — and the better the filter, the smaller the bill. It rewards hiding the resemblance, not licensing the source.</p>
+      <p>The EU's current opt-out belongs in the defect column, not this list: a right with no standard, no registry and no enforcement is why six songs took eighteen months in court — in a world of a hundred million songs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 THE CLOSE ================= -->
+<section class="ep" id="s6" data-duration="77.5">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Who reads the new meter?</div>
+    <h2>There is always a next machine.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_pair" class="b">
+          <rect x="150" y="90" width="180" height="240" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <g id="z_holes"></g>
+          <text x="150" y="370" font-size="14">1908 — NOT A COPY</text>
+          <rect x="420" y="90" width="240" height="240" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <g id="z_wcells"></g>
+          <text x="420" y="370" class="flawtxt" font-size="14">2026 — A COPY</text>
+        </g>
+        <g id="z_meter" class="b">
+          <circle cx="1000" cy="200" r="100" class="ink" stroke-width="4"/>
+          <line x1="1000" y1="200" x2="1000" y2="115" stroke="var(--flaw)" stroke-width="5"/>
+          <rect x="905" y="140" width="34" height="18" fill="var(--alt)"/>
+          <rect x="955" y="105" width="34" height="18" fill="var(--alt)"/>
+          <rect x="1010" y="105" width="34" height="18" fill="var(--alt)"/>
+          <rect x="1062" y="140" width="34" height="18" fill="var(--alt)"/>
+          <rect x="1090" y="185" width="34" height="18" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="5 4"/>
+          <text x="880" y="350" font-size="14">FOUR PATCHES · ONE EMPTY SLOT</text>
+        </g>
+        <g id="z_repairs" class="b">
+          <text x="150" y="430" class="strong" font-size="15">ONE LICENSE FOR EVERYTHING · A LEVY ON THE MACHINE · A CHARGE ON OUTPUTS</text>
+          <text x="150" y="462" font-size="14">DESIGNED IN PARLIAMENTS — NEVER FINISHED IN COURTROOMS</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="505" text-anchor="middle" class="big" font-size="26">WHAT DOES THE NEW METER LOOK LIKE — AND WHO GETS TO READ IT?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Two courts, a bit more than a century apart, looked at a music machine no human could read. One said: not a copy. The other said: a copy. Neither answer ever settled anything on its own — the real work always happened afterwards, in parliaments, when someone designed the next meter. Munich has said — for now, and an appeals court may yet disagree — that the machine owes something. It has not decided how the bill gets computed for everyone: one license for the whole catalogue, a levy on the machine, or a charge on the outputs.</p>
+      <p>So when the next machine breaks a meter — and there is always a next machine — you already know the question that matters. Not "is this theft, or is this progress?" — that argument has been shouted at every machine since the player piano. Ask instead: what does the new meter look like, and who gets to read it?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails — saturated plate mandatory, text <= 12 chars -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="60" width="220" height="260" fill="none" stroke="var(--text)" stroke-width="7"/>
+    <circle cx="205" cy="110" r="7" fill="var(--text)"/><circle cx="255" cy="140" r="7" fill="var(--text)"/>
+    <circle cx="215" cy="180" r="7" fill="var(--text)"/><circle cx="290" cy="200" r="7" fill="var(--text)"/>
+    <circle cx="240" cy="250" r="7" fill="var(--text)"/><circle cx="320" cy="120" r="7" fill="var(--text)"/>
+    <text x="430" y="140" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">Munich: AI must pay</text>
+    <text x="430" y="210" font-family="IBM Plex Mono" font-size="40" style="fill:var(--flaw)">for the songs it ate</text>
+    <text x="430" y="295" font-family="IBM Plex Mono" font-size="32" style="fill:var(--text-dim)">first ruling in Europe</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">1 verdict</div>
+  <div class="sub">AI must license what it learns from</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="140" y="70" width="150" height="250" fill="none" stroke="var(--text)" stroke-width="7"/>
+    <circle cx="180" cy="120" r="6" fill="var(--text)"/><circle cx="230" cy="160" r="6" fill="var(--text)"/>
+    <circle cx="195" cy="220" r="6" fill="var(--text)"/><circle cx="250" cy="270" r="6" fill="var(--text)"/>
+    <text x="330" y="180" font-family="IBM Plex Mono" font-size="44" style="fill:var(--text)">1908: not a copy</text>
+    <text x="330" y="260" font-family="IBM Plex Mono" font-size="44" style="fill:var(--flaw)">2026: a copy</text>
+    <text x="900" y="220" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text-dim)">same reason</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">not a copy?</div>
+  <div class="sub">1908 said no · 2026 said yes</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+/* ---------- generated geometry ---------- */
+function scatterHoles(gid,x0,y0,w,h,n,r,color){
+  const g=$(gid); const NS='http://www.w3.org/2000/svg';
+  let seed=42;
+  const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280;};
+  for(let i=0;i<n;i++){
+    const c=document.createElementNS(NS,'circle');
+    c.setAttribute('cx',x0+rnd()*w);c.setAttribute('cy',y0+rnd()*h);
+    c.setAttribute('r',r);c.setAttribute('fill',color);
+    g.appendChild(c);
+  }
+}
+scatterHoles('h_holes',350,110,300,220,26,7,'var(--text)');
+scatterHoles('z_holes',165,105,150,200,16,5,'var(--text)');
+(function(){ // weights grids
+  const mk=(gid,x0,y0,cols,rows,cell)=>{
+    const g=$(gid); const NS='http://www.w3.org/2000/svg';
+    let seed=7; const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280;};
+    for(let i=0;i<cols*rows;i++){
+      const r=document.createElementNS(NS,'rect');
+      r.setAttribute('x',x0+(i%cols)*cell);r.setAttribute('y',y0+Math.floor(i/cols)*cell);
+      r.setAttribute('width',cell-3);r.setAttribute('height',cell-3);
+      r.setAttribute('fill','var(--fact)');r.setAttribute('fill-opacity',(0.08+rnd()*0.5).toFixed(2));
+      g.appendChild(r);
+    }
+  };
+  mk('h_weights',330,100,17,12,20);
+  mk('m_wcells',980,140,19,12,20);
+  mk('z_wcells',432,102,11,10,20);
+})();
+
+/* ---------- primitives ---------- */
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function count(tl,id,end,dur,pos){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos).to(st,{v:end,duration:dur,ease:'power1.inOut',
+    onUpdate:()=>el.textContent=Math.round(st.v).toLocaleString('en-US'),
+    onComplete:()=>el.textContent=Math.round(end).toLocaleString('en-US')},pos);}
+
+/* ---------- scenes ---------- */
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.8); idle(tl,'h_s1',5,9);
+  tl.to($('h_s1'),{opacity:0,duration:.6},15.5);
+  say(tl,'h_s2',16.5,.8); idle(tl,'h_s2',21,10);
+  tl.to($('h_s2'),{opacity:0,duration:.6},33.0);
+  say(tl,'h_s3',34.0,.7);
+  tl.to($('h_needle'),{rotation:120,svgOrigin:'500 240',duration:2.0,ease:'power2.in'},35.0);
+  shake(tl,'h_s3',37.2,6,8); idle(tl,'h_s3',39,7);
+  tl.to($('h_s3'),{opacity:0,duration:.6},47.5);
+  say(tl,'h_s4',48.5,.7);
+  say(tl,'h_s4b',53.0,.7); idle(tl,'h_s4b',56,8);
+  tl.to([$('h_s4'),$('h_s4b')],{opacity:0,duration:.5},65.5);
+  pop(tl,'h_s5',67.0,.7); shake(tl,'h_s5',68.0,6,8); idlePlate(tl,'h_s5',70,6);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},77.5);
+  if(isAuto)tl.to({},{duration:5.5},78.2); else tl.to($('titleCard'),{opacity:0,duration:.5},81.5);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_scale',0.5,.8); idle(tl,'e_scale',4,6);
+  say(tl,'e_songs',12.0,.8); idle(tl,'e_songs',16,6);
+  say(tl,'e_f1',26.0,.7); shake(tl,'e_f1',26.8,4,6); idle(tl,'e_f1',30,6);
+  say(tl,'e_f2',38.0,.7); idle(tl,'e_f2',41,5);
+  say(tl,'e_rem',48.0,.8); shake(tl,'svg1',48.8,5,6); idle(tl,'e_rem',52,6);
+  say(tl,'e_cav',60.0,.8); idle(tl,'e_cav',64,8);
+  say(tl,'e_openai',76.0,.7); idle(tl,'e_openai',79,6);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'m_hub',0.5,.8);
+  say(tl,'m_spokes',6.0,.9);
+  count(tl,'m_c1',412,3.0,8.0); count(tl,'m_c2',187,3.0,9.0);
+  count(tl,'m_c3',2953,3.0,10.0); count(tl,'m_c4',88412,3.5,11.0);
+  say(tl,'m_readers',20.0,.7); idle(tl,'m_readers',24,8);
+  say(tl,'m_model',40.0,.9); idle(tl,'m_model',46,10);
+  tl.call(()=>{['m_c1','m_c2','m_c3','m_c4'].forEach(id=>{$(id).textContent='0';});},[],62.0);
+  pop(tl,'m_zero',64.0,.7); shake(tl,'m_zero',65.0,5,6); idlePlate(tl,'m_zero',67,12);
+  tl.to({},{duration:.1},94.0);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'t_rule',0.5,.8); idle(tl,'t_rule',5,7);
+  say(tl,'t_line',16.0,.8); shake(tl,'t_line',16.8,4,6); idle(tl,'t_line',20,10);
+  say(tl,'t_hand',36.0,.8); idle(tl,'t_hand',42,10);
+  say(tl,'t_courts',58.0,.9); idle(tl,'t_courts',66,10);
+  pop(tl,'t_one',82.0,.7); shake(tl,'t_one',83.0,5,6); idlePlate(tl,'t_one',85,12);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'l_piano',0.5,.7); idle(tl,'l_piano',4,8);
+  say(tl,'l_radio',18.0,.7); idle(tl,'l_radio',22,8);
+  say(tl,'l_tape',36.0,.8); shake(tl,'l_tape',37.0,4,6); idle(tl,'l_tape',42,12);
+  say(tl,'l_sampler',62.0,.7); idle(tl,'l_sampler',65,5);
+  say(tl,'l_ai',72.0,.7);
+  pop(tl,'l_lesson',80.0,.7); shake(tl,'l_lesson',81.0,5,6); idlePlate(tl,'l_lesson',83,9);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  // A
+  tl.set($('a_bl'),{opacity:1},0);
+  say(tl,'a_b1',0.5,.8); idle(tl,'a_b1',6,12);
+  say(tl,'a_bcost',24.0,.7); idle(tl,'a_bcost',29,18);
+  tl.to($('a_bl'),{opacity:0,duration:.7},52.0);
+  // B
+  tl.fromTo($('a_lv'),{opacity:0},{opacity:1,duration:.7},54.0);
+  say(tl,'a_l1',56.0,.8); idle(tl,'a_l1',63,14);
+  say(tl,'a_lcost',84.0,.7); idle(tl,'a_lcost',89,18);
+  tl.to($('a_lv'),{opacity:0,duration:.7},112.0);
+  // C
+  tl.fromTo($('a_out'),{opacity:0},{opacity:1,duration:.7},114.0);
+  say(tl,'a_o1',116.0,.8); idle(tl,'a_o1',123,14);
+  pop(tl,'a_ocost',144.0,.7); shake(tl,'a_ocost',145.0,5,6); idlePlate(tl,'a_ocost',148,24);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_pair',0.5,.8); idle(tl,'z_pair',5,8);
+  say(tl,'z_meter',16.0,.8); idle(tl,'z_meter',21,8);
+  say(tl,'z_repairs',32.0,.8); idle(tl,'z_repairs',37,8);
+  say(tl,'z_q',50.0,.8);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},53.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+/* repair selector (web mode): show one of the three S5 repair groups */
+const REPAIRS=['a_bl','a_lv','a_out'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  [0,1,2].forEach(k=>$('btnR'+k).classList.toggle('on',k===i));}
+[0,1,2].forEach(k=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+/* ---------- AUTO ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  /* void return on purpose: record.mjs does page.evaluate(()=>window.__play()),
+     and returning the GSAP timeline breaks Playwright serialisation. */
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.4);
+    if(s.id==='s5')tl.timeScale(3.4);
+    if(s.id==='s2'||s.id==='s3')tl.timeScale(2.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- tooltips (S1 + S4 timeline) ----
+  const tip=$('tip');
+  document.querySelectorAll('#svg1 [data-tip], #svg4 [data-tip]').forEach(g=>{
+    g.style.cursor='pointer';
+    g.addEventListener('mousemove',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;});
+    g.addEventListener('mouseleave',()=>tip.style.opacity=0);
+    g.addEventListener('click',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;
+      setTimeout(()=>tip.style.opacity=0,3500);});
+  });
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){if(secs[i].getBoundingClientRect().top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i; player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
