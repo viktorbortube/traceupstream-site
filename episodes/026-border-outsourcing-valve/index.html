@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>60,000 People Walked Around One Sentence of Law | Trace Upstream</title>
+<meta name="description" content="Up to 60,000 people crossed into Ceuta in 48 hours — most by water. The trigger wasn't a fence failure: a court read one sentence of law exactly as written, a distorted version of the ruling went viral, and Europe's rented border stood down. Three repairs, three honest price tags.">
+<link rel="canonical" href="https://traceupstream.com/episodes/026-border-outsourcing-valve/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="60,000 People Walked Around One Sentence of Law">
+<meta property="og:description" content="A border really runs on three things: a statute, an information channel, and a rental agreement. In Ceuta, all three failed in the same week.">
+<meta property="og:url" content="https://traceupstream.com/episodes/026-border-outsourcing-valve/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#939B72; /* desaturated olive — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+/* svg voice — :not([font-size]) so font-size attributes win */
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+/* chapter cards */
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+/* listen mode */
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+/* controls */
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+/* CTA */
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+/* thumbnails — saturated plate mandatory */
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:132px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+/* auto mode */
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.026 — 2026-08-01</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:30</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK =================
+     Mobile floor: viewBox 1000 wide → every font-size >= 31 clears 54px. Max 12 words per group. -->
+<section class="ep" id="s0" data-duration="88.2">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.026</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <!-- state 1: the city -->
+        <g id="h_s1" class="b">
+          <path d="M 300 320 Q 380 180 500 190 Q 640 200 700 320 L 700 400 L 300 400 Z" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <circle cx="500" cy="280" r="14" fill="var(--flaw)"/>
+          <path d="M 330 330 Q 420 230 500 235 Q 600 240 670 330" fill="none" stroke="var(--text)" stroke-width="3" stroke-dasharray="9 7"/>
+          <text x="500" y="470" text-anchor="middle" class="strong" font-size="40">A CITY OF 83,482</text>
+          <text x="500" y="530" text-anchor="middle" font-size="33">SPAIN — SURROUNDED BY MOROCCO</text>
+        </g>
+        <!-- state 2: the crossing -->
+        <g id="h_s2" class="b">
+          <text x="500" y="220" text-anchor="middle" class="big" font-size="120" id="h_count">60,000</text>
+          <text x="500" y="300" text-anchor="middle" font-size="34">CROSSED IN 48 HOURS — MOST BY WATER</text>
+        </g>
+        <g id="h_s2b" class="b">
+          <text x="500" y="390" text-anchor="middle" class="flawtxt" font-size="38">57 DID NOT MAKE IT</text>
+        </g>
+        <!-- state 3: strain -->
+        <g id="h_s3" class="b">
+          <rect x="240" y="140" width="520" height="120" fill="none" stroke="var(--text)" stroke-width="4"/>
+          <rect x="240" y="140" width="520" height="120" fill="var(--flaw)" fill-opacity="0.15"/>
+          <text x="500" y="215" text-anchor="middle" class="flawtxt" font-size="44">1,600% CAPACITY</text>
+          <text x="500" y="360" text-anchor="middle" font-size="34">CHILDREN'S RECEPTION CENTRES</text>
+          <text x="500" y="430" text-anchor="middle" class="strong" font-size="36">THE ARMY MOVED IN</text>
+        </g>
+        <!-- state 4: the sentence -->
+        <g id="h_s4" class="b">
+          <rect x="180" y="150" width="640" height="200" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <line x1="220" y1="205" x2="780" y2="205" stroke="var(--grid)" stroke-width="8"/>
+          <line x1="220" y1="245" x2="700" y2="245" stroke="var(--flaw)" stroke-width="8"/>
+          <line x1="220" y1="285" x2="760" y2="285" stroke="var(--grid)" stroke-width="8"/>
+          <text x="500" y="430" text-anchor="middle" class="strong" font-size="38">ONE SENTENCE OF ONE LAW,</text>
+          <text x="500" y="495" text-anchor="middle" class="strong" font-size="38">READ EXACTLY AS WRITTEN</text>
+        </g>
+        <!-- state 5: thesis -->
+        <g id="h_s5" class="b">
+          <rect x="60" y="180" width="880" height="220" fill="var(--flaw)"/>
+          <text x="100" y="275" class="onplate" font-size="44">THEY DID NOT STORM A FENCE</text>
+          <text x="100" y="350" class="onplate" font-size="44">THEY WALKED AROUND A SENTENCE</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">60,000 people walked around<br>one sentence of law</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>Ceuta is a Spanish city of 83,000 on the North African coast, ringed by one of the most fortified borders on Earth. In the last two days of July, up to 60,000 people — the prime minister's own figure — walked, ran and above all swam into it, around the breakwater where the fence meets the sea. Fifty-seven did not make it. The army moved in; children's reception centres hit 1,600% of capacity.</p>
+      <p>The stranger story: a month earlier, Spain's Supreme Court read one sentence of the country's aliens law exactly as written — and a distorted version of that ruling travelled through smugglers' social media faster than any official correction could. This page is the full blueprint: a statute that watches a fence, an information channel owned by smugglers, and a border Europe rents from its neighbours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="102.3">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Three stamps, one sequence</div>
+    <h2>A ruling, a rumour, a rush.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 580" id="svg1">
+        <line class="hair" x1="110" y1="100" x2="1370" y2="100"/>
+        <!-- stamp 1: the ruling -->
+        <g id="e_rule" class="b" data-tip="June 29: after Ceuta's court and the High Court of Andalusia, the Supreme Court rules that sea arrivals don't 'cross a border containment element' — the statutory trigger for on-the-spot returns.">
+          <circle cx="220" cy="100" r="9" fill="var(--text)"/>
+          <text x="150" y="70" class="strong" font-size="15">JUNE 29</text>
+          <rect x="120" y="130" width="330" height="140" class="nodebox"/>
+          <text x="144" y="165" class="fact strong" font-size="15">SUPREME COURT RULES:</text>
+          <text x="144" y="195" font-size="13">SWIMMERS DON'T CROSS A</text>
+          <text x="144" y="221" font-size="13">"BORDER CONTAINMENT ELEMENT"</text>
+          <text x="144" y="253" class="strong" font-size="13">NO FENCE CONTACT — NO FAST RETURN</text>
+        </g>
+        <!-- stamp 2: the rumour -->
+        <g id="e_rumor" class="b" data-tip="Migrants told Reuters they saw posts claiming a court had decided sea arrivals can't be deported. The ruling grants a procedure — not a right to stay. The PM blamed trafficking networks for the distortion.">
+          <circle cx="700" cy="100" r="9" fill="var(--flaw)"/>
+          <text x="640" y="70" class="flawtxt strong" font-size="15">JULY · INSTAGRAM</text>
+          <rect x="590" y="130" width="335" height="140" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="614" y="168" class="flawtxt strong" font-size="15">"ARRIVE BY SEA —</text>
+          <text x="614" y="198" class="flawtxt strong" font-size="15">THEY CAN'T DEPORT YOU"</text>
+          <text x="614" y="230" font-size="13">FALSE — THE RULING GRANTS</text>
+          <text x="614" y="254" font-size="13">A PROCEDURE, NOT A RIGHT TO STAY</text>
+        </g>
+        <!-- stamp 3: the rush -->
+        <g id="e_rush" class="b" data-tip="July 30, Thursday morning: 2,000–3,000 cross in the first hours, most by water. Ministry counts ~50,000 by Friday; the PM says 60,000.">
+          <circle cx="1150" cy="100" r="9" fill="var(--flaw)"/>
+          <text x="1090" y="70" class="strong" font-size="15">JULY 30–31</text>
+          <rect x="1030" y="130" width="340" height="140" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="1054" y="170" class="strong" font-size="15">~50,000 ENTRIES (MINISTRY)</text>
+          <text x="1054" y="200" font-size="13">60,000 — THE PM'S FIGURE</text>
+          <text x="1054" y="230" font-size="13">FIRST HOURS: 2,000–3,000</text>
+          <text x="1054" y="256" class="flawtxt" font-size="13">DEATHS: 18 → 34 → 57</text>
+        </g>
+        <!-- returns note -->
+        <g id="e_ret" class="b" data-tip="48,300+ returned within ~36 hours — not under the fence rule, but under a separate, older country-to-country return deal.">
+          <rect x="120" y="330" width="770" height="90" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="144" y="368" class="alttxt strong" font-size="15">48,300 RETURNED IN A DAY AND A HALF —</text>
+          <text x="144" y="398" class="alttxt" font-size="14">UNDER A SEPARATE, OLDER COUNTRY-TO-COUNTRY DEAL, NOT THE FENCE RULE</text>
+        </g>
+        <g id="e_gap" class="b">
+          <rect x="950" y="330" width="420" height="90" fill="var(--flaw)"/>
+          <text x="974" y="368" class="onplate" font-size="16">THE GAP WAS REAL.</text>
+          <text x="974" y="400" class="onplate" font-size="16">THE PROMISE WAS NOT.</text>
+        </g>
+        <g id="e_melilla" class="b">
+          <text x="120" y="500" font-size="14">SATURDAY — HUNDREDS ATTEMPT THE SAME AT MELILLA, SPAIN'S OTHER ENCLAVE</text>
+          <text x="120" y="540" class="fact" font-size="14">NOW UPSTREAM — THREE LAYERS DEEP</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — hover each stamp · sources: CNN, Reuters via Al Jazeera, Euronews, Time, NPR, CBS</div>
+    </div>
+    <div class="prose">
+      <p>June 29: Spain's Supreme Court — after two lower courts reached the same conclusion — rules that migrants arriving by swimming do not "cross a border containment element", the legal trigger for on-the-spot returns. No fence contact, no fast return: an individual case file instead. Within weeks, migrants interviewed by Reuters described Instagram posts claiming a court had decided sea arrivals can't be deported — which is not what the ruling says. The prime minister blamed trafficking networks for the distortion.</p>
+      <p>July 30, Thursday morning: thousands cross in the first hours, most by water. By Friday the ministry counts ~50,000 entries; the PM says 60,000. More than 48,300 are returned within a day and a half — under a separate, older bilateral deal, not the fence rule. The gap in the statute was real; the promise built on it was not, and the people who believed it paid its price: the confirmed deaths climbed from 18 to 34 to 57. By Saturday, hundreds were attempting the same at Melilla.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 LAYER ONE ================= -->
+<section class="ep" id="s2" data-duration="87.5">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">Layer One — The Statute</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Layer one · The law watches the fence</div>
+    <h2>Same beach, two legal universes.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg2">
+        <!-- the statute -->
+        <g id="t_statute" class="b">
+          <rect x="110" y="80" width="560" height="110" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="118" class="strong" font-size="15">THE RULE, WRITTEN A DECADE AGO:</text>
+          <text x="134" y="148" font-size="14">CAUGHT CROSSING THE BARRIER →</text>
+          <text x="134" y="174" font-size="14">HANDED BACK ON THE SPOT — NO CASE FILE</text>
+        </g>
+        <!-- cross-section -->
+        <g id="t_fence" class="b">
+          <line x1="740" y1="120" x2="740" y2="380" stroke="var(--text)" stroke-width="6"/>
+          <line x1="740" y1="380" x2="740" y2="440" stroke="var(--text)" stroke-width="6" stroke-dasharray="4 8"/>
+          <path d="M 620 440 Q 740 470 860 440" class="blue" stroke-width="3"/>
+          <text x="700" y="105" class="strong" font-size="14">THE FENCE</text>
+          <text x="280" y="480" class="fact" font-size="13">THE SEA — WHERE THE FENCE ENDS</text>
+        </g>
+        <g id="t_climber" class="b">
+          <circle cx="700" cy="230" r="11" fill="var(--text)"/>
+          <path d="M 660 280 L 700 230 L 740 280" class="ink"/>
+          <rect x="820" y="180" width="290" height="80" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="844" y="215" class="flawtxt strong" font-size="15">CLIMB THE WIRE:</text>
+          <text x="844" y="245" class="flawtxt" font-size="14">BACK IN MOROCCO IN MINUTES</text>
+        </g>
+        <g id="t_swimmer" class="b">
+          <circle cx="680" cy="455" r="11" fill="var(--fact)"/>
+          <path d="M 560 470 Q 740 510 900 460" fill="none" stroke="var(--fact)" stroke-width="3" stroke-dasharray="6 5"/>
+          <rect x="940" y="410" width="330" height="104" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="964" y="445" class="fact strong" font-size="15">SWIM PAST IT:</text>
+          <text x="964" y="473" class="fact" font-size="14">AN INDIVIDUAL FILE —</text>
+          <text x="964" y="499" class="fact" font-size="14">TIME AND PROCESS</text>
+        </g>
+        <!-- verdict -->
+        <g id="t_verdict" class="b">
+          <rect x="110" y="230" width="470" height="110" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="268" class="fact strong" font-size="15">THREE COURTS, SAME READING:</text>
+          <text x="134" y="298" font-size="14">A SWIMMER NEVER CROSSES</text>
+          <text x="134" y="324" font-size="14">THE CONTAINMENT ELEMENT</text>
+        </g>
+        <g id="t_plate" class="b">
+          <rect x="110" y="500" width="1260" height="70" fill="var(--flaw)"/>
+          <text x="134" y="545" class="onplate" font-size="17">THE RULE WATCHES AN OBJECT, NOT A PURPOSE — EVERY PATH AROUND THE OBJECT EXITS THE LAW</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 2 — the sentence, the fence, and the wet half of the beach</div>
+    </div>
+    <div class="prose">
+      <p>A decade ago, Spain wrote a special rule for its two enclaves: people caught crossing the border barrier can be handed back on the spot — no case file, no hearing at the fence. The wording ties that power to a physical object. When it was written, that seemed like precision: the fence was the border, the border was the fence.</p>
+      <p>Then three courts in a row read it the way courts must — as written. A person who swims around the breakwater never crosses the containment element, so the fast-return power doesn't apply on the wet half of the beach. Same city, same hour, two legal universes. The courts did not open a gap; they read out loud the gap that had been written in from day one. And the ruling did not abolish returns — it said: for this route, follow the ordinary process. The distance between "minutes" and "process" is where everything else lives.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 LAYER TWO ================= -->
+<section class="ep" id="s3" data-duration="107.1">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Layer Two — The Channel</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Layer two · The rumour outruns the ruling</div>
+    <h2>The law travels at bulletin speed. The lie travels at reel speed.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <!-- race lanes -->
+        <g id="r_lanes" class="b">
+          <line class="hair" x1="110" y1="170" x2="1370" y2="170"/>
+          <line class="hair" x1="110" y1="330" x2="1370" y2="330"/>
+          <rect x="110" y="100" width="240" height="46" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/>
+          <text x="134" y="130" class="strong" font-size="14">THE STATE'S VERSION</text>
+          <rect x="110" y="260" width="240" height="46" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="134" y="290" class="flawtxt strong" font-size="14">THE SELLERS' VERSION</text>
+        </g>
+        <g id="r_slow" class="b">
+          <rect x="380" y="112" width="150" height="24" fill="var(--fact)" fill-opacity=".25"/>
+          <text x="380" y="205" font-size="13">LEGAL BULLETINS · LEGAL LANGUAGE · WEEKS</text>
+        </g>
+        <g id="r_fast" class="b">
+          <rect x="380" y="272" width="900" height="24" fill="var(--flaw)" fill-opacity=".35"/>
+          <text x="380" y="365" class="flawtxt" font-size="13">REELS · SAME DAY · LANGUAGES OF THE ROUTE · WITH A CALL TO ACTION</text>
+        </g>
+        <!-- two documents, one lie -->
+        <g id="r_docs" class="b" data-tip="April's Royal Decree 316/2026: residence for up to ~500,000 people already in Spain before 2026; pending expulsion files of applicants shelved. It excludes new arrivals entirely — but fine print does not travel.">
+          <rect x="110" y="420" width="330" height="110" class="nodebox"/>
+          <text x="134" y="455" class="fact strong" font-size="14">DOC 1 · JUNE RULING</text>
+          <text x="134" y="483" font-size="13">A PROCEDURE FOR SEA ARRIVALS</text>
+          <rect x="480" y="420" width="330" height="110" class="nodebox"/>
+          <text x="504" y="455" class="fact strong" font-size="14">DOC 2 · APRIL AMNESTY</text>
+          <text x="504" y="483" font-size="13">ONLY FOR PEOPLE IN SPAIN</text>
+          <text x="504" y="509" font-size="13">BEFORE 2026 — NOT NEW ARRIVALS</text>
+        </g>
+        <g id="r_lie" class="b">
+          <rect x="880" y="420" width="490" height="110" fill="var(--flaw)"/>
+          <text x="904" y="458" class="onplate" font-size="16">TWO TRUE DOCUMENTS —</text>
+          <text x="904" y="490" class="onplate" font-size="16">ONE FALSE PROMISE, BUILT FROM BOTH</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — the race the state never entered · hover the documents</div>
+    </div>
+    <div class="prose">
+      <p>The ruling grants a procedure. The version that travelled grants paradise: "arrive by sea and they cannot deport you." If the prime minister is right about who spread it, the motive is simple: the loudest repackagers sell crossings for a living, and a nuance deleted is a ticket sold. A second law fed the same rumour — April's extraordinary regularization, which could give residence to half a million people already in Spain, and which excludes new arrivals entirely. Fine print does not travel.</p>
+      <p>The structural part: the state publishes rulings in legal bulletins, at bulletin speed, in legal language. The smuggling networks publish them in reels, the same day, in the languages of the route, with a call to action. No institution on the state side delivers the accurate version at the same speed to the same phones. And the asymmetry lands where it always lands: fifty-seven people paid the maximum price for a claim that was never true. The publishers of the false version collected their fees either way.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 LAYER THREE ================= -->
+<section class="ep" id="s4" data-duration="91.2">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Layer Three — The Rent</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Layer three · The rented border</div>
+    <h2>The first line of this border is not Spanish.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 580" id="svg4">
+        <!-- checkpoint + pipe -->
+        <g id="v_pipe" class="b">
+          <rect x="110" y="100" width="220" height="90" class="nodebox"/>
+          <text x="134" y="135" class="fact strong" font-size="15">BRUSSELS</text>
+          <text x="134" y="165" font-size="13">PAYS OPENLY</text>
+          <path id="v_flow" class="blue" stroke-width="4" d="M 330 145 L 700 145"/>
+          <rect x="700" y="100" width="300" height="90" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="724" y="135" class="strong" font-size="15">THE FAR CHECKPOINT</text>
+          <text x="724" y="165" font-size="13">MOROCCAN POLICE · PATROLS</text>
+        </g>
+        <g id="v_invoices" class="b" data-tip="Statewatch analysis: ~€215M in EU border-security funding to Morocco since 2001; a €140M package assembled in 2018 after crossings spiked. Turkey was promised €6B in 2016; Libya's coast guard runs on EU money and training.">
+          <rect x="110" y="240" width="280" height="46" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="130" y="270" font-size="13">MOROCCO · €215M SINCE 2001</text>
+          <rect x="110" y="298" width="280" height="46" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="130" y="328" font-size="13">+ €140M IN 2018 ALONE</text>
+          <rect x="110" y="356" width="280" height="46" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="130" y="386" font-size="13">TURKEY 2016 · €6 BILLION</text>
+          <rect x="110" y="414" width="280" height="46" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="130" y="444" font-size="13">LIBYA · COAST GUARD FUNDED</text>
+        </g>
+        <g id="v_conditional" class="b" data-tip="May 2021: after a diplomatic insult, 8,000 crossings in two days. 2026: analysts point to Spain warming with Algeria; Morocco has stayed silent; Spain itself has officially denied the crisis was staged.">
+          <rect x="480" y="260" width="520" height="130" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="504" y="298" class="flawtxt strong" font-size="15">A KNOWN PROPERTY: POLITICALLY CONDITIONAL</text>
+          <text x="504" y="328" font-size="13">2021 — AFTER AN INSULT: 8,000 IN TWO DAYS</text>
+          <text x="504" y="354" font-size="13">2026 — MOROCCO SILENT · SPAIN DENIES "STAGED"</text>
+          <text x="504" y="380" class="strong" font-size="13">DOCUMENTED: THIS WEEK, THE EARLY STOPS DIDN'T HAPPEN</text>
+        </g>
+        <!-- the missing clause -->
+        <g id="v_contract" class="b">
+          <rect x="1060" y="240" width="310" height="220" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="1084" y="278" class="strong" font-size="14">THE CONTRACT</text>
+          <line x1="1084" y1="305" x2="1330" y2="305" stroke="var(--grid)" stroke-width="6"/>
+          <line x1="1084" y1="340" x2="1300" y2="340" stroke="var(--grid)" stroke-width="6"/>
+          <line x1="1084" y1="375" x2="1330" y2="375" stroke="var(--grid)" stroke-width="6"/>
+          <text x="1084" y="425" class="flawtxt strong" font-size="14">PENALTY FOR STANDING DOWN:</text>
+          <text x="1084" y="450" class="flawtxt" font-size="14">— NOTHING. NOT WRITTEN.</text>
+        </g>
+        <g id="v_court" class="b" data-tip="2017, NF v European Council: the EU's General Court held the EU–Turkey statement was not an act of an EU institution — a 'political arrangement' — and declined jurisdiction.">
+          <text x="110" y="530" font-size="14">2017, EU COURT ON THE TURKEY DEAL: "A POLITICAL ARRANGEMENT" — DECLINED TO REVIEW</text>
+        </g>
+        <g id="v_plate" class="b">
+          <rect x="1060" y="500" width="310" height="60" fill="var(--flaw)"/>
+          <text x="1084" y="538" class="onplate" font-size="15">A VALVE IN ANOTHER'S HAND</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 4 — the invoice, the condition, and the clause that was never written · hover the boxes</div>
+    </div>
+    <div class="prose">
+      <p>On an ordinary day, the first line of this border is Moroccan police and patrols on the far side — a service Europe pays for openly: over €200 million for border security since 2001, €140 million in one package after the last spike. Morocco is the template, not the exception: Turkey was promised €6 billion to hold the Syrian route; Libya's coast guard runs on European money.</p>
+      <p>The arrangement is politically conditional — in 2021, after a diplomatic insult, eight thousand people reached this same city in two days. This time, analysts pointed to Spain's warming with Algeria; Morocco has stayed silent, and Spain itself has officially denied the crisis was staged. We hold to what is documented: the paid checkpoint usually stops these journeys early, and this week it did not. The contract behind it prices none of this: annual cash, no penalty clause — and when asylum seekers once asked Europe's own court to review the Turkey version of the deal, the court called it a "political arrangement" and declined to look. A border rented on those terms is a border with a valve in someone else's hand.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THREE REPAIRS ================= -->
+<section class="ep" id="s5" data-duration="223.4">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Three Repairs</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · One repair per layer</div>
+    <h2>Rewrite the trigger, match the speed, or reprice the rent.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <!-- A: statute -->
+        <g id="a_st" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">REPAIR ONE · FOR THE STATUTE — PARLIAMENT REWRITES THE SENTENCE</text>
+          <g id="a_s1" class="b">
+            <rect x="110" y="120" width="540" height="120" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+            <text x="134" y="158" class="strong" font-size="15">NEW TRIGGER: ILLEGAL ENTRY IN THE BORDER ZONE —</text>
+            <text x="134" y="188" class="strong" font-size="15">OVER THE WIRE OR THROUGH THE WATER</text>
+            <text x="134" y="218" class="alttxt" font-size="14">THE SWIMMER AND THE CLIMBER FALL UNDER ONE RULE</text>
+            <path class="green" stroke-width="3" d="M 680 180 L 800 180"/>
+            <text x="820" y="172" class="alttxt" font-size="14">THE GAP IN THE</text>
+            <text x="820" y="196" class="alttxt" font-size="14">WORDING CLOSES</text>
+          </g>
+          <g id="a_scost" class="b">
+            <rect x="110" y="400" width="1260" height="190" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="438" class="flawtxt" font-size="15">THE PRICE:</text>
+            <text x="134" y="474" font-size="14">1 · NOT EVERYONE IN THE WATER IS A STORMING CROWD — A MOTHER WITH CHILDREN, ASKING FOR ASYLUM</text>
+            <text x="134" y="506" font-size="14">2 · THE 2020 COURT ALLOWED INSTANT RETURNS ONLY FOR STORMING IN FORCE — QUIET ARRIVALS GET A HEARING</text>
+            <text x="134" y="538" font-size="14">3 · ORDER THEIR INSTANT RETURN → THE COURT LIKELY STRIKES THE NEW SENTENCE DOWN</text>
+            <text x="134" y="570" class="flawtxt" font-size="14">4 · THE ZONE HAS EDGES: BOATS AIM PAST IT — A PARLIAMENT CHASING ROUTES IS ONE ROUTE BEHIND</text>
+          </g>
+        </g>
+        <!-- B: speed -->
+        <g id="a_sp" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">REPAIR TWO · FOR THE RUMOUR — FIGHT IT WITH SPEED, NOT PRESS RELEASES</text>
+          <g id="a_p1" class="b">
+            <circle cx="220" cy="190" r="70" class="ink" stroke-width="4"/>
+            <line x1="220" y1="190" x2="220" y2="135" stroke="var(--alt)" stroke-width="5"/>
+            <line x1="220" y1="190" x2="262" y2="190" stroke="var(--alt)" stroke-width="5"/>
+            <text x="150" y="310" font-size="13">EVERY CASE DECIDED IN DAYS</text>
+            <rect x="380" y="130" width="500" height="120" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="404" y="168" class="alttxt strong" font-size="15">SPAIN BUILDS BORDER CAPACITY —</text>
+            <text x="404" y="198" class="alttxt" font-size="14">EU MONEY, EU'S NEW MIGRATION RULES:</text>
+            <text x="404" y="226" class="alttxt" font-size="14">SCREENING · DECISION · RETURN OR ADMISSION</text>
+            <text x="920" y="168" class="strong" font-size="14">SWIM IN AUGUST, VISIBLY BACK</text>
+            <text x="920" y="196" class="strong" font-size="14">BY SEPTEMBER — THE RETURNED</text>
+            <text x="920" y="224" class="strong" font-size="14">CARRY THE STORY THEMSELVES</text>
+          </g>
+          <g id="a_pcost" class="b">
+            <rect x="110" y="400" width="1260" height="190" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="438" class="flawtxt" font-size="15">THE PRICE:</text>
+            <text x="134" y="474" font-size="14">1 · CAPACITY FOR 50,000 ARRIVALS STANDS NEARLY EMPTY IN A NORMAL YEAR — AND COSTS LIKE AN AIRPORT</text>
+            <text x="134" y="506" font-size="14">2 · DECISIONS IN DAYS MAKE MISTAKES — A MISTAKE SENDS A REAL REFUGEE BACK INTO DANGER</text>
+            <text x="134" y="538" class="flawtxt" font-size="14">3 · A CENTRE BUILT FOR SPEED IS, FROM THE INSIDE, A LOCKED BUILDING — THE RIGHTS PROBLEM MOVES INDOORS</text>
+          </g>
+        </g>
+        <!-- C: treaty -->
+        <g id="a_tr" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">REPAIR THREE · FOR THE RENTED CHECKPOINT — A TREATY WITH A PENALTY CLAUSE</text>
+          <g id="a_t1" class="b">
+            <rect x="110" y="120" width="360" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+            <text x="134" y="155" class="strong" font-size="14">YEARLY CASH → LONG TREATY</text>
+            <text x="134" y="183" font-size="13">TRADE · VISAS · INVESTMENT</text>
+            <text x="134" y="215" class="alttxt strong" font-size="14">+ ONE NEW CLAUSE:</text>
+            <text x="134" y="243" class="alttxt" font-size="13">ORGANIZED SURGE → AUTOMATIC FREEZE</text>
+            <path class="green" stroke-width="3" d="M 490 195 L 610 195"/>
+            <rect x="610" y="130" width="475" height="130" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="634" y="168" class="alttxt strong" font-size="15">OPENING THE VALVE FINALLY COSTS —</text>
+            <text x="634" y="198" class="alttxt" font-size="14">DUE THE MOMENT IT OPENS.</text>
+            <text x="634" y="230" class="alttxt" font-size="14">AND IT CUTS BOTH WAYS: EUROPE'S BREACHES BILL TOO</text>
+          </g>
+          <g id="a_tcost" class="b">
+            <rect x="110" y="400" width="1260" height="190" fill="var(--flaw)"/>
+            <text x="134" y="440" class="onplate" font-size="15">THE PRICE:</text>
+            <text x="134" y="476" class="onplate" font-size="14">1 · SOMEONE BOTH COUNTRIES TRUST MUST CERTIFY "ORGANIZED" — THIS WEEK, EVEN SPAIN DENIES IT WAS STAGED</text>
+            <text x="134" y="508" class="onplate" font-size="14">2 · A TRADE-AND-VISA TREATY BINDS ALL 27 EU COUNTRIES FOR YEARS — NOT JUST SPAIN</text>
+            <text x="134" y="540" class="onplate" font-size="14">3 · A PARTNER WHOSE PRICE IS ABOUT TO BE FIXED MAY RAISE IT FIRST — WITH A WEEK EXACTLY LIKE THIS ONE</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Repair selector">
+        <button id="btnR0" class="on">Statute</button><button id="btnR1">Speed</button><button id="btnR2">Treaty</button>
+      </div>
+      <div class="figcap">Fig. 5 — one repair per layer · switch between them above · every price read out loud</div>
+    </div>
+    <div class="prose">
+      <p><b>Repair one — for the statute.</b> Parliament rewrites the sentence: anyone entering illegally in the border zone, over the wire or through the water, can be returned on the spot. <i>The price:</i> not everyone in the water is a storming crowd; the 2020 human-rights ruling allowed instant returns only for storming in force, so the rewritten rule would order instant returns for exactly the people the court protects — and likely be struck down. And the zone has edges: boats simply land beyond it.</p>
+      <p><b>Repair two — for the rumour.</b> Spain, with EU money, builds capacity to decide every border case in days. If everyone who swims in August is visibly back by September, the story carries itself — on the same phones the smugglers use. <i>The price:</i> surge capacity costs like an airport and stands empty most years; fast decisions err, and an error sends a real refugee back into danger; a centre built for speed is, from the inside, a locked building.</p>
+      <p><b>Repair three — for the rented checkpoint.</b> Europe replaces yearly cash with a long treaty — trade, visas, investment — plus one clause: a certified organized surge freezes part of the package automatically, and Europe's own breaches bill the same way. <i>The price:</i> someone both countries trust must certify "organized" — this very week, even Spain denies the crisis was staged; the treaty binds all 27 EU states for years; and a partner whose price is about to be fixed may raise it first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="58.1">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Three questions for the next crisis</div>
+    <h2>The fence stood. Three other things failed.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_cards" class="b">
+          <rect x="150" y="100" width="340" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="174" y="140" class="strong" font-size="16">THE STATUTE</text>
+          <text x="174" y="172" font-size="13">WATCHED A FENCE,</text>
+          <text x="174" y="198" font-size="13">NOT A BORDER</text>
+          <rect x="570" y="100" width="340" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="594" y="140" class="strong" font-size="16">THE CHANNEL</text>
+          <text x="594" y="172" font-size="13">TRUTH AT BULLETIN SPEED,</text>
+          <text x="594" y="198" font-size="13">LIES AT REEL SPEED</text>
+          <rect x="990" y="100" width="340" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="1014" y="140" class="strong" font-size="16">THE RENT</text>
+          <text x="1014" y="172" font-size="13">A PAID CHECKPOINT,</text>
+          <text x="1014" y="198" font-size="13">NO PENALTY CLAUSE</text>
+        </g>
+        <g id="z_strike" class="b">
+          <line x1="150" y1="175" x2="490" y2="175" stroke="var(--flaw)" stroke-width="4"/>
+          <line x1="570" y1="175" x2="910" y2="175" stroke="var(--flaw)" stroke-width="4"/>
+          <line x1="990" y1="175" x2="1330" y2="175" stroke="var(--flaw)" stroke-width="4"/>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="360" text-anchor="middle" class="big" font-size="24">WHAT DOES THE RULE WATCH? WHO DELIVERS ITS TRUTH? WHO OWNS THE VALVE?</text>
+          <text x="740" y="430" text-anchor="middle" class="flawtxt" font-size="18">"THE FENCE" · "NOBODY" · "NOT US" — THEN THE NEXT ONE IS ALREADY SCHEDULED</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>The fifty-seven did not die because a fence failed. The fence stood. They died on the route a statute's own wording left open, chasing a version of a court ruling that was never true, past a paid checkpoint that — on this week of all weeks — did not do what it is paid to do.</p>
+      <p>Whatever you believe about migration itself — how many, from where, on what terms — that argument existed before this week and will continue after it, and this episode has not tried to settle it. But the next time a border crisis fills your screen, ask: what does the rule actually watch — the object, or the line? Who delivers the truth about the rule, and at what speed? And who owns the valve on the far side? Any border where those answers are "the fence", "nobody" and "not us" is not waiting for an accident. It has one scheduled.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <line x1="620" y1="40" x2="620" y2="250" stroke="var(--text)" stroke-width="9"/>
+    <line x1="620" y1="250" x2="620" y2="330" stroke="var(--text)" stroke-width="9" stroke-dasharray="6 12"/>
+    <path d="M 380 300 Q 620 380 860 290" fill="none" stroke="var(--fact)" stroke-width="8" stroke-dasharray="14 10"/>
+    <circle cx="500" cy="322" r="13" fill="var(--fact)"/>
+    <text x="680" y="120" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">the fence ends</text>
+    <text x="680" y="190" font-family="IBM Plex Mono" font-size="40" style="fill:var(--fact)">at the water</text>
+    <text x="130" y="120" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text-dim)">Ceuta, July 30</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">60,000</div>
+  <div class="sub">they walked around one sentence of law</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="60" width="700" height="260" fill="none" stroke="var(--text)" stroke-width="7"/>
+    <line x1="200" y1="130" x2="780" y2="130" stroke="var(--grid)" stroke-width="14"/>
+    <line x1="200" y1="195" x2="700" y2="195" stroke="var(--flaw)" stroke-width="14"/>
+    <line x1="200" y1="260" x2="760" y2="260" stroke="var(--grid)" stroke-width="14"/>
+    <text x="900" y="160" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">one sentence</text>
+    <text x="900" y="225" font-family="IBM Plex Mono" font-size="38" style="fill:var(--flaw)">of one law</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">1 sentence</div>
+  <div class="sub">how 60,000 people crossed a border</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+/* ---------- primitives ---------- */
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function count(tl,id,end,dur,pos,fmt){const el=$(id),st={v:0};
+  tl.set(el,{opacity:1},pos).to(st,{v:end,duration:dur,ease:'power1.inOut',
+    onUpdate:()=>el.textContent=(fmt||(x=>Math.round(x).toLocaleString('en-US')))(st.v),
+    onComplete:()=>el.textContent=(fmt||(x=>Math.round(x).toLocaleString('en-US')))(end)},pos);}
+
+/* ---------- scenes ---------- */
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.8); idle(tl,'h_s1',5,11);
+  tl.to($('h_s1'),{opacity:0,duration:.6},17.5);
+  say(tl,'h_s2',18.5,.7);
+  count(tl,'h_count',60000,2.5,18.8);
+  say(tl,'h_s2b',23.0,.7);
+  shake(tl,'h_s2b',24.0,5,6); idle(tl,'h_s2',26,7);
+  tl.to([$('h_s2'),$('h_s2b')],{opacity:0,duration:.6},34.5);
+  say(tl,'h_s3',35.5,.7); idle(tl,'h_s3',39,8);
+  tl.to($('h_s3'),{opacity:0,duration:.6},48.5);
+  say(tl,'h_s4',49.5,.8); idle(tl,'h_s4',54,12);
+  tl.to($('h_s4'),{opacity:0,duration:.5},67.0);
+  pop(tl,'h_s5',68.5,.7); shake(tl,'h_s5',69.5,6,8); idlePlate(tl,'h_s5',71,7);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},81.0);
+  if(isAuto)tl.to({},{duration:5.5},81.7); else tl.to($('titleCard'),{opacity:0,duration:.5},85.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_rule',0.5,.8); idle(tl,'e_rule',5,10);
+  say(tl,'e_rumor',20.0,.8); shake(tl,'e_rumor',20.8,4,6); idle(tl,'e_rumor',25,10);
+  say(tl,'e_rush',42.0,.8); idle(tl,'e_rush',46,10);
+  say(tl,'e_ret',60.0,.8); idle(tl,'e_ret',64,7);
+  pop(tl,'e_gap',73.0,.7); shake(tl,'e_gap',74.0,5,6); idlePlate(tl,'e_gap',76,8);
+  say(tl,'e_melilla',86.0,.7); idle(tl,'e_melilla',88,5);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'t_statute',0.5,.8); idle(tl,'t_statute',5,10);
+  say(tl,'t_fence',18.0,.8);
+  say(tl,'t_climber',26.0,.8); idle(tl,'t_climber',30,8);
+  say(tl,'t_swimmer',40.0,.8); idle(tl,'t_swimmer',44,8);
+  say(tl,'t_verdict',54.0,.8); idle(tl,'t_verdict',58,10);
+  pop(tl,'t_plate',72.0,.7); shake(tl,'t_plate',73.0,5,6); idlePlate(tl,'t_plate',75,20);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'r_lanes',0.5,.8);
+  say(tl,'r_slow',8.0,.8); idle(tl,'r_slow',12,8);
+  say(tl,'r_fast',22.0,.9); shake(tl,'r_fast',23.0,4,6); idle(tl,'r_fast',27,10);
+  say(tl,'r_docs',42.0,.9); idle(tl,'r_docs',48,12);
+  pop(tl,'r_lie',64.0,.7); shake(tl,'r_lie',65.0,5,6); idlePlate(tl,'r_lie',67,14);
+  tl.to({},{duration:.1},96.0);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'v_pipe',0.5,.8);
+  draw(tl,'v_flow',1.2,1.5);
+  say(tl,'v_invoices',6.0,.9); idle(tl,'v_invoices',11,10);
+  say(tl,'v_conditional',26.0,.9); shake(tl,'v_conditional',27.0,4,6); idle(tl,'v_conditional',32,12);
+  say(tl,'v_contract',50.0,.9); idle(tl,'v_contract',55,10);
+  say(tl,'v_court',68.0,.7); idle(tl,'v_court',70,6);
+  pop(tl,'v_plate',78.0,.7); shake(tl,'v_plate',79.0,5,6); idlePlate(tl,'v_plate',81,9);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  // A: statute
+  tl.set($('a_st'),{opacity:1},0);
+  say(tl,'a_s1',0.5,.8); idle(tl,'a_s1',6,14);
+  say(tl,'a_scost',26.0,.7); idle(tl,'a_scost',31,26);
+  tl.to($('a_st'),{opacity:0,duration:.7},62.0);
+  // B: speed
+  tl.fromTo($('a_sp'),{opacity:0},{opacity:1,duration:.7},64.0);
+  say(tl,'a_p1',66.0,.8); idle(tl,'a_p1',73,18);
+  say(tl,'a_pcost',96.0,.7); idle(tl,'a_pcost',101,26);
+  tl.to($('a_sp'),{opacity:0,duration:.7},130.0);
+  // C: treaty
+  tl.fromTo($('a_tr'),{opacity:0},{opacity:1,duration:.7},132.0);
+  say(tl,'a_t1',134.0,.8); idle(tl,'a_t1',141,18);
+  pop(tl,'a_tcost',164.0,.7); shake(tl,'a_tcost',165.0,5,6); idlePlate(tl,'a_tcost',168,30);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_cards',0.5,.9); idle(tl,'z_cards',5,10);
+  say(tl,'z_strike',18.0,.8);
+  say(tl,'z_q',30.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},34.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+/* repair selector (web mode): show one of the three S5 repair groups */
+const REPAIRS=['a_st','a_sp','a_tr'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  [0,1,2].forEach(k=>$('btnR'+k).classList.toggle('on',k===i));}
+[0,1,2].forEach(k=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+/* ---------- AUTO ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  /* void return on purpose: record.mjs does page.evaluate(()=>window.__play()) */
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.4);
+    if(s.id==='s5')tl.timeScale(3.4);
+    if(s.id==='s3'||s.id==='s4')tl.timeScale(2.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  // ---- tooltips (S1 + S3 + S4) ----
+  const tip=$('tip');
+  document.querySelectorAll('#svg1 [data-tip], #svg3 [data-tip], #svg4 [data-tip]').forEach(g=>{
+    g.style.cursor='pointer';
+    g.addEventListener('mousemove',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;});
+    g.addEventListener('mouseleave',()=>tip.style.opacity=0);
+    g.addEventListener('click',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;
+      setTimeout(()=>tip.style.opacity=0,3500);});
+  });
+
+  // ---- listen mode ----
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){if(secs[i].getBoundingClientRect().top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i; player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
