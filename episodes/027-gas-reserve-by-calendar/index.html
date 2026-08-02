@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Second Tanker Hit. Europe's Gas Plan Is a Date and a Number | Trace Upstream</title>
+<meta name="description" content="An LNG tanker was struck in the Strait of Hormuz. Europe's written plan for that day is one line: 90% storage by November 1. Oil has had a full reserve book since 1974 — trigger, release order, coordination. Gas got page one. Three repairs, three honest price tags.">
+<link rel="canonical" href="https://traceupstream.com/episodes/027-gas-reserve-by-calendar/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="A Second Tanker Hit. Europe's Gas Plan Is a Date and a Number">
+<meta property="og:description" content="A reserve is a stock plus the rules for using it. Oil got both halves in 1974. Gas got a percentage and a date.">
+<meta property="og:url" content="https://traceupstream.com/episodes/027-gas-reserve-by-calendar/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#A48397; /* desaturated mauve — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:132px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.027 — 2026-08-02</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:36</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="79.7">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.027</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <!-- state 1: the tanker -->
+        <g id="h_s1" class="b">
+          <path d="M 200 300 L 240 260 L 760 260 L 800 300 L 780 340 L 220 340 Z" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <rect x="640" y="210" width="70" height="50" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <circle cx="350" cy="300" r="26" class="ink" stroke-width="4"/>
+          <circle cx="470" cy="300" r="26" class="ink" stroke-width="4"/>
+          <circle cx="590" cy="300" r="26" class="ink" stroke-width="4"/>
+          <text x="500" y="430" text-anchor="middle" class="strong" font-size="38">THREE FOOTBALL FIELDS LONG</text>
+          <text x="500" y="500" text-anchor="middle" class="fact" font-size="36">CARGO CHILLED TO −162°C</text>
+        </g>
+        <!-- state 2: gas cargo, oil jumped -->
+        <g id="h_s2" class="b">
+          <text x="290" y="280" text-anchor="middle" class="strong" font-size="40">CARGO: GAS</text>
+          <path d="M 560 340 L 680 220" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+          <path d="M 680 220 L 640 225 M 680 220 L 677 262" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+          <text x="845" y="290" text-anchor="middle" class="flawtxt" font-size="40">OIL JUMPED</text>
+          <text x="500" y="430" text-anchor="middle" font-size="33">THE STRAIT CARRIES BOTH</text>
+        </g>
+        <g id="h_s2b" class="b">
+          <text x="500" y="495" text-anchor="middle" class="flawtxt" font-size="33">BIGGEST JUMP SINCE MARCH</text>
+        </g>
+        <!-- state 3: the one-line plan -->
+        <g id="h_s3" class="b">
+          <rect x="230" y="150" width="540" height="170" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <text x="500" y="255" text-anchor="middle" class="big" font-size="72">90% · NOV 1</text>
+          <text x="500" y="430" text-anchor="middle" class="strong" font-size="36">EUROPE'S WRITTEN GAS PLAN</text>
+        </g>
+        <g id="h_s3b" class="b">
+          <text x="500" y="495" text-anchor="middle" font-size="33">ONE LINE: A NUMBER AND A DATE</text>
+        </g>
+        <!-- state 4: the oil book -->
+        <g id="h_s4" class="b">
+          <rect x="330" y="120" width="340" height="230" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="5"/>
+          <line x1="370" y1="170" x2="630" y2="170" stroke="var(--grid)" stroke-width="8"/>
+          <line x1="370" y1="210" x2="630" y2="210" stroke="var(--grid)" stroke-width="8"/>
+          <line x1="370" y1="250" x2="600" y2="250" stroke="var(--grid)" stroke-width="8"/>
+          <line x1="370" y1="290" x2="630" y2="290" stroke="var(--grid)" stroke-width="8"/>
+          <text x="500" y="430" text-anchor="middle" class="strong" font-size="36">OIL'S PLAN — SINCE 1974</text>
+          <text x="500" y="495" text-anchor="middle" class="alttxt" font-size="33">A WHOLE BOOK: WHO, WHEN, HOW</text>
+        </g>
+        <!-- state 5: thesis plate -->
+        <g id="h_s5" class="b">
+          <rect x="60" y="180" width="880" height="220" fill="var(--flaw)"/>
+          <text x="100" y="275" class="onplate" font-size="46">A RESERVE IS A STOCK</text>
+          <text x="100" y="350" class="onplate" font-size="46">PLUS THE RULES FOR USING IT</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">TRACE UPSTREAM</div>
+        <div class="t">Europe's gas plan<br>is a date and a number</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>On August 1, a projectile stopped an LNG tanker in the Strait of Hormuz — a ship three football fields long, cargo chilled to −162°C, bound from Qatar. The cargo was gas, but the first market to jump was oil: the strait carries both. Every news channel is covering the strike and the war around it.</p>
+      <p>The quieter question: on the day a gas ship stops in that strait, what is Europe's written plan? It exists — and its core is one line: storage 90% full by November 1. Oil's plan, written in 1974, fills a book: how much to store, who opens the tanks, on what signal, in what order. The difference between "how much is stored" and "how it gets out" is the difference between a reserve and a number.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="77.6">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · Hormuz, August 1</div>
+    <h2>A strike, a near miss, a fifth of the world's gas.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 580" id="svg1">
+        <!-- strike card -->
+        <g id="e_strike" class="b" data-tip="Aug 1: Gaslog Shanghai (Bermuda flag, Greek management, Qatari cargo) hit by an 'unknown projectile' per its manager — engine room damaged, blackout, no casualties, no leak. A second tanker reported a near miss nearby.">
+          <rect x="110" y="90" width="480" height="150" class="nodebox"/>
+          <text x="134" y="128" class="fact strong" font-size="15">GASLOG SHANGHAI · AUG 1</text>
+          <text x="134" y="158" font-size="13">HIT BY AN "UNKNOWN PROJECTILE"</text>
+          <text x="134" y="184" font-size="13">ENGINE ROOM DAMAGED · BLACKOUT · ADRIFT</text>
+          <text x="134" y="214" font-size="13">NO CASUALTIES · NO LEAK · NEAR MISS NEARBY</text>
+        </g>
+        <!-- counters -->
+        <g id="e_counters" class="b" data-tip="Second strike on Qatari LNG in a month. After the first, Qatar suspended Hormuz shipments ~3 weeks. ~20% of global seaborne LNG transits Hormuz; ~10% of Europe's LNG imports exposed (IEEFA).">
+          <rect x="660" y="90" width="330" height="46" fill="none" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="680" y="120" class="flawtxt" font-size="13">2ND STRIKE ON QATARI GAS IN A MONTH</text>
+          <rect x="660" y="148" width="330" height="46" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="680" y="178" font-size="13">JULY: SHIPMENTS SUSPENDED 3 WEEKS</text>
+          <rect x="660" y="206" width="330" height="46" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="680" y="236" font-size="13">~20% OF WORLD LNG · ~10% OF EU'S</text>
+        </g>
+        <!-- back-ref -->
+        <g id="e_backref" class="b">
+          <rect x="1050" y="90" width="320" height="150" fill="none" stroke="var(--text)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="1074" y="128" class="strong" font-size="14">EP.012 — THE STRAIT ITSELF:</text>
+          <text x="1074" y="158" font-size="13">INSURANCE PREMIUMS,</text>
+          <text x="1074" y="184" font-size="13">NOT NAVIES, CLOSE IT</text>
+          <text x="1074" y="214" class="fact" font-size="13">TODAY: THE RECEIVING END</text>
+        </g>
+        <!-- arrow home -->
+        <g id="e_home" class="b">
+          <path class="blue" stroke-width="4" d="M 300 340 Q 740 300 1180 340"/>
+          <path class="blue" stroke-width="4" d="M 320 328 L 300 340 L 322 352"/>
+          <text x="640" y="300" class="fact strong" font-size="15">← TOWARDS EUROPE</text>
+        </g>
+        <g id="e_q" class="b">
+          <rect x="360" y="420" width="760" height="90" fill="var(--flaw)"/>
+          <text x="384" y="458" class="onplate" font-size="17">WHAT DID WE BUILD AT HOME</text>
+          <text x="384" y="492" class="onplate" font-size="17">FOR THIS EXACT DAY?</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — hover the cards · sources: Bloomberg, UKMTO via agencies, Seatrade, IEEFA</div>
+    </div>
+    <div class="prose">
+      <p>August 1: the tanker Gaslog Shanghai was hit by what its manager called an unknown projectile while passing the Strait of Hormuz — Bermuda flag, Greek management, a cargo loaded in Qatar. Engine room damaged, blackout, adrift; no casualties, no leak. The same day another tanker nearby reported an explosion close to its hull.</p>
+      <p>It is the second strike on Qatari gas in a month; after the first, Qatar suspended shipments through the strait for three weeks. About a fifth of the world's seaborne gas passes through this one strait, and roughly a tenth of Europe's LNG imports are exposed to it. We took the strait itself apart in EP.012 — today is about the receiving end: what waits at home.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 THE OIL BOOK ================= -->
+<section class="ep" id="s2" data-duration="81.9">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Oil Book</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The machine that exists · Oil, since 1974</div>
+    <h2>Ninety days is only page one.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 580" id="svg2">
+        <!-- 1973 -> 1974 -->
+        <g id="o_origin" class="b">
+          <rect x="110" y="90" width="250" height="90" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="134" y="128" class="flawtxt strong" font-size="15">1973 · EMBARGO</text>
+          <text x="134" y="158" font-size="13">FUEL QUEUES AROUND BLOCKS</text>
+          <path class="ink" d="M 360 135 L 450 135" stroke-width="3"/>
+          <rect x="450" y="90" width="315" height="90" class="nodebox"/>
+          <text x="474" y="128" class="fact strong" font-size="15">1974 · THE IEA</text>
+          <text x="474" y="158" font-size="13">A BINDING AGREEMENT, NOT A SLOGAN</text>
+        </g>
+        <!-- the book chapters -->
+        <g id="o_book" class="b" data-tip="The International Energy Program: members hold oil stocks ≥90 days of net imports — plus a defined emergency trigger, a release procedure, and coordinated collective action.">
+          <rect x="110" y="230" width="620" height="230" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="134" y="270" class="strong" font-size="15">THE BOOK:</text>
+          <text x="134" y="306" font-size="14">CH.1 — STOCK: 90 DAYS OF IMPORTS</text>
+          <text x="134" y="338" class="alttxt" font-size="14">CH.2 — TRIGGER: WHAT COUNTS AS AN EMERGENCY</text>
+          <text x="134" y="370" class="alttxt" font-size="14">CH.3 — RELEASE: WHO OPENS, IN WHAT ORDER, HOW FAST</text>
+          <text x="134" y="402" class="alttxt" font-size="14">CH.4 — COORDINATION: MEMBERS ACT TOGETHER</text>
+          <text x="134" y="440" font-size="13">USED FOR REAL: 1991 · 2005 · 2011 · 2022 — EACH TIME, FOR OIL</text>
+        </g>
+        <!-- definition plate -->
+        <g id="o_def" class="b">
+          <rect x="800" y="230" width="570" height="120" fill="var(--flaw)"/>
+          <text x="824" y="278" class="onplate" font-size="17">A RESERVE = A STOCK</text>
+          <text x="824" y="314" class="onplate" font-size="17">+ THE RULES FOR USING IT</text>
+        </g>
+        <g id="o_3am" class="b">
+          <text x="800" y="410" class="strong" font-size="15">THE RULES ARE THE HALF THAT WORKS</text>
+          <text x="800" y="442" class="strong" font-size="15">AT 3 A.M. DURING A CRISIS</text>
+          <text x="800" y="510" class="fact" font-size="14">OIL GOT BOTH HALVES · NOW LOOK AT GAS</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 2 — the 1974 machine: stock, trigger, release, coordination · hover the book</div>
+    </div>
+    <div class="prose">
+      <p>In 1973, Arab producers embargoed the West; fuel queues wrapped around city blocks. The answer within a year was an institution: the International Energy Agency, and a binding agreement — every member holds oil stocks worth at least 90 days of the oil it buys in from abroad.</p>
+      <p>But the ninety days is only page one. The rest of the book makes it a reserve: a defined trigger (what counts as a supply emergency), a release procedure (who opens the tanks, in what order, at what pace), and coordination (members act together). The machine has been used for real — 1991, 2005, 2011, 2022; each time, for oil. Hold the definition: a reserve is a stock plus the rules for using it. The rules are the half that works at three in the morning during a crisis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE GAS PAGE ================= -->
+<section class="ep" id="s3" data-duration="106.2">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Gas Page</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">What gas got · 2022</div>
+    <h2>The meter was satisfied. The mechanism was never written.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg3">
+        <!-- the page -->
+        <g id="g_page" class="b">
+          <rect x="110" y="90" width="360" height="200" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="290" y="180" text-anchor="middle" class="big" font-size="44">90% · NOV 1</text>
+          <text x="290" y="240" text-anchor="middle" font-size="13">ONE NUMBER · ONE DATE · MET EVERY YEAR</text>
+        </g>
+        <!-- bases -->
+        <g id="g_bases" class="b" data-tip="Oil's 90 counts days of imports — a demand measure. Gas's 90 counts percent of tank capacity: a full tank says nothing, by itself, about how many days it buys.">
+          <rect x="530" y="90" width="400" height="200" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="554" y="130" class="fact strong" font-size="15">TWO DIFFERENT NINETIES:</text>
+          <text x="554" y="166" font-size="14">OIL'S 90 — DAYS OF IMPORTS</text>
+          <text x="554" y="198" font-size="14">GAS'S 90 — PERCENT OF THE TANKS</text>
+          <text x="554" y="240" class="flawtxt" font-size="13">A FULL TANK ≠ A NUMBER OF DAYS</text>
+        </g>
+        <!-- missing chapters -->
+        <g id="g_missing" class="b">
+          <rect x="990" y="90" width="380" height="200" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1014" y="130" class="flawtxt strong" font-size="15">THE REST OF THE BOOK:</text>
+          <text x="1014" y="166" font-size="14">TRIGGER "SHORTAGE" — NOT DEFINED</text>
+          <text x="1014" y="198" font-size="14">RELEASE ORDER — NOT WRITTEN</text>
+          <text x="1014" y="230" font-size="14">OWNERSHIP — PRIVATE TRADERS</text>
+          <text x="1014" y="266" class="flawtxt" font-size="13">A GAUGE ON A TANK THE STATE DOESN'T OWN</text>
+        </g>
+        <!-- the 2022 bill -->
+        <g id="g_bill" class="b" data-tip="TTF touched ~€340/MWh in Aug 2022 vs ~€5–35 decade average; ~€116B spent on LNG in one year; cargoes contracted for poorer countries diverted mid-route to the higher bidder.">
+          <rect x="110" y="360" width="60" height="30" fill="var(--fact)" fill-opacity=".3"/>
+          <text x="180" y="382" font-size="13">€5–35 — THE OLD DECADE</text>
+          <rect x="110" y="410" width="600" height="30" fill="var(--flaw)"/>
+          <text x="730" y="432" class="flawtxt strong" font-size="15">€340 IN 2022 — TEN TIMES THE OLD CEILING</text>
+          <text x="110" y="490" font-size="14">€116,000,000,000 SPENT ON LNG IN ONE YEAR</text>
+          <text x="110" y="524" class="flawtxt" font-size="14">SHIPS FOR POORER COUNTRIES — DIVERTED TO THE HIGHER BIDDER</text>
+        </g>
+        <g id="g_plate" class="b">
+          <rect x="850" y="440" width="520" height="120" fill="var(--flaw)"/>
+          <text x="874" y="490" class="onplate" font-size="17">THE METER WAS SATISFIED.</text>
+          <text x="874" y="526" class="onplate" font-size="17">THE MECHANISM WAS NEVER WRITTEN.</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 3 — the one-page law, the missing chapters, and the 2022 bill · hover the cards</div>
+    </div>
+    <div class="prose">
+      <p>Gas got its crisis in 2022. Europe wrote a law — quickly: storage 90% full by November 1. As a target it is beautifully designed: one number, one date, publicly tracked, met every year since. But notice the base: oil's ninety counts days of imports; gas's ninety counts percent of the tanks. A full tank, by itself, tells you nothing about how many days it buys you.</p>
+      <p>Now look for the rest of the book. A trigger called "shortage" — not defined. A release order — hospitals, factories, or a neighbouring country in worse trouble first? — not written. And ownership: the gas mostly belongs to private traders; in a crisis it flows to whoever pays most. The state watches a gauge on a tank it does not own. The number-on-a-date also came with its own bill: in 2022 everyone raced to fill at once — TTF touched €340 per MWh against a decade average of €5–35, Europe spent €116 billion on LNG in a year, and ships contracted for poorer countries were diverted to the higher bidder. Their blackouts helped finance our percentage.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE PATCHES ================= -->
+<section class="ep" id="s4" data-duration="115.8">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The Patches</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The patches · Three gaps, three sticky notes</div>
+    <h2>Matchmaking is not buying.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <!-- patch 1: funnel -->
+        <g id="p_funnel" class="b" data-tip="AggregateEU pilot 2023–25: 90 bcm demand posted, 77 bcm matched with sellers; of the matched short-term slice, ~1 bcm reported as actually signed. Successor: a 'permanent voluntary tool'.">
+          <text x="110" y="80" class="strong" font-size="15">PATCH 1 · THE BIDDING RACE → A JOINT-BUYING PILOT</text>
+          <rect x="110" y="110" width="420" height="44" fill="var(--fact)" fill-opacity=".25"/>
+          <text x="124" y="140" font-size="13">90 — POSTED TOGETHER</text>
+          <rect x="110" y="166" width="360" height="44" fill="var(--fact)" fill-opacity=".45"/>
+          <text x="124" y="196" font-size="13">77 — MATCHED WITH SELLERS</text>
+          <rect x="110" y="222" width="26" height="44" fill="var(--flaw)"/>
+          <text x="150" y="252" class="flawtxt strong" font-size="14">~1 — ACTUALLY SIGNED (SHORT-TERM SLICE, AS REPORTED)</text>
+          <text x="110" y="310" class="flawtxt" font-size="14">MATCHMAKING IS NOT BUYING</text>
+          <text x="110" y="340" font-size="13">SUCCESSOR: "A PERMANENT VOLUNTARY TOOL"</text>
+        </g>
+        <!-- patch 2: solidarity -->
+        <g id="p_solid" class="b" data-tip="Solidarity rule (2017 regulation, older than the 2022 crisis): ~40 bilateral mutual-rescue agreements expected; 9 signed. Default fallback terms now exist — on paper.">
+          <text x="680" y="80" class="strong" font-size="15">PATCH 2 · WHO HELPS WHOM → A SOLIDARITY RULE</text>
+          <g id="p_grid"></g>
+          <text x="680" y="310" class="flawtxt" font-size="14">EXPECTED: 40 · SIGNED IN A DECADE: 9 · FALLBACK: ON PAPER</text>
+        </g>
+        <!-- patch 3: 2025 amendment -->
+        <g id="p_amend" class="b" data-tip="July 2025: target flexible — 90% any time Oct 1–Dec 1, deviation allowed in bad markets; no obligation to hold the level once touched. The peacetime chapter was fixed; the wartime chapter still doesn't exist.">
+          <text x="110" y="390" class="strong" font-size="15">PATCH 3 · THE PRICE SPIKE → THE 2025 AMENDMENT (A REAL FIX)</text>
+          <rect x="110" y="420" width="560" height="110" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="134" y="458" class="alttxt" font-size="14">90% ANY TIME OCT 1 – DEC 1 · DEVIATION IN BAD MARKETS</text>
+          <text x="134" y="490" font-size="14">THE FILLING RACE NO LONGER DETONATES PRICES</text>
+          <text x="134" y="516" class="flawtxt" font-size="13">FIXED: THE PEACETIME CHAPTER · STILL BLANK: THE WARTIME ONE</text>
+        </g>
+        <!-- the flip -->
+        <g id="p_flip" class="b">
+          <rect x="760" y="420" width="610" height="110" fill="var(--flaw)"/>
+          <text x="784" y="462" class="onplate" font-size="16">SINCE LATE 2025, ASIA OUTBIDS EUROPE —</text>
+          <text x="784" y="498" class="onplate" font-size="16">THE CONTEST NOW WORKS AGAINST US</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 4 — three patches: a pilot, nine signatures, one real fix · hover each</div>
+    </div>
+    <div class="prose">
+      <p>Europe saw these gaps. Three got patches. The bidding race got a joint-purchasing pilot: 90 billion cubic metres posted, 77 matched — and, of the short-term slice, about 1 reported as actually signed. Matchmaking is not buying; the pilot's successor is, in the law's own words, a permanent voluntary tool. The who-helps-whom problem got a solidarity rule, older than the 2022 crisis: forty agreements expected, nine exist.</p>
+      <p>The price spike was actually fixed, in 2025: the 90% became flexible — any time between October 1 and December 1, with deviations allowed in bad markets — so the filling race no longer detonates prices. Note what was amended: the peacetime chapter. The wartime chapter — trigger, release, ownership — still does not exist, and the law even allows tanks to be drawn down the day after the target is touched. Meanwhile the bidding war has changed sides: since late 2025, Asian buyers outbid European ones. The same contest that once worked for Europe now works against it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THREE REPAIRS ================= -->
+<section class="ep" id="s5" data-duration="163.6">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Three Repairs</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · Three sides of the missing book</div>
+    <h2>Write the book, pay factories to power down, or buy as one.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <!-- A: write the book -->
+        <g id="a_bk" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">REPAIR ONE · WRITE THE BOOK — A PUBLIC SLICE PLUS THE MISSING PAGES</text>
+          <g id="a_b1" class="b">
+            <rect x="110" y="120" width="300" height="170" class="ink"/>
+            <rect x="110" y="200" width="300" height="90" fill="var(--alt)" fill-opacity=".25"/>
+            <text x="130" y="180" font-size="13">STORAGE — MOSTLY PRIVATE</text>
+            <text x="130" y="260" class="alttxt" font-size="13">A STRATEGIC PUBLIC SLICE</text>
+            <rect x="480" y="120" width="500" height="170" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="504" y="158" class="alttxt strong" font-size="15">PARLIAMENT WRITES THE PAGES IN ADVANCE:</text>
+            <text x="504" y="192" class="alttxt" font-size="14">WHAT COUNTS AS AN EMERGENCY · WHO OPENS</text>
+            <text x="504" y="222" class="alttxt" font-size="14">IN WHAT ORDER · HOW COUNTRIES COORDINATE</text>
+            <text x="504" y="258" font-size="13">THE WAY OIL MEMBERS HAVE, SINCE 1974</text>
+          </g>
+          <g id="a_bcost" class="b">
+            <rect x="110" y="400" width="1260" height="190" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="438" class="flawtxt" font-size="15">THE PRICE:</text>
+            <text x="134" y="474" font-size="14">1 · AN INSURANCE STOCK BUYS HIGH AND SELLS LOW BY DESIGN — BILLIONS SITTING STILL</text>
+            <text x="134" y="506" font-size="14">2 · A PUBLIC STOCK CROWDS OUT THE PRIVATE ONE — WHY PAY FOR WINTER STORAGE?</text>
+            <text x="134" y="538" class="flawtxt" font-size="14">3 · A WRITTEN TRIGGER IS A MAP FOR SPECULATORS — EVERYONE TRADES AGAINST THE STATE'S NEXT MOVE</text>
+          </g>
+        </g>
+        <!-- B: pay factories -->
+        <g id="a_dm" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">REPAIR TWO · PAY FACTORIES TO POWER DOWN — A RESERVE OF DEMAND, NOT MOLECULES</text>
+          <g id="a_d1" class="b">
+            <rect x="110" y="130" width="220" height="60" class="ink"/>
+            <text x="130" y="168" font-size="13">FERTILIZER</text>
+            <rect x="110" y="205" width="220" height="60" class="ink"/>
+            <text x="130" y="243" font-size="13">GLASS</text>
+            <rect x="110" y="280" width="220" height="60" class="ink"/>
+            <text x="130" y="318" font-size="13">CERAMICS</text>
+            <path class="green" stroke-width="3" d="M 350 235 L 470 235"/>
+            <rect x="470" y="160" width="520" height="150" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="494" y="200" class="alttxt strong" font-size="15">AN OPTION, PRICED IN PEACETIME:</text>
+            <text x="494" y="234" class="alttxt" font-size="14">DECLARED EMERGENCY → WE POWER DOWN BY THIS MUCH,</text>
+            <text x="494" y="264" class="alttxt" font-size="14">FOR THIS COMPENSATION — SWITCHED OFF IN ORDER</text>
+            <text x="494" y="296" font-size="13">ELECTRICITY GRIDS HAVE RUN ON THIS FOR DECADES</text>
+          </g>
+          <g id="a_dcost" class="b">
+            <rect x="110" y="400" width="1260" height="190" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="438" class="flawtxt" font-size="15">THE PRICE:</text>
+            <text x="134" y="474" font-size="14">1 · YOU PAY EVERY YEAR FOR A READINESS YOU ALMOST NEVER USE</text>
+            <text x="134" y="506" font-size="14">2 · THE STATE PICKS WHOSE PRODUCTION IS "INTERRUPTIBLE" — INDUSTRIAL POLICY, BACK DOOR</text>
+            <text x="134" y="538" class="flawtxt" font-size="14">3 · A FACTORY WEARING THE CUT-ME-FIRST BADGE READS RELOCATION BROCHURES</text>
+          </g>
+        </g>
+        <!-- C: one buyer -->
+        <g id="a_ob" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">REPAIR THREE · ONE BUYER, SHARED DOORS — MANDATORY IN A DECLARED CRISIS</text>
+          <g id="a_o1" class="b">
+            <rect x="110" y="140" width="240" height="150" class="ink"/>
+            <text x="134" y="180" class="strong" font-size="14">27 BUYERS,</text>
+            <text x="134" y="208" class="strong" font-size="14">27 BIDS</text>
+            <text x="134" y="240" font-size="13">TODAY'S CRISIS MODE</text>
+            <path class="green" stroke-width="3" d="M 370 215 L 490 215"/>
+            <rect x="490" y="140" width="420" height="150" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="514" y="180" class="alttxt strong" font-size="15">ONE BUYER WHEN DECLARED —</text>
+            <text x="514" y="212" class="alttxt" font-size="14">SHARED PORTS WHERE GAS COMES ASHORE,</text>
+            <text x="514" y="244" class="alttxt" font-size="14">SOLIDARITY WITH AN AUTOMATIC FORMULA:</text>
+            <text x="514" y="274" font-size="13">GAS MOVES FIRST, MONEY FOLLOWS BY RULE</text>
+          </g>
+          <g id="a_ocost" class="b">
+            <rect x="110" y="400" width="1260" height="190" fill="var(--flaw)"/>
+            <text x="134" y="438" class="onplate" font-size="15">THE PRICE:</text>
+            <text x="134" y="474" class="onplate" font-size="14">1 · 27 GOVERNMENTS MUST PRE-COMMIT TO SHARING FUEL IN THE MONTH NOBODY HAS ENOUGH</text>
+            <text x="134" y="506" class="onplate" font-size="14">2 · A SINGLE NEGOTIATOR IS A SINGLE POINT OF FAILURE — AND OF LOBBYING</text>
+            <text x="134" y="538" class="onplate" font-size="14">3 · "MANDATORY IN CRISIS" NEEDS A CRISIS DEFINITION — THE UNWRITTEN OPENING CHAPTER</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Repair selector">
+        <button id="btnR0" class="on">Book</button><button id="btnR1">Demand</button><button id="btnR2">One buyer</button>
+      </div>
+      <div class="figcap">Fig. 5 — three sides of the missing book · switch between them above · every price read out loud</div>
+    </div>
+    <div class="prose">
+      <p><b>Repair one — write the book.</b> A strategic public slice of storage plus the missing pages written in advance: emergency definition, release order, coordination. <i>The price:</i> insurance stock buys high and sells low; public stock crowds out private; a written trigger is a map for speculators.</p>
+      <p><b>Repair two — pay factories to power down.</b> Industry sells the state a peacetime-priced option on its own consumption; demand switches off in order instead of a price shock choosing victims. <i>The price:</i> paying for readiness rarely used; the state picks who is interruptible; the cut-me-first badge reads relocation brochures.</p>
+      <p><b>Repair three — one buyer, shared doors.</b> Joint purchasing that becomes mandatory in a declared crisis, shared ports, solidarity with an automatic compensation formula. <i>The price:</i> solidarity untested by a real shortage; a single point of failure and lobbying; "mandatory in crisis" needs the crisis definition nobody has written.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="61">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · Ask for the rest of the book</div>
+    <h2>Stock ✓. Rules —.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_two" class="b">
+          <rect x="150" y="90" width="420" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="174" y="130" class="strong" font-size="16">THE STOCK</text>
+          <text x="174" y="166" font-size="14">FILLING ON SCHEDULE</text>
+          <text x="174" y="198" font-size="14">THE NUMBER WILL BE MET</text>
+          <text x="174" y="240" class="alttxt" font-size="18">✓ — WORTH SOMETHING</text>
+          <rect x="640" y="90" width="420" height="180" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="664" y="130" class="flawtxt strong" font-size="16">THE RULES</text>
+          <text x="664" y="166" font-size="14">WHO OPENS · ON WHAT SIGNAL</text>
+          <text x="664" y="198" font-size="14">IN WHAT ORDER · WHO OWNS IT</text>
+          <text x="664" y="240" class="flawtxt" font-size="18">— NOT WRITTEN</text>
+        </g>
+        <g id="z_transfer" class="b">
+          <rect x="1120" y="90" width="250" height="180" fill="none" stroke="var(--text)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="1144" y="130" class="strong" font-size="14">WORKS ON ANY STOCKPILE:</text>
+          <text x="1144" y="166" font-size="14">GAS · GRAIN</text>
+          <text x="1144" y="198" font-size="14">MEDICINE · CHIPS</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="380" text-anchor="middle" class="big" font-size="26">DON'T ASK HOW MUCH IS STORED. ASK FOR THE REST OF THE BOOK.</text>
+          <text x="740" y="450" text-anchor="middle" class="flawtxt" font-size="18">"THE MARKET WILL DECIDE, ON THE DAY" — THAT IS A HOPE, WITH A DEADLINE</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Europe's tanks, to be fair, are filling on schedule; the number will be met, as every year — and that is genuinely worth something. But the question that separates a reserve from a number works on any strategic stockpile any government ever shows you — gas, grain, medicine, chips. Don't ask how much is stored. Ask for the rest of the book: who opens it, on what signal, in what order, and who owns what's inside.</p>
+      <p>If the answer is "the market will decide, on the day" — that is not a plan. It is a hope, with a deadline. Europe has fixed how it fills. It has never rehearsed the day it must draw the gas back out. And the last time those pages were missing, the market wrote the bill — at €340 per megawatt-hour.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="60" width="240" height="260" fill="none" stroke="var(--text)" stroke-width="7"/>
+    <rect x="150" y="130" width="240" height="190" fill="var(--fact)" fill-opacity=".3"/>
+    <line x1="150" y1="130" x2="390" y2="130" stroke="var(--flaw)" stroke-width="7"/>
+    <text x="440" y="130" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">a full tank</text>
+    <text x="440" y="200" font-family="IBM Plex Mono" font-size="40" style="fill:var(--flaw)">is not a plan</text>
+    <text x="440" y="290" font-family="IBM Plex Mono" font-size="32" style="fill:var(--text-dim)">who opens it, and when?</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">90%</div>
+  <div class="sub">Europe's whole gas plan: a number and a date</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="80" width="300" height="240" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <line x1="190" y1="140" x2="410" y2="140" stroke="var(--grid)" stroke-width="10"/>
+    <line x1="190" y1="180" x2="410" y2="180" stroke="var(--grid)" stroke-width="10"/>
+    <line x1="190" y1="220" x2="380" y2="220" stroke="var(--grid)" stroke-width="10"/>
+    <line x1="190" y1="260" x2="410" y2="260" stroke="var(--grid)" stroke-width="10"/>
+    <text x="520" y="150" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">oil got a book</text>
+    <rect x="520" y="200" width="280" height="70" fill="none" stroke="var(--flaw)" stroke-width="6"/>
+    <text x="545" y="245" font-family="IBM Plex Mono" font-size="34" style="fill:var(--flaw)">90% · NOV 1</text>
+    <text x="900" y="245" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text-dim)">gas got a line</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">1 page</div>
+  <div class="sub">oil got a book — gas got a page</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+/* solidarity grid: 40 slots, 9 filled */
+(function(){
+  const g=$('p_grid'); const NS='http://www.w3.org/2000/svg';
+  for(let i=0;i<40;i++){
+    const r=document.createElementNS(NS,'rect');
+    const col=i%10, row=Math.floor(i/10);
+    r.setAttribute('x',680+col*66); r.setAttribute('y',110+row*44);
+    r.setAttribute('width',52); r.setAttribute('height',30);
+    if(i<9){ r.setAttribute('fill','var(--alt)'); r.setAttribute('fill-opacity','.8'); }
+    else { r.setAttribute('fill','none'); r.setAttribute('stroke','var(--grid)'); r.setAttribute('stroke-width','2'); }
+    g.appendChild(r);
+  }
+})();
+
+/* ---------- primitives ---------- */
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+/* ---------- scenes ---------- */
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.8); idle(tl,'h_s1',5,9);
+  tl.to($('h_s1'),{opacity:0,duration:.6},15.5);
+  say(tl,'h_s2',16.5,.8);
+  say(tl,'h_s2b',20.5,.7); idle(tl,'h_s2',23,6);
+  tl.to([$('h_s2'),$('h_s2b')],{opacity:0,duration:.6},30.5);
+  say(tl,'h_s3',31.5,.8);
+  say(tl,'h_s3b',35.5,.7); idle(tl,'h_s3',38,8);
+  tl.to([$('h_s3'),$('h_s3b')],{opacity:0,duration:.6},47.5);
+  say(tl,'h_s4',48.5,.8); idle(tl,'h_s4',53,10);
+  tl.to($('h_s4'),{opacity:0,duration:.5},64.5);
+  pop(tl,'h_s5',66.0,.7); shake(tl,'h_s5',67.0,6,8); idlePlate(tl,'h_s5',69,7);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},79.0);
+  if(isAuto)tl.to({},{duration:5.5},79.7); else tl.to($('titleCard'),{opacity:0,duration:.5},83.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_strike',0.5,.8); idle(tl,'e_strike',5,10);
+  say(tl,'e_counters',22.0,.8); idle(tl,'e_counters',27,10);
+  say(tl,'e_backref',48.0,.8); idle(tl,'e_backref',52,8);
+  say(tl,'e_home',64.0,.8);
+  pop(tl,'e_q',72.0,.7); shake(tl,'e_q',73.0,5,6); idlePlate(tl,'e_q',75,12);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'o_origin',0.5,.8); idle(tl,'o_origin',5,10);
+  say(tl,'o_book',20.0,.9); idle(tl,'o_book',26,14);
+  pop(tl,'o_def',52.0,.7); shake(tl,'o_def',53.0,5,6); idlePlate(tl,'o_def',55,10);
+  say(tl,'o_3am',70.0,.8); idle(tl,'o_3am',74,10);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'g_page',0.5,.8); idle(tl,'g_page',4,7);
+  say(tl,'g_bases',14.0,.8); idle(tl,'g_bases',18,8);
+  say(tl,'g_missing',30.0,.9); idle(tl,'g_missing',36,12);
+  say(tl,'g_bill',54.0,.9); shake(tl,'g_bill',55.0,4,6); idle(tl,'g_bill',60,14);
+  pop(tl,'g_plate',82.0,.7); shake(tl,'g_plate',83.0,5,6); idlePlate(tl,'g_plate',85,17);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'p_funnel',0.5,.9); idle(tl,'p_funnel',6,14);
+  say(tl,'p_solid',28.0,.9); idle(tl,'p_solid',34,12);
+  say(tl,'p_amend',52.0,.9); idle(tl,'p_amend',58,14);
+  pop(tl,'p_flip',80.0,.7); shake(tl,'p_flip',81.0,5,6); idlePlate(tl,'p_flip',83,14);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_bk'),{opacity:1},0);
+  say(tl,'a_b1',0.5,.8); idle(tl,'a_b1',6,14);
+  say(tl,'a_bcost',26.0,.7); idle(tl,'a_bcost',31,22);
+  tl.to($('a_bk'),{opacity:0,duration:.7},56.0);
+  tl.fromTo($('a_dm'),{opacity:0},{opacity:1,duration:.7},58.0);
+  say(tl,'a_d1',60.0,.8); idle(tl,'a_d1',67,16);
+  say(tl,'a_dcost',88.0,.7); idle(tl,'a_dcost',93,22);
+  tl.to($('a_dm'),{opacity:0,duration:.7},118.0);
+  tl.fromTo($('a_ob'),{opacity:0},{opacity:1,duration:.7},120.0);
+  say(tl,'a_o1',122.0,.8); idle(tl,'a_o1',129,16);
+  pop(tl,'a_ocost',150.0,.7); shake(tl,'a_ocost',151.0,5,6); idlePlate(tl,'a_ocost',154,26);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_two',0.5,.9); idle(tl,'z_two',6,10);
+  say(tl,'z_transfer',22.0,.8); idle(tl,'z_transfer',26,8);
+  say(tl,'z_q',38.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},42.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+/* repair selector (web mode) */
+const REPAIRS=['a_bk','a_dm','a_ob'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  [0,1,2].forEach(k=>$('btnR'+k).classList.toggle('on',k===i));}
+[0,1,2].forEach(k=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+/* ---------- AUTO ---------- */
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  /* void return on purpose: record.mjs does page.evaluate(()=>window.__play()) */
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+/* ---------- WEB ---------- */
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.4);
+    if(s.id==='s5')tl.timeScale(3.2);
+    if(s.id==='s3'||s.id==='s4')tl.timeScale(2.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  const tip=$('tip');
+  document.querySelectorAll('#svg1 [data-tip], #svg2 [data-tip], #svg3 [data-tip], #svg4 [data-tip]').forEach(g=>{
+    g.style.cursor='pointer';
+    g.addEventListener('mousemove',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;});
+    g.addEventListener('mouseleave',()=>tip.style.opacity=0);
+    g.addEventListener('click',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;
+      setTimeout(()=>tip.style.opacity=0,3500);});
+  });
+
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){if(secs[i].getBoundingClientRect().top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i; player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
