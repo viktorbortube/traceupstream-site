@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Польша заплатит €1,3 млрд за вакцины, которые уничтожит | Дефект конструкции</title>
+<meta name="description" content="Брюссельский суд обязал Польшу купить 64 миллиона доз, которые ей не нужны. Это не история о медицине: это история об одной строчке, которой нет в крупнейшем контракте Европы, — что делать, если завтра окажется лучше прогноза. Три способа, три честных ценника.">
+<link rel="canonical" href="https://traceupstream.com/episodes/028-vaccine-contract-no-shrink/ru/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="Польша заплатит €1,3 млрд за вакцины, которые уничтожит">
+<meta property="og:description" content="Чрезвычайные контракты заморозили прогноз 2021 года в твёрдые объёмы без оговорки о сокращении. Суд принудил к прогнозу — а предохранительным клапаном стал мусоросжигатель.">
+<meta property="og:url" content="https://traceupstream.com/episodes/028-vaccine-contract-no-shrink/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#93889F; /* desaturated lilac — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.028 · RU — 2026-08-04</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Слушать · 15:00</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="90.5">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Дефект конструкции · Дело EP.028</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <!-- state 1: the order -->
+        <g id="h_s1" class="b">
+          <path d="M 330 210 L 420 120 L 460 160 L 370 250 Z" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="5"/>
+          <rect x="330" y="280" width="220" height="26" fill="var(--text)"/>
+          <text x="580" y="200" class="big" font-size="56">64 000 000</text>
+          <text x="545" y="262" font-size="31">ДОЗ — ПО РЕШЕНИЮ СУДА</text>
+        </g>
+        <g id="h_s1b" class="b">
+          <text x="500" y="430" text-anchor="middle" class="strong" font-size="36">ПОЛЬША ПРОСИТ ОТМЕНИТЬ</text>
+          <text x="500" y="495" text-anchor="middle" font-size="32">ПОЧТИ ПО ДВЕ НА ЖИТЕЛЯ</text>
+        </g>
+        <!-- state 2: not about medicine -->
+        <g id="h_s2" class="b">
+          <rect x="250" y="150" width="500" height="130" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <text x="500" y="230" text-anchor="middle" class="strong" font-size="40">НЕ ПРО МЕДИЦИНУ</text>
+          <text x="500" y="420" text-anchor="middle" font-size="33">ЛЕГАЛЬНЫ · ОДОБРЕНЫ</text>
+        </g>
+        <g id="h_s2b" class="b">
+          <text x="500" y="485" text-anchor="middle" class="fact" font-size="33">СПОР — О ДЕНЬГАХ И ОБЪЁМАХ</text>
+        </g>
+        <!-- state 3: the missing line -->
+        <g id="h_s3" class="b">
+          <rect x="240" y="120" width="520" height="240" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <line x1="280" y1="175" x2="720" y2="175" stroke="var(--grid)" stroke-width="9"/>
+          <line x1="280" y1="225" x2="680" y2="225" stroke="var(--grid)" stroke-width="9"/>
+          <line x1="280" y1="275" x2="710" y2="275" stroke="var(--flaw)" stroke-width="9" stroke-dasharray="4 10"/>
+          <line x1="280" y1="325" x2="700" y2="325" stroke="var(--grid)" stroke-width="9"/>
+          <text x="500" y="430" text-anchor="middle" class="flawtxt" font-size="34">ОДНУ СТРОЧКУ НЕ НАПИСАЛИ:</text>
+          <text x="500" y="495" text-anchor="middle" class="strong" font-size="33">ЧТО ЕСЛИ ЗАВТРА ЛУЧШЕ ПРОГНОЗА?</text>
+        </g>
+        <!-- state 4: landfills -->
+        <g id="h_s4" class="b">
+          <text x="500" y="230" text-anchor="middle" class="big" font-size="76">€4 000 000 000</text>
+          <text x="500" y="320" text-anchor="middle" font-size="34">ВАКЦИН — НА СВАЛКАХ ЕВРОПЫ</text>
+        </g>
+        <g id="h_s4b" class="b">
+          <text x="500" y="390" text-anchor="middle" font-size="31">К КОНЦУ 2023-ГО, ПО ОЦЕНКАМ</text>
+        </g>
+        <!-- state 5: thesis -->
+        <g id="h_s5" class="b">
+          <rect x="60" y="180" width="880" height="220" fill="var(--flaw)"/>
+          <text x="100" y="275" class="onplate" font-size="46">ПРОГНОЗ,</text>
+          <text x="100" y="350" class="onplate" font-size="46">С ПОДПИСЬЮ ПОД НИМ</text>
+        </g>
+      </svg>
+      <div class="chapter" id="titleCard"><div class="in">
+        <div class="n">ДЕФЕКТ КОНСТРУКЦИИ</div>
+        <div class="t">Контракт без оговорки<br>о сокращении</div>
+        <div class="bar"></div>
+      </div></div>
+    </div>
+    <div class="prose">
+      <p>На этой неделе Польша попросила суд отменить весенний приказ: купить 64 миллиона доз вакцины, которая ей не нужна, — почти по две на жителя, поверх уже уничтоженных миллионов. Это не выпуск о вакцинах: дозы легальны и одобрены, и ничто здесь не ставит их под сомнение как лекарство. Спор — о деньгах и объёмах.</p>
+      <p>Это выпуск о контракте — одном из крупнейших в истории Европы — и о строчке, которую в него не вписали: что делать, если завтра окажется лучше прогноза. К концу 2023-го на свалки Европы ушло вакцин примерно на €4 млрд. Эта страница — полный чертёж того, как это происходит.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 THE EVENT ================= -->
+<section class="ep" id="s1" data-duration="126.2">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">Событие</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Событие · Брюссель, апрель — и этот понедельник</div>
+    <h2>Контракту всё равно. Обязательства связывают.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 580" id="svg1">
+        <!-- ruling card -->
+        <g id="e_rule" class="b" data-tip="April 1, 2026: Brussels court of first instance — take ~64M doses, pay ~€1.3B + interest and costs. Romania, sued alongside: ~€0.6B. Pfizer filed late 2023. Poland appealed Aug 3 and asked to suspend enforcement.">
+          <rect x="110" y="90" width="430" height="170" class="nodebox"/>
+          <text x="134" y="128" class="fact strong" font-size="15">1 АПРЕЛЯ · ПЕРВАЯ ИНСТАНЦИЯ, БРЮССЕЛЬ</text>
+          <text x="134" y="160" font-size="14">ПРИНЯТЬ ~64 000 000 ДОЗ</text>
+          <text x="134" y="188" font-size="14">ЗАПЛАТИТЬ ~€1,3 МЛРД · РУМЫНИЯ: €0,6</text>
+          <text x="134" y="222" class="flawtxt" font-size="13">3 АВГУСТА — АПЕЛЛЯЦИЯ · НЕ ПОСЛЕДНЕЕ СЛОВО</text>
+        </g>
+        <!-- why Brussels -->
+        <g id="e_why" class="b" data-tip="The contract was negotiated by the European Commission on behalf of all member states and is governed by Belgian law — so the dispute sits in a Belgian courtroom.">
+          <rect x="600" y="90" width="360" height="170" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="624" y="128" class="strong" font-size="15">ПОЧЕМУ БРЮССЕЛЬ?</text>
+          <text x="624" y="160" font-size="14">КОМИССИЯ ПОДПИСАЛА ЗА ВСЕХ —</text>
+          <text x="624" y="188" font-size="14">ПРАВО — БЕЛЬГИЙСКОЕ</text>
+          <text x="624" y="222" class="fact" font-size="14">ОДНА ПОДПИСЬ — 27 СВЯЗАННЫХ СТРАН</text>
+        </g>
+        <!-- refusal -->
+        <g id="e_refusal" class="b" data-tip="April 2022: Poland stops accepting deliveries — pandemic changed, refugee-crisis costs, and an accusation that pricing abused Pfizer's dominant market position. The court: obligations bind.">
+          <rect x="1020" y="90" width="350" height="170" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1044" y="128" class="flawtxt strong" font-size="15">АПРЕЛЬ 2022 · ПОЛЬША ОСТАНАВЛИВАЕТСЯ</text>
+          <text x="1044" y="160" font-size="13">ПАНДЕМИЯ СПАЛА · РАСХОДЫ НА БЕЖЕНЦЕВ</text>
+          <text x="1044" y="188" font-size="13">ОБВИНЕНИЕ В МОНОПОЛЬНОЙ ЦЕНЕ</text>
+          <text x="1044" y="222" class="strong" font-size="13">СУД: КОНТРАКТУ ВСЁ РАВНО</text>
+        </g>
+        <!-- disposal counters -->
+        <g id="e_disposal" class="b">
+          <rect x="110" y="330" width="620" height="100" fill="var(--flaw)"/>
+          <text x="134" y="372" class="onplate" font-size="17">ЗА ОДИН 2022-Й: 14 800 000 ДОЗ УНИЧТОЖЕНО</text>
+          <text x="134" y="408" class="onplate" font-size="16">КАЖДАЯ ДЕВЯТАЯ ИЗ ПОСТАВЛЕННЫХ</text>
+        </g>
+        <!-- pfizer quote -->
+        <g id="e_quote" class="b" data-tip="Pfizer: the ruling reflects the importance of the commitments that underpinned Europe's pandemic response; the company says it showed significant flexibility before going to court.">
+          <rect x="790" y="330" width="580" height="100" fill="none" stroke="var(--text)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="814" y="368" class="strong" font-size="14">PFIZER: ОБЯЗАТЕЛЬСТВА — ОСНОВА ОТВЕТА НА ПАНДЕМИЮ;</text>
+          <text x="814" y="400" font-size="14">«ЗНАЧИТЕЛЬНАЯ ГИБКОСТЬ» ДО СУДА</text>
+        </g>
+        <g id="e_now" class="b">
+          <text x="110" y="520" class="fact" font-size="14">НА ЧАС ЗАПИСИ · БЕЗ ПРОГНОЗОВ ПО АПЕЛЛЯЦИИ</text>
+        </g>
+      </svg>
+      <div class="figcap">Рис. 1 — наведите на карточки · источники: Reuters, Notes from Poland, TVP World, Комиссия</div>
+    </div>
+    <div class="prose">
+      <p>1 апреля брюссельский суд первой инстанции — первое решение, не последнее слово — постановил: Польша обязана исполнить контракт целиком — принять ~64 млн доз, заплатить ~€1,3 млрд плюс проценты и издержки. Румыния, судившаяся рядом, должна ~€600 млн. Pfizer подала иск в конце 2023-го; в этот понедельник Польша подала апелляцию и попросила приостановить исполнение. Мы не прогнозируем исход.</p>
+      <p>Почему Брюссель? Контракт вела Еврокомиссия от имени всех стран, право — бельгийское: одна подпись, двадцать семь связанных стран. Польша перестала принимать поставки в апреле 2022-го — пандемия спала, расходы на беженцев, обвинение в монопольной цене. Ответ суда, по сути: обязательства связывают. Тем временем физическая бухгалтерия: за один 2022-й Польша уничтожила 14,8 млн просроченных доз — каждую девятую из поставленных; остаток утилизирован в 2024-м.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 THE CONTRACT MACHINE ================= -->
+<section class="ep" id="s2" data-duration="115.5">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">Машина контракта</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Как это построили · 2020–2021</div>
+    <h2>Прогноз, с подписью под ним.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg2">
+        <!-- one buyer -->
+        <g id="m_buyer" class="b" data-tip="2020: the EU buys as one customer. The Commission negotiates advance purchase agreements — pooled bargaining power, guaranteed demand for products that didn't exist yet.">
+          <g id="m_flags"></g>
+          <path class="blue" stroke-width="3" d="M 300 200 L 420 200"/>
+          <rect x="420" y="150" width="260" height="100" class="nodebox"/>
+          <text x="444" y="192" class="fact strong" font-size="15">ОДИН ПОКУПАТЕЛЬ:</text>
+          <text x="444" y="222" font-size="13">КОМИССИЯ ПОДПИСЫВАЕТ ЗА 27</text>
+        </g>
+        <!-- mega contract -->
+        <g id="m_mega" class="b" data-tip="May 20, 2021 — the third and largest contract: 900M doses firm + 900M option, through 2023 (later stretched to 2026). Poland's slice: the 64 million from the opening.">
+          <rect x="760" y="110" width="610" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="784" y="150" class="strong" font-size="15">МАЙ 2021 · МЕГАКОНТРАКТ</text>
+          <text x="784" y="186" class="big" font-size="26">900 МЛН ТВЁРДО + 900 ОПЦИОН</text>
+          <text x="784" y="222" font-size="13">ПИСАЛИ НА ПИКЕ НЕИЗВЕСТНОСТИ — ВАРИАНТЫ, БУСТЕРЫ КАЖДЫЙ ГОД?</text>
+          <text x="784" y="254" class="fact" font-size="13">ПОЛЬСКАЯ ДОЛЯ — ТЕ САМЫЕ 64 000 000</text>
+        </g>
+        <!-- risk split -->
+        <g id="m_risk" class="b">
+          <rect x="110" y="330" width="580" height="120 " fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="368" class="strong" font-size="15">ДЕЛЁЖ РИСКА:</text>
+          <text x="134" y="400" font-size="14">СРЫВ ПОСТАВКИ → ШТРАФЫ — НА КОМПАНИИ</text>
+          <text x="134" y="430" class="flawtxt" font-size="14">ПАДЕНИЕ СПРОСА → УБЫТОК — ЦЕЛИКОМ НА ГОСУДАРСТВАХ</text>
+        </g>
+        <!-- missing line -->
+        <g id="m_missing" class="b">
+          <rect x="760" y="330" width="610" height="120" fill="var(--flaw)"/>
+          <text x="784" y="372" class="onplate" font-size="16">В ТЕКСТЕ НЕТ: ОГОВОРКИ О СОКРАЩЕНИИ</text>
+          <text x="784" y="406" class="onplate" font-size="15">ПЕРЕПРОДАЖА / ДАРЕНИЕ — ТОЛЬКО С СОГЛАСИЯ ПРОИЗВОДИТЕЛЯ</text>
+        </g>
+        <g id="m_note" class="b">
+          <text x="110" y="530" font-size="14">ОДИН ПОКУПАТЕЛЬ БЬЁТ ЦЕНОВУЮ ВОЙНУ — ОБРАТНАЯ КОНСТРУКЦИЯ ПРОВАЛИЛАСЬ НА ГАЗЕ (EP.027)</text>
+        </g>
+      </svg>
+      <div class="figcap">Рис. 2 — одно перо на 27 флагов и строчка, которую не написали · наведите на карточки</div>
+    </div>
+    <div class="prose">
+      <p>В 2020-м Европа решила покупать вакцины как один покупатель вместо двадцати семи конкурирующих. Комиссия вела договоры предварительной закупки: объединённая переговорная сила для стран, гарантированный спрос для производителей. Для дефицитного товара на паническом рынке один большой покупатель бьёт ценовую войну — обратную конструкцию мы видели проваленной на газе.</p>
+      <p>Крупнейшая сделка — май 2021-го: 900 млн доз твёрдо, опцион ещё на 900. Писали на пике неопределённости — новые варианты, возможные ежегодные бустеры. Польская доля — те самые 64 млн из начала. Делёж риска: срыв поставки — на компании (штрафы), падение спроса — целиком на государствах. И двух вещей в тексте нет: механизма уменьшить объёмы — оговорки о сокращении — и свободного права перепродать или подарить излишек. Прогноз, с подписью под ним.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 THE DEFECT ================= -->
+<section class="ep" id="s3" data-duration="126">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Дефект</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Дефект · Прогнозы стареют. Контракты — нет.</div>
+    <h2>Единственный сработавший выход — мусоросжигатель.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg3">
+        <!-- curves peel -->
+        <g id="d_curves" class="b">
+          <path class="hair" d="M 110 260 L 640 260"/>
+          <path class="blue" stroke-width="3.5" d="M 110 220 C 250 180, 400 165, 640 160"/>
+          <path d="M 110 220 C 250 210, 380 280, 640 340" stroke="var(--flaw)" stroke-width="3.5" fill="none"/>
+          <text x="360" y="140" class="fact" font-size="13">ГРАФИК 2021-ГО — ПРОДОЛЖАЕТ ПРИХОДИТЬ</text>
+          <text x="330" y="390" class="flawtxt" font-size="13">РЕАЛЬНЫЙ СПРОС — РУШИТСЯ В 2022-М</text>
+        </g>
+        <!-- amendment card -->
+        <g id="d_amend" class="b" data-tip="2023: the Commission and Pfizer amend the deal — remaining volume cut ~⅓ per reporting, deliveries pushed out, a fee per cancelled dose. A shrink clause, written two years late, priced under pressure.">
+          <rect x="760" y="100" width="610" height="160" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="784" y="140" class="alttxt strong" font-size="15">2023 · ПОПРАВКА</text>
+          <text x="784" y="174" font-size="14">ОСТАТОК СРЕЗАН НА ~⅓ · ПЛАТА ЗА ОТМЕНЁННУЮ ДОЗУ</text>
+          <text x="784" y="206" font-size="14">ПОСТАВКИ РАСТЯНУТЫ ЕЩЁ НА ТРИ ГОДА</text>
+          <text x="784" y="240" class="flawtxt" font-size="13">ОГОВОРКА О СОКРАЩЕНИИ — НА ДВА ГОДА ПОЗЖЕ, КАК МИЛОСТЬ</text>
+        </g>
+        <!-- the fork -->
+        <g id="d_fork" class="b" data-tip="The amendment was an offer, not a right. Most states signed; Poland did not and stayed on the original text. Pfizer sued Poland — and Romania, over its own undelivered doses.">
+          <rect x="110" y="440" width="360 " height="60" fill="none" stroke="var(--alt)" stroke-width="2.5"/>
+          <text x="134" y="478" class="alttxt" font-size="14">БОЛЬШИНСТВО СТРАН: ПОДПИСАЛИ</text>
+          <rect x="510" y="440" width="420" height="60" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="534" y="478" class="flawtxt" font-size="14">ПОЛЬША: НЕТ → ИСХОДНЫЙ ТЕКСТ → СУД</text>
+        </g>
+        <!-- exits -->
+        <g id="d_exits" class="b">
+          <text x="110" y="330" class="strong" font-size="15">ПРОЙДИТЕСЬ ПО ВЫХОДАМ:</text>
+          <text x="110" y="366" font-size="14">УМЕНЬШИТЬ — НЕТ В ТЕКСТЕ · ПЕРЕПРОДАТЬ — ЗАПЕРТО · ПЕРЕСМОТРЕТЬ — МИЛОСТЬ</text>
+        </g>
+        <g id="d_plate" class="b">
+          <rect x="990" y="420" width="380" height="100" fill="var(--flaw)"/>
+          <text x="1014" y="462" class="onplate" font-size="16">ЕДИНСТВЕННЫЙ ВЫХОД:</text>
+          <text x="1014" y="496" class="onplate" font-size="16">СРОК ГОДНОСТИ И УТИЛИЗАЦИЯ</text>
+        </g>
+        <g id="d_counters" class="b">
+          <text x="110" y="560" class="flawtxt" font-size="14">КАЖДАЯ ДЕВЯТАЯ ДОЗА (ПОЛЬША, 2022) · €4 МЛРД НА СВАЛКАХ (ЕВРОПА, К КОНЦУ 2023)</text>
+        </g>
+      </svg>
+      <div class="figcap">Рис. 3 — кривые расходятся; все выходы, кроме одного, заперты · наведите на карточки</div>
+    </div>
+    <div class="prose">
+      <p>К 2022-му спрос рухнул, а поставки шли по графику 2021-го. Польша просто перестала их принимать. Пересмотр случился — поправка 2023 года: остаток срезан примерно на треть, поставки растянуты, плата за отменённую дозу. Это и есть оговорка о сокращении — написанная на два года позже, как предложение, а не право. Большинство подписало; Польша — нет, и осталась связана исходным текстом. Pfizer подала в суд на Польшу — и на Румынию, по её собственным дозам. Суд сделал единственное, что суды делают с ясным текстом: прочёл вслух и принудил.</p>
+      <p>Пройдитесь по выходам. Уменьшить — нет в тексте. Свободно перепродать — заперто. Пересмотреть — милость. Остаётся выход, который не запереть никаким контрактом: срок годности и утилизация. Каждая девятая доза Польши 2022 года кончила уничтожением; на €4 млрд вакцин легло на свалки Европы. Мусоросжигатель стал предохранительным клапаном системы.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 THE PRICE OF SPEED ================= -->
+<section class="ep" id="s4" data-duration="113.4">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Цена скорости</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Честность · Что купили твёрдые объёмы</div>
+    <h2>Пустая ветка по умолчанию: платите целиком.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 580" id="svg4">
+        <!-- balance -->
+        <g id="f_balance" class="b">
+          <line x1="340" y1="130" x2="340" y2="170" class="ink" stroke-width="4"/>
+          <line x1="180" y1="180" x2="500" y2="160" class="ink" stroke-width="4"/>
+          <rect x="130" y="190" width="180" height="70" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5"/>
+          <text x="150" y="222" class="alttxt" font-size="13">КУПЛЕНО:</text>
+          <text x="150" y="246" font-size="12">ПРИОРИТЕТ · ЗАВОДЫ</text>
+          <rect x="420" y="150" width="200" height="70" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="440" y="182" class="flawtxt" font-size="13">ПРОДАНО МОЛЧА:</text>
+          <text x="440" y="206" font-size="12">ВЕСЬ РИСК СПРОСА</text>
+        </g>
+        <!-- redacted doc -->
+        <g id="f_redacted" class="b" data-tip="The contracts were confidential: lawmakers who asked to see them got redacted copies — prices blacked out. No public document stated what an early end to the pandemic would still cost.">
+          <rect x="760" y="100" width="300" height="200" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <line x1="790" y1="145" x2="1030" y2="145" stroke="var(--grid)" stroke-width="9"/>
+          <rect x="790" y="170" width="180" height="14" fill="var(--text)"/>
+          <line x1="790" y1="215" x2="1010" y2="215" stroke="var(--grid)" stroke-width="9"/>
+          <rect x="790" y="240" width="220" height="14" fill="var(--text)"/>
+          <text x="760" y="340" font-size="13">ДЕПУТАТАМ — КОПИИ С КУПЮРАМИ,</text>
+          <text x="760" y="366" font-size="13">ЦЕНЫ ЗАЧЁРНЕНЫ</text>
+        </g>
+        <!-- EU FAB -->
+        <g id="f_fab" class="b" data-tip="Since 2023, EU FAB pays four manufacturers to keep 'ever-warm' capacity: 325M doses/year reserved, activated only in an emergency. Capacity bought; volumes optional — the corrected design, for the next crisis.">
+          <rect x="1120" y="100" width="250" height="200" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="1144" y="140" class="alttxt strong" font-size="15">EU FAB · С 2023</text>
+          <text x="1144" y="174" font-size="13">325 МЛН ДОЗ / ГОД</text>
+          <text x="1144" y="200" font-size="13">ТЁПЛЫХ МОЩНОСТЕЙ</text>
+          <text x="1144" y="234" class="alttxt" font-size="13">МОЩНОСТЬ КУПЛЕНА,</text>
+          <text x="1144" y="260" class="alttxt" font-size="13">ОБЪЁМЫ — ПО ЖЕЛАНИЮ</text>
+        </g>
+        <g id="f_plate" class="b">
+          <rect x="110" y="430" width="1260" height="90" fill="var(--flaw)"/>
+          <text x="134" y="468" class="onplate" font-size="16">ВЕТКУ ХОРОШИХ НОВОСТЕЙ ОСТАВИЛИ ПУСТОЙ —</text>
+          <text x="134" y="502" class="onplate" font-size="16">А ПУСТОЙ ТЕКСТ ПО УМОЛЧАНИЮ: ПЛАТИТЕ ЦЕЛИКОМ</text>
+        </g>
+      </svg>
+      <div class="figcap">Рис. 4 — сделка была защитима; дефект — в молчании · наведите на карточки</div>
+    </div>
+    <div class="prose">
+      <p>Будем честны к тем, кто строил это в 2021-м. Твёрдые объёмы купили скорость и приоритет на самом дефицитном рынке Земли; производители строили заводы под гарантии; компания несла настоящий риск поставки — и поставила. Платить за определённость было защитимой сделкой — возможно, правильной.</p>
+      <p>Дефект ýже: ветку хороших новостей никто не оценил вслух. Контракты были конфиденциальны — депутаты получали копии с зачёрнутыми ценами, — и ни один публичный документ не называл, сколько будет стоить ранний конец пандемии. Ни планового пересмотра, ни формулы, ни арбитра. И сильнейшее доказательство, что это дефект, а не судьба: Европа уже построила исправленную версию — EU FAB с 2023-го платит четырём производителям за 325 млн доз в год «тёплых» мощностей, включаемых только в чрезвычайной ситуации. Следующий кризис застрахован новой конструкцией. Прошлый разбирается по старой.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THREE REPAIRS ================= -->
+<section class="ep" id="s5" data-duration="192.6">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Недостающая строчка</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · Три способа её написать</div>
+    <h2>Опционы, коридор объёмов или плата за завод.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg5">
+        <!-- A: options -->
+        <g id="a_op" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">СПОСОБ ПЕРВЫЙ · ОПЦИОНЫ — ПРОГНОЗ СТАНОВИТСЯ МЕНЮ</text>
+          <g id="a_o1" class="b">
+            <rect x="110" y="130" width="200" height="60" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="167" class="alttxt" font-size="14">ПАРТИЯ 1 — ВЗЯТА</text>
+            <rect x="340" y="130" width="200" height="60" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="364" y="167" class="alttxt" font-size="14">ПАРТИЯ 2 — ВЗЯТА</text>
+            <rect x="570" y="130" width="200" height="60" fill="none" stroke="var(--grid)" stroke-width="2.5"/>
+            <text x="594" y="167" font-size="14">ПАРТИЯ 3 — ПРОПУЩЕНА</text>
+            <text x="830" y="150" class="strong" font-size="15">ПРЕМИЯ ПОКУПАЕТ ПРАВО;</text>
+            <text x="830" y="180" class="strong" font-size="15">СПРОС ПОДТВЕРЖДАЕТ ПАРТИЮ</text>
+          </g>
+          <g id="a_ocost" class="b">
+            <rect x="110" y="400" width="1260" height="190" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="438" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="474" font-size="14">1 · ПРЕМИИ ДЕЛАЮТ КАЖДУЮ ДОЗУ ДОРОЖЕ — СТРАХОВКА ВСЕГДА ТАК</text>
+            <text x="134" y="506" font-size="14">2 · В ДАВКЕ ТВЁРДЫЕ ПОКУПАТЕЛИ ВАЖНЕЕ ДЕРЖАТЕЛЕЙ ОПЦИОНОВ — СКОРОСТЬ РАЗМЕНЯНА</text>
+            <text x="134" y="538" class="flawtxt" font-size="14">3 · ПРОИЗВОДИТЕЛЮ НУЖЕН КАПИТАЛ ВПЕРЁД — ЗАВОД ВСЁ РАВНО КТО-ТО ФИНАНСИРУЕТ</text>
+          </g>
+        </g>
+        <!-- B: corridor -->
+        <g id="a_cr" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">СПОСОБ ВТОРОЙ · КОРИДОР ОБЪЁМОВ — ОГОВОРКА ЧИСЛАМИ С ПЕРВОГО ДНЯ</text>
+          <g id="a_c1" class="b">
+            <path class="hair" d="M 110 260 L 900 260"/>
+            <path class="green" stroke-width="3" d="M 110 160 L 900 160"/>
+            <path class="green" stroke-width="3" d="M 110 300 L 900 300"/>
+            <text x="920" y="166" class="alttxt" font-size="13">МАКС — ПО КОНТРАКТУ</text>
+            <text x="920" y="306" class="alttxt" font-size="13">МИН — ГАРАНТИРОВАН</text>
+            <text x="360" y="230" class="strong" font-size="15">ОТКАЗ ВНУТРИ КОРИДОРА →</text>
+            <text x="360" y="260 " class="strong" font-size="15">ЗАРАНЕЕ СОГЛАСОВАННЫЙ СБОР, ПО ФОРМУЛЕ</text>
+            <text x="110" y="360" font-size="13">БЕЗ САММИТА · БЕЗ ИСКА — ИМПРОВИЗАЦИЯ 2023-ГО, ЗАПИСАННАЯ КАК ПРАВО</text>
+          </g>
+          <g id="a_ccost" class="b">
+            <rect x="110" y="400" width="1260" height="190" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="438" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="474" font-size="14">1 · ПРОИЗВОДИТЕЛЬ ЗАШИВАЕТ РИСК КОРИДОРА В ЦЕНУ КАЖДОЙ ДОЗЫ</text>
+            <text x="134" y="506" font-size="14">2 · СПОРЫ ПЕРЕЕЗЖАЮТ В ДАННЫЕ ФОРМУЛЫ — ЧТО СЧИТАЕТСЯ «СПРОС УПАЛ»?</text>
+            <text x="134" y="538" class="flawtxt" font-size="14">3 · ФОРМУЛЫ ПИШУТСЯ В ТЕ ЖЕ ПАНИЧЕСКИЕ НЕДЕЛИ — СЛОЖНОСТЬ ЕСТ ДНИ</text>
+          </g>
+        </g>
+        <!-- C: factory -->
+        <g id="a_fb" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">СПОСОБ ТРЕТИЙ · ПЛАТА ЗА ЗАВОД — EU FAB ИЗ ПИЛОТА В ХРЕБЕТ</text>
+          <g id="a_f1" class="b">
+            <rect x="110" y="130" width="260" height="170" class="ink"/>
+            <rect x="140" y="160" width="200" height="22" fill="var(--alt)" fill-opacity=".5"/>
+            <rect x="140" y="196" width="200" height="22" fill="var(--alt)" fill-opacity=".5"/>
+            <rect x="140" y="232" width="200" height="22" fill="var(--alt)" fill-opacity=".5"/>
+            <text x="120" y="336" font-size="13">ВСЕГДА-ТЁПЛЫЕ ЛИНИИ · ПЛАТЁЖ ИДЁТ</text>
+            <path class="green" stroke-width="3" d="M 390 215 L 510 215"/>
+            <rect x="510" y="150" width="470" height="130" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="534" y="190" class="alttxt strong" font-size="15">КРИЗИС → ЗАКАЗ ДОЗ ПО СОГЛАСОВАННЫМ ЦЕНАМ</text>
+            <text x="534" y="222" class="alttxt" font-size="14">НЕТ КРИЗИСА → НЕ ЗАКАЗЫВАЕШЬ НИЧЕГО</text>
+            <text x="534" y="256" font-size="13">МОЩНОСТЬ КУПЛЕНА; ОБЪЁМЫ — ПО ЖЕЛАНИЮ</text>
+          </g>
+          <g id="a_fcost" class="b">
+            <rect x="110" y="400" width="1260" height="190" fill="var(--flaw)"/>
+            <text x="134" y="438" class="onplate" font-size="15">ЦЕНА:</text>
+            <text x="134" y="474" class="onplate" font-size="14">1 · ПРОСТАИВАЮЩИЕ ЛИНИИ, ОПЛАЧЕННЫЕ ГОДАМИ — «ПЛАТИМ ФАРМЕ НИ ЗА ЧТО»</text>
+            <text x="134" y="506" class="onplate" font-size="14">2 · МОЩНОСТЬ — НЕ ДОЗЫ: РАЗГОН ЗАНИМАЕТ МЕСЯЦЫ</text>
+            <text x="134" y="538" class="onplate" font-size="14">3 · 325 МЛН/ГОД — ДОЛЯ ПАНДЕМИЙНОГО СПРОСА: МАСШТАБ МНОЖИТ СЧЁТ</text>
+          </g>
+        </g>
+      </svg>
+      <div class="toggle" role="group" aria-label="Repair selector">
+        <button id="btnR0" class="on">Опционы</button><button id="btnR1">Коридор</button><button id="btnR2">Завод</button>
+      </div>
+      <div class="figcap">Рис. 5 — три способа написать строчку · переключайте выше · каждая цена вслух</div>
+    </div>
+    <div class="prose">
+      <p><b>Опционы.</b> Премия покупает право на дозы партия за партией; спрос подтверждает каждую. <i>Цена:</i> каждая доза дороже; в давке твёрдые покупатели важнее; завод всё равно кто-то финансирует.</p>
+      <p><b>Коридор объёмов.</b> Мин–макс со ступенчатыми сборами — импровизация 2023-го, записанная как право с первого дня. <i>Цена:</i> риск зашит в цену каждой дозы; споры переезжают в формулу; сложность ест дни, когда они дефицитны.</p>
+      <p><b>Плата за завод.</b> EU FAB в масштабе: платежи держат линии тёплыми, дозы заказываются только в кризис. <i>Цена:</i> простаивающие линии годами; мощность — не дозы; масштаб множит счёт. Нынешняя конструкция тоже платит: €1,9 млрд по двум странам, плюс свалки — и счёт растёт.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="88.4">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Финал · Спросите про ветку хороших новостей</div>
+    <h2>Чрезвычайность оправдывает спешку. Не пустую страницу.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_journey" class="b">
+          <rect x="150" y="110" width="240" height="90" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="174" y="148" class="strong" font-size="15">ЗАВОД</text>
+          <text x="174" y="178" font-size="12">ЗАКОННО ✓</text>
+          <path class="ink" d="M 390 155 L 470 155" stroke-width="3"/>
+          <rect x="470" y="110" width="240" height="90" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="494" y="148" class="strong" font-size="15">СКЛАД</text>
+          <text x="494" y="178" font-size="12">ЗАКОННО ✓</text>
+          <path class="ink" d="M 710 155 L 790 155" stroke-width="3"/>
+          <rect x="790" y="110" width="292" height="90" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="814" y="148" class="flawtxt strong" font-size="15">УТИЛИЗАЦИЯ</text>
+          <text x="814" y="178" font-size="12">ЗАКОННО ✓ · ПО ТЕКСТУ</text>
+        </g>
+        <g id="z_author" class="b">
+          <rect x="1090" y="110" width="280" height="90" fill="none" stroke="var(--text)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="1114" y="146" class="strong" font-size="14">КТО НАПИСАЛ СЧЁТ?</text>
+          <text x="1114" y="176" font-size="13">НЕ ВИРУС · НЕ СУД</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="330" text-anchor="middle" class="big" font-size="26">СПРОСИТЕ: ЧТО БУДЕТ, ЕСЛИ ВСЁ ПОЙДЁТ ХОРОШО?</text>
+          <text x="740" y="400" text-anchor="middle" font-size="18">КТО ДЕРЖИТ ПЕРО НАД ЭТОЙ ВЕТКОЙ — И СКОЛЬКО СТОИТ ИМ ВОСПОЛЬЗОВАТЬСЯ?</text>
+          <text x="740" y="465" text-anchor="middle" class="flawtxt" font-size="17">ВАКЦИНЫ · ГАЗ · ЗЕРНО · ЧИПЫ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Если решение устоит, 64 миллиона доз будут произведены, оплачены, сложены на склад — и, по всей вероятности, уничтожены. Каждый шаг законен, каждый следует тексту. Что бы вы ни думали о пандемийных решениях, заметьте, кто написал этот счёт: не вирус и не суд. Он был вписан в заказ 2021 года — в ветку, которую никто не заполнил.</p>
+      <p>Переносимый вопрос для любого чрезвычайного контракта любого правительства: не спрашивайте только «что если всё пойдёт плохо». Спросите, что будет, если всё пойдёт хорошо, — кто держит перо над этой веткой и сколько стоит им воспользоваться. Если ответ — «договоримся, когда дойдём», вспомните Польшу: пересмотр оказался милостью, отказ — иском, а клапаном — мусоросжигатель. Чрезвычайная ситуация оправдывает спешку. Пустую страницу она не оправдывает.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-body);font-weight:700;font-size:22px">ДЕФЕКТ КОНСТРУКЦИИ</div>
+      <p>Не кто виноват — как устроено. Полный интерактивный чертёж живёт на этой странице. <a href="../" style="color:var(--fact)">In English →</a></p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Подписаться</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <path d="M 200 240 L 300 140 L 350 190 L 250 290 Z" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <rect x="200 " y="320" width="230" height="24" fill="var(--text)"/>
+    <text x="480" y="140" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">суд приказал купить</text>
+    <text x="480" y="210" font-family="IBM Plex Mono" font-size="40" style="fill:var(--flaw)">никому не нужные дозы</text>
+    <text x="480" y="295" font-family="IBM Plex Mono" font-size="32" style="fill:var(--text-dim)">путь — на утилизацию</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">64 млн доз</div>
+  <div class="sub">контракт без оговорки о сокращении</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="60" width="620" height="270" fill="none" stroke="var(--text)" stroke-width="7"/>
+    <line x1="200" y1="130" x2="720" y2="130" stroke="var(--grid)" stroke-width="12"/>
+    <line x1="200" y1="190" x2="680" y2="190" stroke="var(--grid)" stroke-width="12"/>
+    <line x1="200" y1="250" x2="700" y2="250" stroke="var(--flaw)" stroke-width="12" stroke-dasharray="8 16"/>
+    <text x="830" y="160" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">одну строчку</text>
+    <text x="830" y="230" font-family="IBM Plex Mono" font-size="38" style="fill:var(--flaw)">не написали</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">€1,3 млрд</div>
+  <div class="sub">за вакцины на пути к утилизации</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+/* 27 flags grid */
+(function(){
+  const g=$('m_flags'); const NS='http://www.w3.org/2000/svg';
+  for(let i=0;i<27;i++){
+    const r=document.createElementNS(NS,'rect');
+    const col=i%3, row=Math.floor(i/3);
+    r.setAttribute('x',110+col*60); r.setAttribute('y',110+row*22);
+    r.setAttribute('width',44); r.setAttribute('height',14);
+    r.setAttribute('fill','var(--fact)'); r.setAttribute('fill-opacity','.35');
+    g.appendChild(r);
+  }
+})();
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.8);
+  say(tl,'h_s1b',4.5,.7); idle(tl,'h_s1',7,8);
+  tl.to([$('h_s1'),$('h_s1b')],{opacity:0,duration:.6},16.5);
+  say(tl,'h_s2',17.5,.8);
+  say(tl,'h_s2b',21.0,.6); idle(tl,'h_s2',24,7);
+  tl.to([$('h_s2'),$('h_s2b')],{opacity:0,duration:.6},32.5);
+  say(tl,'h_s3',33.5,.8); idle(tl,'h_s3',38,11);
+  tl.to($('h_s3'),{opacity:0,duration:.6},50.5);
+  say(tl,'h_s4',51.5,.8);
+  say(tl,'h_s4b',55.0,.6); idle(tl,'h_s4',58,8);
+  tl.to([$('h_s4'),$('h_s4b')],{opacity:0,duration:.5},67.0);
+  pop(tl,'h_s5',68.5,.7); shake(tl,'h_s5',69.5,6,8); idlePlate(tl,'h_s5',71,7);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},81.0);
+  if(isAuto)tl.to({},{duration:5.5},81.7); else tl.to($('titleCard'),{opacity:0,duration:.5},85.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_rule',0.5,.8); idle(tl,'e_rule',5,10);
+  say(tl,'e_why',24.0,.8); idle(tl,'e_why',28,8);
+  say(tl,'e_refusal',42.0,.8); idle(tl,'e_refusal',46,10);
+  pop(tl,'e_disposal',62.0,.7); shake(tl,'e_disposal',63.0,5,6); idlePlate(tl,'e_disposal',65,8);
+  say(tl,'e_quote',76.0,.8); idle(tl,'e_quote',79,7);
+  say(tl,'e_now',88.0,.6);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'m_buyer',0.5,.9); idle(tl,'m_buyer',6,10);
+  say(tl,'m_note',16.0,.7); idle(tl,'m_note',18,5);
+  say(tl,'m_mega',26.0,.9); idle(tl,'m_mega',32,12);
+  say(tl,'m_risk',52.0,.9); shake(tl,'m_risk',53.0,4,6); idle(tl,'m_risk',57,10);
+  pop(tl,'m_missing',74.0,.7); shake(tl,'m_missing',75.0,5,6); idlePlate(tl,'m_missing',77,20);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'d_curves',0.5,.9); idle(tl,'d_curves',5,9);
+  say(tl,'d_amend',22.0,.9); idle(tl,'d_amend',28,12);
+  say(tl,'d_fork',48.0,.9); idle(tl,'d_fork',53,10);
+  say(tl,'d_exits',68.0,.8); idle(tl,'d_exits',71,8);
+  pop(tl,'d_plate',82.0,.7); shake(tl,'d_plate',83.0,5,6); idlePlate(tl,'d_plate',85,12);
+  say(tl,'d_counters',94.0,.7);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'f_balance',0.5,.9); idle(tl,'f_balance',6,12);
+  say(tl,'f_redacted',26.0,.9); idle(tl,'f_redacted',32,10);
+  say(tl,'f_fab',52.0,.9); idle(tl,'f_fab',58,12);
+  pop(tl,'f_plate',76.0,.7); shake(tl,'f_plate',77.0,5,6); idlePlate(tl,'f_plate',79,13);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_op'),{opacity:1},0);
+  say(tl,'a_o1',0.5,.8); idle(tl,'a_o1',6,14);
+  say(tl,'a_ocost',26.0,.7); idle(tl,'a_ocost',31,22);
+  tl.to($('a_op'),{opacity:0,duration:.7},56.0);
+  tl.fromTo($('a_cr'),{opacity:0},{opacity:1,duration:.7},58.0);
+  say(tl,'a_c1',60.0,.8); idle(tl,'a_c1',67,16);
+  say(tl,'a_ccost',88.0,.7); idle(tl,'a_ccost',93,22);
+  tl.to($('a_cr'),{opacity:0,duration:.7},118.0);
+  tl.fromTo($('a_fb'),{opacity:0},{opacity:1,duration:.7},120.0);
+  say(tl,'a_f1',122.0,.8); idle(tl,'a_f1',129,16);
+  pop(tl,'a_fcost',148.0,.7); shake(tl,'a_fcost',149.0,5,6); idlePlate(tl,'a_fcost',152,24);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_journey',0.5,.9); idle(tl,'z_journey',6,10);
+  say(tl,'z_author',20.0,.8); idle(tl,'z_author',24,8);
+  say(tl,'z_q',36.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},40.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_op','a_cr','a_fb'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  [0,1,2].forEach(k=>$('btnR'+k).classList.toggle('on',k===i));}
+[0,1,2].forEach(k=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  /* void return on purpose: record.mjs does page.evaluate(()=>window.__play()) */
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  const runScene=s=>{if(ran[s.id])return;ran[s.id]=1;
+    const tl=SCENES[s.id]();
+    tl.timeScale(2.4);
+    if(s.id==='s5')tl.timeScale(3.2);
+    if(s.id==='s3'||s.id==='s4')tl.timeScale(2.8);
+    tl.play();};
+  secs.forEach(s=>{ScrollTrigger.create({trigger:s,start:'top 60%',once:true,onEnter:()=>runScene(s)});});
+  addEventListener('load',()=>{secs.forEach(s=>{const r=s.getBoundingClientRect();
+    if(r.top<innerHeight*.6&&r.bottom>0)runScene(s);});});
+  addEventListener('scroll',()=>{const h=document.documentElement;
+    $('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+  const tip=$('tip');
+  document.querySelectorAll('#svg1 [data-tip], #svg2 [data-tip], #svg3 [data-tip], #svg4 [data-tip]').forEach(g=>{
+    g.style.cursor='pointer';
+    g.addEventListener('mousemove',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;});
+    g.addEventListener('mouseleave',()=>tip.style.opacity=0);
+    g.addEventListener('click',e=>{tip.textContent=g.dataset.tip;
+      tip.style.left=Math.min(innerWidth-330,e.clientX+14)+'px';
+      tip.style.top=(e.clientY+16)+'px';tip.style.opacity=1;
+      setTimeout(()=>tip.style.opacity=0,3500);});
+  });
+
+  const player=new Audio(); let cur=-1, listening=false;
+  const btn=$('listen'), lab=$('listenLab');
+  const startLab=lab.textContent;
+  function nearestSection(){const y=innerHeight*.4;
+    for(let i=secs.length-1;i>=0;i--){if(secs[i].getBoundingClientRect().top<y)return i;}
+    return 0;}
+  function playSection(i){
+    if(i>=secs.length){stopListen();return;}
+    cur=i; player.src='audio/'+secs[i].id+'.mp3';
+    player.play().catch(stopListen);
+    secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+    lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
+  function stopListen(){listening=false;player.pause();btn.classList.remove('playing');lab.textContent=startLab;}
+  player.addEventListener('ended',()=>{if(listening)playSection(cur+1);});
+  btn.addEventListener('click',()=>{
+    if(listening){stopListen();return;}
+    listening=true;btn.classList.add('playing');playSection(nearestSection());});
+}
+</script>
+</body>
+</html>
