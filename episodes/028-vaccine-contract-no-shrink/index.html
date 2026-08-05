@@ -100,7 +100,7 @@ body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
 body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
 body.auto{overflow:hidden;width:1920px;height:1080px}
 body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
-body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn{display:none}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
 body.auto .wrap{max-width:1840px;padding:40px 30px}
 body.auto h2{font-size:50px}
 </style>
@@ -317,8 +317,8 @@ body.auto h2{font-size:50px}
         </g>
         <!-- exits -->
         <g id="d_exits" class="b">
-          <text x="110" y="330" class="strong" font-size="15">WALK THE EXITS:</text>
-          <text x="110" y="366" font-size="14">SCALE DOWN — NOT IN THE TEXT · RESELL — RESTRICTED · RENEGOTIATE — A FAVOUR</text>
+          <text x="760" y="310" class="strong" font-size="15">WALK THE EXITS:</text>
+          <text x="760" y="346" font-size="14">SCALE DOWN — NOT IN THE TEXT · RESELL — RESTRICTED · RENEGOTIATE — A FAVOUR</text>
         </g>
         <g id="d_plate" class="b">
           <rect x="990" y="420" width="380" height="100" fill="var(--flaw)"/>
@@ -424,7 +424,7 @@ body.auto h2{font-size:50px}
         <g id="a_cr" class="b">
           <text x="110" y="80" class="alttxt" font-size="17">REPAIR TWO · PRICE THE CORRIDOR — THE SHRINK CLAUSE IN NUMBERS, DAY ONE</text>
           <g id="a_c1" class="b">
-            <path class="hair" d="M 110 260 L 900 260"/>
+            <path class="hair" d="M 110 274 L 900 274"/>
             <path class="green" stroke-width="3" d="M 110 160 L 900 160"/>
             <path class="green" stroke-width="3" d="M 110 300 L 900 300"/>
             <text x="920" y="166" class="alttxt" font-size="13">MAX — CONTRACTED</text>
@@ -647,12 +647,12 @@ function sc5(){const tl=gsap.timeline();
   tl.set($('a_op'),{opacity:1},0);
   say(tl,'a_o1',0.5,.8); idle(tl,'a_o1',6,14);
   say(tl,'a_ocost',26.0,.7); idle(tl,'a_ocost',31,22);
-  tl.to($('a_op'),{opacity:0,duration:.7},56.0);
-  tl.fromTo($('a_cr'),{opacity:0},{opacity:1,duration:.7},58.0);
+  tl.to($('a_op'),{opacity:0,duration:.5},56.0);
+  tl.fromTo($('a_cr'),{opacity:0},{opacity:1,duration:.6},56.7);
   say(tl,'a_c1',60.0,.8); idle(tl,'a_c1',67,16);
   say(tl,'a_ccost',88.0,.7); idle(tl,'a_ccost',93,22);
-  tl.to($('a_cr'),{opacity:0,duration:.7},118.0);
-  tl.fromTo($('a_fb'),{opacity:0},{opacity:1,duration:.7},120.0);
+  tl.to($('a_cr'),{opacity:0,duration:.5},118.0);
+  tl.fromTo($('a_fb'),{opacity:0},{opacity:1,duration:.6},118.7);
   say(tl,'a_f1',122.0,.8); idle(tl,'a_f1',129,16);
   pop(tl,'a_fcost',148.0,.7); shake(tl,'a_fcost',149.0,5,6); idlePlate(tl,'a_fcost',152,24);
   return tl;}
