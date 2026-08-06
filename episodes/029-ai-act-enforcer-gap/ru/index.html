@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Закон ЕС об ИИ заработал. Готовы девять стран из двадцати семи | Дефект конструкции</title>
+<meta name="description" content="Второго августа 2026 года основная часть закона ЕС об искусственном интеллекте стала обязательной во всех 27 странах. Национальные ведомства, которые должны его применять, были должны появиться годом раньше: весь набор назвали девять стран. Один закон, два срока, и цена была только у одного.">
+<link rel="canonical" href="https://traceupstream.com/episodes/029-ai-act-enforcer-gap/ru/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Дефект конструкции — Trace Upstream">
+<meta property="og:title" content="Закон ЕС об ИИ заработал. Готовы девять стран из двадцати семи">
+<meta property="og:description" content="Срок для компаний оценён в процентах от оборота. Срок для государств не стоит ничего. Вовремя наступил только платный.">
+<meta property="og:url" content="https://traceupstream.com/episodes/029-ai-act-enforcer-gap/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#7E9AA6; /* desaturated teal — decoration only */
+  --font-display:'Onest',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.029 · RU — 2026-08-06</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Слушать нарацию"><span class="dot"></span><span id="listenLab">Слушать · 13:30</span></button>
+
+<div id="deck">
+
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="95.1">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Дефект конструкции · дело EP.029</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_s1" class="b">
+          <text x="500" y="215" text-anchor="middle" class="big" font-size="86">€15 000 000</text>
+          <text x="500" y="285" text-anchor="middle" font-size="34">ИЛИ 3% МИРОВОГО ОБОРОТА</text>
+        </g>
+        <g id="h_s1b" class="b">
+          <rect x="120" y="330" width="760" height="70" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="500" y="375" text-anchor="middle" class="flawtxt" font-size="31">€35 000 000 · ЗАПРЕЩЁННЫЕ ПРАКТИКИ</text>
+        </g>
+        <g id="h_s2" class="b">
+          <text x="500" y="215" text-anchor="middle" class="big" font-size="46">ШТРАФУЕТ НЕ БРЮССЕЛЬ —</text>
+          <text x="500" y="295" text-anchor="middle" class="big" font-size="46">ВЕДОМСТВО ВАШЕЙ СТРАНЫ</text>
+        </g>
+        <g id="h_s3" class="b">
+          <g id="h_grid"></g>
+          <text x="500" y="470" text-anchor="middle" font-size="33">9 НАЗВАЛИ ВСЁ · 12 ЧАСТИЧНО · 6 НЕ НАЧАЛИ</text>
+        </g>
+        <g id="h_s4" class="b">
+          <text x="500" y="230" text-anchor="middle" class="big" font-size="60">ОДИН ЗАКОН. ДВА СРОКА.</text>
+          <text x="500" y="310" text-anchor="middle" font-size="34">У ОДНОГО ЕСТЬ ЦЕНА. У ДРУГОГО НЕТ.</text>
+        </g>
+        <g id="h_s5" class="b">
+          <rect x="90" y="180" width="820" height="160" fill="var(--flaw)"/>
+          <text x="500" y="250" text-anchor="middle" class="onplate big" font-size="44">ВОВРЕМЯ НАСТУПИЛ ТОЛЬКО</text>
+          <text x="500" y="312" text-anchor="middle" class="onplate big" font-size="44">ТОТ, ЧТО С ЦЕНОЙ</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="240" text-anchor="middle" class="big" font-size="62">СРОКИ С ЦЕННИКАМИ</text>
+          <text x="500" y="320" text-anchor="middle" font-size="33">ДЕФЕКТ КОНСТРУКЦИИ · EP.029</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 1 — что включилось и кому это применять</div>
+    <div class="prose">
+      <p>Второго августа 2026 года начала применяться основная часть закона ЕС об искусственном интеллекте: обязанности для высокорисковых систем, правила прозрачности и национальная машина применения. Нарушение этих обязанностей стоит до 15 млн евро или 3% мирового оборота; потолок в 35 млн и 7% относится к практикам, которые статья 5 запрещает целиком, и действует с 2025 года.</p>
+      <p>Ведомства, которые всё это применяют, — национальные. Страны должны были назвать их ко 2 августа 2025 года. По подсчёту июня 2026 года весь набор назвали девять стран из двадцати семи.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="111.7">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">Событие</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Событие · закон, приходивший частями</div>
+    <h2>Закон, который включался частями.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_stages" class="b" data-tip="Закон вступил в силу 1 августа 2024 года и применяется частями: прямые запреты — со 2 февраля 2025 года; правила для моделей общего назначения, управление и почти вся глава о штрафах — со 2 августа 2025 года; основная часть (высокорисковые обязанности, прозрачность, рыночный надзор) — со 2 августа 2026 года.">
+          <path class="hair" d="M 110 150 L 1370 150"/>
+          <circle cx="200" cy="150" r="7" fill="var(--text-dim)"/>
+          <circle cx="520" cy="150" r="7" fill="var(--text-dim)"/>
+          <circle cx="840" cy="150" r="9" fill="var(--fact)"/>
+          <circle cx="1200" cy="150" r="11" fill="var(--flaw)"/>
+          <text x="200" y="120" text-anchor="middle" font-size="13">АВГ 2024</text>
+          <text x="200" y="185" text-anchor="middle" font-size="12">ЗАКОН ВСТУПИЛ В СИЛУ</text>
+          <text x="520" y="120" text-anchor="middle" font-size="13">ФЕВ 2025</text>
+          <text x="520" y="185" text-anchor="middle" font-size="12">ПРЯМЫЕ ЗАПРЕТЫ</text>
+          <text x="840" y="120" text-anchor="middle" class="fact" font-size="13">АВГ 2025</text>
+          <text x="840" y="185" text-anchor="middle" font-size="12">ПРАВИЛА ДЛЯ БОЛЬШИХ МОДЕЛЕЙ · СРОК ГОСУДАРСТВ</text>
+          <text x="1200" y="118" text-anchor="middle" class="flawtxt strong" font-size="14">2 АВГ 2026</text>
+          <text x="1200" y="185" text-anchor="middle" class="flawtxt" font-size="12">ОСНОВНАЯ ЧАСТЬ</text>
+        </g>
+        <g id="e_highrisk" class="b" data-tip="«Высокорисковые» — это определённая законом категория: системы в найме, образовании, миграции и пограничном контроле, в важных частных и государственных услугах. Со 2 августа 2026 года они несут обязанности по документации, качеству данных, человеческому надзору и регистрации.">
+          <text x="110" y="255" class="strong" font-size="15">ЧТО ТАКОЕ «ВЫСОКОРИСКОВЫЕ», КОНКРЕТНО</text>
+          <rect x="110" y="275" width="280" height="60" class="nodebox"/>
+          <text x="130" y="312" font-size="13">ФИЛЬТРУЕТ РЕЗЮМЕ</text>
+          <rect x="410" y="275" width="240" height="60" class="nodebox"/>
+          <text x="430" y="312" font-size="13">ОЦЕНИВАЕТ ЭКЗАМЕНЫ</text>
+          <rect x="670" y="275" width="250" height="60" class="nodebox"/>
+          <text x="690" y="312" font-size="13">ПРОВЕРЯЕТ ЛЮДЕЙ НА ГРАНИЦЕ</text>
+          <rect x="940" y="275" width="290" height="60" class="nodebox"/>
+          <text x="960" y="312" font-size="13">РЕШАЕТ ПРО КРЕДИТ И ЛЕЧЕНИЕ</text>
+        </g>
+        <g id="e_fine" class="b">
+          <rect x="110" y="360" width="560" height="80" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="134" y="392" class="flawtxt strong" font-size="15">НАРУШИЛ ЭТИ ОБЯЗАННОСТИ:</text>
+          <text x="134" y="422" font-size="14">ДО €15 000 000 ИЛИ 3% МИРОВОГО ОБОРОТА</text>
+        </g>
+        <g id="e_duty" class="b" data-tip="Статья 70: каждая страна обязана создать или назначить хотя бы один нотифицирующий орган и хотя бы один орган рыночного надзора, обеспечить их техническими, финансовыми и кадровыми ресурсами, сообщить о них Комиссии и опубликовать контакты — к 2 августа 2025 года.">
+          <rect x="710" y="360" width="600" height="80" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="734" y="392" class="fact strong" font-size="15">ЧТО ГОСУДАРСТВА БЫЛИ ДОЛЖНЫ К АВГУСТУ 2025:</text>
+          <text x="734" y="422" font-size="14">НАЗВАТЬ · ДАТЬ ДЕНЬГИ · СООБЩИТЬ · ОПУБЛИКОВАТЬ КОНТАКТЫ</text>
+        </g>
+        <g id="e_counts" class="b" data-tip="Трекер Future of Life Institute на 17 июня 2026 года: 9 стран назначили оба органа полностью, 12 — частично (проект закона, объявление или один орган из двух), 6 — ни одного.">
+          <text x="110" y="500" class="strong" font-size="15">ПО ДАННЫМ НА ИЮНЬ 2026 ГОДА: ИЗ 27 СТРАН</text>
+          <text x="110" y="540" class="alttxt strong" font-size="26">9 СДЕЛАЛИ ВСЁ</text>
+          <text x="520" y="540" class="strong" font-size="26">12 НАЧАЛИ</text>
+          <text x="860" y="540" class="flawtxt strong" font-size="26">6 НЕ НАЧАЛИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 2 — линия времени, обязанности и счёт</div>
+    <div class="prose">
+      <p>Сам закон существует с 2024 года. Первыми, в феврале 2025-го, вступили прямые запреты. В прошлое воскресенье пришла основная часть: то, что закон называет высокорисковыми системами, — программы, которые фильтруют резюме, оценивают учеников, проверяют людей на границе, помогают решить, кому дадут кредит или лечение, — плюс обязанность сообщать человеку, что перед ним машина, и сама машина применения.</p>
+      <p>Тот же закон дал каждой стране срок до 2 августа 2025 года, чтобы её надзор был готов. Не создавать ведомство с нуля: работу можно поручить существующему регулятору. Но требовалось вполне конкретное — назвать орган, дать ему ресурсы, сообщить Комиссии, опубликовать, как с ним связаться.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 MACHINE ================= -->
+<section class="ep" id="s2" data-duration="104.2">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">Машина</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Машина · два этажа применения</div>
+    <h2>Верхний этаж стоит. Нижний — там, где живёте вы.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg2">
+        <g id="m_top" class="b" data-tip="Управление Комиссии по искусственному интеллекту надзирает за создателями моделей общего назначения напрямую: может запросить документы, провести оценку, потребовать мер и оштрафовать на сумму до 15 млн евро или 3% мирового оборота по статье 101 — эти полномочия действуют со 2 августа 2026 года.">
+          <rect x="470" y="60" width="540" height="110" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="500" y="100" class="fact strong" font-size="16">БРЮССЕЛЬ · УПРАВЛЕНИЕ ПО ИИ</text>
+          <text x="500" y="130" font-size="13">НАДЗИРАЕТ ЗА КРУПНЕЙШИМИ МОДЕЛЯМИ</text>
+          <text x="500" y="156" class="alttxt" font-size="13">ОДИН ОФИС · ОДИН АДРЕС · ОН СУЩЕСТВУЕТ</text>
+        </g>
+        <g id="m_bottom" class="b" data-tip="Всё остальное — высокорисковые системы в найме, школах, пособиях, на границе — применяют национальные органы рыночного надзора: ведомство в каждой стране, которое проверяет продукты и может убрать их с рынка.">
+          <path class="hair" d="M 740 170 L 740 215"/>
+          <text x="110" y="250" class="strong" font-size="15">ВСЁ, ЧТО КАСАЕТСЯ ВАС, ПРИМЕНЯЕТСЯ ЗДЕСЬ:</text>
+          <g id="m_cells"></g>
+          <text x="1120" y="300" font-size="13">27 НАЦИОНАЛЬНЫХ ВЕДОМСТВ</text>
+          <text x="1120" y="326" font-size="13">— ТАМ, ГДЕ ОНИ ЕСТЬ</text>
+        </g>
+        <g id="m_examples" class="b">
+          <rect x="110" y="404" width="330" height="56" class="nodebox"/>
+          <text x="132" y="438" font-size="13">ФИЛЬТР РЕЗЮМЕ В ВАШЕМ ГОРОДЕ</text>
+          <rect x="460" y="404" width="330" height="56" class="nodebox"/>
+          <text x="482" y="438" font-size="13">ПОМЕТКА НА ВАШЕМ ЗАЯВЛЕНИИ</text>
+          <rect x="810" y="404" width="330" height="56" class="nodebox"/>
+          <text x="832" y="438" font-size="13">БАЛЛ ЗА ЭКЗАМЕН ВАШЕГО РЕБЁНКА</text>
+        </g>
+        <g id="m_complaint" class="b" data-tip="Статья 85: любое физическое или юридическое лицо может подать жалобу на нарушение в соответствующий орган рыночного надзора. Право одинаково во всех 27 странах; адрес — нет.">
+          <text x="110" y="490" class="strong" font-size="15">СТАТЬЯ 85 — ВАШЕ ПРАВО ПОЖАЛОВАТЬСЯ</text>
+          <path class="blue" stroke-width="3" d="M 480 484 L 700 484"/>
+          <path class="blue" d="M 690 476 L 702 484 L 690 492" fill="none"/>
+          <text x="720" y="489" class="fact" font-size="14">ОДНО И ТО ЖЕ ПРАВО В КАЖДОЙ СТРАНЕ</text>
+          <rect x="1150" y="462" width="90" height="40" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="5 5"/>
+          <text x="1195" y="488" text-anchor="middle" class="flawtxt" font-size="13">?</text>
+          <text x="1195" y="532" text-anchor="middle" font-size="13">В 6 СТРАНАХ ОТПРАВЛЯТЬ НЕКУДА</text>
+        </g>
+        <g id="m_report" class="b">
+          <text x="110" y="560" font-size="14">ТОТ ЖЕ ЗАКОН ПРОСИТ ПРАВИТЕЛЬСТВА ОТЧИТЫВАТЬСЯ, СКОЛЬКО У ЭТИХ ВЕДОМСТВ ДЕНЕГ И ЛЮДЕЙ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 3 — сверху единый надзор, снизу национальное применение</div>
+    <div class="prose">
+      <p>Европа построила применение в два этажа. Верхний работает: за крупнейшими моделями общего назначения централизованно надзирает из Брюсселя управление Комиссии по искусственному интеллекту — оно может затребовать документы, провести собственные проверки и оштрафовать создателя модели.</p>
+      <p>Нижний этаж — национальный, и там находится почти всё, что касается обычного человека. За этими системами закон отправляет не в Брюссель, а в орган рыночного надзора вашей страны. Статья 85 даёт лично вам право пожаловаться туда. А есть ли у этого права адрес — зависит от вашего правительства.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 DEFECT ================= -->
+<section class="ep" id="s3" data-duration="121.9">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Дефект</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Дефект · два срока, один ценник</div>
+    <h2>Только один из двух сроков чего-то стоит.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="d_company" class="b" data-tip="Срок компании срабатывает сам: процент записан в тексте, ведомство его применяет, решать о наказании никому не нужно.">
+          <circle cx="330" cy="180" r="86" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <path class="ink" stroke-width="4" d="M 330 180 L 330 120"/>
+          <path class="ink" stroke-width="4" d="M 330 180 L 375 205"/>
+          <text x="330" y="300" text-anchor="middle" class="strong" font-size="16">СРОК КОМПАНИИ</text>
+          <path class="hair" d="M 420 180 L 470 180"/>
+          <rect x="470" y="150" width="230" height="62" fill="var(--flaw)"/>
+          <text x="585" y="190" text-anchor="middle" class="onplate strong" font-size="19">% ОБОРОТА</text>
+          <text x="330" y="332" text-anchor="middle" font-size="13">ЗАПИСАН · АВТОМАТИЧЕН · РЕШЕНИЯ НЕ НУЖНО</text>
+        </g>
+        <g id="d_state" class="b" data-tip="Стране, сорвавшей срок, грозит процедура о нарушении: сначала Комиссия решает её начать, затем официальное письмо, затем второе — построже, затем суд, а денежные санкции — лишь после второго решения суда.">
+          <circle cx="1090" cy="180" r="86" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <path class="ink" stroke-width="4" d="M 1090 180 L 1090 120"/>
+          <path class="ink" stroke-width="4" d="M 1090 180 L 1135 205"/>
+          <text x="1090" y="300" text-anchor="middle" class="strong" font-size="16">СРОК ПРАВИТЕЛЬСТВА</text>
+          <path class="hair" d="M 1000 180 L 950 180"/>
+          <rect x="720" y="150" width="230" height="62" fill="none" stroke="var(--text-dim)" stroke-width="2.5" stroke-dasharray="6 6"/>
+          <text x="835" y="190" text-anchor="middle" font-size="19">ПУСТОЙ КРЮЧОК</text>
+          <text x="1090" y="332" text-anchor="middle" font-size="13">НИЧЕГО НЕ СРАБАТЫВАЕТ САМО</text>
+        </g>
+        <g id="d_chain" class="b">
+          <text x="110" y="400" class="strong" font-size="15">ЧТО НА САМОМ ДЕЛЕ ГРОЗИТ ОПОЗДАВШЕМУ:</text>
+          <rect x="110" y="420" width="230" height="52" class="nodebox"/>
+          <text x="132" y="452" font-size="13">БРЮССЕЛЬ РЕШАЕТ НАЧАТЬ</text>
+          <path class="blue" stroke-width="2.5" d="M 350 446 L 390 446"/>
+          <rect x="400" y="420" width="200" height="52" class="nodebox"/>
+          <text x="422" y="452" font-size="13">ОФИЦИАЛЬНОЕ ПИСЬМО</text>
+          <path class="blue" stroke-width="2.5" d="M 610 446 L 650 446"/>
+          <rect x="660" y="420" width="240" height="52" class="nodebox"/>
+          <text x="682" y="452" font-size="13">ВТОРОЕ, СТРОЖЕ</text>
+          <path class="blue" stroke-width="2.5" d="M 910 446 L 950 446"/>
+          <rect x="960" y="420" width="180" height="52" class="nodebox"/>
+          <text x="982" y="452" font-size="13">СУД</text>
+          <path class="amber" stroke-width="2.5" d="M 1150 446 L 1190 446"/>
+          <rect x="1200" y="420" width="215" height="52" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1222" y="452" class="flawtxt" font-size="13">ДЕНЬГИ, СПУСТЯ ГОДЫ</text>
+        </g>
+        <g id="d_ministry" class="b">
+          <rect x="110" y="500" width="1270" height="70" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="530" class="flawtxt strong" font-size="15">А ИНОГДА ЭТО ВООБЩЕ НЕ АРИФМЕТИКА:</text>
+          <text x="134" y="556" font-size="14">МИНИСТЕРСТВО НА СОРОК ЧЕЛОВЕК, ГДЕ НЕГДЕ НАНЯТЬ СПЕЦИАЛИСТА, — ЗАКОН ЭТИ СЛУЧАИ ТОЖЕ НЕ РАЗЛИЧАЕТ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 4 — ценник и пустой крючок</div>
+    <div class="prose">
+      <p>Когда закон ставит срок компании, последствие встроено в тот же закон: процент записан, дальше работает арифметика. Когда он ставит срок правительству, такой машины нет — есть только процедура о нарушении, которую Брюссель должен решить начать и которая заканчивается деньгами лишь после второго решения суда, спустя годы.</p>
+      <p>Чтобы это случилось, не нужен злой умысел. И не всегда это даже арифметика: для кого-то из тех шести это министерство на сорок человек, которому негде нанять специалистов. Проблема конструкции в том, что закон эти две ситуации тоже не различает.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 PRICE ================= -->
+<section class="ep" id="s4" data-duration="87.9">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Цена</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Цена · кто платит за отсутствующее ведомство</div>
+    <h2>Обязанность одинакова. Вероятность проверки — нет.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg4">
+        <g id="p_citizen" class="b">
+          <rect x="110" y="70" width="380" height="198" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="110" class="fact strong" font-size="16">ГРАЖДАНИН</text>
+          <text x="134" y="150" font-size="13">ПРАВО ПОЖАЛОВАТЬСЯ:</text>
+          <text x="134" y="178" class="strong" font-size="14">ОДИНАКОВО В 27 СТРАНАХ</text>
+          <text x="134" y="212" font-size="13">АДРЕС, КУДА ОТПРАВЛЯТЬ:</text>
+          <text x="134" y="240" class="flawtxt strong" font-size="14">В 6 СТРАНАХ ЕГО НЕТ</text>
+        </g>
+        <g id="p_company" class="b">
+          <rect x="550" y="70" width="380" height="198" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="574" y="110" class="flawtxt strong" font-size="16">КОМПАНИЯ, КОТОРАЯ ПОДГОТОВИЛАСЬ</text>
+          <text x="574" y="150" font-size="13">ПОТРАЧЕНЫ ДВА ГОДА И ДЕНЬГИ</text>
+          <text x="574" y="182" font-size="13">КОНКУРИРУЕТ С ФИРМОЙ, КОТОРАЯ</text>
+          <text x="574" y="210" font-size="13">НЕ ПОТРАТИЛА НИЧЕГО</text>
+          <text x="574" y="242" class="flawtxt strong" font-size="14">ГОТОВНОСТЬ СТАЛА МИНУСОМ</text>
+        </g>
+        <g id="p_market" class="b">
+          <rect x="990" y="70" width="390" height="198" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="1014" y="110" class="strong" font-size="16">РЫНОК</text>
+          <text x="1014" y="150" font-size="13">ОДИН ПРОДУКТ · ОДИН СВОД ПРАВИЛ</text>
+          <text x="1014" y="182" font-size="13">27 РАЗНЫХ ВЕРОЯТНОСТЕЙ</text>
+          <text x="1014" y="210" font-size="13">ТОГО, ЧТО ПРОВЕРЯТ</text>
+          <text x="1014" y="242" class="strong" font-size="14">УЖЕ НЕ СОВСЕМ ОДИН РЫНОК</text>
+        </g>
+        <g id="p_caveat" class="b">
+          <rect x="110" y="310" width="1270" height="90" fill="var(--alt)"/>
+          <text x="134" y="348" class="onplate strong" font-size="17">ЧЕСТНАЯ ОГОВОРКА: ОТСУТСТВИЕ ВЕДОМСТВА НЕ ОТМЕНЯЕТ ОБЯЗАННОСТЕЙ</text>
+          <text x="134" y="382" class="onplate" font-size="14">ОБЯЗАННОСТИ ДЕЙСТВУЮТ ВЕЗДЕ · ПРИМЕНИТЬ МОГУТ ПОЗЖЕ · ЧАСТНЫЕ ЛИЦА МОГУТ В СУД · БРЮССЕЛЬ НАДЗИРАЕТ ЗА БОЛЬШИМИ МОДЕЛЯМИ</text>
+        </g>
+        <g id="p_delay" class="b">
+          <text x="110" y="460" class="strong" font-size="18">РАЗРЫВ — НЕ ЩИТ. ЭТО ОТСРОЧКА.</text>
+          <text x="110" y="500" font-size="15">И КТО-ТО РЕШИЛ, СКОЛЬКО ОНА ПРОДЛИТСЯ.</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 5 — три счёта за одно отсутствующее ведомство</div>
+    <div class="prose">
+      <p>Три цены, и ни одна не абстрактна. У гражданина есть право без адреса. Подготовившаяся фирма конкурирует с неподготовившейся в стране, где никто не проверяет. А единый рынок, где один и тот же продукт встречает двадцать семь разных вероятностей проверки, уже не совсем единый.</p>
+      <p>Одна оговорка, и она важна: отсутствие ведомства — не индульгенция. Обязанности действуют с воскресенья везде, применение может прийти позже, частные лица тем временем могут судиться, а централизованный надзор за крупнейшими моделями работает независимо.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 WHAT IF ================= -->
+<section class="ep" id="s5" data-duration="185">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Что если</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · три способа закрыть разрыв</div>
+    <h2>Пуск по готовности, единый надзор или платные часы государства.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: readiness -->
+        <g id="a_ready" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">СПОСОБ ПЕРВЫЙ · ПУСК ПО ГОТОВНОСТИ, А НЕ ПО КАЛЕНДАРЮ</text>
+          <g id="a_r1" class="b">
+            <rect x="110" y="120" width="380" height="70" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="132" y="163" class="alttxt" font-size="14">ВЕДОМСТВО НАЗНАЧЕНО, ЛЮДИ ЕСТЬ</text>
+            <path class="green" stroke-width="3" d="M 500 155 L 560 155"/>
+            <rect x="570" y="120" width="360" height="70" class="nodebox"/>
+            <text x="592" y="163" font-size="14">ОБЯЗАННОСТИ НАЧИНАЮТСЯ В СТРАНЕ</text>
+            <text x="110" y="230" font-size="13">ПОДТВЕРЖДЕНО ПУБЛИЧНЫМ РЕЕСТРОМ, А НЕ ПРЕСС-РЕЛИЗОМ</text>
+            <text x="110" y="262" font-size="13">ПРЕЦЕДЕНТ: ПЕРЕХОДНЫЕ ПЕРИОДЫ · ПУСК ПО ГОТОВНОСТИ В БАНКОВСКОМ НАДЗОРЕ</text>
+            <text x="110" y="298" class="alttxt strong" font-size="14">ДОСТОИНСТВО: НЕТ МЁРТВЫХ ОБЯЗАННОСТЕЙ — НИКОГО НЕ ЗАСТАВЛЯЮТ ИСПОЛНЯТЬ НЕРАЗЪЯСНЁННОЕ</text>
+          </g>
+          <g id="a_rcost" class="b">
+            <rect x="110" y="330" width="1270" height="180" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="368" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="404" font-size="14">1 · ЗАЩИТА ПРИХОДИТ ПОЗЖЕ ВСЕГО ТАМ, ГДЕ ГОСУДАРСТВО МЕДЛЕННЕЕ ВСЕГО</text>
+            <text x="134" y="436" font-size="14">2 · ДОЛЬШЕ ВСЕХ ЖДУТ ЛЮДИ СО СЛАБЕЙШИМИ ИНСТИТУТАМИ</text>
+            <text x="134" y="468" class="flawtxt" font-size="14">3 · МЕДЛЕННОЕ ГОСУДАРСТВО ПРИКРЫВАЕТ СВОЮ ПРОМЫШЛЕННОСТЬ — ЗНАЧИТ, ЕСТЬ ПОВОД НЕ СПЕШИТЬ</text>
+          </g>
+        </g>
+        <!-- B: central -->
+        <g id="a_central" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">СПОСОБ ВТОРОЙ · ОДИН НАДЗОР НА ВСЕХ</text>
+          <g id="a_c1" class="b">
+            <rect x="560" y="120" width="360" height="80" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="3"/>
+            <text x="740" y="167" text-anchor="middle" class="alttxt strong" font-size="16">ЕДИНОЕ ЕВРОПЕЙСКОЕ ВЕДОМСТВО</text>
+            <path class="green" stroke-width="2.5" d="M 300 280 L 700 210"/>
+            <path class="green" stroke-width="2.5" d="M 740 280 L 740 210"/>
+            <path class="green" stroke-width="2.5" d="M 1180 280 L 780 210"/>
+            <text x="300" y="305" text-anchor="middle" font-size="13">МАДРИД</text>
+            <text x="740" y="305" text-anchor="middle" font-size="13">ТАЛЛИН</text>
+            <text x="1180" y="305" text-anchor="middle" font-size="13">ВАРШАВА</text>
+            <text x="110" y="350" font-size="13">ПРЕЦЕДЕНТ: УПРАВЛЕНИЕ ПО ИИ ДЛЯ БОЛЬШИХ МОДЕЛЕЙ · ЕЦБ ДЛЯ КРУПНЕЙШИХ БАНКОВ</text>
+          </g>
+          <g id="a_ccost" class="b">
+            <rect x="110" y="380" width="1270" height="180" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="418" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="454" font-size="14">1 · ОДНА ДВЕРЬ НА ВСЕ ОФИЦИАЛЬНЫЕ ЯЗЫКИ СОЮЗА — И СООТВЕТСТВУЮЩАЯ ОЧЕРЕДЬ</text>
+            <text x="134" y="486" font-size="14">2 · ОТРЫВ ОТ МЕСТНОГО КОНТЕКСТА И ОТРАСЛЕВЫХ РЕГУЛЯТОРОВ</text>
+            <text x="134" y="518" class="flawtxt" font-size="14">3 · НАДЗОР УХОДИТ ОТ ПАРЛАМЕНТА, КОТОРЫЙ ИЗБИРАТЕЛЬ МОЖЕТ СМЕНИТЬ</text>
+          </g>
+        </g>
+        <!-- C: price the state's clock -->
+        <g id="a_price" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">СПОСОБ ТРЕТИЙ · ПОСТАВИТЬ ЦЕНУ НА СРОК ПРАВИТЕЛЬСТВА</text>
+          <g id="a_p1" class="b">
+            <rect x="110" y="120" width="380" height="70" class="nodebox"/>
+            <text x="132" y="163" font-size="14">ЦЕЛЕВЫЕ ДЕНЬГИ ПРИДЕРЖАНЫ</text>
+            <rect x="530" y="120" width="430" height="70" class="nodebox"/>
+            <text x="552" y="163" font-size="14">ИЛИ БРЮССЕЛЬ ПРИМЕНЯЕТ ЗАКОН ПОКА САМ</text>
+            <rect x="1000" y="120" width="380" height="70" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="1022" y="163" class="alttxt" font-size="14">ПУБЛИЧНАЯ СВОДКА: ЛЮДИ, БЮДЖЕТ</text>
+            <text x="110" y="235" font-size="13">СОБРАНА ИЗ ОТЧЁТА О РЕСУРСАХ, КОТОРЫЙ ЗАКОН УЖЕ ТРЕБУЕТ</text>
+            <text x="110" y="270" class="alttxt strong" font-size="14">СРАБАТЫВАЕТ САМО — БЕЗ МНОГОЛЕТНЕЙ ПЕРЕПИСКИ</text>
+          </g>
+          <g id="a_pcost" class="b">
+            <rect x="110" y="310" width="1270" height="200" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="348" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="384" font-size="14">1 · ПРИДЕРЖАННЫЕ ДЕНЬГИ БЬЮТ ПО ГРАЖДАНАМ, КОТОРЫХ ВЕДОМСТВО ДОЛЖНО ЗАЩИЩАТЬ</text>
+            <text x="134" y="416" class="flawtxt strong" font-size="14">ТО ЕСТЬ У ПЕРВОГО И ТРЕТЬЕГО СПОСОБА ОДНА И ТА ЖЕ ЖЕРТВА</text>
+            <text x="134" y="452" font-size="14">2 · АВТОМАТИКА СЛЕПА: «НЕ ЗАХОТЕЛИ» И «НЕ СМОГЛИ» ВЫГЛЯДЯТ ОДИНАКОВО</text>
+            <text x="134" y="484" font-size="14">3 · ЗА ТАКОЙ РЫЧАГ ВОЗЬМУТСЯ СНОВА — РАДИ ЦЕЛЕЙ, КОТОРЫЕ ПОНРАВЯТСЯ МЕНЬШЕ</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">Готовность</button><button id="btnR1">Единый надзор</button><button id="btnR2">Платные часы</button>
+    </div>
+    <div class="figcap">Рис. 6 — три конструкции, три ценника. Нажимайте, чтобы сравнить.</div>
+    <div class="prose">
+      <p>Первый способ включает обязанности в стране, когда её ведомство реально существует: мёртвых обязанностей нет, но защита приходит позже всего там, где государство медленнее всего, а медлительность начинает прикрывать местную промышленность.</p>
+      <p>Второй способ применяет закон централизованно — как Европа уже делает с крупнейшими моделями и с крупнейшими банками. Единообразие, купленное отдалённостью: одна дверь на весь союз и надзор, уехавший от парламента, который избиратель может сменить.</p>
+      <p>Третий способ делает срок государства платным сам по себе. Но придержанные деньги падают на граждан, которых должно было защитить отсутствующее ведомство, — та же жертва, что и у первого способа, — а автоматический рычаг не отличает правительство, которое не захотело, от того, которое не смогло.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="62.9">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">Финал</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Финал · вопрос, который стоит забрать</div>
+    <h2>Спросите, у какого срока есть цена.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_clocks" class="b">
+          <circle cx="420" cy="150" r="70" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <path class="ink" stroke-width="4" d="M 420 150 L 420 102"/>
+          <path class="ink" stroke-width="4" d="M 420 150 L 455 172"/>
+          <rect x="510" y="126" width="190" height="50" fill="var(--flaw)"/>
+          <text x="605" y="158" text-anchor="middle" class="onplate strong" font-size="16">ЕСТЬ ЦЕНА</text>
+          <text x="420" y="256" text-anchor="middle" font-size="14">ТОТ, ЧТО НАПИСАЛИ ДЛЯ ВАС</text>
+          <circle cx="1060" cy="150" r="70" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <path class="ink" stroke-width="4" d="M 1060 150 L 1060 102"/>
+          <path class="ink" stroke-width="4" d="M 1060 150 L 1095 172"/>
+          <rect x="780" y="126" width="190" height="50" fill="none" stroke="var(--text-dim)" stroke-width="2.5" stroke-dasharray="6 6"/>
+          <text x="875" y="158" text-anchor="middle" font-size="16">ЦЕНЫ НЕТ</text>
+          <text x="1060" y="256" text-anchor="middle" font-size="14">ТОТ, ЧТО НАПИСАЛИ ДЛЯ СЕБЯ</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="340" text-anchor="middle" class="big" font-size="26">КОМУ ПРЕДПИСАНО БЫТЬ ГОТОВЫМ И К КАКОМУ ЧИСЛУ?</text>
+          <text x="740" y="404" text-anchor="middle" font-size="18">И ЧТО ЕМУ БУДЕТ, ЕСЛИ ОН НЕ УСПЕЕТ?</text>
+          <text x="740" y="466" text-anchor="middle" class="flawtxt" font-size="17">ИИ · ЦИФРОВЫЕ УСЛУГИ · ФИНАНСЫ · УПАКОВКА</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>В любом правиле, по которому вы живёте, есть как минимум два срока: один для тех, кто обязан подчиняться, и один для учреждений, которые обязаны быть готовы его применять. У какого из них есть последствие — не тонкость юридической техники: это решает, какая половина закона случится вовремя. И решают это люди, которых вы выбираете.</p>
+      <p>Поэтому, когда правительство объявляет, что нечто урегулировано, задайте скучный второй вопрос: кому велено быть готовым, к какому числу и что ему будет, если он не успеет. Объявить обязанность закон может в любой день. Применить его можно только в тот день, когда на месте кто-то стоит.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">ДЕФЕКТ КОНСТРУКЦИИ</div>
+      <p>Не кто виноват — как устроено. Полный интерактивный чертёж живёт на этой странице. <a href="../" style="color:var(--fact)">In English →</a></p>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Подписаться</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <g id="t_grid"></g>
+    <text x="600" y="140" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">штраф работает</text>
+    <text x="600" y="210" font-family="IBM Plex Mono" font-size="38" style="fill:var(--flaw)">ведомства нет</text>
+    <text x="600" y="295" font-family="IBM Plex Mono" font-size="30" style="fill:var(--text-dim)">срок был год назад</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">9 из 27</div>
+  <div class="sub">стран готовы применять закон</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <circle cx="290" cy="200" r="110" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <path d="M 290 200 L 290 125" stroke="var(--text)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M 290 200 L 345 235" stroke="var(--text)" stroke-width="10" stroke-linecap="round"/>
+    <rect x="450" y="120" width="330" height="70" fill="var(--flaw)"/>
+    <text x="615" y="168" text-anchor="middle" font-family="IBM Plex Mono" font-size="34" style="fill:var(--bg)">ЕСТЬ ЦЕНА</text>
+    <rect x="450" y="230" width="330" height="70" fill="none" stroke="var(--text-dim)" stroke-width="5" stroke-dasharray="10 9"/>
+    <text x="615" y="278" text-anchor="middle" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text-dim)">ЦЕНЫ НЕТ</text>
+    <text x="830" y="168" font-family="IBM Plex Mono" font-size="28" style="fill:var(--text)">ваш срок</text>
+    <text x="830" y="278" font-family="IBM Plex Mono" font-size="28" style="fill:var(--text)">их срок</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">€15 млн</div>
+  <div class="sub">один закон, два срока</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+const NS='http://www.w3.org/2000/svg';
+
+/* hook grid: 27 cells — 9 solid, 12 half, 6 empty */
+(function(){
+  const g=$('h_grid'); if(!g)return;
+  for(let i=0;i<27;i++){
+    const col=i%9, row=Math.floor(i/9);
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',230+col*60); r.setAttribute('y',300+row*48);
+    r.setAttribute('width',44); r.setAttribute('height',34);
+    r.setAttribute('stroke','var(--text)'); r.setAttribute('stroke-width','2.5');
+    r.setAttribute('fill', i<9 ? 'var(--alt)' : (i<21 ? 'var(--alt)' : 'none'));
+    r.setAttribute('fill-opacity', i<9 ? '.85' : (i<21 ? '.28' : '0'));
+    g.appendChild(r);
+  }
+})();
+
+/* machine: 27 national cells, six of them empty */
+(function(){
+  const g=$('m_cells'); if(!g)return;
+  for(let i=0;i<27;i++){
+    const col=i%9, row=Math.floor(i/9);
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',110+col*100); r.setAttribute('y',270+row*40);
+    r.setAttribute('width',84); r.setAttribute('height',28);
+    r.setAttribute('stroke', i<21?'var(--fact)':'var(--flaw)'); r.setAttribute('stroke-width','2');
+    if(i>=21)r.setAttribute('stroke-dasharray','5 5');
+    r.setAttribute('fill', i<9 ? 'var(--fact)' : 'none');
+    r.setAttribute('fill-opacity', i<9 ? '.25' : '0');
+    g.appendChild(r);
+  }
+})();
+
+/* thumbnail A grid */
+(function(){
+  const g=$('t_grid'); if(!g)return;
+  for(let i=0;i<27;i++){
+    const col=i%3, row=Math.floor(i/3);
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',150+col*110); r.setAttribute('y',70+row*30);
+    r.setAttribute('width',90); r.setAttribute('height',20);
+    r.setAttribute('stroke','var(--text)'); r.setAttribute('stroke-width','3');
+    r.setAttribute('fill', i<9 ? 'var(--text)' : 'none');
+    g.appendChild(r);
+  }
+})();
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.8);
+  say(tl,'h_s1b',6.0,.7); idle(tl,'h_s1',9,8);
+  tl.to([$('h_s1'),$('h_s1b')],{opacity:0,duration:.5},20.0);
+  say(tl,'h_s2',20.3,.8); idle(tl,'h_s2',25,6);
+  tl.to($('h_s2'),{opacity:0,duration:.5},33.0);
+  say(tl,'h_s3',33.3,.9); idle(tl,'h_s3',40,12);
+  tl.to($('h_s3'),{opacity:0,duration:.5},55.0);
+  say(tl,'h_s4',55.3,.8); idle(tl,'h_s4',60,6);
+  tl.to($('h_s4'),{opacity:0,duration:.45},67.0);
+  pop(tl,'h_s5',67.3,.7); shake(tl,'h_s5',68.3,6,8); idlePlate(tl,'h_s5',70,8);
+  tl.to($('h_s5'),{opacity:0,duration:.45},79.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},79.3);
+  if(isAuto)tl.to({},{duration:5.0},80.7); else tl.to($('titleCard'),{opacity:0,duration:.5},85.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_stages',0.5,.9); idle(tl,'e_stages',6,14);
+  say(tl,'e_highrisk',26.0,.9); idle(tl,'e_highrisk',32,10);
+  pop(tl,'e_fine',44.0,.7); idlePlate(tl,'e_fine',47,6);
+  say(tl,'e_duty',54.0,.9); idle(tl,'e_duty',60,10);
+  pop(tl,'e_counts',74.0,.7); shake(tl,'e_counts',75.0,5,6); idlePlate(tl,'e_counts',77,8);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'m_top',0.5,.9); idle(tl,'m_top',6,12);
+  say(tl,'m_bottom',22.0,.9); idle(tl,'m_bottom',28,10);
+  say(tl,'m_examples',42.0,.8); idle(tl,'m_examples',47,10);
+  say(tl,'m_complaint',60.0,.9); shake(tl,'m_complaint',61.0,4,6); idle(tl,'m_complaint',65,14);
+  say(tl,'m_report',82.0,.8); idle(tl,'m_report',85,6);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'d_company',0.5,.9); idle(tl,'d_company',6,14);
+  say(tl,'d_state',24.0,.9); idle(tl,'d_state',30,10);
+  say(tl,'d_chain',44.0,.9); idle(tl,'d_chain',50,14);
+  pop(tl,'d_ministry',70.0,.7); shake(tl,'d_ministry',71.0,5,6); idlePlate(tl,'d_ministry',73,12);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'p_citizen',0.5,.8); idle(tl,'p_citizen',5,8);
+  say(tl,'p_company',18.0,.8); idle(tl,'p_company',23,10);
+  say(tl,'p_market',36.0,.8); idle(tl,'p_market',41,8);
+  pop(tl,'p_caveat',52.0,.7); idlePlate(tl,'p_caveat',55,12);
+  say(tl,'p_delay',70.0,.8); idle(tl,'p_delay',73,8);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_ready'),{opacity:1},0);
+  say(tl,'a_r1',0.5,.8); idle(tl,'a_r1',7,14);
+  say(tl,'a_rcost',26.0,.7); idle(tl,'a_rcost',31,14);
+  tl.to($('a_ready'),{opacity:0,duration:.45},46.0);
+  tl.fromTo($('a_central'),{opacity:0},{opacity:1,duration:.55},46.3);
+  say(tl,'a_c1',50.0,.8); idle(tl,'a_c1',57,12);
+  say(tl,'a_ccost',72.0,.7); idle(tl,'a_ccost',77,14);
+  tl.to($('a_central'),{opacity:0,duration:.45},92.0);
+  tl.fromTo($('a_price'),{opacity:0},{opacity:1,duration:.55},92.3);
+  say(tl,'a_p1',96.0,.8); idle(tl,'a_p1',103,12);
+  pop(tl,'a_pcost',118.0,.7); shake(tl,'a_pcost',119.0,5,6); idlePlate(tl,'a_pcost',121,14);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_clocks',0.5,.9); idle(tl,'z_clocks',6,16);
+  say(tl,'z_q',28.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},32.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_ready','a_central','a_price'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  [0,1,2].forEach(k=>$('btnR'+k).classList.toggle('on',k===i));}
+[0,1,2].forEach(k=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  /* narration player */
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
