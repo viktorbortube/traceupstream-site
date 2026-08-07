@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Хакеры в водоканалах США. А правило по кибербезопасности отозвали | Дефект конструкции</title>
+<meta name="description" content="С 27 июля 2026 года водоканалы минимум в семи штатах США сообщили о кибератаках. Федеральная обязанность заниматься кибербезопасностью привязана к числу абонентов и живёт внутри проверки качества воды; единственное правило, которое пыталось связать эти вещи, отозвали в 2023 году после иска.">
+<link rel="canonical" href="https://traceupstream.com/episodes/030-water-cyber-rule-gap/ru/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Дефект конструкции — Trace Upstream">
+<meta property="og:title" content="Хакеры в водоканалах США. А правило по кибербезопасности отозвали">
+<meta property="og:description" content="Обязанность привязана к числу абонентов. Опасность привязана к тому, доступен ли контроллер из интернета. Это не одно и то же.">
+<meta property="og:url" content="https://traceupstream.com/episodes/030-water-cyber-rule-gap/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#7F8FA6; /* desaturated slate blue — decoration only */
+  --font-display:'Onest',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.030 · RU — 2026-08-07</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Слушать · 13:40</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="95.1">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Дефект конструкции · дело EP.030</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_s1" class="b">
+          <text x="500" y="205" text-anchor="middle" class="big" font-size="96">7 ШТАТОВ</text>
+          <text x="500" y="275" text-anchor="middle" font-size="34">ВОДОКАНАЛЫ СООБЩИЛИ О КИБЕРАТАКАХ</text>
+          <text x="500" y="330" text-anchor="middle" class="flawtxt" font-size="33">С 27 ИЮЛЯ</text>
+        </g>
+        <g id="h_s1b" class="b">
+          <rect x="90" y="370" width="820" height="76" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="500" y="418" text-anchor="middle" class="flawtxt" font-size="31">30+ СИСТЕМ В ОДНОМ ШТАТЕ · РУЧНОЙ РЕЖИМ</text>
+        </g>
+        <g id="h_s2" class="b">
+          <rect x="90" y="150" width="330" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <rect x="140" y="200" width="230" height="52" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="255" y="235" text-anchor="middle" class="flawtxt" font-size="31">КОНТРОЛЛЕР</text>
+          <path class="amber" stroke-width="3" d="M 255 252 L 255 300"/>
+          <text x="255" y="378" text-anchor="middle" font-size="31">В ИНТЕРНЕТЕ</text>
+        </g>
+        <g id="h_s2b" class="b">
+          <rect x="560" y="150" width="380" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="750" y="205" text-anchor="middle" class="fact" font-size="31">БЛАНК ИНСПЕКТОРА</text>
+          <text x="750" y="255" text-anchor="middle" font-size="31">ТРУБЫ · ХЛОР</text>
+          <text x="750" y="305" text-anchor="middle" font-size="31">ПРОБЫ</text>
+          <text x="750" y="378" text-anchor="middle" class="fact" font-size="31">ПРАВИЛО ВИСИТ ЗДЕСЬ</text>
+        </g>
+        <g id="h_s3" class="b">
+          <text x="500" y="215" text-anchor="middle" class="big" font-size="46">ПРАВИЛО, КОТОРОЕ ИХ СВЯЗЫВАЛО,</text>
+          <text x="500" y="300" text-anchor="middle" class="big" font-size="46">ПРОДЕРЖАЛОСЬ ЧЕТЫРЕ МЕСЯЦА</text>
+        </g>
+        <g id="h_s4" class="b">
+          <rect x="90" y="180" width="820" height="160" fill="var(--flaw)"/>
+          <text x="500" y="250" text-anchor="middle" class="onplate big" font-size="46">ОТОЗВАНО В 2023-М</text>
+          <text x="500" y="312" text-anchor="middle" class="onplate big" font-size="46">ЗАМЕНЫ НЕ ПОЯВИЛОСЬ</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="240" text-anchor="middle" class="big" font-size="50">К ЧЕМУ ПРИВЯЗАН ДОЛГ</text>
+          <text x="500" y="320" text-anchor="middle" font-size="33">ДЕФЕКТ КОНСТРУКЦИИ · EP.030</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 1 — слева опасность, справа обязанность</div>
+    <div class="prose">
+      <p>С 27 июля 2026 года водоканалы и станции водоотведения минимум в семи штатах США сообщили в ФБР о кибератаках. Где-то упало давление, где-то перелилась вода, где-то станцию перевели на ручное управление. ФБР и Агентство по охране окружающей среды описывают вход: промышленные контроллеры, доступные из открытого интернета, у которых поменяли адрес и пароль, из-за чего операторы потеряли обзор и управление.</p>
+      <p>Американская обязанность «посмотреть на свою кибербезопасность» прикреплена совсем к другому предмету — к санитарному обследованию, проверке, придуманной под трубы, хлор и пробы. Одно правило пыталось связать эти вещи. В июле 2023 года его приостановил суд, а в октябре агентство его отозвало.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="106.4">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">Событие</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Событие · семь штатов, с 27 июля</div>
+    <h2>Станция работала. Управление отобрали.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_when" class="b" data-tip="Since 27 July 2026 utilities in at least seven states have reported incidents to the FBI; some incidents degraded operations. Counts as reported publicly by state authorities and national media.">
+          <text x="110" y="90" class="strong" font-size="16">СООБЩИЛИ В ФБР С 27 ИЮЛЯ</text>
+          <rect x="110" y="110" width="300" height="90" class="nodebox"/>
+          <text x="260" y="152" text-anchor="middle" class="big" font-size="34">7</text>
+          <text x="260" y="184" text-anchor="middle" font-size="13">ШТАТОВ</text>
+          <rect x="440" y="110" width="300" height="90" class="nodebox"/>
+          <text x="590" y="152" text-anchor="middle" class="big" font-size="34">30+</text>
+          <text x="590" y="184" text-anchor="middle" font-size="13">СИСТЕМ В МИННЕСОТЕ</text>
+          <rect x="770" y="110" width="300" height="90" class="nodebox"/>
+          <text x="920" y="152" text-anchor="middle" class="big" font-size="34">9</text>
+          <text x="920" y="184" text-anchor="middle" font-size="13">СИСТЕМ В МИЧИГАНЕ</text>
+        </g>
+        <g id="e_big" class="b">
+          <rect x="110" y="230" width="620" height="90" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="266" class="fact strong" font-size="15">СРЕДИ НИХ — ГОРОД НА 80 ТЫСЯЧ ЖИТЕЛЕЙ</text>
+          <text x="134" y="298" font-size="14">ДОСТАТОЧНО КРУПНЫЙ, ЧТОБЫ ПРАВИЛО НА НЕГО УЖЕ РАСПРОСТРАНЯЛОСЬ</text>
+        </g>
+        <g id="e_how" class="b" data-tip="FBI and EPA joint alert: internet-facing programmable logic controllers were taken over; network settings and passwords were changed, causing loss of monitoring and control and, in places, operational disruption.">
+          <text x="110" y="380" class="strong" font-size="15">ЧТО ОПИСЫВАЕТ ФЕДЕРАЛЬНОЕ ПРЕДУПРЕЖДЕНИЕ</text>
+          <rect x="110" y="400" width="360" height="60" class="nodebox"/>
+          <text x="132" y="436" font-size="13">КОНТРОЛЛЕРЫ В ОТКРЫТОМ ИНТЕРНЕТЕ</text>
+          <path class="blue" stroke-width="2.5" d="M 480 430 L 530 430"/>
+          <rect x="540" y="400" width="330" height="60" class="nodebox"/>
+          <text x="562" y="436" font-size="13">АДРЕС И ПАРОЛЬ ПОМЕНЯЛИ</text>
+          <path class="amber" stroke-width="2.5" d="M 880 430 L 930 430"/>
+          <rect x="940" y="400" width="380" height="60" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="962" y="436" class="flawtxt" font-size="13">ОПЕРАТОРЫ ПЕРЕСТАЛИ ВИДЕТЬ И УПРАВЛЯТЬ</text>
+        </g>
+        <g id="e_attr" class="b">
+          <rect x="110" y="500" width="1210" height="70" fill="var(--bg-raised)" stroke="var(--text-dim)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="530" class="strong" font-size="15">АТРИБУЦИЯ</text>
+          <text x="134" y="556" font-size="14">СЛЕДОВАТЕЛИ ПУБЛИЧНО НИКОГО НЕ НАЗВАЛИ — И МЫ НЕ НАЗЫВАЕМ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 2 — что сообщили, а что нет</div>
+    <div class="prose">
+      <p>В Миннесоте затронуто больше тридцати систем, включая город примерно на восемьдесят тысяч жителей — достаточно крупный, чтобы федеральное правило на него уже распространялось. В Мичигане — девять. Власти сказали, что вода осталась безопасной: это история про управление станцией, а не про то, что текло из крана.</p>
+      <p>Следователи публично никому эти атаки не приписали. Мы тоже не приписываем: для вопроса о конструкции это ничего не меняет.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 MACHINE ================= -->
+<section class="ep" id="s2" data-duration="144.9">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">Машина</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Машина · где живёт обязанность</div>
+    <h2>Оценить и удостоверить, а не быть защищённым.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg2">
+        <g id="m_bar" class="b" data-tip="About 50,000 community water systems operate in the United States. Roughly 81% serve 3,300 people or fewer, which places them below the federal duty introduced in 2018.">
+          <text x="110" y="90" class="strong" font-size="16">ОКОЛО 50 000 КОММУНАЛЬНЫХ СИСТЕМ ВОДЫ</text>
+          <text x="1110" y="132" class="fact" font-size="13">ВЫШЕ ЧЕРТЫ — ОБЯЗАННОСТЬ ДЕЙСТВУЕТ</text>
+          <g id="m_cells"></g>
+          <path class="amber" stroke-width="3" d="M 110 146 L 1080 146"/>
+          <text x="1100" y="152" class="flawtxt strong" font-size="15">3 300 ЧЕЛОВЕК</text>
+          <text x="1100" y="176" class="flawtxt" font-size="13">ЧЕРТА, КОТОРУЮ ПРОВОДИТ ПРАВИЛО</text>
+          <text x="110" y="330" font-size="14">8 ИЗ 10 СИСТЕМ НИЖЕ ЧЕРТЫ — УДОСТОВЕРЯТЬ НЕЧЕГО И НЕКОМУ</text>
+        </g>
+        <g id="m_counter" class="b">
+          <rect x="110" y="360" width="600" height="80" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="392" class="fact strong" font-size="15">И ЧИСЛО, КОТОРОЕ УДЕРЖИВАЕТ ОТ ПЕРЕДЁРГИВАНИЯ:</text>
+          <text x="134" y="422" font-size="14">КРУПНЕЙШИЕ 8% СИСТЕМ ОБСЛУЖИВАЮТ ОКОЛО 80% АМЕРИКАНЦЕВ</text>
+        </g>
+        <g id="m_para" class="b" data-tip="AWIA 2018 section 2013 amended section 1433 of the Safe Drinking Water Act of 1974: systems serving more than 3,300 people must complete a risk and resilience assessment — expressly including the security of electronic and automated systems — plus an emergency response plan, and self-certify to EPA on a five-year cycle.">
+          <rect x="750" y="360" width="570" height="80" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="774" y="392" class="strong" font-size="15">2018: НЕ НОВЫЙ ЗАКОН, А АБЗАЦ</text>
+          <text x="774" y="422" font-size="14">ДОБАВЛЕННЫЙ В ЗАКОН О ПИТЬЕВОЙ ВОДЕ 1974 ГОДА</text>
+        </g>
+        <g id="m_verb" class="b">
+          <rect x="110" y="470" width="1210" height="100" fill="var(--flaw)"/>
+          <text x="134" y="512" class="onplate strong" font-size="19">ОБЯЗАННОСТЬ — ОЦЕНИТЬ И УДОСТОВЕРИТЬ, А НЕ БЫТЬ ЗАЩИЩЁННЫМ</text>
+          <text x="134" y="548" class="onplate" font-size="14">ОЦЕНКУ НИКТО НЕ ПРОВЕРЯЕТ · НЕТ МИНИМУМА ТРЕБОВАНИЙ · НИГДЕ НЕ СКАЗАНО УБРАТЬ КОНТРОЛЛЕР ИЗ ИНТЕРНЕТА</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 3 — пятьдесят тысяч систем, одна черта, один глагол</div>
+    <div class="prose">
+      <p>В США около пятидесяти тысяч коммунальных систем питьевой воды, и восемь из десяти обслуживают три тысячи триста человек или меньше — то есть ниже черты, которую проводит федеральная обязанность. Честный противовес: крупнейшие восемь процентов систем обслуживают около восьмидесяти процентов американцев. Любое правило здесь вынуждено выбирать, вокруг какого из двух фактов оно построено.</p>
+      <p>Сама обязанность появилась в 2018 году абзацем, добавленным в закон о питьевой воде 1974 года. Она требует оценки рисков (защищённость компьютерных систем — один из обязательных пунктов), плана реагирования и самостоятельного удостоверения перед агентством раз в пять лет. Не минимального стандарта. Не проверки сети.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 DEFECT ================= -->
+<section class="ep" id="s3" data-duration="124.3">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Дефект</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Дефект · две вещи, привязанные к разному</div>
+    <h2>Обязанность считает абонентов. Опасность считает открытые порты.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="d_cols" class="b">
+          <rect x="110" y="70" width="520" height="170" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="112" class="fact strong" font-size="16">ОБЯЗАННОСТЬ ПРИВЯЗАНА К</text>
+          <text x="134" y="156" class="big" font-size="30">ЧИСЛУ АБОНЕНТОВ</text>
+          <text x="134" y="200" font-size="14">ЭТО ЧИСЛО ИЗ ЗАКОНА</text>
+          <rect x="850" y="70" width="520" height="170" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="874" y="112" class="flawtxt strong" font-size="16">ОПАСНОСТЬ ПРИВЯЗАНА К</text>
+          <text x="874" y="156" class="big" font-size="30">КОНТРОЛЛЕРУ В СЕТИ</text>
+          <text x="874" y="200" font-size="14">ЭТО ФАКТ ИЗ СЕТИ</text>
+          <path class="hair" d="M 630 155 L 720 155"/>
+          <path class="hair" d="M 760 155 L 850 155"/>
+          <text x="740" y="162" text-anchor="middle" class="flawtxt" font-size="26">×</text>
+        </g>
+        <g id="d_instrument" class="b" data-tip="The sanitary survey is the federal-state inspection of a public water system: source, treatment, distribution, sampling. It has no counterpart for the plant's control systems.">
+          <rect x="110" y="280" width="600" height="90" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="316" class="strong" font-size="15">ЕДИНСТВЕННЫЙ ИМЕВШИЙСЯ ИНСТРУМЕНТ</text>
+          <text x="134" y="348" font-size="14">САНИТАРНОЕ ОБСЛЕДОВАНИЕ — ПОД ТРУБЫ, ХЛОР И ПРОБЫ</text>
+        </g>
+        <g id="d_timeline" class="b">
+          <path class="hair" d="M 110 440 L 1370 440"/>
+          <circle cx="230" cy="440" r="8" fill="var(--fact)"/>
+          <circle cx="700" cy="440" r="8" fill="var(--flaw)"/>
+          <circle cx="1180" cy="440" r="10" fill="var(--flaw)"/>
+          <text x="230" y="412" text-anchor="middle" class="fact strong" font-size="14">МАРТ 2023</text>
+          <text x="230" y="478" text-anchor="middle" font-size="13">МЕМОРАНДУМ: ПРОВЕРЯТЬ КИБЕР В ОБСЛЕДОВАНИИ</text>
+          <text x="700" y="412" text-anchor="middle" class="flawtxt strong" font-size="14">ИЮЛЬ 2023</text>
+          <text x="700" y="478" text-anchor="middle" font-size="13">СУД ЕГО ПРИОСТАНАВЛИВАЕТ · ТРИ ШТАТА И ДВЕ АССОЦИАЦИИ</text>
+          <path class="amber" stroke-width="2" d="M 240 392 L 690 392"/>
+          <text x="465" y="382" text-anchor="middle" class="flawtxt" font-size="13">ЧЕТЫРЕ МЕСЯЦА</text>
+          <text x="1180" y="412" text-anchor="middle" class="flawtxt strong" font-size="14">ОКТЯБРЬ 2023</text>
+          <text x="1180" y="478" text-anchor="middle" font-size="13">АГЕНТСТВО ЕГО ОТЗЫВАЕТ</text>
+        </g>
+        <g id="d_borrowed" class="b">
+          <rect x="110" y="510" width="1210" height="70" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="540" class="flawtxt strong" font-size="15">ЗАИМСТВОВАННОЕ ПОЛНОМОЧИЕ РУШИТСЯ ОСОБЫМ ОБРАЗОМ:</text>
+          <text x="134" y="566" font-size="14">СПОР НЕ ПРОСТО УБИРАЕТ ПРАВИЛО — ПОСЛЕ НЕГО ОСТАЁТСЯ СУДЕБНЫЙ АКТ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 4 — несовпадение и четыре месяца, которые оно продержалось</div>
+    <div class="prose">
+      <p>Система на три тысячи человек с выставленным наружу контроллером может затопить улицу. Система на пятьдесят тысяч, у которой наружу не выставлено ничего, — нет. Обязанность и опасность привязаны к разным вещам.</p>
+      <p>Второе несовпадение и решило исход: федеральный инструмент проверки водоканала — санитарное обследование. Когда в марте 2023 года агентство захотело дотянуться до кибербезопасности, оно дотянулось именно им. Миссури, Арканзас и Айова подали иск, к ним присоединились две отраслевые ассоциации, включая ассоциацию сельских водоканалов. В июле суд приостановил меморандум, в октябре агентство отозвало его, сославшись на иски.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 PRICE ================= -->
+<section class="ep" id="s4" data-duration="86.6">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Цена</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Цена · городок, инспектор, разрыв</div>
+    <h2>Обязанность значит что-то, только если её есть кому прочесть.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg4">
+        <g id="p_town" class="b">
+          <rect x="110" y="70" width="600" height="190" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="134" y="110" class="flawtxt strong" font-size="16">ГОРОДОК, КОТОРЫЙ ПОДАЛ ИСК</text>
+          <text x="134" y="150" font-size="14">ДВА ОПЕРАТОРА · УПРАВЛЯЮЩИЙ НА ПОЛСТАВКИ</text>
+          <text x="134" y="182" font-size="14">ВСЕ ДЕНЬГИ — ЭТО СЧЕТА ЖИТЕЛЕЙ ЗА ВОДУ</text>
+          <text x="134" y="222" class="strong" font-size="14">ПРОГРАММА БЕЗОПАСНОСТИ — ЭТО СТРОКА БЮДЖЕТА,</text>
+          <text x="134" y="250" font-size="14">ОТНЯТАЯ У НАСОСА, ПОИСКА УТЕЧЕК ИЛИ ЗАРПЛАТЫ</text>
+        </g>
+        <g id="p_inspector" class="b">
+          <rect x="770" y="70" width="600" height="190" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="794" y="110" class="fact strong" font-size="16">ТРЕТЬЯ СТОРОНА, КОТОРУЮ НЕ СПРАШИВАЮТ</text>
+          <text x="794" y="150" font-size="14">САНОБСЛЕДОВАНИЯ ВЕДУТ ИНСПЕКТОРЫ ШТАТА</text>
+          <text x="794" y="182" font-size="14">ОБУЧЕННЫЕ ХЛОРУ, ОБРАТНОМУ ПОТОКУ, ПРОБАМ</text>
+          <text x="794" y="222" class="strong" font-size="14">МЕМОРАНДУМ 2023 ПРОСИЛ ИХ ОЦЕНИВАТЬ СЕТЬ</text>
+          <text x="794" y="250" font-size="14">СОВСЕМ ДРУГАЯ ПРОФЕССИЯ</text>
+        </g>
+        <g id="p_hire" class="b">
+          <rect x="110" y="300" width="1260" height="80" fill="var(--alt)"/>
+          <text x="134" y="336" class="onplate strong" font-size="17">ЭТОГО ЧЕЛОВЕКА НАДО НАНЯТЬ РАНЬШЕ, ЧЕМ ПРАВИЛО ЗАРАБОТАЕТ</text>
+          <text x="134" y="366" class="onplate" font-size="14">ЭТО НЕ СНОСКА К ПЛАНУ — НА ПРАКТИКЕ ЭТО И ЕСТЬ ПЛАН</text>
+        </g>
+        <g id="p_left" class="b">
+          <text x="110" y="440" class="strong" font-size="16">ИТОГО У СТРАНЫ ОСТАЁТСЯ:</text>
+          <text x="110" y="478" font-size="14">ОБЯЗАННОСТЬ ПО ЧИСЛУ АБОНЕНТОВ ВНУТРИ ПРОВЕРКИ КАЧЕСТВА ВОДЫ</text>
+          <text x="110" y="508" font-size="14">ОПАСНОСТЬ НА СТАНЦИИ, КОТОРУЮ НИКТО НЕ ОБЯЗАН ПРОВЕРЯТЬ</text>
+          <text x="110" y="538" class="flawtxt" font-size="14">И ПУТЬ НОРМОТВОРЧЕСТВА, КОТОРЫЙ ПРОВЕРИЛИ И ЗАКРЫЛИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 5 — кто платит и кому пришлось бы читать правило</div>
+    <div class="prose">
+      <p>Будем честны к городку, который подал иск: у водоканала на три тысячи человек может быть два оператора и управляющий на полставки, а все деньги — это то, что жители платят по счетам за воду. Для такого города программа безопасности — строка бюджета, отнятая у чего-то другого.</p>
+      <p>И есть третья сторона, которую никто не спрашивает, — штат. Санитарные обследования ведут инспекторы, обученные хлору, обратному потоку и пробам. Меморандум 2023 года просил тех же инспекторов оценивать управляющую сеть. Обязанность значит что-то только тогда, когда в кабинете штата сидит человек, понимающий, на что он смотрит, и нанять его нужно раньше, чем правило заработает.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 WHAT IF ================= -->
+<section class="ep" id="s5" data-duration="202.7">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Что если</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · три конструкции, три ценника</div>
+    <h2>Свой закон, обязанность по доступности снаружи или модель энергетики.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: its own law -->
+        <g id="a_own" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">СПОСОБ ПЕРВЫЙ · ДАТЬ ОТРАСЛИ СВОЙ ЗАКОН</text>
+          <g id="a_o1" class="b">
+            <rect x="110" y="120" width="560" height="80" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="152" class="alttxt strong" font-size="15">ЕВРОПА: ВОДА — СУЩЕСТВЕННАЯ УСЛУГА</text>
+            <text x="134" y="182" font-size="14">МЕРЫ · ПРОВЕРКИ · ШТРАФЫ · ПЕРСОНАЛЬНАЯ ОТВЕТСТВЕННОСТЬ</text>
+            <rect x="710" y="120" width="380" height="80" class="nodebox"/>
+            <text x="734" y="152" class="fact strong" font-size="15">ПЕРВОЕ ОПОВЕЩЕНИЕ ЗА 24 ЧАСА</text>
+            <text x="734" y="182" font-size="14">ЧАСЫ, А НЕ ПЯТИЛЕТНИЙ ЦИКЛ</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ПОКУПАЕТ: ОТЧЁТНОСТЬ ДАЁТ КАРТИНУ, КТО ДОСТУПЕН СНАРУЖИ</text>
+          </g>
+          <g id="a_ocost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА — И ЭТО НАШ ЖЕ ПОДВОХ:</text>
+            <text x="134" y="364" font-size="14">1 · ЕВРОПА ТОЖЕ ПРОВОДИТ ЧЕРТУ ПО РАЗМЕРУ — ПО ШТАТУ И ОБОРОТУ</text>
+            <text x="134" y="396" font-size="14">2 · ПЛЮС ДВЕРЬ: СТРАНА МОЖЕТ ВТЯНУТЬ МАЛОГО ЕДИНСТВЕННОГО ПОСТАВЩИКА</text>
+            <text x="134" y="428" class="flawtxt strong" font-size="14">ТО ЕСТЬ ОТВЕТ НЕ «ПОРОГА НЕТ», А «ДРУГОЙ ПОРОГ»</text>
+            <text x="134" y="466" font-size="14">3 · КТО-ТО ДОЛЖЕН ПО КАЖДОМУ РЕШАТЬ, ДОСТАТОЧНО ЛИ ОН ВАЖЕН, —</text>
+            <text x="134" y="496" font-size="14">РОВНО ЭТО СУЖДЕНИЕ АГЕНТСТВУ США ВЫНОСИТЬ ЗАПРЕТИЛИ</text>
+          </g>
+        </g>
+        <!-- B: exposure -->
+        <g id="a_expose" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">СПОСОБ ВТОРОЙ · ПРИВЯЗАТЬ ОБЯЗАННОСТЬ К ДОСТУПНОСТИ СНАРУЖИ</text>
+          <g id="a_e1" class="b">
+            <rect x="110" y="120" width="420" height="80" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="168" class="alttxt" font-size="15">КОНТРОЛЛЕР ДОСТУПЕН СНАРУЖИ?</text>
+            <path class="green" stroke-width="3" d="M 540 145 L 600 145"/>
+            <rect x="610" y="115" width="340" height="42" class="nodebox"/>
+            <text x="634" y="143" font-size="14">ДА → КОРОТКИЙ СПИСОК ТРЕБОВАНИЙ</text>
+            <path class="green" stroke-width="3" d="M 540 178 L 600 178"/>
+            <rect x="610" y="158" width="340" height="42" class="nodebox"/>
+            <text x="634" y="186" font-size="14">НЕТ → ЧЕК-ЛИСТ И БОЛЬШЕ НИЧЕГО</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ПОКУПАЕТ: ОБЯЗАННОСТЬ ЛОЖИТСЯ ТУДА, ГДЕ ОПАСНОСТЬ</text>
+          </g>
+          <g id="a_ecost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="364" font-size="14">1 · НИКТО НЕ ЗНАЕТ, КТО ДОСТУПЕН СНАРУЖИ: РЕЕСТРА НЕТ</text>
+            <text x="134" y="396" font-size="14">2 · ДОСТУПНОСТЬ МЕНЯЕТСЯ В ДЕНЬ, КОГДА ПОДРЯДЧИК ОТКРЫЛ ПОРТ</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">3 · ОТВЕТ ДЕРЖИТСЯ НА СЛОВЕ САМОГО ВОДОКАНАЛА —</text>
+            <text x="134" y="464" font-size="14">ТА ЖЕ САМОДЕКЛАРАЦИЯ, КОТОРУЮ МЫ НАЗВАЛИ СЛАБЫМ МЕСТОМ,</text>
+            <text x="134" y="494" font-size="14">ТОЛЬКО ТЕПЕРЬ ГАЛОЧКА РЕШАЕТ, ДЕЙСТВУЕТ ЛИ ХОТЬ КАКОЕ-ТО ПРАВИЛО</text>
+          </g>
+        </g>
+        <!-- C: electricity -->
+        <g id="a_grid" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">СПОСОБ ТРЕТИЙ · СКОПИРОВАТЬ МОДЕЛЬ ЭНЕРГЕТИКИ</text>
+          <g id="a_g1" class="b">
+            <rect x="110" y="120" width="360" height="80" class="nodebox"/>
+            <text x="134" y="152" class="strong" font-size="15">ОТРАСЛЬ ПИШЕТ СТАНДАРТЫ</text>
+            <text x="134" y="182" font-size="14">РЕГУЛЯТОР ИХ УТВЕРЖДАЕТ</text>
+            <path class="green" stroke-width="3" d="M 490 160 L 550 160"/>
+            <rect x="560" y="120" width="360" height="80" class="nodebox"/>
+            <text x="584" y="152" class="strong" font-size="15">НАРУШЕНИЕ СТОИТ ДЕНЕГ</text>
+            <text x="584" y="182" font-size="14">РАБОТАЕТ БОЛЬШЕ ПЯТНАДЦАТИ ЛЕТ</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ПОКУПАЕТ: ГОТОВУЮ МАШИНУ, УЖЕ ПРОВЕРЕННУЮ СУДАМИ</text>
+          </g>
+          <g id="a_gcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА — ТО, ЧТО ЭНЕРГЕТИКА ДЛЯ ЭТОГО ТИХО СДЕЛАЛА:</text>
+            <text x="134" y="364" font-size="14">1 · ОНА РЕГУЛИРУЕТ ТОЛЬКО ВЫСОКОВОЛЬТНЫЙ КОСТЯК — НЕСКОЛЬКО ТЫСЯЧ ОРГАНИЗАЦИЙ</text>
+            <text x="134" y="396" font-size="14">2 · ТЫСЯЧИ МЕСТНЫХ РАСПРЕДЕЛИТЕЛЬНЫХ СЕТЕЙ ОСТАЮТСЯ ЗА БОРТОМ</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">3 · У ВОДЫ КОСТЯКА, КОТОРЫЙ МОЖНО ОТРЕЗАТЬ, НЕТ:</text>
+            <text x="134" y="464" font-size="14">СТАНЦИЯ НА 3 000 ЧЕЛОВЕК — ЭТО ВСЯ СИСТЕМА ЭТОГО ГОРОДА</text>
+            <text x="134" y="494" font-size="14">ЗНАЧИТ: В ТРИДЦАТЬ РАЗ БОЛЬШЕ ОРГАНИЗАЦИЙ — ИЛИ ДАВЛЕНИЕ ОБЪЕДИНЯТЬСЯ</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">Свой закон</button><button id="btnR1">Доступность</button><button id="btnR2">Энергетика</button>
+    </div>
+    <div class="figcap">Рис. 6 — три конструкции, три ценника. Нажимайте, чтобы сравнить.</div>
+    <div class="prose">
+      <p>Первый способ даёт воде свой закон, как в Европе, и покупает то, чего нет ни у кого: часовую отчётность, из которой видно, кто доступен снаружи. Подвох наш собственный: Европа тоже проводит черту по размеру, только по штату и обороту, а не по абонентам, плюс оставляет дверь, чтобы втянуть малого единственного поставщика. Кто-то должен решать, кто достаточно важен, — ровно то суждение, которое агентству США выносить запретили.</p>
+      <p>Второй способ привязывает обязанность к выставленности. Она ложится туда, где опасность, и держится на слове самого водоканала — той же самодекларации, которую мы только что назвали слабым местом. Только теперь поставленная галочка решает, действует ли вообще хоть какое-то правило.</p>
+      <p>Третий способ копирует модель энергетики, а она работает потому, что регулирует только высоковольтный костяк и оставляет местные распределительные сети за бортом. У воды костяка, который можно отрезать, нет: станция на три тысячи человек — это вся система города.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="80.7">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">Финал</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Финал · вопрос, который стоит забрать</div>
+    <h2>Спросите, к чему привязана обязанность.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_objects" class="b">
+          <rect x="180" y="70" width="380" height="140" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="370" y="130" text-anchor="middle" class="flawtxt strong" font-size="18">КОНТРОЛЛЕР</text>
+          <text x="370" y="170" text-anchor="middle" font-size="14">ГДЕ ОПАСНОСТЬ</text>
+          <rect x="920" y="70" width="380" height="140" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="1110" y="130" text-anchor="middle" class="fact strong" font-size="18">БЛАНК ИНСПЕКТОРА</text>
+          <text x="1110" y="170" text-anchor="middle" font-size="14">ГДЕ ВИСИТ ОБЯЗАННОСТЬ</text>
+          <path class="hair" d="M 570 140 L 700 140"/>
+          <path class="hair" d="M 790 140 L 910 140"/>
+          <text x="745" y="148" text-anchor="middle" class="flawtxt" font-size="24">×</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="290" text-anchor="middle" class="big" font-size="26">К ЧЕМУ ПРИВЯЗАНА ОБЯЗАННОСТЬ?</text>
+          <text x="740" y="350" text-anchor="middle" font-size="18">И ТО ЛИ ЭТО, К ЧЕМУ ПРИВЯЗАНА ОПАСНОСТЬ?</text>
+          <text x="740" y="412" text-anchor="middle" font-size="18">ВТОРОЙ ВОПРОС: ЧЕЙ ЭТО ИНСТРУМЕНТ?</text>
+          <text x="740" y="470" text-anchor="middle" class="flawtxt" font-size="17">ВОДА · ЭНЕРГОСЕТЬ · БОЛЬНИЦЫ · ТРАНСПОРТ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Число абонентов, диапазоны выручки, численность персонала, площадь: за них хватаются потому, что их легко посчитать, а не потому, что риск их уважает. Каждая конструкция выше тоже проводит такую черту. Поэтому вопрос не в том, есть ли черта, а в том, по чему она проведена и кому позволено через неё перешагнуть.</p>
+      <p>И второй вопрос к любому сообщению ведомства: чей это инструмент? Если орган тянется к полномочию, созданному для другого, потому что своего у него нет, правило какое-то время поработает и исчезнет в тот момент, когда против него выступит кто-то с правом на иск.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">ДЕФЕКТ КОНСТРУКЦИИ</div>
+      <p>Не кто виноват — как устроено. Полный интерактивный чертёж живёт на этой странице. <a href="../" style="color:var(--fact)">In English →</a></p>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Подписаться</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="90" width="300" height="150" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <rect x="200" y="140" width="200" height="52" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <text x="300" y="178" text-anchor="middle" font-family="IBM Plex Mono" font-size="30" style="fill:var(--flaw)">КОНТРОЛЛЕР</text>
+    <path d="M 300 240 L 300 300" stroke="var(--flaw)" stroke-width="7" stroke-dasharray="10 8"/>
+    <text x="300" y="345" text-anchor="middle" font-family="IBM Plex Mono" font-size="28" style="fill:var(--text-dim)">В ИНТЕРНЕТЕ</text>
+    <text x="560" y="150" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">правило проверяет</text>
+    <text x="560" y="220" font-family="IBM Plex Mono" font-size="40" style="fill:var(--fact)">трубы и хлор</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">7 штатов</div>
+  <div class="sub">водоканалов атакованы с 27 июля</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <g id="t_bar"></g>
+    <path d="M 900 70 L 900 300" stroke="var(--flaw)" stroke-width="8"/>
+    <text x="930" y="150" font-family="IBM Plex Mono" font-size="36" style="fill:var(--flaw)">3 300 человек</text>
+    <text x="930" y="215" font-family="IBM Plex Mono" font-size="30" style="fill:var(--text-dim)">обязанность начинается тут</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">8 из 10</div>
+  <div class="sub">систем воды ниже этой черты</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+const NS='http://www.w3.org/2000/svg';
+
+/* S2: 50 blocks = ~50,000 systems; the first 40 (81%) sit below the 3,300 line */
+(function(){
+  const g=$('m_cells'); if(!g)return;
+  for(let i=0;i<50;i++){
+    const col=i%10, row=Math.floor(i/10);
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',110+col*98); r.setAttribute('y',110+row*40);
+    r.setAttribute('width',82); r.setAttribute('height',28);
+    const below = i>=10;                       // row 1 = the ~10 covered systems, rows 2-5 = the 40 below
+    r.setAttribute('stroke', below?'var(--flaw)':'var(--fact)');
+    r.setAttribute('stroke-width','2');
+    r.setAttribute('fill', below?'var(--flaw)':'var(--fact)');
+    r.setAttribute('fill-opacity', below?'.22':'.35');
+    g.appendChild(r);
+  }
+})();
+
+/* thumbnail B: the same bar, bigger */
+(function(){
+  const g=$('t_bar'); if(!g)return;
+  for(let i=0;i<40;i++){
+    const col=i%8, row=Math.floor(i/8);
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',150+col*95); r.setAttribute('y',80+row*44);
+    r.setAttribute('width',78); r.setAttribute('height',30);
+    r.setAttribute('fill','var(--text)');
+    r.setAttribute('fill-opacity', i<32?'1':'.25');
+    g.appendChild(r);
+  }
+})();
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.8);
+  say(tl,'h_s1b',7.0,.7); idle(tl,'h_s1',10,8);
+  tl.to([$('h_s1'),$('h_s1b')],{opacity:0,duration:.5},22.0);
+  say(tl,'h_s2',22.3,.9);
+  say(tl,'h_s2b',27.5,.9); idle(tl,'h_s2',33,10);
+  tl.to([$('h_s2'),$('h_s2b')],{opacity:0,duration:.5},46.0);
+  say(tl,'h_s3',46.3,.8); idle(tl,'h_s3',51,6);
+  tl.to($('h_s3'),{opacity:0,duration:.45},60.0);
+  pop(tl,'h_s4',60.3,.7); shake(tl,'h_s4',61.3,6,8); idlePlate(tl,'h_s4',63,10);
+  tl.to($('h_s4'),{opacity:0,duration:.45},76.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},76.3);
+  if(isAuto)tl.to({},{duration:5.0},77.0); else tl.to($('titleCard'),{opacity:0,duration:.5},82.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_when',0.5,.9); idle(tl,'e_when',6,12);
+  pop(tl,'e_big',22.0,.7); idlePlate(tl,'e_big',25,10);
+  say(tl,'e_how',40.0,.9); idle(tl,'e_how',46,14);
+  say(tl,'e_attr',66.0,.8); idle(tl,'e_attr',70,10);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'m_bar',0.5,.9); idle(tl,'m_bar',7,16);
+  say(tl,'m_counter',28.0,.8); idle(tl,'m_counter',33,10);
+  say(tl,'m_para',46.0,.8); idle(tl,'m_para',51,12);
+  pop(tl,'m_verb',68.0,.7); shake(tl,'m_verb',69.0,5,6); idlePlate(tl,'m_verb',71,16);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'d_cols',0.5,.9); idle(tl,'d_cols',7,14);
+  say(tl,'d_instrument',24.0,.8); idle(tl,'d_instrument',29,10);
+  say(tl,'d_timeline',42.0,.9); idle(tl,'d_timeline',49,14);
+  pop(tl,'d_borrowed',68.0,.7); shake(tl,'d_borrowed',69.0,5,6); idlePlate(tl,'d_borrowed',71,14);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'p_town',0.5,.9); idle(tl,'p_town',6,12);
+  say(tl,'p_inspector',22.0,.9); idle(tl,'p_inspector',28,14);
+  pop(tl,'p_hire',46.0,.7); idlePlate(tl,'p_hire',49,10);
+  say(tl,'p_left',60.0,.8); idle(tl,'p_left',65,12);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_own'),{opacity:1},0);
+  say(tl,'a_o1',0.5,.8); idle(tl,'a_o1',7,14);
+  say(tl,'a_ocost',26.0,.7); idle(tl,'a_ocost',31,14);
+  tl.to($('a_own'),{opacity:0,duration:.45},48.0);
+  tl.fromTo($('a_expose'),{opacity:0},{opacity:1,duration:.55},48.3);
+  say(tl,'a_e1',52.0,.8); idle(tl,'a_e1',59,12);
+  say(tl,'a_ecost',74.0,.7); idle(tl,'a_ecost',79,14);
+  tl.to($('a_expose'),{opacity:0,duration:.45},94.0);
+  tl.fromTo($('a_grid'),{opacity:0},{opacity:1,duration:.55},94.3);
+  say(tl,'a_g1',98.0,.8); idle(tl,'a_g1',105,12);
+  pop(tl,'a_gcost',120.0,.7); shake(tl,'a_gcost',121.0,5,6); idlePlate(tl,'a_gcost',123,14);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_objects',0.1,.9); idle(tl,'z_objects',5,16);
+  say(tl,'z_q',28.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},32.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_own','a_expose','a_grid'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  [0,1,2].forEach(k=>$('btnR'+k).classList.toggle('on',k===i));}
+[0,1,2].forEach(k=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>

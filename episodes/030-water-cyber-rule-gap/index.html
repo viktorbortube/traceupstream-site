@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hackers Hit US Water. The Cyber Rule Was Withdrawn | Trace Upstream</title>
+<meta name="description" content="Since 27 July 2026 water utilities in at least seven US states reported cyber incidents. The federal duty to look at cybersecurity is pinned to customer counts and lives inside a drinking-water inspection; the one rule that tried to bridge them was withdrawn in 2023 after a lawsuit.">
+<link rel="canonical" href="https://traceupstream.com/episodes/030-water-cyber-rule-gap/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="Hackers Hit US Water. The Cyber Rule Was Withdrawn">
+<meta property="og:description" content="The duty is pinned to how many customers you have. The danger is pinned to whether a controller can be reached from the internet. Those are not the same thing.">
+<meta property="og:url" content="https://traceupstream.com/episodes/030-water-cyber-rule-gap/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#7F8FA6; /* desaturated slate blue — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.030 — 2026-08-07</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen · 12:30</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="80.4">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.030</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_s1" class="b">
+          <text x="500" y="205" text-anchor="middle" class="big" font-size="96">7 STATES</text>
+          <text x="500" y="275" text-anchor="middle" font-size="34">WATER UTILITIES REPORTED CYBER INCIDENTS</text>
+          <text x="500" y="330" text-anchor="middle" class="flawtxt" font-size="33">SINCE 27 JULY</text>
+        </g>
+        <g id="h_s1b" class="b">
+          <rect x="90" y="370" width="820" height="76" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="500" y="418" text-anchor="middle" class="flawtxt" font-size="31">30+ SYSTEMS IN ONE STATE · RUN BY HAND</text>
+        </g>
+        <g id="h_s2" class="b">
+          <rect x="90" y="150" width="330" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <rect x="140" y="200" width="230" height="52" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="255" y="235" text-anchor="middle" class="flawtxt" font-size="31">CONTROLLER</text>
+          <path class="amber" stroke-width="3" d="M 255 252 L 255 300"/>
+          <text x="255" y="378" text-anchor="middle" font-size="31">ON THE INTERNET</text>
+        </g>
+        <g id="h_s2b" class="b">
+          <rect x="580" y="150" width="330" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="745" y="205" text-anchor="middle" class="fact" font-size="31">INSPECTOR'S FORM</text>
+          <text x="745" y="255" text-anchor="middle" font-size="31">PIPES · CHLORINE</text>
+          <text x="745" y="305" text-anchor="middle" font-size="31">SAMPLES</text>
+          <text x="745" y="378" text-anchor="middle" class="fact" font-size="31">THE RULE HANGS HERE</text>
+        </g>
+        <g id="h_s3" class="b">
+          <text x="500" y="215" text-anchor="middle" class="big" font-size="54">ONE RULE TRIED TO CONNECT THEM</text>
+          <text x="500" y="300" text-anchor="middle" class="big" font-size="54">IT LASTED FOUR MONTHS</text>
+        </g>
+        <g id="h_s4" class="b">
+          <rect x="90" y="180" width="820" height="160" fill="var(--flaw)"/>
+          <text x="500" y="250" text-anchor="middle" class="onplate big" font-size="46">WITHDRAWN IN 2023</text>
+          <text x="500" y="312" text-anchor="middle" class="onplate big" font-size="46">NOTHING REPLACED IT</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="240" text-anchor="middle" class="big" font-size="60">WHAT THE DUTY IS PINNED TO</text>
+          <text x="500" y="320" text-anchor="middle" font-size="33">TRACE UPSTREAM · EP.030</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 1 — the danger on the left, the duty on the right</div>
+    <div class="prose">
+      <p>Since 27 July 2026, water and wastewater utilities in at least seven US states have reported cyber incidents to the FBI. Some lost pressure, some overflowed, some fell back to running the plant by hand. The FBI and the EPA describe the way in: industrial controllers reachable from the open internet, with addresses and passwords changed so operators lost visibility and control.</p>
+      <p>The American duty to "look at your cybersecurity" is attached to a different object entirely: the sanitary survey, an inspection built for pipes, chlorine and samples. One rule tried to bridge the two. It was frozen by a court in July 2023 and withdrawn that October.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="75.5">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · seven states, since 27 July</div>
+    <h2>The plant kept running. The steering was taken away.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_when" class="b" data-tip="Since 27 July 2026 utilities in at least seven states have reported incidents to the FBI; some incidents degraded operations. Counts as reported publicly by state authorities and national media.">
+          <text x="110" y="90" class="strong" font-size="16">REPORTED TO THE FBI SINCE 27 JULY</text>
+          <rect x="110" y="110" width="300" height="90" class="nodebox"/>
+          <text x="260" y="152" text-anchor="middle" class="big" font-size="34">7</text>
+          <text x="260" y="184" text-anchor="middle" font-size="13">STATES</text>
+          <rect x="440" y="110" width="300" height="90" class="nodebox"/>
+          <text x="590" y="152" text-anchor="middle" class="big" font-size="34">30+</text>
+          <text x="590" y="184" text-anchor="middle" font-size="13">SYSTEMS IN MINNESOTA</text>
+          <rect x="770" y="110" width="300" height="90" class="nodebox"/>
+          <text x="920" y="152" text-anchor="middle" class="big" font-size="34">9</text>
+          <text x="920" y="184" text-anchor="middle" font-size="13">SYSTEMS IN MICHIGAN</text>
+        </g>
+        <g id="e_big" class="b">
+          <rect x="110" y="230" width="620" height="90" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="266" class="fact strong" font-size="15">AMONG THEM: A CITY OF ABOUT 80,000</text>
+          <text x="134" y="298" font-size="14">LARGE ENOUGH THAT THE FEDERAL RULE ALREADY APPLIES TO IT</text>
+        </g>
+        <g id="e_how" class="b" data-tip="FBI and EPA joint alert: internet-facing programmable logic controllers were taken over; network settings and passwords were changed, causing loss of monitoring and control and, in places, operational disruption.">
+          <text x="110" y="380" class="strong" font-size="15">WHAT THE FEDERAL ALERT DESCRIBES</text>
+          <rect x="110" y="400" width="360" height="60" class="nodebox"/>
+          <text x="132" y="436" font-size="13">CONTROLLERS ON THE PUBLIC INTERNET</text>
+          <path class="blue" stroke-width="2.5" d="M 480 430 L 530 430"/>
+          <rect x="540" y="400" width="330" height="60" class="nodebox"/>
+          <text x="562" y="436" font-size="13">ADDRESS AND PASSWORD CHANGED</text>
+          <path class="amber" stroke-width="2.5" d="M 880 430 L 930 430"/>
+          <rect x="940" y="400" width="380" height="60" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="962" y="436" class="flawtxt" font-size="13">OPERATORS LOST WATCH AND STEER</text>
+        </g>
+        <g id="e_attr" class="b">
+          <rect x="110" y="500" width="1210" height="70" fill="var(--bg-raised)" stroke="var(--text-dim)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="530" class="strong" font-size="15">ATTRIBUTION</text>
+          <text x="134" y="556" font-size="14">INVESTIGATORS HAVE NOT PUBLICLY NAMED ANYONE — AND NEITHER DO WE</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 2 — what was reported, and what was not</div>
+    <div class="prose">
+      <p>In Minnesota more than thirty systems were touched, including a city of about eighty thousand people — large enough that the federal rule already applies to it. In Michigan, nine. Officials said the water stayed safe to drink: this is a story about control of the plant, not about what came out of the tap.</p>
+      <p>Investigators have not publicly attributed the attacks to anyone. Neither do we — it changes nothing in the design question.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 MACHINE ================= -->
+<section class="ep" id="s2" data-duration="113.3">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The machine</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The machine · where the duty lives</div>
+    <h2>Assess and certify — not be secure.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg2">
+        <g id="m_bar" class="b" data-tip="About 50,000 community water systems operate in the United States. Roughly 81% serve 3,300 people or fewer, which places them below the federal duty introduced in 2018.">
+          <text x="110" y="90" class="strong" font-size="16">ABOUT 50,000 COMMUNITY WATER SYSTEMS</text>
+          <text x="1110" y="132" class="fact" font-size="13">ABOVE THE LINE: THE DUTY APPLIES</text>
+          <g id="m_cells"></g>
+          <path class="amber" stroke-width="3" d="M 110 146 L 1080 146"/>
+          <text x="1100" y="152" class="flawtxt strong" font-size="15">3,300 PEOPLE</text>
+          <text x="1100" y="176" class="flawtxt" font-size="13">THE LINE THE RULE DRAWS</text>
+          <text x="110" y="330" font-size="14">EIGHT OUT OF TEN SYSTEMS SIT BELOW IT — NO DUTY TO CERTIFY ANYTHING</text>
+        </g>
+        <g id="m_counter" class="b">
+          <rect x="110" y="360" width="600" height="80" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="392" class="fact strong" font-size="15">AND THE NUMBER THAT KEEPS US HONEST:</text>
+          <text x="134" y="422" font-size="14">THE LARGEST 8% OF SYSTEMS SERVE ABOUT 80% OF AMERICANS</text>
+        </g>
+        <g id="m_para" class="b" data-tip="AWIA 2018 section 2013 amended section 1433 of the Safe Drinking Water Act of 1974: systems serving more than 3,300 people must complete a risk and resilience assessment — expressly including the security of electronic and automated systems — plus an emergency response plan, and self-certify to EPA on a five-year cycle.">
+          <rect x="750" y="360" width="570" height="80" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="774" y="392" class="strong" font-size="15">2018: NOT A NEW LAW — A PARAGRAPH</text>
+          <text x="774" y="422" font-size="14">ADDED TO THE DRINKING-WATER ACT OF 1974</text>
+        </g>
+        <g id="m_verb" class="b">
+          <rect x="110" y="470" width="1210" height="100" fill="var(--flaw)"/>
+          <text x="134" y="512" class="onplate strong" font-size="19">THE DUTY IS TO ASSESS AND TO CERTIFY — NOT TO BE SECURE</text>
+          <text x="134" y="548" class="onplate" font-size="14">NOBODY GRADES THE ASSESSMENT · NO MINIMUM CONTROL · NOTHING SAYS TAKE THE CONTROLLER OFF THE INTERNET</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 3 — 50,000 systems, one line, one verb</div>
+    <div class="prose">
+      <p>About fifty thousand community water systems operate in the United States, and eight out of ten of them serve 3,300 people or fewer — below the line the federal duty draws. The honest counterweight: about 8% of systems serve roughly 80% of Americans. Any rule here has to choose which of those two facts it is built around.</p>
+      <p>The duty itself came in 2018 as a paragraph added to the drinking-water act of 1974. It requires a risk assessment — the security of computer systems is one of the things it must consider — an emergency plan, and self-certification to the EPA every five years. Not a minimum standard. Not an inspection of the network.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 DEFECT ================= -->
+<section class="ep" id="s3" data-duration="103">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The defect</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The defect · two things, pinned separately</div>
+    <h2>The duty counts customers. The danger counts open ports.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="d_cols" class="b">
+          <rect x="110" y="70" width="520" height="170" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="112" class="fact strong" font-size="16">THE DUTY IS PINNED TO</text>
+          <text x="134" y="156" class="big" font-size="30">HOW MANY CUSTOMERS</text>
+          <text x="134" y="200" font-size="14">A NUMBER IN THE LAW</text>
+          <rect x="850" y="70" width="520" height="170" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="874" y="112" class="flawtxt strong" font-size="16">THE DANGER IS PINNED TO</text>
+          <text x="874" y="156" class="big" font-size="30">A CONTROLLER ONLINE</text>
+          <text x="874" y="200" font-size="14">A FACT IN THE NETWORK</text>
+          <path class="hair" d="M 630 155 L 720 155"/>
+          <path class="hair" d="M 760 155 L 850 155"/>
+          <text x="740" y="162" text-anchor="middle" class="flawtxt" font-size="26">×</text>
+        </g>
+        <g id="d_instrument" class="b" data-tip="The sanitary survey is the federal-state inspection of a public water system: source, treatment, distribution, sampling. It has no counterpart for the plant's control systems.">
+          <rect x="110" y="280" width="600" height="90" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="316" class="strong" font-size="15">THE ONLY INSTRUMENT THAT EXISTED</text>
+          <text x="134" y="348" font-size="14">THE SANITARY SURVEY — BUILT FOR PIPES, CHLORINE, SAMPLES</text>
+        </g>
+        <g id="d_timeline" class="b">
+          <path class="hair" d="M 110 440 L 1370 440"/>
+          <circle cx="230" cy="440" r="8" fill="var(--fact)"/>
+          <circle cx="700" cy="440" r="8" fill="var(--flaw)"/>
+          <circle cx="1180" cy="440" r="10" fill="var(--flaw)"/>
+          <text x="230" y="412" text-anchor="middle" class="fact strong" font-size="14">MAR 2023</text>
+          <text x="230" y="478" text-anchor="middle" font-size="13">MEMO: CHECK CYBER IN THE SURVEY</text>
+          <text x="700" y="412" text-anchor="middle" class="flawtxt strong" font-size="14">JUL 2023</text>
+          <text x="700" y="478" text-anchor="middle" font-size="13">COURT FREEZES IT · THREE STATES + TWO ASSOCIATIONS</text>
+          <path class="amber" stroke-width="2" d="M 240 392 L 690 392"/>
+          <text x="465" y="382" text-anchor="middle" class="flawtxt" font-size="13">FOUR MONTHS</text>
+          <text x="1180" y="412" text-anchor="middle" class="flawtxt strong" font-size="14">OCT 2023</text>
+          <text x="1180" y="478" text-anchor="middle" font-size="13">AGENCY WITHDRAWS IT</text>
+        </g>
+        <g id="d_borrowed" class="b">
+          <rect x="110" y="510" width="1210" height="70" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="540" class="flawtxt strong" font-size="15">BORROWED AUTHORITY FAILS IN A PARTICULAR WAY:</text>
+          <text x="134" y="566" font-size="14">THE CHALLENGE DOES NOT ONLY REMOVE THE RULE — IT LEAVES A COURT ORDER BEHIND</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 4 — the mismatch, and the four months it lasted</div>
+    <div class="prose">
+      <p>A system serving three thousand people with an exposed controller can flood a street. A system serving fifty thousand with nothing exposed cannot. The duty and the danger are pinned to different things.</p>
+      <p>The second mismatch decided the story: the federal instrument for checking a water utility is the sanitary survey. When the EPA wanted to reach cybersecurity in March 2023, it reached through that tool. Missouri, Arkansas and Iowa sued, joined by two industry associations including the one representing rural systems. A court froze the memo in July; the agency withdrew it in October, citing the litigation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 PRICE ================= -->
+<section class="ep" id="s4" data-duration="72.1">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The price</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The price · the town, the inspector, the gap</div>
+    <h2>A duty means something only when somebody can read it.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg4">
+        <g id="p_town" class="b">
+          <rect x="110" y="70" width="600" height="190" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="134" y="110" class="flawtxt strong" font-size="16">THE TOWN THAT SUED</text>
+          <text x="134" y="150" font-size="14">TWO OPERATORS · A PART-TIME MANAGER</text>
+          <text x="134" y="182" font-size="14">ALL ITS MONEY IS WHAT PEOPLE PAY ON WATER BILLS</text>
+          <text x="134" y="222" class="strong" font-size="14">A SECURITY PROGRAM IS A LINE IN THE BUDGET —</text>
+          <text x="134" y="250" font-size="14">TAKEN FROM A PUMP, A LEAK SURVEY, A SALARY</text>
+        </g>
+        <g id="p_inspector" class="b">
+          <rect x="770" y="70" width="600" height="190" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="794" y="110" class="fact strong" font-size="16">THE THIRD PARTY NOBODY POLLS</text>
+          <text x="794" y="150" font-size="14">STATE INSPECTORS RUN SANITARY SURVEYS</text>
+          <text x="794" y="182" font-size="14">TRAINED ON CHLORINE, BACKFLOW, SAMPLING</text>
+          <text x="794" y="222" class="strong" font-size="14">THE 2023 MEMO ASKED THEM TO JUDGE A NETWORK</text>
+          <text x="794" y="250" font-size="14">A DIFFERENT PROFESSION ENTIRELY</text>
+        </g>
+        <g id="p_hire" class="b">
+          <rect x="110" y="300" width="1260" height="80" fill="var(--alt)"/>
+          <text x="134" y="336" class="onplate strong" font-size="17">THAT PERSON HAS TO BE HIRED BEFORE THE RULE CAN BITE</text>
+          <text x="134" y="366" class="onplate" font-size="14">NOT A FOOTNOTE TO THE PLAN — IN PRACTICE IT IS THE PLAN</text>
+        </g>
+        <g id="p_left" class="b">
+          <text x="110" y="440" class="strong" font-size="16">SO THE COUNTRY IS LEFT WITH:</text>
+          <text x="110" y="478" font-size="14">A DUTY ATTACHED TO CUSTOMER COUNTS, INSIDE AN INSPECTION BUILT FOR WATER QUALITY</text>
+          <text x="110" y="508" font-size="14">A DANGER AT THE PLANT THAT NOBODY IS REQUIRED TO CHECK</text>
+          <text x="110" y="538" class="flawtxt" font-size="14">AND A RULEMAKING ROUTE THAT HAS BEEN TESTED AND CLOSED</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 5 — who pays, and who would have to read the rule</div>
+    <div class="prose">
+      <p>Be fair to the town that sued: a utility serving three thousand people may have two operators and a part-time manager, and all its money is what customers pay on their water bills. For that town a security programme is a line in the budget taken from something else.</p>
+      <p>And there is a third party nobody polls — the state. Sanitary surveys are run by inspectors trained on chlorine, backflow and sampling. The 2023 memo asked those same inspectors to judge a control network. A duty means something only when somebody in the state office knows what they are looking at, and that person has to be hired before the rule can bite.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 WHAT IF ================= -->
+<section class="ep" id="s5" data-duration="159.5">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">What if</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · three designs, three price tags</div>
+    <h2>Its own law, a duty tied to exposure, or the electricity model.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: its own law -->
+        <g id="a_own" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN ONE · GIVE THE SECTOR ITS OWN LAW</text>
+          <g id="a_o1" class="b">
+            <rect x="110" y="120" width="560" height="80" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="152" class="alttxt strong" font-size="15">EUROPE: WATER IS AN ESSENTIAL SERVICE</text>
+            <text x="134" y="182" font-size="14">MEASURES · INSPECTIONS · FINES · NAMED RESPONSIBILITY</text>
+            <rect x="710" y="120" width="380" height="80" class="nodebox"/>
+            <text x="734" y="152" class="fact strong" font-size="15">FIRST WARNING IN 24 HOURS</text>
+            <text x="734" y="182" font-size="14">A CLOCK, NOT A FIVE-YEAR CYCLE</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT BUYS: REPORTING PRODUCES A PICTURE OF WHO IS EXPOSED</text>
+          </g>
+          <g id="a_ocost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">THE PRICE — AND IT IS OUR OWN CATCH:</text>
+            <text x="134" y="364" font-size="14">1 · EUROPE ALSO DRAWS A SIZE LINE — ON STAFF AND TURNOVER INSTEAD OF CUSTOMERS</text>
+            <text x="134" y="396" font-size="14">2 · PLUS A DOOR: A STATE MAY PULL IN A SMALL SOLE SUPPLIER</text>
+            <text x="134" y="428" class="flawtxt strong" font-size="14">SO THE ANSWER IS NOT "NO THRESHOLD" — IT IS A DIFFERENT THRESHOLD</text>
+            <text x="134" y="466" font-size="14">3 · SOMEBODY MUST DECIDE, UTILITY BY UTILITY, WHO IS CRITICAL ENOUGH —</text>
+            <text x="134" y="496" font-size="14">EXACTLY THE JUDGMENT THE US AGENCY WAS TOLD IT COULD NOT MAKE</text>
+          </g>
+        </g>
+        <!-- B: exposure -->
+        <g id="a_expose" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN TWO · TIE THE DUTY TO EXPOSURE, NOT TO CUSTOMERS</text>
+          <g id="a_e1" class="b">
+            <rect x="110" y="120" width="420" height="80" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="168" class="alttxt" font-size="15">IS A CONTROLLER REACHABLE?</text>
+            <path class="green" stroke-width="3" d="M 540 145 L 600 145"/>
+            <rect x="610" y="115" width="340" height="42" class="nodebox"/>
+            <text x="634" y="143" font-size="14">YES → A SHORT LIST OF RULES</text>
+            <path class="green" stroke-width="3" d="M 540 178 L 600 178"/>
+            <rect x="610" y="158" width="340" height="42" class="nodebox"/>
+            <text x="634" y="186" font-size="14">NO → A CHECKLIST, NOTHING MORE</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT BUYS: THE DUTY LANDS WHERE THE DANGER IS</text>
+          </g>
+          <g id="a_ecost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">THE PRICE:</text>
+            <text x="134" y="364" font-size="14">1 · NOBODY KNOWS WHO IS EXPOSED — THERE IS NO INVENTORY</text>
+            <text x="134" y="396" font-size="14">2 · EXPOSURE CHANGES THE DAY A CONTRACTOR OPENS A PORT</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">3 · THE ANSWER RESTS ON THE UTILITY'S OWN WORD —</text>
+            <text x="134" y="464" font-size="14">THE SAME SELF-CERTIFICATION WE JUST CALLED THE WEAK POINT,</text>
+            <text x="134" y="494" font-size="14">EXCEPT NOW THE TICKED BOX DECIDES WHETHER ANY RULE APPLIES AT ALL</text>
+          </g>
+        </g>
+        <!-- C: electricity -->
+        <g id="a_grid" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN THREE · COPY THE ELECTRICITY MODEL</text>
+          <g id="a_g1" class="b">
+            <rect x="110" y="120" width="360" height="80" class="nodebox"/>
+            <text x="134" y="152" class="strong" font-size="15">INDUSTRY WRITES STANDARDS</text>
+            <text x="134" y="182" font-size="14">A REGULATOR APPROVES THEM</text>
+            <path class="green" stroke-width="3" d="M 490 160 L 550 160"/>
+            <rect x="560" y="120" width="360" height="80" class="nodebox"/>
+            <text x="584" y="152" class="strong" font-size="15">BREAKING THEM COSTS MONEY</text>
+            <text x="584" y="182" font-size="14">RUNNING FOR OVER FIFTEEN YEARS</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT BUYS: A PROVEN MACHINE, ALREADY BUILT AND TESTED IN COURT</text>
+          </g>
+          <g id="a_gcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">THE PRICE — WHAT ELECTRICITY QUIETLY DID TO MAKE IT WORK:</text>
+            <text x="134" y="364" font-size="14">1 · IT REGULATES ONLY THE HIGH-VOLTAGE BACKBONE — A FEW THOUSAND ORGANIZATIONS</text>
+            <text x="134" y="396" font-size="14">2 · THOUSANDS OF LOCAL DISTRIBUTION UTILITIES ARE LEFT OUT</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">3 · WATER HAS NO BACKBONE TO CARVE OFF:</text>
+            <text x="134" y="464" font-size="14">THE PLANT SERVING 3,000 PEOPLE IS THE WHOLE SYSTEM FOR THAT TOWN</text>
+            <text x="134" y="494" font-size="14">SO: THIRTY TIMES AS MANY ORGANIZATIONS — OR A PUSH TO MERGE THEM</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">Own law</button><button id="btnR1">Exposure</button><button id="btnR2">Electricity</button>
+    </div>
+    <div class="figcap">Fig. 6 — three designs, three price tags. Click to compare.</div>
+    <div class="prose">
+      <p>Design one gives water its own law, as Europe does, and buys the one thing nobody has: a reporting clock that shows who is exposed. The catch is our own — Europe also draws a size line, on staff and turnover instead of customers, plus a door to pull in a small sole supplier. Someone has to decide who is critical enough, which is exactly the judgement the US agency was told it could not make.</p>
+      <p>Design two ties the duty to exposure. It lands where the danger is — and rests on the utility's own word, the same self-certification we just called the weak point, except now the ticked box decides whether any rule applies at all.</p>
+      <p>Design three copies the electricity model, which works because it regulates only the high-voltage backbone and leaves local distribution out. Water has no backbone to carve off: the plant serving three thousand people is the whole system for that town.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="61.1">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">The close</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · the question to carry</div>
+    <h2>Ask what the duty is pinned to.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_objects" class="b">
+          <rect x="180" y="70" width="380" height="140" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="370" y="130" text-anchor="middle" class="flawtxt strong" font-size="18">THE CONTROLLER</text>
+          <text x="370" y="170" text-anchor="middle" font-size="14">WHERE THE DANGER IS</text>
+          <rect x="920" y="70" width="380" height="140" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="1110" y="130" text-anchor="middle" class="fact strong" font-size="18">THE INSPECTOR'S FORM</text>
+          <text x="1110" y="170" text-anchor="middle" font-size="14">WHERE THE DUTY HANGS</text>
+          <path class="hair" d="M 570 140 L 700 140"/>
+          <path class="hair" d="M 790 140 L 910 140"/>
+          <text x="745" y="148" text-anchor="middle" class="flawtxt" font-size="24">×</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="290" text-anchor="middle" class="big" font-size="26">WHAT IS THE DUTY PINNED TO?</text>
+          <text x="740" y="350" text-anchor="middle" font-size="18">AND IS IT THE SAME THING THE DANGER IS PINNED TO?</text>
+          <text x="740" y="412" text-anchor="middle" font-size="18">SECOND QUESTION: WHOSE INSTRUMENT IS THIS?</text>
+          <text x="740" y="470" text-anchor="middle" class="flawtxt" font-size="17">WATER · GRID · HOSPITALS · TRANSPORT</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Customer counts, revenue bands, employee numbers, floor area: these get reached for because they are easy to count, not because risk respects them. Every design above uses one. So the question is never whether there is a line, but what it is drawn on — and who may step over it.</p>
+      <p>And a second question for any agency announcement: whose instrument is this? If a body reaches for a power built for something else because it has nothing of its own, the rule may work for a while, and it will disappear the first time someone with the right to sue objects.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page. <a href="ru/" style="color:var(--fact)">По-русски →</a></p>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="90" width="300" height="150" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <rect x="200" y="140" width="200" height="52" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <text x="300" y="178" text-anchor="middle" font-family="IBM Plex Mono" font-size="30" style="fill:var(--flaw)">CONTROLLER</text>
+    <path d="M 300 240 L 300 300" stroke="var(--flaw)" stroke-width="7" stroke-dasharray="10 8"/>
+    <text x="300" y="345" text-anchor="middle" font-family="IBM Plex Mono" font-size="28" style="fill:var(--text-dim)">ON THE INTERNET</text>
+    <text x="560" y="150" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">the rule checks</text>
+    <text x="560" y="220" font-family="IBM Plex Mono" font-size="40" style="fill:var(--fact)">pipes and chlorine</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">7 states</div>
+  <div class="sub">water utilities hit since 27 july</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <g id="t_bar"></g>
+    <path d="M 900 70 L 900 300" stroke="var(--flaw)" stroke-width="8"/>
+    <text x="930" y="150" font-family="IBM Plex Mono" font-size="36" style="fill:var(--flaw)">3,300 people</text>
+    <text x="930" y="215" font-family="IBM Plex Mono" font-size="30" style="fill:var(--text-dim)">the duty starts here</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">8 of 10</div>
+  <div class="sub">water systems sit below the line</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+const NS='http://www.w3.org/2000/svg';
+
+/* S2: 50 blocks = ~50,000 systems; the first 40 (81%) sit below the 3,300 line */
+(function(){
+  const g=$('m_cells'); if(!g)return;
+  for(let i=0;i<50;i++){
+    const col=i%10, row=Math.floor(i/10);
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',110+col*98); r.setAttribute('y',110+row*40);
+    r.setAttribute('width',82); r.setAttribute('height',28);
+    const below = i>=10;                       // row 1 = the ~10 covered systems, rows 2-5 = the 40 below
+    r.setAttribute('stroke', below?'var(--flaw)':'var(--fact)');
+    r.setAttribute('stroke-width','2');
+    r.setAttribute('fill', below?'var(--flaw)':'var(--fact)');
+    r.setAttribute('fill-opacity', below?'.22':'.35');
+    g.appendChild(r);
+  }
+})();
+
+/* thumbnail B: the same bar, bigger */
+(function(){
+  const g=$('t_bar'); if(!g)return;
+  for(let i=0;i<40;i++){
+    const col=i%8, row=Math.floor(i/8);
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',150+col*95); r.setAttribute('y',80+row*44);
+    r.setAttribute('width',78); r.setAttribute('height',30);
+    r.setAttribute('fill','var(--text)');
+    r.setAttribute('fill-opacity', i<32?'1':'.25');
+    g.appendChild(r);
+  }
+})();
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_s1',0.5,.8);
+  say(tl,'h_s1b',7.0,.7); idle(tl,'h_s1',10,8);
+  tl.to([$('h_s1'),$('h_s1b')],{opacity:0,duration:.5},22.0);
+  say(tl,'h_s2',22.3,.9);
+  say(tl,'h_s2b',27.5,.9); idle(tl,'h_s2',33,10);
+  tl.to([$('h_s2'),$('h_s2b')],{opacity:0,duration:.5},46.0);
+  say(tl,'h_s3',46.3,.8); idle(tl,'h_s3',51,6);
+  tl.to($('h_s3'),{opacity:0,duration:.45},60.0);
+  pop(tl,'h_s4',60.3,.7); shake(tl,'h_s4',61.3,6,8); idlePlate(tl,'h_s4',63,10);
+  tl.to($('h_s4'),{opacity:0,duration:.45},76.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},76.3);
+  if(isAuto)tl.to({},{duration:5.0},77.0); else tl.to($('titleCard'),{opacity:0,duration:.5},82.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_when',0.5,.9); idle(tl,'e_when',6,12);
+  pop(tl,'e_big',22.0,.7); idlePlate(tl,'e_big',25,10);
+  say(tl,'e_how',40.0,.9); idle(tl,'e_how',46,14);
+  say(tl,'e_attr',66.0,.8); idle(tl,'e_attr',70,10);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'m_bar',0.5,.9); idle(tl,'m_bar',7,16);
+  say(tl,'m_counter',28.0,.8); idle(tl,'m_counter',33,10);
+  say(tl,'m_para',46.0,.8); idle(tl,'m_para',51,12);
+  pop(tl,'m_verb',68.0,.7); shake(tl,'m_verb',69.0,5,6); idlePlate(tl,'m_verb',71,16);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'d_cols',0.5,.9); idle(tl,'d_cols',7,14);
+  say(tl,'d_instrument',24.0,.8); idle(tl,'d_instrument',29,10);
+  say(tl,'d_timeline',42.0,.9); idle(tl,'d_timeline',49,14);
+  pop(tl,'d_borrowed',68.0,.7); shake(tl,'d_borrowed',69.0,5,6); idlePlate(tl,'d_borrowed',71,14);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'p_town',0.5,.9); idle(tl,'p_town',6,12);
+  say(tl,'p_inspector',22.0,.9); idle(tl,'p_inspector',28,14);
+  pop(tl,'p_hire',46.0,.7); idlePlate(tl,'p_hire',49,10);
+  say(tl,'p_left',60.0,.8); idle(tl,'p_left',65,12);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_own'),{opacity:1},0);
+  say(tl,'a_o1',0.5,.8); idle(tl,'a_o1',7,14);
+  say(tl,'a_ocost',26.0,.7); idle(tl,'a_ocost',31,14);
+  tl.to($('a_own'),{opacity:0,duration:.45},48.0);
+  tl.fromTo($('a_expose'),{opacity:0},{opacity:1,duration:.55},48.3);
+  say(tl,'a_e1',52.0,.8); idle(tl,'a_e1',59,12);
+  say(tl,'a_ecost',74.0,.7); idle(tl,'a_ecost',79,14);
+  tl.to($('a_expose'),{opacity:0,duration:.45},94.0);
+  tl.fromTo($('a_grid'),{opacity:0},{opacity:1,duration:.55},94.3);
+  say(tl,'a_g1',98.0,.8); idle(tl,'a_g1',105,12);
+  pop(tl,'a_gcost',120.0,.7); shake(tl,'a_gcost',121.0,5,6); idlePlate(tl,'a_gcost',123,14);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_objects',0.5,.9); idle(tl,'z_objects',6,16);
+  say(tl,'z_q',28.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},32.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_own','a_expose','a_grid'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  [0,1,2].forEach(k=>$('btnR'+k).classList.toggle('on',k===i));}
+[0,1,2].forEach(k=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
