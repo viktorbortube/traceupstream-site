@@ -564,19 +564,34 @@ function sc4(){const tl=gsap.timeline();
   return tl;}
 
 function sc5(){const tl=gsap.timeline();
-  say(tl,'a_intro',0.5,.8); idle(tl,'a_intro',6,9);
-  tl.to($('a_intro'),{opacity:0,duration:.45},13.0);
-  tl.set($('a_germany'),{opacity:1},13.3);
-  say(tl,'a_g1',13.8,.8); idle(tl,'a_g1',20,12);
-  say(tl,'a_gcost',38.0,.7); idle(tl,'a_gcost',43,15);
-  tl.to($('a_germany'),{opacity:0,duration:.45},62.0);
-  tl.fromTo($('a_uk'),{opacity:0},{opacity:1,duration:.55},62.3);
-  say(tl,'a_u1',66.0,.8); idle(tl,'a_u1',73,14);
-  say(tl,'a_ucost',92.0,.7); idle(tl,'a_ucost',97,15);
-  tl.to($('a_uk'),{opacity:0,duration:.45},114.0);
-  tl.fromTo($('a_self'),{opacity:0},{opacity:1,duration:.55},114.3);
-  say(tl,'a_s1',118.0,.8); idle(tl,'a_s1',125,12);
-  pop(tl,'a_scost',140.0,.7); shake(tl,'a_scost',141.0,5,6); idlePlate(tl,'a_scost',143,14);
+  if(isAuto){
+    say(tl,'a_intro',0.5,.8); idle(tl,'a_intro',6,9);
+    tl.to($('a_intro'),{opacity:0,duration:.45},13.0);
+    tl.set($('a_germany'),{opacity:1},13.3);
+    say(tl,'a_g1',13.8,.8); idle(tl,'a_g1',20,12);
+    say(tl,'a_gcost',38.0,.7); idle(tl,'a_gcost',43,15);
+    tl.to($('a_germany'),{opacity:0,duration:.45},62.0);
+    tl.fromTo($('a_uk'),{opacity:0},{opacity:1,duration:.55},62.3);
+    say(tl,'a_u1',66.0,.8); idle(tl,'a_u1',73,14);
+    say(tl,'a_ucost',92.0,.7); idle(tl,'a_ucost',97,15);
+    tl.to($('a_uk'),{opacity:0,duration:.45},114.0);
+    tl.fromTo($('a_self'),{opacity:0},{opacity:1,duration:.55},114.3);
+    say(tl,'a_s1',118.0,.8); idle(tl,'a_s1',125,12);
+    pop(tl,'a_scost',140.0,.7); shake(tl,'a_scost',141.0,5,6); idlePlate(tl,'a_scost',143,14);
+  } else {
+    /* web mode: no intro card — the toggle governs this section */
+    tl.set($('a_germany'),{opacity:1},0);
+    say(tl,'a_g1',0.5,.8); idle(tl,'a_g1',7,14);
+    say(tl,'a_gcost',26.0,.7); idle(tl,'a_gcost',31,16);
+    tl.to($('a_germany'),{opacity:0,duration:.45},50.0);
+    tl.fromTo($('a_uk'),{opacity:0},{opacity:1,duration:.55},50.3);
+    say(tl,'a_u1',54.0,.8); idle(tl,'a_u1',61,14);
+    say(tl,'a_ucost',80.0,.7); idle(tl,'a_ucost',85,14);
+    tl.to($('a_uk'),{opacity:0,duration:.45},102.0);
+    tl.fromTo($('a_self'),{opacity:0},{opacity:1,duration:.55},102.3);
+    say(tl,'a_s1',106.0,.8); idle(tl,'a_s1',113,12);
+    pop(tl,'a_scost',128.0,.7); shake(tl,'a_scost',129.0,5,6); idlePlate(tl,'a_scost',131,14);
+  }
   return tl;}
 
 function sc6(){const tl=gsap.timeline();
@@ -589,6 +604,7 @@ const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
 
 const REPAIRS=['a_germany','a_uk','a_self'];
 function showRepair(i){
+  gsap.killTweensOf($('a_intro'));gsap.set($('a_intro'),{opacity:0});
   REPAIRS.forEach((id,k)=>{const g=$(id);
     gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
     if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
