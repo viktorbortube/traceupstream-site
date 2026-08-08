@@ -133,7 +133,7 @@ body.auto h2{font-size:50px}
         </g>
         <g id="titleCard" class="b">
           <text x="500" y="250" text-anchor="middle" class="big" font-size="54">WHAT A LIMIT SHOULD MEASURE</text>
-          <text x="500" y="330" text-anchor="middle" font-size="32">TRACE UPSTREAM · EP.031</text>
+          <text x="500" y="330" text-anchor="middle" font-size="32">TRACE UPSTREAM</text>
         </g>
       </svg>
     </div>
@@ -315,7 +315,7 @@ body.auto h2{font-size:50px}
         <g id="r_froze" class="b" data-tip="§629 of the Consolidated Appropriations Act of 2004 wrote 39% into statute and excluded that figure from the FCC's periodic ownership reviews — Congress treated the number as its own to set. (Davis Wright Tremaine, 2004; CRS R45338.)">
           <rect x="110" y="250" width="1260" height="86" fill="none" stroke="var(--text)" stroke-width="2.5"/>
           <text x="134" y="288" class="strong" font-size="15">2004 · CONGRESS FROZE THE NUMBER INTO STATUTE</text>
-          <text x="134" y="318" font-size="14">AND WALLED IT OFF FROM THE AGENCY'S ROUTINE REVIEWS — LOCKED BEYOND THE NEXT CHAIR</text>
+          <text x="134" y="318" font-size="14">AND WALLED IT OFF FROM THE AGENCY'S ROUTINE REVIEWS — SO THE NEXT CHAIR COULDN'T CHANGE IT</text>
         </g>
         <g id="r_only" class="b">
           <rect x="110" y="356" width="1260" height="70" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="5 5"/>
@@ -346,6 +346,11 @@ body.auto h2{font-size:50px}
     <h2>Measure the audience, instrument the judgment, or keep a number that updates.</h2>
     <div class="stage">
       <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- intro: framing before the designs -->
+        <g id="a_intro" class="b">
+          <text x="740" y="270" text-anchor="middle" class="big" font-size="34">OTHER COUNTRIES · DIFFERENT TRADES</text>
+          <text x="740" y="330" text-anchor="middle" font-size="18">HOW TO LIMIT MEDIA POWER WITHOUT FREEZING TIME — OR HANDING OUT A BLANK CHECK</text>
+        </g>
         <!-- A: Germany -->
         <g id="a_germany" class="b">
           <text x="110" y="80" class="alttxt" font-size="17">DESIGN ONE · MEASURE THE AUDIENCE YOU ACTUALLY HOLD  (GERMANY)</text>
@@ -559,17 +564,19 @@ function sc4(){const tl=gsap.timeline();
   return tl;}
 
 function sc5(){const tl=gsap.timeline();
-  tl.set($('a_germany'),{opacity:1},0);
-  say(tl,'a_g1',0.5,.8); idle(tl,'a_g1',7,14);
-  say(tl,'a_gcost',26.0,.7); idle(tl,'a_gcost',31,16);
-  tl.to($('a_germany'),{opacity:0,duration:.45},50.0);
-  tl.fromTo($('a_uk'),{opacity:0},{opacity:1,duration:.55},50.3);
-  say(tl,'a_u1',54.0,.8); idle(tl,'a_u1',61,14);
-  say(tl,'a_ucost',80.0,.7); idle(tl,'a_ucost',85,14);
-  tl.to($('a_uk'),{opacity:0,duration:.45},102.0);
-  tl.fromTo($('a_self'),{opacity:0},{opacity:1,duration:.55},102.3);
-  say(tl,'a_s1',106.0,.8); idle(tl,'a_s1',113,12);
-  pop(tl,'a_scost',128.0,.7); shake(tl,'a_scost',129.0,5,6); idlePlate(tl,'a_scost',131,14);
+  say(tl,'a_intro',0.5,.8); idle(tl,'a_intro',6,9);
+  tl.to($('a_intro'),{opacity:0,duration:.45},13.0);
+  tl.set($('a_germany'),{opacity:1},13.3);
+  say(tl,'a_g1',13.8,.8); idle(tl,'a_g1',20,12);
+  say(tl,'a_gcost',38.0,.7); idle(tl,'a_gcost',43,15);
+  tl.to($('a_germany'),{opacity:0,duration:.45},62.0);
+  tl.fromTo($('a_uk'),{opacity:0},{opacity:1,duration:.55},62.3);
+  say(tl,'a_u1',66.0,.8); idle(tl,'a_u1',73,14);
+  say(tl,'a_ucost',92.0,.7); idle(tl,'a_ucost',97,15);
+  tl.to($('a_uk'),{opacity:0,duration:.45},114.0);
+  tl.fromTo($('a_self'),{opacity:0},{opacity:1,duration:.55},114.3);
+  say(tl,'a_s1',118.0,.8); idle(tl,'a_s1',125,12);
+  pop(tl,'a_scost',140.0,.7); shake(tl,'a_scost',141.0,5,6); idlePlate(tl,'a_scost',143,14);
   return tl;}
 
 function sc6(){const tl=gsap.timeline();

@@ -133,7 +133,7 @@ body.auto h2{font-size:50px}
         </g>
         <g id="titleCard" class="b">
           <text x="500" y="250" text-anchor="middle" class="big" font-size="52">ЧТО ДОЛЖЕН МЕРИТЬ ПРЕДЕЛ</text>
-          <text x="500" y="330" text-anchor="middle" font-size="32">ДЕФЕКТ КОНСТРУКЦИИ · EP.031</text>
+          <text x="500" y="330" text-anchor="middle" font-size="32">ДЕФЕКТ КОНСТРУКЦИИ</text>
         </g>
       </svg>
     </div>
@@ -146,7 +146,7 @@ body.auto h2{font-size:50px}
 </section>
 
 <!-- ================= S1 EVENT ================= -->
-<section class="ep" id="s1" data-duration="111.7">
+<section class="ep" id="s1" data-duration="107.7">
   <div class="chapter"><div class="in"><div class="n">01</div><div class="t">Событие</div><div class="bar"></div></div></div>
   <div class="wrap">
     <div class="kicker mono" style="color:var(--fact)">Событие · голосование 2–1, 6 августа 2026</div>
@@ -236,7 +236,7 @@ body.auto h2{font-size:50px}
 </section>
 
 <!-- ================= S3 MECHANISM I ================= -->
-<section class="ep" id="s3" data-duration="123.6">
+<section class="ep" id="s3" data-duration="122">
   <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Сломанный прибор</div><div class="bar"></div></div></div>
   <div class="wrap">
     <div class="kicker mono" style="color:var(--flaw)">Механизм · что мерило число</div>
@@ -257,9 +257,9 @@ body.auto h2{font-size:50px}
           <text x="740" y="152" text-anchor="middle" class="flawtxt" font-size="26">×</text>
         </g>
         <g id="g_uhf" class="b" data-tip="UHF-скидка из аналоговой эпохи засчитывает к пределу лишь половину охвата дециметровой станции. Цифровое ТВ стёрло разницу чётко-мутно, ради которой скидку ввели, — но скидка осталась. (Broadcast Law Blog; Federal Register 2018-01404.)">
-          <text x="110" y="272" class="strong" font-size="15">UHF-СКИДКА — РЕЛИКТ, КОТОРЫЙ ОСТАЛСЯ</text>
+          <text x="110" y="272" class="strong" font-size="15">ДЕЦИМЕТРОВАЯ СКИДКА — РЕЛИКТ, КОТОРЫЙ ОСТАЛСЯ</text>
           <rect x="110" y="290" width="360" height="66" class="nodebox"/>
-          <text x="290" y="330" text-anchor="middle" font-size="15">UHF-СТАНЦИЯ ДОСТАЁТ 10%</text>
+          <text x="290" y="330" text-anchor="middle" font-size="14">ДЕЦИМЕТРОВАЯ СТАНЦИЯ ДОСТАЁТ 10%</text>
           <path class="amber" stroke-width="2.5" d="M 480 323 L 560 323"/>
           <rect x="570" y="290" width="150" height="66" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
           <text x="645" y="332" text-anchor="middle" class="flawtxt big" font-size="30">÷2</text>
@@ -315,7 +315,7 @@ body.auto h2{font-size:50px}
         <g id="r_froze" class="b" data-tip="§629 Consolidated Appropriations Act 2004 вписал 39% в закон и вывел это число из периодических пересмотров владения FCC — Конгресс считал число своим, не агентства. (Davis Wright Tremaine, 2004; CRS R45338.)">
           <rect x="110" y="250" width="1260" height="86" fill="none" stroke="var(--text)" stroke-width="2.5"/>
           <text x="134" y="288" class="strong" font-size="15">2004 · КОНГРЕСС ЗАМОРОЗИЛ ЧИСЛО В ЗАКОНЕ</text>
-          <text x="134" y="318" font-size="14">И ВЫВЕЛ ЕГО ИЗ ОБЫЧНЫХ ПЕРЕСМОТРОВ ВЕДОМСТВА — ЗАПЕР ВНЕ ДОСЯГАЕМОСТИ СЛЕДУЮЩЕГО СОСТАВА</text>
+          <text x="134" y="318" font-size="14">И ВЫВЕЛ ЕГО ИЗ ОБЫЧНЫХ ПЕРЕСМОТРОВ — ЧТОБЫ ЕГО НЕ МЕНЯЛ СЛЕДУЮЩИЙ СОСТАВ ВЕДОМСТВА</text>
         </g>
         <g id="r_only" class="b">
           <rect x="110" y="356" width="1260" height="70" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="5 5"/>
@@ -346,6 +346,11 @@ body.auto h2{font-size:50px}
     <h2>Мерить аудиторию, оснастить усмотрение — или число, которое обновляется.</h2>
     <div class="stage">
       <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- вступление: рамка перед конструкциями -->
+        <g id="a_intro" class="b">
+          <text x="740" y="270" text-anchor="middle" class="big" font-size="34">ДРУГИЕ СТРАНЫ · ДРУГИЕ РАЗМЕНЫ</text>
+          <text x="740" y="330" text-anchor="middle" font-size="18">КАК ОГРАНИЧИТЬ МЕДИЙНУЮ ВЛАСТЬ БЕЗ ЗАМОРОЗКИ — И БЕЗ КАРТ-БЛАНША</text>
+        </g>
         <!-- A: Германия -->
         <g id="a_germany" class="b">
           <text x="110" y="80" class="alttxt" font-size="17">КОНСТРУКЦИЯ ПЕРВАЯ · МЕРИТЬ АУДИТОРИЮ, КОТОРАЯ РЕАЛЬНО ЕСТЬ  (ГЕРМАНИЯ)</text>
@@ -559,17 +564,19 @@ function sc4(){const tl=gsap.timeline();
   return tl;}
 
 function sc5(){const tl=gsap.timeline();
-  tl.set($('a_germany'),{opacity:1},0);
-  say(tl,'a_g1',0.5,.8); idle(tl,'a_g1',7,14);
-  say(tl,'a_gcost',26.0,.7); idle(tl,'a_gcost',31,16);
-  tl.to($('a_germany'),{opacity:0,duration:.45},50.0);
-  tl.fromTo($('a_uk'),{opacity:0},{opacity:1,duration:.55},50.3);
-  say(tl,'a_u1',54.0,.8); idle(tl,'a_u1',61,14);
-  say(tl,'a_ucost',80.0,.7); idle(tl,'a_ucost',85,14);
-  tl.to($('a_uk'),{opacity:0,duration:.45},102.0);
-  tl.fromTo($('a_self'),{opacity:0},{opacity:1,duration:.55},102.3);
-  say(tl,'a_s1',106.0,.8); idle(tl,'a_s1',113,12);
-  pop(tl,'a_scost',128.0,.7); shake(tl,'a_scost',129.0,5,6); idlePlate(tl,'a_scost',131,14);
+  say(tl,'a_intro',0.5,.8); idle(tl,'a_intro',6,9);
+  tl.to($('a_intro'),{opacity:0,duration:.45},13.0);
+  tl.set($('a_germany'),{opacity:1},13.3);
+  say(tl,'a_g1',13.8,.8); idle(tl,'a_g1',20,12);
+  say(tl,'a_gcost',38.0,.7); idle(tl,'a_gcost',43,15);
+  tl.to($('a_germany'),{opacity:0,duration:.45},62.0);
+  tl.fromTo($('a_uk'),{opacity:0},{opacity:1,duration:.55},62.3);
+  say(tl,'a_u1',66.0,.8); idle(tl,'a_u1',73,14);
+  say(tl,'a_ucost',92.0,.7); idle(tl,'a_ucost',97,15);
+  tl.to($('a_uk'),{opacity:0,duration:.45},114.0);
+  tl.fromTo($('a_self'),{opacity:0},{opacity:1,duration:.55},114.3);
+  say(tl,'a_s1',118.0,.8); idle(tl,'a_s1',125,12);
+  pop(tl,'a_scost',140.0,.7); shake(tl,'a_scost',141.0,5,6); idlePlate(tl,'a_scost',143,14);
   return tl;}
 
 function sc6(){const tl=gsap.timeline();
