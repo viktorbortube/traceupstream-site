@@ -565,8 +565,9 @@ function sc4(){const tl=gsap.timeline();
 
 function sc5(){const tl=gsap.timeline();
   if(isAuto){
-    say(tl,'a_intro',0.5,.8); idle(tl,'a_intro',6,9);
-    tl.to($('a_intro'),{opacity:0,duration:.45},13.0);
+    say(tl,'a_intro',0.5,.8);
+    tl.to($('a_intro'),{opacity:0,duration:.5},12.8);
+    tl.set($('a_intro'),{opacity:0},13.25);
     tl.set($('a_germany'),{opacity:1},13.3);
     say(tl,'a_g1',13.8,.8); idle(tl,'a_g1',20,12);
     say(tl,'a_gcost',38.0,.7); idle(tl,'a_gcost',43,15);
