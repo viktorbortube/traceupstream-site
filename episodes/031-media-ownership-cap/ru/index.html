@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Правило 39%, которое решает, кто владеет ТВ | Дефект конструкции</title>
+<meta name="description" content="6 августа 2026 года FCC стёрла кэп в 39% на владение телевидением в США, заменив число усмотрением. Но правило из эпохи антенн означало, что 39% давно позволяли 78% — и не видело стриминга. Настоящий вопрос не «кэп или нет», а что предел измеряет и кому позволено его двигать.">
+<link rel="canonical" href="https://traceupstream.com/episodes/031-media-ownership-cap/ru/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Дефект конструкции">
+<meta property="og:title" content="Правило 39%, которое решает, кто владеет ТВ">
+<meta property="og:description" content="Предел медийной власти стоит ровно столько, сколько стоит то, что он измеряет — и кому позволено его двигать.">
+<meta property="og:url" content="https://traceupstream.com/episodes/031-media-ownership-cap/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#6E7A99; /* desaturated slate — decoration only */
+  --font-display:'Onest',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:800;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.031 — 2026-08-08</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Слушать нарацию"><span class="dot"></span><span id="listenLab">Слушать</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="48.1">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Дефект конструкции · дело EP.031</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <text x="500" y="215" text-anchor="middle" class="big" font-size="150">39%</text>
+          <text x="500" y="300" text-anchor="middle" font-size="34">ПРЕДЕЛ ДЛЯ ОДНОГО ВЛАДЕЛЬЦА ТВ</text>
+          <text x="500" y="352" text-anchor="middle" font-size="32">22 ГОДА — ЭТО БЫЛ ЗАКОН</text>
+        </g>
+        <g id="h_b" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="46">СТЁРТ НА ЭТОЙ НЕДЕЛЕ</text>
+          <text x="500" y="320" text-anchor="middle" class="flawtxt" font-size="33">ГОЛОСОВАНИЕ 2–1 В ВЕДОМСТВЕ</text>
+        </g>
+        <g id="h_c" class="b">
+          <text x="500" y="190" text-anchor="middle" font-size="34">НО 39% ТАЙНО ОЗНАЧАЛИ</text>
+          <text x="500" y="380" text-anchor="middle" class="big flawtxt" font-size="150">78%</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="52">ЧТО ДОЛЖЕН МЕРИТЬ ПРЕДЕЛ</text>
+          <text x="500" y="330" text-anchor="middle" font-size="32">ДЕФЕКТ КОНСТРУКЦИИ · EP.031</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 1 — число, которое говорило одно, а позволяло другое</div>
+    <div class="prose">
+      <p>Тридцать девять процентов. Двадцать два года это было законом: ни одна компания не могла владеть телевизионными станциями, дотягивающимися больше чем до тридцати девяти процентов американских домохозяйств. Это была ограда вокруг того, какой долей эфира страны может владеть один хозяин.</p>
+      <p>На этой неделе три человека в федеральном ведомстве проголосовали за то, чтобы её стереть. Странность, о которой почти никто не сказал: из-за правила, написанного ещё когда телевидение приходило через антенну на крыше, тридцать девять процентов давно тихо означали семьдесят восемь.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="111.7">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">Событие</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Событие · голосование 2–1, 6 августа 2026</div>
+    <h2>Число не сдвинули. Его стёрли.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_vote" class="b" data-tip="6 августа 2026 года FCC проголосовала 2–1 по партийной линии за отмену национального предела владения телевидением, заменив фиксированные 39% обзором каждой сделки на «общественный интерес». (CNN, Variety, The Hill, 06.08.2026.)">
+          <text x="110" y="86" class="strong" font-size="16">ГОЛОСОВАНИЕ FCC · 6 АВГУСТА 2026</text>
+          <rect x="110" y="106" width="300" height="94" class="nodebox"/>
+          <text x="260" y="150" text-anchor="middle" class="big" font-size="34">2–1</text>
+          <text x="260" y="184" text-anchor="middle" font-size="13">ПО ПАРТИЙНОЙ ЛИНИИ</text>
+          <path class="amber" stroke-width="2.5" d="M 420 153 L 500 153"/>
+          <rect x="510" y="106" width="360" height="94" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="534" y="146" class="flawtxt strong" font-size="15">КЭП 39%: УБРАН</text>
+          <text x="534" y="178" font-size="14">ФИКСИРОВАННОГО ЧИСЛА БОЛЬШЕ НЕТ</text>
+          <path class="green" stroke-width="2.5" d="M 880 153 L 960 153"/>
+          <rect x="970" y="106" width="470" height="94" class="nodebox"/>
+          <text x="994" y="146" class="strong" font-size="15">ОБЗОР КАЖДОЙ СДЕЛКИ</text>
+          <text x="994" y="178" font-size="13">«СЛУЖИТ ЛИ ОБЩЕСТВЕННОМУ ИНТЕРЕСУ?»</text>
+        </g>
+        <g id="e_carr" class="b" data-tip="Председатель Брендан Карр: рынок видео изменился — стриминг охватывает 80%+ взрослых без всякого кэпа, а вещатели рискуют «повторить судьбу газет», если не смогут объединяться и конкурировать. (Variety, Deadline, 2026.)">
+          <rect x="110" y="238" width="620" height="120" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="276" class="fact strong" font-size="15">ДОВОД ПРЕДСЕДАТЕЛЯ</text>
+          <text x="134" y="308" font-size="14">СТРИМИНГ — 80%+ ВЗРОСЛЫХ, БЕЗ КЭПА</text>
+          <text x="134" y="338" font-size="14">ВЕЩАТЕЛИ РИСКУЮТ «СУДЬБОЙ ГАЗЕТ»</text>
+        </g>
+        <g id="e_gomez" class="b" data-tip="Несогласный член комиссии Анна Гомес назвала решение незаконным: Конгресс вписал 39% в закон в 2004 году, поэтому менять число вправе только Конгресс. (CNN, The Hill, 2026.)">
+          <rect x="750" y="238" width="620" height="120" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="774" y="276" class="flawtxt strong" font-size="15">НЕСОГЛАСНЫЙ ГОЛОС</text>
+          <text x="774" y="308" font-size="14">КОНГРЕСС ВПИСАЛ 39% В ЗАКОН В 2004</text>
+          <text x="774" y="338" font-size="14">«МЕНЯТЬ ВПРАВЕ ТОЛЬКО КОНГРЕСС»</text>
+        </g>
+        <g id="e_deal" class="b" data-tip="Слияние двух из крупнейших групп станций США выходит за старую черту 39% и остаётся заморожено судами. (TechTimes, 06.08.2026.)">
+          <rect x="110" y="400" width="1260" height="80" fill="none" stroke="var(--text-dim)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="436" class="strong" font-size="15">НА ФОНЕ</text>
+          <text x="134" y="464" font-size="14">СЛИЯНИЕ ДВУХ КРУПНЕЙШИХ ГРУПП СТАНЦИЙ — ЗА 39% — ЗАМОРОЖЕНО СУДАМИ</text>
+        </g>
+        <g id="e_q" class="b">
+          <rect x="110" y="510" width="1260" height="66" fill="var(--flaw)"/>
+          <text x="740" y="552" text-anchor="middle" class="onplate strong" font-size="18">ОСОВРЕМЕНИЛИ ПОД СТРИМИНГ — ИЛИ ТИХО ОТМЕНИЛИ ЗАКОН?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 2 — голосование, два довода и сделка, ждущая ответа</div>
+    <div class="prose">
+      <p>6 августа 2026 года Федеральная комиссия по связи проголосовала два против одного за отмену национального предела владения телевидением и не поставила ничего фиксированного взамен — теперь каждая сделка оценивается по отдельности на «общественный интерес». Довод председателя: стриминг охватывает более восьмидесяти процентов взрослых без всякого кэпа, а вещатели рискуют повторить судьбу газет.</p>
+      <p>Единственный несогласный голос возразил: это число не ведомству стирать — Конгресс вписал тридцать девять процентов в закон в 2004 году. А реальное слияние, вышедшее за старую черту, заморожено судами и ждёт ответа.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="37">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">Перелом</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Перелом · неправильный спор</div>
+    <h2>«Кэп или нет» — неправильный вопрос.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_debate" class="b">
+          <rect x="180" y="90" width="420" height="120" class="nodebox"/>
+          <text x="390" y="150" text-anchor="middle" class="big" font-size="30">СОХРАНИТЬ КЭП</text>
+          <text x="390" y="188" text-anchor="middle" font-size="14">ЗАЩИТА ЛОКАЛИЗМА И РАЗНООБРАЗИЯ</text>
+          <rect x="880" y="90" width="420" height="120" class="nodebox"/>
+          <text x="1090" y="150" text-anchor="middle" class="big" font-size="30">УБРАТЬ КЭП</text>
+          <text x="1090" y="188" text-anchor="middle" font-size="14">ДАТЬ ВЕЩАТЕЛЯМ КОНКУРИРОВАТЬ</text>
+          <path class="hair" d="M 600 150 L 700 150"/>
+          <path class="hair" d="M 780 150 L 880 150"/>
+          <text x="740" y="160" text-anchor="middle" class="flawtxt" font-size="30">×</text>
+        </g>
+        <g id="v_never" class="b">
+          <rect x="180" y="250" width="1120" height="70" fill="var(--flaw)"/>
+          <text x="740" y="293" text-anchor="middle" class="onplate strong" font-size="18">ЭТО НИКОГДА НЕ БЫЛО ЧИСТОЙ МЕРОЙ МЕДИЙНОЙ ВЛАСТИ</text>
+        </g>
+        <g id="v_qs" class="b">
+          <text x="740" y="400" text-anchor="middle" class="big" font-size="34">ЧТО ДОЛЖЕН МЕРИТЬ ПРЕДЕЛ?</text>
+          <text x="740" y="462" text-anchor="middle" class="big" font-size="34">И КОМУ ПОЗВОЛЕНО ЕГО ДВИГАТЬ?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 3 — бросить бинарность, взять два вопроса получше</div>
+    <div class="prose">
+      <p>Самый громкий спор — сохранить кэп или убрать — относится к числу так, будто это чистая и точная мера медийной власти, которую мы теперь решаем оставить или выбросить. Оно никогда таким не было.</p>
+      <p>Как только видишь, что оно на самом деле считало, перестаёшь спрашивать «кэп или нет» и начинаешь задавать два куда лучших вопроса. Что такой предел должен измерять? И кому позволено его двигать?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM I ================= -->
+<section class="ep" id="s3" data-duration="123.6">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Сломанный прибор</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · что мерило число</div>
+    <h2>Не та величина — и сломанной линейкой.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="g_measure" class="b">
+          <rect x="110" y="70" width="520" height="150" class="nodebox"/>
+          <text x="134" y="112" class="fact strong" font-size="16">ЧТО ОН СЧИТАЛ</text>
+          <text x="134" y="154" class="big" font-size="24">ДОМОХОЗЯЙСТВА В ОХВАТЕ</text>
+          <text x="134" y="192" font-size="14">ВОЗМОЖНОСТЬ</text>
+          <rect x="850" y="70" width="520" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="874" y="112" class="strong" font-size="16">ЧТО ВАЖНО НА ДЕЛЕ</text>
+          <text x="874" y="154" class="big" font-size="24">СКОЛЬКО СМОТРЯТ</text>
+          <text x="874" y="192" font-size="14">ВНИМАНИЕ</text>
+          <path class="hair" d="M 630 145 L 720 145"/>
+          <path class="hair" d="M 760 145 L 850 145"/>
+          <text x="740" y="152" text-anchor="middle" class="flawtxt" font-size="26">×</text>
+        </g>
+        <g id="g_uhf" class="b" data-tip="UHF-скидка из аналоговой эпохи засчитывает к пределу лишь половину охвата дециметровой станции. Цифровое ТВ стёрло разницу чётко-мутно, ради которой скидку ввели, — но скидка осталась. (Broadcast Law Blog; Federal Register 2018-01404.)">
+          <text x="110" y="272" class="strong" font-size="15">UHF-СКИДКА — РЕЛИКТ, КОТОРЫЙ ОСТАЛСЯ</text>
+          <rect x="110" y="290" width="360" height="66" class="nodebox"/>
+          <text x="290" y="330" text-anchor="middle" font-size="15">UHF-СТАНЦИЯ ДОСТАЁТ 10%</text>
+          <path class="amber" stroke-width="2.5" d="M 480 323 L 560 323"/>
+          <rect x="570" y="290" width="150" height="66" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="645" y="332" text-anchor="middle" class="flawtxt big" font-size="30">÷2</text>
+          <path class="amber" stroke-width="2.5" d="M 730 323 L 810 323"/>
+          <rect x="820" y="290" width="300" height="66" class="nodebox"/>
+          <text x="970" y="330" text-anchor="middle" font-size="15">ЗАСЧИТАНА КАК 5%</text>
+          <text x="1140" y="316" font-size="14">ЦИФРА УБРАЛА</text>
+          <text x="1140" y="340" font-size="14">ПРИЧИНУ · НЕ ПРАВИЛО</text>
+        </g>
+        <g id="g_78" class="b" data-tip="Одна крупная группа станций, формально на пределе 39%, реально достаёт до ~70% домохозяйств без фантомной скидки; лазейка формально позволяла до ~78%. (Broadcast Law Blog.)">
+          <text x="110" y="410" class="strong" font-size="15">ТАК 39% НА БУМАГЕ ОЗНАЧАЛИ НА ДЕЛЕ:</text>
+          <rect x="110" y="428" width="360" height="60" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="290" y="466" text-anchor="middle" class="fact strong" font-size="18">НА БУМАГЕ · 39%</text>
+          <rect x="490" y="428" width="360" height="60" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="670" y="466" text-anchor="middle" class="strong" font-size="18">НА ДЕЛЕ · ~70%</text>
+          <rect x="870" y="428" width="360" height="60" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="1050" y="466" text-anchor="middle" class="flawtxt strong" font-size="18">ПОТОЛОК · ~78%</text>
+        </g>
+        <g id="g_blind" class="b">
+          <rect x="110" y="512" width="1260" height="66" fill="var(--flaw)"/>
+          <text x="740" y="553" text-anchor="middle" class="onplate strong" font-size="18">И СЧИТАЕТ ТОЛЬКО ЭФИР — СТРИМИНГА НА ШКАЛЕ НЕТ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 4 — мерит возможность, не внимание — и лишь половину комнаты</div>
+    <div class="prose">
+      <p>Кэп никогда не мерил, сколько людей смотрят или насколько компания влияет на то, во что верит страна. Он мерил домохозяйства, до которых станции могли бы теоретически достать, — возможность, а не внимание. Потом пришла UHF-скидка: чтобы пожалеть слабые аналоговые каналы, регуляторы засчитывали лишь половину охвата дециметровой станции. Цифровое ТВ убрало причину. Скидка осталась.</p>
+      <p>Так группа, сидящая на бумаге на тридцати девяти процентах, уже достаёт примерно до семидесяти процентов домохозяйств, а лазейка позволяла почти семьдесят восемь. И прибор наполовину слеп: он считает только эфирные станции — стриминговых гигантов в большинстве гостиных на шкале нет вообще.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 MECHANISM II ================= -->
+<section class="ep" id="s4" data-duration="113.2">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Кому чинить</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · замороженное число, потом карт-бланш</div>
+    <h2>Жёсткая черта или усмотрение — здесь отказывают оба.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="r_two" class="b">
+          <rect x="110" y="70" width="600" height="150" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="110" class="fact strong" font-size="16">ЖЁСТКАЯ ЧЕРТА · 39%</text>
+          <text x="134" y="146" font-size="14">ПРЕДСКАЗУЕМА · ТРУДНО СОГНУТЬ ЗА СВОЕГО</text>
+          <text x="134" y="176" font-size="14">НО ГРУБА — И НЕ АДАПТИРУЕТСЯ</text>
+          <text x="134" y="206" class="strong" font-size="14">ПРАВИЛО</text>
+          <rect x="770" y="70" width="600" height="150" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="794" y="110" class="flawtxt strong" font-size="16">УСМОТРЕНИЕ · «ОБЩЕСТВЕННЫЙ ИНТЕРЕС?»</text>
+          <text x="794" y="146" font-size="14">АДАПТИРУЕТСЯ — НО ОГРОМНАЯ ДИСКРЕЦИЯ</text>
+          <text x="794" y="176" font-size="14">КАЖДОЕ СЛИЯНИЕ — ЗАКРЫТЫЙ ТОРГ</text>
+          <text x="794" y="206" class="strong" font-size="14">МЕНЯЕТСЯ С КАЖДЫМИ ВЫБОРАМИ</text>
+        </g>
+        <g id="r_froze" class="b" data-tip="§629 Consolidated Appropriations Act 2004 вписал 39% в закон и вывел это число из периодических пересмотров владения FCC — Конгресс считал число своим, не агентства. (Davis Wright Tremaine, 2004; CRS R45338.)">
+          <rect x="110" y="250" width="1260" height="86" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="288" class="strong" font-size="15">2004 · КОНГРЕСС ЗАМОРОЗИЛ ЧИСЛО В ЗАКОНЕ</text>
+          <text x="134" y="318" font-size="14">И ВЫВЕЛ ЕГО ИЗ ОБЫЧНЫХ ПЕРЕСМОТРОВ ВЕДОМСТВА — ЗАПЕР ВНЕ ДОСЯГАЕМОСТИ СЛЕДУЮЩЕГО СОСТАВА</text>
+        </g>
+        <g id="r_only" class="b">
+          <rect x="110" y="356" width="1260" height="70" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="386" class="flawtxt strong" font-size="15">ЗНАЧИТ, СЛОМАННЫЙ ПРИБОР МОГ ПОЧИНИТЬ ТОЛЬКО НОВЫЙ ЗАКОН —</text>
+          <text x="134" y="412" font-size="14">А КОНГРЕСС ТАК И НЕ ВЕРНУЛСЯ, ЧТОБЫ ЭТО СДЕЛАТЬ</text>
+        </g>
+        <g id="r_swap" class="b">
+          <rect x="110" y="450" width="1260" height="128" fill="var(--flaw)"/>
+          <text x="134" y="494" class="onplate strong" font-size="19">И ВЕДОМСТВО СТЁРЛО ЧИСЛО — ЗАМЕНИВ ЕГО СОБСТВЕННЫМ УСМОТРЕНИЕМ</text>
+          <text x="134" y="532" class="onplate" font-size="15">ЗАМОРОЖЕННОЕ СЛОМАННОЕ ПРАВИЛО → БЕЗЛИМИТНОЕ УСМОТРЕНИЕ</text>
+          <text x="134" y="562" class="onplate" font-size="15">ОБА — РЕЖИМЫ ОТКАЗА · НИ ОДИН НЕ МЕРИТ МЕДИЙНУЮ ВЛАСТЬ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 5 — ловушка: число заморозили так, что единственным ремонтом стало стереть его</div>
+    <div class="prose">
+      <p>Есть два способа написать такое правило. Жёсткая черта — тридцать девять процентов — предсказуема и её трудно согнуть, но груба и не умеет адаптироваться. Решение по каждому случаю адаптируется, но отдаёт огромную власть горстке назначенных чиновников и превращает каждое слияние в закрытый торг, меняющийся с каждыми выборами.</p>
+      <p>Вот ловушка. В 2004-м Конгресс не просто задал черту — он заморозил её в законе и вывел из собственных пересмотров ведомства. Значит, сломанный прибор мог починить только Конгресс, а он так и не вернулся. Ведомство, устав ждать, не стало чинить число. Оно стёрло его и заменило собственным усмотрением. Оба — режимы отказа.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 WHAT IF ================= -->
+<section class="ep" id="s5" data-duration="175.7">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Что если</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · три конструкции, три ценника</div>
+    <h2>Мерить аудиторию, оснастить усмотрение — или число, которое обновляется.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: Германия -->
+        <g id="a_germany" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">КОНСТРУКЦИЯ ПЕРВАЯ · МЕРИТЬ АУДИТОРИЮ, КОТОРАЯ РЕАЛЬНО ЕСТЬ  (ГЕРМАНИЯ)</text>
+          <g id="a_g1" class="b">
+            <rect x="110" y="120" width="640" height="80" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="152" class="alttxt strong" font-size="15">СЧИТАТЬ РЕАЛЬНУЮ ДОЛЮ СМОТРЕНИЯ, А НЕ ОХВАТ</text>
+            <text x="134" y="182" font-size="14">БОЛЬШЕ ~30% → ВМЕШИВАЕТСЯ НЕЗАВИСИМАЯ КОМИССИЯ</text>
+            <rect x="790" y="120" width="320" height="80" class="nodebox"/>
+            <text x="814" y="152" class="fact strong" font-size="15">БОНУС-ВЫЧЕТЫ</text>
+            <text x="814" y="182" font-size="14">РЕГИОНАЛЬНЫЙ / НЕЗАВИСИМЫЙ ЭФИР</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ДАЁТ: МЕРИТ ВНИМАНИЕ, А НЕ ВОЗМОЖНОСТЬ</text>
+          </g>
+          <g id="a_gcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="366" font-size="14">1 · ДОЛЮ ТРУДНЕЕ ИЗМЕРИТЬ — И ТРУДНЕЕ ОТСТОЯТЬ В СУДЕ</text>
+            <text x="134" y="402" font-size="14">2 · ПРАВИЛО ВСЁ ЕЩЁ СЧИТАЕТ В ОСНОВНОМ ТВ, А АУДИТОРИЯ УХОДИТ В ИНТЕРНЕТ</text>
+            <text x="134" y="440" class="flawtxt strong" font-size="14">ТАК ЧТО И ЭТОТ ПРИБОР ПОТИХОНЬКУ СТАРЕЕТ</text>
+            <text x="134" y="478" font-size="14">3 · КЭП НА ДОЛЮ МОЖЕТ ЗАМОРОЗИТЬ РЫНОК — И НАКАЗАТЬ ЗА УСПЕХ</text>
+          </g>
+        </g>
+        <!-- B: Британия -->
+        <g id="a_uk" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">КОНСТРУКЦИЯ ВТОРАЯ · ОСТАВИТЬ УСМОТРЕНИЕ — НО ОСНАСТИТЬ ЕГО  (БРИТАНИЯ)</text>
+          <g id="a_u1" class="b">
+            <rect x="110" y="120" width="1010" height="80" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="152" class="alttxt strong" font-size="15">НЕЗАВИСИМЫЙ РЕГУЛЯТОР ПРОВЕРЯЕТ КАЖДОЕ СЛИЯНИЕ — ПО ОПУБЛИКОВАННОЙ МЕТОДИКЕ</text>
+            <text x="134" y="182" font-size="14">ДОЛЯ НОВОСТЕЙ ПО ТВ, ПЕЧАТИ И ИНТЕРНЕТУ · ПЛЮС ПРОВЕРКА РЕДАКЦИОННОЙ НЕЗАВИСИМОСТИ</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ДАЁТ: УСМОТРЕНИЕ — С ОГРАЖДЕНИЯМИ И ПО ЧАСАМ</text>
+          </g>
+          <g id="a_ucost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="366" font-size="14">1 · ЭТО МЕДЛЕННО — ОДНА ГРОМКАЯ ПРОВЕРКА ТЯНУЛАСЬ ГОДАМИ</text>
+            <text x="134" y="404" class="flawtxt strong" font-size="14">2 · КОГДА ЕЁ ЗАПУСКАТЬ, РЕШАЕТ МИНИСТР —</text>
+            <text x="134" y="434" font-size="14">СВОЯ ПОЛИТИЧЕСКАЯ ДВЕРЬ</text>
+            <text x="134" y="472" font-size="14">3 · КРИТИКИ: ВСЁ ЕЩЁ УПУСКАЕТ ОНЛАЙН И ЛОКАЛЬНУЮ КОНЦЕНТРАЦИЮ</text>
+          </g>
+        </g>
+        <!-- C: обновляемое -->
+        <g id="a_self" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">КОНСТРУКЦИЯ ТРЕТЬЯ · ОСТАВИТЬ ОДНО ЯСНОЕ ЧИСЛО — НО НЕ ЗАМОРАЖИВАТЬ</text>
+          <g id="a_s1" class="b">
+            <rect x="110" y="120" width="640" height="80" class="nodebox"/>
+            <text x="134" y="152" class="strong" font-size="15">ТА ЖЕ ЯСНАЯ ЧЁТКАЯ ЧЕРТА, ЧТО И РАНЬШЕ</text>
+            <text x="134" y="182" font-size="14">ПЕРЕСМАТРИВАЕТСЯ ПО РАСПИСАНИЮ НЕЗАВИСИМЫМ ОРГАНОМ</text>
+            <rect x="790" y="120" width="330" height="80" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="955" y="152" text-anchor="middle" class="alttxt strong" font-size="15">РАЗ В НЕСКОЛЬКО ЛЕТ</text>
+            <text x="955" y="182" text-anchor="middle" font-size="14">ЧАСЫ, А НЕ ЗАМОК</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ДАЁТ: ПРОСТО И ПРЕДСКАЗУЕМО — БЕЗ УСТАРЕВАНИЯ</text>
+          </g>
+          <g id="a_scost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="372" class="flawtxt strong" font-size="15">ЧИСЛО, КОТОРОЕ ПЕРЕСМАТРИВАЮТ ПО РАСПИСАНИЮ,</text>
+            <text x="134" y="410" font-size="14">БУДЕТ ПЕРЕСМАТРИВАТЬ ПОД СЕБЯ ТОТ, КТО У ВЛАСТИ —</text>
+            <text x="134" y="448" font-size="14">ТА САМАЯ ДИСКРЕЦИЯ, КОТОРУЮ ЗАМОРОЗКА 2004 ХОТЕЛА ЗАПЕРЕТЬ</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">Германия</button><button id="btnR1">Британия</button><button id="btnR2">Обновляемое</button>
+    </div>
+    <div class="figcap">Рис. 6 — три конструкции, три ценника. Нажмите, чтобы сравнить.</div>
+    <div class="prose">
+      <p>Германия выбросила сломанную часть: вместо домохозяйств, до которых компания могла бы достать, там считают аудиторию, которая у неё реально есть, — настоящую долю смотрения, с независимой комиссией при переходе примерно за тридцать процентов и вычетами за региональный или независимый эфир. Это меряет внимание. Цена: долю труднее измерить и отстоять, правило всё ещё считает в основном ТВ, пока аудитория уходит в интернет, а кэп на долю может заморозить рынок.</p>
+      <p>Британия сохранила решение по каждому случаю, которое Америка только что приняла, но привинтила к нему приборы: независимый регулятор, опубликованная методика доли новостей по ТВ, печати и интернету, проверка редакционной независимости. Цена: это медленно, когда запускать — решает министр, и метод всё равно упускает онлайн и локальную концентрацию.</p>
+      <p>Третий путь оставляет одну ясную черту, но перестаёт её замораживать — независимый орган пересматривает число раз в несколько лет. Цена зеркальна: число, которое можно пересмотреть, будет пересматривать под себя тот, кто у власти.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="62.9">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">Финал</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Финал · вопрос, который стоит унести</div>
+    <h2>Не какое число — а что оно измеряет?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_objects" class="b">
+          <rect x="150" y="70" width="420" height="150" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="360" y="130" text-anchor="middle" class="flawtxt strong" font-size="18">39%, ТЕПЕРЬ СТЁРТЫЕ</text>
+          <text x="360" y="172" text-anchor="middle" font-size="14">ЗАГОЛОВОК: ГИГАНТЫ И ПАРТИЯ</text>
+          <rect x="910" y="70" width="420" height="150" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="1120" y="130" text-anchor="middle" class="fact strong" font-size="18">ЧТО ОН ЗАЩИЩАЕТ</text>
+          <text x="1120" y="172" text-anchor="middle" font-size="14">МНОЖЕСТВО НЕЗАВИСИМЫХ ГОЛОСОВ</text>
+          <path class="green" stroke-width="3" d="M 570 145 L 700 145"/>
+          <path class="green" stroke-width="3" d="M 780 145 L 910 145"/>
+          <text x="740" y="152" text-anchor="middle" class="alttxt" font-size="22">↓</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="300" text-anchor="middle" class="big" font-size="30">НЕ «ДОЛЖЕН ЛИ БЫТЬ ПРЕДЕЛ?»</text>
+          <text x="740" y="362" text-anchor="middle" font-size="20">ЧТО ЭТОТ ПРЕДЕЛ ИЗМЕРЯЕТ?</text>
+          <text x="740" y="418" text-anchor="middle" font-size="20">И КОМУ ПОЗВОЛЕНО ЕГО ДВИГАТЬ?</text>
+          <text x="740" y="476" text-anchor="middle" class="flawtxt" font-size="16">ТВ · НОВОСТИ · ГОЛОСА, НА КОТОРЫХ ДЕРЖИТСЯ ДЕМОКРАТИЯ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>В заголовке — схватка о медийных гигантах и партии, назначившей чиновников, отдавших голоса. Убери это, и под низом окажется кое-что более прочное: предел писали, чтобы защитить то единственное, на чём держится демократия, — множество независимых голосов, — а построили его на приборе, который мерил не ту величину, линейкой, сломавшейся десятилетия назад, и замороженном так намертво, что единственным ремонтом стало выбросить всё целиком.</p>
+      <p>Что бы ты ни считал правильным дальше, полезный вопрос не «должен ли быть предел». Это тот, который можно унести к тем, кто пишет эти правила: не какое число — а что оно измеряет и кому позволено его двигать?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">ДЕФЕКТ КОНСТРУКЦИИ</div>
+      <p>Не кто виноват — как устроено. Полный интерактивный чертёж, с тем, что не вошло в ролик, — на этой странице. <a href="../" style="color:var(--fact)">In English →</a></p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Смотреть на YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Подписаться</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <path d="M 210 300 A 220 220 0 0 1 650 300" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <line x1="430" y1="300" x2="560" y2="150" stroke="var(--flaw)" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="430" cy="300" r="14" fill="var(--text)"/>
+    <text x="430" y="355" text-anchor="middle" font-family="IBM Plex Mono" font-size="28" style="fill:var(--text-dim)">ОХВАТ, НЕ ВНИМАНИЕ</text>
+    <text x="760" y="150" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">кэп говорил</text>
+    <text x="760" y="215" font-family="IBM Plex Mono" font-size="40" style="fill:var(--fact)">одно число.</text>
+    <text x="760" y="280" font-family="IBM Plex Mono" font-size="40" style="fill:var(--flaw)">позволял другое.</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">39% = 78%</div>
+  <div class="sub">кэп, которого не было</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <path d="M 150 250 L 470 250" stroke="var(--text)" stroke-width="8" stroke-dasharray="18 12"/>
+    <path d="M 470 250 L 500 210 M 470 250 L 500 290" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <path d="M 540 250 L 1130 250" stroke="var(--text)" stroke-width="8" stroke-dasharray="18 12" opacity=".35"/>
+    <text x="150" y="150" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">ограда вокруг</text>
+    <text x="150" y="215" font-family="IBM Plex Mono" font-size="40" style="fill:var(--fact)">владения ТВ</text>
+    <text x="700" y="320" font-family="IBM Plex Mono" font-size="30" style="fill:var(--flaw)">— только что снята</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">39% СТЁРТО</div>
+  <div class="sub">кому можно владеть тв</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+const NS='http://www.w3.org/2000/svg';
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8); idle(tl,'h_a',6,8);
+  tl.to($('h_a'),{opacity:0,duration:.45},15.0);
+  say(tl,'h_b',15.3,.8); idle(tl,'h_b',19,6);
+  tl.to($('h_b'),{opacity:0,duration:.45},27.0);
+  say(tl,'h_c',27.3,.8); pop(tl,'h_c',27.3,.8); idle(tl,'h_c',32,8);
+  tl.to($('h_c'),{opacity:0,duration:.45},43.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},43.3);
+  if(isAuto)tl.to({},{duration:4.0},44.0); else tl.to($('titleCard'),{opacity:0,duration:.5},48.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_vote',0.5,.9); idle(tl,'e_vote',7,16);
+  say(tl,'e_carr',26.0,.8); say(tl,'e_gomez',30.0,.8); idle(tl,'e_carr',36,18);
+  say(tl,'e_deal',58.0,.8); idle(tl,'e_deal',63,14);
+  pop(tl,'e_q',82.0,.7); shake(tl,'e_q',83.0,5,6); idlePlate(tl,'e_q',85,10);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_debate',0.5,.9); idle(tl,'v_debate',7,10);
+  pop(tl,'v_never',20.0,.7); shake(tl,'v_never',21.0,5,6); idlePlate(tl,'v_never',23,8);
+  say(tl,'v_qs',33.0,.9); idle(tl,'v_qs',38,6);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'g_measure',0.5,.9); idle(tl,'g_measure',7,14);
+  say(tl,'g_uhf',26.0,.9); idle(tl,'g_uhf',33,20);
+  say(tl,'g_78',60.0,.9); idle(tl,'g_78',67,20);
+  pop(tl,'g_blind',96.0,.7); shake(tl,'g_blind',97.0,5,6); idlePlate(tl,'g_blind',99,14);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'r_two',0.5,.9); idle(tl,'r_two',7,20);
+  say(tl,'r_froze',32.0,.9); idle(tl,'r_froze',39,18);
+  say(tl,'r_only',62.0,.8); idle(tl,'r_only',67,16);
+  pop(tl,'r_swap',88.0,.7); shake(tl,'r_swap',89.0,5,6); idlePlate(tl,'r_swap',91,20);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_germany'),{opacity:1},0);
+  say(tl,'a_g1',0.5,.8); idle(tl,'a_g1',7,14);
+  say(tl,'a_gcost',26.0,.7); idle(tl,'a_gcost',31,16);
+  tl.to($('a_germany'),{opacity:0,duration:.45},50.0);
+  tl.fromTo($('a_uk'),{opacity:0},{opacity:1,duration:.55},50.3);
+  say(tl,'a_u1',54.0,.8); idle(tl,'a_u1',61,14);
+  say(tl,'a_ucost',80.0,.7); idle(tl,'a_ucost',85,14);
+  tl.to($('a_uk'),{opacity:0,duration:.45},102.0);
+  tl.fromTo($('a_self'),{opacity:0},{opacity:1,duration:.55},102.3);
+  say(tl,'a_s1',106.0,.8); idle(tl,'a_s1',113,12);
+  pop(tl,'a_scost',128.0,.7); shake(tl,'a_scost',129.0,5,6); idlePlate(tl,'a_scost',131,14);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_objects',0.5,.9); idle(tl,'z_objects',7,16);
+  say(tl,'z_q',30.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},34.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_germany','a_uk','a_self'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  [0,1,2].forEach(k=>$('btnR'+k).classList.toggle('on',k===i));}
+[0,1,2].forEach(k=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
