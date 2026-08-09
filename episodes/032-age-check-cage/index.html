@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Can You Protect Kids Without Caging Everyone? | Trace Upstream</title>
+<meta name="description" content="A New Mexico court ordered Meta to pay $942M and redesign Instagram to protect children. But to find the children you must check everyone — so online child-safety quietly builds an ID checkpoint over the whole internet. The real choice isn't stricter checks: cage everyone, redesign the product for everyone, or prove age without identity.">
+<link rel="canonical" href="https://traceupstream.com/episodes/032-age-check-cage/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="Can You Protect Kids Without Caging Everyone?">
+<meta property="og:description" content="To find the children you must check everyone — so child-safety builds a cage around all of us. Three designs, three prices.">
+<meta property="og:url" content="https://traceupstream.com/episodes/032-age-check-cage/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#6E7A99; /* desaturated slate — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.032 — 2026-08-09</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="47.8">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.032</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <text x="500" y="215" text-anchor="middle" class="big" font-size="150">$942M</text>
+          <text x="500" y="300" text-anchor="middle" font-size="34">A JUDGE REWROTE INSTAGRAM'S RULES</text>
+          <text x="500" y="352" text-anchor="middle" font-size="32">NEW MEXICO · THIS WEEK</text>
+        </g>
+        <g id="h_b" class="b">
+          <text x="500" y="240" text-anchor="middle" class="big" font-size="44">EVERY RULE PROTECTS CHILDREN</text>
+          <text x="500" y="320" text-anchor="middle" class="fact" font-size="36">BUT WHO IS A CHILD?</text>
+        </g>
+        <g id="h_c" class="b">
+          <text x="500" y="205" text-anchor="middle" font-size="34">TO FIND THE FEW, YOU CHECK</text>
+          <text x="500" y="370" text-anchor="middle" class="big flawtxt" font-size="104">EVERYONE</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="48">PROTECT KIDS, OR CAGE EVERYONE?</text>
+          <text x="500" y="330" text-anchor="middle" font-size="32">TRACE UPSTREAM</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 1 — to protect the few, you screen the many</div>
+    <div class="prose">
+      <p>Late one Thursday this week, a judge in New Mexico did something courts almost never do: he wrote a rulebook for Instagram. No overnight notifications for teenagers. Time limits for under-eighteens. Privacy on by default. And prove your age. The bill for Meta: nine hundred and forty-two million dollars.</p>
+      <p>But every rule is aimed at children specifically — and a platform can't see who is a child. So the moment you decide to treat kids differently, you have to inspect everyone, just to tell them apart. And a privacy law from 1998, written to protect children, makes inspecting the youngest ones illegal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="81.9">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · a $942M ruling, this week</div>
+    <h2>A jury found harm. A judge ordered a redesign.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_verdict" class="b" data-tip="March 2026: after a 7-week trial, a New Mexico jury found Meta knowingly harmed children's mental health and concealed what it knew about the sexual exploitation of children on its platforms — 'unconscionable' practices under NM consumer-protection law; $375M penalty.">
+          <text x="110" y="88" class="strong" font-size="16">MARCH · THE JURY'S VERDICT</text>
+          <rect x="110" y="108" width="1260" height="118" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="146" class="fact strong" font-size="15">KNOWINGLY HARMED CHILDREN'S MENTAL HEALTH</text>
+          <text x="134" y="178" font-size="14">CONCEALED WHAT IT KNEW ABOUT SEXUAL EXPLOITATION OF CHILDREN</text>
+          <text x="134" y="210" font-size="14">"UNCONSCIONABLE" PRACTICES · NEW MEXICO CONSUMER LAW · $375M PENALTY</text>
+        </g>
+        <g id="e_price" class="b">
+          <rect x="110" y="252" width="1260" height="86" fill="var(--flaw)"/>
+          <text x="134" y="296" class="onplate big" font-size="30">$942,000,000 TOTAL</text>
+          <text x="134" y="326" class="onplate" font-size="14">+$567M THIS WEEK — MOST OF IT TO TREAT THE YOUNG PEOPLE ALREADY HARMED</text>
+        </g>
+        <g id="e_orders" class="b" data-tip="The court ordered Meta to redesign the app for New Mexico users: stronger age assurance, protection against sextortion, no overnight notifications for under-18s, default privacy, screen-time limits.">
+          <rect x="110" y="364" width="1260" height="86" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="402" class="strong" font-size="15">THE JUDGE ORDERED A REDESIGN — NEW MEXICO USERS ONLY</text>
+          <text x="134" y="434" font-size="14">AGE CHECKS · NO OVERNIGHT PINGS FOR UNDER-18 · TIME LIMITS · DEFAULT PRIVACY</text>
+        </g>
+        <g id="e_patch" class="b">
+          <rect x="110" y="476" width="1260" height="94" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="512" class="flawtxt strong" font-size="15">NO FEDERAL LAW · 40 STATES SUING · 40 COURTROOMS</text>
+          <text x="134" y="544" font-size="14">SO JUDGES WRITE THE DESIGN, ONE STATE AT A TIME — AND EACH HITS THE SAME WALL</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 2 — the verdict, the price, and the wall every court hits</div>
+    <div class="prose">
+      <p>In March, a New Mexico jury found that Meta had knowingly built products that harmed children's mental health, and had hidden what it knew about the sexual exploitation of children on its platforms — "unconscionable" practices under the state's consumer-protection law. This week the price landed: nine hundred and forty-two million dollars, much of it to treat the young people already harmed.</p>
+      <p>Then the judge ordered Meta to redesign the app. But this is one ruling, in one state — and forty states are suing over the same harm, each in its own courtroom, with no national law to follow. So judges write the design one state at a time. And every one of them hits the same wall.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="35.6">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The pivot · the hidden assumption</div>
+    <h2>To find the children, you check everyone.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_debate" class="b">
+          <rect x="230" y="90" width="360" height="110" class="nodebox"/>
+          <text x="410" y="150" text-anchor="middle" class="big" font-size="30">VERIFY AGE?</text>
+          <text x="410" y="184" text-anchor="middle" font-size="14">YES</text>
+          <rect x="890" y="90" width="360" height="110" class="nodebox"/>
+          <text x="1070" y="150" text-anchor="middle" class="big" font-size="30">VERIFY AGE?</text>
+          <text x="1070" y="184" text-anchor="middle" font-size="14">NO</text>
+          <path class="hair" d="M 590 145 L 690 145"/><path class="hair" d="M 790 145 L 890 145"/>
+          <text x="740" y="155" text-anchor="middle" class="flawtxt" font-size="30">×</text>
+        </g>
+        <g id="v_assume" class="b">
+          <rect x="180" y="242" width="1120" height="70" fill="var(--flaw)"/>
+          <text x="740" y="285" text-anchor="middle" class="onplate strong" font-size="18">BOTH ASSUME ONE THING — FIRST, FIND WHO IS A CHILD</text>
+        </g>
+        <g id="v_q" class="b">
+          <text x="740" y="392" text-anchor="middle" class="big" font-size="34">TO FIND THE CHILDREN, CHECK EVERYONE</text>
+          <text x="740" y="456" text-anchor="middle" class="big flawtxt" font-size="30">PROTECT KIDS — OR CAGE US ALL?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 3 — the wrong debate, and the assumption underneath it</div>
+    <div class="prose">
+      <p>The argument everyone is having — should platforms verify your age, yes or no — is the wrong argument. It quietly assumes there is only one way to protect a child: first, figure out which users are children.</p>
+      <p>And that single assumption is where it goes sideways. To find the children in a crowd, you have to check the ID of everyone in the crowd. So the real question isn't whether to check harder — it's whether protecting kids has to mean a cage around all of us.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM: the cage ================= -->
+<section class="ep" id="s3" data-duration="102.8">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The cage</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The mechanism · what an age check really is</div>
+    <h2>An ID checkpoint on the front door of the internet.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="g_prove" class="b">
+          <text x="110" y="84" class="strong" font-size="16">"PROVE YOU'RE NOT 12"</text>
+          <rect x="110" y="104" width="600" height="60" class="nodebox"/>
+          <text x="134" y="141" font-size="14">THE ONLY PROOF: ID · FACE SCAN · CREDIT CARD</text>
+          <rect x="110" y="176" width="1260" height="60" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="134" y="213" class="flawtxt" font-size="14">CAN'T CHECK ONLY KIDS — YOU'D FIRST HAVE TO KNOW WHO THEY ARE. SO: CHECK EVERYONE.</text>
+        </g>
+        <g id="g_gate" class="b" data-tip="To screen for children, every user must prove who they are — so the anonymous door becomes an identity checkpoint. The whistleblower, the abuse survivor, the person reading privately about a diagnosis all have to show ID.">
+          <rect x="110" y="262" width="600" height="96" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="298" class="strong" font-size="15">EVERY ADULT SHOWS ID TO ENTER</text>
+          <text x="134" y="328" font-size="14">WHISTLEBLOWER · ABUSE SURVIVOR · THE QUIET READER</text>
+          <text x="134" y="350" class="flawtxt" font-size="14">ANONYMITY: GONE</text>
+        </g>
+        <g id="g_vault" class="b" data-tip="Someone has to store all those IDs and face scans — turning every platform into a concentrated vault of the most sensitive data imaginable, a target for the next breach.">
+          <rect x="770" y="262" width="600" height="96" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="794" y="298" class="flawtxt strong" font-size="15">EVERY PLATFORM BECOMES A VAULT</text>
+          <text x="794" y="328" font-size="14">MILLIONS OF IDs AND FACE SCANS IN ONE PLACE</text>
+          <text x="794" y="350" class="flawtxt" font-size="14">A BREACH TARGET</text>
+        </g>
+        <g id="g_fail" class="b" data-tip="Australia's Online Safety Amendment banned under-16s from social media (live since Dec 2025). A BMJ study found 85%+ of under-16s still online 3 months later (VPNs, selfies with drawn-on moustaches, false birthdays). The government's response was to move to double the fines.">
+          <rect x="110" y="384" width="1260" height="186" fill="var(--flaw)"/>
+          <text x="134" y="426" class="onplate big" font-size="26">AND THE CAGE DOESN'T EVEN WORK</text>
+          <text x="134" y="466" class="onplate" font-size="15">AUSTRALIA · NATIONWIDE UNDER-16 BAN, LIVE SINCE DECEMBER</text>
+          <text x="134" y="500" class="onplate" font-size="15">3 MONTHS IN: 85%+ STILL ONLINE — VPNs · DRAWN-ON MOUSTACHES · FAKE BIRTHDAYS</text>
+          <text x="134" y="536" class="onplate" font-size="15">THE GOVERNMENT'S ANSWER: DOUBLE THE FINES</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 4 — the two costs of the cage, and the proof it fails</div>
+    <div class="prose">
+      <p>Think about what "verify your age" requires. A site can't see how old you are; to know you're not twelve, it must ask you to prove it — an ID, a face scan, a card. And it can't check only the children, because to single them out it would first have to know who the children are — the very thing it doesn't know. So it checks everyone.</p>
+      <p>That is the cage: an identity checkpoint on the front door of the internet. Anonymity ends, and every platform becomes a vault of IDs waiting to be breached. And here's the part that should give everyone pause — it doesn't even work. Australia banned under-sixteens from social media; three months in, more than eighty-five percent were still online. The government's answer was to double the fines. When a lock doesn't hold, the instinct is always a bigger lock.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 MECHANISM: who wrote the rule ================= -->
+<section class="ep" id="s4" data-duration="65.2">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The wall</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The mechanism · a privacy law blocks the safety tool</div>
+    <h2>Keep their data private, or keep them safe.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="r_wall" class="b">
+          <rect x="110" y="80" width="1260" height="72" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="116" class="strong" font-size="15">THE JUDGE COULDN'T ORDER THE CHECK THAT MATTERS MOST:</text>
+          <text x="134" y="146" font-size="14">IS THIS USER UNDER 13?</text>
+        </g>
+        <g id="r_coppa" class="b" data-tip="COPPA (Children's Online Privacy Protection Act, 1998) bars collecting personal data from under-13s. Verifying a child's age means collecting a child's data — the exact act COPPA forbids. So the court could not order it, and noted age-checking only Meta would be inequitable.">
+          <rect x="110" y="176" width="820" height="96" class="nodebox"/>
+          <text x="134" y="214" class="strong" font-size="15">TO CHECK A CHILD'S AGE → YOU MUST COLLECT A CHILD'S DATA</text>
+          <text x="134" y="248" font-size="14">AND COLLECTING A CHILD'S DATA IS THE ONE THING…</text>
+          <rect x="960" y="176" width="410" height="96" fill="var(--flaw)"/>
+          <text x="1165" y="222" text-anchor="middle" class="onplate big" font-size="26">COPPA · 1998</text>
+          <text x="1165" y="252" text-anchor="middle" class="onplate" font-size="14">…FORBIDS</text>
+        </g>
+        <g id="r_collide" class="b">
+          <rect x="110" y="298" width="1260" height="86" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="300" y="340" class="fact strong" font-size="17">PRIVACY</text>
+          <path class="amber" stroke-width="2.5" d="M 420 335 L 560 335"/>
+          <path class="amber" stroke-width="2.5" d="M 920 335 L 1060 335"/>
+          <text x="1180" y="340" class="flawtxt strong" font-size="17" text-anchor="end">SAFETY</text>
+          <text x="740" y="340" text-anchor="middle" class="flawtxt" font-size="22">&#8596;</text>
+          <text x="740" y="370" text-anchor="middle" font-size="14">A PRIVACY LAW NOW BLOCKS THE SAFETY TOOL — THE TWO POINT AT EACH OTHER</text>
+        </g>
+        <g id="r_unbuilt" class="b">
+          <rect x="110" y="410" width="1260" height="160" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="450" class="flawtxt strong" font-size="15">SO THE US IS STUCK:</text>
+          <text x="134" y="486" font-size="14">40 COURTROOMS, THE SAME WALL — THE SLOWEST WAY TO REGULATE 100 MILLION USERS</text>
+          <text x="134" y="522" font-size="14">AND THE TWO DESIGNS THAT COULD ESCAPE THE CAGE…</text>
+          <text x="134" y="552" class="flawtxt" font-size="15">…NEVER GET BUILT — NOBODY WITH THE POWER TO WRITE THEM IS WRITING THEM</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 5 — two child-protection goals, pointed at each other</div>
+    <div class="prose">
+      <p>Back to the judge, and the wall he hit. He could not order the check that matters most — is this user under thirteen? Because to check a child's age you first have to collect a child's data. And collecting a child's data is the exact thing a 1998 law forbids: COPPA, written to keep kids' information out of corporate hands.</p>
+      <p>Sit with that. A privacy law, written to protect children, now blocks the tool meant to protect them. And every one of those forty courtrooms hits the same wall — the slowest, most piecemeal way imaginable to regulate a product used by a hundred million people. Meanwhile the two designs that might actually escape the cage never get built, because nobody with the power to write them is writing them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 WHAT IF ================= -->
+<section class="ep" id="s5" data-duration="138.9">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">What if</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · two ways out of the cage, two prices</div>
+    <h2>Redesign for everyone, or prove age without identity.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: safe by default -->
+        <g id="a_design" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">ESCAPE ONE · SAFE BY DEFAULT — NO AGE NEEDED</text>
+          <g id="a_d1" class="b">
+            <rect x="110" y="120" width="1260" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="156" class="alttxt strong" font-size="15">TURN OFF THE HARMFUL MECHANICS — FOR EVERYONE</text>
+            <text x="134" y="188" font-size="14">NO ENDLESS SCROLL · NO AUTOPLAY · NO 2 A.M. PINGS · SO YOU NEVER NEED TO KNOW WHO'S A CHILD</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT BUYS: PROTECTION WITHOUT A CHECKPOINT</text>
+          </g>
+          <g id="a_dcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">THE PRICE:</text>
+            <text x="134" y="366" font-size="14">1 · IT TREATS EVERY ADULT LIKE A CHILD, TOO</text>
+            <text x="134" y="402" font-size="14">2 · CALIFORNIA'S DETAILED DESIGN RULES (THE "DARK-PATTERN" BAN) —</text>
+            <text x="134" y="430" font-size="14">STRUCK DOWN AS COMPELLED SPEECH: DICTATING DESIGN ≈ DICTATING SPEECH</text>
+            <text x="134" y="470" class="alttxt strong" font-size="14">3 · WHAT SURVIVED: THE "SAFE-FOR-ALL, NO AGE CHECK" OPTION —</text>
+            <text x="134" y="498" font-size="14">THE ONE PATH THAT NEEDS NO CAGE IS THE ONE THE CONSTITUTION ALLOWS</text>
+          </g>
+        </g>
+        <!-- B: prove without identity -->
+        <g id="a_zk" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">ESCAPE TWO · PROVE AGE, NOT IDENTITY (ZERO-KNOWLEDGE)</text>
+          <g id="a_z1" class="b">
+            <rect x="110" y="120" width="820" height="86" class="nodebox"/>
+            <text x="134" y="156" class="strong" font-size="15">A TRUSTED SOURCE VOUCHES: "18+?" → YES / NO</text>
+            <text x="134" y="188" font-size="14">NO NAME · NO BIRTHDAY · NO DOCUMENT — JUST ONE BIT</text>
+            <rect x="960" y="120" width="410" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="1165" y="156" text-anchor="middle" class="alttxt strong" font-size="15">EU PILOT · GOOGLE</text>
+            <text x="1165" y="188" text-anchor="middle" font-size="14">OPEN-SOURCED THE TOOLS</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT BUYS: THE CAGE WITHOUT THE BARS</text>
+          </g>
+          <g id="a_zcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">THE PRICE:</text>
+            <text x="134" y="366" font-size="14">1 · YOUNG SYSTEM — THE EU APP WAS HACKED IN APRIL</text>
+            <text x="134" y="402" font-size="14">2 · THE SOURCE THAT VOUCHES FOR YOU CAN BECOME A LOG OF EVERYWHERE YOU GO</text>
+            <text x="134" y="440" class="flawtxt strong" font-size="14">3 · NO BANK, NO ID → NO ONE TO VOUCH FOR YOU AT ALL</text>
+            <text x="134" y="478" font-size="14">STRONG CRYPTO STILL DEPENDS ON WHO ISSUES THE TOKEN — AND HOW</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">Safe by default</button><button id="btnR1">Prove without ID</button>
+    </div>
+    <div class="figcap">Fig. 6 — two escapes, two price tags. Click to compare.</div>
+    <div class="prose">
+      <p>So what would escaping the cage look like? Two designs already exist. The first: stop asking how old people are, and make the product safe for everyone — no endless scroll, no autoplay, no 2 a.m. notifications, for anyone. If it's safe by default, you never need to know who's a child. The price: it treats every adult like a child too. California tried to write it in law; the parts that dictated design in detail were struck down as compelled speech — but the part that lets a platform skip age checks and just give everyone the safe settings survived. The one path that needs no cage is the one the Constitution allows.</p>
+      <p>The second escape: prove your age without revealing who you are. A zero-knowledge proof lets a trusted source vouch that you're over eighteen and hand the site one bit — yes or no. No name, no birthday, no document. Europe is piloting it; Google open-sourced the tools. It's the cage without the bars. But the price is real too: the EU app was hacked in April, the source that vouches for you can become a log of everywhere you go, and if you have no bank and no ID, no one can vouch for you at all.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="53.5">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">The close</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · the question to carry</div>
+    <h2>Whose design is this — and who wrote it?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_recall" class="b">
+          <rect x="150" y="70" width="440" height="140" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="370" y="128" text-anchor="middle" class="flawtxt strong" font-size="18">$942M · ONE COMPANY CAUGHT?</text>
+          <text x="370" y="170" text-anchor="middle" font-size="14">THE EASY STORY</text>
+          <rect x="890" y="70" width="440" height="140" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="1110" y="128" text-anchor="middle" class="fact strong" font-size="17">WE NEVER CHOSE HOW</text>
+          <text x="1110" y="170" text-anchor="middle" font-size="14">TO PROTECT CHILDREN ONLINE</text>
+          <path class="hair" d="M 590 140 L 710 140"/><path class="hair" d="M 770 140 L 890 140"/>
+          <text x="740" y="148" text-anchor="middle" class="flawtxt" font-size="22">→</text>
+        </g>
+        <g id="z_doors" class="b">
+          <text x="740" y="266" text-anchor="middle" font-size="15">THREE DESIGNS ON THE TABLE — ONLY THE FIRST GOT REACHED FOR BY DEFAULT</text>
+          <text x="300" y="306" text-anchor="middle" class="flawtxt" font-size="15">CAGE EVERYONE</text>
+          <text x="740" y="306" text-anchor="middle" class="alttxt" font-size="15">SAFE BY DEFAULT</text>
+          <text x="1180" y="306" text-anchor="middle" class="alttxt" font-size="15">PROVE WITHOUT ID</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="378" text-anchor="middle" class="big" font-size="28">NOT "VERIFY AGE — YES OR NO?"</text>
+          <text x="740" y="430" text-anchor="middle" font-size="18">WHOSE DESIGN IS THIS? WHO WROTE IT?</text>
+          <text x="740" y="474" text-anchor="middle" class="flawtxt" font-size="18">MUST ONE CHILD'S SAFETY CAGE THE REST OF US?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>It's easy to read a nine-hundred-and-forty-two-million-dollar ruling as one company finally getting caught. The harder, more useful story sits underneath: a society decided to protect children online and discovered it had never chosen how — so the job fell to juries and judges, improvising in the dark, blocked by a privacy law older than these platforms, reaching by default for the one tool everyone already argues about.</p>
+      <p>There may be good reasons to build that checkpoint. But it is a choice, and its price is everyone's anonymity — and it is not the only design on the table. So next time someone says the answer is simply to verify age, the useful question isn't yes or no. It's: whose design is this, who wrote it — and does keeping one child safe really require caging the rest of us?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page. <a href="ru/" style="color:var(--fact)">По-русски →</a></p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Watch on YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="70" width="360" height="240" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <line x1="230" y1="70" x2="230" y2="310" stroke="var(--text)" stroke-width="8"/>
+    <line x1="310" y1="70" x2="310" y2="310" stroke="var(--text)" stroke-width="8"/>
+    <line x1="390" y1="70" x2="390" y2="310" stroke="var(--text)" stroke-width="8"/>
+    <circle cx="270" cy="230" r="26" fill="none" stroke="var(--flaw)" stroke-width="8"/>
+    <text x="560" y="160" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">check one kid,</text>
+    <text x="560" y="228" font-family="IBM Plex Mono" font-size="40" style="fill:var(--flaw)">cage everyone</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">$942M</div>
+  <div class="sub">a judge rewrote instagram</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="80" width="360" height="230" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <line x1="230" y1="80" x2="230" y2="310" stroke="var(--text)" stroke-width="8"/>
+    <line x1="310" y1="80" x2="310" y2="310" stroke="var(--text)" stroke-width="8"/>
+    <line x1="390" y1="80" x2="390" y2="310" stroke="var(--text)" stroke-width="8"/>
+    <text x="560" y="150" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">age checks caged</text>
+    <text x="560" y="212" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">every adult —</text>
+    <text x="560" y="274" font-family="IBM Plex Mono" font-size="38" style="fill:var(--flaw)">and still failed</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">85% STILL ON</div>
+  <div class="sub">australia's under-16 ban</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+const NS='http://www.w3.org/2000/svg';
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8); idle(tl,'h_a',6,8);
+  tl.to($('h_a'),{opacity:0,duration:.45},15.0);
+  say(tl,'h_b',15.3,.8); idle(tl,'h_b',19,6);
+  tl.to($('h_b'),{opacity:0,duration:.45},26.0);
+  say(tl,'h_c',26.3,.8); pop(tl,'h_c',26.3,.8); idle(tl,'h_c',31,6);
+  tl.to($('h_c'),{opacity:0,duration:.45},40.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},40.3);
+  if(isAuto)tl.to({},{duration:4.0},41.0); else tl.to($('titleCard'),{opacity:0,duration:.5},45.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_verdict',0.5,.9); idle(tl,'e_verdict',7,16);
+  pop(tl,'e_price',26.0,.7); shake(tl,'e_price',27.0,5,6); idlePlate(tl,'e_price',29,14);
+  say(tl,'e_orders',46.0,.8); idle(tl,'e_orders',51,16);
+  say(tl,'e_patch',70.0,.8); idle(tl,'e_patch',75,12);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_debate',0.5,.9); idle(tl,'v_debate',7,10);
+  pop(tl,'v_assume',20.0,.7); shake(tl,'v_assume',21.0,5,6); idlePlate(tl,'v_assume',23,8);
+  say(tl,'v_q',33.0,.9); idle(tl,'v_q',38,6);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'g_prove',0.5,.9); idle(tl,'g_prove',7,16);
+  say(tl,'g_gate',26.0,.8); say(tl,'g_vault',30.0,.8); idle(tl,'g_gate',36,20);
+  pop(tl,'g_fail',62.0,.7); shake(tl,'g_fail',63.0,5,6); idlePlate(tl,'g_fail',65,18);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'r_wall',0.5,.9); idle(tl,'r_wall',6,14);
+  say(tl,'r_coppa',24.0,.9); idle(tl,'r_coppa',31,16);
+  say(tl,'r_collide',52.0,.8); idle(tl,'r_collide',57,14);
+  pop(tl,'r_unbuilt',74.0,.7); shake(tl,'r_unbuilt',75.0,5,6); idlePlate(tl,'r_unbuilt',77,14);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_design'),{opacity:1},0);
+  say(tl,'a_d1',0.5,.8); idle(tl,'a_d1',7,18);
+  say(tl,'a_dcost',32.0,.7); idle(tl,'a_dcost',37,20);
+  tl.to($('a_design'),{opacity:0,duration:.45},62.0);
+  tl.fromTo($('a_zk'),{opacity:0},{opacity:1,duration:.55},62.3);
+  say(tl,'a_z1',66.0,.8); idle(tl,'a_z1',73,18);
+  pop(tl,'a_zcost',100.0,.7); shake(tl,'a_zcost',101.0,5,6); idlePlate(tl,'a_zcost',103,18);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_recall',0.5,.9); idle(tl,'z_recall',6,12);
+  say(tl,'z_doors',22.0,.8); idle(tl,'z_doors',27,10);
+  say(tl,'z_q',40.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},44.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_design','a_zk'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  REPAIRS.forEach((_,k)=>$('btnR'+k).classList.toggle('on',k===i));}
+REPAIRS.forEach((_,k)=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
