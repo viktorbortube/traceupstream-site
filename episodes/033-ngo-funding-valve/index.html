@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Close a Charity Without Banning It | Trace Upstream</title>
+<meta name="description" content="A government can end an NGO without banning it — by licensing its foreign money, making the license renewable, and simply not renewing it. India's 2026 FCRA amendment adds asset seizure. It's a global playbook (FARA 1938, Russia 2012, Georgia 2024). Three real alternatives: build a domestic funding base, regulate influence not nationality, or take the switch from the ministry.">
+<link rel="canonical" href="https://traceupstream.com/episodes/033-ngo-funding-valve/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="How to Close a Charity Without Banning It">
+<meta property="og:description" content="Not a ban — a renewable license that quietly lapses, and buildings that pass to the state. A global design, and three ways out.">
+<meta property="og:url" content="https://traceupstream.com/episodes/033-ngo-funding-valve/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#6E7A99; /* desaturated slate — decoration only */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.033 — 2026-08-10</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to the narration"><span class="dot"></span><span id="listenLab">Listen</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="48.6">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · Case file EP.033</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="52">A CHARITY THE STATE WANTS GONE</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="34">OLD WAY: BAN IT · TOO LOUD</text>
+        </g>
+        <g id="h_b" class="b">
+          <text x="500" y="245" text-anchor="middle" class="big" font-size="46">THE NEW WAY: LET ONE PAPER EXPIRE</text>
+          <text x="500" y="335" text-anchor="middle" font-size="33">THE LICENSE FOR FOREIGN MONEY</text>
+        </g>
+        <g id="h_c" class="b">
+          <text x="500" y="240" text-anchor="middle" class="big" font-size="50">NO MONEY, NO CHARITY</text>
+          <text x="500" y="330" text-anchor="middle" class="flawtxt" font-size="34">AND ITS HOSPITAL? NOW THE STATE'S</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="240" text-anchor="middle" class="big" font-size="44">NO BAN. NO TRIAL. A LAPSED LICENSE.</text>
+          <text x="500" y="320" text-anchor="middle" font-size="32">TRACE UPSTREAM</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 1 — not a ban, a license that quietly lapsed</div>
+    <div class="prose">
+      <p>Imagine a government has a problem with a charity — one that runs schools it dislikes, or reports on what officials would rather bury. The old way would be to ban it. But a ban is loud: it invites lawyers, courtrooms, headlines, martyrs.</p>
+      <p>So the modern way is quieter. The government doesn't ban the charity. It simply lets one piece of paper expire — the license that lets it receive money from abroad. No money, no charity. And under a rule being debated in India this week, the hospital that charity built with that foreign money now belongs to the state. No ban. No trial. Just a license that quietly lapsed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="85">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The event · India's FCRA amendment, this week</div>
+    <h2>A license to renew — and now, assets to lose.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_license" class="b" data-tip="India's Foreign Contribution (Regulation) Act requires any non-profit taking foreign donations to hold an FCRA registration, which must be periodically renewed. The 2026 amendment (before Parliament this week) changes what happens on non-renewal.">
+          <text x="110" y="86" class="strong" font-size="16">THE LICENSE · FCRA</text>
+          <rect x="110" y="106" width="620" height="94" class="nodebox"/>
+          <text x="134" y="146" class="fact strong" font-size="15">FOREIGN DONATIONS — ONLY WITH THIS REGISTRATION</text>
+          <text x="134" y="178" font-size="14">AND IT HAS TO BE RENEWED, AGAIN AND AGAIN</text>
+          <path class="amber" stroke-width="2.5" d="M 740 153 L 820 153"/>
+          <rect x="830" y="106" width="540" height="94" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="854" y="146" class="flawtxt strong" font-size="15">LOSE IT, OR MISS THE RENEWAL WINDOW…</text>
+          <text x="854" y="178" font-size="14">…AND A NEW RULE DECIDES YOUR FATE</text>
+        </g>
+        <g id="e_authority" class="b" data-tip="Under the amendment, a government-appointed 'Designated Authority' takes control of assets built with foreign funds — land, buildings, hospitals, schools — on cancellation, surrender or non-renewal.">
+          <rect x="110" y="230" width="1260" height="86" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="268" class="strong" font-size="15">NEW: A GOVERNMENT-APPOINTED "DESIGNATED AUTHORITY"</text>
+          <text x="134" y="300" font-size="14">TAKES CONTROL OF WHAT FOREIGN MONEY BUILT — LAND · BUILDINGS · HOSPITALS · SCHOOLS</text>
+        </g>
+        <g id="e_vest" class="b">
+          <rect x="110" y="342" width="1260" height="86" fill="var(--flaw)"/>
+          <text x="134" y="380" class="onplate big" font-size="22">NOT RE-REGISTERED IN TIME → ASSETS VEST IN THE STATE</text>
+          <text x="134" y="412" class="onplate" font-size="14">TRANSFERRED TO A DEPARTMENT, OR SOLD — PROCEEDS STRAIGHT TO THE NATIONAL TREASURY</text>
+        </g>
+        <g id="e_scale" class="b" data-tip="Since 2010 roughly 22,000 FCRA registrations have been cancelled, and about 15,000 more had lapsed by April 2026. Government cites transparency and national security; opposition, Amnesty and some foreign lawmakers call it draconian.">
+          <rect x="110" y="454" width="1260" height="116" fill="none" stroke="var(--text-dim)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="492" class="strong" font-size="15">SINCE 2010 · 22,000 CANCELLED · ANOTHER 15,000 SIMPLY LAPSED</text>
+          <text x="134" y="524" font-size="14">GOV: "OVERSIGHT AGAINST MISUSE OF FOREIGN MONEY"</text>
+          <text x="134" y="552" class="flawtxt" font-size="14">CRITICS: "DRACONIAN" — THIS BILL DECIDES WHAT HAPPENS TO EVERYTHING THEY OWN</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 2 — the license, the seizure, the scale</div>
+    <div class="prose">
+      <p>India, like many countries, requires any non-profit that takes foreign donations to hold a special license — the FCRA registration — and to renew it. This week Parliament is debating an amendment that changes what happens when a group loses it, or fails to renew in time.</p>
+      <p>A government-appointed "Designated Authority" takes control of everything the group built with foreign money — the land, the buildings, the hospitals, the schools. If it isn't re-registered within a set window, those assets permanently pass to the state: handed to a department, or sold, the proceeds swept into the national treasury. Since 2010, around twenty-two thousand of these licenses have been cancelled, and another fifteen thousand quietly lapsed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="34.4">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">The pivot · look at the mechanism</div>
+    <h2>Not a ban. A money license.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_debate" class="b">
+          <rect x="230" y="90" width="380" height="110" class="nodebox"/>
+          <text x="420" y="145" text-anchor="middle" class="big" font-size="26">GOOD NGOs?</text>
+          <text x="420" y="182" text-anchor="middle" font-size="14">OR BAD ONES?</text>
+          <rect x="870" y="90" width="380" height="110" class="nodebox"/>
+          <text x="1060" y="145" text-anchor="middle" class="big" font-size="26">SECURITY?</text>
+          <text x="1060" y="182" text-anchor="middle" font-size="14">OR CRUSHING DISSENT?</text>
+          <path class="hair" d="M 610 145 L 710 145"/><path class="hair" d="M 770 145 L 870 145"/>
+          <text x="740" y="153" text-anchor="middle" class="flawtxt" font-size="30">×</text>
+        </g>
+        <g id="v_look" class="b">
+          <rect x="180" y="242" width="1120" height="70" fill="var(--flaw)"/>
+          <text x="740" y="285" text-anchor="middle" class="onplate strong" font-size="18">LOOK AT WHAT IT REACHED FOR — NOT A BAN, A MONEY LICENSE</text>
+        </g>
+        <g id="v_shape" class="b">
+          <text x="740" y="392" text-anchor="middle" class="big" font-size="32">MAKE SURVIVAL DEPEND ON A RENEWAL</text>
+          <text x="740" y="456" text-anchor="middle" class="big flawtxt" font-size="34">AND YOU'VE BUILT A SWITCH</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 3 — drop the loud fight; look at the quiet tool</div>
+    <div class="prose">
+      <p>The argument you'll hear is the obvious one: are these charities good or bad, and is the government protecting the nation or crushing dissent? That's a real fight — but it isn't ours, and it isn't the interesting one.</p>
+      <p>Because whatever you think of any single NGO, look at the mechanism the government reached for. Not a ban. A money license. And the moment you make an organisation's survival depend on renewing a license, you have built something with a very particular shape.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM: the switch ================= -->
+<section class="ep" id="s3" data-duration="90.6">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The switch</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The mechanism · a license is a switch</div>
+    <h2>To ban, you must act. To end, do nothing.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="g_switch" class="b">
+          <rect x="110" y="70" width="600" height="150" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="110" class="fact strong" font-size="16">TO BAN AN ORG</text>
+          <text x="134" y="150" font-size="14">THE STATE MUST ACT: ORDER · DEFEND · MAYBE COURT</text>
+          <text x="134" y="192" class="strong" font-size="14">EFFORT REQUIRED</text>
+          <rect x="770" y="70" width="600" height="150" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="794" y="110" class="flawtxt strong" font-size="16">TO END AN ORG</text>
+          <text x="794" y="150" font-size="14">IT DOES NOTHING — LET THE CLOCK RUN OUT</text>
+          <text x="794" y="192" class="strong" font-size="14">SILENCE IS THE WEAPON</text>
+        </g>
+        <g id="g_silence" class="b" data-tip="Because non-renewal is a non-event on paper, there is no order to appeal and no moment to challenge — a form simply wasn't approved.">
+          <rect x="110" y="252" width="1260" height="66" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="134" y="290" class="flawtxt" font-size="14">NOTHING TO APPEAL — ON PAPER NOTHING HAPPENED · A FORM SIMPLY WASN'T APPROVED</text>
+        </g>
+        <g id="g_assets" class="b">
+          <rect x="110" y="344" width="600" height="66" class="nodebox"/>
+          <text x="134" y="382" font-size="14">20 YEARS → HOSPITAL · SCHOOL · CLINIC</text>
+          <path class="amber" stroke-width="3" d="M 730 377 L 850 377"/>
+          <text x="790" y="360" text-anchor="middle" class="flawtxt" font-size="13">ON LAPSE</text>
+          <rect x="870" y="344" width="500" height="66" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1120" y="382" text-anchor="middle" class="flawtxt strong" font-size="16">→ THE STATE</text>
+        </g>
+        <g id="g_mismatch" class="b">
+          <rect x="110" y="436" width="1260" height="134" fill="var(--flaw)"/>
+          <text x="134" y="478" class="onplate big" font-size="22">TRIGGER: A MISSED FORM · CONSEQUENCE: EVERYTHING</text>
+          <text x="134" y="514" class="onplate" font-size="15">A PAPERWORK LAPSE AND A PROVEN CRIME LEAD TO THE SAME PLACE</text>
+          <text x="134" y="548" class="onplate" font-size="15">BECAUSE THE LICENSE NEVER ASKS WHAT YOU DID — ONLY WHETHER THE SWITCH IS ON</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 4 — effort to ban, silence to end — and the penalty that outruns the wrong</div>
+    <div class="prose">
+      <p>A renewable license isn't a rule you break or obey. It's a switch that must be actively flipped back on, again and again, by the very authority that might want you gone. To ban an organisation, a government has to do something and defend it, maybe in court. To end one under a license regime, it does nothing — it lets the clock run out. Silence becomes the weapon: there's no order to appeal, because on paper nothing happened.</p>
+      <p>The new rule sharpens it. A charity turns twenty years of foreign donations into a hospital, a school, a clinic — real buildings, real people. If the license lapses, those buildings pass to the state. The trigger is administrative; the consequence is total. A paperwork lapse and a proven crime lead to the same place — because a license never asks what you did, only whether the switch is on.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 MECHANISM: why everywhere ================= -->
+<section class="ep" id="s4" data-duration="94.5">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Why it's everywhere</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">The mechanism · a global, deniable design</div>
+    <h2>Elastic words, and no judge required.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="r_words" class="b">
+          <text x="110" y="84" class="strong" font-size="16">THE SWITCH IS THROWN WITH WORDS THAT MEAN ALMOST ANYTHING:</text>
+          <rect x="110" y="104" width="400" height="60" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="310" y="141" text-anchor="middle" class="flawtxt" font-size="15">"FOREIGN INFLUENCE"</text>
+          <rect x="540" y="104" width="400" height="60" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="740" y="141" text-anchor="middle" class="flawtxt" font-size="15">"NATIONAL SECURITY"</text>
+          <rect x="970" y="104" width="400" height="60" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1170" y="141" text-anchor="middle" class="flawtxt" font-size="15">"PROSELYTISATION"</text>
+        </g>
+        <g id="r_owner" class="b" data-tip="The trigger words are defined and applied by the executive, with no judge required to agree — so, in practice, the switch belongs to whoever holds power.">
+          <rect x="110" y="188" width="1260" height="60" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="225" class="strong" font-size="15">DECIDED BY THE EXECUTIVE · NO JUDGE REQUIRED → THE SWITCH BELONGS TO WHOEVER HOLDS POWER</text>
+        </g>
+        <g id="r_map" class="b">
+          <path class="hair" d="M 150 330 L 1330 330"/>
+          <circle cx="200" cy="330" r="8" fill="var(--text-dim)"/>
+          <circle cx="470" cy="330" r="8" fill="var(--flaw)"/>
+          <circle cx="720" cy="330" r="8" fill="var(--flaw)"/>
+          <circle cx="960" cy="330" r="8" fill="var(--flaw)"/>
+          <circle cx="1200" cy="330" r="10" fill="var(--flaw)"/>
+          <text x="200" y="304" text-anchor="middle" class="strong" font-size="14">FARA · 1938</text>
+          <text x="200" y="360" text-anchor="middle" font-size="12.5">US · ANCESTOR</text>
+          <text x="470" y="304" text-anchor="middle" class="flawtxt strong" font-size="14">RUSSIA · 2012</text>
+          <text x="720" y="304" text-anchor="middle" class="flawtxt strong" font-size="14">GEORGIA · 2024</text>
+          <text x="960" y="304" text-anchor="middle" class="flawtxt strong" font-size="14">HUNGARY · 2017+</text>
+          <text x="1200" y="304" text-anchor="middle" class="flawtxt strong" font-size="14">INDIA · 2026</text>
+          <text x="740" y="392" text-anchor="middle" font-size="14">LEFT AND RIGHT · DEMOCRACIES AND AUTOCRACIES — THE SAME DESIGN TRAVELS</text>
+        </g>
+        <g id="r_deniable" class="b">
+          <rect x="110" y="430" width="1260" height="140" fill="var(--flaw)"/>
+          <text x="134" y="472" class="onplate big" font-size="22">IT TRAVELS BECAUSE IT IS DENIABLE</text>
+          <text x="134" y="508" class="onplate" font-size="15">NOBODY SAYS "WE SILENCE CRITICS" — THEY SAY "WE REGULATE FOREIGN MONEY FOR TRANSPARENCY"</text>
+          <text x="134" y="542" class="onplate" font-size="15">A BAN ANNOUNCES ITSELF · A LICENSE REGIME HIDES INSIDE THE LANGUAGE OF PAPERWORK</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 5 — elastic triggers, an empty judge's seat, and a design that travels</div>
+    <div class="prose">
+      <p>This isn't really about one country. The switch is thrown with words that can mean almost anything — "foreign influence," "national security," and in India's new rules, "proselytisation," meaning trying to change people's religion. Elastic words, decided by the executive, with no judge required. When the standard is that broad, the switch belongs to whoever holds power.</p>
+      <p>Which is why the same design keeps appearing across the map. The ancestor is American — FARA, 1938, written to unmask Nazi propagandists. Russia sharpened the idea into a tool in 2012; Georgia copied it in 2024; Hungary has tried its own; others across Europe are following. Left and right, democracies and autocracies. The design travels because it is deniable: a ban announces itself, but a license regime hides inside the ordinary language of paperwork and security.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="175">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">What if</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · three real designs, three price tags</div>
+    <h2>Feed the base, watch the influence, or move the switch.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: root, not donor -->
+        <g id="a_root" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN ONE · ATTACK THE ROOT, NOT THE DONOR</text>
+          <g id="a_r1" class="b">
+            <rect x="110" y="120" width="1260" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="156" class="alttxt strong" font-size="15">EVERY TAXPAYER SENDS 1–2% OF THE TAX THEY ALREADY OWE TO A CHARITY THEY CHOOSE</text>
+            <text x="134" y="188" font-size="14">HUNGARY 1996 → SLOVAKIA · LITHUANIA · POLAND · ROMANIA · &gt;1/3 OF TAXPAYERS TAKE PART</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT BUYS: A HOME BASE — NOT CAPTIVE TO A FOREIGN DONOR OR THE STATE</text>
+          </g>
+          <g id="a_rcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">THE PRICE:</text>
+            <text x="134" y="366" font-size="14">1 · GOVERNMENTS THEN SCRAP THE OTHER TAX-BREAKS FOR GIVING —</text>
+            <text x="134" y="394" font-size="14">CHARITIES CAN END UP WITH LESS MONEY COMING IN, NOT MORE</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · THE STATE STILL DECIDES WHO IS ALLOWED INTO THE POOL —</text>
+            <text x="134" y="462" font-size="14">A SOFTER HAND ON THE VERY SAME SWITCH</text>
+          </g>
+        </g>
+        <!-- B: regulate influence -->
+        <g id="a_lobby" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN TWO · REGULATE THE INFLUENCE, NOT THE NATIONALITY</text>
+          <g id="a_l1" class="b">
+            <rect x="110" y="120" width="1260" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="156" class="alttxt strong" font-size="15">REGISTER THE ACT OF LOBBYING ITSELF — ANYONE, FOREIGN OR LOCAL</text>
+            <text x="134" y="188" font-size="14">WHO · WHICH LAW · WHOSE MONEY — IN THE OPEN · EU · UNITED STATES · IRELAND</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT BUYS: IT AIMS AT THE ACTUAL HARM, NOT THE PASSPORT OF A DONATION</text>
+          </g>
+          <g id="a_lcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">THE PRICE:</text>
+            <text x="134" y="366" font-size="14">1 · LOBBY REGISTERS LEAK — MUCH OF THE REAL INFLUENCING GETS</text>
+            <text x="134" y="394" font-size="14">QUIETLY RECLASSIFIED TO SLIP PAST THEM</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · IT CATCHES LOBBYISTS —</text>
+            <text x="134" y="462" font-size="14">BUT MISSES THE CHARITY THAT SIMPLY RUNS A SCHOOL</text>
+          </g>
+        </g>
+        <!-- C: independent regulator -->
+        <g id="a_reg" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN THREE · TAKE THE SWITCH OUT OF THE MINISTRY'S HAND</text>
+          <g id="a_g1" class="b">
+            <rect x="110" y="120" width="1260" height="86" class="nodebox"/>
+            <text x="134" y="156" class="strong" font-size="15">OVERSIGHT TO A REGULATOR BUILT TO STAND APART FROM THE GOVERNMENT OF THE DAY</text>
+            <text x="134" y="188" font-size="14">OWN BUDGET · OWN COMMISSIONER · INDEPENDENT TRIBUNAL · CHARITY COMMISSION (UK) · ACNC (AU)</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT BUYS: NO MINISTER CAN QUIETLY FLIP THE SWITCH — A CHARITY CAN FIGHT IT IN COURT</text>
+          </g>
+          <g id="a_gcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">THE PRICE:</text>
+            <text x="134" y="366" font-size="14">1 · AN ARM'S-LENGTH REGULATOR LEANS LIGHT-TOUCH —</text>
+            <text x="134" y="394" font-size="14">A GENUINELY BAD ACTOR CAN RUN FOR YEARS BEFORE IT MOVES</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · INDEPENDENCE ERODES: STARVED BUDGET · PACKED BOARD —</text>
+            <text x="134" y="462" font-size="14">AND IT ALL RESTS ON COURTS STAYING FREE, WHICH THESE LAWS HOLLOW OUT</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">1% base</button><button id="btnR1">Lobby register</button><button id="btnR2">Independent regulator</button>
+    </div>
+    <div class="figcap">Fig. 6 — three designs, three price tags. Click to compare.</div>
+    <div class="prose">
+      <p>If a country genuinely worries about foreign money buying influence — and that worry can be real — what could it build instead? Design one attacks the root: let every taxpayer send one or two percent of the tax they already owe to a charity of their choice, so groups aren't captive to foreign donors. Hungary began this in 1996; several neighbours followed. The price: governments then scrap the other tax-breaks for giving, so charities can end up with less — and the state still picks who's allowed into the pool.</p>
+      <p>Design two regulates the influence, not the passport of the money: a lobbying register — who is moving which law, funded by whom — as the EU, US and Ireland run. The price: registers leak, and they miss the charity that just runs a school. Design three moves the switch itself, from a ministry to an independent regulator with its own budget and a tribunal, like England's Charity Commission or Australia's. The price: a light-touch regulator lets bad actors run for years, independence erodes, and it all rests on free courts. None of these says "never watch foreign money." Each asks: how do you watch it without owning the off-switch?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="51.6">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">The close</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">The close · the question to carry</div>
+    <h2>Watching isn't the same as holding the switch.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_recall" class="b">
+          <rect x="150" y="70" width="440" height="140" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="370" y="128" text-anchor="middle" class="flawtxt strong" font-size="17">ONE COUNTRY CAUGHT?</text>
+          <text x="370" y="170" text-anchor="middle" font-size="14">THE EASY HEADLINE</text>
+          <rect x="890" y="70" width="440" height="140" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="1110" y="128" text-anchor="middle" class="fact strong" font-size="17">A DESIGN GONE GLOBAL</text>
+          <text x="1110" y="170" text-anchor="middle" font-size="14">THE DURABLE STORY</text>
+          <path class="hair" d="M 590 140 L 710 140"/><path class="hair" d="M 770 140 L 890 140"/>
+          <text x="740" y="148" text-anchor="middle" class="flawtxt" font-size="22">→</text>
+        </g>
+        <g id="z_chain" class="b">
+          <text x="740" y="268" text-anchor="middle" class="big" font-size="24">FUNDING → LICENSE → SWITCH → THE STATE'S BUILDINGS</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="356" text-anchor="middle" class="big" font-size="28">NOT "ARE THESE NGOs GOOD?"</text>
+          <text x="740" y="410" text-anchor="middle" font-size="19">WHAT DOES THIS RULE ACTUALLY CONTROL?</text>
+          <text x="740" y="456" text-anchor="middle" class="flawtxt" font-size="19">WHO CAN PULL THE SWITCH WITHOUT FACING A JUDGE?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Come back to that charity and its quietly expiring license. The headline will be about that country and that government, and whether those particular NGOs deserved it. But the durable thing underneath is a piece of institutional design that has quietly gone global — a way to end organisations without ever banning them, by turning their funding into a license, their license into a switch, and their buildings into the state's.</p>
+      <p>There may be good reasons to watch foreign money. But watching is not the same as holding the switch, and a penalty triggered by a lapsed form is not the same as one earned by a proven wrong. So next time a government says it is simply regulating foreign funding for transparency, the useful question isn't whether these NGOs are good. It's: what does this rule actually control — and who can pull the switch without ever facing a judge?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with the parts that didn't fit the video, lives on this page. <a href="ru/" style="color:var(--fact)">По-русски →</a></p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Watch on YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="80" width="250" height="200" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <path d="M 150 140 L 275 90 L 400 140" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <line x1="230" y1="200" x2="230" y2="280" stroke="var(--text)" stroke-width="8"/>
+    <line x1="320" y1="200" x2="320" y2="280" stroke="var(--text)" stroke-width="8"/>
+    <rect x="243" y="150" width="64" height="64" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <line x1="275" y1="120" x2="275" y2="244" stroke="var(--flaw)" stroke-width="7"/>
+    <line x1="213" y1="182" x2="337" y2="182" stroke="var(--flaw)" stroke-width="7"/>
+    <text x="470" y="160" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">no ban.</text>
+    <text x="470" y="228" font-family="IBM Plex Mono" font-size="40" style="fill:var(--flaw)">just a lapsed license.</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">22,000</div>
+  <div class="sub">ngo licenses cut since 2010</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <line x1="200" y1="120" x2="200" y2="300" stroke="var(--text)" stroke-width="10"/>
+    <circle cx="200" cy="150" r="34" fill="none" stroke="var(--flaw)" stroke-width="10"/>
+    <text x="300" y="150" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">who flips</text>
+    <text x="300" y="218" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">the switch</text>
+    <text x="300" y="286" font-family="IBM Plex Mono" font-size="40" style="fill:var(--flaw)">on a charity?</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">NO BAN, GONE</div>
+  <div class="sub">the quiet foreign-money off-switch</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+const NS='http://www.w3.org/2000/svg';
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function draw(tl,id,dur,pos){const p=$(id),L=p.getTotalLength();
+  tl.set(p,{opacity:1,strokeDasharray:L+' '+L,strokeDashoffset:L},pos)
+    .to(p,{strokeDashoffset:0,duration:dur,ease:'power1.inOut'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8); idle(tl,'h_a',6,8);
+  tl.to($('h_a'),{opacity:0,duration:.45},15.0);
+  say(tl,'h_b',15.3,.8); idle(tl,'h_b',19,6);
+  tl.to($('h_b'),{opacity:0,duration:.45},26.0);
+  say(tl,'h_c',26.3,.8); pop(tl,'h_c',26.3,.8); idle(tl,'h_c',31,5);
+  tl.to($('h_c'),{opacity:0,duration:.45},37.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},37.3);
+  if(isAuto)tl.to({},{duration:4.0},38.0); else tl.to($('titleCard'),{opacity:0,duration:.5},42.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_license',0.5,.9); idle(tl,'e_license',7,16);
+  say(tl,'e_authority',26.0,.8); idle(tl,'e_authority',31,14);
+  pop(tl,'e_vest',48.0,.7); shake(tl,'e_vest',49.0,5,6); idlePlate(tl,'e_vest',51,14);
+  say(tl,'e_scale',70.0,.8); idle(tl,'e_scale',75,12);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_debate',0.5,.9); idle(tl,'v_debate',7,10);
+  pop(tl,'v_look',20.0,.7); shake(tl,'v_look',21.0,5,6); idlePlate(tl,'v_look',23,8);
+  say(tl,'v_shape',33.0,.9); idle(tl,'v_shape',38,6);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'g_switch',0.5,.9); idle(tl,'g_switch',7,16);
+  say(tl,'g_silence',26.0,.8); idle(tl,'g_silence',31,14);
+  say(tl,'g_assets',50.0,.8); idle(tl,'g_assets',55,16);
+  pop(tl,'g_mismatch',76.0,.7); shake(tl,'g_mismatch',77.0,5,6); idlePlate(tl,'g_mismatch',79,16);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'r_words',0.5,.9); idle(tl,'r_words',7,14);
+  say(tl,'r_owner',24.0,.8); idle(tl,'r_owner',29,14);
+  say(tl,'r_map',46.0,.9); idle(tl,'r_map',53,16);
+  pop(tl,'r_deniable',74.0,.7); shake(tl,'r_deniable',75.0,5,6); idlePlate(tl,'r_deniable',77,16);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_root'),{opacity:1},0);
+  say(tl,'a_r1',0.5,.8); idle(tl,'a_r1',7,16);
+  say(tl,'a_rcost',30.0,.7); idle(tl,'a_rcost',35,16);
+  tl.to($('a_root'),{opacity:0,duration:.45},54.0);
+  tl.fromTo($('a_lobby'),{opacity:0},{opacity:1,duration:.55},54.3);
+  say(tl,'a_l1',58.0,.8); idle(tl,'a_l1',65,14);
+  say(tl,'a_lcost',86.0,.7); idle(tl,'a_lcost',91,14);
+  tl.to($('a_lobby'),{opacity:0,duration:.45},108.0);
+  tl.fromTo($('a_reg'),{opacity:0},{opacity:1,duration:.55},108.3);
+  say(tl,'a_g1',112.0,.8); idle(tl,'a_g1',119,12);
+  pop(tl,'a_gcost',134.0,.7); shake(tl,'a_gcost',135.0,5,6); idlePlate(tl,'a_gcost',137,14);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_recall',0.5,.9); idle(tl,'z_recall',6,12);
+  say(tl,'z_chain',22.0,.8); idle(tl,'z_chain',27,10);
+  say(tl,'z_q',40.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},44.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_root','a_lobby','a_reg'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  REPAIRS.forEach((_,k)=>$('btnR'+k).classList.toggle('on',k===i));}
+REPAIRS.forEach((_,k)=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
