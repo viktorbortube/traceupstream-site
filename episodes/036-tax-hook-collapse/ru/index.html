@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Обнули налог — убей правило | Дефект конструкции</title>
+<meta name="description" content="Суд отменил девяностолетнее требование регистрировать оружейные глушители — не потому, что решил что-то про оружие, а потому что Конгресс снизил налог до нуля. Фокус: реестр никогда не был законом про оружие, это был налог, переодетый в закон. Он держался, только пока налог приносил деньги (Sonzinsky, 1937). Обнули налог — держаться не на чём, а другое основание задним числом не подставить. Тот же приём ударил по мандату Obamacare. Это не партийный изъян: приём достаётся тому, у кого сейчас большинство. Три конструкции: регулировать прямо, держать налог настоящим, или опереть правило на несколько причин.">
+<link rel="canonical" href="https://traceupstream.com/episodes/036-tax-hook-collapse/ru/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Дефект конструкции">
+<meta property="og:title" content="Обнули налог — убей правило">
+<meta property="og:description" content="Правило рухнуло из-за того, что налог поставили в ноль. Реестр был налогом в маске — правило на чужой земле, которую другой расчистит одной строчкой.">
+<meta property="og:url" content="https://traceupstream.com/episodes/036-tax-hook-collapse/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#6E7A99;
+  --font-display:'Onest',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:800;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.036 — 2026-08-13</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Слушать нарацию"><span class="dot"></span><span id="listenLab">Слушать</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="56.2">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Дефект конструкции · дело EP.036</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="46">ПРАВИЛУ 90 ЛЕТ. ЕГО НЕТ.</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="34">И ДЕЛО НЕ В ОРУЖИИ</text>
+        </g>
+        <g id="h_b" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="44">ЭТО БЫЛ НЕ ЗАКОН ПРО ОРУЖИЕ</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="36">ЭТО БЫЛ НАЛОГ</text>
+        </g>
+        <g id="h_c" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="54">ОБНУЛИ НАЛОГ</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="36">И ПРАВИЛО ПАДАЕТ</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="248" text-anchor="middle" class="big" font-size="44">ПРАВИЛО НА ЧУЖОЙ ЗЕМЛЕ</text>
+          <text x="500" y="330" text-anchor="middle" font-size="32">ДЕФЕКТ КОНСТРУКЦИИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 1 — правило стоит на земле, которой владеет другой</div>
+    <div class="prose">
+      <p>Девяносто лет, чтобы владеть в Америке глушителем, надо было зарегистрировать его у государства: заполнить бумаги, получить разрешение, подождать. В этом месяце суд это требование отменил. И странно вот что. Судья не решал ничего про оружие. Он всего лишь заметил, что Конгресс убрал один налог, снизил его до нуля. И этого хватило, чтобы всё правило развалилось.</p>
+      <p>Почему отмена какого-то налога убивает правило о регистрации оружия? Потому что — и в этом весь фокус — это правило с самого начала было не законом про оружие. Это был налог, переодетый в закон про оружие. Убери налог — и правило исчезает вместе с ним. И ровно тот же фокус пару лет назад проделали с совсем другим правилом — с тем, что обязало американцев покупать медстраховку.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="146.3">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">Событие</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Событие · снесли девяностолетний реестр</div>
+    <h2>Законен по одной причине: налог приносил деньги.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_build" class="b" data-tip="В 1934 Конгресс сомневался, что вправе прямо запретить это оружие (считалось делом штатов), и потому использовал право, которое у него точно было — облагать налогом. Ввёл налог $200 на изготовление/передачу и завёл реестр, чтобы его собирать.">
+          <text x="110" y="86" class="strong" font-size="16">1934 · ПРЯМО ЗАПРЕТИТЬ НЕЛЬЗЯ → ЗНАЧИТ, ОБЛОЖИМ НАЛОГОМ</text>
+          <rect x="110" y="106" width="1260" height="94" class="nodebox"/>
+          <text x="134" y="146" class="fact strong" font-size="15">НАЛОГ $200 НА ИЗГОТОВЛЕНИЕ / ПЕРЕДАЧУ ЭТИХ СТВОЛОВ · РЕЕСТР, ЧТОБЫ ЕГО СОБИРАТЬ</text>
+          <text x="134" y="178" font-size="14">РЕЕСТР БЫЛ НЕ ПРО ОРУЖИЕ — ОН БЫЛ ПРО СБОР НАЛОГА</text>
+        </g>
+        <g id="e_court" class="b" data-tip="В деле Sonzinsky (1937) Верховный суд одобрил это ТОЛЬКО как налог: налог может влиять на поведение, но лишь если это настоящий налог — тот, что приносит хоть какие-то деньги.">
+          <rect x="110" y="230" width="1260" height="86" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="268" class="strong" font-size="15">1937 ВЕРХОВНЫЙ СУД: ЛАДНО — НО ТОЛЬКО КАК НАЛОГ</text>
+          <text x="134" y="300" font-size="14">НАСТОЯЩИЙ НАЛОГ ОБЯЗАН ПРИНОСИТЬ ХОТЬ КАКИЕ-ТО ДЕНЬГИ · ЭТО ЕДИНСТВЕННОЕ УСЛОВИЕ</text>
+        </g>
+        <g id="e_zero" class="b">
+          <rect x="110" y="342" width="1260" height="86" fill="var(--flaw)"/>
+          <text x="134" y="380" class="onplate big" font-size="22">2025: НАЛОГ СНИЖЕН ДО $0 · $0 = НЕТ ДЕНЕГ = НЕТ НАЛОГА</text>
+          <text x="134" y="412" class="onplate" font-size="14">НЕТ НАЛОГА → РЕЕСТРУ ДЕРЖАТЬСЯ БОЛЬШЕ НЕ НА ЧЁМ</text>
+        </g>
+        <g id="e_deny" class="b" data-tip="Правительство просило держать реестр на «торговом» праве. Суд отказал: строили как налог и другого основания не называли; нельзя подставить опору, которой авторы не заявляли, спустя 90 лет. Апелляции не будет.">
+          <rect x="110" y="454" width="1260" height="116" fill="none" stroke="var(--text-dim)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="492" class="strong" font-size="15">ПРАВИТЕЛЬСТВО: «ТОГДА ДЕРЖИТЕ КАК ТОРГОВЫЙ ЗАКОН» · СУД: НЕТ</text>
+          <text x="134" y="524" font-size="14">ВЫ 90 ЛЕТ СТРОИЛИ ЭТО КАК НАЛОГ — ОСНОВАНИЕ ЗАДНИМ ЧИСЛОМ НЕ МЕНЯЮТ</text>
+          <text x="134" y="552" class="flawtxt" font-size="14">РЕШЕНИЕ НА 66 СТРАНИЦ · ПРАВИТЕЛЬСТВО АПЕЛЛЯЦИЮ НЕ ПОДАЁТ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 2 — налог, реестр для его сбора, потом цифру ставят в ноль</div>
+    <div class="prose">
+      <p>В августе две тысячи двадцать шестого федеральный судья в Техасе отменил требование регистрировать глушители. Вернёмся в тридцать четвёртый: Конгресс не решался прямо запретить это оружие — считалось, это дело штатов. Зато мог обложить налогом. Он ввёл налог в двести долларов и завёл реестр, чтобы его собирать. Реестр был не про оружие, а про сбор налога. В тридцать седьмом Верховный суд это одобрил — но только как налог, и только потому, что настоящий налог приносит хоть какие-то деньги.</p>
+      <p>Девяносто лет это держалось. А потом, в две тысячи двадцать пятом, Конгресс снизил налог до нуля. Ноль долларов — это ноль денег, нет налога, а нет налога — реестру держаться не на чем. Правительство попросило держать его как торговый закон; суд ответил: нет, вы строили это как налог и не можете поменять основание спустя девяносто лет. Апелляцию оно подавать не будет.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="62.2">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">Перелом</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Перелом · смотри, как это построено</div>
+    <h2>Снаружи закон про оружие. Внутри налог.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_debate" class="b">
+          <rect x="230" y="90" width="380" height="110" class="nodebox"/>
+          <text x="420" y="145" text-anchor="middle" class="big" font-size="22">РЕГИСТРИРОВАТЬ ИЛИ НЕТ?</text>
+          <text x="420" y="182" text-anchor="middle" font-size="14">ПОБЕДА ИЛИ БЕДА?</text>
+          <rect x="870" y="90" width="380" height="110" class="nodebox"/>
+          <text x="1060" y="145" text-anchor="middle" class="big" font-size="24">СПОР НАСТОЯЩИЙ</text>
+          <text x="1060" y="182" text-anchor="middle" font-size="14">НО НЕ НАШ</text>
+          <path class="hair" d="M 610 145 L 710 145"/><path class="hair" d="M 770 145 L 870 145"/>
+          <text x="740" y="153" text-anchor="middle" class="flawtxt" font-size="30">×</text>
+        </g>
+        <g id="v_look" class="b">
+          <rect x="180" y="242" width="1120" height="70" fill="var(--flaw)"/>
+          <text x="740" y="285" text-anchor="middle" class="onplate strong" font-size="18">СМОТРИ, КАК ЭТО ПОСТРОЕНО — НАЛОГ В КОСТЮМЕ ЗАКОНА ПРО ОРУЖИЕ</text>
+        </g>
+        <g id="v_shape" class="b">
+          <text x="740" y="392" text-anchor="middle" class="big" font-size="28">СНАРУЖИ: ЗАКОН ПРО ОРУЖИЕ · ВНУТРИ: НАЛОГ</text>
+          <text x="740" y="456" text-anchor="middle" class="big flawtxt" font-size="30">А НАЛОГ МОЖЕТ УБРАТЬ КТО-ТО СОВСЕМ ДРУГОЙ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 3 — брось спор про оружие, посмотри на конструкцию</div>
+    <div class="prose">
+      <p>Спор, который вы услышите, про оружие: регистрировать глушители или нет, победа или беда. Это настоящий спор. Но он только про одно это правило и один этот предмет.</p>
+      <p>Посмотрите вместо этого, как правило устроено. Государство хотело кое-что контролировать, но прямо запретить не могло или не хотело, поэтому нарядило контроль в костюм налога и пропустило через контору, которая собирает налоги. Снаружи — закон про оружие. Внутри — налог. А налог опасен вот чем: его в любой момент может убрать кто-то совсем другой, кому до оружия нет никакого дела, — одной строчкой в постороннем законе.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM: the pillar ================= -->
+<section class="ep" id="s3" data-duration="88">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Фокус</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · дом на чужой земле</div>
+    <h2>Правило стоит на одном: на налоге, который тебе не принадлежит.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="g_intro" class="b" data-tip="Прямо запретить нельзя? Обложи налогом — и тебе разрешат выстроить вокруг него аппарат контроля: учёт, записи, разрешения, отчёты. Часто именно этот аппарат, а не деньги, и есть настоящая цель.">
+          <rect x="110" y="60" width="1260" height="70" class="nodebox"/>
+          <text x="134" y="92" class="strong" font-size="15">ПРЯМО ЗАПРЕТИТЬ НЕЛЬЗЯ? ОБЛОЖИ НАЛОГОМ — И ВЕДИ КОНТРОЛЬ ПОД ПРЕДЛОГОМ СБОРА</text>
+          <text x="134" y="116" font-size="14">УЧЁТ · ЗАПИСИ · РАЗРЕШЕНИЯ · ОТЧЁТЫ — НАЛОГ ТУТ ПРОСТО ПРОПУСК, ЧТОБЫ ЗА ВСЕМИ СЛЕДИТЬ</text>
+        </g>
+        <g id="g_pillar" class="b">
+          <line class="hair" x1="300" y1="406" x2="1120" y2="406"/>
+          <rect x="470" y="196" width="440" height="76" class="nodebox"/>
+          <text x="690" y="242" text-anchor="middle" class="big" font-size="30">ПРАВИЛО</text>
+          <rect x="662" y="272" width="56" height="134" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="690" y="432" text-anchor="middle" class="flawtxt" font-size="14">НАЛОГ</text>
+          <text x="830" y="322" class="big flawtxt" font-size="40">$0</text>
+          <line x1="646" y1="340" x2="806" y2="340" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+          <text x="990" y="250" class="strong" font-size="14">ЕДИНСТВЕННОЕ, НА ЧЁМ ОНО ДЕРЖИТСЯ:</text>
+          <text x="990" y="278" font-size="13">НАЛОГ — ЗАКОНЕН, ПОКА ПРИНОСИТ ДЕНЬГИ</text>
+          <text x="990" y="330" class="flawtxt strong" font-size="14">ПОСТАВЬ $0 —</text>
+          <text x="990" y="358" font-size="13">ДЕРЖАТЬ ПРАВИЛО БОЛЬШЕ НЕЧЕМУ</text>
+        </g>
+        <g id="g_land" class="b">
+          <rect x="110" y="456" width="1260" height="116" fill="var(--flaw)"/>
+          <text x="134" y="496" class="onplate big" font-size="21">ТЫ ПОСТРОИЛ ДОМ НА ЗЕМЛЕ, КОТОРАЯ ТЕБЕ НЕ ПРИНАДЛЕЖИТ</text>
+          <text x="134" y="530" class="onplate" font-size="15">ХОЗЯИН ВЫДЕРНЕТ ЕЁ ОДНОЙ СТРОЧКОЙ В ЗАКОНЕ ПРО ЧТО-ТО ДРУГОЕ</text>
+          <text x="134" y="562" class="onplate" font-size="15">А В СУДЕ ЗАДНИМ ЧИСЛОМ ОСНОВАНИЕ УЖЕ НЕ ПОМЕНЯТЬ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 4 — правило держится на одной опоре, налоге, а налог не твой</div>
+    <div class="prose">
+      <p>Подумайте, что это за приём. Государство хочет что-то контролировать, но запретить напрямую трудно: может, конституция не даёт такого права, может, запрет не пройдёт, может, его снесёт суд. И оно идёт в обход — облагает вещь налогом. А раз ты собираешь налог, тебе разрешают выстроить вокруг него аппарат контроля: учёт, записи, разрешения, отчёты. Часто именно этот аппарат и есть настоящая цель, а деньги дело десятое. Налог тут просто пропуск, чтобы за всеми следить.</p>
+      <p>Но держится всё на одном условии: пока налог настоящий, то есть приносит хоть какие-то деньги. Убьёшь налог — убьёшь и правило. А налог тебе не принадлежит. Завтрашний парламент ставит цифру в ноль, весь аппарат повисает в воздухе, и бежать в суд с криком «тогда держите по другому закону» уже поздно. Ты построил дом, а земля под ним чужая — и хозяин выдернет её одной строчкой в законе, который вообще про другое.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 MECHANISM: both sides ================= -->
+<section class="ep" id="s4" data-duration="140.2">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Обе стороны</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · тот же приём у любой партии</div>
+    <h2>Реестр оружия и мандат здоровья — одна и та же уловка.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="r_two" class="b">
+          <rect x="150" y="70" width="500" height="60" class="nodebox"/>
+          <text x="400" y="108" text-anchor="middle" class="big" font-size="22">РЕЕСТР ОРУЖИЯ</text>
+          <rect x="372" y="130" width="56" height="64" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="400" y="216" text-anchor="middle" class="flawtxt" font-size="13">НАЛОГ → $0</text>
+          <rect x="830" y="70" width="500" height="60" class="nodebox"/>
+          <text x="1080" y="108" text-anchor="middle" class="big" font-size="22">МАНДАТ ЗДОРОВЬЯ</text>
+          <rect x="1052" y="130" width="56" height="64" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="1080" y="216" text-anchor="middle" class="flawtxt" font-size="13">НАЛОГ → $0</text>
+          <text x="740" y="150" text-anchor="middle" class="strong" font-size="15">ДАЛЬШЕ НЕКУДА</text>
+          <text x="740" y="176" text-anchor="middle" class="strong" font-size="15">ДРУГ ОТ ДРУГА</text>
+          <text x="740" y="210" text-anchor="middle" font-size="13">ОДИН ТРЮК</text>
+        </g>
+        <g id="r_rule" class="b" data-tip="Оба устояли ТОЛЬКО как налог (реестр — Sonzinsky 1937; мандат ACA — Sebelius 2012). Обоим налог обнулили. Но обнуление решает и кто может судиться: суд слушает только того, кому правило реально вредит.">
+          <rect x="110" y="250" width="1260" height="56" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="285" class="strong" font-size="15">ПРАВИЛО СУДА: СУДИТЬСЯ МОЖЕТ ТОЛЬКО ТОТ, КОМУ ПРАВИЛО РЕАЛЬНО ВРЕДИТ · НЕТ ВРЕДА — НЕТ ДЕЛА</text>
+        </g>
+        <g id="r_split" class="b">
+          <rect x="110" y="330" width="620" height="94" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="134" y="366" class="strong" font-size="14">МАНДАТ · $0</text>
+          <text x="134" y="392" font-size="13">НИ С КОГО НЕ БЕРУТ → НИКОМУ НЕ БОЛЬНО → НЕТ ИСКА</text>
+          <text x="134" y="414" class="flawtxt" font-size="13">ЖИВОЙ МЕРТВЕЦ: В ЗАКОНАХ, НО НЕ ИСПОЛНЯЕТСЯ</text>
+          <rect x="750" y="330" width="620" height="94" fill="none" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="774" y="366" class="flawtxt strong" font-size="14">РЕЕСТР · $0</text>
+          <text x="774" y="392" font-size="13">ВСЁ РАВНО РЕГИСТРИРУЙСЯ И ЖДИ → РЕАЛЬНЫЙ ВРЕД</text>
+          <text x="774" y="414" class="flawtxt" font-size="13">ЕСТЬ КОМУ ПОДАТЬ ИСК → ПРАВИЛО СНОСЯТ</text>
+        </g>
+        <g id="r_party" class="b">
+          <rect x="110" y="446" width="1260" height="124" fill="var(--flaw)"/>
+          <text x="134" y="486" class="onplate big" font-size="20">ПРИЁМ ДОСТАЁТСЯ ТОМУ, У КОГО СЕЙЧАС БОЛЬШИНСТВО — А ОНО МЕНЯЕТСЯ</text>
+          <text x="134" y="520" class="onplate" font-size="15">ЗАВТРА ТА ЖЕ СТРОЧКА РАСТВОРИТ ПРАВИЛО, ДОРОГОЕ УЖЕ ТВОЕЙ СТОРОНЕ</text>
+          <text x="134" y="552" class="onplate" font-size="15">ЭТО ИЗЪЯН НЕ ПАРТИИ · ЭТО ИЗЪЯН КОНСТРУКЦИИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 5 — та же хрупкая опора, два способа рухнуть — и приём меняет хозяина</div>
+    <div class="prose">
+      <p>Если кажется, что это про оружие или про одну партию, посмотрите, что случилось раньше с совсем другим правилом. Закон о доступной медицине обязал почти всех иметь страховку или платить штраф. Верховный суд разрешил это в две тысячи двенадцатом по одной причине — назвал штраф налогом, потому что тот приносил деньги, — и держать на «торговом» праве отказался. А в две тысячи семнадцатом Конгресс, которому мандат не нравился, снизил штраф до нуля, и противники сказали ровно то же: ноль — это не налог.</p>
+      <p>А вот поворот. Обнуление решает ещё и кто может судиться — а судиться может только тот, кому правило вредит. При нулевом штрафе ни с кого не берут, никому не больно, судиться некому: мандат так и висит, живой мертвец, без исполнения. А оружие даже при нулевом налоге надо регистрировать — реальный вред, — значит, есть кому подать иск, и правило снесли. Тот же хрупкий фундамент, два способа рухнуть. Дело не в партии: приём достаётся тому, у кого сейчас большинство, а оно меняется. Завтра та же строчка снесёт правило, дорогое другой стороне.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="116.3">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Что если</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · три реальные конструкции, три ценника</div>
+    <h2>Строй на своей земле, честно названной — три способа, у каждого цена.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: direct -->
+        <g id="a_direct" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">КОНСТРУКЦИЯ ПЕРВАЯ · РЕГУЛИРУЙ ПРЯМО, НАЗОВИ НАСТОЯЩУЮ ПРИЧИНУ</text>
+          <g id="a_d1" class="b">
+            <rect x="110" y="120" width="1260" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="156" class="alttxt strong" font-size="15">ДЕЛО В ТОРГОВЛЕ — ПИШИ ТОРГОВЫЙ ЗАКОН · ДЕЛО В ЗДОРОВЬЕ — ЗАКОН О ЗДОРОВЬЕ, БЕЗ ПРЯТОК</text>
+            <text x="134" y="188" font-size="14">ПРАВИЛО СТОИТ НА ЗЕМЛЕ, КОТОРУЮ ГОСУДАРСТВО ДЕРЖИТ САМО</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ДАЁТ: ОСНОВАНИЕ, КОТОРОЕ НЕ РАСТВОРИТЬ ТИХО</text>
+          </g>
+          <g id="a_dcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="366" font-size="14">1 · КУДА ТРУДНЕЕ — БОЛЬШИЙ БОЙ В ПАРЛАМЕНТЕ И СВОИ ПРЕДЕЛЫ</text>
+            <text x="134" y="394" font-size="14">ПОТОМУ В КОСТЮМ НАЛОГА И НАРЯЖАЮТСЯ</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · ИНОГДА ЧЕСТНУЮ ВЕРСИЮ —</text>
+            <text x="134" y="462" font-size="14">ПРОСТО НЕ ПОСТРОИТЬ ВОВСЕ</text>
+          </g>
+        </g>
+        <!-- B: keep tax -->
+        <g id="a_keeptax" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">КОНСТРУКЦИЯ ВТОРАЯ · ДЕРЖИ НАЛОГ НАСТОЯЩИМ — НЕ РОНЯЙ В $0</text>
+          <g id="a_k1" class="b">
+            <rect x="110" y="120" width="1260" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="156" class="alttxt strong" font-size="15">ЖИВОЙ НАЛОГ ДЕРЖИТ ОСНОВАНИЕ ЖИВЫМ — ОПОРА ОСТАЁТСЯ ПОД ПРАВИЛОМ</text>
+            <text x="134" y="188" font-size="14">НЕТ НУЛЯ — НЕТ ОБВАЛА</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ДАЁТ: ПРАВИЛО СОХРАНЯЕТ СВОЮ ЕДИНСТВЕННУЮ ОПОРУ</text>
+          </g>
+          <g id="a_kcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="366" font-size="14">1 · САМ НАЛОГ И ЕСТЬ ИЗДЕРЖКА — ЕГО ЧУВСТВУЮТ, ЗЛЯТСЯ, ГОЛОСУЮТ ПРОТИВ</text>
+            <text x="134" y="394" font-size="14">ПОТОМУ ЕГО И ОБНУЛЯЮТ</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · ВСЁ РАВНО НЕНАДЁЖНО — ЗАВТРА ОБНУЛЯТ,</text>
+            <text x="134" y="462" font-size="14">ИЛИ СУД РЕШИТ, ЧТО ЭТО ШТРАФ В КОСТЮМЕ НАЛОГА</text>
+          </g>
+        </g>
+        <!-- C: multiple -->
+        <g id="a_multi" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">КОНСТРУКЦИЯ ТРЕТЬЯ · ПОДСТРАХОВКА · ДЕРЖИ НА ДВУХ-ТРЁХ ПРИЧИНАХ</text>
+          <g id="a_m1" class="b">
+            <rect x="110" y="120" width="1260" height="86" class="nodebox"/>
+            <text x="134" y="156" class="strong" font-size="15">ЯКОРИ СРАЗУ К НЕСКОЛЬКИМ ПРИЧИНАМ · ОТПАДЁТ НАЛОГ → ДЕРЖИТ ТОРГОВЫЙ ЗАКОН</text>
+            <text x="134" y="188" font-size="14">ОТВАЛИТСЯ ОДНА ОПОРА — ОСТАЁТСЯ ДРУГАЯ</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ДАЁТ: ОДНОЙ СТРОЧКОЙ УЖЕ НЕ ОБРУШИТЬ</text>
+          </g>
+          <g id="a_mcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="366" font-size="14">1 · ПУТАНИЦА И ЛЁГКОЕ ЛУКАВСТВО — ВАЛИШЬ ОПРАВДАНИЯ В КУЧУ</text>
+            <text x="134" y="394" font-size="14">ВМЕСТО ОДНОГО ЧЕСТНОГО · ЗА ЭТО ЧАЩЕ ТАЩАТ В СУД</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · И ВСЁ РАВНО НЕ СОТВОРИТ —</text>
+            <text x="134" y="462" font-size="14">ПРАВО, КОТОРОГО У ГОСУДАРСТВА ПРОСТО НЕТ</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">Регулировать прямо</button><button id="btnR1">Держать налог живым</button><button id="btnR2">Несколько причин</button>
+    </div>
+    <div class="figcap">Рис. 6 — три конструкции, три ценника. Нажмите, чтобы сравнить.</div>
+    <div class="prose">
+      <p>Итак, государство хочет прочное правило, а не просто хитрое. На чём его строить? Первый путь — честный: регулируй прямо и назови настоящую причину. Дело в торговле — пиши торговый закон; дело в здоровье — закон о здоровье. Цена в том, что так куда труднее: больший бой и свои пределы, потому в костюм налога и наряжаются, а иногда честную версию просто не построить.</p>
+      <p>Второй держит налог настоящим, не роняя в ноль. Цена — сам налог и есть бремя, за которое голосуют против, потому его и обнуляют, и всё равно ненадёжно. Третий опирает правило сразу на две-три причины: отпадёт налог — держит другая опора. Цена — путаница и лёгкое лукавство, и всё равно не сотворит права, которого у государства нет. Ни один не говорит: перестань управлять. Каждый спрашивает: как строить на своей земле, честно названной, а не на налоге, который завтра выдернут из-под тебя?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="95.2">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">Финал</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Финал · вопрос, который стоит унести</div>
+    <h2>Не хорошее ли правило — а на чём оно стоит?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_recall" class="b">
+          <rect x="120" y="86" width="300" height="120" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="270" y="140" text-anchor="middle" class="fact strong" font-size="20">НАЛОГ $200</text>
+          <text x="270" y="178" text-anchor="middle" font-size="13">ОПОРА</text>
+          <rect x="590" y="86" width="300" height="120" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="740" y="140" text-anchor="middle" class="flawtxt strong" font-size="24">$0</text>
+          <text x="740" y="178" text-anchor="middle" font-size="13">УБРАЛИ ОПОРУ</text>
+          <rect x="1060" y="86" width="300" height="120" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="1210" y="140" text-anchor="middle" class="big" font-size="22">ПРАВИЛА НЕТ</text>
+          <text x="1210" y="178" text-anchor="middle" font-size="13">И БЕЗ СПОРА</text>
+          <text x="470" y="150" text-anchor="middle" class="flawtxt" font-size="22">→</text>
+          <text x="940" y="150" text-anchor="middle" class="flawtxt" font-size="22">→</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="300" text-anchor="middle" class="big" font-size="24">НЕ «ХОРОШЕЕ ЭТО ПРАВИЛО ИЛИ ПЛОХОЕ?»</text>
+          <text x="740" y="356" text-anchor="middle" font-size="19">НА ЧЁМ ЭТО ПРАВИЛО СТОИТ НА САМОМ ДЕЛЕ?</text>
+          <text x="740" y="404" text-anchor="middle" class="flawtxt" font-size="19">КТО ВЫДЕРНЕТ ЗЕМЛЮ — НЕ ПОСПОРИВ О САМОМ ПРАВИЛЕ?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Так вернёмся к тому девяностолетнему реестру, который исчез из-за того, что одну цифру поставили в ноль. Заголовок будет про оружие и про то, хорошее это решение или плохое, — настоящий спор об одной политике. Но под ним лежит кое-что поважнее, и оно лежит под огромной частью того, что делает государство: на чём правило стоит на самом деле? На земле, которую государство держит само и называет вслух, — или на чужой, взятой взаймы и переодетой, которую завтрашний Конгресс расчистит, ни разу не поспорив о самом правиле.</p>
+      <p>Тянуться к налоговому фокусу иногда есть резон: бывает, это единственная лазейка, и хитрое правило, которое хотя бы есть, лучше честного, которого нет. Но правило на чужой земле — это правило взаймы: его заберут строчкой в законе про что-то другое, а люди, что на него рассчитывали, даже не узнают, что его убило. Поэтому в следующий раз, когда о законе спорят просто как о хорошем или плохом, полезнее вопрос под ним: на чём это правило на самом деле стоит — и кто может выдернуть у него землю из-под ног, ни разу не поспорив о самом правиле?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">ДЕФЕКТ КОНСТРУКЦИИ</div>
+      <p>Не кто виноват — как устроено. Полный интерактивный чертёж, с тем, что не вошло в ролик, — на этой странице. <a href="../" style="color:var(--fact)">In English →</a></p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Смотреть на YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Подписаться</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <line class="hair" x1="150" y1="300" x2="470" y2="300" stroke="#D9E3F0" stroke-width="3"/>
+    <rect x="180" y="90" width="260" height="70" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <rect x="288" y="160" width="44" height="120" fill="none" stroke="var(--flaw)" stroke-width="8" stroke-dasharray="10 8"/>
+    <text x="470" y="150" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">правило было</text>
+    <text x="470" y="218" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">налогом в маске</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">$0</div>
+  <div class="sub">обнули налог — правило падает</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <line class="hair" x1="150" y1="300" x2="470" y2="300" stroke="#D9E3F0" stroke-width="3"/>
+    <rect x="180" y="90" width="260" height="70" fill="none" stroke="var(--text)" stroke-width="8" transform="rotate(7 310 125)"/>
+    <rect x="288" y="160" width="44" height="120" fill="none" stroke="var(--flaw)" stroke-width="8" stroke-dasharray="10 8"/>
+    <text x="470" y="150" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">правилу 90 лет,</text>
+    <text x="470" y="218" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">налог обнулили</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">КОНЕЦ</div>
+  <div class="sub">держаться стало не на чём</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8); idle(tl,'h_a',6,7);
+  tl.to($('h_a'),{opacity:0,duration:.45},13.5);
+  say(tl,'h_b',13.8,.8); idle(tl,'h_b',18,5);
+  tl.to($('h_b'),{opacity:0,duration:.45},24.0);
+  say(tl,'h_c',24.3,.8); pop(tl,'h_c',24.3,.8); idle(tl,'h_c',29,5);
+  tl.to($('h_c'),{opacity:0,duration:.45},34.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},34.8);
+  if(isAuto)tl.to({},{duration:3.5},35.5); else tl.to($('titleCard'),{opacity:0,duration:.5},39.5);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_build',0.5,.9); idle(tl,'e_build',7,16);
+  say(tl,'e_court',26.0,.8); idle(tl,'e_court',31,14);
+  pop(tl,'e_zero',48.0,.7); shake(tl,'e_zero',49.0,5,6); idlePlate(tl,'e_zero',51,14);
+  say(tl,'e_deny',70.0,.8); idle(tl,'e_deny',75,12);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_debate',0.5,.9); idle(tl,'v_debate',7,10);
+  pop(tl,'v_look',20.0,.7); shake(tl,'v_look',21.0,5,6); idlePlate(tl,'v_look',23,8);
+  say(tl,'v_shape',33.0,.9); idle(tl,'v_shape',38,6);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'g_intro',0.5,.9); idle(tl,'g_intro',7,14);
+  tl.fromTo($('g_pillar'),{opacity:0},{opacity:1,duration:.8,ease:'power2.out'},24.0);
+  idle(tl,'g_pillar',33,14);
+  pop(tl,'g_land',52.0,.7); shake(tl,'g_land',53.0,5,6); idlePlate(tl,'g_land',55,16);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  tl.fromTo($('r_two'),{opacity:0},{opacity:1,duration:.8,ease:'power2.out'},0.5);
+  idle(tl,'r_two',7,14);
+  say(tl,'r_rule',24.0,.8); idle(tl,'r_rule',29,12);
+  say(tl,'r_split',44.0,.8); idle(tl,'r_split',49,12);
+  pop(tl,'r_party',66.0,.7); shake(tl,'r_party',67.0,5,6); idlePlate(tl,'r_party',69,16);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_direct'),{opacity:1},0);
+  say(tl,'a_d1',0.5,.8); idle(tl,'a_d1',7,16);
+  say(tl,'a_dcost',30.0,.7); idle(tl,'a_dcost',35,16);
+  tl.to($('a_direct'),{opacity:0,duration:.45},54.0);
+  tl.fromTo($('a_keeptax'),{opacity:0},{opacity:1,duration:.55},54.3);
+  say(tl,'a_k1',58.0,.8); idle(tl,'a_k1',65,14);
+  say(tl,'a_kcost',86.0,.7); idle(tl,'a_kcost',91,14);
+  tl.to($('a_keeptax'),{opacity:0,duration:.45},108.0);
+  tl.fromTo($('a_multi'),{opacity:0},{opacity:1,duration:.55},108.3);
+  say(tl,'a_m1',112.0,.8); idle(tl,'a_m1',119,12);
+  pop(tl,'a_mcost',134.0,.7); shake(tl,'a_mcost',135.0,5,6); idlePlate(tl,'a_mcost',137,14);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_recall',0.5,.9); idle(tl,'z_recall',6,12);
+  say(tl,'z_q',26.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},30.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_direct','a_keeptax','a_multi'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  REPAIRS.forEach((_,k)=>$('btnR'+k).classList.toggle('on',k===i));}
+REPAIRS.forEach((_,k)=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>

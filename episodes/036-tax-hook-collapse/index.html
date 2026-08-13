@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zero the Tax, Kill the Rule | Trace Upstream</title>
+<meta name="description" content="A court just erased a 90-year-old federal gun-registration rule — not because it decided anything about guns, but because Congress had cut a tax to zero. The registry was never really a gun law; it was a tax in disguise, upheld only because the tax raised money (Sonzinsky, 1937). Zero the tax and the rule has nothing to stand on, and courts won't let you swap in another power after the fact. The same trick hit the ACA health-insurance mandate. It's not a partisan flaw — the tool belongs to whoever holds the next majority. Three designs, each priced: regulate directly under an honest power, keep the tax real, or anchor to more than one reason.">
+<link rel="canonical" href="https://traceupstream.com/episodes/036-tax-hook-collapse/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="Zero the Tax, Kill the Rule">
+<meta property="og:description" content="A 90-year rule fell because a tax was set to zero. The registry was a tax in disguise — a rule built on borrowed ground someone else can clear away.">
+<meta property="og:url" content="https://traceupstream.com/episodes/036-tax-hook-collapse/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#6E7A99;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.036 — 2026-08-13</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to narration"><span class="dot"></span><span id="listenLab">Listen</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="50.5">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · case EP.036</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="54">A 90-YEAR RULE, GONE</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="34">NOT ABOUT GUNS</text>
+        </g>
+        <g id="h_b" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="48">IT WAS NEVER A GUN LAW</text>
+          <text x="500" y="342" text-anchor="middle" class="flawtxt" font-size="34">A TAX IN DISGUISE</text>
+        </g>
+        <g id="h_c" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="56">ZERO THE TAX</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="36">AND THE RULE FALLS</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="248" text-anchor="middle" class="big" font-size="46">A RULE ON BORROWED GROUND</text>
+          <text x="500" y="330" text-anchor="middle" font-size="32">TRACE UPSTREAM</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 1 — a rule standing on ground someone else owns</div>
+    <div class="prose">
+      <p>For ninety years, if you wanted to own a gun silencer in America, you had to register it with the federal government — fill out the forms, get approved, wait. This month, a court threw that requirement out. And here is the strange part. The judge did not decide anything about guns. He simply noticed that Congress had cut one tax down to zero — and that was enough to make the whole rule fall apart.</p>
+      <p>Why would deleting some tax kill a gun-registration rule? Because — and this is the trick — that rule was never really a gun law at all. It was a tax, dressed up as a gun law. Take away the tax, and the rule disappears with it. And the very same trick was pulled a few years earlier on a completely different rule — the one that made Americans buy health insurance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="114.3">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Event · a 90-year registry struck down</div>
+    <h2>Legal for one reason: the tax raised money.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_build" class="b" data-tip="In 1934 Congress doubted it could ban these weapons directly (thought to be the states' job), so it used a power it clearly had: taxation. It put a $200 tax on making/transferring them and built a registry to collect it.">
+          <text x="110" y="86" class="strong" font-size="16">1934 · CAN'T BAN IT DIRECTLY → SO TAX IT INSTEAD</text>
+          <rect x="110" y="106" width="1260" height="94" class="nodebox"/>
+          <text x="134" y="146" class="fact strong" font-size="15">A $200 TAX ON MAKING / TRANSFERRING THESE GUNS · A REGISTRY TO COLLECT IT</text>
+          <text x="134" y="178" font-size="14">THE REGISTRY WASN'T ABOUT GUNS — IT WAS ABOUT COLLECTING THE TAX</text>
+        </g>
+        <g id="e_court" class="b" data-tip="In Sonzinsky v. US (1937) the Supreme Court upheld it ONLY as a tax: a tax may have a regulating effect, but only if it is a genuine tax — one that raises at least some money.">
+          <rect x="110" y="230" width="1260" height="86" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="268" class="strong" font-size="15">1937 SUPREME COURT: FINE — BUT ONLY AS A TAX</text>
+          <text x="134" y="300" font-size="14">A REAL TAX MUST RAISE AT LEAST SOME MONEY · THAT'S THE ONE CONDITION</text>
+        </g>
+        <g id="e_zero" class="b">
+          <rect x="110" y="342" width="1260" height="86" fill="var(--flaw)"/>
+          <text x="134" y="380" class="onplate big" font-size="22">2025: THE TAX CUT TO $0 · $0 = NO MONEY = NO TAX</text>
+          <text x="134" y="412" class="onplate" font-size="14">NO TAX → THE REGISTRY HAS NOTHING LEFT TO STAND ON</text>
+        </g>
+        <g id="e_deny" class="b" data-tip="The government argued the registry could rest on the Commerce power instead. The court refused: it was built as a tax and named no other power; you can't swap in a support its authors never claimed 90 years later. DOJ is not appealing.">
+          <rect x="110" y="454" width="1260" height="116" fill="none" stroke="var(--text-dim)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="492" class="strong" font-size="15">GOV'T: "THEN KEEP IT AS A TRADE RULE" · COURT: NO</text>
+          <text x="134" y="524" font-size="14">YOU BUILT IT AS A TAX 90 YEARS AGO — CAN'T SWAP THE REASON NOW</text>
+          <text x="134" y="552" class="flawtxt" font-size="14">A 66-PAGE OPINION · THE GOVERNMENT WILL NOT APPEAL</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 2 — a tax, a registry to collect it, then the number set to zero</div>
+    <div class="prose">
+      <p>In August 2026 a federal judge in Texas threw out the requirement to register gun silencers. Go back to 1934: Congress did not think it could ban these weapons outright — that was the states' job. But it could tax. So it put a two-hundred-dollar tax on them and built a registry to collect it. The registry was not really about guns; it was about collecting the tax. In 1937 the Supreme Court signed off — but only as a tax, and only because a real tax raises at least some money.</p>
+      <p>For ninety years that held. Then, in 2025, Congress cut the tax to zero. Zero dollars is no money, no tax — and no tax means the registry has nothing to stand on. The government asked to keep it as a trade rule instead; the court said no, you built it as a tax and can't swap the reason ninety years later. It is not appealing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="55.1">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Pivot · look at how it was built</div>
+    <h2>Outside, a gun law. Inside, a tax.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_debate" class="b">
+          <rect x="230" y="90" width="380" height="110" class="nodebox"/>
+          <text x="420" y="145" text-anchor="middle" class="big" font-size="24">REGISTER OR NOT?</text>
+          <text x="420" y="182" text-anchor="middle" font-size="14">A WIN OR A DISASTER?</text>
+          <rect x="870" y="90" width="380" height="110" class="nodebox"/>
+          <text x="1060" y="145" text-anchor="middle" class="big" font-size="26">REAL FIGHT</text>
+          <text x="1060" y="182" text-anchor="middle" font-size="14">BUT NOT OURS</text>
+          <path class="hair" d="M 610 145 L 710 145"/><path class="hair" d="M 770 145 L 870 145"/>
+          <text x="740" y="153" text-anchor="middle" class="flawtxt" font-size="30">×</text>
+        </g>
+        <g id="v_look" class="b">
+          <rect x="180" y="242" width="1120" height="70" fill="var(--flaw)"/>
+          <text x="740" y="285" text-anchor="middle" class="onplate strong" font-size="18">LOOK AT HOW IT WAS BUILT — A TAX IN A GUN-LAW COSTUME</text>
+        </g>
+        <g id="v_shape" class="b">
+          <text x="740" y="392" text-anchor="middle" class="big" font-size="30">OUTSIDE: A GUN LAW · INSIDE: A TAX</text>
+          <text x="740" y="456" text-anchor="middle" class="big flawtxt" font-size="32">AND SOMEONE ELSE CAN WIPE THE TAX OUT</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 3 — drop the argument about guns, look at the structure</div>
+    <div class="prose">
+      <p>The fight you'll hear is about guns: register silencers or not, a win or a disaster. That's a real argument. But it's only about this one rule and this one object.</p>
+      <p>Look instead at how the rule was built. The government wanted to control something but couldn't or wouldn't ban it directly, so it dressed the control up as a tax and ran it through the tax collector's office. On the outside, a gun law. On the inside, a tax. And a tax is dangerous for one reason: someone else — someone who doesn't care about guns at all — can wipe it out with one line in an unrelated bill.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM: the pillar ================= -->
+<section class="ep" id="s3" data-duration="75.5">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Trick</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Mechanism · a house on borrowed land</div>
+    <h2>The rule stands on one thing: a tax you don't own.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="g_intro" class="b" data-tip="Can't ban it directly? Tax it — and then you're allowed to build a control apparatus around the tax: registration, records, approvals, reports. Often that apparatus, not the money, is the real goal.">
+          <rect x="110" y="60" width="1260" height="70" class="nodebox"/>
+          <text x="134" y="92" class="strong" font-size="15">CAN'T BAN IT DIRECTLY? TAX IT — THEN RUN CONTROL THROUGH TAX COLLECTION</text>
+          <text x="134" y="116" font-size="14">REGISTER · RECORD · GET APPROVAL · REPORT — THE TAX IS JUST A PASS TO WATCH EVERYONE</text>
+        </g>
+        <g id="g_pillar" class="b">
+          <line class="hair" x1="330" y1="406" x2="1150" y2="406"/>
+          <rect x="500" y="196" width="440" height="76" class="nodebox"/>
+          <text x="720" y="242" text-anchor="middle" class="big" font-size="30">THE RULE</text>
+          <rect x="692" y="272" width="56" height="134" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="720" y="432" text-anchor="middle" class="flawtxt" font-size="14">THE TAX</text>
+          <text x="860" y="322" class="big flawtxt" font-size="40">$0</text>
+          <line x1="676" y1="340" x2="836" y2="340" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+          <text x="1010" y="250" class="strong" font-size="14">THE ONLY THING HOLDING IT UP:</text>
+          <text x="1010" y="278" font-size="13">A TAX — LEGAL ONLY WHILE IT RAISES MONEY</text>
+          <text x="1010" y="330" class="flawtxt strong" font-size="14">SET IT TO $0 —</text>
+          <text x="1010" y="358" font-size="13">NOTHING LEFT TO HOLD THE RULE UP</text>
+        </g>
+        <g id="g_land" class="b">
+          <rect x="110" y="456" width="1260" height="116" fill="var(--flaw)"/>
+          <text x="134" y="496" class="onplate big" font-size="21">YOU BUILT A HOUSE ON LAND YOU DON'T OWN</text>
+          <text x="134" y="530" class="onplate" font-size="15">THE OWNER PULLS IT WITH ONE LINE IN A BILL ABOUT SOMETHING ELSE</text>
+          <text x="134" y="562" class="onplate" font-size="15">AND IN COURT IT'S TOO LATE TO SWAP IN ANOTHER REASON AFTER THE FACT</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 4 — the rule rests on a single prop, the tax — and the tax isn't yours</div>
+    <div class="prose">
+      <p>Think about what this move is. A government wants to control something but banning it directly is hard — maybe the constitution doesn't allow it, maybe a ban won't pass, maybe a court would strike it. So it goes around the side and taxes it instead. And once you're collecting a tax, you're allowed to build a whole control apparatus: register, keep records, ask permission, report. Often that apparatus is the real goal; the money is almost beside the point. The tax is just a pass that lets you watch everyone.</p>
+      <p>But it all holds on one condition: the tax stays real — it raises some money. Kill the tax, and you kill the rule. And the tax isn't yours. Tomorrow's legislature sets the number to zero, the whole apparatus is left hanging, and it's too late to tell a court "then keep it under some other law." You built a house, and the land under it belongs to someone else — who can pull it out with a single line in a bill about something completely different.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 MECHANISM: both sides ================= -->
+<section class="ep" id="s4" data-duration="145.3">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Both Sides</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Mechanism · same trick, either party</div>
+    <h2>A gun registry and a health mandate, same fiction.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="r_two" class="b">
+          <rect x="150" y="70" width="500" height="60" class="nodebox"/>
+          <text x="400" y="108" text-anchor="middle" class="big" font-size="22">GUN REGISTRY</text>
+          <rect x="372" y="130" width="56" height="64" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="400" y="216" text-anchor="middle" class="flawtxt" font-size="13">TAX → $0</text>
+          <rect x="830" y="70" width="500" height="60" class="nodebox"/>
+          <text x="1080" y="108" text-anchor="middle" class="big" font-size="22">HEALTH MANDATE</text>
+          <rect x="1052" y="130" width="56" height="64" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="1080" y="216" text-anchor="middle" class="flawtxt" font-size="13">TAX → $0</text>
+          <text x="740" y="150" text-anchor="middle" class="strong" font-size="15">AS FAR APART</text>
+          <text x="740" y="176" text-anchor="middle" class="strong" font-size="15">AS LAWS GET</text>
+          <text x="740" y="210" text-anchor="middle" font-size="13">SAME TRICK</text>
+        </g>
+        <g id="r_rule" class="b" data-tip="Both were upheld ONLY as a tax (NFA in Sonzinsky 1937; the ACA mandate in NFIB v. Sebelius 2012). Both had the tax zeroed. But zeroing also decides who can sue: courts only hear you if the rule actually harms you.">
+          <rect x="110" y="250" width="1260" height="56" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="285" class="strong" font-size="15">COURT RULE: YOU CAN ONLY SUE OVER A RULE THAT ACTUALLY HURTS YOU · NO HARM, NO CASE</text>
+        </g>
+        <g id="r_split" class="b">
+          <rect x="110" y="330" width="620" height="94" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="134" y="366" class="strong" font-size="14">MANDATE · $0</text>
+          <text x="134" y="392" font-size="13">NOBODY CHARGED → NOBODY HURT → NO SUIT</text>
+          <text x="134" y="414" class="flawtxt" font-size="13">A ZOMBIE: ON THE BOOKS, ENFORCED BY NO ONE</text>
+          <rect x="750" y="330" width="620" height="94" fill="none" stroke="var(--flaw)" stroke-width="2"/>
+          <text x="774" y="366" class="flawtxt strong" font-size="14">REGISTRY · $0</text>
+          <text x="774" y="392" font-size="13">STILL MUST REGISTER + WAIT → REAL HARM</text>
+          <text x="774" y="414" class="flawtxt" font-size="13">SO SOMEONE SUES → THE RULE IS STRUCK DOWN</text>
+        </g>
+        <g id="r_party" class="b">
+          <rect x="110" y="446" width="1260" height="124" fill="var(--flaw)"/>
+          <text x="134" y="486" class="onplate big" font-size="21">THE TOOL BELONGS TO WHOEVER HOLDS THE MAJORITY NEXT — AND IT TURNS OVER</text>
+          <text x="134" y="520" class="onplate" font-size="15">TOMORROW THE SAME LINE DISSOLVES A RULE YOUR SIDE TREASURES</text>
+          <text x="134" y="552" class="onplate" font-size="15">NOT A FLAW OF A PARTY · A FLAW OF CONSTRUCTION</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 5 — same fragile support, two ways to fall — and a tool that changes hands</div>
+    <div class="prose">
+      <p>If this feels like a story about guns, or one party, look at what happened earlier to a completely different rule. The Affordable Care Act required almost everyone to carry health insurance or pay a penalty. The Supreme Court allowed it in 2012 for one reason only — it called the penalty a tax, because it raised some money — and refused to rest it on the trade power. Then in 2017 a Congress that disliked the mandate cut the penalty to zero, and opponents said exactly what the gun judge just accepted: zero is not a tax.</p>
+      <p>Here's the twist. Zeroing the tax also decides who can sue — and you can only sue over a rule that hurts you. With the penalty at zero, nobody is charged, nobody is hurt, so nobody can sue: the mandate sits there, a zombie, unenforced. But guns still had to be registered even at a zero tax — a real harm — so someone could sue, and the rule fell. Same fragile foundation, two ways to collapse. This isn't about a party: the move belongs to whoever holds the majority next, and the majority turns over. Tomorrow the same one line dissolves a rule the other side treasures.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="105.7">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · three real designs, three price tags</div>
+    <h2>Build on ground you own and name — three ways, each priced.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: direct -->
+        <g id="a_direct" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN ONE · REGULATE DIRECTLY, NAME THE REAL REASON</text>
+          <g id="a_d1" class="b">
+            <rect x="110" y="120" width="1260" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="156" class="alttxt strong" font-size="15">IF IT'S TRADE, WRITE A REAL TRADE LAW · IF IT'S HEALTH, A HEALTH LAW — NO HIDING</text>
+            <text x="134" y="188" font-size="14">THE RULE STANDS ON GROUND THE GOVERNMENT ACTUALLY HOLDS</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT GIVES: A FOUNDATION NO ONE CAN QUIETLY DISSOLVE</text>
+          </g>
+          <g id="a_dcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">PRICE:</text>
+            <text x="134" y="366" font-size="14">1 · MUCH HARDER — A BIGGER FIGHT IN THE LEGISLATURE, AND ITS OWN LIMITS</text>
+            <text x="134" y="394" font-size="14">WHICH IS EXACTLY WHY PEOPLE REACH FOR THE TAX COSTUME</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · SOMETIMES THE HONEST VERSION —</text>
+            <text x="134" y="462" font-size="14">CAN'T BE BUILT AT ALL</text>
+          </g>
+        </g>
+        <!-- B: keep tax -->
+        <g id="a_keeptax" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN TWO · KEEP THE TAX REAL — NEVER LET IT HIT $0</text>
+          <g id="a_k1" class="b">
+            <rect x="110" y="120" width="1260" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="156" class="alttxt strong" font-size="15">A LIVE TAX KEEPS THE FOUNDATION ALIVE — THE PROP STAYS UNDER THE RULE</text>
+            <text x="134" y="188" font-size="14">NO ZERO, NO COLLAPSE</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT GIVES: THE RULE KEEPS ITS ONE SUPPORT</text>
+          </g>
+          <g id="a_kcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">PRICE:</text>
+            <text x="134" y="366" font-size="14">1 · THE TAX ITSELF IS THE COST — FELT, RESENTED, VOTED AGAINST</text>
+            <text x="134" y="394" font-size="14">WHICH IS EXACTLY WHY IT GETS ZEROED</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · STILL SHAKY — A LATER CONGRESS ZEROES IT ANYWAY,</text>
+            <text x="134" y="462" font-size="14">OR A COURT CALLS IT A PENALTY IN A TAX COSTUME</text>
+          </g>
+        </g>
+        <!-- C: multiple -->
+        <g id="a_multi" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN THREE · A BACKUP · REST IT ON TWO OR THREE REASONS</text>
+          <g id="a_m1" class="b">
+            <rect x="110" y="120" width="1260" height="86" class="nodebox"/>
+            <text x="134" y="156" class="strong" font-size="15">ANCHOR IT TO MORE THAN ONE NAMED POWER · TAX FALLS AWAY → A TRADE LAW STILL HOLDS</text>
+            <text x="134" y="188" font-size="14">IF ONE SUPPORT GOES, ANOTHER IS STILL THERE</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT GIVES: NO SINGLE LINE CAN TOPPLE IT</text>
+          </g>
+          <g id="a_mcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">PRICE:</text>
+            <text x="134" y="366" font-size="14">1 · MUDDLE + A BIT OF DISHONESTY — STACKING JUSTIFICATIONS</text>
+            <text x="134" y="394" font-size="14">INSTEAD OF HONESTLY NAMING ONE · IT DRAWS MORE LAWSUITS</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · IT STILL CAN'T INVENT —</text>
+            <text x="134" y="462" font-size="14">A POWER THE GOVERNMENT SIMPLY DOES NOT HAVE</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">Regulate directly</button><button id="btnR1">Keep the tax live</button><button id="btnR2">Multiple reasons</button>
+    </div>
+    <div class="figcap">Fig. 6 — three designs, three price tags. Click to compare.</div>
+    <div class="prose">
+      <p>So if a government wants a durable rule, not just a clever one, what should it build on? The first is honest: regulate directly and name the real reason — if it's trade, write a trade law; if it's health, a health law. The price is that this is much harder — a bigger fight and its own limits, which is exactly why people reach for the tax costume, and sometimes the honest version can't be built at all.</p>
+      <p>The second keeps the tax real, never letting it hit zero. The price is that the tax itself is now the burden people vote against — which is why it gets zeroed — and it's still shaky. The third rests the rule on two or three reasons, so if the tax falls away another support holds. The price is muddle and a bit of dishonesty, and it still can't invent a power the government doesn't have. None of these says stop governing. Each asks: how do you build on ground you own and honestly name, instead of a tax someone can pull out from under you tomorrow?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="82.1">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">The Close</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Close · the question to carry</div>
+    <h2>Not whether the rule is good — what does it stand on?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_recall" class="b">
+          <rect x="120" y="86" width="300" height="120" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="270" y="140" text-anchor="middle" class="fact strong" font-size="20">$200 TAX</text>
+          <text x="270" y="178" text-anchor="middle" font-size="13">THE PROP</text>
+          <rect x="590" y="86" width="300" height="120" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="740" y="140" text-anchor="middle" class="flawtxt strong" font-size="24">$0</text>
+          <text x="740" y="178" text-anchor="middle" font-size="13">PULL THE PROP</text>
+          <rect x="1060" y="86" width="300" height="120" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="1210" y="140" text-anchor="middle" class="big" font-size="22">RULE GONE</text>
+          <text x="1210" y="178" text-anchor="middle" font-size="13">NO DEBATE AT ALL</text>
+          <text x="470" y="150" text-anchor="middle" class="flawtxt" font-size="22">→</text>
+          <text x="940" y="150" text-anchor="middle" class="flawtxt" font-size="22">→</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="300" text-anchor="middle" class="big" font-size="26">NOT “IS THIS RULE GOOD OR BAD?”</text>
+          <text x="740" y="356" text-anchor="middle" font-size="19">WHAT IS THIS RULE ACTUALLY STANDING ON?</text>
+          <text x="740" y="404" text-anchor="middle" class="flawtxt" font-size="19">WHO CAN PULL THE GROUND OUT — WITHOUT ARGUING THE RULE AT ALL?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>So come back to that ninety-year-old registry, gone because one number was set to zero. The headline will be about guns, and whether the ruling is good or bad — a real argument about one policy. But underneath it is something bigger, sitting under a huge amount of what governments do: what is the rule actually standing on? Ground the government holds itself and names out loud — or borrowed, disguised ground that tomorrow's Congress can clear away without ever arguing about the rule at all.</p>
+      <p>There are real reasons to reach for the tax trick — sometimes it's the only way in, and a clever rule that exists beats an honest one that never passes. But a rule built on someone else's land is a rule on loan, taken back with a line in a bill about something else, and the people who counted on it never learn what killed it. So next time a law is fought over as simply good or bad, the more useful question is underneath: what is it really standing on — and who can pull that ground away, without ever arguing about the rule at all?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with what didn't fit the video, is on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Watch on YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <line class="hair" x1="150" y1="300" x2="470" y2="300" stroke="#D9E3F0" stroke-width="3"/>
+    <rect x="180" y="90" width="260" height="70" fill="none" stroke="var(--text)" stroke-width="8"/>
+    <rect x="288" y="160" width="44" height="120" fill="none" stroke="var(--flaw)" stroke-width="8" stroke-dasharray="10 8"/>
+    <text x="470" y="150" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">the rule was</text>
+    <text x="470" y="218" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">a tax in disguise</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">$0</div>
+  <div class="sub">zero the tax, kill the rule</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <line class="hair" x1="150" y1="300" x2="470" y2="300" stroke="#D9E3F0" stroke-width="3"/>
+    <rect x="180" y="90" width="260" height="70" fill="none" stroke="var(--text)" stroke-width="8" transform="rotate(7 310 125)"/>
+    <rect x="288" y="160" width="44" height="120" fill="none" stroke="var(--flaw)" stroke-width="8" stroke-dasharray="10 8"/>
+    <text x="470" y="150" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">a 90-year rule,</text>
+    <text x="470" y="218" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">one tax to zero</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">GONE</div>
+  <div class="sub">the registry had nothing left to stand on</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8); idle(tl,'h_a',6,7);
+  tl.to($('h_a'),{opacity:0,duration:.45},13.5);
+  say(tl,'h_b',13.8,.8); idle(tl,'h_b',18,5);
+  tl.to($('h_b'),{opacity:0,duration:.45},24.0);
+  say(tl,'h_c',24.3,.8); pop(tl,'h_c',24.3,.8); idle(tl,'h_c',29,5);
+  tl.to($('h_c'),{opacity:0,duration:.45},34.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},34.8);
+  if(isAuto)tl.to({},{duration:3.5},35.5); else tl.to($('titleCard'),{opacity:0,duration:.5},39.5);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_build',0.5,.9); idle(tl,'e_build',7,16);
+  say(tl,'e_court',26.0,.8); idle(tl,'e_court',31,14);
+  pop(tl,'e_zero',48.0,.7); shake(tl,'e_zero',49.0,5,6); idlePlate(tl,'e_zero',51,14);
+  say(tl,'e_deny',70.0,.8); idle(tl,'e_deny',75,12);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_debate',0.5,.9); idle(tl,'v_debate',7,10);
+  pop(tl,'v_look',20.0,.7); shake(tl,'v_look',21.0,5,6); idlePlate(tl,'v_look',23,8);
+  say(tl,'v_shape',33.0,.9); idle(tl,'v_shape',38,6);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'g_intro',0.5,.9); idle(tl,'g_intro',7,14);
+  tl.fromTo($('g_pillar'),{opacity:0},{opacity:1,duration:.8,ease:'power2.out'},24.0);
+  idle(tl,'g_pillar',33,14);
+  pop(tl,'g_land',52.0,.7); shake(tl,'g_land',53.0,5,6); idlePlate(tl,'g_land',55,16);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  tl.fromTo($('r_two'),{opacity:0},{opacity:1,duration:.8,ease:'power2.out'},0.5);
+  idle(tl,'r_two',7,14);
+  say(tl,'r_rule',24.0,.8); idle(tl,'r_rule',29,12);
+  say(tl,'r_split',44.0,.8); idle(tl,'r_split',49,12);
+  pop(tl,'r_party',66.0,.7); shake(tl,'r_party',67.0,5,6); idlePlate(tl,'r_party',69,16);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_direct'),{opacity:1},0);
+  say(tl,'a_d1',0.5,.8); idle(tl,'a_d1',7,16);
+  say(tl,'a_dcost',30.0,.7); idle(tl,'a_dcost',35,16);
+  tl.to($('a_direct'),{opacity:0,duration:.45},54.0);
+  tl.fromTo($('a_keeptax'),{opacity:0},{opacity:1,duration:.55},54.3);
+  say(tl,'a_k1',58.0,.8); idle(tl,'a_k1',65,14);
+  say(tl,'a_kcost',86.0,.7); idle(tl,'a_kcost',91,14);
+  tl.to($('a_keeptax'),{opacity:0,duration:.45},108.0);
+  tl.fromTo($('a_multi'),{opacity:0},{opacity:1,duration:.55},108.3);
+  say(tl,'a_m1',112.0,.8); idle(tl,'a_m1',119,12);
+  pop(tl,'a_mcost',134.0,.7); shake(tl,'a_mcost',135.0,5,6); idlePlate(tl,'a_mcost',137,14);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_recall',0.5,.9); idle(tl,'z_recall',6,12);
+  say(tl,'z_q',26.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},30.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_direct','a_keeptax','a_multi'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  REPAIRS.forEach((_,k)=>$('btnR'+k).classList.toggle('on',k===i));}
+REPAIRS.forEach((_,k)=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
