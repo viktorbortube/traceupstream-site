@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Click In, an Afternoon Out | Trace Upstream</title>
+<meta name="description" content="Subscribing takes one click; cancelling takes an afternoon of phone holds, offers, and forms. That gap between the easy door in and the hard door out isn't sloppiness — it's the product: every extra step retains a share of people who give up. Australia's 2026 law bans these 'subscription traps' with a broad principle; the US tried a sharp 'click-to-cancel' rule and a court struck it down in 2025. The real question is the shape of the rule — a sharp line (clear but gameable and fragile) or a broad principle (flexible but vague) — plus a third design: change what happens when you do nothing.">
+<link rel="canonical" href="https://traceupstream.com/episodes/037-subscription-trap-exit/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="One Click In, an Afternoon Out">
+<meta property="og:description" content="Easy in, hard out. The gap between joining and leaving is the product — and 'just make leaving easy' is one of the hardest rules to write.">
+<meta property="og:url" content="https://traceupstream.com/episodes/037-subscription-trap-exit/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#6E7A99;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .amberfill{fill:var(--flaw);opacity:.85}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.037 — 2026-08-14</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to narration"><span class="dot"></span><span id="listenLab">Listen</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="43.6">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · case EP.037</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="54">SIGN UP: ONE CLICK</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="36">CANCEL: AN AFTERNOON</text>
+        </g>
+        <g id="h_b" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="56">EASY IN, HARD OUT</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="34">THE GAP IS THE PRODUCT</text>
+        </g>
+        <g id="h_c" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="48">FRICTION KEEPS YOU PAYING</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="34">EVERY STEP LOSES A FEW</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="248" text-anchor="middle" class="big" font-size="46">THE EXIT, HARD ON PURPOSE</text>
+          <text x="500" y="330" text-anchor="middle" font-size="32">TRACE UPSTREAM</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 1 — one door opens at a touch, the other is a maze</div>
+    <div class="prose">
+      <p>You clicked one button to subscribe. It took about ten seconds. Now try to cancel. Suddenly there's a phone number to call, and when you call, you're put on hold. A chat bot asks if you're still there. You get an offer to stay, and then a better one. Then there's a form to fill in — and an email to confirm the form. Getting in took one click. Getting out takes an afternoon.</p>
+      <p>That gap — easy in, hard out — is not sloppiness. It is the product. Every extra step on the way out makes a few more people give up, and the people who give up keep paying. This month, Australia made that trap illegal. But "just make leaving easy" turns out to be one of the hardest rules anyone has ever tried to write.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="77.3">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Event · Australia bans subscription traps</div>
+    <h2>A law against being hard to leave.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_law" class="b" data-tip="Australia's Competition and Consumer Amendment (Unfair Trading Practices) Bill 2026 passed Parliament 2 Jul 2026, in force 1 Jul 2027. Fines up to AUD $100M; enforced by the ACCC; no small-business exemption; foreign suppliers caught.">
+          <text x="110" y="86" class="strong" font-size="16">AUSTRALIA · PASSED 2 JUL 2026 · IN FORCE JUL 2027</text>
+          <rect x="110" y="106" width="1260" height="94" class="nodebox"/>
+          <text x="134" y="146" class="fact strong" font-size="15">BANS "SUBSCRIPTION TRAPS" — SERVICES THAT MAKE MONEY BY BEING HARD TO LEAVE</text>
+          <text x="134" y="178" font-size="14">FINES UP TO AUD $100M · THE ACCC ENFORCES · NO SMALL-BUSINESS EXEMPTION</text>
+        </g>
+        <g id="e_traps" class="b">
+          <rect x="110" y="230" width="1260" height="86" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="134" y="268" class="flawtxt strong" font-size="15">WHAT IT TARGETS</text>
+          <text x="134" y="300" font-size="14">CANCEL BURIED 5 CLICKS DEEP · UNSUBSCRIBE HIDDEN · FREE TRIAL → SILENT CHARGE · RENEWAL, NO WARNING</text>
+        </g>
+        <g id="e_broad" class="b">
+          <rect x="110" y="342" width="1260" height="86" fill="var(--flaw)"/>
+          <text x="134" y="380" class="onplate big" font-size="21">NOT A CHECKLIST — A BROAD PRINCIPLE</text>
+          <text x="134" y="412" class="onplate" font-size="14">DON'T DESIGN YOUR SERVICE TO UNFAIRLY PUSH PEOPLE INTO CHOICES THEY WOULDN'T MAKE</text>
+        </g>
+        <g id="e_us" class="b" data-tip="The US wrote a sharp, specific version — the FTC 'click-to-cancel' rule ('cancel as easily as you signed up'). A federal appeals court vacated it in 2025 on a procedural technicality, not on the merits.">
+          <rect x="110" y="454" width="1260" height="116" fill="none" stroke="var(--text-dim)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="492" class="strong" font-size="15">AMERICA TRIED THE OPPOSITE: A SHARP, SPECIFIC RULE</text>
+          <text x="134" y="524" font-size="14">"CANCEL AS EASILY AS YOU SIGNED UP" — A COURT THREW IT OUT IN 2025</text>
+          <text x="134" y="552" class="flawtxt" font-size="14">SAME GOAL, OPPOSITE SHAPE · WE'LL COME BACK TO WHY THAT MATTERS</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 2 — a broad principle in Australia, a sharp rule struck down in America</div>
+    <div class="prose">
+      <p>On the second of July 2026, Australia's parliament passed a law aimed at subscription traps — services that make money by being hard to leave. It's the biggest upgrade to Australian consumer law in a decade, in force from July 2027. It goes after the cancel button buried five clicks deep, the unsubscribe link hidden where you'll never find it, the free trial that quietly turns into a charge. Fines run up to a hundred million Australian dollars, with no small-business loophole.</p>
+      <p>But notice how it's written. It doesn't hand you a checklist. It sets a broad principle: you can't design your service to unfairly push people into choices they wouldn't otherwise make — wide enough to catch tricks nobody has invented yet. America tried the opposite: a sharp, specific version of the same idea. A court threw it out. We'll come back to why.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="44.7">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Pivot · the gap, not the subscription</div>
+    <h2>Two doors, built different on purpose.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_debate" class="b">
+          <rect x="230" y="90" width="380" height="110" class="nodebox"/>
+          <text x="420" y="145" text-anchor="middle" class="big" font-size="26">CONVENIENCE?</text>
+          <text x="420" y="182" text-anchor="middle" font-size="14">OR A SCAM?</text>
+          <rect x="870" y="90" width="380" height="110" class="nodebox"/>
+          <text x="1060" y="145" text-anchor="middle" class="big" font-size="26">NOT THE POINT</text>
+          <text x="1060" y="182" text-anchor="middle" font-size="14">THE LAW BANS NO SERVICE</text>
+          <path class="hair" d="M 610 145 L 710 145"/><path class="hair" d="M 770 145 L 870 145"/>
+          <text x="740" y="153" text-anchor="middle" class="flawtxt" font-size="30">×</text>
+        </g>
+        <g id="v_look" class="b">
+          <rect x="180" y="242" width="1120" height="70" fill="var(--flaw)"/>
+          <text x="740" y="285" text-anchor="middle" class="onplate strong" font-size="18">IT DOESN'T CARE THAT YOU SUBSCRIBE — IT TARGETS THE GAP</text>
+        </g>
+        <g id="v_shape" class="b">
+          <text x="740" y="392" text-anchor="middle" class="big" font-size="32">EASY IN · HARD OUT</text>
+          <text x="740" y="456" text-anchor="middle" class="big flawtxt" font-size="32">SAME COMPANY, TWO DIFFERENT DOORS</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 3 — drop the argument about subscriptions, look at the two doors</div>
+    <div class="prose">
+      <p>The argument you might expect is about subscriptions themselves — convenience or scam. But that's not the useful question, because the law doesn't ban a single service. It doesn't care that you subscribe. It cares about one thing: the gap between how you get in and how you get out.</p>
+      <p>On the way in, the door swings open at a touch, because any friction there costs the company a sale. On the way out, you hit a maze, because friction there keeps the money flowing. Same company, two completely different doors, built that way on purpose. That gap is the whole story — and it shows up anywhere it's easy to say yes and strangely hard to say no.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM: the retention funnel ================= -->
+<section class="ep" id="s3" data-duration="91.1">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Funnel</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Mechanism · friction is the product</div>
+    <h2>Every step loses a few. The rest keep paying.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="g_intro" class="b" data-tip="A market keeps sellers honest through one threat: you can leave. Make leaving expensive — not with a fee (visible, people get angry), but with friction. Each small step sheds a few more people who meant to cancel.">
+          <rect x="110" y="60" width="1260" height="70" class="nodebox"/>
+          <text x="134" y="92" class="strong" font-size="15">A MARKET KEEPS SELLERS HONEST ON ONE THREAT: YOU CAN LEAVE</text>
+          <text x="134" y="116" font-size="14">SO MAKE LEAVING EXPENSIVE — NOT WITH A FEE (VISIBLE, PEOPLE GET ANGRY), BUT WITH FRICTION</text>
+        </g>
+        <g id="g_funnel" class="b">
+          <line class="hair" x1="280" y1="414" x2="1210" y2="414"/>
+          <rect class="amberfill" x="300" y="214" width="120" height="200"/>
+          <text x="360" y="200" text-anchor="middle" class="flawtxt strong" font-size="18">100</text>
+          <rect class="amberfill" x="500" y="246" width="120" height="168"/>
+          <text x="560" y="232" text-anchor="middle" class="flawtxt" font-size="16">88</text>
+          <rect class="amberfill" x="700" y="282" width="120" height="132"/>
+          <text x="760" y="268" text-anchor="middle" class="flawtxt" font-size="16">70</text>
+          <rect class="amberfill" x="900" y="314" width="120" height="100"/>
+          <text x="960" y="300" text-anchor="middle" class="flawtxt" font-size="16">55</text>
+          <rect class="amberfill" x="1080" y="342" width="120" height="72"/>
+          <text x="1140" y="328" text-anchor="middle" class="flawtxt strong" font-size="18">40</text>
+          <text x="360" y="440" text-anchor="middle" font-size="13">WANT TO CANCEL</text>
+          <text x="460" y="440" text-anchor="middle" class="flawtxt" font-size="13">CALL</text>
+          <text x="660" y="440" text-anchor="middle" class="flawtxt" font-size="13">HOLD</text>
+          <text x="860" y="440" text-anchor="middle" class="flawtxt" font-size="13">OFFER</text>
+          <text x="1050" y="440" text-anchor="middle" class="flawtxt" font-size="13">FORM</text>
+          <text x="1140" y="440" text-anchor="middle" class="strong" font-size="13">STILL PAYING</text>
+        </g>
+        <g id="g_sum" class="b">
+          <rect x="110" y="470" width="1260" height="100" fill="var(--flaw)"/>
+          <text x="134" y="508" class="onplate big" font-size="20">NO SINGLE STEP IS THE TRAP · THE TRAP IS ALL OF THEM TOGETHER</text>
+          <text x="134" y="544" class="onplate" font-size="15">A MACHINE THAT TURNS "I WANT OUT" INTO "LATER" — AND "LATER" INTO MONEY</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 4 — the way out as a funnel: each step quietly loses a few who give up</div>
+    <div class="prose">
+      <p>A market keeps sellers honest through one simple threat: if the deal goes bad, you leave. A business that knows you can walk has to keep you happy. So make walking expensive — but not with a fee. A fee is visible, and people get angry at fees. Make it expensive with friction instead: a call instead of a click, a hold, an offer, a form. None of it is a wall. At each step, a few more of the people who meant to cancel just don't — they get busy, they'll do it next week, and next week never comes.</p>
+      <p>Add up enough small steps, and a real share of people keep paying for something they already decided to quit. The friction isn't a side effect of a clunky website — it's a machine for turning "I want out" into "I'll deal with it later." And "later" is where the money is. No single step is the trap; the trap is all of them together. Which is why you can't outlaw a confirmation screen. You have to outlaw the pattern — the whole shape of how the steps add up.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 MECHANISM: the shape of the rule ================= -->
+<section class="ep" id="s4" data-duration="90.9">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The Rule's Shape</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Mechanism · sharp line or broad principle</div>
+    <h2>Two ways to write it. Each pays a price.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="r_two" class="b" data-tip="A sharp line ('cancel as easy as signup') is clear and checkable but gameable at the edges and a big target — the US rule was struck down. A broad principle ('don't unfairly distort choice') bends to any trick but nobody knows exactly where the line is.">
+          <rect x="110" y="70" width="600" height="150" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="110" class="fact strong" font-size="16">A SHARP LINE</text>
+          <text x="134" y="150" font-size="14">"CANCEL MUST BE AS EASY AS SIGNING UP"</text>
+          <text x="134" y="192" class="strong" font-size="14">CLEAR & CHECKABLE — BUT RIGID</text>
+          <rect x="770" y="70" width="600" height="150" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="794" y="110" class="flawtxt strong" font-size="16">A BROAD PRINCIPLE</text>
+          <text x="794" y="150" font-size="14">"DON'T UNFAIRLY DISTORT WHAT PEOPLE CHOOSE"</text>
+          <text x="794" y="192" class="strong" font-size="14">BENDS TO ANY TRICK — BUT FOGGY</text>
+        </g>
+        <g id="r_nofree" class="b">
+          <rect x="110" y="252" width="1260" height="66" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="290" class="strong" font-size="15">NO FREE OPTION: CLEAR-BUT-RIGID vs FLEXIBLE-BUT-FOGGY — YOU PAY EITHER WAY</text>
+        </g>
+        <g id="r_catch" class="b">
+          <rect x="110" y="352" width="1260" height="218" fill="var(--flaw)"/>
+          <text x="134" y="396" class="onplate big" font-size="22">THE HONEST CATCH: NOT ALL FRICTION IS A TRAP</text>
+          <text x="134" y="436" class="onplate" font-size="15">ASKING "ARE YOU SURE?" ONCE, OR CHECKING IT'S REALLY YOU, IS FAIR — EVEN KIND</text>
+          <text x="134" y="470" class="onplate" font-size="15">THE THING WORTH BANNING WAS NEVER FRICTION —</text>
+          <text x="134" y="504" class="onplate" font-size="15">IT'S FRICTION BUILT TO BE UNEQUAL ON PURPOSE</text>
+          <text x="134" y="546" class="onplate" font-size="15">ANY RULE MUST KILL THE MAZE WITHOUT KILLING THE HONEST "ARE YOU SURE?"</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 5 — clear-but-rigid or flexible-but-foggy, and the honest friction in between</div>
+    <div class="prose">
+      <p>Why is that pattern so hard to ban? Because it isn't one thing you can point at. On its own, a confirmation screen is fine; so is an offer to stay, and so is a form. What you're trying to outlaw is the deliberate gap between the easy door and the hard one — and a gap is a slippery thing to write into law. There are really only two ways to try. A sharp line spells out exactly what's required. A broad principle just forbids the unfair design. One is precise but rigid; the other bends to fit anything but nobody's quite sure what it means. Whichever you pick, you pay a price.</p>
+      <p>But first, an honest complication — and it's the reason none of this is simple. Not all friction is a trap. Asking "are you sure?" once, or checking that it's really you cancelling, is fair — even kind. The thing worth banning was never friction itself; it's friction built to be unequal on purpose. So any rule has to do a hard thing: get rid of the maze without getting rid of the honest "are you sure?"</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="134.2">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · three real designs, three price tags</div>
+    <h2>Make leaving as easy as joining — three ways, each priced.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: sharp line -->
+        <g id="a_line" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN ONE · A SHARP LINE — CANCEL AS EASY AS SIGNUP</text>
+          <g id="a_l1" class="b">
+            <rect x="110" y="120" width="1260" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="156" class="alttxt strong" font-size="15">SAME CHANNEL, SAME NUMBER OF STEPS · ANYONE CAN CHECK IT</text>
+            <text x="134" y="188" font-size="14">NO JUDGE NEEDED TO SEE A 5-STEP CANCEL FAIL A 1-CLICK SIGNUP</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT GIVES: A RULE ANYONE CAN VERIFY AT A GLANCE</text>
+          </g>
+          <g id="a_lcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">PRICE:</text>
+            <text x="134" y="366" font-size="14">1 · GAMED IN THE BORDERLINE CASES — "AS EASY AS" IS NEVER EXACT</text>
+            <text x="134" y="394" font-size="14">(WHAT ABOUT A GYM, A BUNDLE, A PHONE PLAN?)</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · A CLEAR RULE IS A CLEAR TARGET —</text>
+            <text x="134" y="462" font-size="14">ONE COURT STRUCK DOWN THE WHOLE US VERSION IN 2025</text>
+          </g>
+        </g>
+        <!-- B: broad principle -->
+        <g id="a_principle" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN TWO · A BROAD PRINCIPLE — FORBID THE UNFAIR DESIGN</text>
+          <g id="a_p1" class="b">
+            <rect x="110" y="120" width="1260" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="156" class="alttxt strong" font-size="15">STRETCHES TO COVER WHATEVER NEW TRICK APPEARS</text>
+            <text x="134" y="188" font-size="14">CAN'T BE DODGED BY INVENTING A NEW MAZE</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT GIVES: NO LOOPHOLE FROM A CLEVER REDESIGN</text>
+          </g>
+          <g id="a_pcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">PRICE:</text>
+            <text x="134" y="366" font-size="14">1 · FOG — HONEST FIRMS PLAY IT TOO SAFE,</text>
+            <text x="134" y="394" font-size="14">THE CUNNING ONES IGNORE IT AND DARE YOU TO SUE</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · THE MEANING ARRIVES SLOWLY —</text>
+            <text x="134" y="462" font-size="14">ONE COURT CASE AT A TIME · YOU CAN'T KNOW THE LINE IN ADVANCE</text>
+          </g>
+        </g>
+        <!-- C: default -->
+        <g id="a_default" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN THREE · CHANGE WHAT HAPPENS WHEN YOU DO NOTHING</text>
+          <g id="a_c1" class="b">
+            <rect x="110" y="120" width="1260" height="86" class="nodebox"/>
+            <text x="134" y="156" class="strong" font-size="15">AUTO-EXPIRE UNLESS YOU CHOOSE TO STAY · OR "YOU'RE ABOUT TO BE BILLED" + ONE-TAP PAUSE</text>
+            <text x="134" y="188" font-size="14">SILENCE STOPS MEANING "KEEP CHARGING ME"</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">WHAT IT GIVES: DOING NOTHING NO LONGER MEANS PAYING FOREVER</text>
+          </g>
+          <g id="a_ccost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">PRICE:</text>
+            <text x="134" y="366" font-size="14">1 · IT PUNISHES THE HONEST CUSTOMER TOO —</text>
+            <text x="134" y="394" font-size="14">THE PERSON WHO WANTS THE SERVICE MUST SIGN UP AGAIN AND AGAIN, ON A CLOCK</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · REMINDERS BLUR INTO NOTIFICATIONS NOBODY READS —</text>
+            <text x="134" y="462" font-size="14">THE FRICTION IS MOVED ONTO THOSE WHO DIDN'T WANT TO LEAVE, NOT REMOVED</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">Sharp line</button><button id="btnR1">Broad principle</button><button id="btnR2">Change the default</button>
+    </div>
+    <div class="figcap">Fig. 6 — three designs, three price tags. Click to compare.</div>
+    <div class="prose">
+      <p>So how do you make leaving as easy as joining, without banning subscriptions? The first is the sharp line: leaving must be as easy as joining, same channel, same steps — anyone can check it. But it's gamed in the borderline cases, and because it's so clear and specific, it's an easy target: one court struck down the whole US version in 2025.</p>
+      <p>The second is the broad principle: forbid the unfair design itself, so it stretches to cover any new trick. But the price is fog — honest firms play it too safe, cunning ones dare you to sue, and the real meaning arrives one court case at a time. The third doesn't touch the exit at all: it changes what happens when you do nothing — auto-expire unless you choose to stay, or a clear "you're about to be billed" with a one-tap pause. The price is that it punishes the honest customer too, who now has to sign up again and again. None of these says subscriptions are bad. Each asks the same question: how do you make leaving as easy as joining, without punishing the people who want to stay?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="66.4">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">The Close</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Close · the question to carry</div>
+    <h2>A market keeps them honest only while you can leave.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_recall" class="b">
+          <rect x="180" y="86" width="420" height="120" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="390" y="140" text-anchor="middle" class="fact strong" font-size="22">ONE CLICK IN</text>
+          <text x="390" y="178" text-anchor="middle" font-size="14">THE DOOR OPENS AT A TOUCH</text>
+          <rect x="880" y="86" width="420" height="120" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1090" y="140" text-anchor="middle" class="flawtxt strong" font-size="22">AN AFTERNOON OUT</text>
+          <text x="1090" y="178" text-anchor="middle" font-size="14">THE EXIT IS A MAZE</text>
+          <path class="hair" d="M 600 146 L 700 146"/><path class="hair" d="M 780 146 L 880 146"/>
+          <text x="740" y="154" text-anchor="middle" class="flawtxt" font-size="22">→</text>
+        </g>
+        <g id="z_chain" class="b">
+          <text x="740" y="268" text-anchor="middle" class="big" font-size="24">EASY YES → HARD NO → SOMEONE BUILT IT THAT WAY</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="356" text-anchor="middle" class="big" font-size="26">NOT “IS THE SERVICE GOOD?”</text>
+          <text x="740" y="408" text-anchor="middle" font-size="19">WHO MADE THE WAY OUT HARDER THAN THE WAY IN?</text>
+          <text x="740" y="452" text-anchor="middle" class="flawtxt" font-size="18">A RULE TOO SPECIFIC TO WORK — OR TOO VAGUE TO MEAN ANYTHING?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>So come back to that afternoon on hold, trying to leave something you joined in a single click. The headline will be about subscriptions and one country's new law. But underneath is something bigger, and it shows up in far more than streaming. Whenever it's effortless to say yes and strangely hard to say no, someone built that exit on purpose — because a market only keeps a company honest as long as you can actually leave, and friction is the quiet way to make sure you can't.</p>
+      <p>There are fair reasons to put a small step on the way out — to check it's really you, to make sure you meant it. But one step is not a maze, and asking you to confirm is not the same as trapping you. So the next time leaving is far harder than joining, the useful question isn't whether the service is good. It is this: who decided the way out should be harder than the way in — and when a rule tries to fix it, did they make it too specific to work, or too vague to mean anything?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with what didn't fit the video, is on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Watch on YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="90" width="150" height="220" fill="none" stroke="var(--alt)" stroke-width="8"/>
+    <circle cx="270" cy="205" r="10" fill="var(--alt)"/>
+    <path d="M 360 120 L 430 120 L 430 160 L 380 160 L 380 210 L 450 210 L 450 260 L 390 260 L 390 300 L 470 300"
+          fill="none" stroke="var(--flaw)" stroke-width="8"/>
+    <text x="540" y="150" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">one click in,</text>
+    <text x="540" y="218" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">an afternoon out</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">1 CLICK</div>
+  <div class="sub">the exit built hard on purpose</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="120" width="70" height="180" fill="var(--flaw)" opacity="0.85"/>
+    <rect x="250" y="160" width="70" height="140" fill="var(--flaw)" opacity="0.85"/>
+    <rect x="350" y="200" width="70" height="100" fill="var(--flaw)" opacity="0.85"/>
+    <rect x="450" y="240" width="70" height="60" fill="var(--flaw)" opacity="0.85"/>
+    <text x="560" y="150" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">why is leaving</text>
+    <text x="560" y="218" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">always harder?</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">THE GAP</div>
+  <div class="sub">easy in, hard out — by design</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8); idle(tl,'h_a',6,7);
+  tl.to($('h_a'),{opacity:0,duration:.45},13.5);
+  say(tl,'h_b',13.8,.8); idle(tl,'h_b',18,5);
+  tl.to($('h_b'),{opacity:0,duration:.45},24.0);
+  say(tl,'h_c',24.3,.8); pop(tl,'h_c',24.3,.8); idle(tl,'h_c',29,5);
+  tl.to($('h_c'),{opacity:0,duration:.45},34.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},34.8);
+  if(isAuto)tl.to({},{duration:3.5},35.5); else tl.to($('titleCard'),{opacity:0,duration:.5},39.5);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_law',0.5,.9); idle(tl,'e_law',7,16);
+  say(tl,'e_traps',26.0,.8); idle(tl,'e_traps',31,14);
+  pop(tl,'e_broad',48.0,.7); shake(tl,'e_broad',49.0,5,6); idlePlate(tl,'e_broad',51,14);
+  say(tl,'e_us',70.0,.8); idle(tl,'e_us',75,12);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_debate',0.5,.9); idle(tl,'v_debate',7,10);
+  pop(tl,'v_look',20.0,.7); shake(tl,'v_look',21.0,5,6); idlePlate(tl,'v_look',23,8);
+  say(tl,'v_shape',33.0,.9); idle(tl,'v_shape',38,6);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'g_intro',0.5,.9); idle(tl,'g_intro',7,14);
+  tl.fromTo($('g_funnel'),{opacity:0},{opacity:1,duration:.8,ease:'power2.out'},24.0);
+  idle(tl,'g_funnel',33,14);
+  pop(tl,'g_sum',52.0,.7); shake(tl,'g_sum',53.0,5,6); idlePlate(tl,'g_sum',55,16);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'r_two',0.5,.9); idle(tl,'r_two',7,16);
+  say(tl,'r_nofree',26.0,.8); idle(tl,'r_nofree',31,12);
+  pop(tl,'r_catch',46.0,.7); shake(tl,'r_catch',47.0,5,6); idlePlate(tl,'r_catch',49,18);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_line'),{opacity:1},0);
+  say(tl,'a_l1',0.5,.8); idle(tl,'a_l1',7,16);
+  say(tl,'a_lcost',30.0,.7); idle(tl,'a_lcost',35,16);
+  tl.to($('a_line'),{opacity:0,duration:.45},54.0);
+  tl.fromTo($('a_principle'),{opacity:0},{opacity:1,duration:.55},54.3);
+  say(tl,'a_p1',58.0,.8); idle(tl,'a_p1',65,14);
+  say(tl,'a_pcost',86.0,.7); idle(tl,'a_pcost',91,14);
+  tl.to($('a_principle'),{opacity:0,duration:.45},108.0);
+  tl.fromTo($('a_default'),{opacity:0},{opacity:1,duration:.55},108.3);
+  say(tl,'a_c1',112.0,.8); idle(tl,'a_c1',119,12);
+  pop(tl,'a_ccost',134.0,.7); shake(tl,'a_ccost',135.0,5,6); idlePlate(tl,'a_ccost',137,14);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_recall',0.5,.9); idle(tl,'z_recall',6,12);
+  say(tl,'z_chain',22.0,.8); idle(tl,'z_chain',27,10);
+  say(tl,'z_q',40.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},44.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_line','a_principle','a_default'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  REPAIRS.forEach((_,k)=>$('btnR'+k).classList.toggle('on',k===i));}
+REPAIRS.forEach((_,k)=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>

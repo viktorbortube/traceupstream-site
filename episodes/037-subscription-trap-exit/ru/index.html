@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вход в один клик, выход через вечер | Дефект конструкции</title>
+<meta name="description" content="Подписаться — один клик; отменить — целый вечер: телефон, ожидание, экраны «вы уверены?», формы. Этот разрыв между лёгкой дверью входа и трудной дверью выхода — не небрежность, а продукт: каждый лишний шаг удерживает часть тех, кто сдаётся. Австралия в 2026 запретила такие «подписки-ловушки» широким принципом; США пробовали чёткое правило «отписка не сложнее подписки» — суд снёс его в 2025. Вопрос в форме правила: чёткая линия (ясно, но обходят) или широкий принцип (гибко, но туманно). Плюс третья конструкция — сменить то, что стоит по умолчанию.">
+<link rel="canonical" href="https://traceupstream.com/episodes/037-subscription-trap-exit/ru/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Дефект конструкции">
+<meta property="og:title" content="Вход в один клик, выход через вечер">
+<meta property="og:description" content="Лёгкий вход, трудный выход. Разрыв между входом и выходом — это продукт, а «просто сделай выход лёгким» — одно из самых трудных правил.">
+<meta property="og:url" content="https://traceupstream.com/episodes/037-subscription-trap-exit/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#6E7A99;
+  --font-display:'Onest',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .amberfill{fill:var(--flaw);opacity:.85}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:800;
+  font-size:120px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.037 — 2026-08-14</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Слушать нарацию"><span class="dot"></span><span id="listenLab">Слушать</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="55.7">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Дефект конструкции · дело EP.037</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="50">ПОДПИСКА: ОДИН КЛИК</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="36">ОТМЕНА: ЦЕЛЫЙ ВЕЧЕР</text>
+        </g>
+        <g id="h_b" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="44">ЛЁГКИЙ ВХОД, ТРУДНЫЙ ВЫХОД</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="34">РАЗРЫВ И ЕСТЬ ПРОДУКТ</text>
+        </g>
+        <g id="h_c" class="b">
+          <text x="500" y="250" text-anchor="middle" class="big" font-size="42">ТРЕНИЕ ДЕРЖИТ ТЕБЯ НА ОПЛАТЕ</text>
+          <text x="500" y="345" text-anchor="middle" class="flawtxt" font-size="34">КАЖДЫЙ ШАГ ТЕРЯЕТ НЕМНОГО</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="248" text-anchor="middle" class="big" font-size="46">ВЫХОД, ТРУДНЫЙ НАРОЧНО</text>
+          <text x="500" y="330" text-anchor="middle" font-size="32">ДЕФЕКТ КОНСТРУКЦИИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 1 — одна дверь открывается от касания, другая — лабиринт</div>
+    <div class="prose">
+      <p>Ты нажал одну кнопку, чтобы подписаться. Секунд десять — и готово. А теперь попробуй отменить. И тут выясняется, что отменить можно только по телефону. Ты звонишь и ждёшь на линии. Потом бот спрашивает, точно ли ты ещё хочешь уйти. Тебе предлагают остаться, а когда отказываешься — предлагают скидку побольше. Дальше просят заполнить форму, а потом ещё и подтвердить её письмом. Чтобы войти, хватило одного клика. Чтобы выйти, уходит целый вечер.</p>
+      <p>Вход лёгкий, а выход трудный. И это не небрежность — это и есть продукт. Каждый лишний шаг на выходе тихо удерживает часть тех, кто просто махнул рукой, а они продолжают платить. В этом месяце Австралия объявила такую ловушку вне закона. Но «просто сделай выход лёгким» оказалось одним из самых трудных правил, какие вообще пытались написать.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="98.8">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">Событие</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Событие · Австралия запрещает подписки-ловушки</div>
+    <h2>Закон против того, что трудно покинуть.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_law" class="b" data-tip="Австралийский закон о несправедливых торговых практиках 2026 принят парламентом 2 июля 2026, в силе с 1 июля 2027. Штрафы до 100 млн австр. долларов; надзор ACCC; без льготы малому бизнесу; иностранные поставщики тоже под законом.">
+          <text x="110" y="86" class="strong" font-size="16">АВСТРАЛИЯ · ПРИНЯТ 2 ИЮЛЯ 2026 · В СИЛЕ С ИЮЛЯ 2027</text>
+          <rect x="110" y="106" width="1260" height="94" class="nodebox"/>
+          <text x="134" y="146" class="fact strong" font-size="15">ЗАПРЕЩАЕТ «ПОДПИСКИ-ЛОВУШКИ» — СЕРВИСЫ, КОТОРЫЕ ЗАРАБАТЫВАЮТ НА ТОМ, ЧТО ИХ ТРУДНО ПОКИНУТЬ</text>
+          <text x="134" y="178" font-size="14">ШТРАФЫ ДО AUD $100 МЛН · НАДЗОР ACCC · БЕЗ ЛЬГОТЫ МАЛОМУ БИЗНЕСУ</text>
+        </g>
+        <g id="e_traps" class="b">
+          <rect x="110" y="230" width="1260" height="86" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="134" y="268" class="flawtxt strong" font-size="15">ПО ЧЕМУ БЬЁТ</text>
+          <text x="134" y="300" font-size="14">ОТМЕНА В 5 КЛИКОВ ВГЛУБЬ · ОТПИСКА СПРЯТАНА · ПРОБНЫЙ ПЕРИОД → ТИХОЕ СПИСАНИЕ · ПРОДЛЕНИЕ БЕЗ ПРЕДУПРЕЖДЕНИЯ</text>
+        </g>
+        <g id="e_broad" class="b">
+          <rect x="110" y="342" width="1260" height="86" fill="var(--flaw)"/>
+          <text x="134" y="380" class="onplate big" font-size="21">НЕ СПИСОК ЗАПРЕТОВ — ШИРОКИЙ ПРИНЦИП</text>
+          <text x="134" y="412" class="onplate" font-size="14">НЕЛЬЗЯ СТРОИТЬ СЕРВИС ТАК, ЧТОБЫ НЕЧЕСТНО ТОЛКАТЬ ЛЮДЕЙ К ВЫБОРУ, КОТОРЫЙ ОНИ БЫ НЕ СДЕЛАЛИ</text>
+        </g>
+        <g id="e_us" class="b" data-tip="США написали чёткую конкретную версию — правило FTC «отписка не сложнее подписки». Апелляционный суд снёс его в 2025 по процедурной формальности, не по сути.">
+          <rect x="110" y="454" width="1260" height="116" fill="none" stroke="var(--text-dim)" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="134" y="492" class="strong" font-size="15">АМЕРИКА ПОПРОБОВАЛА НАОБОРОТ: ЧЁТКОЕ, КОНКРЕТНОЕ ПРАВИЛО</text>
+          <text x="134" y="524" font-size="14">«ОТПИСКА НЕ СЛОЖНЕЕ ПОДПИСКИ» — СУД ВЫБРОСИЛ ЕГО В 2025</text>
+          <text x="134" y="552" class="flawtxt" font-size="14">ТА ЖЕ ЦЕЛЬ, ОБРАТНАЯ ФОРМА · ВЕРНЁМСЯ, ПОЧЕМУ ЭТО ВАЖНО</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 2 — широкий принцип в Австралии, чёткое правило снесли в Америке</div>
+    <div class="prose">
+      <p>Второго июля две тысячи двадцать шестого парламент Австралии принял закон против подписок-ловушек — сервисов, которые зарабатывают на том, что их трудно покинуть. Это крупнейшее обновление потребительского закона за десять лет, в силе с июля две тысячи двадцать седьмого. Он бьёт по отмене, закопанной на пять кликов вглубь, по кнопке отказа, спрятанной там, куда ты не заглянешь, по пробному периоду, что тихо превращается в списание. Штрафы — до ста миллионов австралийских долларов, без лазейки для малого бизнеса.</p>
+      <p>Но заметь, как он написан. Он не выдаёт списка запретов. Он задаёт широкий принцип: нельзя строить сервис так, чтобы нечестно толкать людей к выбору, который они иначе бы не сделали, — широко настолько, чтобы поймать уловки, которых ещё никто не придумал. Америка попробовала наоборот: чёткую, конкретную версию той же идеи. Суд её выбросил. Вернёмся, почему.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="46.3">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">Перелом</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Перелом · разрыв, а не подписка</div>
+    <h2>Две двери, разными сделаны нарочно.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_debate" class="b">
+          <rect x="230" y="90" width="380" height="110" class="nodebox"/>
+          <text x="420" y="145" text-anchor="middle" class="big" font-size="26">УДОБСТВО?</text>
+          <text x="420" y="182" text-anchor="middle" font-size="14">ИЛИ ОБМАН?</text>
+          <rect x="870" y="90" width="380" height="110" class="nodebox"/>
+          <text x="1060" y="145" text-anchor="middle" class="big" font-size="24">НЕ В ЭТОМ ВОПРОС</text>
+          <text x="1060" y="182" text-anchor="middle" font-size="14">ЗАКОН НЕ ЗАПРЕЩАЕТ СЕРВИС</text>
+          <path class="hair" d="M 610 145 L 710 145"/><path class="hair" d="M 770 145 L 870 145"/>
+          <text x="740" y="153" text-anchor="middle" class="flawtxt" font-size="30">×</text>
+        </g>
+        <g id="v_look" class="b">
+          <rect x="180" y="242" width="1120" height="70" fill="var(--flaw)"/>
+          <text x="740" y="285" text-anchor="middle" class="onplate strong" font-size="18">ЕМУ ВСЁ РАВНО, ЧТО ТЫ ПОДПИСАН — ОН ЦЕЛИТ В РАЗРЫВ</text>
+        </g>
+        <g id="v_shape" class="b">
+          <text x="740" y="392" text-anchor="middle" class="big" font-size="32">ЛЁГКИЙ ВХОД · ТРУДНЫЙ ВЫХОД</text>
+          <text x="740" y="456" text-anchor="middle" class="big flawtxt" font-size="30">ОДНА КОМПАНИЯ, ДВЕ РАЗНЫЕ ДВЕРИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 3 — брось спор про подписки, посмотри на две двери</div>
+    <div class="prose">
+      <p>Ты, наверное, ждёшь спора про сами подписки — удобство это или обман. Но вопрос не в этом, потому что закон не запрещает ни один сервис. Ему всё равно, что ты подписан. Ему важно одно: разрыв между тем, как ты входишь, и тем, как выходишь.</p>
+      <p>На входе дверь распахивается от касания, потому что любое трение там стоит компании продажи. На выходе тебя ждёт лабиринт, потому что трение там держит деньги. Это одна компания, но двери у неё две, и разными их сделали нарочно. Вот этот разрыв и есть вся история — и он вылезает везде, где сказать «да» легко, а сказать «нет» почему-то трудно.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM: the funnel ================= -->
+<section class="ep" id="s3" data-duration="94.9">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Воронка</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · трение — это продукт</div>
+    <h2>Каждый шаг теряет немногих. Остальные платят.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="g_intro" class="b" data-tip="Рынок держит продавца честным одной угрозой: ты можешь уйти. Сделай уход дорогим — не платой (она видна, на неё злятся), а трением. Каждый мелкий шаг отсеивает ещё немного тех, кто собирался отменить.">
+          <rect x="110" y="60" width="1260" height="70" class="nodebox"/>
+          <text x="134" y="92" class="strong" font-size="15">РЫНОК ДЕРЖИТ ПРОДАВЦА ЧЕСТНЫМ ОДНОЙ УГРОЗОЙ: ТЫ МОЖЕШЬ УЙТИ</text>
+          <text x="134" y="116" font-size="14">СДЕЛАЙ УХОД ДОРОГИМ — НЕ ПЛАТОЙ (ОНА ВИДНА, НА НЕЁ ЗЛЯТСЯ), А ТРЕНИЕМ</text>
+        </g>
+        <g id="g_funnel" class="b">
+          <line class="hair" x1="280" y1="414" x2="1210" y2="414"/>
+          <rect class="amberfill" x="300" y="214" width="120" height="200"/>
+          <text x="360" y="200" text-anchor="middle" class="flawtxt strong" font-size="18">100</text>
+          <rect class="amberfill" x="500" y="246" width="120" height="168"/>
+          <text x="560" y="232" text-anchor="middle" class="flawtxt" font-size="16">88</text>
+          <rect class="amberfill" x="700" y="282" width="120" height="132"/>
+          <text x="760" y="268" text-anchor="middle" class="flawtxt" font-size="16">70</text>
+          <rect class="amberfill" x="900" y="314" width="120" height="100"/>
+          <text x="960" y="300" text-anchor="middle" class="flawtxt" font-size="16">55</text>
+          <rect class="amberfill" x="1080" y="342" width="120" height="72"/>
+          <text x="1140" y="328" text-anchor="middle" class="flawtxt strong" font-size="18">40</text>
+          <text x="360" y="440" text-anchor="middle" font-size="13">ХОТЯТ ОТМЕНИТЬ</text>
+          <text x="460" y="440" text-anchor="middle" class="flawtxt" font-size="13">ЗВОНОК</text>
+          <text x="660" y="440" text-anchor="middle" class="flawtxt" font-size="13">ОЖИДАНИЕ</text>
+          <text x="860" y="440" text-anchor="middle" class="flawtxt" font-size="13">ОФФЕР</text>
+          <text x="1035" y="440" text-anchor="middle" class="flawtxt" font-size="13">ФОРМА</text>
+          <text x="1145" y="440" text-anchor="middle" class="strong" font-size="13">ЕЩЁ ПЛАТЯТ</text>
+        </g>
+        <g id="g_sum" class="b">
+          <rect x="110" y="470" width="1260" height="100" fill="var(--flaw)"/>
+          <text x="134" y="508" class="onplate big" font-size="20">НИ ОДИН ШАГ В ОТДЕЛЬНОСТИ НЕ ЛОВУШКА · ЛОВУШКА — ИХ СУММА</text>
+          <text x="134" y="544" class="onplate" font-size="15">МАШИНА, КОТОРАЯ ПРЕВРАЩАЕТ «ХОЧУ ВЫЙТИ» В «ПОТОМ» — А «ПОТОМ» В ДЕНЬГИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 4 — выход как воронка: каждый шаг тихо теряет немногих, кто сдаётся</div>
+    <div class="prose">
+      <p>Рынок держит продавца честным одной простой угрозой: если сделка плоха, ты уходишь. Продавец, который знает, что ты можешь уйти, вынужден тебя устраивать. Теперь сделай уход дорогим — но не платой. Плата видна, и на неё злятся. Сделай его дорогим за счёт трения: звонок вместо клика, ожидание, предложение, форма. Ни один шаг не стена. Но каждый шаг вымывает часть тех, кто собирался отменить: они заняты, они сделают это на следующей неделе, а следующая неделя не приходит.</p>
+      <p>Набери достаточно таких мелких шагов — и заметная часть людей продолжает платить за то, что уже решила бросить. Трение тут не побочный эффект кривого сайта. Это машина, которая превращает «хочу выйти» в «разберусь потом», а «потом» — в деньги. Ни один шаг в отдельности не ловушка; ловушка — их сумма. Ровно поэтому нельзя объявить вне закона один экран подтверждения. Запрещать приходится саму конструкцию — то, что разницу между входом и выходом создали намеренно.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 MECHANISM: shape of the rule ================= -->
+<section class="ep" id="s4" data-duration="85.1">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Форма правила</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · чёткая линия или широкий принцип</div>
+    <h2>Написать можно двумя способами. У каждого цена.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="r_two" class="b" data-tip="Чёткая линия («отмена не сложнее подписки») ясна и проверяема, но её обходят в мелочах, и она крупная мишень — в США правило снесли. Широкий принцип («не искажай нечестно выбор») гнётся под любую уловку, но никто не знает, где точно черта.">
+          <rect x="110" y="70" width="600" height="150" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="134" y="110" class="fact strong" font-size="16">ЧЁТКАЯ ЛИНИЯ</text>
+          <text x="134" y="150" font-size="14">«ОТМЕНА НЕ СЛОЖНЕЕ ПОДПИСКИ»</text>
+          <text x="134" y="192" class="strong" font-size="14">ЯСНО И ПРОВЕРЯЕМО — НО ЖЁСТКО</text>
+          <rect x="770" y="70" width="600" height="150" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="794" y="110" class="flawtxt strong" font-size="16">ШИРОКИЙ ПРИНЦИП</text>
+          <text x="794" y="150" font-size="14">«НЕ ИСКАЖАЙ НЕЧЕСТНО ВЫБОР ЛЮДЕЙ»</text>
+          <text x="794" y="192" class="strong" font-size="14">ГНЁТСЯ ПОД ЛЮБУЮ УЛОВКУ — НО ТУМАННО</text>
+        </g>
+        <g id="r_nofree" class="b">
+          <rect x="110" y="252" width="1260" height="66" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="134" y="290" class="strong" font-size="15">БЕСПЛАТНОГО ВАРИАНТА НЕТ: ЯСНО-НО-ЖЁСТКО vs ГИБКО-НО-ТУМАННО — ПЛАТИШЬ В ЛЮБОМ СЛУЧАЕ</text>
+        </g>
+        <g id="r_catch" class="b">
+          <rect x="110" y="352" width="1260" height="218" fill="var(--flaw)"/>
+          <text x="134" y="396" class="onplate big" font-size="21">ЧЕСТНАЯ ЗАГВОЗДКА: НЕ ВСЯКОЕ ТРЕНИЕ — ЛОВУШКА</text>
+          <text x="134" y="436" class="onplate" font-size="15">СПРОСИТЬ ОДИН РАЗ «ВЫ УВЕРЕНЫ?» ИЛИ ПРОВЕРИТЬ, ЧТО ЭТО ТЫ, — ЧЕСТНО, ДАЖЕ ЗАБОТЛИВО</text>
+          <text x="134" y="470" class="onplate" font-size="15">ЗАПРЕЩАТЬ СТОИЛО НЕ ТРЕНИЕ —</text>
+          <text x="134" y="504" class="onplate" font-size="15">А ТРЕНИЕ, НАРОЧНО СДЕЛАННОЕ НЕРАВНЫМ</text>
+          <text x="134" y="546" class="onplate" font-size="15">ЛЮБОЕ ПРАВИЛО: СНЕСТИ ЛАБИРИНТ, НЕ ТРОНУВ ЧЕСТНОЕ «ВЫ УВЕРЕНЫ?»</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 5 — ясно-но-жёстко или гибко-но-туманно, и честное трение между ними</div>
+    <div class="prose">
+      <p>Почему эту конструкцию так трудно запретить? Потому что это не какая-то одна вещь, на которую покажешь пальцем. Сам по себе экран подтверждения нормален; нормальны и предложение остаться, и форма. Запретить ты хочешь намеренный разрыв между лёгкой дверью и трудной, а такую конструкцию трудно уложить в закон. Способов только два. Чёткая линия расписывает, что именно требуется. Широкий принцип просто запрещает нечестную конструкцию. Одно точно, но жёстко; другое гнётся под что угодно, но никто не знает, что оно значит. Что ни выбери — платишь цену.</p>
+      <p>Но сперва честная загвоздка, и в ней вся деликатность. Не всякое трение — ловушка. Спросить один раз «вы уверены?» или проверить, что отменяешь именно ты, — честно, даже заботливо. Запрещать стоило не трение вообще, а трение, которое нарочно сделали неравным. Любому правилу надо пройти по тонкой грани: снести лабиринт, не тронув честное «вы уверены?».</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="146.1">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Что если</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · три реальные конструкции, три ценника</div>
+    <h2>Сделать выход не дороже входа — три способа, у каждого цена.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: sharp line -->
+        <g id="a_line" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">КОНСТРУКЦИЯ ПЕРВАЯ · ЧЁТКАЯ ЛИНИЯ — ОТМЕНА НЕ СЛОЖНЕЕ ПОДПИСКИ</text>
+          <g id="a_l1" class="b">
+            <rect x="110" y="120" width="1260" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="156" class="alttxt strong" font-size="15">ТОТ ЖЕ КАНАЛ, СТОЛЬКО ЖЕ ШАГОВ · ПРОВЕРИТ КАЖДЫЙ</text>
+            <text x="134" y="188" font-size="14">СУДЬЯ НЕ НУЖЕН: ОТМЕНА В 5 ШАГОВ НЕ РАВНА ВХОДУ В 1 КЛИК</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ДАЁТ: ПРАВИЛО, КОТОРОЕ ВИДНО С ПЕРВОГО ВЗГЛЯДА</text>
+          </g>
+          <g id="a_lcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="366" font-size="14">1 · ОБХОДЯТ В МЕЛОЧАХ — «НЕ СЛОЖНЕЕ» НИКОГДА НЕ В ТОЧНОСТИ</text>
+            <text x="134" y="394" font-size="14">(А КАК ЖЕ ЗАЛ, ПАКЕТ УСЛУГ, ТАРИФ НА СВЯЗЬ?)</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · ЯСНОЕ ПРАВИЛО — ЯСНАЯ МИШЕНЬ:</text>
+            <text x="134" y="462" font-size="14">ОДИН СУД СНЁС ВСЮ ВЕРСИЮ США В 2025</text>
+          </g>
+        </g>
+        <!-- B: broad principle -->
+        <g id="a_principle" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">КОНСТРУКЦИЯ ВТОРАЯ · ШИРОКИЙ ПРИНЦИП — ЗАПРЕТИ НЕЧЕСТНУЮ КОНСТРУКЦИЮ</text>
+          <g id="a_p1" class="b">
+            <rect x="110" y="120" width="1260" height="86" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="156" class="alttxt strong" font-size="15">РАСТЯГИВАЕТСЯ НА ЛЮБУЮ НОВУЮ УЛОВКУ · НЕ ОБОЙТИ НОВЫМ ЛАБИРИНТОМ</text>
+            <text x="134" y="188" font-size="14">ЕГО НЕ ОБОЙТИ, ВЫДУМАВ НОВЫЙ ЛАБИРИНТ</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ДАЁТ: НЕТ ЛАЗЕЙКИ ЧЕРЕЗ ХИТРЫЙ РЕДИЗАЙН</text>
+          </g>
+          <g id="a_pcost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="366" font-size="14">1 · ТУМАН — ЧЕСТНЫЕ ПЕРЕСТРАХОВЫВАЮТСЯ,</text>
+            <text x="134" y="394" font-size="14">ЛОВКИЕ ИГНОРИРУЮТ И ПРЕДЛАГАЮТ СУДИТЬСЯ</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · СМЫСЛ ПРИХОДИТ МЕДЛЕННО —</text>
+            <text x="134" y="462" font-size="14">ДЕЛО ЗА ДЕЛОМ · ЧЕРТУ ЗАРАНЕЕ НЕ ЗНАЕШЬ</text>
+          </g>
+        </g>
+        <!-- C: default -->
+        <g id="a_default" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">КОНСТРУКЦИЯ ТРЕТЬЯ · МЕНЯЙ ТО, ЧТО ПРОИСХОДИТ, КОГДА ТЫ БЕЗДЕЙСТВУЕШЬ</text>
+          <g id="a_c1" class="b">
+            <rect x="110" y="120" width="1260" height="86" class="nodebox"/>
+            <text x="134" y="156" class="strong" font-size="15">САМА ГАСНЕТ, ПОКА НЕ ПРОДЛИЛ · ИЛИ «СЕЙЧАС СПИШЕМ» + ПАУЗА В ОДНО КАСАНИЕ</text>
+            <text x="134" y="188" font-size="14">МОЛЧАНИЕ ПЕРЕСТАЁТ ЗНАЧИТЬ «ПРОДОЛЖАЙ СПИСЫВАТЬ»</text>
+            <text x="110" y="250" class="alttxt strong" font-size="14">ЧТО ДАЁТ: БЕЗДЕЙСТВИЕ БОЛЬШЕ НЕ ЗНАЧИТ «ПЛАТИ ВЕЧНО»</text>
+          </g>
+          <g id="a_ccost" class="b">
+            <rect x="110" y="290" width="1260" height="230" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="328" class="flawtxt" font-size="15">ЦЕНА:</text>
+            <text x="134" y="366" font-size="14">1 · БЬЁТ И ПО ЧЕСТНОМУ КЛИЕНТУ —</text>
+            <text x="134" y="394" font-size="14">КТО ХОЧЕТ СЕРВИС, ДОЛЖЕН ПОДПИСЫВАТЬСЯ СНОВА И СНОВА, ПО ГРАФИКУ</text>
+            <text x="134" y="434" class="flawtxt strong" font-size="14">2 · НАПОМИНАНИЯ ТОНУТ СРЕДИ ПРОЧИХ —</text>
+            <text x="134" y="462" font-size="14">ТРЕНИЕ ПЕРЕДВИНУЛИ НА ТЕХ, КТО НЕ СОБИРАЛСЯ УХОДИТЬ, А НЕ УБРАЛИ</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">Чёткая линия</button><button id="btnR1">Широкий принцип</button><button id="btnR2">Сменить дефолт</button>
+    </div>
+    <div class="figcap">Рис. 6 — три конструкции, три ценника. Нажмите, чтобы сравнить.</div>
+    <div class="prose">
+      <p>Итак, как сделать выход не дороже входа, не запрещая подписки? Первая — чёткая линия: уйти не сложнее, чем зайти, тем же способом, за столько же шагов, и проверит это каждый. Но её обходят в мелочах, и, поскольку она ясная и конкретная, она лёгкая мишень: один суд снёс всю версию США в две тысячи двадцать пятом.</p>
+      <p>Вторая — широкий принцип: запрети саму нечестную конструкцию, и она растянется на любую новую уловку. Но цена — туман: честные перестраховываются, ловкие предлагают судиться, а настоящий смысл приходит дело за делом. Третья вообще не трогает выход: она меняет то, что происходит, когда ты бездействуешь, — подписка сама гаснет, пока не продлил, или приходит ясное «сейчас спишем» с паузой в одно касание. Цена в том, что бьёт это и по честному клиенту, которому теперь надо подписываться снова и снова. Ни одна не говорит, что подписки — зло. Каждая спрашивает одно: как сделать выход не дороже входа, не поймав в ловушку тех, кто хочет остаться?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="73.9">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">Финал</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Финал · вопрос, который стоит унести</div>
+    <h2>Рынок держит их честными, лишь пока ты можешь уйти.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_recall" class="b">
+          <rect x="180" y="86" width="420" height="120" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="390" y="140" text-anchor="middle" class="fact strong" font-size="22">ВХОД В ОДИН КЛИК</text>
+          <text x="390" y="178" text-anchor="middle" font-size="14">ДВЕРЬ ОТ КАСАНИЯ</text>
+          <rect x="880" y="86" width="420" height="120" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1090" y="140" text-anchor="middle" class="flawtxt strong" font-size="22">ВЫХОД ЧЕРЕЗ ВЕЧЕР</text>
+          <text x="1090" y="178" text-anchor="middle" font-size="14">ВЫХОД — ЛАБИРИНТ</text>
+          <path class="hair" d="M 600 146 L 700 146"/><path class="hair" d="M 780 146 L 880 146"/>
+          <text x="740" y="154" text-anchor="middle" class="flawtxt" font-size="22">→</text>
+        </g>
+        <g id="z_chain" class="b">
+          <text x="740" y="268" text-anchor="middle" class="big" font-size="23">ЛЁГКОЕ «ДА» → ТРУДНОЕ «НЕТ» → КТО-ТО ТАК ПОСТРОИЛ</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="356" text-anchor="middle" class="big" font-size="26">НЕ «ХОРОШ ЛИ СЕРВИС?»</text>
+          <text x="740" y="408" text-anchor="middle" font-size="19">КТО СДЕЛАЛ ВЫХОД ТРУДНЕЕ ВХОДА?</text>
+          <text x="740" y="452" text-anchor="middle" class="flawtxt" font-size="18">ПРАВИЛО СЛИШКОМ ТОЧНОЕ, ЧТОБЫ РАБОТАТЬ — ИЛИ СЛИШКОМ ТУМАННОЕ?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Так вернёмся к тому вечеру на линии, когда ты пытаешься уйти оттуда, куда вошёл одним кликом. Заголовок будет про подписки и про новый закон одной страны. Но под ним лежит кое-что побольше, и живёт оно далеко не только в стриминге. Там, где сказать «да» легко, а сказать «нет» почему-то трудно, кто-то построил выход таким нарочно. Потому что рынок держит компанию честной, лишь пока ты можешь уйти, а трение — тихий способ сделать так, чтобы ты не смог.</p>
+      <p>Есть честные причины поставить на выходе маленький шаг: проверить, что это правда ты, что ты правда решил. Но шаг — не лабиринт, а подтверждение — не капкан. Поэтому в следующий раз, когда уйти окажется куда труднее, чем зайти, полезный вопрос не в том, хорош ли сервис. Он в другом: кто решил, что выход должен быть труднее входа, — и если правило берётся это чинить, сделали ли его слишком точным, чтобы работать, или слишком туманным, чтобы хоть что-то значить?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">ДЕФЕКТ КОНСТРУКЦИИ</div>
+      <p>Не кто виноват — как устроено. Полный интерактивный чертёж, с тем, что не вошло в ролик, — на этой странице. <a href="../" style="color:var(--fact)">In English →</a></p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Смотреть на YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Подписаться</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="90" width="150" height="220" fill="none" stroke="var(--alt)" stroke-width="8"/>
+    <circle cx="270" cy="205" r="10" fill="var(--alt)"/>
+    <path d="M 360 120 L 430 120 L 430 160 L 380 160 L 380 210 L 450 210 L 450 260 L 390 260 L 390 300 L 470 300"
+          fill="none" stroke="var(--flaw)" stroke-width="8"/>
+    <text x="540" y="150" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">вход в 1 клик,</text>
+    <text x="540" y="218" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">выход через вечер</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">1 КЛИК</div>
+  <div class="sub">выход, сделанный трудным нарочно</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="120" width="70" height="180" fill="var(--flaw)" opacity="0.85"/>
+    <rect x="250" y="160" width="70" height="140" fill="var(--flaw)" opacity="0.85"/>
+    <rect x="350" y="200" width="70" height="100" fill="var(--flaw)" opacity="0.85"/>
+    <rect x="450" y="240" width="70" height="60" fill="var(--flaw)" opacity="0.85"/>
+    <text x="560" y="150" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">почему уйти</text>
+    <text x="560" y="218" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">всегда труднее?</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">РАЗРЫВ</div>
+  <div class="sub">лёгкий вход, трудный выход — по замыслу</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8); idle(tl,'h_a',6,7);
+  tl.to($('h_a'),{opacity:0,duration:.45},13.5);
+  say(tl,'h_b',13.8,.8); idle(tl,'h_b',18,5);
+  tl.to($('h_b'),{opacity:0,duration:.45},24.0);
+  say(tl,'h_c',24.3,.8); pop(tl,'h_c',24.3,.8); idle(tl,'h_c',29,5);
+  tl.to($('h_c'),{opacity:0,duration:.45},34.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},34.8);
+  if(isAuto)tl.to({},{duration:3.5},35.5); else tl.to($('titleCard'),{opacity:0,duration:.5},39.5);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_law',0.5,.9); idle(tl,'e_law',7,16);
+  say(tl,'e_traps',26.0,.8); idle(tl,'e_traps',31,14);
+  pop(tl,'e_broad',48.0,.7); shake(tl,'e_broad',49.0,5,6); idlePlate(tl,'e_broad',51,14);
+  say(tl,'e_us',70.0,.8); idle(tl,'e_us',75,12);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_debate',0.5,.9); idle(tl,'v_debate',7,10);
+  pop(tl,'v_look',20.0,.7); shake(tl,'v_look',21.0,5,6); idlePlate(tl,'v_look',23,8);
+  say(tl,'v_shape',33.0,.9); idle(tl,'v_shape',38,6);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'g_intro',0.5,.9); idle(tl,'g_intro',7,14);
+  tl.fromTo($('g_funnel'),{opacity:0},{opacity:1,duration:.8,ease:'power2.out'},24.0);
+  idle(tl,'g_funnel',33,14);
+  pop(tl,'g_sum',52.0,.7); shake(tl,'g_sum',53.0,5,6); idlePlate(tl,'g_sum',55,16);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'r_two',0.5,.9); idle(tl,'r_two',7,16);
+  say(tl,'r_nofree',26.0,.8); idle(tl,'r_nofree',31,12);
+  pop(tl,'r_catch',46.0,.7); shake(tl,'r_catch',47.0,5,6); idlePlate(tl,'r_catch',49,18);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_line'),{opacity:1},0);
+  say(tl,'a_l1',0.5,.8); idle(tl,'a_l1',7,16);
+  say(tl,'a_lcost',30.0,.7); idle(tl,'a_lcost',35,16);
+  tl.to($('a_line'),{opacity:0,duration:.45},54.0);
+  tl.fromTo($('a_principle'),{opacity:0},{opacity:1,duration:.55},54.3);
+  say(tl,'a_p1',58.0,.8); idle(tl,'a_p1',65,14);
+  say(tl,'a_pcost',86.0,.7); idle(tl,'a_pcost',91,14);
+  tl.to($('a_principle'),{opacity:0,duration:.45},108.0);
+  tl.fromTo($('a_default'),{opacity:0},{opacity:1,duration:.55},108.3);
+  say(tl,'a_c1',112.0,.8); idle(tl,'a_c1',119,12);
+  pop(tl,'a_ccost',134.0,.7); shake(tl,'a_ccost',135.0,5,6); idlePlate(tl,'a_ccost',137,14);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_recall',0.5,.9); idle(tl,'z_recall',6,12);
+  say(tl,'z_chain',22.0,.8); idle(tl,'z_chain',27,10);
+  say(tl,'z_q',40.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},44.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_line','a_principle','a_default'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  REPAIRS.forEach((_,k)=>$('btnR'+k).classList.toggle('on',k===i));}
+REPAIRS.forEach((_,k)=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
