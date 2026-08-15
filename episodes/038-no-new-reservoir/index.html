@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>England Hasn't Built a Reservoir Since 1992 | Trace Upstream</title>
+<meta name="description" content="The country famous for rain has banned 27 million people from using a garden hose. Not because the rain stopped: pricing and licensing rules made losing 3 billion litres a day cheaper than building one new reservoir. Four in ten homes have no water meter, the five-year price review punishes pipe repairs, and a reservoir waits decades for permission — so the only lever left is a hosepipe ban. Three alternative designs, each paid in a different currency: build over the local veto (Tryweryn, 1965), meter every tap (the crowded pay most), or Scotland's public model — where the real lever was the funding rule, not ownership.">
+<link rel="canonical" href="https://traceupstream.com/episodes/038-no-new-reservoir/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="England Hasn't Built a Reservoir Since 1992">
+<meta property="og:description" content="Rainy England is rationing water. The rules made losing 3 billion litres a day cheaper than building one new reservoir.">
+<meta property="og:url" content="https://traceupstream.com/episodes/038-no-new-reservoir/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#74909E;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .amberfill{fill:var(--flaw);opacity:.85}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:150px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.038 — 2026-08-15</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to narration"><span class="dot"></span><span id="listenLab">Listen</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="52.7">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · case EP.038</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <text x="500" y="240" text-anchor="middle" class="big" font-size="52">27,000,000 PEOPLE</text>
+          <text x="500" y="340" text-anchor="middle" class="flawtxt" font-size="36">BANNED FROM WATERING THE GARDEN</text>
+        </g>
+        <g id="h_b" class="b">
+          <text x="500" y="240" text-anchor="middle" class="big" font-size="46">THE COUNTRY FAMOUS FOR RAIN</text>
+          <text x="500" y="340" text-anchor="middle" class="flawtxt" font-size="40">IS RATIONING WATER</text>
+        </g>
+        <g id="h_c" class="b">
+          <text x="500" y="180" text-anchor="middle" font-size="34">LAST NEW RESERVOIR:</text>
+          <text x="500" y="330" text-anchor="middle" class="big flawtxt" font-size="130">1992</text>
+          <text x="500" y="430" text-anchor="middle" class="fact" font-size="34">+10,000,000 PEOPLE SINCE</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="248" text-anchor="middle" class="big" font-size="44">THE RULES THAT DRAINED ENGLAND</text>
+          <text x="500" y="330" text-anchor="middle" font-size="32">TRACE UPSTREAM</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 1 — the rain didn't stop; something else did</div>
+    <div class="prose">
+      <p>England is the country the whole world teases about rain. And this August, twenty-seven million English people are banned from using a garden hose. Not asked to cut back — banned, with fines. Reservoirs are draining, rivers are low, and one water company is already asking for the right to restrict businesses next.</p>
+      <p>Here's the number that turns this from a weather story into a design story: 1992. That's the last year England completed a major reservoir. Since then, the country has grown by ten million people — and built no big new place to keep water. The rain didn't stop falling. Something else stopped working. To find it, we're going to start at the garden hose and walk upstream — past the meter, through the pipes, up to the reservoir. At every stop, there's a rule waiting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="68.7">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Event · England, August 2026</div>
+    <h2>The driest July in 190 years.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_dry" class="b" data-tip="Environment Agency / National Drought Group weekly reports, August 2026: July 2026 was England's driest July in 190 years of records — around 10% of normal rainfall.">
+          <rect x="110" y="60" width="1260" height="88" class="nodebox"/>
+          <text x="134" y="98" class="fact strong" font-size="16">JULY 2026 — DRIEST JULY IN 190 YEARS OF RECORDS</text>
+          <text x="134" y="130" font-size="14">ABOUT A TENTH OF THE NORMAL RAIN FELL · SOURCE: ENVIRONMENT AGENCY</text>
+        </g>
+        <g id="e_scale" class="b" data-tip="National Drought Group: 71.3% of England in drought status; ~45M people live in drought areas; 27M+ under Temporary Use Bans from 9 water companies — the most widespread since 2022.">
+          <rect x="110" y="176" width="1260" height="88" class="nodebox"/>
+          <text x="134" y="214" class="strong" font-size="15">3/4 OF ENGLAND IN DROUGHT · 45M PEOPLE IN DROUGHT AREAS</text>
+          <text x="134" y="246" font-size="14">9 COMPANIES · 27M+ UNDER HOSEPIPE BANS — THE WIDEST SINCE 2022</text>
+        </g>
+        <g id="e_res" class="b" data-tip="Reservoir storage 65.9% — 13.8 points below the long-term average. Southern Water has applied for a Drought Order for Hampshire and the Isle of Wight, extending restrictions beyond gardens.">
+          <rect x="110" y="292" width="1260" height="88" class="nodebox"/>
+          <text x="134" y="330" class="strong" font-size="15">RESERVOIRS ABOUT TWO-THIRDS FULL — WELL BELOW THE SEASONAL NORMAL</text>
+          <text x="134" y="362" font-size="14">HAMPSHIRE: A DROUGHT ORDER APPLIED FOR — RESTRICTIONS BEYOND GARDENS</text>
+        </g>
+        <g id="e_villains" class="b">
+          <rect x="110" y="410" width="1260" height="160" fill="var(--flaw)"/>
+          <text x="134" y="452" class="onplate big" font-size="20">TWO READY-MADE VILLAINS — BOTH TRUE, NEITHER ENOUGH</text>
+          <text x="134" y="490" class="onplate" font-size="15">CLIMATE CHANGE · AND £52BN PAID TO SHAREHOLDERS SINCE 1990, A FIFTH OF THE WATER LEAKING</text>
+          <text x="134" y="524" class="onplate" font-size="15">NEITHER EXPLAINS WHY 1976, 1995, 2022 AND 2026 WERE ALL FOUGHT</text>
+          <text x="134" y="552" class="onplate" font-size="15">WITH THE SAME SINGLE WEAPON: PUT DOWN THE HOSE</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 2 — the drought of 2026, and the two stories that don't explain it</div>
+    <div class="prose">
+      <p>July 2026 was the driest July England has measured in a hundred and ninety years — about a tenth of the normal rain fell. By mid-August, nearly three-quarters of England is officially in drought. Forty-five million people live in drought areas. Nine water companies have banned hosepipes for more than twenty-seven million of them — the most widespread restrictions since 2022. England's reservoirs are about two-thirds full — well below normal for the season. In Hampshire, one company has applied for a drought order, which extends the bans beyond gardens.</p>
+      <p>The headlines offer two villains: climate change, and the water companies, which have paid fifty-two billion pounds to shareholders since 1990 while a fifth of their water leaks into the ground. Both stories are true. Neither explains why the drought of 2026 is being fought with the same single weapon as the droughts of 2022, and 1995, and 1976: telling citizens to put down the hose.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="28">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Pivot · not weather — design</div>
+    <h2>Walk upstream from the tap.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_repeat" class="b">
+          <rect x="200" y="80" width="440" height="110" class="nodebox"/>
+          <text x="420" y="130" text-anchor="middle" class="big" font-size="24">SAME EMERGENCY</text>
+          <text x="420" y="168" text-anchor="middle" font-size="14">EVERY FEW YEARS</text>
+          <rect x="840" y="80" width="440" height="110" class="nodebox"/>
+          <text x="1060" y="130" text-anchor="middle" class="big" font-size="24">SAME RESPONSE</text>
+          <text x="1060" y="168" text-anchor="middle" font-size="14">A LAST-MINUTE BAN</text>
+          <path class="hair" d="M 640 135 L 840 135"/>
+        </g>
+        <g id="v_design" class="b">
+          <rect x="200" y="228" width="1080" height="70" fill="var(--flaw)"/>
+          <text x="740" y="271" text-anchor="middle" class="onplate strong" font-size="19">THAT'S NOT WEATHER ANYMORE — THAT'S DESIGN</text>
+        </g>
+        <g id="v_route" class="b">
+          <path id="pipePath" class="blue" d="M 240 400 L 1240 400" stroke-width="3"/>
+          <circle cx="240" cy="400" r="8" fill="var(--fact)"/>
+          <circle cx="560" cy="400" r="8" fill="var(--fact)"/>
+          <circle cx="880" cy="400" r="8" fill="var(--fact)"/>
+          <circle cx="1240" cy="400" r="8" fill="var(--fact)"/>
+          <text x="240" y="450" text-anchor="middle" class="strong" font-size="15">TAP</text>
+          <text x="560" y="450" text-anchor="middle" class="strong" font-size="15">METER</text>
+          <text x="880" y="450" text-anchor="middle" class="strong" font-size="15">PIPE</text>
+          <text x="1240" y="450" text-anchor="middle" class="strong" font-size="15">RESERVOIR</text>
+          <text x="740" y="500" text-anchor="middle" class="flawtxt" font-size="16">THREE STOPS · AT EACH ONE, A RULE</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 3 — trace it upstream: tap → meter → pipe → reservoir</div>
+    <div class="prose">
+      <p>When the same emergency returns every few years, and the response is always the same last-minute ban, that's not weather anymore. That's design. So let's trace this upstream. Start at your kitchen tap and follow the water backwards — to the meter, to the pipe, to the reservoir. Three stops. At each one, we'll find not a bad person, but a rule that makes the outcome almost inevitable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM: meter + leak ================= -->
+<section class="ep" id="s3" data-duration="133.4">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Two Stops</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Mechanism · the blind tap and the tolerated leak</div>
+    <h2>Stop one: no meter. Stop two: the leak nobody fixes.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <!-- STATION 1: the meter -->
+        <g id="m_meter">
+          <g id="m_homes" class="b" data-tip="Around 60% of households in England and Wales are metered; roughly 40% pay a flat annual charge based mostly on the size of the home — so the marginal price of a litre is zero. Source: House of Commons Library.">
+            <text x="110" y="80" class="flawtxt strong" font-size="17">STOP ONE · THE METER THAT ISN'T THERE</text>
+            <rect x="110" y="110" width="1260" height="96" class="nodebox"/>
+            <text x="134" y="150" class="strong" font-size="16">4 OF 10 ENGLISH HOMES HAVE NO WATER METER</text>
+            <text x="134" y="184" font-size="14">FLAT YEARLY FEE, SET BY THE SIZE OF THE HOUSE → THE TAP ITSELF IS FREE</text>
+          </g>
+          <g id="m_use" class="b">
+            <rect x="110" y="236" width="600" height="96" fill="none" stroke="var(--fact)" stroke-width="2"/>
+            <text x="134" y="276" class="fact strong" font-size="15">METERED HOMES USE 10–20% LESS</text>
+            <text x="134" y="308" font-size="14">SEEING A PRICE CHANGES BEHAVIOUR</text>
+            <rect x="770" y="236" width="600" height="96" fill="none" stroke="var(--flaw)" stroke-width="2"/>
+            <text x="794" y="276" class="flawtxt strong" font-size="15">JULY: +100M LITRES A DAY, ONE COMPANY</text>
+            <text x="794" y="308" font-size="14">AT TIMES FASTER THAN THE NETWORK COULD TREAT</text>
+          </g>
+          <g id="m_blind" class="b">
+            <rect x="110" y="366" width="1260" height="70" fill="var(--flaw)"/>
+            <text x="740" y="410" text-anchor="middle" class="onplate strong" font-size="18">DEMAND IS BLIND — IT CANNOT FEEL SCARCITY WITHOUT A PRICE</text>
+          </g>
+        </g>
+        <!-- STATION 2: the leak -->
+        <g id="m_leak" class="b">
+          <g id="k_num" class="b">
+            <text x="110" y="80" class="flawtxt strong" font-size="17">STOP TWO · THE LEAK THE RULE TOLERATES</text>
+            <text x="740" y="190" text-anchor="middle" class="big flawtxt" font-size="64">3,000,000,000 LITRES</text>
+            <text x="740" y="240" text-anchor="middle" class="strong" font-size="16">LOST TO LEAKS EVERY DAY · ≈ A FIFTH OF SUPPLY · THE DAILY NEEDS OF 20M PEOPLE</text>
+          </g>
+          <g id="k_loop" class="b" data-tip="Every five years Ofwat, the economic regulator, sets what each regional monopoly may charge. Capital spent on pipes raises bills now for benefits decades away — so patching just enough is the rational strategy under the rule.">
+            <rect x="110" y="280" width="380" height="80" class="nodebox"/>
+            <text x="134" y="314" class="strong" font-size="14">EVERY 5 YEARS OFWAT</text>
+            <text x="134" y="342" font-size="14">SETS WHAT THE MONOPOLY CHARGES</text>
+            <rect x="550" y="280" width="380" height="80" class="nodebox"/>
+            <text x="574" y="314" class="strong" font-size="14">JOB #1: KEEP BILLS DOWN</text>
+            <text x="574" y="342" font-size="14">FIXING PIPES RAISES BILLS NOW</text>
+            <rect x="990" y="280" width="380" height="80" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+            <text x="1014" y="314" class="flawtxt strong" font-size="14">SO: PATCH JUST ENOUGH</text>
+            <text x="1014" y="342" font-size="14">TO SCRAPE PAST THE TARGET</text>
+            <path class="hair" d="M 490 320 L 550 320"/><path class="hair" d="M 930 320 L 990 320"/>
+          </g>
+          <g id="k_score" class="b">
+            <rect x="110" y="400" width="1260" height="120" fill="var(--flaw)"/>
+            <text x="134" y="442" class="onplate big" font-size="20">PROMISED −16% LEAKS · DELIVERED −9% · 6 OF 17 HIT THEIR TARGET</text>
+            <text x="134" y="480" class="onplate" font-size="15">UNDER THIS RULE THAT ISN'T A SCANDAL — IT'S THE RATIONAL MOVE</text>
+            <text x="134" y="508" class="onplate" font-size="15">DIGGING UP A THOUSAND STREETS BUYS ANGRY CUSTOMERS AND A WORSE REVIEW</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 4 — a tap with no price, and a leak the price review makes rational</div>
+    <div class="prose">
+      <p>Stop one: the meter — or the place where a meter should be. Four out of ten English homes don't have one. They pay a flat yearly fee, set mostly by the size of the house, and then the tap is free: water the garden all summer and the bill doesn't change by a penny. Homes with meters use ten to twenty percent less. During July's heat, customers of one company alone drew an extra hundred million litres a day. The demand side of this system is blind — it cannot feel scarcity, because the rule that would let it feel, a price on each litre, was never fully installed.</p>
+      <p>Stop two: the pipes. England and Wales lose about three billion litres a day to leaks — a fifth of everything the system produces, the daily needs of twenty million people. Why tolerated? Your water company is a monopoly; every five years the regulator Ofwat decides what it may charge, and that review's overriding job is keeping bills down. Fixing pipes raises bills now for benefits decades away. The industry promised to cut leaks sixteen percent; it delivered nine. Under this rule, that isn't a scandal — it's the rational move.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 MECHANISM: the paper reservoir ================= -->
+<section class="ep" id="s4" data-duration="91.1">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Stop Three</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Mechanism · the paper reservoir</div>
+    <h2>Permission takes longer than concrete.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="p_cars" class="b" data-tip="Carsington Water (Severn Trent, Derbyshire): planning from the 1960s, construction from 1979, partial dam collapse in 1984, opened by the Queen in 1992. England's last major new reservoir.">
+          <text x="110" y="80" class="strong" font-size="16">CARSINGTON — THE LAST ONE ENGLAND FINISHED</text>
+          <line x1="150" y1="150" x2="1330" y2="150" class="ink"/>
+          <circle cx="220" cy="150" r="9" fill="var(--fact)"/>
+          <text x="220" y="120" text-anchor="middle" font-size="14">1960s</text>
+          <text x="220" y="190" text-anchor="middle" font-size="13">PLANNING</text>
+          <circle cx="620" cy="150" r="9" fill="var(--fact)"/>
+          <text x="620" y="120" text-anchor="middle" font-size="14">1979</text>
+          <text x="620" y="190" text-anchor="middle" font-size="13">CONSTRUCTION</text>
+          <circle cx="900" cy="150" r="9" fill="var(--flaw)"/>
+          <text x="900" y="120" text-anchor="middle" class="flawtxt" font-size="14">1984</text>
+          <text x="900" y="190" text-anchor="middle" class="flawtxt" font-size="13">DAM COLLAPSE, REBUILT</text>
+          <circle cx="1260" cy="150" r="9" fill="var(--alt)"/>
+          <text x="1260" y="120" text-anchor="middle" font-size="14">1992</text>
+          <text x="1260" y="190" text-anchor="middle" font-size="13">OPENED</text>
+          <text x="740" y="238" text-anchor="middle" class="strong" font-size="16">THREE DECADES, FROM IDEA TO WATER</text>
+        </g>
+        <g id="p_sesro" class="b" data-tip="SESRO, near Abingdon: proposed for ~20 years; declared nationally significant in 2025 (decision moved from local planning to ministers); judicial review dismissed; construction from 2029; first water expected 2040. Cost estimate £5.5–7.5bn; a site the size of Gatwick Airport; water for 15M people.">
+          <text x="110" y="300" class="strong" font-size="16">ABINGDON — THE ONE ENGLAND IS TRYING TO BUILD NOW · WATER FOR 15M PEOPLE</text>
+          <line x1="150" y1="370" x2="1330" y2="370" class="ink"/>
+          <circle cx="240" cy="370" r="9" fill="var(--flaw)"/>
+          <text x="240" y="340" text-anchor="middle" class="flawtxt" font-size="14">~20 YEARS</text>
+          <text x="240" y="410" text-anchor="middle" font-size="13">CONSULTATIONS, OBJECTIONS,</text>
+          <text x="240" y="432" text-anchor="middle" font-size="13">REDESIGNS, A COURT CHALLENGE</text>
+          <circle cx="700" cy="370" r="9" fill="var(--fact)"/>
+          <text x="700" y="340" text-anchor="middle" font-size="14">2025</text>
+          <text x="700" y="410" text-anchor="middle" font-size="13">DECLARED NATIONALLY SIGNIFICANT —</text>
+          <text x="700" y="432" text-anchor="middle" font-size="13">TAKEN FROM LOCAL PLANNING</text>
+          <circle cx="1030" cy="370" r="9" fill="var(--fact)"/>
+          <text x="1030" y="340" text-anchor="middle" font-size="14">2029</text>
+          <text x="1030" y="410" text-anchor="middle" font-size="13">CONSTRUCTION</text>
+          <circle cx="1280" cy="370" r="9" fill="var(--alt)"/>
+          <text x="1280" y="340" text-anchor="middle" font-size="14">2040</text>
+          <text x="1280" y="410" text-anchor="middle" font-size="13">FIRST WATER</text>
+        </g>
+        <g id="p_sum" class="b">
+          <rect x="110" y="470" width="1260" height="100" fill="var(--flaw)"/>
+          <text x="134" y="508" class="onplate big" font-size="19">NO METER + PUNISHED REPAIRS + DECADES OF PERMISSION</text>
+          <text x="134" y="546" class="onplate" font-size="15">EVERY PROPER VALVE JAMMED BY A RULE → THE ONLY FAST LEVER LEFT: BAN THE HOSE</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 5 — two reservoir timelines, and the sum of three jammed valves</div>
+    <div class="prose">
+      <p>Stop three: the reservoir. The last major one England finished is called Carsington: planning from the 1960s, construction from 1979, a partial dam collapse in 1984, opened in 1992. Three decades from idea to water. Now look at the one England is trying to build today, near Abingdon — a site the size of Gatwick Airport, water for fifteen million people. The water company behind it has wanted it for roughly twenty years. In 2025 the government declared it nationally significant and took the decision away from local planning. If everything now goes perfectly, construction starts in 2029 and the first water arrives in 2040. Permission takes longer than concrete.</p>
+      <p>So add up the three stops: demand can't see the water, repairs are punished by the bill review, and new storage waits decades for permission. When a drought arrives, every proper valve is jammed by a rule. The only lever that still turns within weeks is a ban on garden hoses. England doesn't ration water because the rain ran out — it rations water because that's the one move the rulebook left.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="214.9">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · three designs, three currencies</div>
+    <h2>Each one works. Each one pays differently.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: build anyway -->
+        <g id="a_build" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN ONE · BUILD ANYWAY — THE NATION OVERRIDES THE VALLEY</text>
+          <g id="a_b1" class="b">
+            <rect x="110" y="110" width="1260" height="96" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="150" class="alttxt strong" font-size="15">SINCE 2025: MINISTERS DECLARE A RESERVOIR NATIONALLY SIGNIFICANT — PAST LOCAL PLANNING</text>
+            <text x="134" y="184" font-size="14">IT REMOVES THE DECADES OF PERMISSION, NOT THE YEARS OF CONCRETE</text>
+          </g>
+          <g id="a_bcost" class="b">
+            <rect x="110" y="240" width="1260" height="280" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="280" class="flawtxt strong" font-size="15">THE PRICE, PAID ONCE ALREADY — TRYWERYN:</text>
+            <text x="134" y="320" font-size="14">1957 · LIVERPOOL'S ACT OF PARLIAMENT BYPASSED EVERY WELSH PLANNING AUTHORITY</text>
+            <text x="134" y="352" font-size="14">35 OF 36 WELSH MPs VOTED NO — IT DIDN'T MATTER</text>
+            <text x="134" y="392" class="flawtxt" font-size="14">1965 · THE VALLEY FLOODED · CAPEL CELYN, A WELSH-SPEAKING VILLAGE, WENT UNDER</text>
+            <text x="134" y="432" font-size="14">LIVERPOOL'S FORMAL APOLOGY CAME IN 2005 · WALLS STILL READ: REMEMBER TRYWERYN</text>
+            <text x="134" y="490" class="flawtxt strong" font-size="16">CURRENCY: SOMEONE'S VALLEY, AND SOMEONE'S VOTE</text>
+          </g>
+        </g>
+        <!-- B: price every tap -->
+        <g id="a_price" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN TWO · LET EVERY TAP SEE THE PRICE</text>
+          <g id="a_p1" class="b">
+            <rect x="110" y="110" width="1260" height="96" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="150" class="alttxt strong" font-size="15">A METER IN EVERY HOME + A TARIFF THAT CLIMBS IN STEPS (ISRAEL'S LOGIC)</text>
+            <text x="134" y="184" font-size="14">DRINKING-AND-WASHING LITRES STAY CHEAP · LAWN LITRES IN A DROUGHT GET EXPENSIVE · METERED HOMES: −10–20%</text>
+          </g>
+          <g id="a_pcost" class="b">
+            <rect x="110" y="240" width="1260" height="280" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="280" class="flawtxt strong" font-size="15">THE PRICE — LOOK CLOSELY AT WHOSE MONEY:</text>
+            <text x="134" y="320" font-size="14">A SINGLE PENSIONER IN A BIG HOUSE WINS · A FAMILY OF SIX IN A SMALL FLAT PAYS MORE</text>
+            <text x="134" y="352" font-size="14">THE COST LANDS HARDEST ON THE MOST CROWDED HOMES — RARELY THE RICHEST</text>
+            <text x="134" y="392" class="flawtxt" font-size="14">ENGLAND HAS ROLLED OUT METERS SINCE 1990 · 35 YEARS → STILL ONLY 6 HOMES IN 10</text>
+            <text x="134" y="432" font-size="14">NO GOVERNMENT WANTS TO BE THE ONE THAT MADE PEOPLE PAY TO FLUSH</text>
+            <text x="134" y="490" class="flawtxt strong" font-size="16">CURRENCY: DISTRIBUTION — A VISIBLE COST HAS LOSERS WITH NAMES AND ADDRESSES</text>
+          </g>
+        </g>
+        <!-- C: the state -->
+        <g id="a_state" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN THREE · TAKE WATER BACK INTO THE STATE — SCOTLAND</text>
+          <g id="a_s1" class="b">
+            <rect x="110" y="110" width="1260" height="96" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+            <text x="134" y="150" class="flawtxt strong" font-size="15">THE HONEST START — 2002: PUBLIC SCOTTISH WATER WAS THE WORST PERFORMER ON THE ISLAND</text>
+            <text x="134" y="184" font-size="14">~40% OF ITS WATER LOST · INSIDE A BUDGET, INVISIBLE PIPES LOSE TO VISIBLE HOSPITALS</text>
+          </g>
+          <g id="a_s2" class="b">
+            <rect x="110" y="240" width="740" height="150" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="280" class="alttxt strong" font-size="15">WHAT CHANGED WASN'T THE FLAG — IT WAS THE FUNDING RULE</text>
+            <text x="134" y="316" font-size="14">≈ A THIRD MORE INVESTED PER HOUSEHOLD, YEAR AFTER YEAR</text>
+            <text x="134" y="348" font-size="14">TWO DECADES LATER: CAUGHT UP, AND ON SEVERAL MEASURES PASSED</text>
+            <rect x="920" y="240" width="120" height="110" fill="var(--fact)" opacity=".25"/>
+            <rect x="1090" y="212" width="120" height="138" fill="var(--alt)" opacity=".55"/>
+            <text x="980" y="378" text-anchor="middle" font-size="13">ENGLAND £102</text>
+            <text x="1150" y="378" text-anchor="middle" class="alttxt" font-size="13">SCOTLAND £135</text>
+            <text x="1230" y="266" font-size="12">PER HEAD,</text>
+            <text x="1230" y="286" font-size="12">PER YEAR</text>
+          </g>
+          <g id="a_scost" class="b">
+            <rect x="110" y="420" width="1260" height="100" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="460" class="flawtxt strong" font-size="16">CURRENCY: A PERMANENT PLACE NEAR THE FRONT OF THE TREASURY'S QUEUE —</text>
+            <text x="134" y="496" font-size="14">HELD ONLY AS LONG AS THE POLITICS THAT PROTECTS IT · THE LEVER IS THE RULE, NOT THE OWNER</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">Build anyway</button><button id="btnR1">Price every tap</button><button id="btnR2">The state</button>
+    </div>
+    <div class="figcap">Fig. 6 — three designs, three currencies. Click to compare.</div>
+    <div class="prose">
+      <p>Design one: build anyway. Since 2025, ministers can declare a reservoir nationally significant and push it past local planning — which removes the decades of permission, not the years of concrete. Britain has paid this price before: in 1957 Liverpool got a special act of Parliament for a reservoir in Wales, thirty-five of thirty-six Welsh MPs voted no, and in 1965 the village of Capel Celyn went under the water. The apology came in 2005. The currency is someone's valley, and someone's vote.</p>
+      <p>Design two: a meter in every home and a tariff that climbs in steps — drinking litres cheap, lawn litres expensive. It works; metered homes use less. But the cost lands hardest on the most crowded homes, which are rarely the richest — which is why thirty-five years of rollout have reached only six homes in ten. The currency is distribution. Design three: Scotland kept water public — and in 2002 public Scottish Water was the worst performer on the island, losing forty percent of its water, because inside a budget, pipes lose to hospitals. What changed it was the funding rule: a third more invested per household, year after year. The currency is a permanent place in the treasury's queue — held only as long as the politics that protects it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="63.9">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">The Close</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Close · the question to carry</div>
+    <h2>The ban is the system working as designed.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_recall" class="b">
+          <rect x="180" y="80" width="420" height="120" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="390" y="132" text-anchor="middle" class="fact strong" font-size="21">A HOSEPIPE BAN</text>
+          <text x="390" y="170" text-anchor="middle" font-size="14">LOOKS LIKE A BREAKDOWN</text>
+          <rect x="880" y="80" width="420" height="120" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1090" y="132" text-anchor="middle" class="flawtxt strong" font-size="21">IT'S THE DESIGN</text>
+          <text x="1090" y="170" text-anchor="middle" font-size="14">THE ONE LEVER STILL MOVING</text>
+          <path class="hair" d="M 600 140 L 880 140"/>
+        </g>
+        <g id="z_cur" class="b">
+          <rect x="140" y="240" width="380" height="90" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="330" y="278" text-anchor="middle" class="alttxt" font-size="14">A VALLEY</text>
+          <text x="330" y="306" text-anchor="middle" font-size="13">AND ITS RIGHT TO SAY NO</text>
+          <rect x="550" y="240" width="380" height="90" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="740" y="278" text-anchor="middle" class="alttxt" font-size="14">A VISIBLE PRICE PER LITRE</text>
+          <text x="740" y="306" text-anchor="middle" font-size="13">HARDEST ON CROWDED HOMES</text>
+          <rect x="960" y="240" width="380" height="90" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="1150" y="278" text-anchor="middle" class="alttxt" font-size="14">A LINE IN THE BUDGET</text>
+          <text x="1150" y="306" text-anchor="middle" font-size="13">THAT BEATS HOSPITALS, YEARLY</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="396" text-anchor="middle" class="big" font-size="24">ENGLAND CHOSE TO PAY IN NONE — SO IT PAYS IN HOSEPIPES</text>
+          <text x="740" y="446" text-anchor="middle" font-size="17">WHAT DID THE METER NEVER MEASURE? WHAT DID THE REVIEW PUNISH?</text>
+          <text x="740" y="482" text-anchor="middle" class="flawtxt" font-size="17">WHO WAS ALLOWED TO SAY NO FOR TWENTY YEARS?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>So come back to the hosepipe ban. It looks like a failure — the moment the system broke. It's the opposite: it's the system working exactly as designed. Three rules jammed every other valve, and the ban is the one lever that still moves. The real question this drought asks isn't "will it rain more," and it isn't "are the water companies greedy." It's a question about currencies: a valley and its right to say no; a visible price on every litre, landing hardest on the most crowded homes; or a permanent claim on the national budget that has to beat hospitals every single year.</p>
+      <p>For more than thirty years, England's rulebook chose to pay in none of them — and this August, twenty-seven million people are paying in hosepipes. The next time your country starts rationing something — water, power, housing — don't start with the weather. Ask what the meter never measured. Ask what the review punished. And ask who was allowed to say no for twenty years.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with what didn't fit the video, is on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <path d="M 170 300 L 250 140 L 990 140 L 1070 300" fill="none" stroke="var(--fact)" stroke-width="8"/>
+    <path d="M 250 232 C 340 214, 430 250, 520 232 C 610 214, 700 250, 790 232 C 880 214, 970 250, 990 232"
+          fill="none" stroke="var(--fact)" stroke-width="6" opacity=".55"/>
+    <line x1="170" y1="300" x2="1070" y2="300" stroke="var(--text)" stroke-width="8"/>
+    <text x="620" y="105" text-anchor="middle" font-family="IBM Plex Mono" font-size="40" style="fill:var(--text)">England's last new reservoir</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">1992</div>
+  <div class="sub">the rules that drained a rainy country</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <path d="M 240 90 L 240 200 L 330 200" fill="none" stroke="var(--text)" stroke-width="10"/>
+    <path d="M 330 176 L 330 224 L 372 224 L 372 176 Z" fill="var(--text)"/>
+    <circle cx="430" cy="250" r="9" fill="var(--fact)"/>
+    <circle cx="470" cy="290" r="11" fill="var(--fact)"/>
+    <circle cx="510" cy="330" r="13" fill="var(--fact)"/>
+    <text x="640" y="180" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">lost every day,</text>
+    <text x="640" y="248" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">while 27M are rationed</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">3BN LITRES</div>
+  <div class="sub">the leak the price review makes rational</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8); idle(tl,'h_a',6,8);
+  tl.to($('h_a'),{opacity:0,duration:.45},16.0);
+  say(tl,'h_b',16.3,.8); idle(tl,'h_b',21,6);
+  tl.to($('h_b'),{opacity:0,duration:.45},28.5);
+  say(tl,'h_c',28.8,.8); pop(tl,'h_c',28.8,.8); idle(tl,'h_c',34,8);
+  tl.to($('h_c'),{opacity:0,duration:.45},47.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},47.3);
+  if(isAuto)tl.to({},{duration:4.0},48.0); else tl.to($('titleCard'),{opacity:0,duration:.5},52.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_dry',0.5,.9); idle(tl,'e_dry',6,10);
+  say(tl,'e_scale',18.0,.8); idle(tl,'e_scale',23,12);
+  say(tl,'e_res',38.0,.8); idle(tl,'e_res',43,10);
+  pop(tl,'e_villains',56.0,.7); shake(tl,'e_villains',57.0,5,6); idlePlate(tl,'e_villains',59,18);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_repeat',0.5,.9); idle(tl,'v_repeat',6,6);
+  pop(tl,'v_design',13.0,.7); shake(tl,'v_design',14.0,5,6); idlePlate(tl,'v_design',16,6);
+  say(tl,'v_route',24.0,.9);
+  tl.fromTo($('pipePath'),{strokeDasharray:1600,strokeDashoffset:1600},
+    {strokeDashoffset:0,duration:2.2,ease:'power1.inOut'},24.6);
+  idle(tl,'v_route',29,7);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'m_homes',0.5,.9); idle(tl,'m_homes',7,16);
+  say(tl,'m_use',26.0,.8); idle(tl,'m_use',32,14);
+  pop(tl,'m_blind',48.0,.7); shake(tl,'m_blind',49.0,5,6); idlePlate(tl,'m_blind',51,10);
+  tl.to($('m_meter'),{opacity:0,duration:.5},63.0);
+  tl.fromTo($('m_leak'),{opacity:0},{opacity:1,duration:.4},63.5);
+  say(tl,'k_num',64.0,.9); idle(tl,'k_num',70,16);
+  say(tl,'k_loop',90.0,.9); idle(tl,'k_loop',97,16);
+  pop(tl,'k_score',117.0,.7); shake(tl,'k_score',118.0,5,6); idlePlate(tl,'k_score',120,16);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'p_cars',0.5,.9); idle(tl,'p_cars',7,16);
+  say(tl,'p_sesro',28.0,.9); idle(tl,'p_sesro',35,20);
+  pop(tl,'p_sum',62.0,.7); shake(tl,'p_sum',63.0,5,6); idlePlate(tl,'p_sum',65,20);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_build'),{opacity:1},0);
+  say(tl,'a_b1',0.5,.8); idle(tl,'a_b1',6,12);
+  say(tl,'a_bcost',22.0,.7); idle(tl,'a_bcost',27,26);
+  tl.to($('a_build'),{opacity:0,duration:.45},60.0);
+  tl.fromTo($('a_price'),{opacity:0},{opacity:1,duration:.55},60.4);
+  say(tl,'a_p1',62.0,.8); idle(tl,'a_p1',68,14);
+  say(tl,'a_pcost',86.0,.7); idle(tl,'a_pcost',91,24);
+  tl.to($('a_price'),{opacity:0,duration:.45},120.0);
+  tl.fromTo($('a_state'),{opacity:0},{opacity:1,duration:.55},120.4);
+  say(tl,'a_s1',122.0,.8); idle(tl,'a_s1',128,14);
+  say(tl,'a_s2',146.0,.8); idle(tl,'a_s2',152,14);
+  pop(tl,'a_scost',170.0,.7); shake(tl,'a_scost',171.0,5,6); idle(tl,'a_scost',173,14);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_recall',0.5,.9); idle(tl,'z_recall',6,12);
+  say(tl,'z_cur',22.0,.9); idle(tl,'z_cur',28,12);
+  say(tl,'z_q',44.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},48.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_build','a_price','a_state'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  REPAIRS.forEach((_,k)=>$('btnR'+k).classList.toggle('on',k===i));}
+REPAIRS.forEach((_,k)=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
