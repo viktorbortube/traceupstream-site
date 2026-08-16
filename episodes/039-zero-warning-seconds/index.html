@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Quakes, 300 Dead, Zero Seconds of Warning | Trace Upstream</title>
+<meta name="description" content="In one August week, a magnitude 7.7 earthquake hit Indonesia and a 7.4 hit Colombia — around 300 people died, and in both countries the official warning was zero seconds. Yet the seconds exist: shaking crawls through rock at a few kilometres per second while a radio signal moves at the speed of light, so a sensor near the fault can beat the destructive wave to your city. Mexico has bought up to 60 seconds of sirens since 1991, Japan since 2007, California since 2019 — every law written after its own catastrophe. Three ways to buy the seconds, each in a different currency: a state machine with a permanent budget line and an accountable owner; Google's free Android layer, which answers to no parliament (Turkey 2023: 469 loud alarms instead of 10 million); or a population taught that long, strong shaking IS the warning.">
+<link rel="canonical" href="https://traceupstream.com/episodes/039-zero-warning-seconds/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="Two Quakes, 300 Dead, Zero Seconds of Warning">
+<meta property="og:description" content="Earthquake warning seconds are free physics — they reach phones only where a law funded sirens decades before the shaking. Mexico bought 60 seconds in 1991.">
+<meta property="og:url" content="https://traceupstream.com/episodes/039-zero-warning-seconds/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#8B8578;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .amberfill{fill:var(--flaw);opacity:.85}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:130px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.039 — 2026-08-16</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to narration"><span class="dot"></span><span id="listenLab">Listen</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="76.7">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · case EP.039</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <text x="500" y="240" text-anchor="middle" class="big" font-size="52">5:58 AM · FLORES</text>
+          <text x="500" y="340" text-anchor="middle" class="flawtxt" font-size="36">THE WARNING WAS THE WALL</text>
+        </g>
+        <g id="h_b" class="b">
+          <text x="500" y="240" text-anchor="middle" class="big" font-size="46">TWO QUAKES · SIX DAYS</text>
+          <text x="500" y="340" text-anchor="middle" class="flawtxt" font-size="38">~300 DEAD · 0 SECONDS</text>
+        </g>
+        <g id="h_c" class="b">
+          <text x="500" y="170" text-anchor="middle" font-size="34">MEXICO CITY GETS</text>
+          <text x="500" y="330" text-anchor="middle" class="big fact" font-size="140">60</text>
+          <text x="500" y="430" text-anchor="middle" font-size="34">SECONDS OF SIRENS</text>
+        </g>
+        <g id="h_d" class="b">
+          <text x="500" y="230" text-anchor="middle" class="big" font-size="42">SHAKING: 6 KM/S</text>
+          <text x="500" y="330" text-anchor="middle" class="fact" font-size="38">RADIO: SPEED OF LIGHT</text>
+          <text x="500" y="420" text-anchor="middle" class="flawtxt" font-size="34">THE MESSAGE CAN WIN</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="248" text-anchor="middle" class="big" font-size="46">THE SECONDS NOBODY BOUGHT</text>
+          <text x="500" y="330" text-anchor="middle" font-size="32">TRACE UPSTREAM</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 1 — the seconds come free; catching them does not</div>
+    <div class="prose">
+      <p>At two minutes to six in the morning, on the Indonesian island of Flores, the first warning anyone received was the wall of their own bedroom. It shook, and then it fell. Six days earlier, in Colombia, it happened exactly the same way: the warning was the shaking itself. Around three hundred people died in those two earthquakes. And in both countries, the number of seconds of official warning was the same: zero.</p>
+      <p>Here's what makes that number strange. In Mexico City, when a big quake begins, sirens sound up to sixty seconds before the shaking arrives. Not because Mexico was rich — the trick is pure physics. Shaking spreads through the ground the way ripples spread through a pond: a few kilometres every second. A radio signal travels at the speed of light — about a hundred thousand times faster. So if a sensor feels a quake where it starts and sends out a message, the message beats the shaking to your city. By whole seconds. Those seconds come free with every earthquake on Earth. Whether anything is there to catch them and sound a siren is decided somewhere else entirely: in a budget line, written decades before the ground moves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="78.6">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Event · one August week, two magnitude-7 quakes</div>
+    <h2>Two quakes, six days apart.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_indo" class="b" data-tip="USGS/NPR/Al Jazeera: M7.7, Aug 15 2026, 5:58 local, 68 km NNW of Ende (Flores), depth 10 km; 51+ dead and rising; 500k+ felt very strong shaking; 230+ aftershocks; landslides cut off Nagekeo; BMKG tsunami warning issued and lifted, waves to 1.61 m.">
+          <rect x="110" y="60" width="1260" height="120" class="nodebox"/>
+          <text x="134" y="100" class="fact strong" font-size="16">INDONESIA · AUG 15 · 5:58 AM — M7.7, 68 KM OFF FLORES</text>
+          <text x="134" y="134" font-size="14">51+ DEAD · 500,000+ FELT VERY STRONG SHAKING · 230+ AFTERSHOCKS</text>
+          <text x="134" y="164" font-size="14">THE TSUNAMI GOT A WARNING — WAVES OVER 1.5 M, ALERT WITHIN MINUTES</text>
+        </g>
+        <g id="e_col" class="b" data-tip="CNN/NPR: M7.4, Aug 10 2026, depth ~103 km — Colombia's strongest quake in a century; 250+ dead; buildings collapsed in Pereira and Cali; no public earthquake early warning system exists.">
+          <rect x="110" y="210" width="1260" height="120" class="nodebox"/>
+          <text x="134" y="250" class="fact strong" font-size="16">COLOMBIA · AUG 10 — M7.4, 103 KM DEEP · STRONGEST IN A CENTURY</text>
+          <text x="134" y="284" font-size="14">250+ DEAD · BUILDINGS DOWN IN PEREIRA AND CALI</text>
+          <text x="134" y="314" font-size="14">SAME DETAIL IN THE REPORTS: NO PUBLIC WARNING SYSTEM FOR SHAKING</text>
+        </g>
+        <g id="e_zero" class="b">
+          <rect x="110" y="370" width="1260" height="180" fill="var(--flaw)"/>
+          <text x="134" y="416" class="onplate big" font-size="21">FOR THE SHAKING: NOTHING THEIR OWN COUNTRY HAD BUILT</text>
+          <text x="134" y="456" class="onplate" font-size="15">NO SIREN NETWORK · NO OFFICIAL ALERT · NO SECONDS ANYONE WAS RESPONSIBLE FOR</text>
+          <text x="134" y="494" class="onplate" font-size="15">ONE AUGUST WEEK: TWO MAGNITUDE-7 QUAKES · ~300 DEAD</text>
+          <text x="134" y="526" class="onplate strong" font-size="16">ZERO OFFICIAL SECONDS OF WARNING BETWEEN THEM</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 2 — the tsunami was warned; the shaking was not</div>
+    <div class="prose">
+      <p>On the fifteenth of August, at 5:58 in the morning, a magnitude 7.7 earthquake struck sixty-eight kilometres off the coast of Flores, in eastern Indonesia. At least fifty-one people died — the number was still rising as we recorded this. More than half a million people felt very strong shaking; over two hundred aftershocks followed, and landslides cut off the region closest to the epicentre for a full day. For the ocean wave, there was a warning: a tsunami alert within minutes, and waves over a metre and a half did hit the coast. But for the shaking itself, there was nothing their own country had built. No siren network, no official alert, no seconds anyone was responsible for delivering.</p>
+      <p>Six days earlier, Colombia. Magnitude 7.4, the strongest earthquake there in a century. More than two hundred and fifty people died; buildings collapsed in two major cities. And the same detail hides in the reports: Colombia has no public warning system for shaking either. So in one August week: two magnitude-seven earthquakes, around three hundred dead, zero official seconds of warning between them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="46.4">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Pivot · not wealth, not geology — a rule</div>
+    <h2>Same faults. Different rules.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_story" class="b">
+          <rect x="200" y="70" width="440" height="100" class="nodebox"/>
+          <text x="420" y="115" text-anchor="middle" class="big" font-size="22">THE USUAL STORY</text>
+          <text x="420" y="150" text-anchor="middle" font-size="14">RING OF FIRE · POORER COUNTRIES · LUCK</text>
+          <rect x="840" y="70" width="440" height="100" class="nodebox"/>
+          <text x="1060" y="115" text-anchor="middle" class="big" font-size="22">ONE FACT AGAINST IT</text>
+          <text x="1060" y="150" text-anchor="middle" font-size="14">MEXICO, 1991: SIRENS ON — AND NOT RICH</text>
+          <path class="hair" d="M 640 120 L 840 120"/>
+        </g>
+        <g id="v_chart" class="b">
+          <text x="270" y="240" text-anchor="middle" class="strong" font-size="14">MEXICO CITY</text>
+          <rect x="220" y="260" width="100" height="120" fill="var(--fact)" opacity=".8"/>
+          <text x="270" y="410" text-anchor="middle" class="fact strong" font-size="18">60 s</text>
+          <text x="510" y="240" text-anchor="middle" class="strong" font-size="14">JAPAN</text>
+          <rect x="460" y="290" width="100" height="90" fill="var(--fact)" opacity=".6"/>
+          <text x="510" y="410" text-anchor="middle" class="fact" font-size="16">AUTO</text>
+          <text x="740" y="240" text-anchor="middle" class="strong" font-size="14">US WEST COAST</text>
+          <rect x="690" y="310" width="100" height="70" fill="var(--fact)" opacity=".5"/>
+          <text x="740" y="410" text-anchor="middle" class="fact" font-size="16">2019</text>
+          <text x="990" y="240" text-anchor="middle" class="strong" font-size="14">COLOMBIA</text>
+          <line x1="940" y1="380" x2="1040" y2="380" class="amber"/>
+          <text x="990" y="410" text-anchor="middle" class="flawtxt strong" font-size="18">0 s</text>
+          <text x="1210" y="240" text-anchor="middle" class="strong" font-size="14">INDONESIA</text>
+          <line x1="1160" y1="380" x2="1260" y2="380" class="amber"/>
+          <text x="1210" y="410" text-anchor="middle" class="flawtxt strong" font-size="18">0 s</text>
+        </g>
+        <g id="v_rule" class="b">
+          <rect x="200" y="440" width="1080" height="60" fill="var(--flaw)"/>
+          <text x="740" y="478" text-anchor="middle" class="onplate strong" font-size="18">SAME FAULTS · THE DIFFERENCE IS A RULE — A LAW THAT BUYS THE SECONDS</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 3 — who bought their seconds, and who never did</div>
+    <div class="prose">
+      <p>The usual story writes itself: the Ring of Fire, poorer countries, terrible luck. But hold that story against one fact. Mexico switched on its earthquake sirens in 1991 — and Mexico in 1991 was not wealthier than Colombia or Indonesia today. Japan pipes its warnings automatically into every phone and every TV channel. California switched on public alerts in 2019, and the rest of the American West Coast followed two years later. All of these places sit on the same restless faults. The difference isn't geology, and it isn't wealth. The difference is a rule: some countries passed a law that buys those seconds, and some never did. So what exactly does the law buy?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM: the race ================= -->
+<section class="ep" id="s3" data-duration="102.9">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Race</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Mechanism · the race in the ground</div>
+    <h2>Two waves, one radio signal.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="r_track" class="b" data-tip="P wave ~6 km/s (fast, gentle — announces what's coming). S wave ~3.5 km/s (slow, destructive). Radio: speed of light. A sensor near the fault feels the P wave; its message outruns the S wave to the city. Near the epicentre there is a blind zone no system can cover.">
+          <circle cx="200" cy="150" r="14" fill="var(--flaw)"/>
+          <text x="200" y="110" text-anchor="middle" class="flawtxt strong" font-size="15">EPICENTRE</text>
+          <rect x="1220" y="110" width="120" height="80" class="nodebox"/>
+          <text x="1280" y="155" text-anchor="middle" class="strong" font-size="15">CITY</text>
+          <line x1="240" y1="132" x2="1210" y2="132" class="blue" id="r_radio"/>
+          <text x="700" y="120" text-anchor="middle" class="fact" font-size="14">RADIO MESSAGE · SPEED OF LIGHT — ARRIVES FIRST</text>
+          <line x1="240" y1="170" x2="1210" y2="170" class="ink" id="r_p" stroke-dasharray="3 6"/>
+          <text x="700" y="196" text-anchor="middle" font-size="14">GENTLE FIRST WAVE · ~6 KM/S — ANNOUNCES WHAT'S COMING</text>
+          <path id="r_s" class="amber" d="M 240 240 Q 280 210 320 240 Q 360 270 400 240 Q 440 210 480 240 Q 520 270 560 240 Q 600 210 640 240 Q 680 270 720 240 Q 760 210 800 240 Q 840 270 880 240 Q 920 210 960 240 Q 1000 270 1040 240 Q 1080 210 1120 240 Q 1160 270 1200 240" stroke-width="3.5"/>
+          <text x="700" y="290" text-anchor="middle" class="flawtxt" font-size="14">DESTRUCTIVE WAVE · ROUGHLY HALF THAT SPEED — ARRIVES LAST</text>
+        </g>
+        <g id="r_dist" class="b">
+          <rect x="110" y="330" width="380" height="90" fill="none" stroke="var(--fact)" stroke-width="2"/>
+          <text x="134" y="366" class="fact strong" font-size="14">COLOMBIA: 103 KM DEEP</text>
+          <text x="134" y="398" font-size="14">THE CLIMB = TENS OF SECONDS</text>
+          <rect x="550" y="330" width="380" height="90" fill="none" stroke="var(--fact)" stroke-width="2"/>
+          <text x="574" y="366" class="fact strong" font-size="14">FLORES: 68 KM OFFSHORE</text>
+          <text x="574" y="398" font-size="14">≈ 10–15 SECONDS FOR THE COAST</text>
+          <rect x="990" y="330" width="380" height="90" fill="none" stroke="var(--fact)" stroke-width="2"/>
+          <text x="1014" y="366" class="fact strong" font-size="14">MEXICO CITY: COAST 300 KM AWAY</text>
+          <text x="1014" y="398" font-size="14">THE FAMOUS 60 SECONDS</text>
+        </g>
+        <g id="r_buy" class="b">
+          <rect x="110" y="460" width="1260" height="100" fill="var(--flaw)"/>
+          <text x="134" y="500" class="onplate big" font-size="19">WHAT 10 SECONDS BUY: UNDER THE TABLE · SCALPEL UP · ELEVATOR OPENS</text>
+          <text x="134" y="536" class="onplate" font-size="15">TRAINS BRAKE · GAS VALVES CLOSE · SECONDS DON'T SAVE EVERYONE — THEY SAVE SOME, EVERY TIME</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 4 — the message beats the destructive wave; distance decides by how much</div>
+    <div class="prose">
+      <p>Watch the race up close, because the ground gives the warning another head start. An earthquake doesn't send out one wave — it sends two. The first is fast but gentle: about six kilometres a second, mostly announcing what's coming. The destructive wave runs behind it at roughly half that speed. So a sensor near the fault feels the first, gentle wave — and its radio message races ahead of the slow, destructive one. The farther you live from the epicentre, the bigger the head start. Right at the epicentre there's a blind zone no system on Earth can cover. But Colombia's quake broke a hundred kilometres underground — the climb alone was worth tens of seconds for the cities above. On Flores: call it ten to fifteen seconds for the coast. Mexico City gets its famous sixty because the dangerous coast is three hundred kilometres away.</p>
+      <p>And what is ten seconds worth? You can't leave a building. But you can get under a table before the ceiling comes down. A surgeon lifts the scalpel; an elevator opens at the nearest floor; in Japan, bullet trains brake automatically; a gas valve closes; a fire-station door opens before the shaking can jam its frame. Seconds don't save everyone. They save some — reliably, every single time. So the seconds exist, already paid for by physics. Why did they reach one place and not the other?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 MECHANISM: the machine ================= -->
+<section class="ep" id="s4" data-duration="122.8">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">The Machine</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Mechanism · the machine nobody sees</div>
+    <h2>Written in each country's own blood.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <!-- station 1: the chain -->
+        <g id="m_chain">
+          <g id="c_row" class="b" data-tip="The whole chain must work at 5:58 on a Saturday: sensors along the faults, data lines, software deciding in ~2 seconds, a channel with the legal right to seize every TV and phone, and a population drilled since school.">
+            <rect x="110" y="90" width="280" height="90" class="nodebox"/>
+            <text x="134" y="128" class="strong" font-size="14">THOUSANDS OF SENSORS</text>
+            <text x="134" y="156" font-size="13">DETECTING NOTHING, MOSTLY</text>
+            <rect x="430" y="90" width="280" height="90" class="nodebox"/>
+            <text x="454" y="128" class="strong" font-size="14">SOFTWARE DECIDES IN ~2 s</text>
+            <text x="454" y="156" font-size="13">REAL QUAKE OR PASSING TRUCK</text>
+            <rect x="750" y="90" width="280" height="90" class="nodebox"/>
+            <text x="774" y="128" class="strong" font-size="14">RIGHT TO SEIZE EVERY PHONE</text>
+            <text x="774" y="156" font-size="13">TV · RADIO · CELL, AT ONCE</text>
+            <rect x="1070" y="90" width="280" height="90" class="nodebox"/>
+            <text x="1094" y="128" class="strong" font-size="14">A DRILLED POPULATION</text>
+            <text x="1094" y="156" font-size="13">KNOWS ITS 10 SECONDS</text>
+            <path class="hair" d="M 390 135 L 430 135"/><path class="hair" d="M 710 135 L 750 135"/><path class="hair" d="M 1030 135 L 1070 135"/>
+          </g>
+          <g id="c_cut" class="b">
+            <rect x="110" y="220" width="1260" height="70" fill="var(--flaw)"/>
+            <text x="740" y="264" text-anchor="middle" class="onplate strong" font-size="18">IN A CALM YEAR'S BUDGET, A MACHINE THAT DOES NOTHING HAS ANOTHER NAME: A CUT</text>
+          </g>
+        </g>
+        <!-- station 2: blood timeline -->
+        <g id="m_blood" class="b" data-tip="Mexico: 1985 M8.0 kills thousands (estimates to 10,000) → 1991 SASMEX → 1993 world's first public broadcast. Japan: Kobe 1995 (6,000+ dead) → 2007 nationwide auto alerts. US: decades of California damage → 2019 ShakeAlert.">
+          <text x="110" y="90" class="strong" font-size="16">EVERY WARNING LAW — WRITTEN AFTER ITS OWN CATASTROPHE</text>
+          <line x1="150" y1="160" x2="1330" y2="160" class="ink"/>
+          <circle cx="230" cy="160" r="9" fill="var(--flaw)"/>
+          <text x="230" y="130" text-anchor="middle" class="flawtxt" font-size="14">1985</text>
+          <text x="230" y="200" text-anchor="middle" font-size="13">MEXICO: ~10,000 DEAD</text>
+          <circle cx="430" cy="160" r="9" fill="var(--alt)"/>
+          <text x="430" y="130" text-anchor="middle" font-size="14">1991–93</text>
+          <text x="430" y="200" text-anchor="middle" font-size="13">SASMEX · PUBLIC SIRENS</text>
+          <circle cx="640" cy="160" r="9" fill="var(--flaw)"/>
+          <text x="640" y="130" text-anchor="middle" class="flawtxt" font-size="14">1995</text>
+          <text x="640" y="200" text-anchor="middle" font-size="13">KOBE, 6,000+ DEAD</text>
+          <circle cx="840" cy="160" r="9" fill="var(--alt)"/>
+          <text x="840" y="130" text-anchor="middle" font-size="14">2007</text>
+          <text x="840" y="200" text-anchor="middle" font-size="13">JAPAN: AUTO ALERTS</text>
+          <circle cx="1060" cy="160" r="9" fill="var(--alt)"/>
+          <text x="1060" y="130" text-anchor="middle" font-size="14">2019–21</text>
+          <text x="1060" y="200" text-anchor="middle" font-size="13">US SHAKEALERT</text>
+          <circle cx="1270" cy="160" r="9" fill="var(--flaw)"/>
+          <text x="1270" y="130" text-anchor="middle" class="flawtxt" font-size="14">2026</text>
+          <text x="1270" y="200" text-anchor="middle" class="flawtxt" font-size="13">FLORES · PEREIRA: 0 s</text>
+          <text x="740" y="260" text-anchor="middle" class="strong" font-size="15">A FOREIGN CATASTROPHE DOESN'T WRITE LAWS — MEXICO'S SIRENS HAVE RUN FOR 35 YEARS</text>
+        </g>
+        <!-- station 3: buoys -->
+        <g id="m_buoys" class="b" data-tip="After 2004, donors funded 22 tsunami buoys for Indonesia. By 2012 all 22 were dead — vandalised, stolen for parts, or unrepaired with no maintenance budget. Palu 2018: the warning ran with zero working buoys.">
+          <text x="110" y="330" class="strong" font-size="16">INDONESIA'S OWN PROOF — THE DONATED SENSORS</text>
+          <rect x="110" y="360" width="380" height="90" class="nodebox"/>
+          <text x="134" y="396" class="fact strong" font-size="14">2004: 22 BUOYS, GIFTED</text>
+          <text x="134" y="428" font-size="13">GERMAN AND US DONORS</text>
+          <rect x="550" y="360" width="380" height="90" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="574" y="396" class="flawtxt strong" font-size="14">2012: ALL 22 DEAD</text>
+          <text x="574" y="428" font-size="13">VANDALISED · STOLEN · UNREPAIRED</text>
+          <rect x="990" y="360" width="380" height="90" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1014" y="396" class="flawtxt strong" font-size="14">2018 PALU: 0 WORKING</text>
+          <text x="1014" y="428" font-size="13">THE GIFT BOUGHT SENSORS, NOT UPKEEP</text>
+          <path class="hair" d="M 490 405 L 550 405"/><path class="hair" d="M 930 405 L 990 405"/>
+          <g id="m_sub">
+            <rect x="110" y="490" width="1260" height="70" fill="var(--flaw)"/>
+            <text x="740" y="534" text-anchor="middle" class="onplate big" font-size="21">EQUIPMENT IS A PURCHASE. SECONDS ARE A SUBSCRIPTION.</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 5 — the boring chain, the laws written in blood, and the buoys that died</div>
+    <div class="prose">
+      <p>Between the wave and your phone stands a machine, and the machine is boring: thousands of sensors, data lines that work at 5:58 on a Saturday morning, software deciding in two seconds, a channel with the legal right to seize every TV and phone at once, and people who have drilled their ten seconds since school. All of it has to be paid for every single year — for sensors that spend almost their entire lives detecting nothing. In a calm year's budget, a machine that does nothing has another name: a cut.</p>
+      <p>Which is why the list of owners follows one grim pattern. Mexico built its system only after 1985, when a magnitude-eight quake killed thousands in Mexico City. Japan switched on nationwide alerts in 2007 — after Kobe killed more than six thousand. Every one of these laws was written in its own country's blood; a foreign catastrophe doesn't write laws. And Indonesia proved the other half itself: twenty-two donated tsunami buoys, all dead within eight years, no money assigned to fix them. When Palu was hit in 2018, not one worked. Equipment is a purchase. Seconds are a subscription.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 ALTERNATIVES ================= -->
+<section class="ep" id="s5" data-duration="189.4">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">What If</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · three ways to buy the seconds</div>
+    <h2>Three designs, three currencies.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <!-- A: state machine -->
+        <g id="a_state" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN ONE · THE STATE MACHINE — MEXICO'S WAY, JAPAN'S WAY</text>
+          <g id="a_s1" class="b">
+            <rect x="110" y="110" width="1260" height="96" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="150" class="alttxt strong" font-size="15">A LAW NAMES ONE AGENCY AS OWNER OF THE WHOLE CHAIN — SENSOR TO SIREN</text>
+            <text x="134" y="184" font-size="14">AND FUNDS IT PERMANENTLY · WHEN IT FAILS, THE FAILURE HAS AN ADDRESS</text>
+          </g>
+          <g id="a_scost" class="b">
+            <rect x="110" y="240" width="1260" height="280" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="280" class="flawtxt strong" font-size="15">THE PRICE:</text>
+            <text x="134" y="320" font-size="14">A STANDING BUDGET LINE THAT MUST SURVIVE EVERY CALM YEAR</text>
+            <text x="134" y="352" font-size="14">FALSE ALARMS THE PUBLIC HAS TO FORGIVE · DRILLS THAT NEVER STOP</text>
+            <text x="134" y="392" font-size="14">THE EXPENSIVE WAY — SENSORS THAT MOSTLY DETECT NOTHING, PAID YEARLY</text>
+            <text x="134" y="490" class="flawtxt strong" font-size="16">CURRENCY: PERMANENT MONEY — WITH AN ANSWERABLE OWNER</text>
+          </g>
+        </g>
+        <!-- B: free layer -->
+        <g id="a_free" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN TWO · THE FREE LAYER — ANDROID PHONES AS SENSORS</text>
+          <g id="a_f1" class="b">
+            <rect x="110" y="110" width="1260" height="96" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="150" class="alttxt strong" font-size="15">SINCE 2020 · ~100 COUNTRIES, INDONESIA AND COLOMBIA INCLUDED · GOVERNMENTS PAY NOTHING</text>
+            <text x="134" y="184" font-size="14">EVERY HANDSET A TINY SENSOR · NO LAW REQUIRED</text>
+          </g>
+          <g id="a_fcost" class="b">
+            <rect x="110" y="240" width="1260" height="280" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="280" class="flawtxt strong" font-size="15">THE PRICE — TURKEY, 4:17 AM, FEB 2023:</text>
+            <text x="134" y="320" font-size="14">M7.8 READ AS ~M4.5 · LOUD WAKE-YOU-UP ALARM DUE TO 10,000,000 PEOPLE</text>
+            <text x="134" y="352" class="flawtxt" font-size="14">IT REACHED 469 · HALF A MILLION GOT A SILENT NOTE THAT DOESN'T WAKE A PHONE</text>
+            <text x="134" y="392" font-size="14">ADMISSION CAME 2.5 YEARS LATER, IN A JOURNAL — NO PARLIAMENT CAN SUMMON IT</text>
+            <text x="134" y="424" font-size="14">GOOGLE'S OWN WORDS: A SUPPLEMENT, NOT A REPLACEMENT</text>
+            <text x="134" y="490" class="flawtxt strong" font-size="16">CURRENCY: ACCOUNTABILITY — FREE SECONDS ARE SECONDS NOBODY OWES YOU</text>
+          </g>
+        </g>
+        <!-- C: population -->
+        <g id="a_people" class="b">
+          <text x="110" y="80" class="alttxt" font-size="17">DESIGN THREE · MAKE THE POPULATION THE SENSOR</text>
+          <g id="a_p1" class="b">
+            <rect x="110" y="110" width="1260" height="96" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <text x="134" y="150" class="alttxt strong" font-size="15">SIMEULUE 2004: THE WORD "SMONG" — LONG SHAKING MEANS RUN UPHILL, NOW</text>
+            <text x="134" y="184" font-size="14">80,000 PEOPLE, A HANDFUL DIED · CHILE DRILLS IT NATIONWIDE: THE SHAKING IS THE WARNING</text>
+          </g>
+          <g id="a_pcost" class="b">
+            <rect x="110" y="240" width="1260" height="280" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+            <text x="134" y="280" class="flawtxt strong" font-size="15">THE PRICE:</text>
+            <text x="134" y="320" font-size="14">DECADES OF PATIENT EDUCATION BEFORE IT WORKS</text>
+            <text x="134" y="352" font-size="14">ONLY WORKS WHERE THE SHAKING IS FELT — A DISTANT WAVE FROM A QUIET SEA GIVES NO CUE</text>
+            <text x="134" y="392" font-size="14">MEMORY FADES — ABOUT ONE GENERATION AFTER THE LAST DISASTER</text>
+            <text x="134" y="424" font-size="14">NOT EXCLUSIVE: JAPAN RUNS THE MACHINE AND THE DRILLS AT ONCE</text>
+            <text x="134" y="490" class="flawtxt strong" font-size="16">CURRENCY: PATIENCE — AND IT CANNOT COVER EVERY CASE</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">State machine</button><button id="btnR1">Free layer</button><button id="btnR2">Population</button>
+    </div>
+    <div class="figcap">Fig. 6 — three ways to buy the seconds. Click to compare.</div>
+    <div class="prose">
+      <p>Design one: the state machine. A law names one agency as the owner of the whole chain, from sensor to siren, and funds it permanently. The currency is a standing budget line that survives every calm year, false alarms the public has to forgive, and drills that never stop. Expensive — but when it fails, the failure has an address. Design two: the free layer. Since 2020, Google has run a warning system built from Android phones — about a hundred countries, including Indonesia and Colombia, at no cost to their governments. The currency is accountability, and Turkey found the price: a 7.8 read as a 4.5, four hundred and sixty-nine loud alarms where ten million were due, and an admission that came two and a half years later in a journal — because no parliament can summon it. Were phones buzzing on Flores that morning? Nobody can compel an answer. That is what zero official seconds means.</p>
+      <p>Design three: make the population the sensor. On Simeulue, a word passed down from grandparents — smong, long shaking means run uphill — saved an island the 2004 wave reached in minutes. Chile drills the same doctrine nationwide: strong, long shaking IS the warning. The currency is decades of patient education; it only works where the shaking is felt, and the memory fades a generation after the last disaster. Nothing here is exclusive — Japan runs the machine and the drills at once. The question is whether a country runs any of them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 CLOSE ================= -->
+<section class="ep" id="s6" data-duration="64.6">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">The Close</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Close · the question to carry</div>
+    <h2>Zero is not the price. It's the down payment.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg6">
+        <g id="z_recall" class="b">
+          <rect x="180" y="80" width="420" height="120" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          <text x="390" y="132" text-anchor="middle" class="fact strong" font-size="21">THE SECONDS WERE THERE</text>
+          <text x="390" y="170" text-anchor="middle" font-size="14">FREE, IN THE GROUND, EVERY QUAKE</text>
+          <rect x="880" y="80" width="420" height="120" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1090" y="132" text-anchor="middle" class="flawtxt strong" style="fill:var(--flaw)" font-size="21">NOTHING CAUGHT THEM</text>
+          <text x="1090" y="170" text-anchor="middle" font-size="14">THAT WAS DECIDED DECADES AGO</text>
+          <path class="hair" d="M 600 140 L 880 140"/>
+        </g>
+        <g id="z_cur" class="b">
+          <rect x="140" y="240" width="380" height="90" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="330" y="278" text-anchor="middle" class="alttxt" font-size="14">A BUDGET LINE</text>
+          <text x="330" y="306" text-anchor="middle" font-size="13">WITH AN OWNER'S NAME ON IT</text>
+          <rect x="550" y="240" width="380" height="90" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="740" y="278" text-anchor="middle" class="alttxt" font-size="14">A FREE APP</text>
+          <text x="740" y="306" text-anchor="middle" font-size="13">THAT ANSWERS TO NO ONE</text>
+          <rect x="960" y="240" width="380" height="90" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="1150" y="278" text-anchor="middle" class="alttxt" font-size="14">A STORY</text>
+          <text x="1150" y="306" text-anchor="middle" font-size="13">TAUGHT TO CHILDREN</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="396" text-anchor="middle" class="big" font-size="24">HOW MANY SECONDS HAS YOUR COUNTRY BOUGHT — AND IN WHICH CURRENCY?</text>
+          <text x="740" y="446" text-anchor="middle" font-size="17">EVERY WARNING LAW SO FAR WAS PAID FOR IN ITS OWN COUNTRY'S BLOOD FIRST</text>
+          <text x="740" y="482" text-anchor="middle" class="flawtxt" font-size="17">IF YOUR SECONDS STILL COST ZERO — THAT ZERO IS THE DOWN PAYMENT</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Come back to two minutes to six on Flores. The seconds were there — in the ground, free of charge, the same physics working over Flores that works over Mexico City. What differed was everything built, or never built, in the decades before: the sensors, the law that owns them, the budget line that keeps them alive, the reflex drilled into a sleeping population. None of it can be bought on the morning it's needed.</p>
+      <p>So the next time an earthquake is in the headlines, the revealing question isn't "how strong was it?" It's this: how many seconds had that country bought — and in which currency? A budget line with an owner's name on it. A free app that answers to no one. A story taught to children. And underneath sits a darker pattern: every warning law on Earth so far was paid for in its own country's blood first. If your country's seconds still cost zero, that zero is not the price. It's the down payment.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with what didn't fit the video, is on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <path d="M 140 200 L 420 200 Q 450 140 480 200 Q 510 260 540 200 Q 570 140 600 200 L 700 200" fill="none" stroke="var(--flaw)" stroke-width="9"/>
+    <path d="M 140 130 L 1120 130" fill="none" stroke="var(--fact)" stroke-width="7" stroke-dasharray="16 12"/>
+    <circle cx="1140" cy="130" r="14" fill="var(--fact)"/>
+    <text x="740" y="105" font-family="IBM Plex Mono" font-size="38" style="fill:var(--fact)">the radio message</text>
+    <text x="740" y="270" font-family="IBM Plex Mono" font-size="38" style="fill:var(--flaw)">the quake</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">60s vs 0</div>
+  <div class="sub">the warning seconds nobody bought</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <circle cx="260" cy="200" r="26" fill="var(--flaw)"/>
+    <circle cx="260" cy="200" r="70" fill="none" stroke="var(--flaw)" stroke-width="7" opacity=".7"/>
+    <circle cx="260" cy="200" r="120" fill="none" stroke="var(--flaw)" stroke-width="6" opacity=".45"/>
+    <circle cx="260" cy="200" r="170" fill="none" stroke="var(--flaw)" stroke-width="5" opacity=".25"/>
+    <text x="480" y="170" font-family="IBM Plex Mono" font-size="42" style="fill:var(--text)">two quakes, 300 dead —</text>
+    <text x="480" y="240" font-family="IBM Plex Mono" font-size="42" style="fill:var(--flaw)">and no siren existed</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">0 SECONDS</div>
+  <div class="sub">warning laws are written in blood — whose?</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8); shake(tl,'h_a',1.6,7,8); idle(tl,'h_a',7,8);
+  tl.to($('h_a'),{opacity:0,duration:.45},17.0);
+  say(tl,'h_b',17.3,.8); idle(tl,'h_b',22,7);
+  tl.to($('h_b'),{opacity:0,duration:.45},31.0);
+  say(tl,'h_c',31.3,.8); pop(tl,'h_c',31.3,.8); idle(tl,'h_c',37,8);
+  tl.to($('h_c'),{opacity:0,duration:.45},47.5);
+  say(tl,'h_d',47.8,.8); idle(tl,'h_d',53,14);
+  tl.to($('h_d'),{opacity:0,duration:.45},70.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},70.3);
+  if(isAuto)tl.to({},{duration:4.0},71.0); else tl.to($('titleCard'),{opacity:0,duration:.5},75.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_indo',0.5,.9); idle(tl,'e_indo',7,18);
+  say(tl,'e_col',30.0,.8); idle(tl,'e_col',36,14);
+  pop(tl,'e_zero',54.0,.7); shake(tl,'e_zero',55.0,5,6); idlePlate(tl,'e_zero',57,16);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_story',0.5,.9); idle(tl,'v_story',6,8);
+  say(tl,'v_chart',16.0,.9); idle(tl,'v_chart',22,10);
+  pop(tl,'v_rule',34.0,.7); shake(tl,'v_rule',35.0,5,6); idlePlate(tl,'v_rule',37,6);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'r_track',0.5,.7);
+  tl.fromTo($('r_radio'),{strokeDasharray:1000,strokeDashoffset:1000},{strokeDashoffset:0,duration:0.7,ease:'none'},2.0);
+  tl.fromTo($('r_p'),{opacity:0},{opacity:1,duration:2.2,ease:'none'},2.4);
+  tl.fromTo($('r_s'),{strokeDasharray:2200,strokeDashoffset:2200},{strokeDashoffset:0,duration:5.0,ease:'none'},2.8);
+  idle(tl,'r_track',10,20);
+  say(tl,'r_dist',34.0,.9); idle(tl,'r_dist',40,16);
+  pop(tl,'r_buy',60.0,.7); shake(tl,'r_buy',61.0,5,6); idlePlate(tl,'r_buy',63,20);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'c_row',0.5,.9); idle(tl,'c_row',7,12);
+  pop(tl,'c_cut',22.0,.7); shake(tl,'c_cut',23.0,5,6); idlePlate(tl,'c_cut',25,8);
+  tl.to($('m_chain'),{opacity:0,duration:.5},36.0);
+  tl.fromTo($('m_blood'),{opacity:0},{opacity:1,duration:.6},36.5);
+  idle(tl,'m_blood',44,20);
+  tl.to($('m_blood'),{opacity:0,duration:.5},68.0);
+  tl.fromTo($('m_buoys'),{opacity:0},{opacity:1,duration:.6},68.5);
+  tl.set($('m_sub'),{opacity:0},68.5);
+  idle(tl,'m_buoys',76,14);
+  pop(tl,'m_sub',94.0,.7); shake(tl,'m_sub',95.0,5,6);
+  tl.to($('m_sub'),{opacity:.9,duration:1.1,repeat:9,yoyo:true,ease:'sine.inOut'},97.0);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  tl.set($('a_state'),{opacity:1},0);
+  say(tl,'a_s1',0.5,.8); idle(tl,'a_s1',6,12);
+  say(tl,'a_scost',22.0,.7); idle(tl,'a_scost',27,20);
+  tl.to($('a_state'),{opacity:0,duration:.45},52.0);
+  tl.fromTo($('a_free'),{opacity:0},{opacity:1,duration:.55},52.4);
+  say(tl,'a_f1',54.0,.8); idle(tl,'a_f1',60,12);
+  say(tl,'a_fcost',76.0,.7); idle(tl,'a_fcost',81,28);
+  tl.to($('a_free'),{opacity:0,duration:.45},114.0);
+  tl.fromTo($('a_people'),{opacity:0},{opacity:1,duration:.55},114.4);
+  say(tl,'a_p1',116.0,.8); idle(tl,'a_p1',122,14);
+  pop(tl,'a_pcost',140.0,.7); shake(tl,'a_pcost',141.0,5,6); idle(tl,'a_pcost',143,18);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'z_recall',0.5,.9); idle(tl,'z_recall',6,12);
+  say(tl,'z_cur',22.0,.9); idle(tl,'z_cur',28,12);
+  say(tl,'z_q',44.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:5,yoyo:true},48.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6};
+
+const REPAIRS=['a_state','a_free','a_people'];
+function showRepair(i){
+  REPAIRS.forEach((id,k)=>{const g=$(id);
+    gsap.killTweensOf(g);gsap.set(g,{opacity:k===i?1:0});
+    if(k===i)g.querySelectorAll('.b').forEach(el=>{gsap.killTweensOf(el);gsap.set(el,{opacity:1});});});
+  REPAIRS.forEach((_,k)=>$('btnR'+k).classList.toggle('on',k===i));}
+REPAIRS.forEach((_,k)=>{$('btnR'+k).onclick=()=>showRepair(k);});
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
