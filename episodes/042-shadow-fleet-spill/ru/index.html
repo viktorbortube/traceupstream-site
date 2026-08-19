@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Разлив, за который некому платить | Дефект конструкции</title>
+<meta name="description" content="Танкер теневого флота с 800 000 баррелей российской нефти разрушается у берегов Омана, рядом с последним домом 82 аравийских горбатых китов. У мира есть трёхслойная машина оплаты разливов — ответственность владельца, обязательная страховка, международный фонд — и этот разлив выключил все три слоя: владелец-пустышка семи месяцев от роду, вычеркнутый флаг с бумагой, которая не платит, и военная оговорка, записанная при основании. Четвёртое решение — ценовой потолок, исполняемый той самой страховкой, на которой стоит машина. Три другие конструкции, у каждой своя цена.">
+<link rel="canonical" href="https://traceupstream.com/episodes/042-shadow-fleet-spill/ru/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Дефект конструкции">
+<meta property="og:title" content="Разлив, за который некому платить">
+<meta property="og:description" content="У разливов нефти есть трёхслойная мировая машина оплаты — и санкции, сжимающие российскую нефть, тихо выключили все три слоя, потому что сами работают через ту же страховку.">
+<meta property="og:url" content="https://traceupstream.com/episodes/042-shadow-fleet-spill/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#A5808C;
+  --font-display:'Onest',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .amberfill{fill:var(--flaw);opacity:.85}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:800;
+  font-size:118px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.042 — 2026-08-19</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Слушать нарацию"><span class="dot"></span><span id="listenLab">Слушать</span></button>
+
+<div id="deck">
+<!-- ================= S0 ХУК ================= -->
+<section class="ep" id="s0" data-duration="35.4">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Дефект конструкции · дело EP.042</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <path d="M 700 400 L 750 340 L 800 390 L 850 350 L 910 400 Z" fill="var(--text)" opacity=".85"/>
+          <path d="M 620 330 L 880 330 L 856 378 L 660 378 Z" fill="none" stroke="var(--text)" stroke-width="4" transform="rotate(-7 750 355)"/>
+          <ellipse cx="430" cy="415" rx="270" ry="26" fill="var(--text)" opacity=".16"/>
+          <text x="500" y="150" text-anchor="middle" class="big" font-size="44">У БЕРЕГОВ ОМАНА: ТАНКЕР</text>
+          <text x="500" y="220" text-anchor="middle" class="big" font-size="44">РАЗРУШАЕТСЯ НА КАМНЯХ</text>
+        </g>
+        <g id="h_b" class="b">
+          <text x="500" y="150" text-anchor="middle" font-size="34">СПАСЕНИЕ ОПЛАЧИВАЕТ СТРАХОВЩИК</text>
+          <text x="500" y="250" text-anchor="middle" class="big flawtxt" font-size="50">КОТОРОМУ ЗАПРЕЩЕНО ПЛАТИТЬ</text>
+        </g>
+        <g id="h_stamp" class="b">
+          <rect x="150" y="330" width="700" height="76" fill="none" stroke="var(--flaw)" stroke-width="4" transform="rotate(-3 500 368)"/>
+          <text x="500" y="378" text-anchor="middle" class="flawtxt" font-size="32" transform="rotate(-3 500 368)">САНКЦИОННОЕ РАЗРЕШЕНИЕ — ВЫДАНО</text>
+        </g>
+        <g id="h_c" class="b">
+          <text id="c_barrels" x="215" y="240" text-anchor="middle" class="big fact" font-size="56">0</text>
+          <text x="215" y="300" text-anchor="middle" font-size="34">БАРРЕЛЕЙ</text>
+          <text id="c_slick" x="520" y="240" text-anchor="middle" class="big flawtxt" font-size="56">0</text>
+          <text x="520" y="300" text-anchor="middle" font-size="34">КМ² НЕФТИ</text>
+          <text x="800" y="240" text-anchor="middle" class="big" font-size="56">$0</text>
+          <text x="800" y="300" text-anchor="middle" font-size="34">ВЫПЛАЧЕНО</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="230" text-anchor="middle" class="big" font-size="50">РАЗЛИВ, ЗА КОТОРЫЙ</text>
+          <text x="500" y="310" text-anchor="middle" class="big" font-size="50">НЕКОМУ ПЛАТИТЬ</text>
+          <text x="500" y="400" text-anchor="middle" font-size="34">ДЕФЕКТ КОНСТРУКЦИИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 1 — машина выплат ответила: некому</div>
+    <div class="prose">
+      <p>У берегов Омана на камнях разрушается танкер. А спасательную операцию оплачивает страховая компания, которой по закону запрещено платить кому бы то ни было. Чтобы спасатели имели право принять эти деньги, правительствам пришлось выдать специальные разрешения. И вот что странно: это самая исправная часть всей истории. Потому что машина, которую мир построил, чтобы платить за разливы нефти, на этот раз ответила: платить некому.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 СОБЫТИЕ ================= -->
+<section class="ep" id="s1" data-duration="72.3">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">Событие</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Событие · «Каролина Безенги», июнь–август 2026</div>
+    <h2>800 000 баррелей — на камнях у китового заповедника.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_map" class="b" data-tip="Суэцмакс, 2001 года, 247 м, под санкциями Британии и ЕС. Загрузился российской нефтью в Новороссийске весной, в конце мая прошёл Суэц, шёл в Азию (по сообщениям — в Индию). Источники: Reuters через CBS, The Week.">
+          <text x="120" y="70" class="strong" font-size="16">МАРШРУТ · ВЕСНА 2026</text>
+          <path id="routeLine" class="blue" d="M 160 130 C 260 150 300 190 380 200 C 500 215 560 190 640 230 C 720 270 760 330 860 350 C 940 366 1000 340 1060 330"/>
+          <circle cx="160" cy="130" r="8" fill="var(--fact)"/>
+          <text x="160" y="105" text-anchor="middle" font-size="14">НОВОРОССИЙСК · ЧЁРНОЕ МОРЕ</text>
+          <circle cx="640" cy="230" r="8" fill="var(--fact)"/>
+          <text x="640" y="205" text-anchor="middle" font-size="14">СУЭЦ · КОНЕЦ МАЯ</text>
+          <text x="200" y="330" font-size="15" class="fact strong">25 ЛЕТ · 800 000 БАРРЕЛЕЙ · ПОД САНКЦИЯМИ</text>
+        </g>
+        <g id="e_x" class="b" data-tip="8 июня: взрыв в машинном отделении; экипаж благополучно эвакуирован; никто не взял взрыв на себя и не объяснил его. Брошенный танкер дрейфовал, пока не сел на камни у побережья Дофара (Оман), рядом с морским заповедником. Первая нефть на спутниковых снимках — 30 июня.">
+          <path d="M 1060 330 L 1040 300 L 1075 315 L 1070 280 L 1095 310 L 1120 285 L 1110 320 L 1145 315 L 1115 340 L 1140 360 L 1100 352 L 1095 385 L 1075 350 L 1045 365 Z" fill="var(--flaw)" opacity=".9"/>
+          <text x="990" y="250" text-anchor="middle" class="flawtxt strong" font-size="16">8 ИЮНЯ, У ЙЕМЕНА · ВЗРЫВ — НИКЕМ НЕ ОБЪЯСНЁН</text>
+          <path id="driftLine" class="amber" stroke-dasharray="9 8" d="M 1100 330 C 1170 310 1230 280 1270 240"/>
+          <circle cx="1284" cy="232" r="9" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1270" y="200" text-anchor="middle" class="strong" font-size="15">ДРЕЙФ → НА КАМНИ · ОМАН</text>
+        </g>
+        <g id="e_whale" class="b" data-tip="Аравийская популяция горбатых китов не мигрирует и под угрозой исчезновения — около 82 особей. Воды у места крушения входят в недавно созданный морской заповедник; там же — сокотрские бакланы и черепахи. Источники: Greenpeace, Tech Times по оценкам исследований.">
+          <rect x="1090" y="440" width="330" height="120" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <path d="M 1130 520 q 30 -26 60 0 q 12 10 24 2 l -8 14 q -40 18 -76 -2 Z" fill="var(--text)" opacity=".75"/>
+          <text x="1255" y="485" text-anchor="middle" class="strong" font-size="15">ОСТАЛОСЬ 82 КИТА</text>
+          <text x="1255" y="513" text-anchor="middle" font-size="13">ОНИ НЕ МИГРИРУЮТ</text>
+        </g>
+        <g id="e_slick" class="b" data-tip="Рост пятна по спутниковым снимкам: ~45 км² к 26 июля (Greenpeace), ~600 км² к 4 августа, более 2 000 км² к 12 августа (Джон Эймос, SkyTruth). Нефть на берегу у Рас-Мадрака, в 200+ км от крушения (Агентство по окружающей среде Омана).">
+          <circle cx="330" cy="450" r="22" fill="var(--text)" opacity=".25"/>
+          <text x="330" y="405" text-anchor="middle" font-size="13">26 ИЮЛЯ · 45 КМ²</text>
+          <circle cx="520" cy="450" r="46" fill="var(--text)" opacity=".35"/>
+          <text x="520" y="385" text-anchor="middle" font-size="13">4 АВГ · 600 КМ²</text>
+          <circle cx="790" cy="455" r="78" fill="var(--text)" opacity=".5"/>
+          <text x="890" y="436" class="strong" font-size="16">12 АВГ · 2 000+ КМ²</text>
+          <g id="e_shore">
+            <rect x="120" y="510" width="760" height="60" fill="var(--flaw)"/>
+            <text x="500" y="548" text-anchor="middle" class="onplate strong" font-size="17">НЕФТЬ НА БЕРЕГУ — В 200 КМ ОТ КРУШЕНИЯ</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 2 — одно судно, один взрыв, пятно больше города</div>
+    <div class="prose">
+      <p>Судно называется «Каролина Безенги». Ему двадцать пять лет, в длину оно больше двух футбольных полей. На борту было около восьмисот тысяч баррелей российской нефти, путь лежал из Чёрного моря в Азию. Восьмого июня где-то у берегов Йемена в машинном отделении прогремел взрыв. Никто не взял его на себя, и никто его не объяснил. Но судно шло по кромке войны, по водам, где корабли уже получали удары. Экипаж благополучно покинул борт. Танкер, без людей и с полными танками, дрейфовал, пока не сел на камни на юге Омана, прямо возле морского заповедника.</p>
+      <p>Этот заповедник — один из последних домов аравийского горбатого кита. По оценкам, их осталось восемьдесят два. И они не мигрируют: что случится с этим берегом, случится с ними. К середине августа пятно разрослось больше чем на две тысячи квадратных километров — это больше крупного города. Нефть выносит на пляжи в двухстах километрах от места крушения.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 ПОВОРОТ ================= -->
+<section class="ep" id="s2" data-duration="36.5">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">Поворот</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Поворот · вопрос, который решает судьбу берега</div>
+    <h2>Другой вопрос: кто платит?</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_q1" class="b">
+          <rect x="440" y="70" width="600" height="110" class="nodebox"/>
+          <text x="740" y="115" text-anchor="middle" class="big" font-size="22">БЫЛ ЛИ ЭТО УДАР — И ЧЕЙ?</text>
+          <text x="740" y="152" text-anchor="middle" font-size="14">ОТВЕТА МОЖЕТ НЕ БЫТЬ НИКОГДА</text>
+        </g>
+        <g id="v_q2" class="b">
+          <text x="740" y="145" text-anchor="middle" class="big" font-size="52">КТО ПЛАТИТ?</text>
+        </g>
+        <g id="v_mach" class="b" data-tip="Построена после 1967 года: строгая ответственность владельца (Конвенция о гражданской ответственности 1969), обязательная страховка с прямым иском пострадавших и межгосударственные фонды IOPC (1971, обновлены в 1992) — участвовали более чем в сотне танкерных инцидентов.">
+          <text x="740" y="230" text-anchor="middle" class="strong" font-size="16">МАШИНА ВЫПЛАТ · 50+ ЛЕТ · 100+ ОПЛАЧЕННЫХ РАЗЛИВОВ</text>
+          <rect x="360" y="260" width="760" height="54" class="nodebox"/>
+          <text x="740" y="294" text-anchor="middle" class="fact strong" font-size="16">СЛОЙ 1 · ВЛАДЕЛЕЦ</text>
+          <rect x="360" y="330" width="760" height="54" class="nodebox"/>
+          <text x="740" y="364" text-anchor="middle" class="fact strong" font-size="16">СЛОЙ 2 · СТРАХОВЩИК</text>
+          <rect x="360" y="400" width="760" height="54" class="nodebox"/>
+          <text x="740" y="434" text-anchor="middle" class="fact strong" font-size="16">СЛОЙ 3 · ФОНД</text>
+        </g>
+        <g id="v_off" class="b">
+          <text x="310" y="296" text-anchor="middle" class="flawtxt big" font-size="26">⚠</text>
+          <text x="310" y="366" text-anchor="middle" class="flawtxt big" font-size="26">⚠</text>
+          <text x="310" y="436" text-anchor="middle" class="flawtxt big" font-size="26">⚠</text>
+          <text x="1240" y="360" text-anchor="middle" class="flawtxt strong" font-size="17">ВЫКЛЮЧИЛАСЬ</text>
+          <text x="1240" y="390" text-anchor="middle" class="flawtxt strong" font-size="17">САМА</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 3 — машина сверилась с собственными правилами</div>
+    <div class="prose">
+      <p>Почти все новости гонятся за одним вопросом: был ли это удар, и если да, то чей? Ответа может не быть никогда. Но есть второй вопрос, и именно он решает судьбу этого берега: кто платит? Этот вопрос не должен быть трудным. У мира есть на него готовый ответ. Настоящая машина из договоров, страховок и общего фонда, которая за пятьдесят с лишним лет платила после более чем сотни танкерных разливов. В этот раз машина сверилась с собственными правилами и выключилась.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 МАШИНА ================= -->
+<section class="ep" id="s3" data-duration="82.5">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Машина</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Механизм · три сетки под канатоходцем</div>
+    <h2>Родилась в 1967-м, из двух дней бомбёжки.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="m_tc">
+          <g id="m_tc1" class="b" data-tip="Март 1967: «Торри Каньон» налетел на скалу у Корнуолла со ~120 000 тонн нефти — первая катастрофа супертанкера. Правил не было, и Британия послала бомбардировщики поджечь пятно; затем Франция и Британия продвинули Конвенцию 1969 года и Фонд 1971 года.">
+            <text x="120" y="90" class="strong" font-size="17">1967 · «ТОРРИ КАНЬОН» НАЛЕТАЕТ НА РИФ У АНГЛИИ</text>
+            <path id="tc_plane1" d="M 200 180 l 44 12 l -44 12 l 10 -12 Z" fill="var(--text)"/>
+            <path id="tc_plane2" d="M 150 230 l 44 12 l -44 12 l 10 -12 Z" fill="var(--text)"/>
+            <ellipse cx="640" cy="330" rx="330" ry="34" fill="var(--text)" opacity=".2"/>
+            <path id="tc_fire" d="M 480 300 q 14 -34 30 0 q 16 -44 34 0 q 14 -30 28 0 q 18 -40 34 0 q 14 -28 30 0" fill="none" stroke="var(--flaw)" stroke-width="4"/>
+            <text x="640" y="410" text-anchor="middle" class="flawtxt strong" font-size="17">ПРАВИЛ НЕ БЫЛО — ЮРИДИЧЕСКИМ ИНСТРУМЕНТОМ СТАЛА АВИАЦИЯ</text>
+            <text x="640" y="446" text-anchor="middle" font-size="15">ДВА ДНЯ БОМБИЛИ СОБСТВЕННЫЙ БЕРЕГ, ЧТОБЫ ВЫЖЕЧЬ НЕФТЬ</text>
+          </g>
+          <g id="m_tc2" class="b">
+            <rect x="120" y="490" width="1240" height="64" fill="var(--fact)" opacity=".9"/>
+            <text x="740" y="530" text-anchor="middle" class="onplate strong" font-size="18">ТАК ИМПРОВИЗИРОВАТЬ БОЛЬШЕ НЕ ХОТЕЛ НИКТО — И ПОСТРОИЛИ МАШИНУ</text>
+          </g>
+        </g>
+        <g id="m_nets" class="b">
+          <line x1="200" y1="70" x2="1280" y2="70" class="ink"/>
+          <circle cx="740" cy="70" r="7" fill="var(--text)"/>
+          <text x="740" y="48" text-anchor="middle" font-size="14">КАЖДЫЙ РЕЙС ТАНКЕРА · КАНАТ</text>
+          <g id="m_n1" data-tip="Сетка 1 — Конвенция о гражданской ответственности 1969/1992: зарегистрированный владелец отвечает за загрязнение без доказательства вины. Ответственность «канализирована»: иски идут к владельцу, а не к экипажу, фрахтователю или менеджеру.">
+            <path class="blue" d="M 300 150 Q 740 230 1180 150"/>
+            <circle cx="300" cy="150" r="8" fill="none" stroke="var(--fact)" stroke-width="3"/>
+            <circle cx="1180" cy="150" r="8" fill="none" stroke="var(--fact)" stroke-width="3"/>
+            <text x="740" y="140" text-anchor="middle" class="fact strong" font-size="17">СЕТКА 1 · ПЛАТИТ ВЛАДЕЛЕЦ — ВИНА НЕ НУЖНА</text>
+          </g>
+          <g id="m_n2" data-tip="Сетка 2 — обязательная страховка для танкеров с 2 000+ тонн груза, с ПРЯМЫМ ИСКОМ: пострадавшие судятся с самим страховщиком, даже если владелец исчез. Сертификат выдаёт государство флага.">
+            <path class="blue" d="M 300 280 Q 740 360 1180 280"/>
+            <circle cx="300" cy="280" r="8" fill="none" stroke="var(--fact)" stroke-width="3"/>
+            <circle cx="1180" cy="280" r="8" fill="none" stroke="var(--fact)" stroke-width="3"/>
+            <text x="740" y="270" text-anchor="middle" class="fact strong" font-size="17">СЕТКА 2 · СТРАХОВКА ПО ЗАКОНУ — СЧЁТ СТРАХОВЩИКУ НАПРЯМУЮ</text>
+          </g>
+          <g id="m_n3" data-tip="Сетка 3 — фонды IOPC (1971/1992), взносы платят получатели нефти в странах-участницах; потолок 203 млн СДР (≈289 млн долларов) на инцидент, включая то, что уже заплатил владелец. Оман — участник.">
+            <path class="blue" d="M 300 410 Q 740 490 1180 410"/>
+            <circle cx="300" cy="410" r="8" fill="none" stroke="var(--fact)" stroke-width="3"/>
+            <circle cx="1180" cy="410" r="8" fill="none" stroke="var(--fact)" stroke-width="3"/>
+            <text x="740" y="400" text-anchor="middle" class="fact strong" font-size="17">СЕТКА 3 · МИРОВОЙ ФОНД — ≈ $290 МЛН НА КАТАСТРОФУ</text>
+            <text x="740" y="470" text-anchor="middle" font-size="14">ЕГО НАПОЛНЯЮТ ИМПОРТЁРЫ НЕФТИ ВСЕГО МИРА</text>
+          </g>
+          <g id="m_beach">
+            <line x1="200" y1="545" x2="1280" y2="545" class="ink"/>
+            <text x="740" y="580" text-anchor="middle" font-size="14">БЕРЕГ — КУДА ПАДАЕТ СЧЁТ, ЕСЛИ ВСЕ СЕТКИ ОТКАЗАЛИ</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 4 — владелец, страховщик, фонд: три сетки одна под другой</div>
+    <div class="prose">
+      <p>Машина родилась в тысяча девятьсот шестьдесят седьмом году, когда супертанкер «Торри Каньон» налетел на риф у берегов Англии. Правил для катастрофы такого размера не существовало. Лучшим юридическим инструментом Британии оказались военно-воздушные силы: два дня страна бомбила собственное побережье, пытаясь выжечь нефть с воды. Импровизировать так ещё раз не хотел никто. И правительства построили систему безопасности. Проще всего представить её как три сетки, натянутые одна под другой, как под канатоходцем в цирке.</p>
+      <p>Сетка первая: платит судовладелец. Без суда о том, кто виноват. Если разлилось с твоего судна — ты и должен. Сетка вторая: владелец обязан по закону иметь страховку, и пострадавшие могут выставить счёт напрямую страховщику. Даже если владелец исчез, страховка стоит на месте, и её имя написано в сертификате. Сетка третья: если ущерб больше, чем выдержат первые две, вступает международный фонд. Его наполняют импортёры нефти по всему миру, и на одну катастрофу в нём есть примерно двести девяносто миллионов долларов.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 ТРИ ВЫКЛЮЧАТЕЛЯ ================= -->
+<section class="ep" id="s4" data-duration="116.1">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Выключатели</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · каждая сетка висит на правиле с выключателем</div>
+    <h2>Бумажный владелец. Арендованный флаг. Военная оговорка.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="w_head" class="b">
+          <text x="120" y="60" class="strong" font-size="16">ЧТО СЛУЧИЛОСЬ С КАЖДОЙ СЕТКОЙ — ПРАВИЛО ЗА ПРАВИЛОМ</text>
+        </g>
+        <g id="w_o" class="b" data-tip="Зарегистрированный владелец: по данным Reuters, компания-пустышка в Шанхае, созданная примерно за семь месяцев до аварии; менеджер сидит по тому же адресу. На запросы никто не отвечает. Строгая ответственность указывает на имя — а кроме имени ничего и нет.">
+          <path class="amber" stroke-dasharray="6 6" d="M 120 130 Q 400 190 680 130" opacity=".8"/>
+          <text x="140" y="105" class="strong" font-size="16">СЕТКА 1 · ВЛАДЕЛЕЦ</text>
+          <rect x="740" y="80" width="620" height="110" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="764" y="118" class="flawtxt strong" font-size="15">БУМАЖНАЯ КОМПАНИЯ В ШАНХАЕ · 7 МЕСЯЦЕВ ОТ РОДУ</text>
+          <text x="764" y="150" font-size="14">БОЛЬШЕ НИЧЕМ НЕ ВЛАДЕЕТ · НЕ БЕРЁТ ТРУБКУ</text>
+          <text x="764" y="178" font-size="14">ПРАВИЛО ПРО ИМЯ В РЕЕСТРЕ — ИСПОЛНЕНО ИМЕНЕМ В РЕЕСТРЕ</text>
+        </g>
+        <g id="w_i" class="b" data-tip="Флаг: Камерун — в июне вычеркнул судно из реестра вместе с десятками других теневых танкеров (39 за один раз). Покрытия International Group нет. По данным Lloyd's List, спасоперацию финансирует подсанкционный российский страховщик — легально только после санкционных разрешений.">
+          <path class="amber" stroke-dasharray="6 6" d="M 120 270 Q 400 330 680 270" opacity=".8"/>
+          <text x="140" y="245" class="strong" font-size="16">СЕТКА 2 · СТРАХОВЩИК</text>
+          <rect x="740" y="220" width="620" height="140" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="764" y="256" class="flawtxt strong" font-size="15">ФЛАГ: КАМЕРУН — ВЫЧЕРКНУЛ СУДНО В ИЮНЕ</text>
+          <text x="764" y="286" font-size="14">СЕРТИФИКАТ ВЫГЛЯДИТ ВЕРНО · НЕ ПЛАТИТ НИЧЕГО</text>
+          <text x="764" y="314" font-size="14">ЕДИНСТВЕННЫЕ ДЕНЬГИ — ПОДСАНКЦИОННЫЙ СТРАХОВЩИК, ПО РАЗРЕШЕНИЯМ</text>
+          <text x="764" y="342" font-size="14">МОЖЕТ ПЛАТИТЬ СПАСАТЕЛЯМ · БЕРЕГ СЧЁТ НЕ ВЫСТАВИТ</text>
+        </g>
+        <g id="w_f" class="b" data-tip="Конвенция о Фонде 1992 года вслед за Конвенцией 1969-го: компенсации нет за ущерб от «военных действий, боевых действий, гражданской войны или мятежа». IOPC заявили Reuters, что инцидент трактуется как военное действие — фонд не участвует, хотя Оман платящий член.">
+          <path class="amber" stroke-dasharray="6 6" d="M 120 410 Q 400 470 680 410" opacity=".8"/>
+          <text x="140" y="385" class="strong" font-size="16">СЕТКА 3 · ФОНД</text>
+          <rect x="740" y="380" width="620" height="110" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="764" y="418" class="flawtxt strong" font-size="15">ОГОВОРКА ОСНОВАНИЯ: ЗА ВОЕННЫЕ ДЕЙСТВИЯ НЕ ПЛАТИМ</text>
+          <text x="764" y="448" font-size="14">ПИСАЛАСЬ ДЛЯ ВОЙН «ФЛОТ ПРОТИВ ФЛОТА» — ДЕСЯТИЛЕТИЯ НАЗАД</text>
+          <text x="764" y="476" font-size="14">ОМАН — УЧАСТНИК ФОНДА, НО ФОНД ОТСТУПИЛ</text>
+        </g>
+        <g id="w_sum" class="b">
+          <rect x="120" y="520" width="1240" height="60" fill="var(--flaw)"/>
+          <text x="740" y="558" text-anchor="middle" class="onplate strong" font-size="18">ТРИ СЕТКИ · ТРИ ПРАВИЛА · ТРИ ВЫКЛЮЧАТЕЛЯ — И ВСЕ ЩЁЛКНУЛИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 5 — машина отказала ровно по своим же правилам</div>
+    <div class="prose">
+      <p>А теперь смотрите, что случилось с каждой сеткой. Каждая висит на написанном правиле, и у каждого правила есть выключатель. Правило первой сетки: платит зарегистрированный владелец. Зарегистрированный владелец «Каролины Безенги» — бумажная компания в Шанхае, созданная примерно за семь месяцев до аварии. У неё нет других активов. Она не берёт трубку. Правило, которое указывает на имя в реестре, можно исполнить именем в реестре.</p>
+      <p>Правило второй сетки: страховой сертификат заверяет государство флага. Но флаг — это услуга, которую судно может арендовать и поменять. Этот танкер ходил под флагом Камеруна. В июне Камерун вычеркнул его из своего реестра вместе с десятками других теневых танкеров. Попросите у такого судна сертификат, и вам его, скорее всего, покажут. Бумага выглядит правильно. Просто она не платит. На этом крушении единственные страховые деньги пришли от подсанкционной российской компании. Той самой, из начала этой истории, которая оплачивает спасателей через специальные разрешения. Вот как выглядит страховка вне машины: она может передать наличные спасательной команде, но берег не может выставить ей счёт.</p>
+      <p>У третьей сетки есть оговорка, записанная ещё при основании машины: фонд не платит за ущерб от военных действий. Её писали для мира, где война — это флот против флота. Не для серой экономики, где гражданский танкер с гражданским грузом получает удар на обычном судоходном маршруте. Оман — платящий участник фонда. Фонд посмотрел на взрыв, назвал его военным действием и отступил в сторону.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 ЧЕТВЁРТОЕ РЕШЕНИЕ ================= -->
+<section class="ep" id="s5" data-duration="114.1">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Четвёртое решение</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · рычаг и сетки — один канат</div>
+    <h2>Флот, построенный правилом.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <g id="f_cap" class="b" data-tip="Декабрь 2022: ценовой потолок G7/ЕС на российскую морскую нефть — сначала $60, с сентября 2025 $47,60, с февраля 2026 $44,10. Рычаг: запрет западной морской страховки и услуг для груза дороже потолка. International Group страхует ~9 из 10 океанских судов.">
+          <rect x="540" y="50" width="400" height="66" class="nodebox"/>
+          <text x="740" y="92" text-anchor="middle" class="fact strong" font-size="18">ДЕК 2022 · ЦЕНОВОЙ ПОТОЛОК</text>
+          <path class="ink" d="M 740 116 L 740 170"/>
+          <rect x="480" y="170" width="520" height="56" fill="var(--fact)" opacity=".9"/>
+          <text x="740" y="206" text-anchor="middle" class="onplate strong" font-size="16">ИСПОЛНЯЕТСЯ ОДНОЙ ДЕТАЛЬЮ: СТРАХОВКОЙ</text>
+          <text x="740" y="260" text-anchor="middle" font-size="15">9 ИЗ 10 КРУПНЫХ СУДОВ — УЗКИЙ КРУГ ЗАПАДНЫХ СТРАХОВЩИКОВ</text>
+          <text x="740" y="292" text-anchor="middle" class="strong" font-size="15">ПРОДАЛ ДОРОЖЕ ПОТОЛКА → ПОТЕРЯЛ ПОКРЫТИЕ</text>
+        </g>
+        <g id="f_fleet" class="b" data-tip="S&P Global: теневые танкеры ≈17% мирового флота, удвоение с 2022. CREA (июнь 2026): подсанкционные теневые танкеры везут около двух третей российского нефтяного экспорта. Старые корпуса, владельцы-пустышки, арендованные флаги, страховщики вне досягаемости.">
+          <rect x="160" y="340" width="500" height="70" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="410" y="372" text-anchor="middle" class="fact strong" font-size="15">ЗАСТРАХОВАННЫЙ МИР</text>
+          <text x="410" y="398" text-anchor="middle" font-size="13">РОССИЙСКАЯ НЕФТЬ УШЛА — И ПРОДОЛЖИЛА ПЛАВАТЬ</text>
+          <rect x="820" y="340" width="500" height="70" fill="var(--flaw)" opacity=".88"/>
+          <text x="1070" y="372" text-anchor="middle" class="onplate strong" font-size="15">ТЕНЕВОЙ ФЛОТ · КАЖДЫЙ ПЯТЫЙ ТАНКЕР</text>
+          <text x="1070" y="398" text-anchor="middle" class="onplate" font-size="13">ВЕЗЁТ ~2/3 РОССИЙСКОЙ НЕФТИ</text>
+        </g>
+        <g id="f_rope" class="b">
+          <path class="amber" stroke-dasharray="8 7" d="M 480 210 C 340 240 300 280 290 340"/>
+          <path class="amber" stroke-dasharray="8 7" d="M 1000 210 C 1140 240 1180 280 1190 340"/>
+          <text x="740" y="330" text-anchor="middle" class="flawtxt strong" font-size="17">РЫЧАГ САНКЦИЙ И СЕТКИ ДЛЯ ПОСТРАДАВШИХ — ОДИН КАНАТ</text>
+        </g>
+        <g id="f_sum" class="b">
+          <text x="740" y="470" text-anchor="middle" font-size="15">СТАРЫЕ ДЫРЫ — БУМАЖНЫЕ ВЛАДЕЛЬЦЫ, ВОЕННАЯ ОГОВОРКА — БЫЛИ ВСЕГДА</text>
+          <rect x="160" y="500" width="1160" height="62" fill="var(--flaw)"/>
+          <text x="740" y="539" text-anchor="middle" class="onplate strong" font-size="18">ТРИ СТАРЫХ ПРАВИЛА + ОДНО НОВОЕ = ПЛАТИТ БЕРЕГ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 6 — потолок протолкнул пятую часть танкеров мира сквозь все старые дыры разом</div>
+    <div class="prose">
+      <p>А вот часть, которая превращает несчастный случай в историю о конструкции: этот флот появился не сам. В таком масштабе его построило правило. В декабре две тысячи двадцать второго года западные правительства захотели урезать нефтяные доходы России, не останавливая саму нефть. Они назначили потолок цены. А исполнять его поставили единственную деталь, которую контролировали: страховку. Девять из десяти крупных судов мира страхует узкий круг западных страховщиков. Правило гласило: везёшь российскую нефть дороже потолка — теряешь это покрытие.</p>
+      <p>Рычаг сработал. Российская нефть ушла из застрахованного мира — и продолжила плавать. Сегодня примерно каждый пятый танкер на планете принадлежит теневому флоту: старые корпуса, бумажные владельцы, арендованные флаги, страховщики, с которых нечего взять. Они везут около двух третей российского нефтяного экспорта. И вот подвох, который никто не записал в документы: рычаг санкций и страховочная сетка для пострадавших — это один и тот же канат. Машина компенсаций стоит на западной страховке. А ценовой потолок работает именно тем, что эту страховку отбирает. Используешь канат как оружие — сетки провисают. Другие дыры машины старше любых санкций. Бумажные владельцы и военная оговорка были в ней всегда. Потолок сделал вот что: он протолкнул пятую часть мировых танкеров сквозь все эти дыры разом. Никто не принимал решения «пусть платит Оман». К этому сложились три старых правила и одно новое.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 ЧТО ЕСЛИ 1 ================= -->
+<section class="ep" id="s6" data-duration="77.7">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">Что если · раз</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · конструкция один — проверять плательщика на входе</div>
+    <h2>Не бумагу. Плательщика.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg6">
+        <g id="a1_d" class="b" data-tip="С декабря 2024 двенадцать стран Северной Европы запрашивают у проходящих танкеров подтверждение страховки в Ла-Манше, Датских проливах и Финском заливе. Lloyd's List: более 90% остановленных судов предъявляют сертификат — а к началу 2026 около трети сертификатов на Балтике были от подсанкционных российских страховщиков.">
+          <text x="120" y="70" class="alttxt" font-size="17">КОНСТРУКЦИЯ ОДИН · ПРОВЕРЯТЬ, КТО СТОИТ ЗА СЕРТИФИКАТОМ</text>
+          <path class="ink" d="M 120 150 L 620 150 M 120 240 L 620 240"/>
+          <path d="M 300 178 l 60 0 l -10 17 l -50 0 Z" fill="var(--text)" opacity=".8"/>
+          <circle cx="520" cy="195" r="16" fill="none" stroke="var(--alt)" stroke-width="3"/>
+          <path class="green" d="M 536 195 L 700 195"/>
+          <rect x="700" y="160" width="300" height="70" fill="none" stroke="var(--grid)" stroke-width="2"/>
+          <text x="850" y="190" text-anchor="middle" font-size="13">СЕРТИФИКАТ: ВЫГЛЯДИТ ВЕРНО</text>
+          <text x="850" y="215" text-anchor="middle" class="strong" font-size="14">90% ЕГО ПРЕДЪЯВЛЯЮТ</text>
+          <path class="green" d="M 1000 195 L 1140 195"/>
+          <circle cx="1190" cy="195" r="34" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="5 5"/>
+          <text x="1190" y="201" text-anchor="middle" class="flawtxt" font-size="14">КТО?</text>
+          <text x="740" y="300" text-anchor="middle" class="alttxt strong" font-size="16">СВЕРЯТЬ ПЛАТЕЛЬЩИКА — И ЗАДЕРЖИВАТЬ СУДНО, КОГДА ОТВЕТ «НИКТО»</text>
+        </g>
+        <g id="a1_p" class="b" data-tip="Дания за 2025 год провела «портовый контроль в море» на 122 теневых танкерах и задержала пять. Мирный проход: Копенгагенский трактат 1857 года для Датских проливов; UNCLOS. После попытки Эстонии задержать Jaguar российские военные корабли начали конвоировать теневые танкеры.">
+          <rect x="120" y="350" width="1240" height="210" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+          <text x="144" y="390" class="flawtxt strong" font-size="15">ЦЕНА:</text>
+          <path d="M 1090 380 l 90 0 l -14 22 l -62 0 Z" fill="var(--text)"/>
+          <text x="1135" y="430" text-anchor="middle" font-size="13">ВОЕННЫЙ КОНВОЙ</text>
+          <text x="144" y="428" font-size="14">РОССИЯ КОНВОИРУЕТ ТАНКЕРЫ — КАЖДОЕ ЗАДЕРЖАНИЕ ГОТОВИТ ПРОТИВОСТОЯНИЕ</text>
+          <text x="144" y="462" font-size="14">МИРНЫЙ ПРОХОД ЧЕРЕЗ ПРОЛИВЫ: ОБЕЩАНИЕ 1857 ГОДА — ЗЫБКАЯ ПОЧВА</text>
+          <text x="144" y="500" class="strong" font-size="15">ДАНИЯ, ОДИН ГОД: <tspan class="flawtxt">122 ПРОВЕРЕНО → 5 ЗАДЕРЖАНО</tspan></text>
+          <text x="144" y="540" class="flawtxt strong" font-size="16">ВАЛЮТА: МОРСКОЕ ПРАВО — И ЭСКАЛАЦИЯ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 7 — проверки уже идут; бумага уже их проходит</div>
+    <div class="prose">
+      <p>Как могла бы выглядеть другая конструкция? Серьёзных кандидатов три, и у каждого есть настоящая цена. Конструкция первая: перестать проверять бумагу и начать проверять того, кто за ней стоит. Двенадцать стран северной Европы уже останавливают проходящие танкеры и спрашивают страховые документы. Больше девяноста процентов судов сертификат предъявляют. Часть этих бумаг выписана страховщиками, которые сами под санкциями. Значит, следующий шаг — сверять, кто на самом деле стоит за сертификатом, и задерживать судно, когда ответ «никто».</p>
+      <p>Цена начинается с военного корабля на радаре: Россия стала сопровождать свои танкеры через эти воды, и каждое задержание — это заготовка морского противостояния. А превратить такие остановки в правило не даёт закон. Возможность мирно пройти через пролив — одно из старейших обещаний между государствами, а для датских проливов оно записано в договоре тысяча восемьсот пятьдесят седьмого года. Дания за год проверила сто двадцать два таких судна. Задержала пять.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S7 ЧТО ЕСЛИ 2 ================= -->
+<section class="ep" id="s7" data-duration="60.4">
+  <div class="chapter"><div class="in"><div class="n">07</div><div class="t">Что если · два</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · конструкция два — залатать нижнюю сетку</div>
+    <h2>Переписать военную оговорку.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg7">
+        <g id="a2_asbuilt" data-tip="Руководящие органы IOPC признавали: военное исключение оставляет атаки на гражданские суда без покрытия — огромное загрязнение без ответственности фонда. Это крушение — первая масштабная проверка той дыры.">
+          <text x="120" y="70" class="alttxt" font-size="17">КОНСТРУКЦИЯ ДВА · ЗАЛАТАТЬ ПРАВИЛА ФОНДА</text>
+          <rect x="160" y="110" width="640" height="90" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="480" y="148" text-anchor="middle" class="flawtxt strong" font-size="16">КАК ПОСТРОЕНО: ВОЙНА → ФОНД НЕ ПЛАТИТ</text>
+          <text x="480" y="180" text-anchor="middle" font-size="13">ДЫРУ ПРИЗНАВАЛО САМО РУКОВОДСТВО ФОНДА</text>
+        </g>
+        <g id="a2_strike" class="b">
+          <path class="amber" d="M 190 143 L 770 143" opacity=".9"/>
+        </g>
+        <g id="a2_patch" class="b">
+          <rect x="160" y="230" width="640" height="80" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="480" y="266" text-anchor="middle" class="alttxt strong" font-size="15">С ЗАПЛАТКОЙ: АТАКИ НА ГРАЖДАНСКИЕ СУДА — ПОКРЫТЫ</text>
+          <text x="480" y="296" text-anchor="middle" font-size="13">ИЛИ ОТДЕЛЬНЫЙ РЕЗЕРВ ИЗ АРЕСТОВАННЫХ АКТИВОВ</text>
+        </g>
+        <g id="a2_p" class="b" data-tip="Фонд 1992 года наполняется взносами получателей нефти в странах-участницах — залатайте оговорку, и уборка после войны разложится на всех импортёров. Моральный риск: чем мягче сетка под незастрахованными судами, тем дешевле их гонять.">
+          <rect x="880" y="110" width="480" height="200" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+          <text x="904" y="148" class="flawtxt strong" font-size="15">ЦЕНА:</text>
+          <text x="904" y="184" font-size="14">ЗА ЧУЖУЮ ВОЙНУ ПЛАТИТ</text>
+          <text x="904" y="212" font-size="14">КАЖДЫЙ ПОКУПАТЕЛЬ НЕФТИ</text>
+          <text x="904" y="248" font-size="14">МЯГЧЕ СЕТКА → ДЕШЕВЛЕ</text>
+          <text x="904" y="276" font-size="14">ХОДИТЬ БЕЗ СТРАХОВКИ</text>
+        </g>
+        <g id="a2_loop" class="b">
+          <path class="amber" stroke-dasharray="8 7" d="M 1120 310 C 1120 420 700 440 480 360"/>
+          <text x="820" y="450" text-anchor="middle" class="flawtxt strong" font-size="16">ЗАПЛАТКА СУБСИДИРУЕТ ФЛОТ, УСТРОИВШИЙ ЭТОТ РАЗЛИВ</text>
+          <text x="820" y="510" text-anchor="middle" class="strong" font-size="16">И ДЕНЬГИ ПРИХОДЯТ ПОСЛЕ — ЧЕК НЕ ОТМЫВАЕТ КИТОВЫЙ ЗАПОВЕДНИК</text>
+          <text x="820" y="560" text-anchor="middle" class="flawtxt strong" font-size="16">ВАЛЮТА: ОБЩИЙ НЕФТЯНОЙ СЧЁТ — И МОРАЛЬНЫЙ РИСК</text>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnP0" class="on">Как построено</button><button id="btnP1">С заплаткой</button>
+    </div>
+    <div class="figcap">Рис. 8 — как закрыть дыру и что заплатка тихо покупает. Кликните для сравнения.</div>
+    <div class="prose">
+      <p>Конструкция вторая: починить правила самого фонда. Руководство фонда само признавало, что военная оговорка оставляет без покрытия ровно этот сценарий: атака на гражданское судно, огромное загрязнение, платить некому. Значит, оговорку можно переписать: атаки на гражданские танкеры покрываются. Часть предложений идёт дальше — наполнить отдельный резерв из арестованных или замороженных активов.</p>
+      <p>Дальше приходит счёт. Фонд наполняют импортёры нефти по всему миру. Значит, уборка после чужой войны размажется по всем, кто покупает нефть, включая страны, которые в ней не участвуют. Есть и более тихая цена: чем мягче сетка под незастрахованными судами, тем дешевле гонять суда незастрахованными. Заплатка субсидирует ровно тот флот, который устроил этот разлив. И деньги приходят после. Чек не отмывает китовый питомник.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S8 ЧТО ЕСЛИ 3 ================= -->
+<section class="ep" id="s8" data-duration="64.4">
+  <div class="chapter"><div class="in"><div class="n">08</div><div class="t">Что если · три</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · конструкция три — чинить флаги</div>
+    <h2>Сертификат стоит столько, сколько его печать.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg8">
+        <g id="a3_d" class="b" data-tip="RUSI Maritime Sanctions Taskforce: включить судовые реестры в оценки ФАТФ — мирового надзора за отмыванием денег. Камерун (последний флаг этого танкера) уже в «сером списке» ФАТФ; выйти из него правительства стараются по-настоящему. Под дипломатическим давлением Панама вычеркнула сотни подозрительных судов.">
+          <text x="120" y="70" class="alttxt" font-size="17">КОНСТРУКЦИЯ ТРИ · ГОСУДАРСТВО ФЛАГА ОТВЕЧАЕТ ЗА СВОЮ ПЕЧАТЬ</text>
+          <rect x="540" y="100" width="400" height="60" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="740" y="138" text-anchor="middle" class="alttxt strong" font-size="16">ФАТФ — БОРЬБА С ОТМЫВАНИЕМ ДЕНЕГ</text>
+          <path class="green" d="M 620 160 L 360 230 M 740 160 L 740 230 M 860 160 L 1120 230"/>
+          <g>
+            <line x1="360" y1="230" x2="360" y2="330" class="ink"/><path d="M 360 235 l 64 0 l 0 36 l -64 0 Z" fill="var(--fact)" opacity=".75"/>
+            <text x="392" y="365" text-anchor="middle" font-size="13">ПАНАМА</text>
+            <line x1="740" y1="230" x2="740" y2="330" class="ink"/><path d="M 740 235 l 64 0 l 0 36 l -64 0 Z" fill="var(--flaw)" opacity=".85"/>
+            <text x="772" y="365" text-anchor="middle" class="flawtxt" font-size="13">КАМЕРУН — СЕРЫЙ СПИСОК</text>
+            <line x1="1120" y1="230" x2="1120" y2="330" class="ink"/><path d="M 1120 235 l 64 0 l 0 36 l -64 0 Z" fill="var(--text)" opacity=".5"/>
+            <text x="1152" y="365" text-anchor="middle" font-size="13">РЕЕСТРЫ НАПРОКАТ</text>
+          </g>
+          <text x="740" y="415" text-anchor="middle" class="alttxt strong" font-size="15">ЭТО РАБОТАЕТ: ПАНАМА ВЫЧЕРКНУЛА СОТНИ СУДОВ ИЗ РЕЕСТРА</text>
+        </g>
+        <g id="a3_p" class="b" data-tip="Прижатые суда сползают в реестры послабее, затем под фальшивые флаги (113 судов с фальшивыми флагами за январь–сентябрь 2025, CREA), затем вовсе без флага: Эстония уже досматривала безфлаговый танкер в Балтийском море. У IMO нет полномочий наказывать реестры; цикл ФАТФ занимает годы.">
+          <rect x="120" y="450" width="1240" height="120" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+          <text x="144" y="486" class="flawtxt strong" font-size="15">ЦЕНА — ЛЕСТНИЦА ВНИЗ:</text>
+          <text id="lad" x="144" y="520" font-size="14">ФЛАГ → СЛАБЕЕ → ФАЛЬШИВЫЙ → БЕЗ ФЛАГА: СУДНО, ЗА КОТОРОЕ НЕ ОТВЕЧАЕТ НИКТО</text>
+          <text x="144" y="552" class="flawtxt strong" font-size="15">ВАЛЮТА: ГОНКА К БЕЗГОСУДАРСТВЕННОСТИ — И ГОДЫ ПРОЦЕДУР</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 9 — рычаг выше сертификата и куда сползают прижатые суда</div>
+    <div class="prose">
+      <p>Конструкция третья: заняться слоем, который заверяет всё остальное, — флагом. Сертификат стоит ровно столько, сколько государство, которое его штампует. А некоторые реестры за плату штампуют почти что угодно. Есть конкретное предложение: включить судовые реестры в проверки мирового надзора за отмыванием денег — организации ФАТФ. Камерун, последний флаг этого танкера, уже стоит в её предупредительном списке по другим причинам. А выйти из этого списка правительства стараются по-настоящему. Это настоящий рычаг, и он работает: под дипломатическим давлением Панама уже вычеркнула из реестра сотни подозрительных судов.</p>
+      <p>Цена: прижатые суда сползают по лестнице вниз. Сначала в реестры послабее, потом под фальшивые флаги, потом вовсе без флага. А судно без государства не отвечает ни перед кем. Эстонии одно такое судно уже пришлось досматривать прямо в Балтийском море.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S9 ФИНАЛ ================= -->
+<section class="ep" id="s9" data-duration="44.3">
+  <div class="chapter"><div class="in"><div class="n">09</div><div class="t">Финал</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Финал · вопрос, который стоит унести</div>
+    <h2>Настоящая бумага. Настоящая печать. Цена — ноль.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg9">
+        <g id="z_cert" class="b">
+          <rect x="540" y="60" width="400" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2.5"/>
+          <line x1="570" y1="100" x2="880" y2="100" class="hair"/>
+          <line x1="570" y1="128" x2="880" y2="128" class="hair"/>
+          <line x1="570" y1="156" x2="820" y2="156" class="hair"/>
+          <circle cx="880" cy="170" r="22" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="740" y="245" text-anchor="middle" class="strong" font-size="17">НАСТОЯЩАЯ БУМАГА · НАСТОЯЩАЯ ПЕЧАТЬ · ЦЕНА НОЛЬ</text>
+        </g>
+        <g id="z_bin" class="b">
+          <rect x="160" y="290" width="560" height="110" class="nodebox"/>
+          <text x="440" y="330" text-anchor="middle" class="fact strong" font-size="16">ОДНА СИСТЕМА ДЕЛАЛА ДВА ДЕЛА:</text>
+          <text x="440" y="362" text-anchor="middle" font-size="14">ДИСЦИПЛИНИРОВАЛА СУДОХОДСТВО · ПЛАТИЛА ПОСТРАДАВШИМ</text>
+          <rect x="760" y="290" width="560" height="110" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1040" y="330" text-anchor="middle" class="flawtxt strong" font-size="16">ОНА СТАЛА ОРУЖИЕМ</text>
+          <text x="1040" y="362" text-anchor="middle" font-size="14">ЗАПАСНОЙ СЕТКИ ПОД НЕЙ ТАК И НЕ НАТЯНУЛИ</text>
+        </g>
+        <g id="z_q" class="b">
+          <rect x="240" y="430" width="460" height="70" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="470" y="473" text-anchor="middle" class="alttxt" font-size="15">КОГО ЭТА СТРАХОВКА ЗАЩИЩАЛА РАНЬШЕ?</text>
+          <rect x="780" y="430" width="460" height="70" fill="none" stroke="var(--alt)" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="1010" y="473" text-anchor="middle" class="alttxt" font-size="15">КТО СТОИТ ПОД СЕТКОЙ ТЕПЕРЬ?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Вернёмся к тому сертификату. Настоящая бумага, настоящая печать, цена — ноль. Громкий спор всегда двоичный: санкции — сильнее или слабее. Но вопрос конструкции другой. У мира была одна система, которая одновременно дисциплинировала судоходство и платила его жертвам. Эта система стала оружием, а запасной сетки под ней так и не натянули. Поэтому в следующий раз, когда правительство скажет, что будет исполнять правило «через страховку», стоит задать один вопрос: кого эта страховка тихо защищала раньше — и кто стоит под сеткой теперь?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">ДЕФЕКТ КОНСТРУКЦИИ</div>
+      <p>Не кто виноват — как устроено. Полный интерактивный чертёж, с тем, что не вошло в ролик, — на этой странице. <a href="../" style="color:var(--fact)">In English →</a></p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Подписаться</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- превью -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <path d="M 140 120 Q 640 220 1140 120" fill="none" stroke="var(--fact)" stroke-width="8"/>
+    <path d="M 140 200 Q 640 300 1140 200" fill="none" stroke="var(--fact)" stroke-width="8"/>
+    <path d="M 140 280 Q 640 380 1140 280" fill="none" stroke="var(--flaw)" stroke-width="8" stroke-dasharray="20 16"/>
+    <circle cx="140" cy="120" r="14" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <circle cx="1140" cy="120" r="14" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <circle cx="140" cy="200" r="14" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <circle cx="1140" cy="200" r="14" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <text x="640" y="70" text-anchor="middle" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">три сетки, все сняты с крюков</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">2 000 КМ²</div>
+  <div class="sub">разлив, за который некому платить</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="440" y="40" width="400" height="290" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="8"/>
+    <line x1="490" y1="120" x2="790" y2="120" stroke="var(--grid)" stroke-width="6"/>
+    <line x1="490" y1="175" x2="790" y2="175" stroke="var(--grid)" stroke-width="6"/>
+    <line x1="490" y1="230" x2="720" y2="230" stroke="var(--grid)" stroke-width="6"/>
+    <circle cx="770" cy="280" r="34" fill="none" stroke="var(--flaw)" stroke-width="7"/>
+    <path d="M 400 60 L 880 320 M 880 60 L 400 320" stroke="var(--flaw)" stroke-width="10" stroke-dasharray="24 18" fill="none"/>
+    <text x="200" y="200" text-anchor="middle" font-family="IBM Plex Mono" font-size="36" style="fill:var(--text)">настоящая бумага</text>
+    <text x="1080" y="200" text-anchor="middle" font-family="IBM Plex Mono" font-size="36" style="fill:var(--flaw)">цена — ноль</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">НОЛЬ ВЫПЛАТ</div>
+  <div class="sub">800 000 баррелей · ни владельца, ни страховщика, ни фонда</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function draw(tl,id,pos,d=1.6){const p=$(id),L=p.getTotalLength();
+  tl.fromTo(p,{strokeDasharray:L+' '+L,strokeDashoffset:L},{strokeDashoffset:0,duration:d,ease:'power1.inOut'},pos);}
+function count(tl,id,target,pos,d=1.6){const el=$(id),o={v:0};
+  tl.to(o,{v:target,duration:d,ease:'power1.out',snap:{v:1},
+    onUpdate:()=>{el.textContent=o.v.toLocaleString('ru-RU');},
+    onComplete:()=>{el.textContent=target.toLocaleString('ru-RU');}},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8); idle(tl,'h_a',5,4);
+  tl.to($('h_a'),{opacity:0,duration:.45},9.5);
+  say(tl,'h_b',9.9,.7);
+  pop(tl,'h_stamp',12.5,.6); shake(tl,'h_stamp',13.2,6,7); idle(tl,'h_b',15,5);
+  tl.to($('h_b'),{opacity:0,duration:.45},21.5);
+  tl.to($('h_stamp'),{opacity:0,duration:.45},21.5);
+  say(tl,'h_c',21.9,.6);
+  count(tl,'c_barrels',800000,22.2,1.6);
+  count(tl,'c_slick',2000,23.0,1.4);
+  idle(tl,'h_c',25,4);
+  tl.to($('h_c'),{opacity:0,duration:.45},29.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},29.9);
+  if(isAuto)tl.to({},{duration:4.0},30.6); else tl.to($('titleCard'),{opacity:0,duration:.5},34.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_map',0.5,.8); draw(tl,'routeLine',1.0,3.2); idle(tl,'e_map',6,8);
+  pop(tl,'e_x',16.0,.7); shake(tl,'e_x',16.8,7,8);
+  draw(tl,'driftLine',20.0,2.0); idle(tl,'e_x',24,8);
+  say(tl,'e_whale',36.0,.8); idle(tl,'e_whale',42,10);
+  say(tl,'e_slick',54.0,.7); shake(tl,'e_shore',62.0,5,6); idlePlate(tl,'e_shore',64,14);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_q1',0.5,.8); idle(tl,'v_q1',4,5);
+  tl.to($('v_q1'),{opacity:0,duration:.45},10.5);
+  pop(tl,'v_q2',11.0,.7); idle(tl,'v_q2',14,5);
+  say(tl,'v_mach',21.0,.9); idle(tl,'v_mach',26,8);
+  say(tl,'v_off',36.0,.7); shake(tl,'v_off',37.0,5,6); idle(tl,'v_off',39,5);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'m_tc1',0.5,.9);
+  tl.to($('tc_plane1'),{x:560,duration:5.5,ease:'none'},2.0);
+  tl.to($('tc_plane2'),{x:640,duration:6.5,ease:'none'},3.0);
+  tl.to($('tc_fire'),{opacity:.4,duration:.7,repeat:9,yoyo:true},3.5);
+  pop(tl,'m_tc2',20.0,.7); idlePlate(tl,'m_tc2',22,6);
+  tl.to($('m_tc'),{opacity:0,duration:.5},30.0);
+  tl.fromTo($('m_nets'),{opacity:0},{opacity:1,duration:.6},30.5);
+  tl.set($('m_n1'),{opacity:0},30.5); tl.set($('m_n2'),{opacity:0},30.5); tl.set($('m_n3'),{opacity:0},30.5);
+  say(tl,'m_n1',38.0,.8); idle(tl,'m_n1',42,8);
+  say(tl,'m_n2',52.0,.8); idle(tl,'m_n2',57,8);
+  say(tl,'m_n3',68.0,.8); idle(tl,'m_n3',73,10);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'w_head',0.5,.6);
+  say(tl,'w_o',8.0,.9); idle(tl,'w_o',14,14);
+  say(tl,'w_i',34.0,.9); idle(tl,'w_i',41,24);
+  say(tl,'w_f',72.0,.9); idle(tl,'w_f',79,18);
+  pop(tl,'w_sum',102.0,.7); shake(tl,'w_sum',103.0,5,6); idlePlate(tl,'w_sum',105,10);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  say(tl,'f_cap',0.5,.9); idle(tl,'f_cap',7,16);
+  say(tl,'f_fleet',30.0,.9); idle(tl,'f_fleet',36,12);
+  say(tl,'f_rope',52.0,.8); shake(tl,'f_rope',58.0,5,6); idle(tl,'f_rope',60,10);
+  say(tl,'f_sum',74.0,.8); shake(tl,'f_sum',80.0,5,6); idlePlate(tl,'f_sum',82,10);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'a1_d',0.5,.9); idle(tl,'a1_d',7,22);
+  say(tl,'a1_p',34.0,.9); shake(tl,'a1_p',50.0,4,5); idle(tl,'a1_p',52,14);
+  return tl;}
+
+function sc7(){const tl=gsap.timeline();
+  tl.set($('a2_asbuilt'),{opacity:1},0);
+  idle(tl,'a2_asbuilt',2,8);
+  tl.fromTo($('a2_strike'),{opacity:0},{opacity:1,duration:.5},12.0);
+  say(tl,'a2_patch',12.4,.8); idle(tl,'a2_patch',16,8);
+  say(tl,'a2_p',28.0,.9); idle(tl,'a2_p',33,8);
+  say(tl,'a2_loop',42.0,.9); idle(tl,'a2_loop',48,10);
+  return tl;}
+
+function sc8(){const tl=gsap.timeline();
+  say(tl,'a3_d',0.5,.9); idle(tl,'a3_d',8,26);
+  say(tl,'a3_p',40.0,.9); shake(tl,'a3_p',52.0,4,5); idle(tl,'a3_p',54,8);
+  return tl;}
+
+function sc9(){const tl=gsap.timeline();
+  say(tl,'z_cert',0.5,.9); shake(tl,'z_cert',2.0,4,5); idle(tl,'z_cert',4,8);
+  say(tl,'z_bin',14.0,.9); idle(tl,'z_bin',20,8);
+  say(tl,'z_q',30.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:9,yoyo:true},34.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6,s7:sc7,s8:sc8,s9:sc9};
+
+function showPatch(i){
+  [$('a2_patch'),$('a2_strike')].forEach(p=>{gsap.killTweensOf(p);gsap.set(p,{opacity:i===1?1:0});});
+  ['btnP0','btnP1'].forEach((b,k)=>$(b).classList.toggle('on',k===i));}
+$('btnP0').onclick=()=>showPatch(0);
+$('btnP1').onclick=()=>showPatch(1);
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
