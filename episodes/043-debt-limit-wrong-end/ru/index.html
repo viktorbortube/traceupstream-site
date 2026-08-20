@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Лимит долга Америки ни разу не ограничил долг | Дефект конструкции</title>
+<meta name="description" content="19 августа 2026 года госдолг США превысил $40 триллионов — при действующем законном потолке долга, который поднимали 78 раз с 1960 года и который не удержался ни разу. Причина в расположении: расходы и налоги голосуются без всякого лимита, а потолок ограничивает только оплату уже заказанных счетов. Его единственное оружие — угроза дефолта по собственным обязательствам, уже стоившая США трёх понижений рейтинга. Три альтернативные конструкции с ценниками: швейцарско-немецкий тормоз на этапе заказа, декоративный потолок Дании (или отмена по-австралийски) и правило Гепхардта, сваривающее заказ и счёт в одно голосование.">
+<link rel="canonical" href="https://traceupstream.com/episodes/043-debt-limit-wrong-end/ru/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Дефект конструкции">
+<meta property="og:title" content="Лимит долга Америки ни разу не ограничил долг">
+<meta property="og:description" content="Потолок долга США ограничивает оплату счетов, которые Конгресс уже заказал, — сам заказ происходит в других законах, до которых лимит не дотягивается. Это объясняет 78 поднятий, три даунгрейда и торг, назначенный на 2027-й.">
+<meta property="og:url" content="https://traceupstream.com/episodes/043-debt-limit-wrong-end/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#8E8BA3;
+  --font-display:'Onest',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .amberfill{fill:var(--flaw);opacity:.85}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:800;
+  font-size:140px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.043 — 2026-08-20</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Слушать нарацию"><span class="dot"></span><span id="listenLab">Слушать</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="43.5">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Дефект конструкции · дело EP.043</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <ellipse cx="500" cy="420" rx="300" ry="34" fill="none" stroke="var(--text)" stroke-width="4"/>
+          <circle cx="360" cy="405" r="26" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <circle cx="500" cy="428" r="26" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <circle cx="640" cy="405" r="26" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <g id="h_tix">
+            <rect x="300" y="300" width="90" height="44" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+            <rect x="420" y="280" width="90" height="44" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+            <rect x="540" y="300" width="90" height="44" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+            <rect x="470" y="240" width="90" height="44" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+            <rect x="360" y="248" width="90" height="44" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          </g>
+          <text x="500" y="120" text-anchor="middle" class="big" font-size="44">ЗАКАЗЫВАЙ ЧТО УГОДНО.</text>
+          <text x="500" y="180" text-anchor="middle" class="big" font-size="44">БЕЗ ЛИМИТА.</text>
+        </g>
+        <g id="h_b" class="b">
+          <rect x="380" y="240" width="240" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <line x1="410" y1="290" x2="590" y2="290" stroke="var(--grid)" stroke-width="4"/>
+          <line x1="410" y1="330" x2="590" y2="330" stroke="var(--grid)" stroke-width="4"/>
+          <line x1="410" y1="370" x2="540" y2="370" stroke="var(--grid)" stroke-width="4"/>
+          <text x="500" y="140" text-anchor="middle" class="big" font-size="42">ГОЛОСОВАНИЕ ПРИХОДИТ</text>
+          <text x="500" y="198" text-anchor="middle" class="big" font-size="42">ВМЕСТЕ СО СЧЁТОМ</text>
+        </g>
+        <g id="h_stamp" class="b">
+          <rect x="190" y="440" width="620" height="80" fill="none" stroke="var(--flaw)" stroke-width="5" transform="rotate(-3 500 480)"/>
+          <text x="500" y="492" text-anchor="middle" class="flawtxt" font-size="36" transform="rotate(-3 500 480)">ОТКАЗ НЕ ОТМЕНЯЕТ УЖИН</text>
+        </g>
+        <g id="h_c" class="b">
+          <text id="c_bill" x="500" y="250" text-anchor="middle" class="big flawtxt" font-size="60">$0</text>
+          <text x="500" y="330" text-anchor="middle" font-size="34">СЧЁТ ЭТОГО СТОЛА, НА ЭТОЙ НЕДЕЛЕ</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="210" text-anchor="middle" class="big" font-size="52">ЛИМИТ ДОЛГА, КОТОРЫЙ</text>
+          <text x="500" y="290" text-anchor="middle" class="big" font-size="52">НИ РАЗУ ЕГО НЕ ОГРАНИЧИЛ</text>
+          <text x="500" y="390" text-anchor="middle" font-size="34">ДЕФЕКТ КОНСТРУКЦИИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 1 — на заказ лимита нет; на оплату есть голосование</div>
+    <div class="prose">
+      <p>Представьте ресторан с одним странным правилом. Каждый за столом может заказывать что угодно. На заказ никакого лимита нет. Лимит появляется позже, когда приносят счёт. Вот тогда стол голосует, оплачивать его или нет. И вот что странно. Отказ платить не отменяет ужин. Еда уже съедена. Единственное, что может сделать голос «против», это оставить счёт неоплаченным и испортить этому столу репутацию. Это не история про безответственных людей. Это почти дословно письменная бюджетная процедура правительства Соединённых Штатов. И на этой неделе счёт перевалил за сорок триллионов долларов.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="87.2">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">Событие</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Событие · 19 августа 2026</div>
+    <h2>$40 000 000 000 000 — и счёт идёт.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_curve" class="b" data-tip="Долг, подпадающий под лимит, достиг $40,05 трлн 19 августа 2026 года — на месяцы раньше прогнозов CBO ($39,4 трлн на весь фискальный год), отчасти из-за отменённых Верховным судом тарифов. Источники: CNBC, Washington Post, NPR.">
+          <path id="debtLine" class="blue" stroke-width="3" d="M 140 480 C 320 470 460 440 580 400 C 700 360 780 300 860 240 C 920 195 960 175 1000 160"/>
+          <text id="c_debt" x="1120" y="150" text-anchor="middle" class="big fact" font-size="48">$0</text>
+          <text x="1120" y="195" text-anchor="middle" font-size="15">19 АВГ 2026 · НА МЕСЯЦЫ РАНЬШЕ</text>
+          <text x="200" y="530" font-size="14">2016 · $19,4 ТРЛН</text>
+        </g>
+        <g id="e_pace" class="b" data-tip="Казначейство занимает около $6 млрд в день; больше половины новых займов покрывает проценты по уже существующему долгу. Только июль 2026 дал месячный дефицит $432,3 млрд — максимум с марта 2021. Источники: PBS, Fox Business, CNN.">
+          <text x="160" y="90" class="strong" font-size="16">КАЖДЫЙ ДЕНЬ: + $6 000 000 000</text>
+          <rect x="160" y="110" width="520" height="46" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <rect id="e_intfill" x="160" y="110" width="280" height="46" class="amberfill"/>
+          <text id="e_intlab" class="b onplate strong" x="300" y="140" text-anchor="middle" font-size="14">БОЛЬШЕ ПОЛОВИНЫ: ПРОЦЕНТЫ</text>
+          <text x="565" y="140" text-anchor="middle" font-size="14" class="strong">НОВЫЕ ДЕНЬГИ</text>
+        </g>
+        <g id="e_int" class="b" data-tip="Проценты обходятся почти в $1,2 трлн в год — крупнейшая статья бюджета после Social Security и Medicare, больше всего оборонного бюджета. Источники: PBS, Fox Business.">
+          <rect id="barDef" x="790" y="330" width="70" height="150" fill="var(--fact)" opacity=".85"/>
+          <rect id="barInt" x="1000" y="280" width="70" height="200" class="amberfill"/>
+          <text x="825" y="510" text-anchor="middle" font-size="14">ОБОРОНА</text>
+          <text x="1035" y="510" text-anchor="middle" class="flawtxt strong" font-size="14">ПРОЦЕНТЫ · $1,2 ТРЛН/ГОД</text>
+        </g>
+        <g id="e_tril" class="b" data-tip="Первый триллион долга копился с 1789 по 1981 год. В 2026-м новый триллион набегает меньше чем за пять месяцев. На человека: ~$116 000 (CEO Center / The Conference Board).">
+          <line x1="160" y1="230" x2="620" y2="230" class="ink"/>
+          <text x="160" y="210" font-size="14">ПЕРВЫЙ ТРИЛЛИОН · ~200 ЛЕТ</text>
+          <line x1="160" y1="285" x2="240" y2="285" class="amber"/>
+          <text x="260" y="290" class="flawtxt strong" font-size="14">ПОСЛЕДНИЙ · МЕНЬШЕ 5 МЕСЯЦЕВ</text>
+          <text x="160" y="345" class="strong" font-size="15">≈ $116 000 НА АМЕРИКАНЦА</text>
+        </g>
+        <g id="e_ceil" class="b" data-tip="Законный лимит стоит на отметке $41,1 трлн — поднят на $5 трлн 4 июля 2025 года (One Big Beautiful Bill Act). Bipartisan Policy Center ждёт упора в потолок между концом зимы и серединой 2027-го; Fitch — середина 2027-го плюс месяцы «чрезвычайных мер».">
+          <line x1="140" y1="66" x2="1340" y2="66" class="amber" stroke-dasharray="10 8"/>
+          <text x="1330" y="46" text-anchor="end" class="flawtxt strong" font-size="16">ЗАКОННЫЙ ПОТОЛОК · $41,1 ТРЛН</text>
+          <text x="1330" y="245" text-anchor="end" font-size="14">ПОДНЯТ НА +$5 ТРЛН · ИЮЛЬ 2025</text>
+          <text x="1330" y="275" text-anchor="end" class="strong" font-size="15">СЛЕДУЮЩИЙ УПОР: 2027</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 2 — кривая, темп и линия, прочерченная чуть выше</div>
+    <div class="prose">
+      <p>Девятнадцатого августа две тысячи двадцать шестого года государственный долг США впервые превысил сорок триллионов долларов. Это случилось на месяцы раньше прогнозов. Отчасти потому, что Верховный суд отменил часть тарифов, и запланированные доходы просто исчезли. Темп почувствовать проще, чем итог. Сейчас правительство занимает около шести миллиардов долларов каждый день. Больше половины этих новых займов уходит на одну-единственную статью: проценты по деньгам, которые оно уже заняло. Проценты обходятся почти в триллион двести миллиардов долларов в год. Это больше всего оборонного бюджета.</p>
+      <p>Первый триллион страна копила почти двести лет. Последний триллион набежал меньше чем за пять месяцев. Если разделить долг на всех американцев, выйдет около ста шестнадцати тысяч долларов на человека. А теперь деталь, которую пропускает большинство заголовков. Всё это произошло при действующем законном потолке долга. Сейчас он стоит на отметке сорок один триллион сто миллиардов долларов. Конгресс поднял его сразу на пять триллионов в июле две тысячи двадцать пятого года. При нынешнем темпе правительство снова упрётся в потолок где-то в две тысячи двадцать седьмом.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="52.9">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">Пивот</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Пивот · лимит, который всегда уступает</div>
+    <h2>Подняли 78 раз. Удержал 0 раз.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_blame" class="b">
+          <path d="M 560 100 L 460 100 L 460 84 L 420 110 L 460 136 L 460 120 L 560 120 Z" fill="var(--flaw)" opacity=".8"/>
+          <path d="M 920 100 L 1020 100 L 1020 84 L 1060 110 L 1020 136 L 1020 120 L 920 120 Z" fill="var(--flaw)" opacity=".8"/>
+          <text x="290" y="116" text-anchor="middle" class="strong" font-size="15">«ВИНОВАТЫ ЛЬГОТЫ»</text>
+          <text x="1190" y="116" text-anchor="middle" class="strong" font-size="15">«ВИНОВАТЫ РАСХОДЫ»</text>
+          <text x="740" y="116" text-anchor="middle" font-size="14">ОБА ПРАВЫ</text>
+        </g>
+        <g id="v_wall" class="b" data-tip="С 1960 года Конгресс поднимал, продлевал или пересматривал потолок долга 78 раз — 49 при президентах-республиканцах, 29 при демократах (Казначейство США). Он не удержался ни разу.">
+          <path id="w1" class="ink" stroke-width="3" stroke-dasharray="8 16" d="M 436 220 L 1044 220"/>
+          <path id="w2" class="ink" stroke-width="3" stroke-dasharray="8 16" d="M 436 260 L 1044 260"/>
+          <path id="w3" class="ink" stroke-width="3" stroke-dasharray="8 16" d="M 436 300 L 1044 300"/>
+          <text x="740" y="190" text-anchor="middle" class="big" font-size="30">78 ПОДНЯТИЙ С 1960 ГОДА</text>
+          <text x="740" y="350" text-anchor="middle" class="strong" font-size="15">49 ПРИ РЕСПУБЛИКАНЦАХ · 29 ПРИ ДЕМОКРАТАХ</text>
+        </g>
+        <g id="v_q" class="b">
+          <text x="740" y="440" text-anchor="middle" class="big flawtxt" font-size="34">ЧТО ВООБЩЕ ОГРАНИЧИВАЕТ ЭТОТ ЛИМИТ?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 3 — стена поднятий, поровну двупартийная</div>
+    <div class="prose">
+      <p>И начинается очевидный спор: кто потратил все эти деньги? Одна сторона показывает на налоговые льготы, другая на программы расходов. И обе описывают реальные вещи. Но отойдите на шаг назад, и проступает факт куда более странный. С тысяча девятьсот шестидесятого года Конгресс поднимал, продлевал или пересматривал этот потолок семьдесят восемь раз. Сорок девять раз при президентах-республиканцах, двадцать девять при демократах. Он не удержался ни разу. Если ограничение скорости нарушает каждый водитель, возможно, дело в водителях. Но если саму табличку с ограничением дорожная служба перевешивает повыше семьдесят восемь раз, дело в чём-то другом. Вопрос не в том, кто гонит. Вопрос в том, что это ограничение вообще ограничивает.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM ================= -->
+<section class="ep" id="s3" data-duration="153.5">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Труба</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · кран не с той стороны</div>
+    <h2>Лимит стоит на кассе.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="m_pipe">
+          <g id="m_rail" class="b">
+            <path class="ink" stroke-width="3" d="M 120 200 L 1360 200"/>
+            <path class="ink" stroke-width="3" d="M 120 260 L 1360 260"/>
+          </g>
+          <g id="m_s1" class="b" data-tip="Станция один — расходы: законы о финансировании ведомств и постоянные программы (пенсии, медицина, проценты). Ни в одном из этих законов нет лимита на займы.">
+            <circle cx="280" cy="230" r="46" class="nodebox"/>
+            <text x="280" y="238" text-anchor="middle" class="fact strong" font-size="15">ЗАКАЗ</text>
+            <text x="280" y="130" text-anchor="middle" class="strong" font-size="15">СТАНЦИЯ 1 · ЗАКОНЫ О РАСХОДАХ</text>
+            <text x="280" y="320" text-anchor="middle" font-size="14">ЛИМИТА НЕТ</text>
+          </g>
+          <g id="m_s2" class="b" data-tip="Станция два — налоги: доходы устанавливаются совершенно отдельными законами. Здесь лимита тоже нет. Дефицит — просто разница между двумя потоками.">
+            <circle cx="700" cy="230" r="46" class="nodebox"/>
+            <text x="700" y="238" text-anchor="middle" class="fact strong" font-size="15">СБОР</text>
+            <text x="700" y="130" text-anchor="middle" class="strong" font-size="15">СТАНЦИЯ 2 · НАЛОГОВЫЕ ЗАКОНЫ</text>
+            <text x="700" y="320" text-anchor="middle" font-size="14">И ЗДЕСЬ ЛИМИТА НЕТ</text>
+          </g>
+          <g id="m_gap" class="b">
+            <rect x="360" y="206" width="260" height="48" class="amberfill" opacity=".55"/>
+            <text x="490" y="365" text-anchor="middle" class="flawtxt strong" font-size="15">РАЗНИЦА = ДОЛГ · ЗА НЕГО НЕ ГОЛОСУЮТ · ВЫЧИТАНИЕ</text>
+          </g>
+          <g id="m_s3" class="b" data-tip="Станция три — касса: потолок долга не ограничивает, что Конгресс заказывает, — только может ли казначейство оплатить заказанное. При упоре: касса, «чрезвычайные меры», затем X-дата.">
+            <rect x="1080" y="180" width="24" height="100" fill="var(--flaw)"/>
+            <circle cx="1092" cy="160" r="22" fill="none" stroke="var(--flaw)" stroke-width="4"/>
+            <text x="1092" y="168" text-anchor="middle" class="flawtxt" font-size="20">⚠</text>
+            <text x="1092" y="330" text-anchor="middle" class="flawtxt strong" font-size="16">СТАНЦИЯ 3 · КРАН НА КАССЕ</text>
+            <text x="1092" y="362" text-anchor="middle" font-size="14">ОГРАНИЧИВАЕТ ОПЛАТУ — НЕ ЗАКАЗ</text>
+          </g>
+        </g>
+        <g id="m_1917" class="b" data-tip="До 1917 года Конгресс одобрял каждый заём отдельно. Second Liberty Bond Act дал казначейству общее разрешение занимать для Первой мировой — под одним общим потолком. Единый агрегатный потолок — с 1939 года. Источник: CRS RL31967.">
+          <text x="160" y="440" class="strong" font-size="16">1917 · РОДИЛСЯ КАК ДЛИННЫЙ ПОВОДОК, А НЕ ТОРМОЗ</text>
+          <rect x="160" y="460" width="46" height="58" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/>
+          <rect x="216" y="460" width="46" height="58" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/>
+          <rect x="272" y="460" width="46" height="58" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/>
+          <text x="345" y="495" font-size="20" class="strong">→</text>
+          <rect x="380" y="452" width="210" height="70" fill="none" stroke="var(--fact)" stroke-width="3"/>
+          <text x="485" y="485" text-anchor="middle" class="fact strong" font-size="14">ОДНО РАЗРЕШЕНИЕ</text>
+          <text x="485" y="508" text-anchor="middle" font-size="13">ОДИН ОБЩИЙ ПОТОЛОК</text>
+        </g>
+        <g id="m_rate" class="b" data-tip="S&P лишило США рейтинга AAA в августе 2011-го, во время торга вокруг потолка — первое понижение в истории. Fitch — в 2023-м, Moody's — в 2025-м. Все три ссылались на сами противостояния и качество управления, а не только на размер долга.">
+          <rect x="700" y="440" width="180" height="80" fill="none" stroke="var(--flaw)" stroke-width="3" transform="rotate(-2 790 480)"/>
+          <text x="790" y="475" text-anchor="middle" class="flawtxt strong" font-size="15" transform="rotate(-2 790 480)">S&amp;P · 2011</text>
+          <text x="790" y="503" text-anchor="middle" font-size="13" transform="rotate(-2 790 480)">ПОТЕРЯН AAA</text>
+          <rect x="920" y="440" width="180" height="80" fill="none" stroke="var(--flaw)" stroke-width="3" transform="rotate(2 1010 480)"/>
+          <text x="1010" y="475" text-anchor="middle" class="flawtxt strong" font-size="15" transform="rotate(2 1010 480)">FITCH · 2023</text>
+          <text x="1010" y="503" text-anchor="middle" font-size="13" transform="rotate(2 1010 480)">AA+</text>
+          <rect x="1140" y="440" width="180" height="80" fill="none" stroke="var(--flaw)" stroke-width="3" transform="rotate(-2 1230 480)"/>
+          <text x="1230" y="475" text-anchor="middle" class="flawtxt strong" font-size="15" transform="rotate(-2 1230 480)">MOODY'S · 2025</text>
+          <text x="1230" y="503" text-anchor="middle" font-size="13" transform="rotate(-2 1230 480)">ПОСЛЕДНИЙ ИЗ ТРЁХ</text>
+        </g>
+        <g id="m_why" class="b" data-tip="Бюджетные резолюции и дедлайны ассигнований срываются регулярно; X-дату пропустить нельзя. Этот принудительный момент — рычаг для любого, кто его захочет, любой партии в любой год. Честная причина живучести правила.">
+          <rect x="160" y="60" width="1160" height="44" fill="var(--fact)" opacity=".9"/>
+          <text x="740" y="89" text-anchor="middle" class="onplate strong" font-size="16">ПОЧЕМУ ОН ЖИВ: ЕДИНСТВЕННЫЙ СРОК, КОТОРЫЙ НЕЛЬЗЯ ПРОПУСТИТЬ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 4 — заказ, сбор и кран, прикрученный к оплате</div>
+    <div class="prose">
+      <p>Чтобы увидеть ответ, проследим за деньгами по трубе. Потому что американский бюджет действительно устроен как труба с тремя станциями. Станция первая: расходы. Конгресс заказывает: законы о финансировании ведомств, постоянные программы вроде пенсий и медицины для пожилых. На этой станции ни слова ни о каком лимите. Станция вторая: налоги. Совершенно отдельными законами Конгресс решает, сколько денег приходит. Здесь про лимит тоже ни слова. Разница между двумя потоками это дефицит. А займы просто вытекают из него как арифметика. Когда заказы сделаны и налоги установлены, долг уже предопределён. За него никто не голосует. Это просто вычитание. Потолок долга стоит на третьей станции, на кассе. Он не ограничивает, что Конгресс может заказать. Он ограничивает, может ли казначейство оплатить то, что Конгресс уже заказал.</p>
+      <p>Такое расположение — случайность истории. До тысяча девятьсот семнадцатого года Конгресс одобрял каждый заём по отдельности. Потом началась Первая мировая, и Конгресс выдал казначейству общее разрешение занимать. Под одним общим потолком, чтобы разрешение не было безграничным. Потолок родился как удлинение поводка, а не как тормоз. А у лимита на кассе есть ровно один способ сказать «нет»: отказаться платить по счетам, которые страна уже набрала. То есть дефолт. В две тысячи одиннадцатом году торг вокруг потолка стоил Соединённым Штатам высшего кредитного рейтинга от агентства Standard and Poor's. Это было первое понижение в истории страны. В две тысячи двадцать третьем последовало агентство Fitch, в две тысячи двадцать пятом Moody's. Все три назвали причиной сами эти противостояния, а не только размер долга.</p>
+      <p>Почему же правило живо? Потому что это единственный срок во всей бюджетной системе, который нельзя пропустить. Бюджетные дедлайны срываются каждый год. Потолок не срывается. Кто хочет рычаг, любая партия, в любой год, получает один гарантированный момент, когда все обязаны сесть за стол.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF 1 ================= -->
+<section class="ep" id="s4" data-duration="83.8">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Что если · один</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · конструкция один — перенести кран выше</div>
+    <h2>Поставить лимит там, где делается заказ.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="a1_pipe">
+          <path class="ink" stroke-width="3" d="M 120 150 L 1360 150"/>
+          <path class="ink" stroke-width="3" d="M 120 205 L 1360 205"/>
+          <circle cx="320" cy="177" r="36" class="nodebox"/>
+          <text x="320" y="184" text-anchor="middle" class="fact strong" font-size="13">ЗАКАЗ</text>
+          <circle cx="740" cy="177" r="36" class="nodebox"/>
+          <text x="740" y="184" text-anchor="middle" class="fact strong" font-size="13">СБОР</text>
+          <g id="a1_old"><rect x="1120" y="135" width="18" height="84" fill="var(--flaw)"/>
+          <text x="1129" y="250" text-anchor="middle" font-size="13">КАК ПОСТРОЕНО: КРАН НА КАССЕ</text></g>
+          <g id="a1_new" class="b">
+            <rect x="200" y="127" width="18" height="100" fill="none" stroke="var(--alt)" stroke-width="3.5" stroke-dasharray="7 6"/>
+            <text x="209" y="105" text-anchor="middle" class="alttxt strong" font-size="15">КРАН НА ЗАКАЗЕ</text>
+          </g>
+        </g>
+        <g id="a1_ch" class="b" data-tip="Швейцарский долговой тормоз: предложен в 2000-м, принят 85% голосов на референдуме 2 декабря 2001-го, действует с бюджета 2003 года (ст. 126 Конституции). Расходы ограничены доходами с поправкой на цикл. Федеральный долг к ВВП упал почти вдвое. Германия добавила свой Schuldenbremse (0,35% структурного дефицита) в 2009-м.">
+          <text x="160" y="310" class="alttxt strong" font-size="16">ШВЕЙЦАРИЯ · РЕФЕРЕНДУМ 2001: 85% ЗА</text>
+          <path id="revLine" class="ink" d="M 160 420 C 300 410 420 416 560 408"/>
+          <path id="spendLine" class="green" d="M 160 434 C 300 422 420 428 560 416"/>
+          <text x="590" y="410" font-size="13">РАСХОДЫ ≤ ДОХОДЫ,</text>
+          <text x="590" y="434" font-size="13">С ПОПРАВКОЙ НА ЦИКЛ</text>
+          <path id="debtDrop" class="blue" stroke-dasharray="4 4" d="M 160 480 C 300 486 440 510 560 522"/>
+          <text x="590" y="528" font-size="13">ДОЛГ / ВВП: ПОЧТИ ВДВОЕ НИЖЕ</text>
+          <text x="160" y="570" class="strong" font-size="14">ГЕРМАНИЯ КОПИРУЕТ ТОРМОЗ · 2009</text>
+        </g>
+        <g id="a1_p" class="b" data-tip="Март 2025: Бундестаг (513–207) вывел оборонные расходы выше 1% ВВП из-под тормоза и создал инфраструктурный фонд на €500 млрд вне правила — после лет критики, что тормоз морил мосты, железные дороги и армию. Источники: CNBC, Еврокомиссия.">
+          <rect x="880" y="290" width="480" height="290" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+          <text x="904" y="330" class="flawtxt strong" font-size="15">ЦЕНА — ЖЁСТКОСТЬ:</text>
+          <text x="904" y="366" font-size="14">НЕ ОТЛИЧАЕТ ИНВЕСТИЦИЮ ОТ ТРАТЫ</text>
+          <text x="904" y="394" font-size="14">ГОДЫ: МОСТЫ СЫПЛЮТСЯ, АРМИЯ УСЫХАЕТ</text>
+          <g id="a1_crack">
+            <text x="904" y="442" class="flawtxt strong" font-size="15">МАРТ 2025 · ГЕРМАНИЯ ВСКРЫВАЕТ ТОРМОЗ:</text>
+            <text x="904" y="474" font-size="14">ОБОРОНА ВЫШЕ 1% ВВП — ВНЕ ПРАВИЛА</text>
+            <text x="904" y="502" font-size="14">ФОНД €500 000 000 000 — ВНЕ ТОРМОЗА</text>
+          </g>
+          <text x="904" y="552" class="flawtxt strong" font-size="15">ПРАВИЛО, КОТОРОЕ НЕ ГНЁТСЯ, ЛОМАЮТ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnV0" class="on">Как построено</button><button id="btnV1">Кран выше</button>
+    </div>
+    <div class="figcap">Рис. 5 — швейцарский кран и немецкая трещина в нём. Кликните, чтобы сравнить.</div>
+    <div class="prose">
+      <p>Как выглядела бы конструкция, где кран стоит там, где делается заказ? В две тысячи первом году Швейцария вынесла ровно этот вопрос на референдум. Восемьдесят пять процентов проголосовали «за». С две тысячи третьего года швейцарская конституция ограничивает расходы каждого года примерно тем, что правительство собирает, с поправкой на экономический цикл. В хорошие годы откладывать, в плохие можно немного занять. Лимит срабатывает в момент заказа, а не на кассе. Швейцарский долг относительно экономики упал почти вдвое. Германия вписала похожий тормоз в свою конституцию в две тысячи девятом.</p>
+      <p>А потом Германия показала всем цену. Правило, достаточно жёсткое, чтобы держать, остаётся жёстким и тогда, когда нужно обратное. Годами критики винили тормоз в рассыпающихся мостах и усохшей армии. Правило не отличает инвестицию от траты. И в марте две тысячи двадцать пятого, на фоне войны на континенте, Германия вскрыла собственный тормоз. Оборонные расходы выше одного процента объёма экономики вывели из-под правила. А инфраструктурный фонд на пятьсот миллиардов евро поставили целиком вне его. Это и есть честная сделка. Кран в начале трубы действительно держит. Ровно до кризиса, когда правило, которое не гнётся, не гнут, а ломают.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 WHAT IF 2 ================= -->
+<section class="ep" id="s5" data-duration="93.7">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Что если · два</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · конструкция два — признать кран декоративным</div>
+    <h2>Поднять за горизонт — или удалить.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <g id="a2_dk" class="b" data-tip="Дания — единственная кроме США демократия с потолком долга фиксированным числом, остаток административной реформы 1993 года. В 2010-м все крупные партии вместе подняли его один раз, с 950 млрд до 2 трлн крон — примерно втрое выше долга — с явной целью никогда не делать его разменной картой. В 2021 году долг составлял ~14% потолка. Источники: CNN, CNBC, PIIE.">
+          <text x="160" y="80" class="alttxt" font-size="17">ДАНИЯ · ПОТОЛОК КАК ФОРМАЛЬНОСТЬ</text>
+          <text x="160" y="128" class="alttxt strong" font-size="14">ПОТОЛОК · ВТРОЕ ВЫШЕ ДОЛГА</text>
+          <line x1="160" y1="150" x2="640" y2="150" class="green" stroke-width="3"/>
+          <path class="blue" stroke-width="3" d="M 160 250 C 300 246 480 240 640 244"/>
+          <text x="160" y="292" font-size="14">РЕАЛЬНЫЙ ДОЛГ — ДАЛЕКО ВНИЗУ</text>
+          <text x="160" y="344" class="strong" font-size="15">ПОДНЯТ ОДИН РАЗ · ВСЕМИ ПАРТИЯМИ · 2010</text>
+          <text x="160" y="376" font-size="14">ЦЕЛЬ ВСЛУХ: НИКОГДА НЕ РАЗМЕННАЯ КАРТА</text>
+        </g>
+        <g id="a2_au" class="b" data-tip="Австралия завела потолок американского образца в 2007–09 годах, получила собственный торг в 2013-м на отметке A$300 млрд и в декабре 2013-го отменила потолок сделкой Коалиции с Зелёными. Источники: ABC News, The Conversation.">
+          <text x="900" y="80" class="alttxt" font-size="17">АВСТРАЛИЯ · УДАЛИЛА ЕГО</text>
+          <line id="au_line" x1="900" y1="150" x2="1340" y2="150" class="ink" stroke-width="3"/>
+          <line id="au_strike" x1="890" y1="150" x2="1350" y2="150" class="amber" stroke-width="5"/>
+          <text x="900" y="200" class="strong" font-size="14">ПОТОЛОК 2007 → ТОРГ 2013</text>
+          <text x="900" y="232" class="flawtxt strong" font-size="15">ДЕКАБРЬ 2013 · ОТМЕНЁН</text>
+        </g>
+        <g id="a2_p" class="b" data-tip="Цена: потолок — единственный срок, который Конгресс не может пропустить, единственный принудительный момент увидеть сумму собственных решений. Поднимите его за горизонт или удалите — момент исчезнет. И само голосование в предвыборном ролике читается как «голос за снятие всех ограничений».">
+          <rect x="160" y="420" width="600" height="150" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+          <text x="184" y="460" class="flawtxt strong" font-size="15">ЦЕНА:</text>
+          <text x="184" y="496" font-size="14">ЕДИНСТВЕННЫЙ НЕПРОПУСКАЕМЫЙ СРОК — ИСЧЕЗ</text>
+          <text x="184" y="528" font-size="14">НЕТ МОМЕНТА, КОГДА ВИДНА ВСЯ СУММА</text>
+        </g>
+        <g id="a2_ad" class="b">
+          <rect x="900" y="330" width="440" height="130" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1120" y="382" text-anchor="middle" class="flawtxt strong" font-size="15">РОЛИК ОППОНЕНТА ПИШЕТ СЕБЯ САМ:</text>
+          <text x="1120" y="420" text-anchor="middle" font-size="14">«ГОЛОСОВАЛ ЗА СНЯТИЕ ВСЕХ ОГРАНИЧЕНИЙ»</text>
+          <text x="1120" y="530" text-anchor="middle" class="flawtxt strong" font-size="15">ВАЛЮТА ЦЕНЫ: ПРИНУДИТЕЛЬНЫЙ РАЗГОВОР —</text>
+          <text x="1120" y="560" text-anchor="middle" class="flawtxt strong" font-size="15">И ОТПЕЧАТКИ ПАЛЬЦЕВ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 6 — потолок, до которого не доторговаться, и потолок, стёртый совсем</div>
+    <div class="prose">
+      <p>Есть вторая конструкция, и она начинается с признания. Дания — единственная кроме США демократия, где потолок долга записан фиксированным числом. Это остаток административной реформы тысяча девятьсот девяносто третьего года, а не осознанная политика. В две тысячи десятом все крупные датские партии вместе подняли его один раз, примерно втрое выше реального долга. И цель проговорили вслух: это число никогда не должно стать разменной картой. Сегодня датский долг лежит далеко под потолком, и о датском кризисе потолка никто никогда не слышал. Австралия пошла дальше. Она завела потолок американского образца в конце нулевых, за четыре года получила собственный торг вокруг потолка и в декабре две тысячи тринадцатого просто отменила его совсем.</p>
+      <p>Цена — то, что теряется. Вспомните: потолок это единственный срок, который нельзя пропустить. Единственный принудительный момент, когда Конгресс обязан посмотреть на сумму собственных решений. Поднимите его за горизонт или удалите, и этот момент исчезнет. И есть вторая цена, чисто вашингтонская: само голосование. Голос за отмену лимита в предвыборном ролике выглядит как голос за снятие всех ограничений. Поэтому ни одна партия не хочет оставлять на этом отпечатки пальцев.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 WHAT IF 3 ================= -->
+<section class="ep" id="s6" data-duration="87">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">Что если · три</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · конструкция три — склеить заказ со счётом</div>
+    <h2>Одно голосование заказывает ужин и принимает счёт.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg6">
+        <g id="a3_weld" class="b" data-tip="Правило Гепхардта, Палата представителей, 1979–1995: принятие годовой бюджетной резолюции автоматически считалось принятием соответствующего поднятия потолка. Одно голосование — потому что арифметически бюджет и вытекающие из него займы это одно решение.">
+          <text x="160" y="80" class="alttxt" font-size="16">ПРАВИЛО ГЕПХАРДТА · ПАЛАТА ПРЕДСТАВИТЕЛЕЙ · 1979–1995</text>
+          <rect x="220" y="130" width="300" height="90" class="nodebox"/>
+          <text x="370" y="168" text-anchor="middle" class="fact strong" font-size="15">ГОЛОС: БЮДЖЕТ</text>
+          <text x="370" y="198" text-anchor="middle" font-size="13">ЗАКАЗ</text>
+          <rect x="640" y="130" width="300" height="90" class="nodebox"/>
+          <text x="790" y="168" text-anchor="middle" class="fact strong" font-size="15">ГОЛОС: ПОТОЛОК ДОЛГА</text>
+          <text x="790" y="198" text-anchor="middle" font-size="13">СЧЁТ</text>
+          <g id="a3_one">
+            <rect x="1040" y="118" width="300" height="114" fill="none" stroke="var(--alt)" stroke-width="3" stroke-dasharray="7 6"/>
+            <text x="1190" y="163" text-anchor="middle" class="alttxt strong" font-size="15">ОДИН ГОЛОС</text>
+            <text x="1190" y="196" text-anchor="middle" font-size="13">ЗАКАЗ + СЧЁТ, СВАРЕНЫ</text>
+          </g>
+        </g>
+        <g id="a3_trick" class="b" data-tip="При раздельных голосованиях конгрессмен может проголосовать ЗА дефицитный бюджет и через несколько месяцев ПРОТИВ долга, который этот бюджет создал, — и оба голоса хорошо смотрятся дома. Сварка голосований отбирает это удобство — поэтому правило то и дело приостанавливали, и в 1995-м оно умерло.">
+          <text x="160" y="310" class="strong" font-size="16">ПОЛИТИЧЕСКИЙ ФОКУС ПРИ РАЗДЕЛЬНЫХ ГОЛОСАХ:</text>
+          <rect x="160" y="340" width="270" height="64" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="295" y="368" text-anchor="middle" class="fact strong" font-size="13">ДА — ДЕФИЦИТНОМУ БЮДЖЕТУ</text>
+          <text x="295" y="392" text-anchor="middle" font-size="12">ХОРОШО СМОТРИТСЯ ДОМА</text>
+          <rect x="480" y="340" width="260" height="64" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="610" y="368" text-anchor="middle" class="flawtxt strong" font-size="13">НЕТ — ЭТОМУ ДОЛГУ</text>
+          <text x="610" y="392" text-anchor="middle" font-size="12">ТОЖЕ СМОТРИТСЯ</text>
+          <line x1="200" y1="430" x2="700" y2="430" class="amber" stroke-width="4"/>
+          <text x="160" y="470" class="flawtxt strong" font-size="14">СВАРКА ОТБИРАЕТ ФОКУС — ПРАВИЛО ГАСИЛИ, ПОТОМ ОНО УМЕРЛО</text>
+        </g>
+        <g id="a3_pl" class="b" data-tip="Мягкая родня: лимит долей ВВП — Польша носит 60% в конституции; лимиты-доли есть у Малайзии, Пакистана, Намибии. Без механизма принуждения доля превращается в декларацию, которую тихо правят по мере приближения.">
+          <text x="900" y="310" class="strong" font-size="15">МЯГКАЯ РОДНЯ · ДОЛЯ, А НЕ СУММА</text>
+          <circle cx="1000" cy="430" r="70" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <line id="pl_needle" x1="1000" y1="430" x2="1000" y2="372" class="amber" stroke-width="4"/>
+          <text x="1000" y="530" text-anchor="middle" font-size="14">ПОЛЬША · 60% ВВП, В КОНСТИТУЦИИ</text>
+          <text x="1160" y="440" font-size="13">БЕЗ ПРИНУЖДЕНИЯ →</text>
+          <text x="1160" y="465" font-size="13">ДЕКЛАРАЦИЯ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 7 — два голосования, сваренные в одно, и та же идея в виде шкалы</div>
+    <div class="prose">
+      <p>Третья конструкция не двигает кран и не убирает его. Она сваривает два голосования в одно. Американская Палата представителей действительно ставила этот опыт. С тысяча девятьсот семьдесят девятого по тысяча девятьсот девяносто пятый, по так называемому правилу Гепхардта, принятие годового бюджета автоматически считалось принятием соответствующего потолка долга. Одно голосование заказывало ужин и принимало счёт. Потому что арифметически это всегда одно и то же решение.</p>
+      <p>Цена здесь не экономическая. Теряется политическое удобство. При раздельных голосованиях член Конгресса может проголосовать за дефицитный бюджет, а через несколько месяцев проголосовать против долга, который этот самый бюджет создал. И оба голоса хорошо смотрятся дома, перед избирателями. Сварка голосований отбирает этот фокус. Именно поэтому правило то и дело приостанавливали, пока оно не умерло. У этой идеи есть мягкая родня: записать лимит долей экономики, а не суммой в долларах. Польша носит в конституции планку в шестьдесят процентов. Но доля без механизма принуждения превращается в декларацию, которую тихо правят, когда она приближается.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S7 CLOSE ================= -->
+<section class="ep" id="s7" data-duration="49.2">
+  <div class="chapter"><div class="in"><div class="n">07</div><div class="t">Финал</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Финал · вопрос, который берём в 2027-й</div>
+    <h2>79-е поднятие уже назначено.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg7">
+        <g id="z_table" class="b">
+          <rect x="500" y="70" width="480" height="130" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="740" y="118" text-anchor="middle" class="strong" font-size="16">СЧЁТ · ОПЛАЧЕН 78 РАЗ ПОДРЯД</text>
+          <text x="740" y="158" text-anchor="middle" class="flawtxt strong" font-size="16">№79 · ГДЕ-ТО В 2027</text>
+        </g>
+        <g id="z_triad" class="b">
+          <rect x="150" y="260" width="380" height="130" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="340" y="300" text-anchor="middle" class="alttxt strong" font-size="14">ТОРМОЗ НА ЗАКАЗЕ</text>
+          <text x="340" y="332" text-anchor="middle" font-size="13">ЦЕНА: В КРИЗИС ЕГО ЛОМАЮТ</text>
+          <rect x="550" y="260" width="380" height="130" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="740" y="300" text-anchor="middle" class="alttxt strong" font-size="14">ПОТОЛОК ЗА ГОРИЗОНТОМ</text>
+          <text x="740" y="332" text-anchor="middle" font-size="13">ЦЕНА: НИ К ЧЕМУ НЕ ПРИНУЖДАЕТ</text>
+          <rect x="950" y="260" width="380" height="130" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="1140" y="300" text-anchor="middle" class="alttxt strong" font-size="14">ОДИН ГОЛОС: УЖИН + СЧЁТ</text>
+          <text x="1140" y="332" text-anchor="middle" font-size="13">ЦЕНА: НЕЛЬЗЯ ГОЛОСОВАТЬ ДВАЖДЫ</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="450" text-anchor="middle" class="big flawtxt" font-size="25">ПОЧЕМУ ЕДИНСТВЕННЫЙ ЛИМИТ СТОИТ ТАМ,</text>
+          <text x="740" y="488" text-anchor="middle" class="big flawtxt" font-size="25">ГДЕ ОГРАНИЧИВАТЬ УЖЕ НЕЧЕГО?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Вернёмся в ресторан. Спор за столом всегда один и тот же: оплатить счёт или отказаться и погубить репутацию собственного стола. И счёт всегда оплачивают. Уже семьдесят восемь раз подряд. Где-то в две тысячи двадцать седьмом будет семьдесят девятый. Так что когда этот торг снова заполнит заголовки, интересный вопрос не в том, поднимут ли потолок. Поднимут. Вопрос в том, почему единственный лимит во всей трубе стоит на кассе, где ограничивать уже нечего. Там можно только не заплатить. И какую цену вы бы предпочли: тормоз, который в кризис ломают, потолок, который ни к чему не принуждает, или одно голосование, которое заказывает ужин и оплачивает счёт на одном дыхании, не оставляя способа проголосовать за еду и против счёта.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">ДЕФЕКТ КОНСТРУКЦИИ</div>
+      <p>Не кто виноват — как устроено. Полный интерактивный чертёж, с тем, что не вошло в ролик, — на этой странице. <a href="../" style="color:var(--fact)">In English →</a></p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Смотреть на YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstreamRU" rel="noopener">Подписаться</a>
+    </div>
+  </div>
+</section>
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <path d="M 120 330 L 340 330 L 340 270 L 560 270 L 560 210 L 780 210 L 780 150 L 1000 150 L 1000 96 L 1180 96" fill="none" stroke="var(--fact)" stroke-width="9"/>
+    <line x1="120" y1="60" x2="1180" y2="60" stroke="var(--flaw)" stroke-width="9" stroke-dasharray="26 18"/>
+    <path d="M 1080 96 L 1080 60 M 1064 82 L 1080 60 L 1096 82" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <text x="400" y="130" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">подняли 78 раз · удержал 0</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">$40 ТРЛН</div>
+  <div class="sub">лимит долга, который ни разу его не ограничил</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <line x1="140" y1="90" x2="1140" y2="90" stroke="var(--flaw)" stroke-width="10" stroke-dasharray="28 20"/>
+    <path d="M 240 330 C 420 320 640 280 820 210 C 940 165 1040 130 1120 108" fill="none" stroke="var(--fact)" stroke-width="10"/>
+    <path d="M 300 90 L 300 40 M 282 62 L 300 40 L 318 62" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <path d="M 640 90 L 640 40 M 622 62 L 640 40 L 658 62" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <path d="M 980 90 L 980 40 M 962 62 L 980 40 L 998 62" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <text x="420" y="180" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">потолок всегда переезжает</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">78 РАЗ</div>
+  <div class="sub">потолок долга США · ноль удержаний · дальше: 2027</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function draw(tl,id,pos,d=1.6){const p=$(id),L=p.getTotalLength();
+  tl.fromTo(p,{strokeDasharray:L+' '+L,strokeDashoffset:L},{strokeDashoffset:0,duration:d,ease:'power1.inOut'},pos);}
+function count(tl,id,target,pos,d=1.6){const el=$(id),o={v:0};
+  tl.to(o,{v:target,duration:d,ease:'power1.out',snap:{v:1},
+    onUpdate:()=>{el.textContent=o.v.toLocaleString('ru-RU');},
+    onComplete:()=>{el.textContent=target.toLocaleString('ru-RU');}},pos);}
+function countF(tl,id,target,fmt,pos,d=1.6){const el=$(id),o={v:0};
+  tl.to(o,{v:target,duration:d,ease:'power1.out',
+    onUpdate:()=>{el.textContent=fmt(o.v);},
+    onComplete:()=>{el.textContent=fmt(target);}},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8);
+  tl.fromTo($('h_tix').children,{opacity:0,y:26},{opacity:1,y:0,duration:.5,stagger:.5,ease:'back.out(1.5)'},1.5);
+  idle(tl,'h_a',6,4);
+  tl.to($('h_a'),{opacity:0,duration:.45},11.5);
+  say(tl,'h_b',11.9,.7); idle(tl,'h_b',14,3);
+  pop(tl,'h_stamp',18.5,.6); shake(tl,'h_stamp',19.2,6,7); idle(tl,'h_stamp',21,4);
+  tl.to($('h_b'),{opacity:0,duration:.45},27.0);
+  tl.to($('h_stamp'),{opacity:0,duration:.45},27.0);
+  say(tl,'h_c',27.4,.6);
+  countF(tl,'c_bill',40,v=>'$'+v.toFixed(0)+' 000 000 000 000',27.7,2.2);
+  idle(tl,'h_c',31,4);
+  tl.to($('h_c'),{opacity:0,duration:.45},36.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},36.9);
+  if(isAuto)tl.to({},{duration:4.0},37.6); else tl.to($('titleCard'),{opacity:0,duration:.5},41.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_curve',0.5,.7); draw(tl,'debtLine',0.9,2.6);
+  countF(tl,'c_debt',40.05,v=>'$'+v.toFixed(2).replace('.',',')+' ТРЛН',3.0,2.0);
+  idle(tl,'e_curve',6,6);
+  say(tl,'e_pace',14.0,.8);
+  tl.fromTo($('e_intfill'),{attr:{width:0}},{attr:{width:280},duration:1.6,ease:'power1.inOut'},15.0);
+  tl.fromTo($('e_intlab'),{opacity:0},{opacity:1,duration:.5},16.6);
+  idle(tl,'e_pace',18,8);
+  say(tl,'e_int',30.0,.7);
+  tl.fromTo($('barInt'),{attr:{height:0,y:480}},{attr:{height:200,y:280},duration:1.4,ease:'power1.out'},30.6);
+  tl.fromTo($('barDef'),{attr:{height:0,y:480}},{attr:{height:150,y:330},duration:1.2,ease:'power1.out'},30.9);
+  idle(tl,'e_int',34,8);
+  say(tl,'e_tril',46.0,.8); idle(tl,'e_tril',52,12);
+  say(tl,'e_ceil',68.0,.9); shake(tl,'e_ceil',70.0,5,6); idle(tl,'e_ceil',72,16);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_blame',0.5,.8); idle(tl,'v_blame',3,6);
+  tl.to($('v_blame'),{opacity:.35,duration:.5},11.5);
+  say(tl,'v_wall',12.0,.8);
+  tl.fromTo($('w1'),{opacity:0},{opacity:1,duration:.9},12.6);
+  tl.fromTo($('w2'),{opacity:0},{opacity:1,duration:.9},13.6);
+  tl.fromTo($('w3'),{opacity:0},{opacity:1,duration:.9},14.6);
+  idle(tl,'v_wall',17,10);
+  say(tl,'v_q',31.0,.8); shake(tl,'v_q',32.0,5,6); idle(tl,'v_q',34,7);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'m_rail',0.5,.7);
+  say(tl,'m_s1',5.0,.8); idle(tl,'m_s1',8,6);
+  say(tl,'m_s2',16.0,.8); idle(tl,'m_s2',19,5);
+  say(tl,'m_gap',26.0,.8); idle(tl,'m_gap',29,8);
+  say(tl,'m_s3',40.0,.8); shake(tl,'m_s3',41.0,5,6); idle(tl,'m_s3',44,10);
+  say(tl,'m_1917',58.0,.9); idle(tl,'m_1917',63,14);
+  say(tl,'m_rate',82.0,.9); shake(tl,'m_rate',83.5,5,6); idle(tl,'m_rate',86,14);
+  say(tl,'m_why',106.0,.8); idlePlate(tl,'m_why',109,14);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  tl.set($('a1_pipe'),{opacity:1},0);
+  say(tl,'a1_new',2.0,.8); idle(tl,'a1_new',4,4);
+  say(tl,'a1_ch',10.0,.9);
+  draw(tl,'revLine',11.0,1.6); draw(tl,'spendLine',12.0,1.6); draw(tl,'debtDrop',14.0,1.8);
+  idle(tl,'a1_ch',17,16);
+  say(tl,'a1_p',40.0,.9);
+  shake(tl,'a1_crack',56.0,6,8);
+  idle(tl,'a1_p',58,18);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  say(tl,'a2_dk',0.5,.9); idle(tl,'a2_dk',6,18);
+  say(tl,'a2_au',28.0,.8);
+  draw(tl,'au_strike',31.0,1.2);
+  idle(tl,'a2_au',33,8);
+  say(tl,'a2_p',44.0,.9); idle(tl,'a2_p',49,10);
+  say(tl,'a2_ad',62.0,.8); shake(tl,'a2_ad',63.5,5,6); idle(tl,'a2_ad',65,10);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'a3_weld',0.5,.9); idle(tl,'a3_one',6,14);
+  say(tl,'a3_trick',26.0,.9); shake(tl,'a3_trick',42.0,4,5); idle(tl,'a3_trick',44,10);
+  say(tl,'a3_pl',60.0,.9);
+  tl.to($('pl_needle'),{rotation:64,transformOrigin:'0% 100%',duration:1.6,ease:'power1.inOut'},62.0);
+  tl.to($('pl_needle'),{rotation:84,duration:1.0,ease:'power1.inOut'},66.0);
+  idle(tl,'a3_pl',68,10);
+  return tl;}
+
+function sc7(){const tl=gsap.timeline();
+  say(tl,'z_table',0.5,.9); shake(tl,'z_table',2.0,4,5); idle(tl,'z_table',4,8);
+  say(tl,'z_triad',14.0,.9); idle(tl,'z_triad',20,14);
+  say(tl,'z_q',38.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:7,yoyo:true},41.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6,s7:sc7};
+
+function showValve(i){
+  const n=$('a1_new'),o=$('a1_old');
+  gsap.killTweensOf([n,o]);
+  gsap.set(n,{opacity:i===1?1:0});
+  gsap.set(o,{opacity:i===1?.35:1});
+  ['btnV0','btnV1'].forEach((b,k)=>$(b).classList.toggle('on',k===i));}
+$('btnV0').onclick=()=>showValve(0);
+$('btnV1').onclick=()=>showValve(1);
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6','s7'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>America Has a Debt Limit. It Never Limited Debt | Trace Upstream</title>
+<meta name="description" content="On August 19, 2026 the US national debt passed $40 trillion — under a legal debt limit that has been raised 78 times since 1960 and has never once held. The reason is placement: spending and taxes are voted with no limit attached, while the ceiling caps only the payment of bills Congress already ordered — so its only weapon is threatening default on the country's own obligations, a threat that has already cost the US three credit-rating downgrades. Three redesigns, each with a price: the Swiss-German brake at the ordering end (rigid until a crisis breaks it), the Danish decorative ceiling or Australian abolition (losing the only unskippable deadline), or the Gephardt rule welding the order and the bill into one vote (no more voting for the meal and against the check).">
+<link rel="canonical" href="https://traceupstream.com/episodes/043-debt-limit-wrong-end/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="America Has a Debt Limit. It Never Limited Debt">
+<meta property="og:description" content="The US debt ceiling caps paying bills Congress already ordered — the ordering itself happens in other laws the limit never touches. That placement explains 78 raises, three downgrades, and the standoff scheduled for 2027.">
+<meta property="og:url" content="https://traceupstream.com/episodes/043-debt-limit-wrong-end/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#8E8BA3;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .amberfill{fill:var(--flaw);opacity:.85}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:150px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.043 — 2026-08-20</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to narration"><span class="dot"></span><span id="listenLab">Listen</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="43.3">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · case EP.043</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_a" class="b">
+          <ellipse cx="500" cy="420" rx="300" ry="34" fill="none" stroke="var(--text)" stroke-width="4"/>
+          <circle cx="360" cy="405" r="26" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <circle cx="500" cy="428" r="26" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <circle cx="640" cy="405" r="26" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <g id="h_tix">
+            <rect x="300" y="300" width="90" height="44" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+            <rect x="420" y="280" width="90" height="44" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+            <rect x="540" y="300" width="90" height="44" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+            <rect x="470" y="240" width="90" height="44" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+            <rect x="360" y="248" width="90" height="44" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="3"/>
+          </g>
+          <text x="500" y="120" text-anchor="middle" class="big" font-size="46">ORDER ANYTHING.</text>
+          <text x="500" y="180" text-anchor="middle" class="big" font-size="46">NO LIMIT.</text>
+        </g>
+        <g id="h_b" class="b">
+          <rect x="380" y="240" width="240" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <line x1="410" y1="290" x2="590" y2="290" stroke="var(--grid)" stroke-width="4"/>
+          <line x1="410" y1="330" x2="590" y2="330" stroke="var(--grid)" stroke-width="4"/>
+          <line x1="410" y1="370" x2="540" y2="370" stroke="var(--grid)" stroke-width="4"/>
+          <text x="500" y="140" text-anchor="middle" class="big" font-size="44">THE VOTE COMES</text>
+          <text x="500" y="198" text-anchor="middle" class="big" font-size="44">WITH THE BILL</text>
+        </g>
+        <g id="h_stamp" class="b">
+          <rect x="170" y="440" width="660" height="80" fill="none" stroke="var(--flaw)" stroke-width="5" transform="rotate(-3 500 480)"/>
+          <text x="500" y="492" text-anchor="middle" class="flawtxt" font-size="36" transform="rotate(-3 500 480)">REFUSING DOESN'T UNDO DINNER</text>
+        </g>
+        <g id="h_c" class="b">
+          <text id="c_bill" x="500" y="250" text-anchor="middle" class="big flawtxt" font-size="64">$0</text>
+          <text x="500" y="330" text-anchor="middle" font-size="36">THE TABLE'S BILL, THIS WEEK</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="210" text-anchor="middle" class="big" font-size="54">A DEBT LIMIT THAT</text>
+          <text x="500" y="290" text-anchor="middle" class="big" font-size="54">NEVER LIMITED DEBT</text>
+          <text x="500" y="390" text-anchor="middle" font-size="34">TRACE UPSTREAM</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 1 — the ordering has no limit; the paying has a vote</div>
+    <div class="prose">
+      <p>Imagine a restaurant with one unusual rule. Everyone at the table can order whatever they want — there is no limit on ordering. The limit comes later, when the bill arrives. Then, and only then, the table votes on whether to pay. And here is the strange part: refusing to pay would not undo the dinner. The food is already eaten. The only thing a "no" vote can do is leave the bill unpaid — and ruin this table's good name. This is not a story about careless people. It is, almost word for word, the written budget procedure of the United States government. And this week, the bill crossed forty trillion dollars.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="79.9">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">The Event</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Event · August 19, 2026</div>
+    <h2>$40,000,000,000,000 — and counting.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_curve" class="b" data-tip="Debt subject to the limit reached $40.05T on Aug 19, 2026 — months earlier than CBO projected half a year before ($39.4T for the full fiscal year), partly because the Supreme Court struck down a set of tariffs and the projected revenue vanished. Sources: CNBC, Washington Post, NPR.">
+          <path id="debtLine" class="blue" stroke-width="3" d="M 140 480 C 320 470 460 440 580 400 C 700 360 780 300 860 240 C 920 195 960 175 1000 160"/>
+          <text id="c_debt" x="1120" y="150" text-anchor="middle" class="big fact" font-size="52">$0T</text>
+          <text x="1120" y="195" text-anchor="middle" font-size="15">AUG 19, 2026 · MONTHS EARLY</text>
+          <text x="200" y="530" font-size="14">2016 · $19.4T</text>
+        </g>
+        <g id="e_pace" class="b" data-tip="The Treasury now borrows about $6B every day; more than half of new borrowing covers interest on existing debt. July 2026 alone ran a $432.3B monthly deficit — the highest since March 2021. Sources: PBS, Fox Business, CNN.">
+          <text x="160" y="90" class="strong" font-size="16">EVERY DAY: + $6,000,000,000</text>
+          <rect x="160" y="110" width="520" height="46" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <rect id="e_intfill" x="160" y="110" width="280" height="46" class="amberfill"/>
+          <text id="e_intlab" class="b onplate strong" x="300" y="140" text-anchor="middle" font-size="15">OVER HALF: INTEREST</text>
+          <text x="560" y="140" text-anchor="middle" font-size="14" class="strong">NEW MONEY</text>
+        </g>
+        <g id="e_int" class="b" data-tip="Interest is running near $1.2T a year — the largest budget line outside Social Security and Medicare, and more than the entire national defense budget. Sources: PBS, Fox Business.">
+          <rect id="barDef" x="790" y="330" width="70" height="150" fill="var(--fact)" opacity=".85"/>
+          <rect id="barInt" x="1000" y="280" width="70" height="200" class="amberfill"/>
+          <text x="825" y="510" text-anchor="middle" font-size="14">DEFENSE</text>
+          <text x="1035" y="510" text-anchor="middle" class="flawtxt strong" font-size="14">INTEREST · $1.2T/YR</text>
+        </g>
+        <g id="e_tril" class="b" data-tip="The first $1T of debt took from 1789 to 1981 to accumulate. In 2026 a new trillion arrives in under five months. Per person: ~$116,000 (CEO Center / The Conference Board).">
+          <line x1="160" y1="230" x2="620" y2="230" class="ink"/>
+          <text x="160" y="210" font-size="14">FIRST TRILLION · ~200 YEARS</text>
+          <line x1="160" y1="285" x2="240" y2="285" class="amber"/>
+          <text x="260" y="290" class="flawtxt strong" font-size="14">LATEST · UNDER 5 MONTHS</text>
+          <text x="160" y="345" class="strong" font-size="15">≈ $116,000 PER AMERICAN</text>
+        </g>
+        <g id="e_ceil" class="b" data-tip="The statutory limit stands at $41.1T — raised by $5T on July 4, 2025 (One Big Beautiful Bill Act). The Bipartisan Policy Center projects the ceiling binds between late winter and mid-2027; Fitch says mid-2027 plus months of 'extraordinary measures'.">
+          <line x1="140" y1="66" x2="1340" y2="66" class="amber" stroke-dasharray="10 8"/>
+          <text x="1330" y="46" text-anchor="end" class="flawtxt strong" font-size="16">THE LEGAL CEILING · $41.1T</text>
+          <text x="1330" y="245" text-anchor="end" font-size="14">RAISED +$5T · JULY 2025</text>
+          <text x="1330" y="275" text-anchor="end" class="strong" font-size="15">NEXT HIT: 2027</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 2 — the curve, the pace, and the line drawn just above it</div>
+    <div class="prose">
+      <p>On August nineteenth, twenty twenty-six, the national debt of the United States passed forty trillion dollars for the first time — months earlier than forecasters expected, partly because the Supreme Court struck down a set of tariffs and the revenue vanished. The pace is easier to feel than the total. The government now borrows about six billion dollars every day. More than half of that new borrowing goes to a single line item: interest on the money it already borrowed. Interest costs are running near one point two trillion dollars a year — more than the entire defense budget.</p>
+      <p>The first trillion took the country almost two hundred years to accumulate. The most recent trillion took less than five months. Divided among every American, the debt comes to about a hundred and sixteen thousand dollars per person. And here is the detail most headlines skip: all of this happened under a legal debt limit, written in statute — currently forty-one point one trillion dollars, after Congress raised it by five trillion in July of twenty twenty-five. At the current pace, the government hits the ceiling again sometime in twenty twenty-seven.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="41.6">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">The Pivot</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Pivot · a limit that always yields</div>
+    <h2>Raised 78 times. Held 0 times.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_blame" class="b">
+          <path d="M 560 100 L 460 100 L 460 84 L 420 110 L 460 136 L 460 120 L 560 120 Z" fill="var(--flaw)" opacity=".8"/>
+          <path d="M 920 100 L 1020 100 L 1020 84 L 1060 110 L 1020 136 L 1020 120 L 920 120 Z" fill="var(--flaw)" opacity=".8"/>
+          <text x="300" y="116" text-anchor="middle" class="strong" font-size="16">"TAX CUTS DID IT"</text>
+          <text x="1180" y="116" text-anchor="middle" class="strong" font-size="16">"SPENDING DID IT"</text>
+          <text x="740" y="116" text-anchor="middle" font-size="14">BOTH REAL</text>
+        </g>
+        <g id="v_wall" class="b" data-tip="Since 1960 Congress has raised, extended or revised the debt limit 78 separate times — 49 under Republican presidents, 29 under Democratic ones (US Treasury). It has never once held.">
+          <path id="w1" class="ink" stroke-width="3" stroke-dasharray="8 16" d="M 436 220 L 1044 220"/>
+          <path id="w2" class="ink" stroke-width="3" stroke-dasharray="8 16" d="M 436 260 L 1044 260"/>
+          <path id="w3" class="ink" stroke-width="3" stroke-dasharray="8 16" d="M 436 300 L 1044 300"/>
+          <text x="740" y="190" text-anchor="middle" class="big" font-size="30">78 RAISES SINCE 1960</text>
+          <text x="740" y="350" text-anchor="middle" class="strong" font-size="16">49 UNDER REPUBLICAN PRESIDENTS · 29 UNDER DEMOCRATS</text>
+        </g>
+        <g id="v_q" class="b">
+          <text x="740" y="440" text-anchor="middle" class="big flawtxt" font-size="34">WHAT DOES THIS LIMIT ACTUALLY LIMIT?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 3 — a wall of raises, evenly bipartisan</div>
+    <div class="prose">
+      <p>So the obvious debate begins: who spent all this money? One side points at tax cuts, the other at spending programs, and both are describing real things. But zoom out and a stranger fact appears. Since nineteen sixty, Congress has raised, extended, or revised that debt limit seventy-eight times. Forty-nine times under Republican presidents, twenty-nine under Democrats. It has never once held. A speed limit that every driver breaks might be a driver problem. A speed limit that the traffic authority itself raises seventy-eight times is something else. The question is not who is speeding. The question is what this limit actually limits.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM ================= -->
+<section class="ep" id="s3" data-duration="123.8">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">The Pipe</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Mechanism · a valve at the wrong end</div>
+    <h2>The limit sits at the checkout.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg3">
+        <g id="m_pipe">
+          <g id="m_rail" class="b">
+            <path class="ink" stroke-width="3" d="M 120 200 L 1360 200"/>
+            <path class="ink" stroke-width="3" d="M 120 260 L 1360 260"/>
+          </g>
+          <g id="m_s1" class="b" data-tip="Station one — spending: appropriations bills and permanent programs (Social Security, Medicare, interest). None of these laws contains any borrowing limit.">
+            <circle cx="280" cy="230" r="46" class="nodebox"/>
+            <text x="280" y="238" text-anchor="middle" class="fact strong" font-size="16">ORDER</text>
+            <text x="280" y="130" text-anchor="middle" class="strong" font-size="15">STATION 1 · SPENDING LAWS</text>
+            <text x="280" y="320" text-anchor="middle" font-size="14">NO LIMIT HERE</text>
+          </g>
+          <g id="m_s2" class="b" data-tip="Station two — taxes: revenue is set in entirely separate laws. No limit here either. The deficit is simply the gap between the two.">
+            <circle cx="700" cy="230" r="46" class="nodebox"/>
+            <text x="700" y="238" text-anchor="middle" class="fact strong" font-size="15">COLLECT</text>
+            <text x="700" y="130" text-anchor="middle" class="strong" font-size="15">STATION 2 · TAX LAWS</text>
+            <text x="700" y="320" text-anchor="middle" font-size="14">NO LIMIT HERE EITHER</text>
+          </g>
+          <g id="m_gap" class="b">
+            <rect x="360" y="206" width="260" height="48" class="amberfill" opacity=".55"/>
+            <text x="490" y="365" text-anchor="middle" class="flawtxt strong" font-size="15">THE GAP = DEBT · NOBODY VOTES ON IT · SUBTRACTION</text>
+          </g>
+          <g id="m_s3" class="b" data-tip="Station three — the checkout: the debt limit does not cap what Congress orders, only whether Treasury may pay for what was already ordered. When it binds: cash reserve, 'extraordinary measures', then the X-date.">
+            <rect x="1080" y="180" width="24" height="100" fill="var(--flaw)"/>
+            <circle cx="1092" cy="160" r="22" fill="none" stroke="var(--flaw)" stroke-width="4"/>
+            <text x="1092" y="168" text-anchor="middle" class="flawtxt" font-size="20">⚠</text>
+            <text x="1092" y="330" text-anchor="middle" class="flawtxt strong" font-size="16">STATION 3 · THE CHECKOUT VALVE</text>
+            <text x="1092" y="362" text-anchor="middle" font-size="14">CAPS PAYING — NOT ORDERING</text>
+          </g>
+        </g>
+        <g id="m_1917" class="b" data-tip="Until 1917 Congress approved every loan individually. The Second Liberty Bond Act gave Treasury a general permission to borrow for WWI — under one total cap so the permission would not be unlimited. The aggregate single ceiling dates to 1939. Source: CRS RL31967.">
+          <text x="160" y="440" class="strong" font-size="16">1917 · BORN AS A LONGER LEASH, NOT A BRAKE</text>
+          <rect x="160" y="460" width="46" height="58" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/>
+          <rect x="216" y="460" width="46" height="58" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/>
+          <rect x="272" y="460" width="46" height="58" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/>
+          <text x="345" y="495" font-size="20" class="strong">→</text>
+          <rect x="380" y="452" width="200" height="70" fill="none" stroke="var(--fact)" stroke-width="3"/>
+          <text x="480" y="485" text-anchor="middle" class="fact strong" font-size="14">ONE PERMISSION</text>
+          <text x="480" y="508" text-anchor="middle" font-size="13">ONE TOTAL CAP</text>
+        </g>
+        <g id="m_rate" class="b" data-tip="S&P stripped the US of AAA in August 2011, during a ceiling standoff — the first downgrade in history. Fitch followed in 2023, Moody's in 2025. All three cited the standoffs and governance, not just the debt level.">
+          <rect x="700" y="440" width="180" height="80" fill="none" stroke="var(--flaw)" stroke-width="3" transform="rotate(-2 790 480)"/>
+          <text x="790" y="475" text-anchor="middle" class="flawtxt strong" font-size="15" transform="rotate(-2 790 480)">S&amp;P · 2011</text>
+          <text x="790" y="503" text-anchor="middle" font-size="13" transform="rotate(-2 790 480)">AAA LOST</text>
+          <rect x="920" y="440" width="180" height="80" fill="none" stroke="var(--flaw)" stroke-width="3" transform="rotate(2 1010 480)"/>
+          <text x="1010" y="475" text-anchor="middle" class="flawtxt strong" font-size="15" transform="rotate(2 1010 480)">FITCH · 2023</text>
+          <text x="1010" y="503" text-anchor="middle" font-size="13" transform="rotate(2 1010 480)">AA+</text>
+          <rect x="1140" y="440" width="180" height="80" fill="none" stroke="var(--flaw)" stroke-width="3" transform="rotate(-2 1230 480)"/>
+          <text x="1230" y="475" text-anchor="middle" class="flawtxt strong" font-size="15" transform="rotate(-2 1230 480)">MOODY'S · 2025</text>
+          <text x="1230" y="503" text-anchor="middle" font-size="13" transform="rotate(-2 1230 480)">LAST OF THREE</text>
+        </g>
+        <g id="m_why" class="b" data-tip="Budget resolutions and appropriations deadlines slip routinely; the X-date cannot be skipped. That forced moment is leverage for whoever wants it — either party, any year — which is the honest reason the rule survives.">
+          <rect x="160" y="60" width="1160" height="44" fill="var(--fact)" opacity=".9"/>
+          <text x="740" y="89" text-anchor="middle" class="onplate strong" font-size="17">WHY IT SURVIVES: THE ONLY DEADLINE NOBODY CAN SKIP</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 4 — order, collect, and a valve bolted onto the paying end</div>
+    <div class="prose">
+      <p>To see the answer, follow the money through the pipe — because the American budget really is a pipe with three stations. Station one: spending. Congress orders things in appropriations bills and in permanent programs like Social Security and Medicare. Nothing at this station mentions any limit. Station two: taxes. Congress decides, in entirely separate laws, how much money comes in. Nothing here mentions a limit either. The gap between the two is the deficit, and borrowing simply follows as arithmetic. Once the orders are placed and the taxes are set, the debt is already determined. Nobody votes on it. It is just subtraction. The debt limit sits at station three — the checkout. It does not cap what Congress may order. It caps whether the Treasury may pay for what Congress already ordered.</p>
+      <p>That placement was an accident of history. Until nineteen seventeen, Congress approved every single loan individually. Then came the First World War, and Congress gave the Treasury a general permission to borrow — under one total cap, so the permission would not be unlimited. The ceiling was born as a longer leash, not as a brake. And a limit at the checkout has exactly one way to say no: refusing to pay bills the country has already run up — a default. In twenty eleven, a standoff over the ceiling cost the United States its perfect credit rating from Standard and Poor's — the first downgrade in the country's history. Fitch followed in twenty twenty-three, Moody's in twenty twenty-five. All three named the standoffs themselves, not just the debt.</p>
+      <p>So why does the rule survive? Because it is the only deadline in the entire budget system that cannot be skipped. Budget resolutions slip every year. The ceiling does not. Whoever wants leverage — either party, any year — gets one guaranteed moment when everyone must come to the table.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 WHAT IF 1 ================= -->
+<section class="ep" id="s4" data-duration="78.2">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">What If · One</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · design one — move the valve upstream</div>
+    <h2>Put the limit where the ordering happens.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="a1_pipe">
+          <path class="ink" stroke-width="3" d="M 120 150 L 1360 150"/>
+          <path class="ink" stroke-width="3" d="M 120 205 L 1360 205"/>
+          <circle cx="320" cy="177" r="36" class="nodebox"/>
+          <text x="320" y="184" text-anchor="middle" class="fact strong" font-size="14">ORDER</text>
+          <circle cx="740" cy="177" r="36" class="nodebox"/>
+          <text x="740" y="184" text-anchor="middle" class="fact strong" font-size="13">COLLECT</text>
+          <g id="a1_old"><rect x="1120" y="135" width="18" height="84" fill="var(--flaw)"/>
+          <text x="1129" y="250" text-anchor="middle" font-size="13">AS BUILT: CHECKOUT VALVE</text></g>
+          <g id="a1_new" class="b">
+            <rect x="200" y="127" width="18" height="100" fill="none" stroke="var(--alt)" stroke-width="3.5" stroke-dasharray="7 6"/>
+            <text x="209" y="105" text-anchor="middle" class="alttxt strong" font-size="15">VALVE AT THE ORDER</text>
+          </g>
+        </g>
+        <g id="a1_ch" class="b" data-tip="Swiss debt brake: proposed 2000, accepted by 85% of voters on Dec 2, 2001, applied from the 2003 budget (Art. 126 Federal Constitution). Spending capped at cycle-adjusted revenues. Federal debt relative to GDP fell by nearly half. Germany added its Schuldenbremse (0.35% structural deficit) in 2009.">
+          <text x="160" y="310" class="alttxt strong" font-size="16">SWITZERLAND · 2001 REFERENDUM: 85% YES</text>
+          <path id="revLine" class="ink" d="M 160 420 C 300 410 420 416 560 408"/>
+          <path id="spendLine" class="green" d="M 160 434 C 300 422 420 428 560 416"/>
+          <text x="590" y="410" font-size="13">SPENDING ≤ REVENUES,</text>
+          <text x="590" y="434" font-size="13">CYCLE-ADJUSTED</text>
+          <path id="debtDrop" class="blue" stroke-dasharray="4 4" d="M 160 480 C 300 486 440 510 560 522"/>
+          <text x="590" y="528" font-size="13">DEBT / GDP: NEARLY HALVED</text>
+          <text x="160" y="570" class="strong" font-size="14">GERMANY COPIES THE BRAKE · 2009</text>
+        </g>
+        <g id="a1_p" class="b" data-tip="March 2025: the Bundestag (513–207) exempted defense spending above 1% of GDP from the brake and created a €500B infrastructure fund outside it — after years of criticism that the rule starved bridges, rail and the army. Sources: CNBC, European Commission.">
+          <rect x="880" y="290" width="480" height="290" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+          <text x="904" y="330" class="flawtxt strong" font-size="15">THE PRICE — RIGIDITY:</text>
+          <text x="904" y="366" font-size="14">CAN'T TELL INVESTMENT FROM EXPENSE</text>
+          <text x="904" y="394" font-size="14">YEARS OF CRUMBLING BRIDGES, SHRINKING ARMY</text>
+          <g id="a1_crack">
+            <text x="904" y="442" class="flawtxt strong" font-size="15">MARCH 2025 · GERMANY BREAKS ITS OWN BRAKE:</text>
+            <text x="904" y="474" font-size="14">DEFENSE ABOVE 1% OF GDP — EXEMPT</text>
+            <text x="904" y="502" font-size="14">€500,000,000,000 FUND — OUTSIDE THE RULE</text>
+          </g>
+          <text x="904" y="552" class="flawtxt strong" font-size="15">A RULE THAT CANNOT BEND GETS BROKEN</text>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnV0" class="on">As built</button><button id="btnV1">Valve upstream</button>
+    </div>
+    <div class="figcap">Fig. 5 — the Swiss valve, and the German crack in it. Click to compare.</div>
+    <div class="prose">
+      <p>So what would it look like to put the valve where the ordering happens? In two thousand one, Switzerland held a referendum on exactly that. Eighty-five percent voted yes. Since two thousand three, the Swiss constitution caps each year's spending at roughly what the government collects, adjusted for the economic cycle — save in good years, borrow a little in bad ones. The limit binds at the moment of ordering, not at the checkout. Swiss debt, relative to the economy, fell by nearly half. Germany wrote a similar brake into its constitution in two thousand nine.</p>
+      <p>And then Germany showed everyone the price. A rule rigid enough to actually bind is rigid when you need it not to be. For years, critics blamed the brake for crumbling bridges and a shrinking army — the rule cannot tell an investment from an expense. And in March twenty twenty-five, facing war on the continent, Germany broke its own brake open: defense spending above one percent of economic output was exempted, and a five-hundred-billion-euro infrastructure fund was placed outside the rule entirely. That is the honest trade. A valve at the ordering end really does hold — right up until a crisis, when a rule that cannot bend gets broken instead.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 WHAT IF 2 ================= -->
+<section class="ep" id="s5" data-duration="77.2">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">What If · Two</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · design two — admit the valve is decorative</div>
+    <h2>Raise it out of reach — or delete it.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg5">
+        <g id="a2_dk" class="b" data-tip="Denmark — the only other democracy with a fixed-number debt ceiling, a leftover of a 1993 administrative reform. In 2010 all major parties together raised it once, from DKK 950B to 2T — roughly triple the debt — explicitly so it would never become a bargaining chip. In 2021 debt stood at ~14% of the ceiling. Sources: CNN, CNBC, PIIE.">
+          <text x="160" y="80" class="alttxt" font-size="17">DENMARK · THE CEILING AS A FORMALITY</text>
+          <text x="160" y="128" class="alttxt strong" font-size="14">CEILING · 3× THE DEBT</text>
+          <line x1="160" y1="150" x2="640" y2="150" class="green" stroke-width="3"/>
+          <path class="blue" stroke-width="3" d="M 160 250 C 300 246 480 240 640 244"/>
+          <text x="160" y="292" font-size="14">ACTUAL DEBT — FAR BELOW</text>
+          <text x="160" y="344" class="strong" font-size="15">RAISED ONCE · ALL PARTIES TOGETHER · 2010</text>
+          <text x="160" y="376" font-size="14">STATED GOAL: NEVER A BARGAINING CHIP</text>
+        </g>
+        <g id="a2_au" class="b" data-tip="Australia introduced a US-style ceiling in 2007–09, hit its own standoff in 2013 at A$300B, and abolished the ceiling in December 2013 via a Coalition–Greens deal. Sources: ABC News, The Conversation.">
+          <text x="900" y="80" class="alttxt" font-size="17">AUSTRALIA · DELETED IT</text>
+          <line id="au_line" x1="900" y1="150" x2="1340" y2="150" class="ink" stroke-width="3"/>
+          <line id="au_strike" x1="890" y1="150" x2="1350" y2="150" class="amber" stroke-width="5"/>
+          <text x="900" y="200" class="strong" font-size="14">CEILING 2007 → STANDOFF 2013</text>
+          <text x="900" y="232" class="flawtxt strong" font-size="15">DECEMBER 2013 · ABOLISHED</text>
+        </g>
+        <g id="a2_p" class="b" data-tip="The cost: the ceiling is the single deadline Congress cannot skip — the one forced moment to face the sum of its own decisions. Raise it out of reach or delete it, and that moment is gone. And in Washington the vote itself reads, in an attack ad, as voting to remove all restraint.">
+          <rect x="160" y="420" width="600" height="150" fill="none" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="4 4"/>
+          <text x="184" y="460" class="flawtxt strong" font-size="15">THE PRICE:</text>
+          <text x="184" y="496" font-size="14">THE ONLY UNSKIPPABLE DEADLINE — GONE</text>
+          <text x="184" y="528" font-size="14">NO FORCED MOMENT TO FACE THE SUM</text>
+        </g>
+        <g id="a2_ad" class="b">
+          <rect x="900" y="330" width="440" height="130" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1120" y="382" text-anchor="middle" class="flawtxt strong" font-size="16">THE ATTACK AD WRITES ITSELF:</text>
+          <text x="1120" y="420" text-anchor="middle" font-size="15">"VOTED TO REMOVE ALL RESTRAINT"</text>
+          <text x="1120" y="530" text-anchor="middle" class="flawtxt strong" font-size="15">CURRENCY: THE FORCED CONVERSATION —</text>
+          <text x="1120" y="560" text-anchor="middle" class="flawtxt strong" font-size="15">AND FINGERPRINTS</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 6 — a ceiling too high to bargain with, and one erased outright</div>
+    <div class="prose">
+      <p>There is a second design, and it starts with a confession. Denmark is the only other democracy with a debt ceiling written as a fixed number — a leftover from a nineteen ninety-three administrative reform, not a deliberate policy. In twenty ten, every major Danish party together raised it once, to roughly three times the actual debt, and said the goal out loud: this number must never become a bargaining chip. Today Danish debt sits far below the ceiling, and no one has ever heard of a Danish debt crisis. Australia went further. It introduced an American-style ceiling in the late two thousands, got its own standoff within four years, and in December twenty thirteen simply abolished the ceiling.</p>
+      <p>The price is the thing you lose. Remember: the ceiling is the one deadline that cannot be skipped — the single forced moment when Congress must face the sum of its own decisions. Raise it out of reach, or delete it, and that moment is gone. And there is a second cost, particular to Washington: the vote itself. Voting to remove the limit reads, in an attack ad, as voting to remove all restraint — which is why neither party wants its fingerprints on it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 WHAT IF 3 ================= -->
+<section class="ep" id="s6" data-duration="66.1">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">What If · Three</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · design three — glue the order to the bill</div>
+    <h2>One vote orders dinner and accepts the check.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg6">
+        <g id="a3_weld" class="b" data-tip="Gephardt rule, US House, 1979–1995: adopting the annual budget resolution automatically 'deemed passed' the matching debt-limit increase. One vote — because arithmetically the budget and the borrowing it implies are the same decision.">
+          <text x="160" y="80" class="alttxt" font-size="17">THE GEPHARDT RULE · US HOUSE · 1979–1995</text>
+          <rect x="220" y="130" width="300" height="90" class="nodebox"/>
+          <text x="370" y="168" text-anchor="middle" class="fact strong" font-size="15">VOTE: THE BUDGET</text>
+          <text x="370" y="198" text-anchor="middle" font-size="13">THE ORDER</text>
+          <rect x="640" y="130" width="300" height="90" class="nodebox"/>
+          <text x="790" y="168" text-anchor="middle" class="fact strong" font-size="15">VOTE: THE DEBT LIMIT</text>
+          <text x="790" y="198" text-anchor="middle" font-size="13">THE BILL</text>
+          <g id="a3_one">
+            <rect x="1040" y="118" width="300" height="114" fill="none" stroke="var(--alt)" stroke-width="3" stroke-dasharray="7 6"/>
+            <text x="1190" y="163" text-anchor="middle" class="alttxt strong" font-size="15">ONE VOTE</text>
+            <text x="1190" y="196" text-anchor="middle" font-size="13">ORDER + BILL, WELDED</text>
+          </g>
+        </g>
+        <g id="a3_trick" class="b" data-tip="Under separate votes a member can vote FOR a deficit budget and, months later, AGAINST the debt that budget created — and both votes play well at home. Welding the votes removes that convenience, which is why the rule kept being suspended and finally died in 1995.">
+          <text x="160" y="310" class="strong" font-size="16">THE POLITICAL TRICK, UNDER SEPARATE VOTES:</text>
+          <rect x="160" y="340" width="260" height="64" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="290" y="368" text-anchor="middle" class="fact strong" font-size="14">YES — DEFICIT BUDGET</text>
+          <text x="290" y="392" text-anchor="middle" font-size="12">PLAYS WELL AT HOME</text>
+          <rect x="470" y="340" width="260" height="64" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="600" y="368" text-anchor="middle" class="flawtxt strong" font-size="14">NO — TO THE DEBT</text>
+          <text x="600" y="392" text-anchor="middle" font-size="12">ALSO PLAYS WELL</text>
+          <line x1="200" y1="430" x2="700" y2="430" class="amber" stroke-width="4"/>
+          <text x="160" y="470" class="flawtxt strong" font-size="15">WELDING REMOVES THE TRICK — SO THE RULE WAS SUSPENDED, THEN DIED</text>
+        </g>
+        <g id="a3_pl" class="b" data-tip="A softer cousin: cap debt as a share of GDP — Poland carries a 60% constitutional limit; Malaysia, Pakistan and Namibia have ratio ceilings too. Without an enforcement machine, a ratio tends to become a declaration, quietly amended as it gets close.">
+          <text x="900" y="310" class="strong" font-size="15">THE SOFTER COUSIN · A RATIO, NOT A NUMBER</text>
+          <circle cx="1000" cy="430" r="70" fill="none" stroke="var(--text)" stroke-width="3"/>
+          <line id="pl_needle" x1="1000" y1="430" x2="1000" y2="372" class="amber" stroke-width="4"/>
+          <text x="1000" y="530" text-anchor="middle" font-size="14">POLAND · 60% OF GDP, IN THE CONSTITUTION</text>
+          <text x="1160" y="440" font-size="13">NO ENFORCER →</text>
+          <text x="1160" y="465" font-size="13">A DECLARATION</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 7 — two votes welded into one, and the dial version of the same idea</div>
+    <div class="prose">
+      <p>The third design does not move the valve and does not remove it. It welds two votes into one. The House of Representatives actually ran this experiment. From nineteen seventy-nine to nineteen ninety-five, under what was called the Gephardt rule, passing the annual budget automatically counted as passing the matching debt limit. One vote ordered the dinner and accepted the bill — because arithmetically, they were always the same decision.</p>
+      <p>The price here is not economic. It is the loss of a political convenience. Under separate votes, a member of Congress can vote for a deficit budget and, months later, vote against the debt that very budget created — and both votes play well at home. Welding the votes together takes that trick away. Which is exactly why the rule kept being suspended, and finally died. There is a softer cousin of this idea: writing the limit as a share of the economy instead of a dollar figure — Poland carries a sixty-percent cap in its constitution. But a ratio with no enforcement machine behind it tends to become a declaration, quietly amended when it gets close.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S7 CLOSE ================= -->
+<section class="ep" id="s7" data-duration="48.9">
+  <div class="chapter"><div class="in"><div class="n">07</div><div class="t">The Close</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Close · the question to carry into 2027</div>
+    <h2>The 79th raise is already scheduled.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg7">
+        <g id="z_table" class="b">
+          <rect x="500" y="70" width="480" height="130" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="740" y="118" text-anchor="middle" class="strong" font-size="17">THE BILL · PAID 78 TIMES IN A ROW</text>
+          <text x="740" y="158" text-anchor="middle" class="flawtxt strong" font-size="16">№79 · SOMETIME IN 2027</text>
+        </g>
+        <g id="z_triad" class="b">
+          <rect x="150" y="260" width="380" height="130" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="340" y="300" text-anchor="middle" class="alttxt strong" font-size="15">A BRAKE AT THE ORDER</text>
+          <text x="340" y="332" text-anchor="middle" font-size="13">PRICE: BREAKS IN A CRISIS</text>
+          <rect x="550" y="260" width="380" height="130" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="740" y="300" text-anchor="middle" class="alttxt strong" font-size="15">A CEILING OUT OF REACH</text>
+          <text x="740" y="332" text-anchor="middle" font-size="13">PRICE: FORCES NOTHING</text>
+          <rect x="950" y="260" width="380" height="130" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="1140" y="300" text-anchor="middle" class="alttxt strong" font-size="15">ONE VOTE: MEAL + CHECK</text>
+          <text x="1140" y="332" text-anchor="middle" font-size="13">PRICE: NO WAY TO VOTE BOTH WAYS</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="460" text-anchor="middle" class="big flawtxt" font-size="26">WHY DOES THE ONLY LIMIT STAND WHERE NOTHING CAN BE RESTRAINED?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Back at the restaurant, the argument at the table is always the same: pay the bill, or refuse — and ruin the table's good name. And the bill always gets paid — seventy-eight times in a row now. Sometime in twenty twenty-seven, there will be a seventy-ninth. So when that standoff fills the headlines, the interesting question is not whether they will raise the ceiling. They will. The question is why the only limit in the whole pipeline stands at the checkout, where nothing can be restrained anymore — only left unpaid. And which price you would rather pay: a brake that gets broken in a crisis, a ceiling that forces nothing, or one vote that orders dinner and pays the bill in the same breath — leaving no way to vote for the meal and against the check.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with what didn't fit the video, is on this page.</p>
+      <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Watch on YouTube</a>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <path d="M 120 330 L 340 330 L 340 270 L 560 270 L 560 210 L 780 210 L 780 150 L 1000 150 L 1000 96 L 1180 96" fill="none" stroke="var(--fact)" stroke-width="9"/>
+    <line x1="120" y1="60" x2="1180" y2="60" stroke="var(--flaw)" stroke-width="9" stroke-dasharray="26 18"/>
+    <path d="M 1080 96 L 1080 60 M 1064 82 L 1080 60 L 1096 82" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <text x="400" y="130" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">raised 78 times · held 0</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">$40T</div>
+  <div class="sub">the debt limit that never limited debt</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <line x1="140" y1="90" x2="1140" y2="90" stroke="var(--flaw)" stroke-width="10" stroke-dasharray="28 20"/>
+    <path d="M 240 330 C 420 320 640 280 820 210 C 940 165 1040 130 1120 108" fill="none" stroke="var(--fact)" stroke-width="10"/>
+    <path d="M 300 90 L 300 40 M 282 62 L 300 40 L 318 62" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <path d="M 640 90 L 640 40 M 622 62 L 640 40 L 658 62" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <path d="M 980 90 L 980 40 M 962 62 L 980 40 L 998 62" stroke="var(--flaw)" stroke-width="8" fill="none"/>
+    <text x="420" y="180" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">the ceiling always moves</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">78 RAISES</div>
+  <div class="sub">america's debt ceiling · zero holds · next: 2027</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function idlePlate(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.9,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function draw(tl,id,pos,d=1.6){const p=$(id),L=p.getTotalLength();
+  tl.fromTo(p,{strokeDasharray:L+' '+L,strokeDashoffset:L},{strokeDashoffset:0,duration:d,ease:'power1.inOut'},pos);}
+function count(tl,id,target,pos,d=1.6){const el=$(id),o={v:0};
+  tl.to(o,{v:target,duration:d,ease:'power1.out',snap:{v:1},
+    onUpdate:()=>{el.textContent=o.v.toLocaleString('en-US');},
+    onComplete:()=>{el.textContent=target.toLocaleString('en-US');}},pos);}
+function countF(tl,id,target,fmt,pos,d=1.6){const el=$(id),o={v:0};
+  tl.to(o,{v:target,duration:d,ease:'power1.out',
+    onUpdate:()=>{el.textContent=fmt(o.v);},
+    onComplete:()=>{el.textContent=fmt(target);}},pos);}
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_a',0.5,.8);
+  tl.fromTo($('h_tix').children,{opacity:0,y:26},{opacity:1,y:0,duration:.5,stagger:.5,ease:'back.out(1.5)'},1.5);
+  idle(tl,'h_a',6,4);
+  tl.to($('h_a'),{opacity:0,duration:.45},11.5);
+  say(tl,'h_b',11.9,.7); idle(tl,'h_b',14,3);
+  pop(tl,'h_stamp',18.5,.6); shake(tl,'h_stamp',19.2,6,7); idle(tl,'h_stamp',21,4);
+  tl.to($('h_b'),{opacity:0,duration:.45},27.0);
+  tl.to($('h_stamp'),{opacity:0,duration:.45},27.0);
+  say(tl,'h_c',27.4,.6);
+  countF(tl,'c_bill',40,v=>'$'+v.toFixed(0)+',000,000,000,000',27.7,2.2);
+  idle(tl,'h_c',31,4);
+  tl.to($('h_c'),{opacity:0,duration:.45},36.5);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},36.9);
+  if(isAuto)tl.to({},{duration:4.0},37.6); else tl.to($('titleCard'),{opacity:0,duration:.5},41.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_curve',0.5,.7); draw(tl,'debtLine',0.9,2.6);
+  countF(tl,'c_debt',40.05,v=>'$'+v.toFixed(2)+'T',3.0,2.0);
+  idle(tl,'e_curve',6,6);
+  say(tl,'e_pace',14.0,.8);
+  tl.fromTo($('e_intfill'),{attr:{width:0}},{attr:{width:280},duration:1.6,ease:'power1.inOut'},15.0);
+  tl.fromTo($('e_intlab'),{opacity:0},{opacity:1,duration:.5},16.6);
+  idle(tl,'e_pace',18,8);
+  say(tl,'e_int',30.0,.7);
+  tl.fromTo($('barInt'),{attr:{height:0,y:480}},{attr:{height:200,y:280},duration:1.4,ease:'power1.out'},30.6);
+  tl.fromTo($('barDef'),{attr:{height:0,y:480}},{attr:{height:150,y:330},duration:1.2,ease:'power1.out'},30.9);
+  idle(tl,'e_int',34,8);
+  say(tl,'e_tril',46.0,.8); idle(tl,'e_tril',52,12);
+  say(tl,'e_ceil',68.0,.9); shake(tl,'e_ceil',70.0,5,6); idle(tl,'e_ceil',72,16);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_blame',0.5,.8); idle(tl,'v_blame',3,6);
+  tl.to($('v_blame'),{opacity:.35,duration:.5},11.5);
+  say(tl,'v_wall',12.0,.8);
+  tl.fromTo($('w1'),{opacity:0},{opacity:1,duration:.9},12.6);
+  tl.fromTo($('w2'),{opacity:0},{opacity:1,duration:.9},13.6);
+  tl.fromTo($('w3'),{opacity:0},{opacity:1,duration:.9},14.6);
+  idle(tl,'v_wall',17,10);
+  say(tl,'v_q',31.0,.8); shake(tl,'v_q',32.0,5,6); idle(tl,'v_q',34,7);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'m_rail',0.5,.7);
+  say(tl,'m_s1',5.0,.8); idle(tl,'m_s1',8,6);
+  say(tl,'m_s2',16.0,.8); idle(tl,'m_s2',19,5);
+  say(tl,'m_gap',26.0,.8); idle(tl,'m_gap',29,8);
+  say(tl,'m_s3',40.0,.8); shake(tl,'m_s3',41.0,5,6); idle(tl,'m_s3',44,10);
+  say(tl,'m_1917',58.0,.9); idle(tl,'m_1917',63,14);
+  say(tl,'m_rate',82.0,.9); shake(tl,'m_rate',83.5,5,6); idle(tl,'m_rate',86,14);
+  say(tl,'m_why',106.0,.8); idlePlate(tl,'m_why',109,14);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  tl.set($('a1_pipe'),{opacity:1},0);
+  say(tl,'a1_new',2.0,.8); idle(tl,'a1_new',4,4);
+  say(tl,'a1_ch',10.0,.9);
+  draw(tl,'revLine',11.0,1.6); draw(tl,'spendLine',12.0,1.6); draw(tl,'debtDrop',14.0,1.8);
+  idle(tl,'a1_ch',17,16);
+  say(tl,'a1_p',40.0,.9);
+  shake(tl,'a1_crack',56.0,6,8);
+  idle(tl,'a1_p',58,18);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  say(tl,'a2_dk',0.5,.9); idle(tl,'a2_dk',6,18);
+  say(tl,'a2_au',28.0,.8);
+  draw(tl,'au_strike',31.0,1.2);
+  idle(tl,'a2_au',33,8);
+  say(tl,'a2_p',44.0,.9); idle(tl,'a2_p',49,10);
+  say(tl,'a2_ad',62.0,.8); shake(tl,'a2_ad',63.5,5,6); idle(tl,'a2_ad',65,10);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'a3_weld',0.5,.9); idle(tl,'a3_one',6,14);
+  say(tl,'a3_trick',26.0,.9); shake(tl,'a3_trick',42.0,4,5); idle(tl,'a3_trick',44,10);
+  say(tl,'a3_pl',60.0,.9);
+  tl.to($('pl_needle'),{rotation:64,transformOrigin:'0% 100%',duration:1.6,ease:'power1.inOut'},62.0);
+  tl.to($('pl_needle'),{rotation:84,duration:1.0,ease:'power1.inOut'},66.0);
+  idle(tl,'a3_pl',68,10);
+  return tl;}
+
+function sc7(){const tl=gsap.timeline();
+  say(tl,'z_table',0.5,.9); shake(tl,'z_table',2.0,4,5); idle(tl,'z_table',4,8);
+  say(tl,'z_triad',14.0,.9); idle(tl,'z_triad',20,14);
+  say(tl,'z_q',38.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:7,yoyo:true},41.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6,s7:sc7};
+
+function showValve(i){
+  const n=$('a1_new'),o=$('a1_old');
+  gsap.killTweensOf([n,o]);
+  gsap.set(n,{opacity:i===1?1:0});
+  gsap.set(o,{opacity:i===1?.35:1});
+  ['btnV0','btnV1'].forEach((b,k)=>$(b).classList.toggle('on',k===i));}
+$('btnV0').onclick=()=>showValve(0);
+$('btnV1').onclick=()=>showValve(1);
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6','s7'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
