@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отключение, которого нет в отчёте | Дефект конструкции</title>
+<meta name="description" content="Одиннадцатого августа 2026 года шквальная линия оставила без света больше 60% абонентов одной энергокомпании в Индиане, часть — на две недели. Но показатель надёжности, по которому эту компанию оценивают, считается с вычетом худших штормовых дней, а порог вычёркивания строится из её же прошлой пятилетки. За прошлый год: 532 минуты без света с бурями, 178 без них. Три конструкции, у каждой своя цена: платить за час без света (Мичиган, Британия), считать людей вместо среднего, или дать работе с деревьями зарабатывать столько же, сколько железо.">
+<link rel="canonical" href="https://traceupstream.com/episodes/044-outage-that-doesnt-count/ru/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Дефект конструкции">
+<meta property="og:title" content="Отключение, которого нет в отчёте">
+<meta property="og:description" content="Показатель, от которого зависит тариф, считают с вычетом худших бурь — а планку вычёркивания строят из собственной истории компании.">
+<meta property="og:url" content="https://traceupstream.com/episodes/044-outage-that-doesnt-count/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#6B7A8F;
+  --font-display:'Onest',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .amberfill{fill:var(--flaw);opacity:.85}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:150px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.044 — 21.08.2026</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Слушать нарацию"><span class="dot"></span><span id="listenLab">Слушать</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="62.1">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Дефект конструкции · дело EP.044</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_card" class="b">
+          <text x="500" y="86" text-anchor="middle" class="big" font-size="44">ВЫЧЕРКНИ ХУДШУЮ РАБОТУ</text>
+          <rect x="300" y="150" width="400" height="330" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <line x1="340" y1="215" x2="660" y2="215" stroke="var(--grid)" stroke-width="5"/>
+          <line x1="340" y1="275" x2="660" y2="275" stroke="var(--grid)" stroke-width="5"/>
+          <line x1="340" y1="395" x2="660" y2="395" stroke="var(--grid)" stroke-width="5"/>
+          <line x1="340" y1="450" x2="660" y2="450" stroke="var(--grid)" stroke-width="5"/>
+          <g id="h_bad">
+            <rect x="340" y="310" width="320" height="52" fill="none" stroke="var(--flaw)" stroke-width="4"/>
+            <text x="500" y="346" text-anchor="middle" class="flawtxt" font-size="36">ХУДШИЙ ДЕНЬ</text>
+          </g>
+        </g>
+        <g id="h_bar" class="b">
+          <text x="500" y="96" text-anchor="middle" class="big" font-size="42">КТО ЗАДАЁТ «ДОСТАТОЧНО ПЛОХО»?</text>
+          <line id="h_line" x1="220" y1="250" x2="780" y2="250" class="amber" stroke-width="6" stroke-dasharray="16 12"/>
+          <text id="h_barlab" x="500" y="222" text-anchor="middle" class="flawtxt" font-size="36">ПЛАНКА</text>
+          <g id="h_hist">
+            <rect x="250" y="330" width="80" height="120" fill="var(--text)" opacity=".22"/>
+            <rect x="360" y="360" width="80" height="90" fill="var(--text)" opacity=".22"/>
+            <rect x="470" y="300" width="80" height="150" fill="var(--text)" opacity=".22"/>
+            <rect x="580" y="345" width="80" height="105" fill="var(--text)" opacity=".22"/>
+          </g>
+          <text x="500" y="512" text-anchor="middle" font-size="34">ВАША ЖЕ ПЯТИЛЕТКА</text>
+        </g>
+        <g id="h_two" class="b">
+          <rect x="230" y="326" width="150" height="104" fill="var(--fact)" opacity=".85"/>
+          <text id="c_low" x="305" y="296" text-anchor="middle" class="big fact" font-size="60">0</text>
+          <text x="305" y="480" text-anchor="middle" font-size="34">В ОТЧЁТЕ</text>
+          <rect x="620" y="120" width="150" height="310" class="amberfill"/>
+          <text id="c_high" x="695" y="92" text-anchor="middle" class="big flawtxt" font-size="60">0</text>
+          <text x="695" y="480" text-anchor="middle" font-size="34">КАК ПРОЖИТО</text>
+          <text x="500" y="536" text-anchor="middle" class="strong" font-size="34">МИНУТ БЕЗ СВЕТА ЗА ГОД</text>
+        </g>
+        <g id="h_dark" class="b">
+          <g id="h_blocks" opacity=".9">
+            <rect x="200" y="150" width="120" height="80" fill="var(--text)" opacity=".75"/>
+            <rect x="340" y="150" width="120" height="80" fill="var(--text)" opacity=".75"/>
+            <rect x="480" y="150" width="120" height="80" fill="var(--text)" opacity=".75"/>
+            <rect x="620" y="150" width="120" height="80" fill="var(--text)" opacity=".75"/>
+            <rect x="200" y="250" width="120" height="80" fill="var(--text)" opacity=".75"/>
+            <rect x="340" y="250" width="120" height="80" fill="var(--text)" opacity=".75"/>
+            <rect x="480" y="250" width="120" height="80" fill="var(--text)" opacity=".75"/>
+            <rect x="620" y="250" width="120" height="80" fill="var(--text)" opacity=".75"/>
+          </g>
+          <text x="470" y="410" text-anchor="middle" class="big" font-size="46">40 000 ДОМОВ</text>
+          <text x="470" y="470" text-anchor="middle" class="flawtxt" font-size="40">ВТОРАЯ НЕДЕЛЯ БЕЗ СВЕТА</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="220" text-anchor="middle" class="big" font-size="56">ОТКЛЮЧЕНИЕ,</text>
+          <text x="500" y="300" text-anchor="middle" class="big" font-size="56">КОТОРОГО НЕТ В ОТЧЁТЕ</text>
+          <text x="500" y="400" text-anchor="middle" font-size="36">ДЕФЕКТ КОНСТРУКЦИИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 1 — табель, из которого можно вычеркнуть худший день, и планка из собственной истории</div>
+    <div class="prose">
+      <p>Представьте школу, где каждому ученику разрешено вычеркнуть одну самую плохую контрольную года. Вычеркнуть до того, как напечатают табель. У этого правила есть понятное основание. Один плохой день не должен определять целый год работы. Но вычеркнуть можно не любую плохую работу. Только достаточно плохую. А планку «достаточно плохо» задают прошлые оценки того же самого ученика. Это не школа. Это стандартный способ измерять, работает ли у вас электричество. В прошлом году одна энергокомпания из Индианы отчиталась о ста семидесяти восьми минутах без света на клиента. Меньше трёх часов за целый год. А до вычитания было пятьсот тридцать две минуты. И прямо сейчас почти сорок тысяч домов и предприятий на северо-западе Индианы заканчивают вторую неделю без света.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 EVENT ================= -->
+<section class="ep" id="s1" data-duration="88.8">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">Событие</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Событие · 11–25 августа 2026</div>
+    <h2>Через две недели после того, как стих ветер.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg1">
+        <g id="e_swath" class="b" data-tip="A derecho crossed from Iowa through the Chicago area into northwest Indiana on the morning of August 11, 2026, with a swath of 70–100+ mph straight-line winds. Peak measured gust: 99 mph at Gary/Chicago International Airport. Eight tornadoes were confirmed in the NWS Chicago area. Source: NWS Chicago.">
+          <path id="swathPath" class="ink" stroke-width="3" d="M 140 200 C 420 190 720 205 1010 232"/>
+          <path class="hair" d="M 140 150 C 420 140 720 155 1010 182"/>
+          <path class="hair" d="M 140 250 C 420 240 720 255 1010 282"/>
+          <text x="180" y="120" class="strong" font-size="16">АЙОВА</text>
+          <text x="560" y="120" class="strong" font-size="16">ЧИКАГО</text>
+          <circle cx="1010" cy="232" r="16" fill="none" stroke="var(--flaw)" stroke-width="4"/>
+          <text x="1046" y="222" class="flawtxt strong" font-size="17">ГЭРИ · ПОРЫВ 160 КМ/Ч</text>
+          <text x="1046" y="252" font-size="14">ПРЯМОЙ ВЕТЕР, НЕ СМЕРЧ</text>
+        </g>
+        <g id="e_share" class="b" data-tip="NIPSCO serves roughly 500,000 electric customers. The August 11 storm took out more than 60% of that base — the largest outage event in the company's history. Crews replaced around 300 poles in Gary alone.">
+          <text x="160" y="330" class="strong" font-size="17">500 000 АБОНЕНТОВ</text>
+          <rect x="160" y="350" width="620" height="54" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <rect id="e_darkfill" x="160" y="350" width="380" height="54" class="amberfill"/>
+          <text id="e_darklab" class="b onplate strong" x="350" y="383" text-anchor="middle" font-size="16">БОЛЬШЕ 60% БЕЗ СВЕТА</text>
+          <text x="160" y="436" font-size="14">КРУПНЕЙШЕЕ ОТКЛЮЧЕНИЕ В ИСТОРИИ КОМПАНИИ</text>
+        </g>
+        <g id="e_alert" class="b" data-tip="The automated outage system collapsed on August 11–12; residents could not get local status or restoration estimates. When the utility published its first list of restoration dates, the city of Gary was not on it.">
+          <rect x="1080" y="330" width="250" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <line x1="1110" y1="380" x2="1300" y2="380" stroke="var(--grid)" stroke-width="4"/>
+          <line x1="1110" y1="415" x2="1300" y2="415" stroke="var(--grid)" stroke-width="4"/>
+          <line id="e_gap" x1="1110" y1="450" x2="1300" y2="450" class="amber" stroke-width="4" stroke-dasharray="9 7"/>
+          <text x="1205" y="510" text-anchor="middle" class="flawtxt strong" font-size="14">ГЭРИ: В СПИСКЕ НЕТ</text>
+          <text x="1205" y="310" text-anchor="middle" font-size="14">ОПОВЕЩЕНИЯ · НЕ РАБОТАЛИ 2 СУТОК</text>
+        </g>
+        <g id="e_days" class="b" data-tip="Full restoration in Gary, Munster and Highland was promised for August 25 — two weeks after the storm. Schools in Gary have been closed since August 13. Seven people died statewide in the storms and the flooding around them.">
+          <text x="160" y="470" class="strong" font-size="16">СУТКИ БЕЗ СВЕТА</text>
+          <g id="e_cal"></g>
+          <text x="160" y="570" class="flawtxt strong" font-size="16">ШКОЛЫ ЗАКРЫТЫ С 13 АВГУСТА · 7 ПОГИБШИХ ПО ШТАТУ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 2 — одна полоса, шестьдесят процентов сети, четырнадцать дней</div>
+    <div class="prose">
+      <p>Утром одиннадцатого августа две тысячи двадцать шестого года через Айову, Чикаго и северо-запад Индианы прошла шквальная линия. Это был не смерч. Смерч закручивает воздух в воронку и оставляет узкий петляющий след. Здесь же ветер шёл по прямой и валил всё в одну сторону, одной полосой через несколько штатов подряд. Самый сильный измеренный порыв, почти сто шестьдесят километров в час, пришёлся на аэропорт города Гэри.</p>
+      <p>Электричество там подаёт компания Нипско. У неё примерно полмиллиона абонентов. Буря оставила без света больше шестидесяти процентов из них. В одном только Гэри бригадам пришлось заменить около трёхсот столбов.</p>
+      <p>А дальше началось то, что люди запомнили лучше всего. Система автоматического оповещения рухнула в первые же двое суток. Та самая, которая должна сообщать вам, что о вашем доме вообще знают. А когда компания опубликовала первый список сроков восстановления, города Гэри в этом списке не оказалось.</p>
+      <p>По всему штату во время непогоды и наводнения погибли семь человек.</p>
+      <p>Школы в Гэри закрыты с тринадцатого августа. В Гэри, Мунстере и Хайленде полное восстановление пообещали к двадцать пятому августа. Через две недели после того, как стих ветер.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 PIVOT ================= -->
+<section class="ep" id="s2" data-duration="58.2">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">Поворот</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Поворот · знали заранее все</div>
+    <h2>Высший тариф. Худшая надёжность. В отчётах.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg2">
+        <g id="v_row" class="b">
+          <rect x="120" y="70" width="380" height="90" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="310" y="112" text-anchor="middle" class="strong" font-size="15">«РУКОВОДСТВО ОБЯЗАНО ВЗЯТЬСЯ ЗА ДЕЛО»</text>
+          <text x="310" y="140" text-anchor="middle" font-size="13">ГУБЕРНАТОР</text>
+          <rect x="550" y="70" width="380" height="90" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="740" y="112" text-anchor="middle" class="strong" font-size="15">«ОНИ НЕ ПОДРЕЗАЛИ ДЕРЕВЬЯ»</text>
+          <text x="740" y="140" text-anchor="middle" font-size="13">УТВЕРЖДАЕТСЯ В ИСКЕ</text>
+          <rect x="980" y="70" width="380" height="90" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1170" y="112" text-anchor="middle" class="strong" font-size="15">«ТАКИХ РАЗРУШЕНИЙ ЕЩЁ НЕ БЫЛО»</text>
+          <text x="1170" y="140" text-anchor="middle" font-size="13">КОМПАНИЯ</text>
+        </g>
+        <g id="v_known" class="b" data-tip="Per IURC records as reported in August 2026: this utility charges the highest electricity rates of any utility in Indiana, and has the worst reliability record among them. Both facts predate the storm.">
+          <text x="740" y="230" text-anchor="middle" class="big" font-size="30">РЕГУЛЯТОР ПУБЛИКУЕТ ОБЕ ЦИФРЫ САМ</text>
+          <rect x="300" y="280" width="330" height="130" fill="none" stroke="var(--fact)" stroke-width="3"/>
+          <text x="465" y="330" text-anchor="middle" class="fact strong" font-size="18">ВЫСШИЙ ТАРИФ</text>
+          <text x="465" y="366" text-anchor="middle" font-size="15">В ШТАТЕ</text>
+          <rect x="850" y="280" width="330" height="130" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1015" y="330" text-anchor="middle" class="flawtxt strong" font-size="18">ХУДШАЯ НАДЁЖНОСТЬ</text>
+          <text x="1015" y="366" text-anchor="middle" font-size="15">В ШТАТЕ</text>
+        </g>
+        <g id="v_q" class="b">
+          <text x="740" y="470" text-anchor="middle" class="big flawtxt" font-size="30">ПОЧЕМУ ЭТО ПОЧТИ НИЧЕГО НЕ ИЗМЕНИЛО?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 3 — три ответа в новостях и две цифры, давно лежащие в отчётах</div>
+    <div class="prose">
+      <p>Спор, который всегда начинается после такого события, уже идёт. Губернатор говорит, что компания обязана взяться за дело. В коллективном иске, поданном на этой неделе, утверждается, что компания дала деревьям врасти в провода вместо того, чтобы подрезать их вовремя. Компания отвечает, что таких разрушений здесь ещё не было. Всё это может иметь значение. Но регулятор штата и без всякого спора публикует другое. У этой компании самый высокий тариф на электричество в Индиане и худшая надёжность в Индиане. Обе цифры были в отчётах ещё до этой бури. Значит, вопрос не в том, заметил ли кто-нибудь. Заметили все. Вопрос в том, почему это почти ничего не изменило. И ответ складывается из трёх правил, которые вместе решают, сколько стоит час без света.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 MECHANISM 1 ================= -->
+<section class="ep" id="s3" data-duration="145.2">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Вычеркнутая контрольная</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · правило первое — табель</div>
+    <h2>532 минуты прожито. 178 в отчёте.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg3">
+        <g id="m_axes" class="b">
+          <line x1="180" y1="520" x2="1380" y2="520" class="ink"/>
+          <line x1="180" y1="80" x2="180" y2="520" class="ink"/>
+          <text x="180" y="556" text-anchor="middle" font-size="14">2012</text>
+          <text x="1280" y="556" text-anchor="middle" font-size="14">2025</text>
+          <text x="150" y="106" text-anchor="end" font-size="13">600</text>
+          <text x="150" y="524" text-anchor="end" font-size="13">0</text>
+          <text x="60" y="300" font-size="14" transform="rotate(-90 60 300)">МИНУТ НА АБОНЕНТА В ГОД</text>
+        </g>
+        <g id="m_inc" class="b" data-tip="NIPSCO SAIDI including major events, 2012–2025: 428, 524, 603, 248, 231, 153, 244, 359, 473, 529, 370, 320, 534, 532 minutes. Source: IURC Electric Utility Reliability Report 2025, published July 1, 2026.">
+          <path id="lineInc" class="amber" stroke-width="3.5" stroke-dasharray="none" d="M 180 223 L 265 156 L 349 102 L 434 348 L 518 360 L 603 414 L 688 351 L 772 271 L 857 192 L 941 153 L 1026 263 L 1111 298 L 1195 149 L 1280 151"/>
+          <text x="1300" y="146" class="flawtxt strong" font-size="16">532</text>
+          <text x="1300" y="172" font-size="13">КАК ПРОЖИТО</text>
+        </g>
+        <g id="m_exc" class="b" data-tip="The same utility, same years, with major event days removed: 137, 116, 109, 128, 141, 131, 151, 155, 138, 175, 143, 149, 169, 178 minutes. This is the series built for year-to-year comparison — and the one that gets quoted.">
+          <path id="lineExc" class="blue" stroke-width="3.5" d="M 180 425 L 265 439 L 349 444 L 434 431 L 518 422 L 603 429 L 688 415 L 772 412 L 857 424 L 941 399 L 1026 421 L 1111 417 L 1195 403 L 1280 396"/>
+          <text x="1300" y="392" class="fact strong" font-size="16">178</text>
+          <text x="1300" y="418" font-size="13">В ОТЧЁТЕ</text>
+        </g>
+        <g id="m_gapfill" class="b">
+          <path d="M 1195 149 L 1280 151 L 1280 396 L 1195 403 Z" fill="var(--flaw)" opacity=".22"/>
+          <text x="1237" y="452" text-anchor="middle" class="flawtxt strong" font-size="17">ДВЕ ТРЕТИ ВЫЧТЕНЫ</text>
+        </g>
+        <g id="m_flat" class="b">
+          <text x="300" y="490" class="fact strong" font-size="15">ПО ЭТОЙ МЕРКЕ: СТАБИЛЬНО ЧЕТЫРНАДЦАТЬ ЛЕТ</text>
+          <text x="600" y="215" class="flawtxt strong" font-size="15">ПО ЭТОЙ: ОТ 2,5 ЧАСОВ ДО 10, ОТ ГОДА К ГОДУ</text>
+        </g>
+        <g id="m_thr" class="b" data-tip="IEEE Std 1366 sets the major-event threshold as T_MED = e^(α + 2.5β), where α and β are the mean and standard deviation of the natural logs of daily SAIDI over the previous five years. The bar is therefore relative to each utility: the same storm day can clear one company's threshold and fall under another's.">
+          <rect x="200" y="596" width="1160" height="2" fill="none"/>
+          <text x="200" y="592" class="strong" font-size="15">ПЛАНКА НЕ АБСОЛЮТНАЯ — ЕЁ СТРОЯТ ИЗ СОБСТВЕННОЙ ПЯТИЛЕТКИ ЭТОЙ ЖЕ КОМПАНИИ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnR0" class="on">В отчёте</button><button id="btnR1">Как прожито</button>
+    </div>
+    <div class="figcap">Рис. 4 — одна компания, одни годы, две официальные линии. Нажмите, чтобы сравнить.</div>
+    <div class="prose">
+      <p>Начнём с того, как надёжность вообще измеряют. Главное число считается просто. Все минуты отключений делят на всех абонентов и получают среднее время, которое один абонент провёл без света за год. Каждая компания отчитывается этим числом дважды: один раз вместе с днями сильных бурь, второй раз без них. Цитируют всегда второе число.</p>
+      <p>Вот оба числа для этой компании за прошлый год. С бурями около девяти часов. Без них — три часа. Две трети темноты остаётся за пределами главной цифры. И это данные ещё до той бури, о которой мы говорим.</p>
+      <p>Настоящая история видна на двух линиях. С две тысячи двенадцатого года линия без бурь почти не сдвинулась: три часа или меньше, год за годом. А линия с бурями скачет от неполных трёх часов в хороший год до десяти в плохой, и последние два года держится у верхней границы. По одному измерению эта сеть стабильна четырнадцать лет подряд. По другому она не была стабильной ни одного года.</p>
+      <p>Какие именно дни вычёркивают, решает формула, написанная инженерами. Она берёт ежедневные показатели за прошедшие пять лет и проводит порог у верхнего края разброса. Всё, что выше этой линии, уходит из отчёта.</p>
+      <p>Вот главное. Этот порог не абсолютная мерка тяжести. Его считают по собственной пятилетней истории той же компании. А значит, одна и та же буря у одной компании сойдёт за исключительный день, а у другой за обычный вторник. И зависит это от того, насколько плохо каждая работала до сих пор. Планка ездит вместе с историей, которой абонент никогда не видел.</p>
+      <p>В отчёте регулятора это объяснено, и объяснение разумное. Вычитание убирает перерывы, над которыми компания почти не властна. Про ветер это правда. Про дни, которые наступили после ветра, это неправда. И пока без света остаётся достаточно людей, такие дни тоже перешагивают порог. Значит, буря и реакция на бурю могут исчезнуть в одном и том же вычитании.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 MECHANISM 2 ================= -->
+<section class="ep" id="s4" data-duration="113.6">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Столб и ветка</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · правило второе — куда идут деньги</div>
+    <h2>Столб приносит. Ветка стоит.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg4">
+        <g id="p_pole" class="b" data-tip="A regulated utility earns an approved return on invested capital — 9.75% in the settlement approved for this utility in June 2025. Capital enters the rate base and earns that return for decades.">
+          <line x1="300" y1="120" x2="300" y2="330" class="ink" stroke-width="6"/>
+          <line x1="240" y1="150" x2="360" y2="150" class="ink" stroke-width="4"/>
+          <text x="300" y="380" text-anchor="middle" class="fact strong" font-size="17">ПОСТАВЬ СТОЛБ</text>
+          <g id="p_badges">
+            <rect x="390" y="118" width="66" height="34" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+            <text x="423" y="142" text-anchor="middle" class="fact" font-size="15">9.75%</text>
+            <rect x="470" y="118" width="66" height="34" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+            <text x="503" y="142" text-anchor="middle" class="fact" font-size="15">9.75%</text>
+            <rect x="550" y="118" width="66" height="34" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+            <text x="583" y="142" text-anchor="middle" class="fact" font-size="15">9.75%</text>
+          </g>
+          <text x="503" y="180" text-anchor="middle" font-size="14">КАЖДЫЙ ГОД, ДЕСЯТИЛЕТИЯМИ</text>
+        </g>
+        <g id="p_branch" class="b" data-tip="Vegetation management is an operating expense, not capital. It prevents outages this year and produces nothing on which a return is earned.">
+          <path class="ink" stroke-width="5" d="M 900 330 C 940 280 1000 260 1060 250"/>
+          <line id="p_cut" x1="960" y1="240" x2="1010" y2="300" class="amber" stroke-width="5"/>
+          <text x="980" y="380" text-anchor="middle" class="strong" font-size="17">ПОДРЕЖЬ ВЕТКУ</text>
+          <rect x="1090" y="118" width="180" height="34" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="1180" y="142" text-anchor="middle" class="flawtxt" font-size="15">НЕ ПРИНОСИТ НИЧЕГО</text>
+          <text x="1180" y="180" text-anchor="middle" font-size="14">ТЕКУЩИЙ РАСХОД</text>
+        </g>
+        <g id="p_lanes" class="b" data-tip="Indiana's TDSIC statute (SEA 560 of 2013, IC 8-1-39) lets a utility file a multi-year infrastructure plan and then raise rates every six months as the work proceeds, recovering most of the cost as it is spent. It was built to stop decade-old equipment replacement from being postponed by long rate cases.">
+          <rect x="180" y="430" width="700" height="70" fill="none" stroke="var(--fact)" stroke-width="3"/>
+          <text x="530" y="472" text-anchor="middle" class="fact strong" font-size="17">УСКОРЕННАЯ ПОЛОСА · ЖЕЛЕЗО · ТАРИФ РАСТЁТ КАЖДЫЕ ПОЛГОДА</text>
+          <rect x="180" y="522" width="700" height="30" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="530" y="544" text-anchor="middle" class="flawtxt" font-size="14">РАБОТА С ДЕРЕВЬЯМИ · НЕ ПОДХОДИТ</text>
+        </g>
+        <g id="p_pie" class="b" data-tip="The approved electric TDSIC plan for this utility is worth 1,4 МЛРД $: about 20% distribution substations, 18% distribution lines, 17% transmission substations, 12% transmission lines, 10% new metering.">
+          <text x="1180" y="440" text-anchor="middle" class="strong" font-size="17">ЧТО ПО ЭТОЙ ПОЛОСЕ ПОЕХАЛО</text>
+          <text x="1180" y="486" text-anchor="middle" class="big fact" font-size="40">1,4 МЛРД $</text>
+          <text x="1180" y="524" text-anchor="middle" font-size="14">ПОДСТАНЦИИ · ЛИНИИ · СЧЁТЧИКИ</text>
+          <text x="1180" y="552" text-anchor="middle" class="flawtxt strong" font-size="15">ГЛАВНАЯ ПРИЧИНА ОТКЛЮЧЕНИЙ: ДЕРЕВЬЯ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 5 — одна полоса быстрая и доходная, во вторую не пускают</div>
+    <div class="prose">
+      <p>Второе правило о том, откуда берутся деньги. Регулируемая энергокомпания зарабатывает не так, как булочная зарабатывает на хлебе. Ей утверждают процент прибыли на вложенный капитал. Здесь это девять и три четверти процента. Поставил столб, и ты получаешь этот процент с него каждый год, десятилетиями.</p>
+      <p>Подрезка дерева капиталом не считается. Это текущий расход. Она отводит ветку от провода на этот год и не создаёт ничего, с чего капает процент.</p>
+      <p>Дальше Индиана специально расширила этот разрыв. В штате появилась ускоренная полоса для денег, которые идут в железо: опоры, провода, подстанции. А работу с деревьями в эту полосу не пускают.</p>
+      <p>Полосу построили не на пустом месте. Проблема была настоящая: пока компания годами ждала очередного полного пересмотра тарифов, замена столетнего оборудования всё время откладывалась. Поэтому закон две тысячи тринадцатого года поменял порядок. Подай многолетний план, добейся утверждения, и поднимай тариф каждые полгода прямо по ходу работ.</p>
+      <p>Работа с деревьями в эту полосу не помещается. Когда другая компания Индианы попробовала внести её в такой же план, комиссия вычеркнула эту статью как неподходящую.</p>
+      <p>Теперь посмотрите, что по этой полосе поехало. Утверждённый здесь план стоит один и четыре десятых миллиарда долларов. Подстанции, распределительные линии, магистральные сети, счётчики. Ничего неправильного в этом нет. Так устроены правила: они поощряют именно это. А главной причиной отключений, по собственному признанию компании, остаются деревья.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 MECHANISM 3 ================= -->
+<section class="ep" id="s5" data-duration="71.7">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">Цена, которой нет</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Механизм · правило третье — пустое место</div>
+    <h2>У часа без света нет прейскуранта.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg5">
+        <g id="n_files" class="b" data-tip="170 IAC 4-1-23 requires reliability indices filed annually and data kept seven years; Indiana separately requires annual reporting of vegetation-management budgets and tree-related outage shares. None of it attaches a payment to an hour without power.">
+          <rect x="160" y="90" width="420" height="220" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <line x1="190" y1="150" x2="550" y2="150" stroke="var(--grid)" stroke-width="5"/>
+          <line x1="190" y1="200" x2="550" y2="200" stroke="var(--grid)" stroke-width="5"/>
+          <line x1="190" y1="250" x2="550" y2="250" stroke="var(--grid)" stroke-width="5"/>
+          <text x="370" y="66" text-anchor="middle" class="strong" font-size="17">ОТЧЁТЫ ОБЯЗАТЕЛЬНЫ</text>
+          <text x="370" y="350" text-anchor="middle" font-size="14">ПОКАЗАТЕЛИ · СЕМЬ ЛЕТ ДАННЫХ · БЮДЖЕТ НА ДЕРЕВЬЯ</text>
+        </g>
+        <g id="n_tag" class="b">
+          <path d="M 700 130 L 860 130 L 920 190 L 860 250 L 700 250 Z" fill="none" stroke="var(--flaw)" stroke-width="4"/>
+          <text x="800" y="200" text-anchor="middle" class="flawtxt strong" font-size="30">—</text>
+          <text x="800" y="300" text-anchor="middle" class="flawtxt strong" font-size="16">ЗА ЧАС БЕЗ СВЕТА НЕ ПЛАТЯТ НИЧЕГО</text>
+        </g>
+        <g id="n_paths" class="b" data-tip="The precedent exists but was negotiated from scratch: after a July 2001 storm, a different Indiana utility agreed under an IURC settlement to pay $100 to each customer out 36 hours or more.">
+          <text x="1080" y="66" text-anchor="middle" class="strong" font-size="17">ЦЕНА ПРИХОДИТ ПОЗЖЕ</text>
+          <rect x="1000" y="100" width="330" height="50" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1165" y="132" text-anchor="middle" font-size="15">РАССЛЕДОВАНИЕ</text>
+          <rect x="1000" y="168" width="330" height="50" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1165" y="200" text-anchor="middle" font-size="15">СУДЕБНЫЙ ИСК</text>
+          <rect x="1000" y="236" width="330" height="50" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1165" y="268" text-anchor="middle" font-size="15">ЗАЯВЛЕНИЕ ГУБЕРНАТОРА</text>
+          <text x="1165" y="330" text-anchor="middle" font-size="14">ПРЕЦЕДЕНТ 2001 ГОДА: 100 $ ПОСЛЕ 36 ЧАСОВ</text>
+        </g>
+        <g id="n_loop" class="b">
+          <rect x="200" y="410" width="330" height="90" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="365" y="446" text-anchor="middle" class="flawtxt strong" font-size="15">ТАБЕЛЬ ВЫЧИТАЕТ</text>
+          <text x="365" y="474" text-anchor="middle" font-size="13">ПЛАНКА ИЗ ТВОИХ ЖЕ ХУДШИХ ЛЕТ</text>
+          <rect x="575" y="410" width="330" height="90" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="740" y="446" text-anchor="middle" class="flawtxt strong" font-size="15">ДЕНЬГИ ИДУТ ЗА ПОСТРОЕННЫМ</text>
+          <text x="740" y="474" text-anchor="middle" font-size="13">А НЕ ЗА ТЕМ, ЧТО УСТОЯЛО</text>
+          <rect x="950" y="410" width="330" height="90" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1115" y="446" text-anchor="middle" class="flawtxt strong" font-size="15">НЕТ ЦЕНЫ ДО СКАНДАЛА</text>
+          <text x="1115" y="474" text-anchor="middle" font-size="13">И ТОЛЬКО ЧЕРЕЗ ПОЛИТИКУ</text>
+          <path id="loopArrow" class="amber" stroke-width="3" stroke-dasharray="none" d="M 530 455 L 575 455 M 905 455 L 950 455"/>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 6 — третье правило пустое, и контур замыкается вокруг него</div>
+    <div class="prose">
+      <p>Третье правило самое короткое, потому что его попросту нет. В Индиане нет действующего правила, по которому долгое отключение обходилось бы компании хоть во что-то. Правила требуют отчётов. Сдавать показатели надёжности каждый март, хранить данные семь лет, ежегодно отчитываться о бюджете на подрезку деревьев. Но к часу без света они не привязывают никакой выплаты.</p>
+      <p>Поэтому цена появляется только задним числом и только через политику. Расследование, судебный иск, заявление губернатора. После бури две тысячи первого года другая компания Индианы согласилась заплатить по сто долларов каждому, кто просидел без света тридцать шесть часов и дольше. Договорились один раз и с нуля.</p>
+      <p>Сложите три правила вместе, и контур замыкается. Табель вычитает худшие дни по планке, которую задала твоя же худшая история. Деньги идут за тем, что построено, а не за тем, что устояло. А час без света не стоит ничего, пока кто-нибудь не сделает из него скандал. Так что нужно, чтобы разорвать этот контур?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 WHAT IF 1 ================= -->
+<section class="ep" id="s6" data-duration="144.9">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">Что если · Первое</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · конструкция первая — дать часу цену</div>
+    <h2>Пусть час без света стоит денег.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg6">
+        <g id="w_slots" class="b">
+          <rect x="180" y="40" width="360" height="46" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="360" y="70" text-anchor="middle" class="alttxt strong" font-size="15">ПЕРВАЯ · ПЛАТИТЬ ЗА ЧАС</text>
+          <rect x="560" y="40" width="360" height="46" fill="none" stroke="var(--grid)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="740" y="70" text-anchor="middle" font-size="15">ВТОРАЯ</text>
+          <rect x="940" y="40" width="360" height="46" fill="none" stroke="var(--grid)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="1120" y="70" text-anchor="middle" font-size="15">ТРЕТЬЯ</text>
+        </g>
+        <g id="w_mi" class="b" data-tip="Michigan MPSC, Case U-20629: an automatic bill credit, no application required, $35/day from 2023, indexed to inflation, $42/day from October 2025. Michigan customers received about seven times more in credits in 2024 than before the rule.">
+          <text x="180" y="150" class="alttxt strong" font-size="18">МИЧИГАН · АВТОМАТИЧЕСКИ, ПЛОСКО</text>
+          <line x1="180" y1="300" x2="700" y2="300" class="green" stroke-width="3"/>
+          <g id="w_mistep">
+            <rect x="440" y="270" width="60" height="30" fill="var(--alt)" opacity=".7"/>
+            <rect x="510" y="270" width="60" height="30" fill="var(--alt)" opacity=".7"/>
+            <rect x="580" y="270" width="60" height="30" fill="var(--alt)" opacity=".7"/>
+          </g>
+          <text x="220" y="340" font-size="14">≈ 40 $ В СУТКИ · БЕЗ ЗАЯВЛЕНИЙ</text>
+          <text x="220" y="368" class="alttxt" font-size="14">В 7 РАЗ БОЛЬШЕ ВЫПЛАТ, ЧЕМ ДО ПРАВИЛА</text>
+        </g>
+        <g id="w_dead" class="b" data-tip="The credit only starts past a threshold, and the threshold scales with the event: 16 hours in ordinary weather, 48 in a moderate storm, 96 hours when more than 10% of customers are down. In a storm the size of Indiana's, that means four days at zero.">
+          <rect x="180" y="270" width="150" height="30" fill="var(--flaw)" opacity=".35"/>
+          <text x="255" y="252" text-anchor="middle" class="flawtxt strong" font-size="15">ПЕРВЫЕ 96 ЧАСОВ: 0 $</text>
+        </g>
+        <g id="w_mip" class="b" data-tip="Michigan's performance targets are anchored to the utilities' own 2020–2024 results, asking for roughly 1% of improvement a year. Michigan still records some of the slowest restoration times in the United States.">
+          <text x="190" y="452" class="flawtxt strong" font-size="15">ЦЕЛЬ СТРОЯТ ИЗ</text>
+          <text x="190" y="480" class="flawtxt strong" font-size="15">СОБСТВЕННОГО ПРОШЛОГО КОМПАНИИ</text>
+          <text x="190" y="508" class="flawtxt strong" font-size="15">ТОТ ЖЕ ПРИЁМ, ЭТАЖОМ НИЖЕ</text>
+          <text x="190" y="552" font-size="14">ПО-ПРЕЖНЕМУ СРЕДИ САМЫХ</text>
+          <text x="190" y="578" font-size="14">МЕДЛЕННЫХ В США</text>
+        </g>
+        <g id="w_uk" class="b" data-tip="Ofgem Guaranteed Standards: £90 (about $120) once a severe-storm outage passes 24 hours, then £45 for every further 6 hours, paid automatically with no claim required.">
+          <text x="800" y="150" class="alttxt strong" font-size="18">БРИТАНИЯ · АВТОМАТИЧЕСКИ, РАСТУЩЕ</text>
+          <path id="ukStair" class="green" stroke-width="3.5" d="M 800 400 L 880 400 L 880 370 L 960 370 L 960 340 L 1040 340 L 1040 310 L 1120 310 L 1120 280 L 1200 280 L 1200 250 L 1280 250"/>
+          <text x="920" y="452" font-size="14">90 ФУНТОВ (~120 $) ЧЕРЕЗ 24 ЧАСА</text>
+          <text x="920" y="480" font-size="14">ДАЛЬШЕ 45 ФУНТОВ ЗА КАЖДЫЕ 6 ЧАСОВ</text>
+        </g>
+        <g id="w_arwen" class="b" data-tip="During Storm Arwen the payments reached their cap while people were still without power — some for more than 6.5 days. The network operators waived the cap themselves, voluntarily, after the fact.">
+          <line id="ukCap" x1="790" y1="250" x2="1300" y2="250" class="amber" stroke-width="4"/>
+          <text x="1045" y="238" text-anchor="middle" class="flawtxt strong" font-size="15">ПОТОЛОК · БУРЯ АРУЭН</text>
+          <path id="ukLift" class="amber" stroke-width="3" stroke-dasharray="8 6" d="M 790 206 L 1300 206"/>
+          <text x="1045" y="562" text-anchor="middle" class="flawtxt strong" font-size="15">ПОДНЯТ ВРУЧНУЮ, ЗАДНИМ ЧИСЛОМ —</text>
+          <text x="1045" y="590" text-anchor="middle" class="flawtxt strong" font-size="15">ЧЬЁ-ТО РЕШЕНИЕ ПОСЛЕ СОБЫТИЯ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnB0" class="on">Индиана</button><button id="btnB1">Мичиган</button><button id="btnB2">Британия</button>
+    </div>
+    <div class="figcap">Рис. 7 — те же четырнадцать дней по трём разным сводам правил. Нажмите, чтобы сравнить.</div>
+    <div class="prose">
+      <p>Разорвать его пробуют три конструкции, и ни одна из них не бесплатная.</p>
+      <p>Конструкция первая: сделать так, чтобы час без света стоил денег. Соседний штат Мичиган делает это с две тысячи двадцать третьего года. Комиссия штата требует автоматически начислять деньги на ваш счёт за электричество, без заявления и без звонка, примерно по сорок долларов за каждые сутки без света. Жители Мичигана получают теперь примерно в семь раз больше, чем до этого правила.</p>
+      <p>Цена высокая. Выплата начинается только после порога, а чем крупнее буря, тем дольше ждать до этого порога. Поэтому при буре такого масштаба, как в Индиане, первые четверо суток без света не стоят компании вообще ничего. Сорок долларов не покрывают ни испорченную еду в холодильнике, ни ночь в гостинице, ни пропущенную смену. И целевые показатели привязаны к их же прошлым результатам. То есть тот же приём, только теперь он не в табеле, а в самой цели. Мичиган по-прежнему в числе худших штатов страны по скорости восстановления.</p>
+      <p>Британия собрала ту же конструкцию, только зубастее. Как только отключение переваливает за сутки, человеку, оставшемуся без света в сильную бурю, платят девяносто фунтов. Это около ста двадцати долларов. Дальше добавляют по сорок пять фунтов за каждые шесть часов, и так до потолка. Сумма растёт, пока вы сидите без света, и это заставляет торопиться на тридцатом и на шестидесятом часу, когда разовая выплата давно уже ничего не подгоняет.</p>
+      <p>Цена этой конструкции вскрылась, когда пришла настоящая катастрофа. Во время большой зимней бури Аруэн выплаты упёрлись в потолок, пока люди всё ещё сидели без света, некоторые больше шести суток. Сетевые компании сами, по собственному решению и задним числом, этот потолок сняли. Снова проблема Индианы, только в стране, которая думала, что уже выстроила себе выход. В самом тяжёлом случае выплата опять превратилась в чьё-то решение задним числом.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S7 WHAT IF 2 ================= -->
+<section class="ep" id="s7" data-duration="55">
+  <div class="chapter"><div class="in"><div class="n">07</div><div class="t">Что если · Второе</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · конструкция вторая — сменить то, что измеряют</div>
+    <h2>Считать людей, а не усреднять их.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg7">
+        <g id="d_avg" class="b">
+          <text x="360" y="80" text-anchor="middle" class="strong" font-size="17">ОДНО СРЕДНЕЕ НА ПОЛМИЛЛИОНА ЧЕЛОВЕК</text>
+          <line x1="160" y1="230" x2="620" y2="230" class="blue" stroke-width="4"/>
+          <text x="360" y="270" text-anchor="middle" class="fact" font-size="15">ДВЕ НЕДЕЛИ В ГЭРИ → ПОГРЕШНОСТЬ</text>
+        </g>
+        <g id="d_head" class="b" data-tip="A headcount published alongside the average: how many customers were out more than a day, more than three days, more than a week. It cannot be diluted by the customers who were never affected.">
+          <text x="1060" y="80" text-anchor="middle" class="alttxt strong" font-size="17">СЧЁТ ЛЮДЕЙ ВМЕСТО НЕГО</text>
+          <g id="d_rows">
+            <rect x="800" y="130" width="520" height="52" fill="none" stroke="var(--alt)" stroke-width="2.5"/>
+            <text x="1060" y="163" text-anchor="middle" class="alttxt" font-size="15">БЕЗ СВЕТА ДОЛЬШЕ СУТОК</text>
+            <rect x="800" y="200" width="400" height="52" fill="none" stroke="var(--alt)" stroke-width="2.5"/>
+            <text x="1000" y="233" text-anchor="middle" class="alttxt" font-size="15">ДОЛЬШЕ ТРЁХ СУТОК</text>
+            <rect x="800" y="270" width="260" height="52" fill="none" stroke="var(--alt)" stroke-width="2.5"/>
+            <text x="930" y="303" text-anchor="middle" class="alttxt" font-size="15">ДОЛЬШЕ НЕДЕЛИ</text>
+          </g>
+          <text x="1060" y="360" text-anchor="middle" class="strong" font-size="15">40 000 ДОМОВ НЕ УСРЕДНЯЮТСЯ</text>
+        </g>
+        <g id="d_price" class="b">
+          <rect x="300" y="410" width="880" height="80" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="740" y="444" text-anchor="middle" class="flawtxt strong" font-size="16">ЦЕНА: ПОЧТИ БЕСПЛАТНО — И ЭТО КАК РАЗ ПРОБЛЕМА</text>
+          <text x="740" y="474" text-anchor="middle" font-size="14">ЦИФРА БЕЗ ДЕНЕГ ВООРУЖАЕТ СПОР, НО НЕ РЕШАЕТ ЕГО</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 8 — среднее растворяет город, счёт людей растворить нельзя</div>
+    <div class="prose">
+      <p>У обеих версий первой конструкции есть общий предел. Они платят вам за темноту, но не делают её реже. Поэтому конструкция вторая не трогает выплаты вообще и берётся за табель.</p>
+      <p>Вместо среднего по полумиллиону абонентов публиковать, сколько человек и как долго сидели без света. Сколько людей пробыли без света дольше суток, дольше трёх суток, дольше недели. Среднее растворяет две недели в Гэри почти до нуля. Сорок тысяч домов не усредняются.</p>
+      <p>Цена в том, что эта конструкция почти бесплатная, и вот это как раз и есть проблема. Более правдивая цифра сама по себе не меняет ничего, потому что цифра без привязанных к ней денег остаётся просто цифрой. Она вооружает спор. Она его не решает.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S8 WHAT IF 3 ================= -->
+<section class="ep" id="s8" data-duration="74.2">
+  <div class="chapter"><div class="in"><div class="n">08</div><div class="t">Что если · Третье</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Что если · конструкция третья — пусть ветка зарабатывает</div>
+    <h2>Платить за то, что предотвращает отключение.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg8">
+        <g id="t_lanes" class="b" data-tip="Two versions: extend the fast lane to preventive work, or tie part of the allowed return to delivered reliability. Indiana's commission delivered a report on performance-based ratemaking to the General Assembly in 2025.">
+          <rect x="180" y="90" width="620" height="70" fill="none" stroke="var(--fact)" stroke-width="3"/>
+          <text x="490" y="132" text-anchor="middle" class="fact strong" font-size="17">ЖЕЛЕЗО · УСКОРЕННАЯ ПОЛОСА</text>
+          <rect id="t_narrow" x="180" y="190" width="620" height="30" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text id="t_narrowlab" x="490" y="212" text-anchor="middle" class="flawtxt" font-size="14">РАБОТА С ДЕРЕВЬЯМИ · НЕ ПОДХОДИТ</text>
+          <rect id="t_wide" class="b" x="180" y="176" width="620" height="70" fill="none" stroke="var(--alt)" stroke-width="3" stroke-dasharray="7 6"/>
+          <text id="t_widelab" class="b alttxt strong" x="490" y="218" text-anchor="middle" font-size="17">ИЛИ: ОДНА ПОЛОСА ДЛЯ ОБОИХ</text>
+        </g>
+        <g id="t_roe" class="b">
+          <text x="1130" y="112" text-anchor="middle" class="alttxt strong" font-size="17">ИЛИ: ПРИВЯЗАТЬ ПРИБЫЛЬ</text>
+          <text x="1130" y="146" text-anchor="middle" font-size="15">К ТОМУ, ЧТО РЕАЛЬНО ПОЛУЧИЛИ ЛЮДИ</text>
+          <text x="1130" y="196" text-anchor="middle" font-size="14">ИНДИАНА ИЗУЧАЛА ЭТО В 2025-М</text>
+        </g>
+        <g id="t_price" class="b" data-tip="If preventive work earns a return, ratepayers fund the work plus a profit on it every year — more expensive than simply funding the work. And widening the eligibility list invites the next argument about what else belongs in the lane.">
+          <rect x="180" y="300" width="1120" height="110" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="740" y="340" text-anchor="middle" class="flawtxt strong" font-size="16">ЦЕНА: ТА ЖЕ ПИЛА, ТА ЖЕ ВЕТКА — ПЛЮС ПРИБЫЛЬ СВЕРХУ, КАЖДЫЙ ГОД</text>
+          <text x="740" y="376" text-anchor="middle" font-size="14">А КАЖДОЕ РАСШИРЕНИЕ СПИСКА ОТКРЫВАЕТ СПОР О ТОМ, ЧТО ЕЩЁ ТУДА ПРОСИТСЯ</text>
+        </g>
+        <g id="t_three" class="b">
+          <rect x="180" y="440" width="350" height="90" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="355" y="478" text-anchor="middle" class="alttxt strong" font-size="15">ПЛАТИТЬ ЗА ЧАС</text>
+          <text x="355" y="506" text-anchor="middle" font-size="13">ЦЕНА: 96 ЧАСОВ ДАРОМ, ЦЕЛЬ ИЗ СВОЕГО ПРОШЛОГО</text>
+          <rect x="565" y="440" width="350" height="90" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="740" y="478" text-anchor="middle" class="alttxt strong" font-size="15">СЧИТАТЬ, А НЕ УСРЕДНЯТЬ</text>
+          <text x="740" y="506" text-anchor="middle" font-size="13">ЦЕНА: ДЕНЬГИ НЕ ПРИВЯЗАНЫ</text>
+          <rect x="950" y="440" width="350" height="90" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="1125" y="478" text-anchor="middle" class="alttxt strong" font-size="15">ПУСТЬ ВЕТКА ЗАРАБАТЫВАЕТ</text>
+          <text x="1125" y="506" text-anchor="middle" font-size="13">ЦЕНА: ПРИБЫЛЬ СВЕРХУ, НАВСЕГДА</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Рис. 9 — три конструкции, три цены, злодеи не требуются</div>
+    <div class="prose">
+      <p>Конструкция третья возвращается ко второму правилу. Столб приносит процент, ветка не приносит. Значит, либо пустить работу с деревьями по той же полосе, что и железо, либо привязать часть разрешённой прибыли к тому, что реально пережили люди. Второе в Индиане уже изучали: комиссия штата подавала законодателям отдельный доклад.</p>
+      <p>Цена измеряется деньгами. Если подрезка деревьев начинает приносить процент, вы платите уже не только за подрезку. Вы платите за подрезку плюс прибыль сверху, и так каждый год. Та же бензопила, та же ветка, дороже. А стоит расширить список того, что считается подходящим вложением, и начинается следующий спор: что ещё просится в эту полосу. Именно поэтому регуляторы и вычёркивали статьи из таких планов.</p>
+      <p>Три конструкции. Платить за час без света. Считать людей вместо того, чтобы их усреднять. И дать работе, которая предотвращает отключение, зарабатывать столько же, сколько зарабатывает железо. Ни одна из них не бесплатна.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S9 CLOSE ================= -->
+<section class="ep" id="s9" data-duration="66.6">
+  <div class="chapter"><div class="in"><div class="n">09</div><div class="t">Финал</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Финал · вопрос к следующему тарифному делу</div>
+    <h2>Каждый сделал свою часть.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg9">
+        <g id="z_nodes" class="b">
+          <rect x="150" y="70" width="260" height="80" class="nodebox"/>
+          <text x="280" y="118" text-anchor="middle" class="fact strong" font-size="15">ИНЖЕНЕРЫ НАПИСАЛИ</text>
+          <rect x="440" y="70" width="260" height="80" class="nodebox"/>
+          <text x="570" y="118" text-anchor="middle" class="fact strong" font-size="15">ЗАКОНОДАТЕЛИ ПОСТРОИЛИ</text>
+          <rect x="730" y="70" width="260" height="80" class="nodebox"/>
+          <text x="860" y="118" text-anchor="middle" class="fact strong" font-size="15">РЕГУЛЯТОР УТВЕРДИЛ</text>
+          <rect x="1020" y="70" width="310" height="80" class="nodebox"/>
+          <text x="1175" y="118" text-anchor="middle" class="fact strong" font-size="15">КОМПАНИЯ ВЫПОЛНИЛА</text>
+          <text x="740" y="200" text-anchor="middle" class="flawtxt strong" font-size="20">А 40 000 ДОМОВ ДОЖИВАЮТ ВТОРУЮ НЕДЕЛЮ БЕЗ СВЕТА</text>
+        </g>
+        <g id="z_cards" class="b">
+          <rect x="330" y="250" width="360" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="510" y="300" text-anchor="middle" class="strong" font-size="16">ЦИФРА В ОТЧЁТЕ</text>
+          <text x="510" y="350" text-anchor="middle" class="big fact" font-size="42">178</text>
+          <rect x="790" y="250" width="360" height="150" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="970" y="300" text-anchor="middle" class="strong" font-size="16">ТА, КОТОРУЮ ПРОЖИЛИ</text>
+          <text x="970" y="350" text-anchor="middle" class="big flawtxt" font-size="42">532</text>
+          <path id="z_hole" class="amber" stroke-width="4" d="M 430 386 L 590 386"/>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="470" text-anchor="middle" class="big flawtxt" font-size="26">ЕСЛИ НИЧЕГО НЕ ПРОИСХОДИТ, ЭТО НЕ ИЗМЕРЕНИЕ</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Ничто из этого не требует, чтобы кто-то в этой истории вёл себя плохо. Компания соблюдала стандарт измерений, написанный инженерами. Она вкладывала деньги по полосе, построенной законодателями. И получала процент, утверждённый регулятором. Регулятор сам опубликовал плохие цифры. Губернатор надавил. Юристы подали иск. Каждый сделал свою часть, и сорок тысяч домов и предприятий всё равно доживают вторую неделю без света. Поэтому когда ваша энергокомпания в следующий раз придёт поднимать тариф, стоит держать наготове два вопроса. Какая цифра надёжности лежит перед теми, кто принимает решение? Та, из которой вычли худшие дни, или та, которую прожили вы? И что случится с компанией, если через год эта цифра станет хуже? Если с компанией в любом случае не случится ничего, то эта цифра никогда и не была измерением. Это был тот самый табель, из которого вынули худшую контрольную.</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">ДЕФЕКТ КОНСТРУКЦИИ</div>
+      <p>Не кто виноват — как устроено. Полный интерактивный чертёж, со всем, что не поместилось в видео, — на этой странице.</p>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@systemmind-ru" rel="noopener">Подписаться</a>
+    </div>
+  </div>
+</section>
+</div><!-- /deck -->
+
+<!-- thumbnails -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <path d="M 120 300 L 220 205 L 320 130 L 420 300 L 520 308 L 620 288 L 720 262 L 820 212 L 920 165 L 1020 142 L 1120 246" fill="none" stroke="var(--flaw)" stroke-width="9"/>
+    <path d="M 120 330 L 220 336 L 320 340 L 420 332 L 520 328 L 620 332 L 720 324 L 820 322 L 920 328 L 1020 314 L 1120 318" fill="none" stroke="var(--fact)" stroke-width="9"/>
+    <text x="330" y="90" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">одна компания · одни годы</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">532 vs 178</div>
+  <div class="sub">штормовые дни, которые вычёркивает ваш показатель</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <g>
+      <rect x="150" y="120" width="150" height="150" fill="var(--text)" opacity=".8"/>
+      <rect x="320" y="120" width="150" height="150" fill="var(--text)" opacity=".8"/>
+      <rect x="490" y="120" width="150" height="150" fill="var(--text)" opacity=".8"/>
+      <rect x="660" y="120" width="150" height="150" fill="var(--text)" opacity=".8"/>
+      <rect x="830" y="120" width="150" height="150" fill="var(--text)" opacity=".8"/>
+    </g>
+    <text x="1030" y="215" font-family="Onest" font-weight="700" font-size="64" style="fill:var(--flaw)">= 0</text>
+    <text x="150" y="80" font-family="IBM Plex Mono" font-size="38" style="fill:var(--text)">14 суток без света</text>
+    <text x="150" y="330" font-family="IBM Plex Mono" font-size="32" style="fill:var(--text-dim)">в официальном показателе</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">14 СУТОК</div>
+  <div class="sub">отключение, которое вычитает табель</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function draw(tl,id,pos,d=1.6){const p=$(id),L=p.getTotalLength();
+  tl.fromTo(p,{strokeDasharray:L+' '+L,strokeDashoffset:L},{strokeDashoffset:0,duration:d,ease:'power1.inOut'},pos);}
+function count(tl,id,target,pos,d=1.6){const el=$(id),o={v:0};
+  tl.to(o,{v:target,duration:d,ease:'power1.out',snap:{v:1},
+    onUpdate:()=>{el.textContent=o.v.toLocaleString('ru-RU');},
+    onComplete:()=>{el.textContent=target.toLocaleString('ru-RU');}},pos);}
+
+// build the 14-day calendar strip in S1
+(function(){const g=$('e_cal');if(!g)return;
+  for(let i=0;i<14;i++){
+    const r=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    r.setAttribute('x',160+i*46);r.setAttribute('y',490);
+    r.setAttribute('width',36);r.setAttribute('height',36);
+    r.setAttribute('fill',i<13?'var(--flaw)':'none');
+    r.setAttribute('opacity',i<13?'.75':'1');
+    r.setAttribute('stroke','var(--text)');r.setAttribute('stroke-width','2');
+    r.setAttribute('class','calday');
+    g.appendChild(r);}
+})();
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_card',0.15,.8);
+  tl.fromTo($('h_bad'),{opacity:0},{opacity:1,duration:.6},2.0);
+  tl.to($('h_bad'),{y:-190,opacity:0,duration:1.4,ease:'power1.in'},5.5);
+  idle(tl,'h_card',8,3);
+  tl.to($('h_card'),{opacity:0,duration:.45},12.0);
+  say(tl,'h_bar',12.4,.7);
+  tl.fromTo($('h_hist').children,{opacity:0,y:20},{opacity:1,y:0,duration:.4,stagger:.35},13.2);
+  tl.to($('h_line'),{y:-70,duration:1.6,ease:'power1.inOut'},16.0);
+  tl.to($('h_barlab'),{y:-70,duration:1.6,ease:'power1.inOut'},16.0);
+  idle(tl,'h_bar',19,4);
+  tl.to($('h_bar'),{opacity:0,duration:.45},24.5);
+  say(tl,'h_two',24.9,.6);
+  count(tl,'c_low',178,25.3,1.6);
+  count(tl,'c_high',532,27.4,1.8);
+  idle(tl,'h_two',30,6);
+  tl.to($('h_two'),{opacity:0,duration:.45},38.5);
+  say(tl,'h_dark',38.9,.7);
+  tl.to($('h_blocks'),{opacity:.35,duration:1.2,repeat:3,yoyo:true,ease:'sine.inOut'},40.5);
+  tl.to($('h_dark'),{opacity:0,duration:.45},47.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},47.4);
+  if(isAuto)tl.to({},{duration:4.5},48.1); else tl.to($('titleCard'),{opacity:0,duration:.5},51.5);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'e_swath',0.15,.7); draw(tl,'swathPath',0.9,2.4);
+  idle(tl,'e_swath',5,7);
+  say(tl,'e_share',15.0,.8);
+  tl.fromTo($('e_darkfill'),{attr:{width:0}},{attr:{width:380},duration:1.6,ease:'power1.inOut'},15.8);
+  tl.fromTo($('e_darklab'),{opacity:0},{opacity:1,duration:.5},17.4);
+  idle(tl,'e_share',19,8);
+  say(tl,'e_alert',30.0,.8); shake(tl,'e_alert',31.0,5,6); idle(tl,'e_alert',33,7);
+  say(tl,'e_days',42.0,.8);
+  tl.fromTo('.calday',{opacity:0},{opacity:1,duration:.22,stagger:.5},42.8);
+  idle(tl,'e_days',51,10);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'v_row',0.15,.8);
+  tl.fromTo($('v_row').children,{opacity:0},{opacity:1,duration:.5,stagger:.6},0.8);
+  idle(tl,'v_row',5,7);
+  tl.to($('v_row'),{opacity:.35,duration:.5},14.0);
+  say(tl,'v_known',14.6,.8); idle(tl,'v_known',18,12);
+  say(tl,'v_q',34.0,.8); shake(tl,'v_q',35.0,5,6); idle(tl,'v_q',37,8);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'m_axes',0.15,.7);
+  say(tl,'m_exc',6.0,.7); draw(tl,'lineExc',6.6,2.6);
+  idle(tl,'m_exc',10,7);
+  say(tl,'m_inc',20.0,.7); draw(tl,'lineInc',20.6,3.0);
+  idle(tl,'m_inc',25,7);
+  say(tl,'m_gapfill',36.0,.8); shake(tl,'m_gapfill',37.0,5,6); idle(tl,'m_gapfill',39,10);
+  say(tl,'m_flat',54.0,.8); idle(tl,'m_flat',58,12);
+  say(tl,'m_thr',74.0,.8); idle(tl,'m_thr',78,30);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'p_pole',0.15,.8);
+  tl.fromTo($('p_badges').children,{opacity:0,scale:.7,transformOrigin:'50% 50%'},
+    {opacity:1,scale:1,duration:.45,stagger:.7,ease:'back.out(1.6)'},2.0);
+  idle(tl,'p_pole',6,8);
+  say(tl,'p_branch',12.0,.8); shake(tl,'p_cut',13.2,4,6); idle(tl,'p_branch',16,14);
+  say(tl,'p_lanes',34.0,.9); idle(tl,'p_lanes',39,14);
+  say(tl,'p_pie',58.0,.9); idle(tl,'p_pie',63,30);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  say(tl,'n_files',0.15,.8); idle(tl,'n_files',4,7);
+  say(tl,'n_tag',13.0,.8); shake(tl,'n_tag',14.0,5,6); idle(tl,'n_tag',16,7);
+  say(tl,'n_paths',25.0,.9); idle(tl,'n_paths',30,8);
+  say(tl,'n_loop',41.0,.9); draw(tl,'loopArrow',42.0,1.4); idle(tl,'n_loop',45,14);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'w_slots',0.15,.7); idle(tl,'w_slots',2,2.5);
+  say(tl,'w_mi',5.0,.8);
+  tl.fromTo($('w_mistep').children,{opacity:0,y:14},{opacity:1,y:0,duration:.4,stagger:.5},6.0);
+  idle(tl,'w_mi',9,12);
+  say(tl,'w_dead',24.0,.8); shake(tl,'w_dead',25.0,5,6); idle(tl,'w_dead',27,11);
+  say(tl,'w_mip',41.0,.9); idle(tl,'w_mip',46,15);
+  say(tl,'w_uk',66.0,.9); draw(tl,'ukStair',67.0,2.4); idle(tl,'w_uk',71,12);
+  say(tl,'w_arwen',88.0,.9);
+  tl.fromTo($('ukLift'),{opacity:0},{opacity:1,duration:.9},92.0);
+  shake(tl,'ukCap',93.0,5,6);
+  idle(tl,'w_arwen',96,24);
+  return tl;}
+
+function sc7(){const tl=gsap.timeline();
+  say(tl,'d_avg',0.15,.8); idle(tl,'d_avg',4,7);
+  say(tl,'d_head',13.0,.8);
+  tl.fromTo($('d_rows').children,{opacity:0,x:-20},{opacity:1,x:0,duration:.45,stagger:.5},13.8);
+  idle(tl,'d_head',17,10);
+  say(tl,'d_price',30.0,.9); idle(tl,'d_price',34,12);
+  return tl;}
+
+function sc8(){const tl=gsap.timeline();
+  say(tl,'t_lanes',0.15,.8); idle(tl,'t_lanes',4,7);
+  tl.to($('t_narrow'),{opacity:0,duration:.5},13.0);
+  tl.to($('t_narrowlab'),{opacity:0,duration:.5},13.0);
+  tl.fromTo($('t_wide'),{opacity:0},{opacity:1,duration:.8},13.6);
+  tl.fromTo($('t_widelab'),{opacity:0},{opacity:1,duration:.8},13.6);
+  say(tl,'t_roe',18.0,.8); idle(tl,'t_roe',22,8);
+  say(tl,'t_price',33.0,.9); idle(tl,'t_price',38,10);
+  say(tl,'t_three',51.0,.9);
+  tl.fromTo($('t_three').children,{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.35},51.6);
+  idle(tl,'t_three',56,10);
+  return tl;}
+
+function sc9(){const tl=gsap.timeline();
+  say(tl,'z_nodes',0.15,.9);
+  tl.fromTo($('z_nodes').children,{opacity:0},{opacity:1,duration:.4,stagger:.45},1.0);
+  idle(tl,'z_nodes',6,8);
+  say(tl,'z_cards',17.0,.9); draw(tl,'z_hole',19.0,1.2); idle(tl,'z_cards',21,10);
+  say(tl,'z_q',36.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:7,yoyo:true},39.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6,s7:sc7,s8:sc8,s9:sc9};
+
+// S3 toggle — as reported vs as lived
+function showLine(i){
+  const inc=$('m_inc'),exc=$('m_exc'),gap=$('m_gapfill');
+  gsap.killTweensOf([inc,exc,gap]);
+  gsap.set(exc,{opacity:1});
+  gsap.set(inc,{opacity:i===1?1:.12});
+  gsap.set(gap,{opacity:i===1?1:0});
+  ['btnR0','btnR1'].forEach((b,k)=>$(b).classList.toggle('on',k===i));}
+$('btnR0').onclick=()=>showLine(0);
+$('btnR1').onclick=()=>showLine(1);
+
+// S6 toggle — the same 14 days under three rulebooks
+function showBill(i){
+  const mi=[$('w_mi'),$('w_dead'),$('w_mip')],uk=[$('w_uk'),$('w_arwen')];
+  gsap.killTweensOf([...mi,...uk]);
+  mi.forEach(el=>gsap.set(el,{opacity:i===1?1:.12}));
+  uk.forEach(el=>gsap.set(el,{opacity:i===2?1:.12}));
+  ['btnB0','btnB1','btnB2'].forEach((b,k)=>$(b).classList.toggle('on',k===i));}
+$('btnB0').onclick=()=>showBill(0);
+$('btnB1').onclick=()=>showBill(1);
+$('btnB2').onclick=()=>showBill(2);
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
