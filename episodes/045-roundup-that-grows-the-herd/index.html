@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>America Protected Its Wild Horses Into Cages | Trace Upstream</title>
+<meta name="description" content="A federal helicopter cleared 122 wild horses off a Colorado range in August 2026 while a thousand more were driven into pens next door. Taking horses off the range leaves more grass for the rest — which raises the birth rate, so the roundup helps the herd grow back. Three rules keep that tool in place: a target inherited from the 1980s that nobody has recounted, a legal exit Congress refuses to fund rather than repeal, and a permitted method that refills the range it empties. Three redesigns, each with a price: dart contraception (permanent, statewide, and useless for the 64,000 already penned), recounting the target (it could mean bigger removals, not smaller), or switching on the 1971 authority Congress has paid forty years to avoid.">
+<link rel="canonical" href="https://traceupstream.com/episodes/045-roundup-that-grows-the-herd/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Trace Upstream">
+<meta property="og:title" content="America Protected Its Wild Horses Into Cages">
+<meta property="og:description" content="Removing horses lowers competition for grass and raises the birth rate — so the only tool the programme is allowed to use is the one that refills the range it just emptied.">
+<meta property="og:url" content="https://traceupstream.com/episodes/045-roundup-that-grows-the-herd/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F8F9FB; --bg-raised:#FFFFFF; --grid:#D9E3F0;
+  --text:#1B2430; --text-dim:#5A6575;
+  --fact:#2B5EC4; --flaw:#B45309; --alt:#0E8A63;
+  --topic:#7D8471;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+     background-size:48px 48px}
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;
+  background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#progress{position:fixed;top:3px;left:0;height:2px;width:0;background:var(--text);z-index:50;opacity:.5}
+#stamp{position:fixed;top:14px;right:18px;z-index:50;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.08em;color:var(--text-dim);background:var(--bg);border:1px solid var(--grid);padding:3px 10px}
+.mono{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--text-dim);text-transform:uppercase}
+section.ep{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto;padding:56px 40px;width:100%}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.prose{max-width:680px;margin-top:20px}
+.prose p{margin-bottom:12px;font-size:16.5px}
+.stage{position:relative;width:100%;background:var(--bg-raised);border:1px solid var(--grid)}
+.stage svg{display:block;width:100%;height:auto}
+.figcap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;color:var(--text-dim);
+  margin-top:10px;text-transform:uppercase}
+svg text:not([font-size]){font-size:13px}
+svg text{font-family:var(--font-mono);letter-spacing:.05em;fill:var(--text-dim)}
+svg text.strong{fill:var(--text);font-weight:500}
+svg text.big{font-family:var(--font-display);font-weight:700;fill:var(--text)}
+svg text.fact{fill:var(--fact)} svg text.flawtxt{fill:var(--flaw)} svg text.alttxt{fill:var(--alt)}
+svg text.onplate{fill:var(--bg)}
+svg .ink{stroke:var(--text);fill:none;stroke-width:2}
+svg .blue{stroke:var(--fact);fill:none;stroke-width:2}
+svg .amber{stroke:var(--flaw);fill:none;stroke-width:2.5}
+svg .green{stroke:var(--alt);fill:none;stroke-width:2.5;stroke-dasharray:7 6}
+svg .nodebox{fill:var(--bg-raised);stroke:var(--fact);stroke-width:2}
+svg .amberfill{fill:var(--flaw);opacity:.85}
+svg .b{opacity:0}
+svg .hair{stroke:var(--grid);stroke-width:1.5;fill:none}
+.chapter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:5;opacity:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px}
+.chapter .in{text-align:center}
+.chapter .n{font-family:var(--font-mono);font-size:15px;letter-spacing:.3em;color:var(--text-dim)}
+.chapter .t{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5vw,64px)}
+.chapter .bar{width:90px;height:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt))}
+#tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:12px;padding:8px 12px;max-width:320px;z-index:60;
+  opacity:0;transition:opacity .15s;line-height:1.5}
+#listen{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;align-items:center;gap:10px;
+  background:var(--bg-raised);border:1.5px solid var(--text);padding:11px 18px;cursor:pointer;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;color:var(--text);text-transform:uppercase;
+  box-shadow:0 2px 0 var(--text)}
+#listen:hover{background:var(--text);color:var(--bg)}
+#listen .dot{width:9px;height:9px;border-radius:50%;background:var(--alt)}
+#listen.playing .dot{background:var(--flaw);animation:lpulse 1.4s ease-in-out infinite}
+@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.35}}
+body.auto #listen,body.thumb-a #listen,body.thumb-b #listen{display:none}
+.toggle{display:inline-flex;border:1px solid var(--grid);margin-top:14px;font-family:var(--font-mono);font-size:12.5px}
+.toggle button{border:none;background:var(--bg-raised);color:var(--text-dim);padding:9px 16px;font-family:inherit;
+  font-size:inherit;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cta{border:1px solid var(--grid);background:var(--bg-raised);padding:30px;margin-top:26px;text-align:center}
+.cta p{color:var(--text-dim);max-width:520px;margin:8px auto 0;font-size:15px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 26px;text-decoration:none}
+.thumbframe{display:none;width:1280px;height:720px;position:fixed;inset:0;background:var(--bg);z-index:100;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px;overflow:hidden}
+.thumbframe .plate{position:absolute;left:0;right:0;bottom:0;height:330px;background:var(--flaw)}
+.thumbframe .ttxt{position:absolute;left:64px;bottom:96px;font-family:var(--font-display);font-weight:700;
+  font-size:132px;line-height:1.0;text-transform:uppercase;color:var(--bg);z-index:2}
+.thumbframe .sub{position:absolute;left:70px;bottom:44px;font-family:var(--font-mono);font-size:26px;
+  letter-spacing:.08em;color:var(--bg);opacity:.85;z-index:2}
+.thumbframe svg{position:absolute;left:0;top:0;width:1280px;height:390px}
+body.thumb-a #thumbA{display:block} body.thumb-b #thumbB{display:block}
+body.thumb-a section,body.thumb-b section,body.thumb-a #stamp,body.thumb-b #stamp{display:none}
+body.auto{overflow:hidden;width:1920px;height:1080px}
+body.auto section.ep{height:1080px;min-height:1080px;justify-content:center}
+body.auto .prose,body.auto .figcap,body.auto .toggle,body.auto .cta a.btn,body.auto .cta p a{display:none}
+body.auto .wrap{max-width:1840px;padding:40px 30px}
+body.auto h2{font-size:50px}
+</style>
+</head>
+<body>
+<div id="topbar"></div><div id="progress"></div>
+<div id="stamp">EP.045 — 2026-08-22</div>
+<div id="tip"></div>
+<button id="listen" aria-label="Listen to narration"><span class="dot"></span><span id="listenLab">Listen</span></button>
+
+<div id="deck">
+<!-- ================= S0 HOOK ================= -->
+<section class="ep" id="s0" data-duration="34.8">
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--fact)">Trace Upstream · case EP.045</div>
+    <div class="stage">
+      <svg viewBox="0 0 1000 560" id="svg0">
+        <g id="h_heli" class="b">
+          <path class="ink" stroke-width="4" d="M 300 150 L 420 150 M 360 150 L 360 132 M 250 132 L 470 132"/>
+          <rect x="330" y="150" width="90" height="42" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+          <path class="ink" stroke-width="4" d="M 420 171 L 500 178"/>
+          <text x="500" y="90" text-anchor="middle" class="big" font-size="44">122 TAKEN OFF</text>
+          <text x="500" y="270" text-anchor="middle" font-size="36">A THOUSAND MORE NEXT DOOR</text>
+        </g>
+        <g id="h_grass" class="b">
+          <text x="500" y="96" text-anchor="middle" class="big" font-size="44">MORE GRASS EACH</text>
+          <g id="h_ring">
+            <circle cx="300" cy="300" r="66" fill="none" stroke="var(--alt)" stroke-width="4"/>
+            <circle cx="500" cy="300" r="66" fill="none" stroke="var(--alt)" stroke-width="4"/>
+            <circle cx="700" cy="300" r="66" fill="none" stroke="var(--alt)" stroke-width="4"/>
+          </g>
+          <text x="500" y="450" text-anchor="middle" font-size="36">LESS COMPETITION</text>
+        </g>
+        <g id="h_flip" class="b">
+          <path class="amber" stroke-width="7" d="M 250 200 L 250 380 M 226 350 L 250 382 L 274 350"/>
+          <text x="250" y="440" text-anchor="middle" class="flawtxt" font-size="34">REMOVE</text>
+          <path class="amber" stroke-width="7" d="M 700 380 C 720 300 760 240 800 200 M 776 216 L 802 196 L 806 230"/>
+          <text x="760" y="440" text-anchor="middle" class="flawtxt" font-size="34">MORE FOALS</text>
+          <text x="500" y="110" text-anchor="middle" class="big" font-size="40">THE ROUNDUP HELPS</text>
+          <text x="500" y="160" text-anchor="middle" class="big" font-size="40">THE HERD GROW BACK</text>
+        </g>
+        <g id="titleCard" class="b">
+          <text x="500" y="210" text-anchor="middle" class="big" font-size="48">PROTECTED INTO</text>
+          <text x="500" y="278" text-anchor="middle" class="big" font-size="48">CAGES</text>
+          <text x="500" y="380" text-anchor="middle" font-size="36">TRACE UPSTREAM</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 1 — take horses off, and the grass left behind does the rest</div>
+    <div class="prose">
+      <p>On the fifth of August a federal helicopter lifted a hundred and twenty-two wild horses off a stretch of western Colorado. On the range next to it, a thousand more were being driven into pens that same week. Now look at the ground behind them. Every horse still out there has more grass, and less competition for it. And a herd with more grass produces more foals, and more of them live through the winter. The roundup meant to shrink the herd is the thing that helps it grow back. How does a programme end up built around the one tool that works against it?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S1 MECHANISM ================= -->
+<section class="ep" id="s1" data-duration="91.5">
+  <div class="chapter"><div class="in"><div class="n">01</div><div class="t">Why Catching Makes More</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Mechanism · the grass does the limiting</div>
+    <h2>Take a thousand off, and the rest eat better.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg1">
+        <g id="m_full" class="b" data-tip="When a herd sits near what the range can carry, competition for grass is high: mares are in poorer condition, fewer foals are born, and fewer survive their first winter. The land limits the herd on its own.">
+          <line x1="140" y1="150" x2="700" y2="150" class="ink" stroke-dasharray="9 7"/>
+          <text x="140" y="132" class="strong" font-size="15">WHAT THE LAND CARRIES</text>
+          <g id="m_dense"></g>
+          <text x="420" y="330" text-anchor="middle" font-size="15">CROWDED · THIN RATIONS · FEWER FOALS SURVIVE</text>
+        </g>
+        <g id="m_after" class="b" data-tip="Remove a thousand animals and every horse still there has more to eat. Better-fed mares carry more foals to term and more survive.">
+          <g id="m_sparse"></g>
+          <text x="1080" y="330" text-anchor="middle" class="alttxt strong" font-size="15">A THOUSAND REMOVED · MORE GRASS EACH</text>
+          <path id="m_arrow" class="amber" stroke-width="3" d="M 720 240 L 800 240 M 782 228 L 802 240 L 782 252"/>
+        </g>
+        <g id="m_curves" class="b" data-tip="National Academy of Sciences, 2013 review of this programme: management practices are themselves facilitating high rates of population growth, and removals can raise the growth rate through compensation — a phenomenon called compensatory reproduction.">
+          <path id="c_left" class="ink" stroke-width="2.5" opacity=".55" d="M 200 560 C 400 520 700 470 1300 430"/>
+          <text x="1310" y="428" font-size="14">LEFT ALONE</text>
+          <path id="c_cut" class="amber" stroke-width="3.5" d="M 200 560 C 300 530 340 470 400 500 C 470 535 520 450 600 480 C 690 512 740 420 830 455 C 930 493 990 390 1090 425 C 1190 458 1240 380 1300 396"/>
+          <text x="1310" y="394" class="flawtxt strong" font-size="14">CUT AND REBOUND</text>
+          <text x="200" y="596" class="strong" font-size="15">COMPENSATORY REPRODUCTION — NAS, 2013</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 2 — the same range, before and after; and what the rebound looks like</div>
+    <div class="prose">
+      <p>Start with the grass, because everything here runs on it.</p>
+      <p>A stretch of open public range carries only so much grass. When a herd sits near that limit, competition is fierce: mares are in poorer condition, fewer foals are born, and fewer survive their first winter. The land does the limiting, quietly and constantly.</p>
+      <p>Now take a thousand horses off it. That is what the Bureau of Land Management set out to do the same week, on that range beside it — a stretch called East Douglas, in Rio Blanco County, Colorado. The bureau is the federal agency that runs this land, and its helicopter is the one you watched in the opening. Every horse still there now has more to eat. Better-fed mares carry more foals to term. More of those foals survive. The population climbs back faster than it would have on its own.</p>
+      <p>Biologists call this compensatory reproduction, and it is not something critics invented to attack the agency. In two thousand thirteen the National Academy of Sciences reviewed this exact programme. It found that the way the programme is run is itself helping the population grow: taking horses off the range can raise the growth rate.</p>
+      <p>So the tool is not neutral. Used alone, it empties the range and then helps refill it. That raises the obvious question: why is it still the main tool? That is one of three rules in this machine. The other two were written by Congress.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S2 COST ================= -->
+<section class="ep" id="s2" data-duration="80.7">
+  <div class="chapter"><div class="in"><div class="n">02</div><div class="t">What It Costs</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Cost · what the programme has piled up</div>
+    <h2>$48,000 for one animal the range fed free.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 600" id="svg2">
+        <g id="p_pens" class="b" data-tip="More than 64,000 wild horses and burros are held off-range, most for the rest of their lives, at roughly $100 million a year. In FY2024 close to two-thirds of the whole programme budget went to gathers and holding.">
+          <text x="160" y="86" class="strong" font-size="17">HELD OFF-RANGE</text>
+          <text id="c_pens" x="160" y="150" class="big flawtxt" font-size="52">0</text>
+          <text x="160" y="190" font-size="15">FED AT PUBLIC EXPENSE · MOST FOR LIFE</text>
+          <rect x="160" y="220" width="560" height="46" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <rect id="p_share" x="160" y="220" width="373" height="46" class="amberfill"/>
+          <text id="p_sharelab" class="b onplate strong" x="346" y="250" text-anchor="middle" font-size="15">TWO-THIRDS: CATCHING AND KEEPING</text>
+          <text x="160" y="300" font-size="15">≈ $100,000,000 A YEAR</text>
+        </g>
+        <g id="p_pair" class="b" data-tip="The Colorado gather cost about $187,000. Holding those animals under a state contract runs to more than $4 million over two years.">
+          <rect x="900" y="266" width="80" height="10" fill="var(--fact)" opacity=".85"/>
+          <text x="940" y="300" text-anchor="middle" class="fact strong" font-size="15">$187,000</text>
+          <text x="940" y="324" text-anchor="middle" font-size="13">TO CATCH THEM</text>
+          <rect x="1080" y="90" width="80" height="186" class="amberfill"/>
+          <text x="1120" y="300" text-anchor="middle" class="flawtxt strong" font-size="15">$4,000,000</text>
+          <text x="1120" y="324" text-anchor="middle" font-size="13">TO HOLD THEM · 2 YEARS</text>
+          <text x="1030" y="66" text-anchor="middle" class="strong" font-size="15">ONE ROUNDUP · ONE COUNTY</text>
+        </g>
+        <g id="p_life" class="b" data-tip="By the agency's own estimate, removing one horse and holding it for life comes to about $48,000.">
+          <text x="160" y="420" class="strong" font-size="17">ONE HORSE, REMOVED AND HELD FOR LIFE</text>
+          <text x="160" y="490" class="big flawtxt" font-size="46">$48,000</text>
+          <text x="160" y="532" font-size="16">FOR AN ANIMAL THE RANGE WOULD HAVE FED FOR NOTHING</text>
+        </g>
+        <g id="p_ask" class="b">
+          <rect x="900" y="400" width="420" height="130" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="1110" y="450" text-anchor="middle" class="alttxt strong" font-size="17">THE OBVIOUS ANSWER</text>
+          <text x="1110" y="484" text-anchor="middle" font-size="15">DON'T CATCH THEM —</text>
+          <text x="1110" y="510" text-anchor="middle" font-size="15">STOP THEM BEING BORN</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 3 — cheap to catch, expensive to keep, and an obvious question at the end</div>
+    <div class="prose">
+      <p>The answer starts with what the programme has already piled up.</p>
+      <p>Across ten western states the bureau now holds more than sixty-four thousand animals off the range, fed at public expense, most for the rest of their lives. That costs about a hundred million dollars a year, and in twenty twenty-four close to two-thirds of the programme's budget went to catching animals and keeping them.</p>
+      <p>Those hundred and twenty-two horses from the opening are part of it. Catching them cost a hundred and eighty-seven thousand dollars. Holding them until somebody takes them will cost four million over the next two years — for one roundup, in one county.</p>
+      <p>By the agency's own estimate, removing one horse and keeping it for life comes to about forty-eight thousand dollars — for one animal the range would have fed for nothing.</p>
+      <p>And the range keeps filling. This March the bureau counted about eighty-five thousand animals still out there — twelve thousand more than the year before. And the roundups never stopped that year.</p>
+      <p>There is an obvious answer here, and you have probably already thought of it. Don't catch them — stop them from being born. Congress has been telling the bureau to do exactly that since twenty twenty-two, and the money for it is there. Almost nothing happens. The vaccine has a price of its own, and we will come to it. First, the two rules that keep the helicopters flying whatever the vaccine does.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S3 RULE ONE ================= -->
+<section class="ep" id="s3" data-duration="55.4">
+  <div class="chapter"><div class="in"><div class="n">03</div><div class="t">Rule One · The Target</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Rule one · a number nobody recounted</div>
+    <h2>85,466 counted. 25,592 allowed.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg3">
+        <g id="t_bars" class="b" data-tip="BLM's 2026 estimate: 85,466 wild horses and burros on the range as of March 1, against a combined high AML of 25,592. A year earlier the on-range figure was 73,130.">
+          <rect x="220" y="120" width="200" height="340" fill="var(--flaw)" opacity=".8"/>
+          <text x="320" y="100" text-anchor="middle" class="big flawtxt" font-size="34">85,466</text>
+          <text x="320" y="498" text-anchor="middle" font-size="15">COUNTED ON THE RANGE</text>
+          <rect x="640" y="358" width="200" height="102" fill="var(--fact)" opacity=".8"/>
+          <text x="740" y="338" text-anchor="middle" class="big fact" font-size="34">25,592</text>
+          <text x="740" y="498" text-anchor="middle" font-size="15">THE TARGET</text>
+          <line x1="180" y1="358" x2="900" y2="358" class="blue" stroke-dasharray="9 7"/>
+        </g>
+        <g id="t_gap" class="b">
+          <rect x="220" y="120" width="200" height="238" fill="none" stroke="var(--flaw)" stroke-width="3" stroke-dasharray="6 5"/>
+          <text x="1000" y="240" class="flawtxt strong" font-size="22">≈ 60,000 "SURPLUS"</text>
+          <text x="1000" y="276" font-size="15">THE GAP THE MACHINE EXISTS TO CLOSE</text>
+        </g>
+        <g id="t_age" class="b" data-tip="Most appropriate management levels were set in the 1980s and 1990s. Both the GAO and the National Academy of Sciences have found they do not rest on consistent, rigorous range data.">
+          <rect x="1000" y="360" width="330" height="120" fill="none" stroke="var(--text)" stroke-width="2.5"/>
+          <text x="1165" y="404" text-anchor="middle" class="strong" font-size="16">SET IN THE 1980s–90s</text>
+          <text x="1165" y="436" text-anchor="middle" font-size="14">BARELY MOVED SINCE</text>
+          <text x="1165" y="464" text-anchor="middle" class="flawtxt strong" font-size="14">NOT BUILT ON RANGE DATA</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 4 — the surplus is a subtraction, and the second number is thirty years old</div>
+    <div class="prose">
+      <p>The first of those two written rules is a number. Start with the target, because the programme is not managing a herd — it is closing a gap to a number somebody wrote down. That number has a name — the appropriate management level — and it sets how many animals each stretch of range is allowed to hold. Add up every stretch and you get about twenty-five thousand nationwide. Against eighty-five thousand counted, that leaves a "surplus" of roughly sixty thousand horses, and closing that gap is what the whole machine exists to do. The bureau set most of those limits in the eighties and nineties, and has barely moved them since. The National Academy of Sciences examined how those limits were set and found they do not rest on consistent data about what the land can actually carry. So the arithmetic driving everything rests on a thirty-year-old guess.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S4 RULE TWO ================= -->
+<section class="ep" id="s4" data-duration="138.8">
+  <div class="chapter"><div class="in"><div class="n">04</div><div class="t">Rule Two · The Exit</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Rule two · an exit nobody will open or close</div>
+    <h2>The law allows it. The budget doesn't pay for it.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 620" id="svg4">
+        <g id="x_law" class="b" data-tip="Wild Free-Roaming Horses and Burros Act, P.L. 92-195, signed December 15, 1971. It protects the animals and bans commercial sale — and authorises the Interior Secretary to order the removal OR DESTRUCTION of excess animals.">
+          <rect x="160" y="70" width="420" height="180" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+          <text x="370" y="112" text-anchor="middle" class="strong" font-size="16">THE 1971 ACT</text>
+          <line x1="192" y1="140" x2="548" y2="140" stroke="var(--grid)" stroke-width="4"/>
+          <line x1="192" y1="176" x2="548" y2="176" stroke="var(--grid)" stroke-width="4"/>
+          <text x="370" y="220" text-anchor="middle" class="flawtxt strong" font-size="17">"REMOVAL OR DESTRUCTION"</text>
+          <text x="370" y="284" text-anchor="middle" font-size="15">THE EXIT IS IN THE LAW</text>
+        </g>
+        <g id="x_lock" class="b" data-tip="From 1988, and in most years since, Congress has attached a rider to the annual appropriations bill barring BLM from spending money to euthanise healthy animals. The authority was never repealed. It has not been used since 1982.">
+          <rect x="700" y="90" width="120" height="140" fill="none" stroke="var(--text)" stroke-width="4"/>
+          <circle cx="760" cy="140" r="26" fill="none" stroke="var(--text)" stroke-width="4"/>
+          <g id="x_locks"></g>
+          <text x="760" y="284" text-anchor="middle" class="strong" font-size="16">NOT REPEALED — UNFUNDED</text>
+          <text x="760" y="312" text-anchor="middle" font-size="14">EVERY YEAR SINCE 1988</text>
+        </g>
+        <g id="x_burns" class="b" data-tip="December 2004: a rider inside a 3,000-page omnibus, never introduced separately and never separately voted on, directed BLM to sell older and unadopted animals without limitation. The House voted three times to reverse it; the Senate never took it up.">
+          <rect x="960" y="90" width="330" height="200" fill="none" stroke="var(--grid)" stroke-width="2"/>
+          <g id="x_pages"></g>
+          <rect id="x_slip" x="980" y="176" width="290" height="20" class="amberfill"/>
+          <text x="1125" y="330" text-anchor="middle" class="flawtxt strong" font-size="15">ONE PARAGRAPH · 3,000 PAGES</text>
+          <text x="1125" y="358" text-anchor="middle" font-size="14">NEVER DEBATED ON ITS OWN</text>
+        </g>
+        <g id="x_votes" class="b">
+          <text x="160" y="400" class="strong" font-size="16">HOUSE: VOTED TO UNDO IT — THREE TIMES</text>
+          <rect x="160" y="420" width="46" height="46" fill="none" stroke="var(--fact)" stroke-width="3"/>
+          <rect x="220" y="420" width="46" height="46" fill="none" stroke="var(--fact)" stroke-width="3"/>
+          <rect x="280" y="420" width="46" height="46" fill="none" stroke="var(--fact)" stroke-width="3"/>
+          <text x="160" y="512" class="flawtxt strong" font-size="16">SENATE: NEVER TOOK IT UP</text>
+          <text x="160" y="556" font-size="14">14,000 PENNED IN 2004 → 64,000 TODAY</text>
+        </g>
+        <g id="x_stuck" class="b">
+          <rect x="700" y="400" width="620" height="150" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="1010" y="444" text-anchor="middle" class="flawtxt strong" font-size="16">A PERMANENT AUTHORITY NOBODY WILL FUND</text>
+          <text x="1010" y="478" text-anchor="middle" class="flawtxt strong" font-size="16">A TEMPORARY BAN NOBODY WILL MAKE PERMANENT</text>
+          <text x="1010" y="522" text-anchor="middle" font-size="14">RENEWED UNDER BOTH PARTIES</text>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnE0" class="on">As written</button><button id="btnE1">As funded</button>
+    </div>
+    <div class="figcap">Fig. 5 — what the statute permits, and what the budget pays for. Click to compare.</div>
+    <div class="prose">
+      <p>There is a second rule, and it explains why every horse taken off the range stays off it.</p>
+      <p>Almost everyone believes the nineteen seventy-one law banned killing wild horses. It did not. Signed by a Republican president and defended by both parties ever since, the act protects them and bans selling them off to be turned into commercial products. But it also gives the Interior Secretary — the cabinet official in charge of federal land — power to order the removal, or the destruction, of excess animals.</p>
+      <p>The bureau last used that authority in nineteen eighty-two. Six years later Congress made sure of it: from nineteen eighty-eight, and in most years since, it has attached a line to the spending bill forbidding the bureau to spend money on putting healthy horses down. It did not repeal the power. It refused to pay for using it.</p>
+      <p>That closed one exit. In two thousand four Congress opened another, then did the same thing to it. A senator from Montana placed a paragraph inside a three-thousand-page spending package — never introduced on its own, never voted on separately. It ordered the bureau to sell off the older horses, and the ones nobody had taken, with no conditions on what the buyer did with them.</p>
+      <p>The House voted three times to undo it, once without a single objection. The Senate never took it up. So the paragraph is still law, switched off each year by the same budget line that switched off the other power — under Republican and Democratic Congresses alike. Those sales never happened. There were fourteen thousand animals in holding when that paragraph passed; today there are sixty-four thousand.</p>
+      <p>And this is where the argument sticks rather than settles. Wild-horse advocates call the roundups cruel: a captured horse loses everything that made it wild. A county commissioner in Rio Blanco, who used to run a ranch herself, says she has watched horses starve on stripped ground, and a pen is kinder. Both are describing something real, and neither position has moved in fifty years.</p>
+      <p>What that leaves is a permanent authority nobody will fund, and a temporary ban nobody will make permanent. Neither camp wants that vote on the record, because neither is sure of winning it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S5 THE LOOP ================= -->
+<section class="ep" id="s5" data-duration="55.4">
+  <div class="chapter"><div class="in"><div class="n">05</div><div class="t">The Loop</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--flaw)">Pressure · what a blocked exit produces</div>
+    <h2>Three rules, and they feed each other.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg5">
+        <g id="l_aip" class="b" data-tip="From 2019 BLM paid $1,000 per adoption. An investigation by American Wild Horse Conservation, confirmed by The New York Times, documented animals reaching kill-buyer auctions once the payment cleared. At least 840 went that way. A federal court struck the programme down in March 2025.">
+          <text x="160" y="80" class="strong" font-size="16">THE WORKAROUND · 2019</text>
+          <rect x="160" y="106" width="150" height="54" fill="none" stroke="var(--fact)" stroke-width="2.5"/>
+          <text x="235" y="140" text-anchor="middle" class="fact strong" font-size="16">$1,000</text>
+          <path class="amber" stroke-width="3" d="M 330 133 L 470 133 M 452 121 L 472 133 L 452 145"/>
+          <rect x="490" y="106" width="220" height="54" fill="none" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="600" y="140" text-anchor="middle" class="flawtxt strong" font-size="15">840+ TO AUCTION</text>
+          <text x="160" y="200" font-size="14">STRUCK DOWN IN COURT · MARCH 2025</text>
+        </g>
+        <g id="l_ring" class="b">
+          <circle cx="740" cy="380" r="110" fill="none" stroke="var(--flaw)" stroke-width="3" stroke-dasharray="10 8"/>
+          <rect x="560" y="250" width="360" height="60" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="740" y="288" text-anchor="middle" class="flawtxt strong" font-size="15">1 · HOW MANY MUST COME OFF</text>
+          <rect x="880" y="350" width="360" height="60" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="1060" y="388" text-anchor="middle" class="flawtxt strong" font-size="15">2 · ONLY METHOD PAID FOR</text>
+          <rect x="240" y="350" width="360" height="60" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2.5"/>
+          <text x="420" y="388" text-anchor="middle" class="flawtxt strong" font-size="15">3 · THE GRASS REFILLS IT</text>
+          <text x="740" y="530" text-anchor="middle" class="big flawtxt" font-size="26">THAT IS THE LOOP</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 6 — block the exit and the pressure finds a market; the three rules close the circle</div>
+    <div class="prose">
+      <p>When a system cannot use its exit, it improvises one. From twenty nineteen the bureau paid a thousand dollars to anyone who adopted a horse. An investigation by wild-horse advocates, confirmed by The New York Times, followed what happened next. Families adopted the maximum of four horses each and took the money. As soon as the payment cleared, the horses turned up at livestock auctions where slaughter buyers shop. At least eight hundred and forty went that way, and a federal court struck the programme down in March of twenty twenty-five. So look at the three rules together — two of them written by Congress, and one written by the grass. The first fixes how many horses have to come off the range. The second leaves capture as the only method Congress will pay for. And the third means that taking them off is what makes the number climb back, which puts you back at the first rule with a bigger gap to close than before. That is the loop.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S6 WHAT IF 1 ================= -->
+<section class="ep" id="s6" data-duration="58.5">
+  <div class="chapter"><div class="in"><div class="n">06</div><div class="t">What If · One</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · design one — treat the births</div>
+    <h2>The helicopter flies for a week.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 560" id="svg6">
+        <g id="w_slots" class="b">
+          <rect x="180" y="40" width="360" height="46" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="360" y="70" text-anchor="middle" class="alttxt strong" font-size="15">ONE · TREAT THE BIRTHS</text>
+          <rect x="560" y="40" width="360" height="46" fill="none" stroke="var(--grid)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="740" y="70" text-anchor="middle" font-size="15">TWO</text>
+          <rect x="940" y="40" width="360" height="46" fill="none" stroke="var(--grid)" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="1120" y="70" text-anchor="middle" font-size="15">THREE</text>
+        </g>
+        <g id="w_dart" class="b" data-tip="Darted immunocontraceptive vaccines last a year or two and are reversible. Congress has directed BLM to expand their use since FY2022 and set aside $11 million for it in FY2026.">
+          <text x="180" y="150" class="alttxt strong" font-size="17">A DART INSTEAD OF A HELICOPTER</text>
+          <path class="green" stroke-width="3" d="M 200 210 L 420 210"/>
+          <circle cx="430" cy="210" r="9" fill="var(--alt)"/>
+          <text x="200" y="252" font-size="15">ONE FOAL NOT BORN = $48,000 NOT SPENT</text>
+        </g>
+        <g id="w_reach" class="b" data-tip="The vaccine wears off in a year or two, so the same mares must be found and treated again. On roadless range, delivering a dart to one specific mare can cost more than gathering her.">
+          <rect x="180" y="300" width="520" height="200" fill="none" stroke="var(--text)" stroke-width="2"/>
+          <text x="440" y="286" text-anchor="middle" font-size="14">TEN STATES OF ROADLESS RANGE</text>
+          <g id="w_circles">
+            <circle cx="280" cy="370" r="34" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="5 4"/>
+            <circle cx="420" cy="440" r="34" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="5 4"/>
+            <circle cx="560" cy="350" r="34" fill="none" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="5 4"/>
+          </g>
+          <text x="440" y="530" text-anchor="middle" class="flawtxt strong" font-size="15">EVERY MARE · EVERY YEAR OR TWO · FOREVER</text>
+        </g>
+        <g id="w_price" class="b">
+          <rect x="760" y="290" width="560" height="210" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="1040" y="340" text-anchor="middle" class="flawtxt strong" font-size="17">THE TRADE-OFF</text>
+          <text x="1040" y="382" text-anchor="middle" font-size="15">THE HELICOPTER FLIES FOR A WEEK</text>
+          <text x="1040" y="414" text-anchor="middle" class="flawtxt strong" font-size="16">THIS WOULD FLY FOREVER</text>
+          <text x="1040" y="462" text-anchor="middle" font-size="15">AND THE 64,000 IN PENS STILL EAT EVERY DAY</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 7 — a permanent operation instead of a one-week one</div>
+    <div class="prose">
+      <p>Three designs could break that loop, and every one has a price.</p>
+      <p>The first is the obvious one from earlier — treat the birth rate instead of the herd size. There is a vaccine that stops a mare from conceiving for a year or two, and it wears off on its own. It is fired from a dart gun. A foal not born is forty-eight thousand dollars not spent.</p>
+      <p>The trade-off is distance. The same mares have to be found and treated again, and again. On open range with no roads, getting a dart to one specific mare can cost more than catching her.</p>
+      <p>And there is a scale problem underneath. To turn the population around you have to reach most of the breeding mares, every year or two, across ten states. Done herd by herd, that is not a smaller operation than the roundups — it is a permanent one. The helicopter flies for a week. This would fly forever. And it does nothing about the horses that already exist: it slows next year's foals, while the sixty-four thousand in pens still eat every day.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S7 WHAT IF 2 ================= -->
+<section class="ep" id="s7" data-duration="50.9">
+  <div class="chapter"><div class="in"><div class="n">07</div><div class="t">What If · Two</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · design two — recount the target</div>
+    <h2>The recount could cut either way.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg7">
+        <g id="r_old" class="b">
+          <text x="360" y="90" text-anchor="middle" class="strong" font-size="17">THE 1980s NUMBER</text>
+          <line x1="160" y1="150" x2="640" y2="150" class="ink" stroke-width="4"/>
+          <g id="r_ticks">
+            <line x1="220" y1="140" x2="220" y2="162" class="ink"/>
+            <line x1="340" y1="140" x2="340" y2="162" class="ink"/>
+            <line x1="460" y1="140" x2="460" y2="162" class="ink"/>
+            <line x1="580" y1="140" x2="580" y2="162" class="ink"/>
+          </g>
+          <text x="360" y="200" text-anchor="middle" font-size="14">SET ONCE · BARELY MOVED</text>
+        </g>
+        <g id="r_new" class="b" data-tip="Some ranges would turn out to carry more horses than the old figure allows; others fewer than are there today — which would mean larger removals, not smaller.">
+          <path class="ink" stroke-width="3.5" d="M 840 150 L 1000 150"/>
+          <text x="920" y="128" text-anchor="middle" class="strong" font-size="16">↑ MORE</text>
+          <path class="ink" stroke-width="3.5" d="M 1120 150 L 1280 150"/>
+          <text x="1200" y="128" text-anchor="middle" class="strong" font-size="16">↓ FEWER</text>
+          <text x="1060" y="90" text-anchor="middle" class="strong" font-size="17">A RECOUNT ON CURRENT DATA</text>
+          <text x="1060" y="200" text-anchor="middle" font-size="14">NOBODY KNOWS WHICH WAY, RANGE BY RANGE</text>
+        </g>
+        <g id="r_price" class="b">
+          <rect x="300" y="300" width="880" height="160" fill="none" stroke="var(--flaw)" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <text x="740" y="350" text-anchor="middle" class="flawtxt strong" font-size="17">THE TRADE-OFF: IT IS NOT REALLY A SURVEY</text>
+          <text x="740" y="392" text-anchor="middle" font-size="15">THE SAME GRASS IS SHARED WITH PRIVATE CATTLE,</text>
+          <text x="740" y="422" text-anchor="middle" font-size="15">UNDER A SEPARATE RULEBOOK WITH ITS OWN QUOTAS</text>
+        </g>
+      </svg>
+    </div>
+    <div class="figcap">Fig. 8 — reopen the horse number and the cattle number is on the table too</div>
+    <div class="prose">
+      <p>The second design leaves the tools alone and goes after the target itself. Survey what the range carries now, and set the number from the land instead of from the nineteen eighties. Its trade-off is that a recount cuts both ways, and nobody knows in advance which way. Some ranges would support more horses than the old figure allows; others would support fewer than are there today, which would mean bigger removals, not smaller. And the deeper cost is that it is not really a survey. The same grass is shared with private cattle, under a separate rulebook with its own quotas — and the ranchers who hold those quotas. A recount done with current data immediately becomes an argument about whose share shrinks — which is why the cheapest technical fix in this story has sat undone for thirty years.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S8 WHAT IF 3 ================= -->
+<section class="ep" id="s8" data-duration="60.4">
+  <div class="chapter"><div class="in"><div class="n">08</div><div class="t">What If · Three</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">What if · design three — the power already there</div>
+    <h2>Cheapest on paper. Paid to avoid for forty years.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg8">
+        <g id="s_switch" class="b">
+          <rect x="220" y="120" width="130" height="180" fill="none" stroke="var(--text)" stroke-width="4"/>
+          <circle cx="285" cy="180" r="30" fill="none" stroke="var(--text)" stroke-width="4"/>
+          <text x="285" y="350" text-anchor="middle" class="strong" font-size="16">THE 1971 AUTHORITY</text>
+          <text x="285" y="382" text-anchor="middle" font-size="14">NO NEW LAW REQUIRED</text>
+        </g>
+        <g id="s_aus" class="b" data-tip="Australia culls wild horses from helicopters in Kosciuszko National Park — quick and cheap, and every operation brings lawsuits and public fury.">
+          <text x="720" y="150" text-anchor="middle" class="strong" font-size="17">AUSTRALIA DOES EXACTLY THIS</text>
+          <text x="720" y="188" text-anchor="middle" font-size="15">KOSCIUSZKO NATIONAL PARK · AERIAL CULLING</text>
+          <text x="720" y="228" text-anchor="middle" class="flawtxt" font-size="15">LAWSUITS AND PUBLIC FURY EVERY TIME</text>
+        </g>
+        <g id="s_price" class="b">
+          <rect x="1060" y="110" width="300" height="200" fill="none" stroke="var(--flaw)" stroke-width="3"/>
+          <text x="1210" y="170" text-anchor="middle" class="flawtxt strong" font-size="20">THE PRICE</text>
+          <text x="1210" y="216" text-anchor="middle" class="big flawtxt" font-size="30">NOT MONEY</text>
+          <text x="1210" y="266" text-anchor="middle" font-size="14">ALREADY MEASURED, IN RIDERS</text>
+        </g>
+        <g id="s_riders" class="b">
+          <g id="s_lines"></g>
+          <text x="740" y="470" text-anchor="middle" class="strong" font-size="16">MOST YEARS SINCE 1988 · BOTH PARTIES · MONEY WITHHELD</text>
+        </g>
+      </svg>
+    </div>
+    <div class="toggle">
+      <button id="btnD0" class="on">Design 1</button><button id="btnD1">Design 2</button><button id="btnD2">Design 3</button>
+    </div>
+    <div class="figcap">Fig. 9 — three designs, three prices. Click to compare.</div>
+    <div class="prose">
+      <p>The third design needs no new law. The nineteen seventy-one act already permits destroying excess animals, and Australia does exactly this with the wild horses in its Kosciuszko National Park — culling from helicopters, quickly and cheaply.</p>
+      <p>The price here is not money. The law permits it — but the public anger that produced that law was about exactly this picture: wild horses shot and hauled off western ranges. The animal at the centre of it is a national symbol. In Australia every cull brings lawsuits and public fury. In America the price has already been measured: in most years since nineteen eighty-eight, under Congresses of both parties, the money has been withheld rather than the authority allowed.</p>
+      <p>So there are three designs on the table: treat the births instead of the numbers, recount the target, or switch on the exit that already exists. None of them is free.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= S9 CLOSE ================= -->
+<section class="ep" id="s9" data-duration="60.3">
+  <div class="chapter"><div class="in"><div class="n">09</div><div class="t">The Close</div><div class="bar"></div></div></div>
+  <div class="wrap">
+    <div class="kicker mono" style="color:var(--alt)">Close · two questions for the next budget</div>
+    <h2>Nobody had to be a villain.</h2>
+    <div class="stage">
+      <svg viewBox="0 0 1480 520" id="svg9">
+        <g id="z_actors" class="b">
+          <rect x="140" y="70" width="290" height="76" class="nodebox"/>
+          <text x="285" y="116" text-anchor="middle" class="fact strong" font-size="15">CONGRESS PROTECTED IT</text>
+          <rect x="460" y="70" width="290" height="76" class="nodebox"/>
+          <text x="605" y="116" text-anchor="middle" class="fact strong" font-size="15">THEN DIDN'T DECIDE</text>
+          <rect x="780" y="70" width="290" height="76" class="nodebox"/>
+          <text x="925" y="116" text-anchor="middle" class="fact strong" font-size="15">THE BUREAU CHASES IT</text>
+          <rect x="1100" y="70" width="240" height="76" class="nodebox"/>
+          <text x="1220" y="116" text-anchor="middle" class="fact strong" font-size="15">ADVOCATES PUSH BOTH</text>
+        </g>
+        <g id="z_counters" class="b">
+          <text x="400" y="250" text-anchor="middle" class="big flawtxt" font-size="40">85,466</text>
+          <text x="400" y="290" text-anchor="middle" font-size="15">ON THE RANGE · CLIMBING</text>
+          <text x="1080" y="250" text-anchor="middle" class="big flawtxt" font-size="40">64,000</text>
+          <text x="1080" y="290" text-anchor="middle" font-size="15">IN PENS · CLIMBING</text>
+        </g>
+        <g id="z_q" class="b">
+          <text x="740" y="400" text-anchor="middle" class="big flawtxt" font-size="24">IS THE TARGET A MEASUREMENT, OR AN INHERITANCE?</text>
+          <text x="740" y="452" text-anchor="middle" class="big flawtxt" font-size="24">AND IF THE TOOL CAN MAKE THE HERD GROW —</text>
+          <text x="740" y="492" text-anchor="middle" class="big flawtxt" font-size="24">WHY IS IT STILL THE MAIN ONE?</text>
+        </g>
+      </svg>
+    </div>
+    <div class="prose">
+      <p>Nothing here required anybody to be a villain. Congress protected an animal the country loves, then declined, year after year, to decide what to do with the animals that protection produced. The bureau chases a target it did not set, using the one tool Congress has never refused to pay for. And the pressure that made removal the only method anyone will pay for comes from the same people pressing for the contraception the agency is slow to deploy. Meanwhile the machine keeps running: about eighty-five thousand horses on the range and climbing, sixty-four thousand in pens and climbing, a hundred million dollars a year, and a helicopter over Colorado in August. So when this comes round again, and it comes round every budget cycle, two questions are worth having ready. Is the target in that budget a measurement, or an inheritance? And if two-thirds of the money goes to a tool the National Academy of Sciences says can push the growth rate up, why is it still the main one?</p>
+    </div>
+    <div class="cta">
+      <svg width="150" height="44" viewBox="0 0 220 64">
+        <line x1="8" y1="45" x2="176" y2="45" stroke="var(--text)" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="45" r="9.5" fill="none" stroke="var(--flaw)" stroke-width="4.4"/>
+        <path d="M 8 39 L 8 35 Q 8 19 24 19 L 176 19"
+              fill="none" stroke="var(--alt)" stroke-width="4.4" stroke-dasharray="7 5.5" stroke-linecap="round"/>
+        <circle cx="189" cy="19" r="9.5" fill="none" stroke="var(--alt)" stroke-width="4.4"/>
+      </svg>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+      <p>Not who's to blame — how it's built. The full interactive blueprint, with what didn't fit the video, is on this page.</p>
+      <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+    </div>
+  </div>
+</section>
+</div><!-- /deck -->
+
+<!-- thumbnails (fallback only — the published cover is composed by thumb-compose.py) -->
+<div class="thumbframe" id="thumbA">
+  <svg viewBox="0 0 1280 390">
+    <path d="M 140 300 L 340 300 L 340 240 L 540 240 L 540 300 L 740 300 L 740 200 L 940 200 L 940 280 L 1140 280" fill="none" stroke="var(--flaw)" stroke-width="9"/>
+    <line x1="140" y1="330" x2="1140" y2="330" stroke="var(--fact)" stroke-width="9" stroke-dasharray="26 18"/>
+    <text x="330" y="110" font-family="IBM Plex Mono" font-size="36" style="fill:var(--text)">cut the herd · it grows back</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">CATCHING<br>MAKES MORE</div>
+  <div class="sub">the roundup that refills the range</div>
+</div>
+<div class="thumbframe" id="thumbB">
+  <svg viewBox="0 0 1280 390">
+    <rect x="150" y="130" width="420" height="180" fill="none" stroke="var(--flaw)" stroke-width="9"/>
+    <rect x="640" y="130" width="500" height="180" fill="none" stroke="var(--fact)" stroke-width="9" stroke-dasharray="24 16"/>
+    <text x="150" y="90" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text)">in pens</text>
+    <text x="640" y="90" font-family="IBM Plex Mono" font-size="34" style="fill:var(--text)">the target</text>
+  </svg>
+  <div class="plate"></div>
+  <div class="ttxt">64,000 PENNED</div>
+  <div class="sub">to hit a number set in the 1980s</div>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const isAuto=params.get('mode')==='auto';
+const thumb=params.get('thumb');
+if(thumb==='a')document.body.classList.add('thumb-a');
+if(thumb==='b')document.body.classList.add('thumb-b');
+const secs=[...document.querySelectorAll('section.ep')];
+const $=id=>document.getElementById(id);
+
+function pop(tl,id,pos,d=.5){tl.fromTo($(id),{opacity:0,scale:.92,transformOrigin:'50% 50%'},
+  {opacity:1,scale:1,duration:d,ease:'back.out(1.5)'},pos);}
+function say(tl,id,pos,d=.55){tl.fromTo($(id),{opacity:0,y:12},{opacity:1,y:0,duration:d,ease:'power2.out'},pos);}
+function shake(tl,target,pos,mag=9,times=10){const el=typeof target==='string'?$(target):target;
+  tl.to(el,{x:'+='+mag,duration:.045,repeat:times,yoyo:true,ease:'none'},pos).set(el,{x:0},'>');}
+function idle(tl,id,pos,span,d=1.1){const rep=Math.max(1,Math.round(span/(d*2))*2-1);
+  tl.to($(id),{opacity:.55,duration:d,repeat:rep,yoyo:true,ease:'sine.inOut'},pos);}
+function draw(tl,id,pos,d=1.6){const p=$(id),L=p.getTotalLength();
+  tl.fromTo(p,{strokeDasharray:L+' '+L,strokeDashoffset:L},{strokeDashoffset:0,duration:d,ease:'power1.inOut'},pos);}
+function count(tl,id,target,pos,d=1.6){const el=$(id),o={v:0};
+  tl.to(o,{v:target,duration:d,ease:'power1.out',snap:{v:1},
+    onUpdate:()=>{el.textContent=o.v.toLocaleString('en-US');},
+    onComplete:()=>{el.textContent=target.toLocaleString('en-US');}},pos);}
+
+// generated groups
+(function(){
+  const dense=$('m_dense'), sparse=$('m_sparse');
+  const mk=(x,y,r,op)=>{const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',r);
+    c.setAttribute('fill','none');c.setAttribute('stroke','var(--alt)');
+    c.setAttribute('stroke-width','2.5');c.setAttribute('opacity',op);return c;};
+  for(let i=0;i<7;i++)for(let j=0;j<2;j++)dense.appendChild(mk(200+i*72,200+j*74,26,.9));
+  for(let i=0;i<4;i++)for(let j=0;j<2;j++)sparse.appendChild(mk(900+i*110,200+j*80,36,.9));
+  const locks=$('x_locks');
+  for(let i=0;i<8;i++){const r=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    r.setAttribute('x',700+i*14);r.setAttribute('y',238);r.setAttribute('width',9);r.setAttribute('height',26);
+    r.setAttribute('fill','var(--flaw)');r.setAttribute('opacity','.85');locks.appendChild(r);}
+  const pages=$('x_pages');
+  for(let i=0;i<14;i++){const l=document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1',980);l.setAttribute('y1',110+i*13);l.setAttribute('x2',1270);l.setAttribute('y2',110+i*13);
+    l.setAttribute('stroke','var(--grid)');l.setAttribute('stroke-width','5');pages.appendChild(l);}
+  const lines=$('s_lines');
+  for(let i=0;i<19;i++){const l=document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1',420+i*40);l.setAttribute('y1',360);l.setAttribute('x2',420+i*40);l.setAttribute('y2',430);
+    l.setAttribute('stroke','var(--flaw)');l.setAttribute('stroke-width','5');l.setAttribute('opacity','.7');
+    l.setAttribute('class','rider');lines.appendChild(l);}
+})();
+
+function sc0(){const tl=gsap.timeline();
+  say(tl,'h_heli',0.15,.8); idle(tl,'h_heli',3,4);
+  tl.to($('h_heli'),{opacity:0,duration:.45},9.5);
+  say(tl,'h_grass',9.9,.7);
+  tl.fromTo($('h_ring').children,{scale:.45,transformOrigin:'50% 50%'},{scale:1,duration:1.1,stagger:.3,ease:'back.out(1.4)'},10.4);
+  idle(tl,'h_grass',13,4);
+  tl.to($('h_grass'),{opacity:0,duration:.45},18.5);
+  say(tl,'h_flip',18.9,.7); shake(tl,'h_flip',20.0,5,6); idle(tl,'h_flip',22,7);
+  tl.to($('h_flip'),{opacity:0,duration:.45},31.0);
+  tl.fromTo($('titleCard'),{opacity:0},{opacity:1,duration:.7},31.4);
+  if(isAuto)tl.to({},{duration:4.5},32.1); else tl.to($('titleCard'),{opacity:0,duration:.5},36.0);
+  return tl;}
+
+function sc1(){const tl=gsap.timeline();
+  say(tl,'m_full',0.15,.8); idle(tl,'m_full',4,10);
+  say(tl,'m_after',18.0,.8); draw(tl,'m_arrow',18.6,1.0); idle(tl,'m_after',21,12);
+  say(tl,'m_curves',38.0,.9); draw(tl,'c_left',38.6,2.2); draw(tl,'c_cut',40.2,3.2);
+  idle(tl,'m_curves',45,22);
+  return tl;}
+
+function sc2(){const tl=gsap.timeline();
+  say(tl,'p_pens',0.15,.8); count(tl,'c_pens',64000,0.8,1.8);
+  tl.fromTo($('p_share'),{attr:{width:0}},{attr:{width:373},duration:1.5,ease:'power1.inOut'},2.6);
+  tl.fromTo($('p_sharelab'),{opacity:0},{opacity:1,duration:.5},4.1);
+  idle(tl,'p_pens',6,12);
+  say(tl,'p_pair',22.0,.8); idle(tl,'p_pair',26,12);
+  say(tl,'p_life',42.0,.9); shake(tl,'p_life',43.2,5,6); idle(tl,'p_life',46,14);
+  say(tl,'p_ask',66.0,.9); idle(tl,'p_ask',70,16);
+  return tl;}
+
+function sc3(){const tl=gsap.timeline();
+  say(tl,'t_bars',0.15,.8); idle(tl,'t_bars',4,10);
+  say(tl,'t_gap',17.0,.8); shake(tl,'t_gap',18.2,5,6); idle(tl,'t_gap',21,12);
+  say(tl,'t_age',38.0,.9); idle(tl,'t_age',42,14);
+  return tl;}
+
+function sc4(){const tl=gsap.timeline();
+  say(tl,'x_law',0.15,.8); idle(tl,'x_law',4,12);
+  say(tl,'x_lock',20.0,.8);
+  tl.fromTo($('x_locks').children,{opacity:0,y:-14},{opacity:1,y:0,duration:.3,stagger:.35},20.8);
+  idle(tl,'x_lock',25,14);
+  say(tl,'x_burns',48.0,.9);
+  tl.fromTo($('x_slip'),{opacity:0,x:-120},{opacity:1,x:0,duration:1.1,ease:'power2.out'},50.0);
+  idle(tl,'x_burns',53,16);
+  say(tl,'x_votes',78.0,.9);
+  tl.fromTo($('x_votes').children,{opacity:0},{opacity:1,duration:.35,stagger:.3},78.6);
+  idle(tl,'x_votes',84,18);
+  say(tl,'x_stuck',112.0,.9); shake(tl,'x_stuck',113.4,5,6); idle(tl,'x_stuck',116,28);
+  return tl;}
+
+function sc5(){const tl=gsap.timeline();
+  say(tl,'l_aip',0.15,.8); idle(tl,'l_aip',4,16);
+  say(tl,'l_ring',26.0,.9);
+  tl.fromTo($('l_ring').children,{opacity:0},{opacity:1,duration:.4,stagger:.4},26.6);
+  idle(tl,'l_ring',32,30);
+  return tl;}
+
+function sc6(){const tl=gsap.timeline();
+  say(tl,'w_slots',0.15,.7); idle(tl,'w_slots',2,3);
+  say(tl,'w_dart',6.0,.8); idle(tl,'w_dart',9,10);
+  say(tl,'w_reach',24.0,.9);
+  tl.fromTo($('w_circles').children,{scale:.4,transformOrigin:'50% 50%'},{scale:1,duration:.7,stagger:.4,ease:'back.out(1.4)'},24.8);
+  idle(tl,'w_reach',29,14);
+  say(tl,'w_price',50.0,.9); shake(tl,'w_price',51.4,5,6); idle(tl,'w_price',54,20);
+  return tl;}
+
+function sc7(){const tl=gsap.timeline();
+  say(tl,'r_old',0.15,.8); idle(tl,'r_old',4,10);
+  say(tl,'r_new',16.0,.9); idle(tl,'r_new',20,12);
+  say(tl,'r_price',36.0,.9); idle(tl,'r_price',40,16);
+  return tl;}
+
+function sc8(){const tl=gsap.timeline();
+  say(tl,'s_switch',0.15,.8); idle(tl,'s_switch',3,8);
+  say(tl,'s_aus',14.0,.9); idle(tl,'s_aus',18,10);
+  say(tl,'s_price',30.0,.9); shake(tl,'s_price',31.4,5,6); idle(tl,'s_price',34,10);
+  say(tl,'s_riders',46.0,.8);
+  tl.fromTo('.rider',{opacity:0,scaleY:0,transformOrigin:'50% 100%'},{opacity:.7,scaleY:1,duration:.2,stagger:.12},46.4);
+  idle(tl,'s_riders',52,10);
+  return tl;}
+
+function sc9(){const tl=gsap.timeline();
+  say(tl,'z_actors',0.15,.9);
+  tl.fromTo($('z_actors').children,{opacity:0},{opacity:1,duration:.4,stagger:.4},0.8);
+  idle(tl,'z_actors',6,10);
+  say(tl,'z_counters',20.0,.9); idle(tl,'z_counters',24,12);
+  say(tl,'z_q',42.0,.9);
+  tl.to($('z_q'),{opacity:.6,duration:1.2,repeat:9,yoyo:true},45.0);
+  return tl;}
+
+const SCENES={s0:sc0,s1:sc1,s2:sc2,s3:sc3,s4:sc4,s5:sc5,s6:sc6,s7:sc7,s8:sc8,s9:sc9};
+
+// S4 toggle — what the statute permits vs what the budget funds
+function showExit(i){
+  const law=$('x_law'),lock=$('x_lock'),stuck=$('x_stuck');
+  gsap.killTweensOf([law,lock,stuck]);
+  gsap.set(law,{opacity:1});
+  gsap.set(lock,{opacity:i===1?1:.15});
+  gsap.set(stuck,{opacity:i===1?1:.15});
+  ['btnE0','btnE1'].forEach((b,k)=>$(b).classList.toggle('on',k===i));}
+$('btnE0').onclick=()=>showExit(0);
+$('btnE1').onclick=()=>showExit(1);
+
+// S8 toggle — compare the three designs and their prices
+const DESIGNS=[
+  {on:['s_switch'],off:['s_aus','s_price','s_riders'],
+   label:'Design 1 — treat the births: permanent, statewide, and no help to the 64,000 already penned.'},
+  {on:['s_switch','s_aus'],off:['s_price','s_riders'],
+   label:'Design 2 — recount the target: it could mean bigger removals, and it reopens the cattle quotas.'},
+  {on:['s_switch','s_aus','s_price','s_riders'],off:[],
+   label:'Design 3 — switch on the 1971 authority: the price is not money, and it has been paid for forty years.'}];
+function showDesign(i){
+  const d=DESIGNS[i];
+  d.on.forEach(id=>gsap.set($(id),{opacity:1}));
+  d.off.forEach(id=>gsap.set($(id),{opacity:.15}));
+  ['btnD0','btnD1','btnD2'].forEach((b,k)=>$(b).classList.toggle('on',k===i));
+  const cap=document.querySelector('#s8 .figcap'); if(cap)cap.textContent=d.label;}
+$('btnD0').onclick=()=>showDesign(0);
+$('btnD1').onclick=()=>showDesign(1);
+$('btnD2').onclick=()=>showDesign(2);
+
+if(isAuto&&!thumb){
+  document.body.classList.add('auto');
+  const spd=parseFloat(params.get('spd'))||1;
+  const deck=$('deck');
+  const master=gsap.timeline({paused:true,
+    onComplete:()=>{window.__episodeDone=true;document.title='DONE — '+document.title;}});
+  let pos=0;
+  secs.forEach((s,i)=>{const D=+s.dataset.duration;
+    if(i>0)master.to(deck,{y:-i*1080,duration:1.0,ease:'power2.inOut'},pos-0.5);
+    const ch=s.querySelector(':scope > .chapter');
+    if(ch){ master.set(ch,{opacity:1},0);
+            master.to(ch,{opacity:0,duration:.7},pos+1.6); }
+    const sc=SCENES[s.id]().paused(false);
+    const win=D-(ch?2.2:0.2)-0.3;
+    const dur=sc.duration();
+    if(dur>win)sc.timeScale(dur/win);
+    else if(dur<win*0.96){
+      const k=win/dur;
+      sc.getChildren(false,true,true).forEach(c=>c.startTime(c.startTime()*k));
+    }
+    master.add(sc,pos+(ch?2.2:0.2));
+    pos+=D;});
+  master.to({},{duration:.01},pos-.01);
+  if(spd&&spd!==1)master.timeScale(1/spd);
+  gsap.ticker.add(()=>{ $('progress').style.width=(master.progress()*100)+'%'; });
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){e.preventDefault();master.paused(!master.paused());}
+    if(e.code==='ArrowRight')master.time(Math.min(master.duration(),master.time()+10));
+    if(e.code==='ArrowLeft')master.time(Math.max(0,master.time()-10));
+  });
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const at=parseFloat(params.get('at'));
+  if(!isNaN(at)){master.progress(at/master.duration()).pause();}
+  else master.play();
+}
+
+if(!isAuto&&!thumb){
+  gsap.registerPlugin(ScrollTrigger);
+  const ran={};
+  secs.forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 65%',onEnter:()=>{
+      if(ran[s.id])return; ran[s.id]=true; SCENES[s.id]();}});
+  });
+  const tip=$('tip');
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.style.cursor='help';
+    el.addEventListener('mouseenter',e=>{tip.textContent=el.dataset.tip;tip.style.opacity='1';});
+    el.addEventListener('mousemove',e=>{tip.style.left=Math.min(e.clientX+16,innerWidth-340)+'px';
+      tip.style.top=(e.clientY+18)+'px';});
+    el.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+  const btn=$('listen'); let audio=null,idx=0;
+  const order=['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+  btn.onclick=()=>{
+    if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+        else{btn.classList.remove('playing');idx=0;audio=null;}};}
+    audio.play();btn.classList.add('playing');
+  };
+}
+</script>
+</body>
+</html>
