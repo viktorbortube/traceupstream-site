@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Самая дешёвая стена Америки была из мух</title>
+<meta name="description" content="Барьер из стерильных мух в Панаме семнадцать лет держал новосветную мясную муху вдали от американского скота и стоил около 15 миллионов долларов в год. Он держался на одном заводе в чужой стране и в 2023 году отказал. Почему предотвращение проигрывает бюджет и три другие конструкции с ценниками.">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#6B7F5E;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:800;font-size:50px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:32px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:68ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:170px}
+.stat .n{font-family:var(--font-display);font-weight:800;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.tl{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.tl button{font-family:var(--font-mono);font-size:12px;padding:7px 10px;border:1px solid var(--grid);background:var(--bg-raised);border-radius:6px;cursor:pointer;color:var(--text)}
+.tl button.on{border-color:var(--flaw);color:var(--flaw)}
+.slider{width:100%;max-width:520px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:88px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:42ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:96px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .tl,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">ВЫПУСК 046</div>
+<div class="deck">
+
+<section class="section" id="s0" data-duration="68.3">
+  <div class="kicker">Дефект конструкции · выпуск 046</div>
+  <h1>Самая дешёвая стена Америки была сделана из мух</h1>
+  <div class="prose lede keep">
+    <p>Барьер за две тысячи миль к югу от границы семнадцать лет держал новосветную мясную муху вдали от американского скота. Он стоил около <em class="fact">15 миллионов долларов в год</em> и, по оценке самого ведомства, берёг <em class="alt">2,3 миллиарда в год</em>. В 2023 году он порвался — ровно потому, что был дешёвым.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">15 млн $</div><div class="l">в год на содержание барьера</div></div>
+    <div class="stat"><div class="n">2,3 млрд $</div><div class="l">в год экономии · оценка службы APHIS</div></div>
+    <div class="stat"><div class="n">1966</div><div class="l">последний случай в скоте США до июня 2026</div></div>
+  </div>
+</section>
+
+<section class="section" id="s1" data-duration="115.1">
+  <h2>Это не стена, а соотношение</h2>
+  <div class="prose">
+    <p>Муха откладывает яйца в рану живого животного, и раны размером с укус клеща ей хватает. То, что вылупляется, ест живую плоть; необработанное животное погибает за две недели. В нынешнюю вспышку в Центральной Америке и Мексике зарегистрировано больше тысячи ста случаев у людей и семь смертей.</p>
+    <p>Самка спаривается <em class="fact">один раз в жизни</em>. Если самец стерилен, вся её кладка мертва. Поэтому убивать мух не нужно: достаточно засыпать воздух стерильными самцами, пока дикая самка почти наверняка не встретит одного из них. Линия держится, пока стерильных самцов больше, чем дикая популяция успевает восполнить, а значит — пока кто-то платит за мух следующей недели.</p>
+  </div>
+  <div class="fig">
+    <h3>Сколько мух нужно линии</h3>
+    <input class="slider" id="ratio" type="range" min="0" max="160" value="100" step="5" aria-label="Миллионов стерильных самцов в неделю">
+    <div class="prose keep" style="font-size:16px;margin-top:8px"><span class="figcap" style="font-size:14px" id="ratioLabel">100 миллионов стерильных самцов в неделю</span></div>
+    <svg id="ratioChart" viewBox="0 0 900 260" width="100%" height="260" role="img" aria-label="Дикая популяция во времени при выбранном темпе выпусков"></svg>
+    <div class="figcap" id="ratioVerdict">Выше темпа восполнения у популяции кончаются дети. Ниже — в первый день ничего не рушится, соотношение просто тихо идёт обратно.</div>
+  </div>
+</section>
+
+<section class="section" id="s2" data-duration="82.2">
+  <h2>Результат удавшегося предотвращения — это отсутствие</h2>
+  <div class="prose">
+    <p>Когда Панаму очистили в 2006 году, программа не закончилась. Она переехала в самое узкое место обеих Америк, в Дарьенский проход, и стала постоянной линией, которую держит <em class="fact">один завод</em> на сто миллионов стерильных мух в неделю. Девяносто процентов расходов несёт американский налогоплательщик.</p>
+    <p>Семнадцать лет это работало, и скотоводство Северной Америки перестало о мухе думать. В этом ловушка любого такого барьера. Нет фотографии вспышки, которой не случилось, нет округа, который отчитается об убытках, которых не понёс. Любая другая строка бюджета показывает, что на неё купили; <em class="flaw">эта показывает только год, в котором ничего не произошло</em>, — и показывать это ей придётся снова и снова, всегда.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">17</div><div class="l">лет линия держалась</div></div>
+    <div class="stat"><div class="n">90%</div><div class="l">счёта платят США</div></div>
+    <div class="stat"><div class="n">100 млн</div><div class="l">мух в неделю, один завод</div></div>
+  </div>
+</section>
+
+<section class="section" id="s3" data-duration="53.7">
+  <h2>Правило первое: успех списывает запас</h2>
+  <div class="prose">
+    <p>У Мексики был собственный завод стерильных мух. В 2012 году он закрылся — не потому, что что-то сломалось, а потому, что мухи не было в стране уже двадцать лет, а фабрика, разводящая истреблённого вредителя, на бумаге производит никому не нужное.</p>
+    <p>Мощность списали, завод в Панаме остался <em class="flaw">единственным в мире</em>, а у Соединённых Штатов, которым терять больше всех, своего производства не было вовсе. Одного завода в самом узком месте достаточно ровно до тех пор, пока с ним ничего не случится.</p>
+  </div>
+  <div class="fig">
+    <div class="toggle" role="group" aria-label="Мощности">
+      <button id="capA" class="on">Как было в 2023</button><button id="capB">С запасом</button>
+    </div>
+    <svg id="capChart" viewBox="0 0 900 220" width="100%" height="220" role="img" aria-label="Мощности по производству стерильных мух: как построено и с запасом"></svg>
+    <div class="figcap" id="capCap">Один завод, сто миллионов мух в неделю, на девяносто процентов оплаченный страной, у которой своего производства не было.</div>
+  </div>
+</section>
+
+<section class="section" id="s4" data-duration="119.6">
+  <h2>Правило второе: строка, которая защищает невидимое</h2>
+  <div class="prose">
+    <p>У барьера нет собственного фонда. Это ежегодная строка внутри бюджета одного ведомства, и тратится она на здание в другой стране, а здания стареют. В 2023 году собственный план ведомства называл завод среди трёх, которым ремонт нужнее всего, и в бюджетном запросе на 2025-й оно попросило добавить <em class="fact">3,6 миллиона долларов</em>.</p>
+    <p>Линии уже не было к тому дню, когда запрос писали. Выявления в Панаме выросли примерно с двадцати пяти в год до более чем шести с половиной тысяч. Барьер никто не ломал: каждую неделю завод поднимал в воздух сто миллионов стерильных самцов, и каждую неделю дикие мухи выводили своих. Линия держится, пока первое число больше второго.</p>
+    <p>Сотни миллионов, потраченные после, могли показать пальцем на вспышку. Три миллиона шестьсот тысяч могли показать только на ту вспышку, которой не случится, если эти деньги дать.</p>
+  </div>
+  <div class="fig">
+    <h3>Просили до. Потратили после.</h3>
+    <svg id="moneyChart" viewBox="0 0 900 250" width="100%" height="250" role="img" aria-label="Запрос на ремонт против экстренных трат и объявленной стройки"></svg>
+    <div class="figcap">3,6 млн $ на ремонт (запрос на 2025) · 109,8 млн $ экстренных (2023) · 165 млн $ (2024) · 21 млн $ доля США в заводе в Метапе · около 750 млн $ объявлено на завод в Техасе.</div>
+  </div>
+</section>
+
+<section class="section" id="s5" data-duration="122.4">
+  <h2>Правило третье: рубильник на два положения</h2>
+  <div class="prose">
+    <p>Когда такой барьер отказывает, единственный инструмент, который срабатывает за дни, — торговля, и у него два положения: граница для скота открыта или закрыта. С первого случая в Мексике в ноябре 2024 года его дёргали пять раз.</p>
+    <p>Рубильник не убивает ни одной мухи — она всё равно дошла до Техаса в июне, при закрытой границе. Он перекладывает издержки на тех, кого в комнате не было: около <em class="flaw">миллиарда двухсот миллионов долларов</em> потерянной торговли с одной стороны и рынок без скота с другой, где свежая говядина ставила рекорд в 9,64 доллара за фунт.</p>
+    <p>И он делает кое-что потише. При правиле на два положения <em class="flaw">регион, который сообщает о случае, — это регион, который может потерять свои ворота</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Каждое переключение</h3>
+    <div class="tl" id="switchTl"></div>
+    <div class="prose keep" style="font-size:16px"><span id="switchDetail" class="figcap" style="font-size:14px"></span></div>
+  </div>
+</section>
+
+<section class="section" id="s6" data-duration="78.2">
+  <div class="kicker">Конструкция первая</div>
+  <h2>Считать мощность инфраструктурой</h2>
+  <div class="prose">
+    <p>Держать мощностей больше, чем нужно в тихие годы, постоянно — как страна держит водохранилища выше уровня среднего лета. Панама делает сто миллионов мух в неделю, Мексика добавит ещё сто, техасский завод рассчитывают вывести на триста: впятеро больше того, что было в день, когда барьер порвался.</p>
+    <p><em class="flaw">Цена.</em> Семьсот пятьдесят миллионов — это только стройка. Дальше заводы надо содержать в те годы, когда мухи нигде нет, а это ровно то состояние, в котором в 2012 году закрыли мексиканский завод. И биология задаёт задержку, которую деньгами не выкупить: стройку начали в апреле 2026-го, первые мухи выйдут в конце 2027-го.</p>
+  </div>
+</section>
+
+<section class="section" id="s7" data-duration="84">
+  <div class="kicker">Конструкция вторая</div>
+  <h2>Зонировать риск, а не страну</h2>
+  <div class="prose">
+    <p>Вместо того чтобы открывать и закрывать страну целиком, аттестовать регионы: штат со своим надзором, своими выпусками стерильных мух, осмотром и обработкой каждого животного перед отправкой. Нынешнее открытие уже движется в эту сторону.</p>
+    <p><em class="flaw">Цена.</em> Зонирование работает, только если животное можно отследить до места, и во что это обходится, Америка измерила у себя: национальная система идентификации животных забрала 142 миллиона долларов с 2004 по 2009 год, охватила треть производителей и была закрыта в 2010-м. Один прорыв обесценивает схему на годы, а вместе с зонами приходит история Соноры: сообщил о случае — рискуешь воротами.</p>
+  </div>
+</section>
+
+<section class="section" id="s8" data-duration="108.8">
+  <div class="kicker">Конструкция третья</div>
+  <h2>Платить из тех денег, которые она бережёт</h2>
+  <div class="prose">
+    <p>Вместо ежегодной федеральной строки барьер оплачивает отрасль, которая от него выигрывает, обязательным сбором. Америка этот опыт ставила: больше семидесяти процентов расходов программы против хлопкового долгоносика фермеры оплатили сами, сборами с акра, которые утверждались зона за зоной на референдумах. К 2009 году долгоносика не осталось ни в одном хлопковом штате, кроме части Техаса.</p>
+    <p><em class="flaw">Цена.</em> Сбор ложится на ту же цену говядины, так что покупатель платит в любом случае, просто раньше. Решение уходит на голосование, а оно может сказать «нет»: северо-восток Арканзаса отказывался пять раз, а в Алабаме референдум о повышении сборов едва не закрыл программу. И у аналогии жёсткий край: сбор с американских скотоводов может купить мух, но не решения другого государства.</p>
+  </div>
+  <div class="fig">
+    <h3>Три конструкции, три цены</h3>
+    <div class="cards" id="designCards"></div>
+  </div>
+</section>
+
+<section class="section" id="s9" data-duration="89.7">
+  <h2>Найдите строку, единственный результат которой — что ничего не случилось</h2>
+  <div class="prose">
+    <p>Телёнка в округе Завала нашли третьего июня 2026 года. Двадцать четвёртого августа порт в Дугласе открылся снова. А завод в Панаме теперь в тылу: муха, ради которой его строили, уже в Техасе, и оборону отстраивают на две тысячи миль севернее.</p>
+    <p>Семнадцать лет эта страна действительно покупала отсутствие и получала около ста пятидесяти долларов на каждый вложенный доллар. Никто не купил только запас. Поэтому, когда мимо вас в следующий раз пойдёт бюджет — государственный, городской, тот, что у вас на работе, — найдите в нём строку, единственный результат которой в том, что ничего не случилось. <em class="flaw">И спросите, кто защищает её в тот год, когда ничего и не случилось.</em></p>
+  </div>
+  <div class="cta">
+    <div style="font-family:var(--font-display);font-weight:800;font-size:22px">ДЕФЕКТ КОНСТРУКЦИИ</div>
+    <p class="figcap" style="font-size:14px">Не кто виноват — как устроено.</p>
+    <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@systemmind-ru" rel="noopener">Подписаться</a>
+    <p style="margin-top:14px"><a href="../" style="color:var(--text-dim)">In English →</a></p>
+  </div>
+</section>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+const SW=[
+ {d:'22 ноя 2024',s:'закрыто',t:'Мексика сообщает о первом случае в Чьяпасе. Импорт живых животных приостановлен в тот же день.'},
+ {d:'фев 2025',s:'открыто',t:'Открыли снова по новому протоколу осмотра и обработки.'},
+ {d:'11 мая 2025',s:'закрыто',t:'Закрыли опять: ближайший случай примерно в семистах милях от границы.'},
+ {d:'7 июля 2025',s:'открыто',t:'Порт в Дугласе, Аризона, открывается первым по плану поэтапного открытия.'},
+ {d:'9 июля 2025',s:'закрыто',t:'Через два дня закрываются все южные порты: одно заражённое животное в Веракрусе, за 370 миль от границы.'},
+ {d:'24 авг 2026',s:'открыто',t:'Дуглас открывается снова. За несколько дней до этого Сонора объявила о первом случае в трёхстах милях; расписание не изменили.'}];
+const DESIGNS=[
+ {k:'Постоянная мощность',p:'Платить в каждый год, когда мухи нигде нет, — в том самом состоянии, в котором закрыли прошлый запас. Первые мухи с нового завода — в конце 2027-го.'},
+ {k:'Зонирование риска',p:'Нужна прослеживаемость, от которой США сами отказались в 2010-м, потратив 142 миллиона. Один прорыв обесценивает схему, и она поощряет молчание.'},
+ {k:'Отраслевой сбор',p:'Всё равно ложится на цену говядины, а решение уходит на голосование, которое может сказать «нет» — как Арканзас сказал пять раз.'}];
+
+function drawRatio(rate){
+  const svg=$('ratioChart'); if(!svg) return;
+  const W=900,H=260,pad=34,weeks=52,repl=100;
+  let pop=100,pts=[];
+  for(let w=0;w<=weeks;w++){pts.push(pop);const push=(repl-rate)/repl;pop=Math.max(2,Math.min(300,pop*(1+push*0.09)));}
+  const x=i=>pad+i*(W-pad*2)/weeks, y=v=>H-pad-(v/300)*(H-pad*2);
+  const d=pts.map((v,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1)).join(' ');
+  svg.innerHTML=`<line x1="${pad}" y1="${y(100)}" x2="${W-pad}" y2="${y(100)}" stroke="var(--grid)" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="${W-pad}" y="${y(100)-8}" text-anchor="end" font-size="13" fill="var(--text-dim)">откуда начали</text>
+  <path d="${d}" fill="none" stroke="${rate>=repl?'var(--alt)':'var(--flaw)'}" stroke-width="3.5" stroke-linecap="round"/>
+  <text x="${pad}" y="${H-8}" font-size="13" fill="var(--text-dim)">сейчас</text>
+  <text x="${W-pad}" y="${H-8}" text-anchor="end" font-size="13" fill="var(--text-dim)">через год</text>`;
+  $('ratioLabel').textContent=rate+' миллионов стерильных самцов в неделю';
+  $('ratioVerdict').textContent = rate>=repl
+    ? 'Выше того, что дикая популяция успевает восполнить, линия держится и у мухи кончаются дети.'
+    : 'Ниже — в первый день ничего не рушится. Соотношение просто тихо идёт обратно.';
+}
+function drawCap(spare){
+  const svg=$('capChart'); if(!svg) return;
+  const plants=spare?[{n:'Панама',v:100},{n:'Мексика',v:100},{n:'Техас',v:300}]:[{n:'Панама',v:100},{n:'Мексика',v:0},{n:'США',v:0}];
+  const W=900,base=170,bw=120,gap=90;
+  svg.innerHTML=plants.map((p,i)=>{const h=(p.v/300)*130,x=90+i*(bw+gap);
+    return `<rect x="${x}" y="${base-h}" width="${bw}" height="${h||3}" fill="${p.v?'var(--alt)':'var(--grid)'}" rx="3"/>
+    <text x="${x+bw/2}" y="${base+22}" text-anchor="middle" font-size="15" fill="var(--text)">${p.n}</text>
+    <text x="${x+bw/2}" y="${base-h-10}" text-anchor="middle" font-size="15" fill="var(--text-dim)">${p.v?p.v+' млн/нед':'нет'}</text>`}).join('');
+  $('capCap').textContent=spare
+    ? 'С запасом: около пятисот миллионов мух в неделю на трёх площадках — впятеро больше того, что стояло в день прорыва. Платить за это надо и в тихие годы.'
+    : 'Один завод, сто миллионов мух в неделю, на девяносто процентов оплаченный страной, у которой своего производства не было.';
+}
+function drawMoney(){
+  const svg=$('moneyChart'); if(!svg) return;
+  const rows=[{n:'Запрос на ремонт, 2025',v:3.6,c:'var(--fact)'},{n:'Экстренные, 2023',v:109.8,c:'var(--flaw)'},
+  {n:'Экстренные, 2024',v:165,c:'var(--flaw)'},{n:'Доля США, завод в Метапе',v:21,c:'var(--flaw)'},
+  {n:'Завод в Техасе, объявлено',v:750,c:'var(--flaw)'}];
+  const W=900,left=270,max=750,bw=(W-left-60);
+  svg.innerHTML=rows.map((r,i)=>{const y=18+i*44,w=Math.max(3,(r.v/max)*bw);
+    return `<text x="${left-12}" y="${y+18}" text-anchor="end" font-size="14" fill="var(--text)">${r.n}</text>
+    <rect x="${left}" y="${y}" width="${w}" height="24" fill="${r.c}" rx="3"/>
+    <text x="${left+w+10}" y="${y+18}" font-size="14" fill="var(--text-dim)">${String(r.v).replace('.',',')} млн $</text>`}).join('');
+}
+function buildSwitch(){
+  const wrap=$('switchTl'); if(!wrap) return;
+  wrap.innerHTML=SW.map((e,i)=>`<button data-i="${i}">${e.d} · ${e.s}</button>`).join('');
+  const show=i=>{[...wrap.children].forEach((b,k)=>b.classList.toggle('on',k===i));$('switchDetail').textContent=SW[i].t};
+  [...wrap.children].forEach(b=>b.onclick=()=>show(+b.dataset.i));
+  show(0);
+}
+function buildCards(){
+  const wrap=$('designCards'); if(!wrap) return;
+  wrap.innerHTML=DESIGNS.map((d,i)=>`<div class="card${i===0?' on':''}" data-i="${i}"><h3>${d.k}</h3><div class="price">Цена: ${d.p}</div></div>`).join('');
+  [...wrap.children].forEach(c=>c.onclick=()=>{[...wrap.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawRatio(100);drawCap(false);drawMoney();buildSwitch();buildCards();
+
+if(!isAuto){
+  $('ratio').addEventListener('input',e=>drawRatio(+e.target.value));
+  $('capA').onclick=()=>{$('capA').classList.add('on');$('capB').classList.remove('on');drawCap(false)};
+  $('capB').onclick=()=>{$('capB').classList.add('on');$('capA').classList.remove('on');drawCap(true)};
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s1') master.call(()=>{let v=160;const step=()=>{v-=5;if(v>=40){drawRatio(v);setTimeout(step,900)}};step()},null,t+2);
+    if(s.id==='s3') master.call(()=>{drawCap(false);setTimeout(()=>drawCap(true),Math.min(20000,d*500))},null,t+2);
+    if(s.id==='s5') master.call(()=>{let i=0;const step=()=>{if(i<SW.length){[...$('switchTl').children].forEach((b,k)=>b.classList.toggle('on',k===i));$('switchDetail').textContent=SW[i].t;i++;setTimeout(step,Math.max(2500,d*1000/SW.length))}};step()},null,t+2);
+    master.set(s,{className:'section'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  // ?spd=0.05 — прогон в двадцать раз быстрее реального времени: так verify.mjs
+  // и record.mjs проверяют, что таймлайн доходит до конца и ставит __episodeDone.
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>

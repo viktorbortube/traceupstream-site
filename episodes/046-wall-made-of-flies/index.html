@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — America's Cheapest Wall Was Made of Flies</title>
+<meta name="description" content="A sterile-fly barrier in Panama kept the New World screwworm out of American cattle for seventeen years on about $15 million a year. It ran on one plant in one country, and in 2023 it failed. How prevention loses its budget, and three designs that would hold a line differently.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#6B7F5E;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:54px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:150px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:46px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.tl{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.tl button{font-family:var(--font-mono);font-size:12px;padding:7px 10px;border:1px solid var(--grid);background:var(--bg-raised);border-radius:6px;cursor:pointer;color:var(--text)}
+.tl button.on{border-color:var(--flaw);color:var(--flaw)}
+.slider{width:100%;max-width:520px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+/* ---- auto mode: one section per screen, 1920×1080 ---- */
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:96px}
+body.auto h2{font-size:66px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:104px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .tl,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.046</div>
+<div class="deck">
+
+<section class="section" id="s0" data-duration="56.6">
+  <div class="kicker">Trace Upstream · Episode 046</div>
+  <h1>America's cheapest wall was made of flies</h1>
+  <div class="prose lede keep">
+    <p>A barrier two thousand miles south of the border kept the New World screwworm out of American cattle for seventeen years. It cost about <em class="fact">$15 million a year</em> and, by the agency's own estimate, saved <em class="alt">$2.3 billion a year</em>. In 2023 it broke — for the same reason it was cheap.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n" data-count="15">$15M</div><div class="l">a year to run the barrier</div></div>
+    <div class="stat"><div class="n">$2.3B</div><div class="l">a year it saved · USDA APHIS estimate</div></div>
+    <div class="stat"><div class="n">1966</div><div class="l">last screwworm in US cattle before June 2026</div></div>
+  </div>
+</section>
+
+<section class="section" id="s1" data-duration="91">
+  <h2>It is not a wall. It is a ratio.</h2>
+  <div class="prose">
+    <p>The New World screwworm lays eggs in a wound on a living animal, and the wound can be as small as a tick bite. What hatches eats living flesh; an untreated animal can die within two weeks. More than 1,100 human cases and seven deaths have been reported in Central America and Mexico during this outbreak.</p>
+    <p>A female mates <em class="fact">once in her life</em>. If the male she finds is sterile, every egg she lays is dead. So you never have to kill the flies — you flood the air with sterile males until a wild female almost certainly meets one of them instead. The line holds only while the sterile males outnumber what the wild population can replace, which means it holds only while somebody pays for next week's flies.</p>
+  </div>
+  <div class="fig">
+    <h3>How many flies does the line need?</h3>
+    <input class="slider" id="ratio" type="range" min="0" max="160" value="100" step="5" aria-label="Millions of sterile males released each week">
+    <div class="prose keep" style="font-size:16px;margin-top:8px">
+      <span class="figcap" style="font-size:14px" id="ratioLabel">100 million sterile males a week</span>
+    </div>
+    <svg id="ratioChart" viewBox="0 0 900 260" width="100%" height="260" role="img" aria-label="Wild population over time at the chosen release rate"></svg>
+    <div class="figcap" id="ratioVerdict">Above the replacement rate the wild population runs out of children. Below it, nothing collapses on the first day — the ratio just quietly tips back.</div>
+  </div>
+</section>
+
+<section class="section" id="s2" data-duration="62.2">
+  <h2>What successful prevention produces is an absence</h2>
+  <div class="prose">
+    <p>When Panama was cleared in 2006, the program did not end. It moved to the narrowest point in the Americas — the Darién Gap — and became a permanent line, held by <em class="fact">one plant</em> that can turn out 100 million sterile flies a week. American taxpayers cover 90% of what it costs to run.</p>
+    <p>For seventeen years it worked, and the cattle industry of North America stopped thinking about it. That is the trap in every barrier like this one. There is no photograph of the outbreak that did not happen, no county reporting the losses it did not have. Every other line in a budget can show you what it bought; <em class="flaw">this one can only show you a year in which nothing occurred</em> — and it has to show you that again next year, and the year after, forever.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">17</div><div class="l">years the line held</div></div>
+    <div class="stat"><div class="n">90%</div><div class="l">of the bill paid by the US</div></div>
+    <div class="stat"><div class="n">100M</div><div class="l">sterile flies a week, one plant</div></div>
+  </div>
+</section>
+
+<section class="section" id="s3" data-duration="45.7">
+  <h2>Rule one — success retires the spare</h2>
+  <div class="prose">
+    <p>Mexico had a sterile fly plant of its own. In 2012 it closed — not because anything went wrong, but because the fly had been gone from Mexico for twenty years, and a factory breeding an eradicated pest is, on paper, a factory making something nobody needs.</p>
+    <p>So the capacity went, the plant in Panama became <em class="flaw">the only screwworm plant in the world</em>, and the United States, with the most to lose, had none of its own at all. One plant at the narrowest point is enough — for as long as nothing goes wrong with it.</p>
+  </div>
+  <div class="fig">
+    <div class="toggle" role="group" aria-label="Capacity view">
+      <button id="capA" class="on">As built, 2023</button><button id="capB">With a spare</button>
+    </div>
+    <svg id="capChart" viewBox="0 0 900 220" width="100%" height="220" role="img" aria-label="Sterile fly production capacity, as built versus with standing spare capacity"></svg>
+    <div class="figcap" id="capCap">One plant, 100 million flies a week, funded 90% by a country that had no production of its own.</div>
+  </div>
+</section>
+
+<section class="section" id="s4" data-duration="112">
+  <h2>Rule two — a line that defends nothing visible</h2>
+  <div class="prose">
+    <p>The barrier has no fund of its own. It is an annual line inside one agency's budget, spent mostly on a building in another country — and buildings age. In 2023 the agency's own plan listed that plant among the three facilities most in need of repair, and in its budget request for 2025 it asked for <em class="fact">$3.6 million</em> more.</p>
+    <p>The line was already gone by the time that request was written. Detections in Panama went from about 25 a year to more than 6,500. Nobody broke the barrier, because there was nothing there to break: every week the plant put 100 million sterile males into the air, and every week the wild flies bred more of their own. The line holds for as long as the first number is bigger than the second.</p>
+    <p>The hundreds of millions spent since could point at an outbreak. The $3.6 million could only point at an outbreak that would not happen if the money was spent.</p>
+  </div>
+  <div class="fig">
+    <h3>Asked for before. Spent after.</h3>
+    <svg id="moneyChart" viewBox="0 0 900 250" width="100%" height="250" role="img" aria-label="The repair request against emergency spending and construction announced after the breach"></svg>
+    <div class="figcap">$3.6M requested for repairs (FY2025) · $109.8M emergency (2023) · $165M emergency (2024) · $21M US share of the Metapa conversion · ~$750M announced for the Texas plant.</div>
+  </div>
+</section>
+
+<section class="section" id="s5" data-duration="91.3">
+  <h2>Rule three — a switch with two positions</h2>
+  <div class="prose">
+    <p>When a barrier like this fails, the only instrument that moves within days is trade, and it has two settings: the border is open to livestock, or it is closed. Since Mexico's first case in November 2024 it has been thrown five times.</p>
+    <p>The switch does not kill a single fly — the fly reached Texas anyway, in June, with the border shut. What it does is move the cost onto people who were not in the room: about <em class="flaw">$1.2 billion a year</em> of lost trade on one side, and on the other a market already short of cattle, where fresh beef hit a record $9.64 a pound.</p>
+    <p>And it does something quieter. Under a rule with two positions, <em class="flaw">the region that reports a case is the region that can lose its gate</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Every time the switch was thrown</h3>
+    <div class="tl" id="switchTl"></div>
+    <div class="prose keep" style="font-size:16px"><span id="switchDetail" class="figcap" style="font-size:14px"></span></div>
+  </div>
+</section>
+
+<section class="section" id="s6" data-duration="65.5">
+  <div class="kicker">Design one</div>
+  <h2>Treat capacity as infrastructure</h2>
+  <div class="prose">
+    <p>Keep more capacity than the quiet years need, permanently — the way a country keeps reservoirs above the level of an average summer. Panama makes 100 million flies a week, Mexico will add another 100 million, and the Texas plant is planned to reach 300 million: five times what existed on the day the barrier broke.</p>
+    <p><em class="flaw">The price.</em> The $750 million is only the building. After that the plants have to be kept running through the years when the fly is nowhere — the same condition that closed the Mexican plant in 2012. And biology sets a delay money cannot buy out: ground was broken in April 2026, and the first flies from that building are due at the end of 2027.</p>
+  </div>
+</section>
+
+<section class="section" id="s7" data-duration="65.5">
+  <div class="kicker">Design two</div>
+  <h2>Zone the risk instead of the country</h2>
+  <div class="prose">
+    <p>Instead of opening and closing an entire country, certify regions: a state with its own surveillance, its own sterile releases, and every animal inspected and treated before it leaves. That is the direction the current reopening is already taking.</p>
+    <p><em class="flaw">The price.</em> Zoning only works if an animal can be traced back to a place, and America has already measured what that costs at home: the National Animal Identification System took $142 million between 2004 and 2009, signed up about a third of producers, and was abandoned in 2010. One breach discredits a zoning scheme for years — and the zones bring the Sonora problem with them: report a case, risk your gate.</p>
+  </div>
+</section>
+
+<section class="section" id="s8" data-duration="89.9">
+  <div class="kicker">Design three</div>
+  <h2>Pay for it with the money it protects</h2>
+  <div class="prose">
+    <p>Instead of an annual federal line, the barrier is paid for by the industry that gains from it, through a compulsory levy. America has run this experiment: growers paid more than 70% of the Boll Weevil Eradication Program themselves, through per-acre assessments approved zone by zone in producer referendums. By 2009 the weevil was gone from every cotton state but parts of Texas.</p>
+    <p><em class="flaw">The price.</em> The levy lands on the same beef price, so the shopper pays either way, just sooner. The decision moves to a vote, and a vote can say no — north-east Arkansas rejected the program five times, and an Alabama referendum on higher assessments nearly ended it. And the analogy has a hard edge: a levy on American ranchers can buy flies, but it cannot buy another country's decisions.</p>
+  </div>
+  <div class="fig">
+    <h3>Three designs, three prices</h3>
+    <div class="cards" id="designCards"></div>
+  </div>
+</section>
+
+<section class="section" id="s9" data-duration="75.7">
+  <h2>Find the line whose only product is that nothing happened</h2>
+  <div class="prose">
+    <p>The calf in Zavala County was found on 3 June 2026. On 24 August the port at Douglas opened again. The plant in Panama now sits behind the front line: the fly it was built to stop is in Texas, and the defense is being rebuilt two thousand miles north.</p>
+    <p>For seventeen years this country did buy an absence, and got about $150 back for every dollar it spent. What nobody bought was the spare. So when the next budget passes in front of you — a national one, a local one, the one where you work — find the line whose only product is that nothing happened. <em class="flaw">Then ask who defends that line in the year when nothing does.</em></p>
+  </div>
+  <div class="cta">
+    <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+    <p class="figcap" style="font-size:14px">Not who's to blame — how it's built.</p>
+    <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+  </div>
+</section>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+const SW=[
+ {d:'22 Nov 2024',s:'closed',t:'Mexico reports its first case, in Chiapas. Live animal imports are suspended the same day.'},
+ {d:'Feb 2025',s:'open',t:'Reopened under a new inspection-and-treatment protocol.'},
+ {d:'11 May 2025',s:'closed',t:'Closed again, with the nearest case about 700 miles from the border.'},
+ {d:'7 Jul 2025',s:'open',t:'The port at Douglas, Arizona reopens — the first of a phased plan.'},
+ {d:'9 Jul 2025',s:'closed',t:'Two days later every southern port shuts again, after one infested animal in Veracruz, about 370 miles from the border.'},
+ {d:'24 Aug 2026',s:'open',t:'Douglas reopens. Days earlier Sonora announced its first case, under 300 miles away; the schedule was kept.'}];
+const DESIGNS=[
+ {k:'Standing capacity',p:'Paid for in every year the fly is nowhere — the condition that closed the last spare. And the first flies from the new plant arrive at the end of 2027.'},
+ {k:'Risk-based zoning',p:'Needs traceability the US itself abandoned in 2010 after $142M. One breach discredits it for years, and it rewards silence.'},
+ {k:'Industry levy',p:'Lands on the beef price anyway, and the decision moves to a vote that can say no — as Arkansas did five times.'}];
+
+/* ---------- ratio simulator ---------- */
+function drawRatio(rate){
+  const svg=$('ratioChart'); if(!svg) return;
+  const W=900,H=260,pad=34,weeks=52,repl=100;
+  let pop=100,pts=[];
+  for(let w=0;w<=weeks;w++){pts.push(pop);const push=(repl-rate)/repl;pop=Math.max(2,Math.min(300,pop*(1+push*0.09)));}
+  const x=i=>pad+i*(W-pad*2)/weeks, y=v=>H-pad-(v/300)*(H-pad*2);
+  const d=pts.map((v,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1)).join(' ');
+  svg.innerHTML=`<line x1="${pad}" y1="${y(100)}" x2="${W-pad}" y2="${y(100)}" stroke="var(--grid)" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="${W-pad}" y="${y(100)-8}" text-anchor="end" font-size="13" fill="var(--text-dim)">where it started</text>
+  <path d="${d}" fill="none" stroke="${rate>=repl?'var(--alt)':'var(--flaw)'}" stroke-width="3.5" stroke-linecap="round"/>
+  <text x="${pad}" y="${H-8}" font-size="13" fill="var(--text-dim)">now</text>
+  <text x="${W-pad}" y="${H-8}" text-anchor="end" font-size="13" fill="var(--text-dim)">one year</text>`;
+  $('ratioLabel').textContent=rate+' million sterile males a week';
+  $('ratioVerdict').textContent = rate>=repl
+    ? 'Above what the wild population can replace, the line holds and the population runs out of children.'
+    : 'Below it, nothing collapses on the first day. The ratio just quietly tips back.';
+}
+/* ---------- capacity ---------- */
+function drawCap(spare){
+  const svg=$('capChart'); if(!svg) return;
+  const plants=spare?[{n:'Panama',v:100},{n:'Mexico',v:100},{n:'Texas',v:300}]:[{n:'Panama',v:100},{n:'Mexico',v:0},{n:'United States',v:0}];
+  const W=900,H=220,base=170,bw=120,gap=90;
+  svg.innerHTML=plants.map((p,i)=>{const h=(p.v/300)*130,x=90+i*(bw+gap);
+    return `<rect x="${x}" y="${base-h}" width="${bw}" height="${h||3}" fill="${p.v?'var(--alt)':'var(--grid)'}" rx="3"/>
+    <text x="${x+bw/2}" y="${base+22}" text-anchor="middle" font-size="15" fill="var(--text)">${p.n}</text>
+    <text x="${x+bw/2}" y="${base-h-10}" text-anchor="middle" font-size="15" fill="var(--text-dim)">${p.v?p.v+'M/wk':'none'}</text>`}).join('');
+  $('capCap').textContent=spare
+    ? 'With the spare: about 500 million flies a week across three sites — five times what stood on the day the barrier broke. Somebody has to pay for it in the quiet years.'
+    : 'One plant, 100 million flies a week, funded 90% by a country that had no production of its own.';
+}
+/* ---------- money ---------- */
+function drawMoney(){
+  const svg=$('moneyChart'); if(!svg) return;
+  const rows=[{n:'Repair request, FY2025',v:3.6,c:'var(--fact)'},{n:'Emergency funds, 2023',v:109.8,c:'var(--flaw)'},
+  {n:'Emergency funds, 2024',v:165,c:'var(--flaw)'},{n:'US share, Metapa plant',v:21,c:'var(--flaw)'},
+  {n:'Texas plant, announced',v:750,c:'var(--flaw)'}];
+  const W=900,left=250,max=750,bw=(W-left-40);
+  svg.innerHTML=rows.map((r,i)=>{const y=18+i*44,w=Math.max(3,(r.v/max)*bw);
+    return `<text x="${left-12}" y="${y+18}" text-anchor="end" font-size="15" fill="var(--text)">${r.n}</text>
+    <rect x="${left}" y="${y}" width="${w}" height="24" fill="${r.c}" rx="3"/>
+    <text x="${left+w+10}" y="${y+18}" font-size="15" fill="var(--text-dim)">$${r.v}M</text>`}).join('');
+}
+/* ---------- switch timeline ---------- */
+function buildSwitch(){
+  const wrap=$('switchTl'); if(!wrap) return;
+  wrap.innerHTML=SW.map((e,i)=>`<button data-i="${i}">${e.d} · ${e.s==='open'?'open':'closed'}</button>`).join('');
+  const show=i=>{[...wrap.children].forEach((b,k)=>b.classList.toggle('on',k===i));$('switchDetail').textContent=SW[i].t};
+  [...wrap.children].forEach(b=>b.onclick=()=>show(+b.dataset.i));
+  show(0);
+}
+/* ---------- design cards ---------- */
+function buildCards(){
+  const wrap=$('designCards'); if(!wrap) return;
+  wrap.innerHTML=DESIGNS.map((d,i)=>`<div class="card${i===0?' on':''}" data-i="${i}"><h3>${d.k}</h3><div class="price">Price: ${d.p}</div></div>`).join('');
+  [...wrap.children].forEach(c=>c.onclick=()=>{[...wrap.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawRatio(100);drawCap(false);drawMoney();buildSwitch();buildCards();
+
+if(!isAuto){
+  $('ratio').addEventListener('input',e=>drawRatio(+e.target.value));
+  $('capA').onclick=()=>{$('capA').classList.add('on');$('capB').classList.remove('on');drawCap(false)};
+  $('capB').onclick=()=>{$('capB').classList.add('on');$('capA').classList.remove('on');drawCap(true)};
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  /* listen mode */
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s1') master.call(()=>{let v=160;const step=()=>{v-=5;if(v>=40){drawRatio(v);setTimeout(step,900)}};step()},null,t+2);
+    if(s.id==='s3') master.call(()=>{drawCap(false);setTimeout(()=>drawCap(true),Math.min(20000,d*500))},null,t+2);
+    if(s.id==='s5') master.call(()=>{let i=0;const step=()=>{if(i<SW.length){[...$('switchTl').children].forEach((b,k)=>b.classList.toggle('on',k===i));$('switchDetail').textContent=SW[i].t;i++;setTimeout(step,Math.max(2500,d*1000/SW.length))}};step()},null,t+2);
+    master.set(s,{className:'section'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  // ?spd=0.05 — прогон в двадцать раз быстрее реального времени: так verify.mjs
+  // и record.mjs проверяют, что таймлайн доходит до конца и ставит __episodeDone.
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
