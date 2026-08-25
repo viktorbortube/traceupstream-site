@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — A Tire Does Three Jobs. California Measured Two.</title>
+<meta name="description" content="California's replacement tire rule sets hard numbers on rolling resistance and wet grip, the two properties an outside lab can verify. Tread life — the third corner of the trade-off — is graded by the manufacturer itself, and both ways out of the rule are opened by self-certified marks.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#55606B;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:160px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.tl{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.tl button{font-family:var(--font-mono);font-size:12px;padding:7px 10px;border:1px solid var(--grid);background:var(--bg-raised);border-radius:6px;cursor:pointer;color:var(--text)}
+.tl button.on{border-color:var(--flaw);color:var(--flaw)}
+.slider{width:100%;max-width:520px}
+.ctrl{font-family:var(--font-mono);font-size:13px;color:var(--text-dim);margin:4px 0 10px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:94px}
+body.auto h2{font-size:64px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:100px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .tl,body.auto .ctrl,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.048</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="42.4">
+  <div class="kicker">Trace Upstream · Episode 048</div>
+  <h1>A tire does three jobs. California measured two.</h1>
+  <div class="prose lede keep">
+    <p>A tire has to roll cheaply, grip a wet road and not wear away — and the three fight each other. Two of them can be measured by an outside lab. The third is graded <em class="flaw">by the company selling the tire</em>.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">3</div><div class="l">jobs one compound has to do</div></div>
+    <div class="stat"><div class="n">2</div><div class="l">with a test anyone can repeat</div></div>
+    <div class="stat"><div class="n">1979</div><div class="l">the year the third test was written</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="66.3">
+  <h2>One piece of rubber, three jobs</h2>
+  <div class="prose">
+    <p>Soft rubber grips beautifully and wears out fast. Hard rubber rolls cheaply and lasts, and slides when the road is wet. The industry calls it the <em class="fact">magic triangle</em>: improve one corner and you usually pay for it in one of the other two.</p>
+    <p>This is not a business decision. It is a property of the material — the stickiness that holds a wet road and the softness that wastes energy are the same behavior in the same rubber. Chemistry has bent the triangle. Nobody has abolished it.</p>
+    <p>So a tire is a compromise, and somebody chooses where the compromise sits. Until this vote, in America, that somebody was whoever bought the tire, mostly without knowing they were choosing.</p>
+  </div>
+  <div class="fig">
+    <h3>Move one corner, watch the others</h3>
+    <div class="ctrl">Tune the compound: <input id="mix" class="slider" type="range" min="0" max="100" value="50" aria-label="Compound tuning, from long wearing to high grip"></div>
+    <svg id="tri" viewBox="0 0 900 300" width="100%" height="300" role="img" aria-label="The magic triangle: rolling resistance, wet grip and tread life move against each other"></svg>
+    <div class="figcap" id="triCap">Two corners are measured by an independent lab. The third is graded by the manufacturer.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="48.1">
+  <h2>What the rule actually says</h2>
+  <div class="prose">
+    <p>On 17 August 2026 the California Energy Commission adopted the country's first efficiency standard for replacement tires, <em class="fact">5–0</em>. A tire built for sale in the state has to come in under 9 on the scale that measures its drag, and from 2033 under <em class="fact">7.1</em> — roughly the average of the tires car makers already fit at the factory. Wet braking has a floor of 1.0, which means exactly as good as a standard reference tire.</p>
+    <p>The state's own accounting: $1.50 more per tire in the first phase, $6.50 in the second, against about $180 of fuel saved over the life of a set. And the commission's finding on everything else — <em class="flaw">no adverse trade-offs</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Where the ceilings sit</h3>
+    <svg id="scale" viewBox="0 0 900 250" width="100%" height="250" role="img" aria-label="Rolling resistance ceilings compared: Europe, California phase one and phase two"></svg>
+    <div class="figcap">Rolling resistance coefficient. Europe's mandatory maximum for passenger tires cuts off the worst tail; California's second phase moves into the middle of the distribution.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="63.8">
+  <h2>Rule one — two jobs have an outside referee</h2>
+  <div class="prose">
+    <p>Rolling resistance goes on a machine: the tire is pressed against a steel drum, spun up, and the drag is read off directly under an international procedure that fixes the load, the pressure and the temperature. Hand the same tire to a lab in another country and the same answer comes back.</p>
+    <p>Wet grip works by comparison. That floor of 1.0 does not mean one of anything — it means exactly as good as <em class="fact">the reference tire</em>, a specific standard tire with a part number that exists for no other purpose than to be what everyone else is measured against. Your tire and that tire run the same wet track on the same day, and the number that comes out is a ratio.</p>
+    <p>A limit is only a limit if somebody outside the company can check it. On these two corners, they can.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="79.3">
+  <h2>Rule two — the third job is graded by the maker</h2>
+  <div class="prose">
+    <p>Tread life is measured in America by a system built in 1979. The manufacturer takes a convoy of cars to a 400-mile loop of highway near San Angelo, Texas, runs its own tires alongside a standard reference tire for <em class="fact">7,200 miles</em>, measures the rubber lost, extrapolates the rest of the tire's life, and assigns the grade.</p>
+    <p>The manufacturer runs the test. The manufacturer extrapolates. The manufacturer assigns the number that goes on the sidewall. Seven thousand miles is a small fraction of a tire's life, so most of that number was never measured — it is a projection, made by the company and <em class="flaw">checked by nobody</em>.</p>
+    <p>The federal agency sets the procedure and does not verify the result before the tire goes on sale. There are no routine audits. Reporting a grade lower than you measured is expressly allowed; reporting one higher is not. So a 400 from one brand and a 400 from another are not the same claim about the world.</p>
+    <p>None of that is hidden. It is how the federal rule is written, and the industry has known it for 47 years. California's own staff report says it plainly: manufacturers are able to under-report the results.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="51.3">
+  <h2>Rule three — the ways out are graded by the maker too</h2>
+  <div class="prose">
+    <p>California wrote strict numbers on the two corners with an outside referee. On the third it could not, because there is nothing to write against. But the rule still depends on that third number — it leans on it harder than before.</p>
+    <p>The rule has ways out, and they are sensible ones. A tire built to last a very long time gets a looser rolling resistance limit: <em class="fact">0.4</em> of slack in the first phase, <em class="fact">0.7</em> in the second, and up to <em class="fact">1.4</em> for the longest-lasting. That is good design; it admits the triangle exists.</p>
+    <p>But the gate to that slack is the tread life grade. The self-run, self-assigned, under-reporting-permitted grade. <em class="flaw">The looser your limit, the more it rests on a number you wrote about yourself.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="74">
+  <h2>The door that opened in July</h2>
+  <div class="prose">
+    <p>Winter tires sit outside the rule entirely: no limit, no reporting. Qualifying used to require a judgement call about whether a tire was really meant for winter. In July the commission struck that, which is ordinarily good practice — it replaces an official's discretion with an objective test. What remains is a snow traction figure and the three-peak snowflake on the sidewall.</p>
+    <p>So light truck all-terrain tires carrying that snowflake are now outside the rule altogether — a segment the commission's own testing put among the worst it measured, on drag and on wet grip alike. And <em class="flaw">that snowflake is awarded on the manufacturer's own test as well</em>.</p>
+    <p>The wet floor can be checked: anyone who doubts it can buy the tire and run it against the reference. Nobody can do that with the third number. The hard number gets written where there is something to measure with, and the compromise migrates to the corner where there is not.</p>
+  </div>
+  <div class="fig">
+    <h3>Which door your tire goes through — and who confirms it</h3>
+    <div class="tl" id="doors"></div>
+    <div class="figcap" id="doorDetail">Pick a route.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="94.2">
+  <h2>The sentence that should worry you</h2>
+  <div class="prose">
+    <p>The law that gave California this power, passed in 2003, carries an instruction: the commission has to show its standards do not shorten average tire life. Not with a wear test — <em class="flaw">no controlled tread life testing was run for this rulemaking</em>. The data came in as sidewall grades and one retailer's private mileage model. Pooled, it showed no meaningful relationship between wear and efficiency, and the commission concluded there was no adverse trade-off.</p>
+    <p>And there is one more sentence, in the cost analysis. The model that produced the savings figure assumes a <em class="fact">four year tire life — in the world with the rule, and in the world without it</em>. The same four years in both. Which means the model cannot show the harm it is being used to rule out. That is not a wrong answer. It is a question that was not asked.</p>
+    <p>The savings arrive as fuel, so you collect them by driving miles. At the state's assumed 10,413 miles a year, the tires pay back the markup in under seven months of a four-year life. Drive less and you still collect — just slower.</p>
+  </div>
+  <div class="fig">
+    <h3>When the markup pays itself back</h3>
+    <div class="ctrl">Your annual mileage: <input id="miles" class="slider" type="range" min="2000" max="20000" step="500" value="10413" aria-label="Annual mileage"> <span id="milesLabel"></span></div>
+    <svg id="payback" viewBox="0 0 900 220" width="100%" height="220" role="img" aria-label="Months to pay back the tire markup against annual mileage"></svg>
+    <div class="figcap">Phase 2 markup of $6.50 a tire against fuel saved at the state's own assumptions. The four-year bar is the life the state's model assumes — and assumes identically with and without the rule.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="58.8">
+  <h2>Design one — a low floor with a label on top</h2>
+  <div class="prose">
+    <p>Europe is not a swap for California's approach: it is a low floor with a label above it. Mandatory minimums have been in place for years — a wet grip floor and a rolling resistance ceiling. But that ceiling sits at <em class="fact">10.5</em>, on the same scale where California is heading for 7.1. It cuts off the worst tail and nothing else. Everything above is sorted by the label: a grade from A to E for fuel and for wet grip, on the price tag, so the buyer picks.</p>
+    <p><em class="flaw">Price:</em> somebody has to read it. By the European Commission's own report this year, 39% of buyers recalled seeing the label at all, down from 50% in 2017, and three quarters of British drivers take whatever the fitter recommends. It works, slowly — but a label moves the market at the speed of attention, and hands its savings to the people who were already going to read the small print.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s9" data-duration="64.4">
+  <h2>Design two — build the missing referee</h2>
+  <div class="prose">
+    <p>Fix the actual defect: give the third corner a referee — an independent, repeatable way to measure how long a tire lasts, held by someone other than the manufacturer. International regulators are inching there, writing requirements for the first time for worn tires rather than new ones.</p>
+    <p><em class="flaw">Price:</em> building a test like that takes years, and every tire pays for it in its price. And tread life is where the compromise goes when the other two corners are pinned. Pin the third as well and the space engineers work in closes from all three sides at once — that is the version where tires really do leave the shelves. California also cannot do this one alone: the tread life system is federal. A state can write its own standard on top of that measurement, but it cannot repair the measurement. <em class="flaw">It is building on a ruler it is not allowed to fix.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s10" data-duration="51.9">
+  <h2>Design three — average the shelf, not each tire</h2>
+  <div class="prose">
+    <p>The 2003 statute asks that replacement tires be at least as efficient as factory tires — <em class="fact">on average</em>. You could hold each manufacturer's California sales to that average, the way fuel economy rules hold a car maker's whole fleet, instead of holding every single tire to a line. Then the grippy, short-lived, brilliant tire survives, as long as the volume around it is efficient.</p>
+    <p><em class="flaw">Price:</em> you have to audit sales rather than products, which is a larger machine than testing rubber. The worst tire stays on the shelf, so the argument that a floor protects the buyer who does not know what to look for goes away. And an average is manageable: discount the good model, move more of it, and the number comes right without the bad model changing at all.</p>
+  </div>
+  <div class="fig">
+    <h3>Three designs, three prices</h3>
+    <div class="cards" id="cards"></div>
+    <div class="figcap">None of these wins. Each moves the cost somewhere else — that is the point of showing all three.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s11" data-duration="75.4">
+  <h2>Two questions under every number</h2>
+  <div class="prose keep">
+    <p>None of this makes California's rule a bad rule. The fuel savings are real, most tires on the road already clear the first step, and the commission pushed both deadlines back when the industry objected — which is what listening looks like. It is a rule with a known dependency: two of its numbers can be checked by anyone, the third cannot, and that is where the ways out are.</p>
+    <p>Which points at the cheapest design of all, and the only one California can build alone: leave the rule as written, and require that the grade opening the slack be confirmed by an independent lab rather than by the applicant. Somebody has to pay for that convoy in Texas. The state cannot repair a federal measurement — but it can decline to let an unchecked number through its own door.</p>
+    <p>So when any rule names a number, two questions sit underneath it that almost never make the news. <em class="flaw">Who runs the test? And who checks the answer?</em> If the answer to both is the party being regulated, what you are looking at is not a limit. It is a promise, written in the language of a limit. It may well be kept. But you now know which number to ask about first.</p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" href="https://www.youtube.com/@TraceUpstream" target="_blank" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+const DOORS=[
+ {k:'Ordinary passenger tire',t:'Full limits apply: under 9.0 now, 7.1 from 2033, wet grip at least 1.0. Both numbers can be re-run by any independent lab.',who:'Independent lab can verify'},
+ {k:'Long-life tire',t:'0.4 of extra rolling resistance now, 0.7 from 2033 — the gate is a treadwear score of 800 or more.',who:'Manufacturer grades itself'},
+ {k:'Ultra-long-life, UHP, run-flat',t:'Up to 1.4 of extra rolling resistance. The long-life route is opened by the same self-assigned score.',who:'Manufacturer grades itself'},
+ {k:'Three-peak snowflake',t:'Outside the rule entirely: no rolling resistance limit, no wet grip floor, no reporting. Qualifying is a snow traction figure plus the sidewall symbol.',who:'Manufacturer certifies itself'}];
+const CARDS=[
+ {k:'A low floor with a label',p:'Somebody has to read it — 39% of European buyers recall seeing the label, down from 50% in 2017. Savings go to those who read small print.'},
+ {k:'Build the missing referee',p:'Years to build and validate; every tire pays for the testing. Pin all three corners and the design space really does close.'},
+ {k:'Average the shelf',p:'Audit sales, not products. The worst tire stays available, and an average can be managed with discounts instead of engineering.'}];
+
+function drawTri(mix){
+  const svg=$('tri'); if(!svg) return;
+  // mix 0 = tuned for long wear, 100 = tuned for wet grip
+  const grip=30+ (mix/100)*65, wear=95-(mix/100)*70, roll=88-Math.abs(mix-35)*0.55;
+  const corners=[{n:'WET GRIP',v:grip,x:450,y:52,who:'measured by an outside lab'},
+                 {n:'ROLLS CHEAPLY',v:roll,x:150,y:250,who:'measured by an outside lab'},
+                 {n:'LASTS LONG',v:wear,x:750,y:250,who:'graded by the manufacturer'}];
+  const pts=corners.map(c=>`${c.x},${c.y}`).join(' ');
+  svg.innerHTML=`<polygon points="${pts}" fill="none" stroke="var(--grid)" stroke-width="2"/>`+
+   corners.map(c=>{const r=10+(c.v/100)*26,self=c.who.indexOf('manufacturer')>=0;
+    return `<circle cx="${c.x}" cy="${c.y}" r="${r.toFixed(1)}" fill="${self?'var(--flaw)':'var(--fact)'}" opacity="${self?.9:.85}"/>
+      <text x="${c.x}" y="${c.y-r-14}" text-anchor="middle" font-size="16" fill="var(--text)">${c.n}</text>
+      <text x="${c.x}" y="${c.y+r+24}" text-anchor="middle" font-size="13" fill="${self?'var(--flaw)':'var(--text-dim)'}">${c.who}</text>`}).join('');
+  $('triCap').textContent = mix>62
+    ? 'Tuned for grip: the compound softens, and tread life pays for it — in the corner nobody independently measures.'
+    : mix<38
+    ? 'Tuned for long wear and low drag: the wet corner gives way — and that one is checked, so the rule catches it.'
+    : 'Two corners are measured by an independent lab. The third is graded by the manufacturer.';
+}
+function drawScale(){
+  const svg=$('scale'); if(!svg) return;
+  const lo=6,hi=11,pad=70,W=900,y=120;
+  const X=v=>pad+((v-lo)/(hi-lo))*(W-pad*2);
+  const marks=[{v:10.5,l:'EU maximum',c:'var(--alt)',up:1},
+               {v:9.0,l:'California 2029',c:'var(--fact)',up:0},
+               {v:7.1,l:'California 2033',c:'var(--flaw)',up:1},
+               {v:7.1,l:'factory-fit average',c:'var(--text-dim)',up:0}];
+  let s=`<line x1="${pad}" y1="${y}" x2="${W-pad}" y2="${y}" stroke="var(--text)" stroke-width="2"/>`;
+  for(let v=6;v<=11;v++) s+=`<line x1="${X(v)}" y1="${y-6}" x2="${X(v)}" y2="${y+6}" stroke="var(--grid)" stroke-width="2"/>
+    <text x="${X(v)}" y="${y+30}" text-anchor="middle" font-size="13" fill="var(--text-dim)">${v}</text>`;
+  marks.forEach((m,i)=>{const x=X(m.v),dy=m.up?-1:1,off=m.up?(i===0?54:86):(i===1?58:92);
+    s+=`<line x1="${x}" y1="${y}" x2="${x}" y2="${y+dy*off}" stroke="${m.c}" stroke-width="2" stroke-dasharray="4 4"/>
+      <circle cx="${x}" cy="${y}" r="6" fill="${m.c}"/>
+      <text x="${x}" y="${y+dy*off+(m.up?-8:20)}" text-anchor="middle" font-size="16" fill="${m.c}">${m.l} · ${m.v}</text>`});
+  s+=`<text x="${pad}" y="${y+62}" font-size="13" fill="var(--text-dim)">more efficient</text>
+      <text x="${W-pad}" y="${y+62}" text-anchor="end" font-size="13" fill="var(--text-dim)">more drag</text>`;
+  svg.innerHTML=s;
+}
+function drawPayback(mi){
+  const svg=$('payback'); if(!svg) return;
+  // state assumptions: 10,413 mi/yr pays back $6.50/tire in under 7 months
+  const months=Math.round(7*(10413/mi)*10)/10;
+  const W=900,pad=60,barY=70,maxM=48,bw=W-pad*2;
+  const w=Math.min(bw,(months/maxM)*bw);
+  svg.innerHTML=`<rect x="${pad}" y="${barY}" width="${bw}" height="34" fill="var(--grid)" rx="4"/>
+   <rect x="${pad}" y="${barY}" width="${w.toFixed(1)}" height="34" fill="var(--flaw)" rx="4"/>
+   <text x="${pad}" y="${barY-14}" font-size="15" fill="var(--text)">${months} months to pay back the markup</text>
+   <text x="${W-pad}" y="${barY-14}" text-anchor="end" font-size="15" fill="var(--text-dim)">48 months = the life the model assumes</text>
+   <line x1="${W-pad}" y1="${barY-4}" x2="${W-pad}" y2="${barY+42}" stroke="var(--text)" stroke-width="2"/>
+   <text x="${pad}" y="${barY+78}" font-size="14" fill="var(--text-dim)">Every driver collects — the question the model never asks is whether the tire is still there at four years.</text>`;
+  $('milesLabel').textContent=mi.toLocaleString('en-US')+' miles/year'+(Math.abs(mi-10413)<300?' — the state’s assumption':'');
+}
+function buildDoors(){
+  const w=$('doors'); if(!w) return;
+  w.innerHTML=DOORS.map((e,i)=>`<button data-i="${i}">${e.k}</button>`).join('');
+  const show=i=>{[...w.children].forEach((b,k)=>b.classList.toggle('on',k===i));
+    $('doorDetail').innerHTML=DOORS[i].t+' <strong>'+DOORS[i].who+'.</strong>'};
+  [...w.children].forEach(b=>b.onclick=()=>show(+b.dataset.i));
+  show(0);
+}
+function buildCards(){
+  const w=$('cards'); if(!w) return;
+  w.innerHTML=CARDS.map((c,i)=>`<div class="card${i===0?' on':''}"><h3>${c.k}</h3><div class="price">Price: ${c.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawTri(50);drawScale();drawPayback(10413);buildDoors();buildCards();
+
+if(!isAuto){
+  $('mix').addEventListener('input',e=>drawTri(+e.target.value));
+  $('miles').addEventListener('input',e=>drawPayback(+e.target.value));
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s1') master.call(()=>{let v=50,dir=1;const step=()=>{v+=dir*2;if(v>=96)dir=-1;if(v<=8)dir=1;drawTri(v);setTimeout(step,340)};step()},null,t+2);
+    if(s.id==='s6') master.call(()=>{let i=0;const step=()=>{if(i<DOORS.length){[...$('doors').children].forEach((b,k)=>b.classList.toggle('on',k===i));
+      $('doorDetail').innerHTML=DOORS[i].t+' <strong>'+DOORS[i].who+'.</strong>';i++;setTimeout(step,Math.max(2600,d*1000/DOORS.length))}};step()},null,t+2);
+    if(s.id==='s7') master.call(()=>{let m=20000;const step=()=>{m-=500;if(m>=2000){drawPayback(m);setTimeout(step,420)}};step()},null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>

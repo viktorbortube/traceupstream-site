@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Шина делает три работы. Измерили две</title>
+<meta name="description" content="Калифорнийское правило о шинах на замену пишет жёсткие числа там, где измерение может повторить посторонняя лаборатория: сопротивление качению и сцепление на мокром. Третий угол компромисса, ресурс протектора, оценивает сам производитель, и оба выхода из правила открываются самосертифицированными метками.">
+<link rel="canonical" href="https://traceupstream.com/episodes/048-grade-your-own-tire/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#55606B;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:160px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.tl{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.tl button{font-family:var(--font-mono);font-size:12px;padding:7px 10px;border:1px solid var(--grid);background:var(--bg-raised);border-radius:6px;cursor:pointer;color:var(--text)}
+.tl button.on{border-color:var(--flaw);color:var(--flaw)}
+.slider{width:100%;max-width:520px}
+.ctrl{font-family:var(--font-mono);font-size:13px;color:var(--text-dim);margin:4px 0 10px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:94px}
+body.auto h2{font-size:64px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:100px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .tl,body.auto .ctrl,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.048</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="52.2">
+  <div class="kicker">Дефект конструкции · Выпуск 048</div>
+  <h1>Шина делает три работы. Калифорния измерила две.</h1>
+  <div class="prose lede keep">
+    <p>Шина должна легко катиться, цепляться за мокрую дорогу и не стираться, и эти три работы тянут в разные стороны. Две из них может измерить посторонняя лаборатория. Третью оценивает <em class="flaw">та компания, которая шину продаёт</em>.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">3</div><div class="l">работы у одного состава резины</div></div>
+    <div class="stat"><div class="n">2</div><div class="l">с испытанием, которое можно повторить</div></div>
+    <div class="stat"><div class="n">1979</div><div class="l">год, когда написали третье испытание</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="79.6">
+  <h2>Один кусок резины, три работы</h2>
+  <div class="prose">
+    <p>Мягкая резина отлично цепляется и быстро стирается. Жёсткая катится легко и живёт долго, а на мокром скользит. В отрасли это называют <em class="fact">магическим треугольником</em>: улучшили один угол, обычно платите за это в одном из двух других.</p>
+    <p>Это не решение отдела продаж, а свойство материала: липкость, которая держит мокрую дорогу, и мягкость, которая съедает топливо, — это одно и то же поведение одной и той же резины. Химия треугольник растянула. Отменить его не смогла.</p>
+    <p>Значит, шина — это компромисс, и кто-то решает, где он стоит. До этого голосования в Америке решал тот, кто покупал шину, чаще всего не зная, что он вообще что-то выбирает.</p>
+  </div>
+  <div class="fig">
+    <h3>Подвиньте один угол, посмотрите на другие</h3>
+    <div class="ctrl">Настройка состава: <input id="mix" class="slider" type="range" min="0" max="100" value="50" aria-label="Настройка состава: от долговечного к цепкому"></div>
+    <svg id="tri" viewBox="0 0 900 300" width="100%" height="300" role="img" aria-label="Магический треугольник: сопротивление качению, сцепление на мокром и ресурс протектора тянут друг против друга"></svg>
+    <div class="figcap" id="triCap">Два угла меряет независимая лаборатория. Третий оценивает производитель.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="61">
+  <h2>Что именно говорит правило</h2>
+  <div class="prose">
+    <p>Семнадцатого августа 2026 года Калифорнийская энергетическая комиссия <em class="fact">единогласно</em> приняла первый в стране норматив эффективности для шин на замену. Шина, сделанная для продажи в штате, должна укладываться в 9 по шкале, которая меряет её сопротивление, а с 2033 года — в <em class="fact">7,1</em>: примерно столько в среднем дают шины, которые автозаводы и так ставят на новые машины. У торможения на мокром есть пол в 1,0, и это означает «ровно так же хорошо, как эталонная шина».</p>
+    <p>По расчёту самого штата: полтора доллара надбавки на шину в первой фазе, шесть с половиной во второй, против примерно 180 долларов сэкономленного топлива за срок жизни комплекта. И вывод комиссии обо всём остальном — <em class="flaw">никаких неблагоприятных компромиссов</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Где стоят потолки</h3>
+    <svg id="scale" viewBox="0 0 900 250" width="100%" height="250" role="img" aria-label="Потолки по сопротивлению качению: Европа, первая и вторая фазы Калифорнии"></svg>
+    <div class="figcap">Коэффициент сопротивления качению. Обязательный европейский максимум для легковых шин срезает худший хвост; вторая фаза Калифорнии заходит в середину распределения.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="73.4">
+  <h2>Правило первое: у двух работ есть посторонний судья</h2>
+  <div class="prose">
+    <p>Сопротивление качению меряют на станке: шину прижимают к стальному барабану, раскручивают и снимают сопротивление напрямую, по международной процедуре, которая задаёт нагрузку, давление и температуру. Отдайте ту же шину в лабораторию в другой стране, и вам вернётся тот же ответ.</p>
+    <p>Сцепление на мокром меряют сравнением. Пол в 1,0 не означает «одна штука» чего-либо: он означает «ровно так же хорошо, как <em class="fact">эталонная шина</em>». Есть конкретная стандартная шина со своим артикулом, и существует она только ради одного: быть тем, с чем сравнивают всех остальных. Ваша шина и эта шина проходят один и тот же мокрый трек в один и тот же день, и на выходе получается отношение.</p>
+    <p>Ограничение является ограничением только тогда, когда кто-то со стороны может его проверить. В этих двух углах — может.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="93.6">
+  <h2>Правило второе: третью работу оценивает производитель</h2>
+  <div class="prose">
+    <p>Ресурс протектора в Америке меряют системой, построенной в 1979 году. Производитель выгоняет колонну машин на кольцо длиной в 400 миль по шоссе под городом Сан-Анджело в Техасе, катает там свои шины рядом со стандартной эталонной <em class="fact">7200 миль</em>, замеряет, сколько резины сошло, экстраполирует остаток жизни шины и назначает оценку.</p>
+    <p>Испытание проводит производитель. Экстраполирует производитель. И число, которое пойдёт на боковину, назначает тоже производитель. Семь тысяч миль — малая часть жизни шины, поэтому большая часть этой оценки вообще не измерена: это прогноз, сделанный компанией и <em class="flaw">не проверенный никем</em>.</p>
+    <p>Федеральное ведомство задаёт процедуру и не проверяет результат до того, как шина попадёт в продажу. Регулярных проверок нет. Занижать оценку против измеренного прямо разрешено, завышать нельзя. Поэтому 400 у одной марки и 400 у другой — это утверждения о разных вещах.</p>
+    <p>Ничего из этого не скрыто. Так написано федеральное правило, и отрасль знает это 47 лет. Собственный отчёт калифорнийских специалистов говорит прямо: производители имеют возможность занижать результаты.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="71.1">
+  <h2>Правило третье: выходы оценивает тот же производитель</h2>
+  <div class="prose">
+    <p>На двух углах, где есть посторонний судья, Калифорния написала строгие числа. На третьем не смогла, потому что писать не против чего. Но зависеть от третьего числа правило не перестало: оно стало опираться на него сильнее прежнего.</p>
+    <p>У правила есть выходы, и выходы разумные. Шине, сделанной жить очень долго, разрешают более мягкий предел по сопротивлению качению: <em class="fact">0,4</em> запаса в первой фазе, <em class="fact">0,7</em> во второй и до <em class="fact">1,4</em> для самых долгоживущих. Это хорошая конструкция: она признаёт, что треугольник существует.</p>
+    <p>Но калитку к этому запасу открывает оценка ресурса. Та самая, где производитель сам проводит испытание, сам достраивает остаток и сам ставит оценку. А занижать её разрешено. <em class="flaw">Чем мягче ваш предел, тем сильнее он держится на числе, которое вы написали про себя.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="95.2">
+  <h2>Дверь, которая открылась в июле</h2>
+  <div class="prose">
+    <p>Зимние шины стоят вне правила целиком: ни предела, ни отчётности. Раньше, чтобы попасть в эту категорию, требовалось оценочное суждение о том, действительно ли шина предназначена для зимы. В июле комиссия это убрала, и по обычным меркам такое считается хорошей практикой: вместо усмотрения чиновника ставится объективный признак. Осталось два признака: показатель сцепления на снегу и значок «три вершины и снежинка» на боковине.</p>
+    <p>А значит, лёгкогрузовые вседорожные шины с этим значком теперь вообще вне правила. Именно этот сегмент собственные испытания комиссии поставили в число худших и по сопротивлению качению, и по сцеплению на мокром. И <em class="flaw">значок со снежинкой производитель тоже получает по собственному испытанию</em>.</p>
+    <p>Пол по мокрому проверить можно: любой сомневающийся вправе купить шину и прогнать её против эталона. С третьим числом так не сделает никто. Строгое число пишут там, где есть чем мерить, а компромисс уходит в тот угол, где мерить нечем.</p>
+  </div>
+  <div class="fig">
+    <h3>В какую дверь идёт ваша шина и кто это подтверждает</h3>
+    <div class="tl" id="doors"></div>
+    <div class="figcap" id="doorDetail">Выберите маршрут.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="121.9">
+  <h2>Фраза, которая должна вас насторожить</h2>
+  <div class="prose">
+    <p>У закона, который дал Калифорнии это полномочие, есть указание: комиссия обязана показать, что нормативы не сокращают средний срок службы шины. Закон принят в 2003 году. И показали это не испытанием на износ: <em class="flaw">контролируемых испытаний ресурса под это нормотворчество не проводили</em>. Данные пришли оценками с боковины и непубличной моделью пробега, которую считает одна из торговых сетей. В сумме связи между износом и экономичностью не обнаружилось, и комиссия заключила, что неблагоприятного компромисса нет.</p>
+    <p>И есть ещё одна фраза, в расчёте затрат. Модель, из которой вышла цифра экономии, закладывает <em class="fact">срок жизни шины в четыре года: и в мире, где правило есть, и в мире, где правила нет</em>. Одни и те же четыре года в обоих. А значит, эта модель не способна показать тот вред, отсутствие которого ею доказывают. Это не неверный ответ. Это вопрос, который не задали.</p>
+    <p>Экономия приходит топливом, то есть её собирают милями. При заложенных штатом 10 413 милях в год шины отбивают надбавку меньше чем за семь месяцев из четырёхлетнего срока. Ездите меньше — соберёте всё равно, просто медленнее.</p>
+  </div>
+  <div class="fig">
+    <h3>Когда надбавка окупается</h3>
+    <div class="ctrl">Ваш годовой пробег: <input id="miles" class="slider" type="range" min="2000" max="20000" step="500" value="10413" aria-label="Годовой пробег"> <span id="milesLabel"></span></div>
+    <svg id="payback" viewBox="0 0 900 220" width="100%" height="220" role="img" aria-label="Сколько месяцев окупается надбавка при разном годовом пробеге"></svg>
+    <div class="figcap">Надбавка второй фазы в шесть с половиной долларов на шину против сэкономленного топлива по допущениям самого штата. Отметка в четыре года — это срок, который модель штата закладывает одинаково и с правилом, и без него.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="72.8">
+  <h2>Конструкция первая: низкий пол, а над ним этикетка</h2>
+  <div class="prose">
+    <p>Европа — это не замена калифорнийского подхода, а низкий пол с этикеткой над ним. Обязательные минимумы там есть давно: пол по сцеплению на мокром и потолок по сопротивлению качению. Но потолок стоит на <em class="fact">10,5</em> по той же шкале, где Калифорния идёт к 7,1. Он отсекает худший хвост и больше ничего. Всё, что выше, сортирует этикетка: класс от А до Е по расходу и по мокрому, прямо на ценнике, и выбирает покупатель.</p>
+    <p><em class="flaw">Цена:</em> этикетку кто-то должен прочитать. По собственному отчёту Еврокомиссии за этот год, увидеть её у полки припомнили 39% покупателей против 50% в 2017-м, а три четверти британских водителей берут то, что посоветовал мастер. Работает, медленно. Но этикетка двигает рынок со скоростью внимания и отдаёт экономию тем, кто и так собирался читать мелкий шрифт.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s9" data-duration="70.4">
+  <h2>Конструкция вторая: построить недостающего судью</h2>
+  <div class="prose">
+    <p>Починить сам дефект: дать третьему углу судью. Независимый воспроизводимый способ измерять, сколько шина живёт, и держать его должен не производитель. Международные регуляторы туда потихоньку идут: впервые пишут требования не к новой шине, а к изношенной.</p>
+    <p><em class="flaw">Цена:</em> разработать такое испытание — это годы, и оплатит его каждая шина в своей цене. А ресурс — это тот угол, куда уходит компромисс, когда два других прижаты. Прижмите и третий, и пространство, в котором работает инженер, сожмётся сразу с трёх сторон: вот тогда шины действительно уйдут с полок. И в одиночку Калифорния этого не сделает: система оценки ресурса федеральная. Штат может написать свой норматив поверх этого измерения, но починить само измерение не может. <em class="flaw">Он строит на линейке, которую ему не разрешено чинить.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s10" data-duration="70.2">
+  <h2>Конструкция третья: среднее по полке, а не черта под каждой шиной</h2>
+  <div class="prose">
+    <p>Закон 2003 года просит, чтобы шины на замену были не менее экономичными, чем заводские, — <em class="fact">в среднем</em>. Можно держать в этом среднем все продажи производителя в Калифорнии, как правила расхода топлива держат весь модельный ряд автозавода, вместо того чтобы гнать под черту каждую отдельную шину. Тогда цепкая, недолговечная, прекрасная шина выживет, если её уравновешивает экономичный тираж.</p>
+    <p><em class="flaw">Цена:</em> проверять придётся продажи, а не изделия, а это машина крупнее, чем испытание резины. Худшая шина остаётся на полке, и довод «пол защищает того, кто не разбирается» перестаёт работать. А средним можно управлять: сделайте скидку на хорошую модель, продайте её больше, и среднее сойдётся, а плохая модель не изменится вовсе.</p>
+  </div>
+  <div class="fig">
+    <h3>Три конструкции, три цены</h3>
+    <div class="cards" id="cards"></div>
+    <div class="figcap">Ни одна не выигрывает. Каждая переносит цену куда-то ещё, и ради этого они и показаны все три.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s11" data-duration="97">
+  <h2>Два вопроса под любым числом</h2>
+  <div class="prose keep">
+    <p>Ничто из этого не делает калифорнийское правило плохим. Экономия топлива настоящая, большинство шин на дорогах уже проходит первый порог, а обе даты комиссия сдвинула, когда отрасль возразила: так выглядит умение слушать. Это правило с известной зависимостью: два его числа может проверить кто угодно, третье не может никто, и именно там находятся выходы.</p>
+    <p>Отсюда видна самая дешёвая конструкция и единственная, которую Калифорния может построить сама: оставить правило как написано и потребовать, чтобы оценку, открывающую послабление, подтверждала независимая лаборатория, а не сам заявитель. Кому-то придётся оплатить ту колонну в Техасе. Федеральное измерение штат починить не может, но может не пропускать непроверенное число в собственную дверь.</p>
+    <p>Поэтому, когда любое правило называет число, под ним лежат два вопроса, которые почти никогда не попадают в новости. <em class="flaw">Кто проводит испытание? И кто проверяет ответ?</em> Если и там и там ответ «тот, кого регулируют», то перед вами не ограничение. Перед вами обещание, написанное языком ограничения. Возможно, его и сдержат. Но вы теперь знаете, про какое число спрашивать первым.</p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" href="https://www.youtube.com/@defekt-konstrukcii" target="_blank" rel="noopener">Подписаться</a>
+  <div class="kicker" style="margin-top:14px"><a href="../" style="color:var(--text-dim)">In English →</a></div>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать нарацию">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+const DOORS=[
+ {k:'Обычная легковая шина',t:'Действуют полные пределы: сейчас меньше 9,0, с 2033 года 7,1, сцепление на мокром не ниже 1,0. Оба числа может перепроверить любая независимая лаборатория.',who:'Проверяемо посторонней лабораторией'},
+ {k:'Шина длинного ресурса',t:'Сейчас 0,4 дополнительного запаса по сопротивлению качению, с 2033 года 0,7. Калитку открывает балл износа от 800 и выше.',who:'Оценку ставит сам производитель'},
+ {k:'Сверхдлинный ресурс, UHP, run-flat',t:'До 1,4 дополнительного запаса по сопротивлению качению. Маршрут длинного ресурса открывает тот же самостоятельно назначенный балл.',who:'Оценку ставит сам производитель'},
+ {k:'Три вершины и снежинка',t:'Полностью вне правила: ни предела по качению, ни пола по мокрому, ни отчётности. Достаточно показателя сцепления на снегу и значка на боковине.',who:'Производитель сертифицирует себя сам'}];
+const CARDS=[
+ {k:'Низкий пол и этикетка',p:'Её кто-то должен прочитать: увидеть этикетку припомнили 39% европейских покупателей против 50% в 2017-м. Экономия достаётся тем, кто читает мелкий шрифт.'},
+ {k:'Построить недостающего судью',p:'Годы на разработку и проверку, и платит за испытания каждая шина. Прижмите все три угла, и конструкторское пространство действительно закроется.'},
+ {k:'Среднее по полке',p:'Проверять придётся продажи, а не изделия. Худшая шина остаётся в продаже, а средним можно управлять скидками вместо инженерии.'}];
+
+function drawTri(mix){
+  const svg=$('tri'); if(!svg) return;
+  // mix 0 = tuned for long wear, 100 = tuned for wet grip
+  const grip=30+ (mix/100)*65, wear=95-(mix/100)*70, roll=88-Math.abs(mix-35)*0.55;
+  const corners=[{n:'МОКРОЕ',v:grip,x:450,y:52,who:'меряет посторонняя лаборатория'},
+                 {n:'КАЧЕНИЕ',v:roll,x:150,y:250,who:'меряет посторонняя лаборатория'},
+                 {n:'РЕСУРС',v:wear,x:750,y:250,who:'оценивает производитель'}];
+  const pts=corners.map(c=>`${c.x},${c.y}`).join(' ');
+  svg.innerHTML=`<polygon points="${pts}" fill="none" stroke="var(--grid)" stroke-width="2"/>`+
+   corners.map(c=>{const r=10+(c.v/100)*26,self=c.who.indexOf('производитель')>=0;
+    return `<circle cx="${c.x}" cy="${c.y}" r="${r.toFixed(1)}" fill="${self?'var(--flaw)':'var(--fact)'}" opacity="${self?.9:.85}"/>
+      <text x="${c.x}" y="${c.y-r-14}" text-anchor="middle" font-size="16" fill="var(--text)">${c.n}</text>
+      <text x="${c.x}" y="${c.y+r+24}" text-anchor="middle" font-size="13" fill="${self?'var(--flaw)':'var(--text-dim)'}">${c.who}</text>`}).join('');
+  $('triCap').textContent = mix>62
+    ? 'Настроено на сцепление: состав мягче, и платит за это ресурс — в том углу, который никто независимо не меряет.'
+    : mix<38
+    ? 'Настроено на долгий ресурс и низкое сопротивление: сдаёт мокрый угол, а он проверяется, поэтому правило это ловит.'
+    : 'Два угла меряет независимая лаборатория. Третий оценивает производитель.';
+}
+function drawScale(){
+  const svg=$('scale'); if(!svg) return;
+  const lo=6,hi=11,pad=70,W=900,y=120;
+  const X=v=>pad+((v-lo)/(hi-lo))*(W-pad*2);
+  const marks=[{v:10.5,l:'максимум ЕС',c:'var(--alt)',up:1},
+               {v:9.0,l:'Калифорния 2029',c:'var(--fact)',up:0},
+               {v:7.1,l:'Калифорния 2033',c:'var(--flaw)',up:1},
+               {v:7.1,l:'среднее заводских шин',c:'var(--text-dim)',up:0}];
+  let s=`<line x1="${pad}" y1="${y}" x2="${W-pad}" y2="${y}" stroke="var(--text)" stroke-width="2"/>`;
+  for(let v=6;v<=11;v++) s+=`<line x1="${X(v)}" y1="${y-6}" x2="${X(v)}" y2="${y+6}" stroke="var(--grid)" stroke-width="2"/>
+    <text x="${X(v)}" y="${y+30}" text-anchor="middle" font-size="13" fill="var(--text-dim)">${v}</text>`;
+  marks.forEach((m,i)=>{const x=X(m.v),dy=m.up?-1:1,off=m.up?(i===0?54:86):(i===1?58:92);
+    s+=`<line x1="${x}" y1="${y}" x2="${x}" y2="${y+dy*off}" stroke="${m.c}" stroke-width="2" stroke-dasharray="4 4"/>
+      <circle cx="${x}" cy="${y}" r="6" fill="${m.c}"/>
+      <text x="${x}" y="${y+dy*off+(m.up?-8:20)}" text-anchor="middle" font-size="16" fill="${m.c}">${m.l} · ${m.v}</text>`});
+  s+=`<text x="${pad}" y="${y+62}" font-size="13" fill="var(--text-dim)">экономичнее</text>
+      <text x="${W-pad}" y="${y+62}" text-anchor="end" font-size="13" fill="var(--text-dim)">больше сопротивление</text>`;
+  svg.innerHTML=s;
+}
+function drawPayback(mi){
+  const svg=$('payback'); if(!svg) return;
+  // state assumptions: 10,413 mi/yr pays back $6.50/tire in under 7 months
+  const months=Math.round(7*(10413/mi)*10)/10;
+  const W=900,pad=60,barY=70,maxM=48,bw=W-pad*2;
+  const w=Math.min(bw,(months/maxM)*bw);
+  svg.innerHTML=`<rect x="${pad}" y="${barY}" width="${bw}" height="34" fill="var(--grid)" rx="4"/>
+   <rect x="${pad}" y="${barY}" width="${w.toFixed(1)}" height="34" fill="var(--flaw)" rx="4"/>
+   <text x="${pad}" y="${barY-14}" font-size="15" fill="var(--text)">${months} мес. на возврат надбавки</text>
+   <text x="${W-pad}" y="${barY-14}" text-anchor="end" font-size="15" fill="var(--text-dim)">48 мес. — срок, который закладывает модель</text>
+   <line x1="${W-pad}" y1="${barY-4}" x2="${W-pad}" y2="${barY+42}" stroke="var(--text)" stroke-width="2"/>
+   <text x="${pad}" y="${barY+78}" font-size="14" fill="var(--text-dim)">Возвращают все. Модель не задаёт другой вопрос: доживёт ли шина до четырёх лет.</text>`;
+  $('milesLabel').textContent=mi.toLocaleString('ru-RU')+' миль в год'+(Math.abs(mi-10413)<300?', допущение штата':'');
+}
+function buildDoors(){
+  const w=$('doors'); if(!w) return;
+  w.innerHTML=DOORS.map((e,i)=>`<button data-i="${i}">${e.k}</button>`).join('');
+  const show=i=>{[...w.children].forEach((b,k)=>b.classList.toggle('on',k===i));
+    $('doorDetail').innerHTML=DOORS[i].t+' <strong>'+DOORS[i].who+'.</strong>'};
+  [...w.children].forEach(b=>b.onclick=()=>show(+b.dataset.i));
+  show(0);
+}
+function buildCards(){
+  const w=$('cards'); if(!w) return;
+  w.innerHTML=CARDS.map((c,i)=>`<div class="card${i===0?' on':''}"><h3>${c.k}</h3><div class="price">Price: ${c.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawTri(50);drawScale();drawPayback(10413);buildDoors();buildCards();
+
+if(!isAuto){
+  $('mix').addEventListener('input',e=>drawTri(+e.target.value));
+  $('miles').addEventListener('input',e=>drawPayback(+e.target.value));
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s1') master.call(()=>{let v=50,dir=1;const step=()=>{v+=dir*2;if(v>=96)dir=-1;if(v<=8)dir=1;drawTri(v);setTimeout(step,340)};step()},null,t+2);
+    if(s.id==='s6') master.call(()=>{let i=0;const step=()=>{if(i<DOORS.length){[...$('doors').children].forEach((b,k)=>b.classList.toggle('on',k===i));
+      $('doorDetail').innerHTML=DOORS[i].t+' <strong>'+DOORS[i].who+'.</strong>';i++;setTimeout(step,Math.max(2600,d*1000/DOORS.length))}};step()},null,t+2);
+    if(s.id==='s7') master.call(()=>{let m=20000;const step=()=>{m-=500;if(m>=2000){drawPayback(m);setTimeout(step,420)}};step()},null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
