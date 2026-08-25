@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Самая безопасная сеть та, которую выключили</title>
+<meta name="description" content="Выключить свет — единственная противопожарная мера, которая ничего не стоит энергокомпании: ущерб от пожара закон посчитал, ущерб от отключения оценил в ноль, а перестройка сети возвращается через тариф только за десятилетия. Рино, август 2026, и три конструкции с настоящими ценами.">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#7A6250;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:800;font-size:48px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:32px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:68ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:180px}
+.stat .n{font-family:var(--font-display);font-weight:800;font-size:42px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.tl{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.tl button{font-family:var(--font-mono);font-size:12px;padding:7px 10px;border:1px solid var(--grid);background:var(--bg-raised);border-radius:6px;cursor:pointer;color:var(--text)}
+.tl button.on{border-color:var(--flaw);color:var(--flaw)}
+.slider{width:100%;max-width:520px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:86px}
+body.auto h2{font-size:60px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:42ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:92px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .tl,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">ВЫПУСК 047</div>
+<div class="deck">
+
+<section class="section" id="s0" data-duration="68.3">
+  <div class="kicker">Дефект конструкции · выпуск 047</div>
+  <h1>Самая безопасная сеть та, которую выключили</h1>
+  <div class="prose lede keep">
+    <p>Пожар над городом Рино, штат Невада. Сорок две тысячи человек эвакуированы. И десять тысяч потребителей обесточены <em class="flaw">намеренно</em> — что при таком близком огне было, скорее всего, правильно. Вопрос в другом: почему выключатель — самый дешёвый ход из тех, что есть у компании.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">10 000</div><div class="l">потребителей обесточены 22 августа</div></div>
+    <div class="stat"><div class="n">0 $</div><div class="l">во столько это обошлось компании</div></div>
+    <div class="stat"><div class="n">3 млн $</div><div class="l">за милю, если вместо этого закапывать</div></div>
+  </div>
+</section>
+
+<section class="section" id="s1" data-duration="114.5">
+  <h2>Две колонки, одна из них пустая</h2>
+  <div class="prose">
+    <p>У компании, чьи провода идут через сухую местность, два способа не дать им сжечь город: перестраивать сеть десятилетиями или выключить электричество сегодня вечером. Оба законны, оба снижают риск — и правила оценили их совершенно по-разному.</p>
+    <p>Если провода зажгли пожар, ущерб становится обязательством. Дальше всех зашла Калифорния: там компания платит за сгоревшее имущество, <em class="fact">даже если не нарушила ни одного правила</em>. В Неваде не так: Эн-Ви Энерджи судили бы обычным порядком, выясняя, была ли она небрежна. С одной деталью — письменная политика отключения, которой не воспользовались в ночь пожара, становится доводом против компании.</p>
+    <p>Если же компания выключает свет, ущерб ложится на потребителя, и <em class="flaw">считать его её ничто не обязывает</em>. Это не решение суда. Это её собственная опубликованная позиция.</p>
+  </div>
+  <div class="fig">
+    <div class="toggle" role="group" aria-label="Как ведётся счёт">
+      <button id="ledA" class="on">Как считают сейчас</button><button id="ledB">Если считать обе стороны</button>
+    </div>
+    <svg id="ledger" viewBox="0 0 900 240" width="100%" height="240" role="img" aria-label="Две стороны счёта: как считают сейчас и как если бы считали обе"></svg>
+    <div class="figcap" id="ledCap">Ущерб от пожара измеряют, взыскивают и платят. Ущерб от отключения реален и ложится на потребителей, но складывать его никакое правило не требует.</div>
+  </div>
+</section>
+
+<section class="section" id="s2" data-duration="166.7">
+  <h2>Во что обходится бесплатный вариант</h2>
+  <div class="prose">
+    <p>Отключение — это не мигание света. Перед подачей напряжения всю сеть надо осмотреть глазами, поэтому плановое событие длится от суток до нескольких. За это время исчезают холодильник, насос в скважине, кислородный концентратор и терминал в магазине.</p>
+    <p>Калифорния поставила этот опыт в масштабе. В две тысячи девятнадцатом Пасифик Гэс энд Электрик за сезон отключила два миллиона потребителей, в одном крупнейшем событии — около восьмисот тысяч разом. В затронутых округах было больше тридцати тысяч абонентов медицинского минимума, и в трёх отключениях компания не сумела предупредить тысячу сто из них.</p>
+    <p>Регулятор действовал — но за предупреждения, а не за решение. Около <em class="fact">20 миллионов</em> кредитами и батареями, плюс 86 миллионов по требованию губернатора: сто долларов домохозяйству, двести пятьдесят малому бизнесу. Против <em class="flaw">2,5 миллиарда</em> экономических потерь от одного октябрьского отключения.</p>
+  </div>
+  <div class="fig">
+    <h3>Сколько потеряли и сколько вернули</h3>
+    <svg id="loss" viewBox="0 0 900 220" width="100%" height="220" role="img" aria-label="Оценка потерь от одного отключения против выплаченных компенсаций"></svg>
+    <div class="figcap">Оценка потерь — Майкл Уэйра, Стэнфорд, по октябрьскому событию 2019 года. Компенсации — решение комиссии Калифорнии и выплаты по требованию губернатора.</div>
+  </div>
+</section>
+
+<section class="section" id="s3" data-duration="90.9">
+  <h2>Правило первое: сторона пожара посчитана жёстко</h2>
+  <div class="prose">
+    <p>В две тысячи восемнадцатом пожар Кэмп-Файр уничтожил город Парадайз в Калифорнии и убил восемьдесят пять человек. Пасифик Гэс энд Электрик, чьё оборудование его зажгло, в январе подала на банкротство: требования оценивались примерно в <em class="flaw">30 миллиардов</em> долларов.</p>
+    <p>За этим стоит ответственность без вины: если оборудование стало существенной причиной пожара, компания платит независимо от того, виновата ли. Логика — компания служит обществу и может разложить издержки на все счета, и именно это делает ответственность неизбежной и огромной. Невада эту доктрину к частным компаниям не применяет: там небрежность надо доказать.</p>
+  </div>
+</section>
+
+<section class="section" id="s4" data-duration="58.4">
+  <h2>Правило второе: вторая сторона оценена в ноль</h2>
+  <div class="prose">
+    <p>В памятке Эн-Ви Энерджи об аварийном обесточивании сказано, что отключение обеспечивает безопасную подачу электроэнергии и что компания <em class="flaw">не несёт ответственности за порчу продуктов</em>. Вот и вся запись в этой колонке.</p>
+    <p>Ничего не прятали. Невада требует подавать противопожарный план, и политика лежит внутри него. Калифорния дала своим компаниям такое же полномочие в две тысячи двенадцатом, с указанием применять только как крайнюю меру. Колорадо пишет свою версию сейчас. Правительства на Западе разрешили выключатель сознательно — и ни одно не решило, кто за него платит.</p>
+  </div>
+  <div class="fig">
+    <h3>Каждый раз, когда счёт сдвигался</h3>
+    <div class="tl" id="tl"></div>
+    <div class="prose keep" style="font-size:16px"><span id="tlDetail" class="figcap" style="font-size:14px"></span></div>
+  </div>
+</section>
+
+<section class="section" id="s5" data-duration="71.1">
+  <h2>Правило третье: чинить провода выгодно, но медленно</h2>
+  <div class="prose">
+    <p>Закопать линию стоит около трёх миллионов долларов за милю; Пасифик Гэс энд Электрик прошла 384 мили из 2300 запланированных. Изолированный провод дешевле — одна калифорнийская компания называет 438 тысяч за милю, — но по собственной оценке снимает <em class="fact">меньше 65%</em> риска возгорания.</p>
+    <p>Работа не безвозмездна: деньги в сети попадают в тарифную базу и десятилетиями возвращаются с нормой прибыли. Но зарабатывает это медленно и защищает медленно. Выключатель защищает сегодня и сегодня же ничего не стоит — такой выбор правила кладут перед человеком на смене, когда поднимается ветер.</p>
+  </div>
+  <div class="fig">
+    <h3>Сколько перестройки покупает сколько отключений</h3>
+    <input class="slider" id="miles" type="range" min="0" max="100" value="17" step="1" aria-label="Доля перестроенной сети в процентах">
+    <div class="prose keep" style="font-size:16px;margin-top:8px"><span class="figcap" style="font-size:14px" id="milesLabel">17% перестроено — примерно там, где сейчас крупнейшая программа страны</span></div>
+    <svg id="nights" viewBox="0 0 900 200" width="100%" height="200" role="img" aria-label="Ночей отключений за сезон в зависимости от доли перестроенной сети"></svg>
+    <div class="figcap" id="nightsCap">Иллюстративно: выключатель — это функция от невыполненной работы, и последний участок сети всегда самый дорогой.</div>
+  </div>
+</section>
+
+<section class="section" id="s6" data-duration="51.2">
+  <div class="kicker">Конструкция первая</div>
+  <h2>Выкупить риск из провода</h2>
+  <div class="prose">
+    <p>Перестраивать сеть, пока выключатель не станет не нужен: закапывать, что можно, остальное одевать в изоляцию, и считать это постоянной программой, а не проектом.</p>
+    <p><em class="flaw">Цена.</em> При трёх миллионах за милю и при темпе крупнейшей программы страны это ответ на двадцать лет для проблемы, которая приходит каждый август. Платят потребители через счета в любом случае. И всё это время выключатель остаётся на месте, потому что у наполовину перестроенной сети есть опасная половина.</p>
+  </div>
+</section>
+
+<section class="section" id="s7" data-duration="98">
+  <div class="kicker">Конструкция вторая</div>
+  <h2>Переставить ответственность</h2>
+  <div class="prose">
+    <p>Калифорния сделала это в две тысячи девятнадцатом, и по причине, которую стоит назвать: компания только что обанкротилась, а банкротство — тот исход, при котором погорельцы получают последними. Ответственность оставили, а вокруг построили подушку: фонд на 21 миллиард, доступный когда требования по одному пожару переваливают за миллиард, сертификат безопасности, который презюмирует разумность действий, и предел того, сколько акционеры обязаны вернуть.</p>
+    <p><em class="flaw">Цена.</em> Половину фонда платят потребители — около полцента за киловатт-час, то есть подушку оплачивают те же, кто несёт отключения. Сертификат ослабляет ровно тот стимул, ради которого ответственность вводили. А погорелец предъявляет требование фонду фиксированного размера со сроком окончания в 2035 году, а не компании, за которой стоит всё её имущество.</p>
+  </div>
+</section>
+
+<section class="section" id="s8" data-duration="86.9">
+  <div class="kicker">Конструкция третья</div>
+  <h2>Назначить цену выключателю</h2>
+  <div class="prose">
+    <p>Менять не провод и не ответственность, а пустую сторону счёта: автоматическая выплата за каждый час без света, резервное питание не советом, а выданное каждому абоненту медицинского минимума, возмещение испорченного товара и закрытым магазинам. Калифорния всё это уже делала по частям — но как разовое наказание за плохие предупреждения, а не как постоянную цену меры.</p>
+    <p><em class="flaw">Цена.</em> Компания возвращает уплаченное через тарифную базу — значит, если закон не запретит, компенсации вернутся в счета всех, и выключатель снова станет бесплатным для акционера. Запретить — деньги уйдут у тех, кто должен закапывать провода. А если сделать выключатель слишком дорогим, компания может замешкаться в ту единственную ночь, когда дёрнуть его было надо.</p>
+  </div>
+  <div class="fig">
+    <h3>Три конструкции, три цены</h3>
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+<section class="section" id="s9" data-duration="74">
+  <h2>Вопрос, который стоит унести</h2>
+  <div class="prose">
+    <p>К вечеру воскресенья пожар всё ещё горел без локализации, шестеро пострадали, приёмное отделение больницы эвакуировали, а около десяти тысяч потребителей сидели в темноте не из-за повреждений, а по решению.</p>
+    <p>Ни одна из трёх конструкций этого не убирает. Перестройка сети — счёт на двадцать лет, который оплачивают те же, кого она защищает. Перестановка ответственности сохраняет компанию живой, а погорельцу выдаёт фонд фиксированного размера. Цена на выключателе поднимает счета всем и рискует секундой промедления в худшую ночь года.</p>
+    <p><em class="flaw">Когда вам предлагают меру безопасности, которая ничего не стоит — в правиле, в плане, в законе, который пишут в этом году, — что вам нужно узнать, чтобы понять, кто за неё на самом деле платит?</em></p>
+  </div>
+  <div class="cta">
+    <div style="font-family:var(--font-display);font-weight:800;font-size:22px">ДЕФЕКТ КОНСТРУКЦИИ</div>
+    <p class="figcap" style="font-size:14px">Не кто виноват — как устроено.</p>
+    <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@systemmind-ru" rel="noopener">Подписаться</a>
+    <p style="margin-top:14px"><a href="../" style="color:var(--text-dim)">In English →</a></p>
+  </div>
+</section>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+const TL=[
+ {d:'ноябрь 2018',t:'Пожар Кэмп-Файр уничтожает город Парадайз в Калифорнии, погибают 85 человек. Причина — оборудование Пасифик Гэс энд Электрик.'},
+ {d:'январь 2019',t:'Компания подаёт на банкротство: требования по пожарам оцениваются примерно в 30 миллиардов долларов.'},
+ {d:'2019',t:'Плановые отключения за сезон затрагивают два миллиона потребителей; в одном октябрьском событии — около восьмисот тысяч разом.'},
+ {d:'июль 2019',t:'Калифорния принимает закон о фонде: 21 миллиард, сертификат безопасности, презумпция разумности и предел возмещения со стороны акционеров.'},
+ {d:'2020–21',t:'Регулятор наказывает компанию за неотправленные предупреждения — около 20 миллионов кредитами и батареями. За само решение отключить не взыскано ничего.'},
+ {d:'2024',t:'Эн-Ви Энерджи оформляет политику аварийного обесточивания. В памятке сказано: за порчу продуктов компания не отвечает.'},
+ {d:'январь 2026',t:'Колорадо начинает писать собственные правила отключений. Рамки противопожарных планов есть уже в дюжине штатов.'},
+ {d:'22 авг 2026',t:'Пожар Hawk Fire подходит к оборудованию над Рино. Около десяти тысяч потребителей обесточены.'}];
+const CARDS=[
+ {k:'Перестроить сеть',p:'Счёт на двадцать лет по три миллиона за милю, который платят те же, кого он защищает, — и выключатель остаётся на месте всё это время.'},
+ {k:'Переставить ответственность',p:'Половину фонда в 21 миллиард платят потребители; сертификат ослабляет стимул; у фонда фиксированный размер и срок до 2035 года.'},
+ {k:'Назначить цену выключателю',p:'Через тариф выплаты вернутся, и для акционера он снова бесплатен; запретить возврат — деньги уйдут у тех, кто должен закапывать провода.'}];
+
+function drawLedger(both){
+  const svg=$('ledger'); if(!svg) return;
+  const base=190,bw=150;
+  const bars=[{n:'Ущерб от пожара',v:100,c:'var(--flaw)',x:150},
+              {n:'Ущерб от отключения',v:both?72:0,c:both?'var(--fact)':'var(--grid)',x:520}];
+  svg.innerHTML=bars.map(b=>{const h=(b.v/100)*140;
+    return `<rect x="${b.x}" y="${base-h}" width="${bw}" height="${h||3}" fill="${b.c}" rx="3"/>
+      <text x="${b.x+bw/2}" y="${base+24}" text-anchor="middle" font-size="15" fill="var(--text)">${b.n}</text>
+      <text x="${b.x+bw/2}" y="${base-h-10}" text-anchor="middle" font-size="15" fill="var(--text-dim)">${b.v?(b.v===100?'измерен и оплачен':'реален и теперь посчитан'):'посчитан как ноль'}</text>`}).join('');
+  $('ledCap').textContent = both
+    ? 'Если считать честно, вторая колонка не маленькая: одно октябрьское отключение оценили в два с половиной миллиарда экономических потерь.'
+    : 'Ущерб от пожара измеряют, взыскивают и платят. Ущерб от отключения реален и ложится на потребителей, но складывать его никакое правило не требует.';
+}
+function drawLoss(){
+  const svg=$('loss'); if(!svg) return;
+  const rows=[{n:'Оценка потерь, одно отключение',v:2500,c:'var(--flaw)'},
+              {n:'Выплаты по требованию губернатора',v:86,c:'var(--fact)'},
+              {n:'Кредиты по решению регулятора',v:20,c:'var(--fact)'}];
+  const left=330,max=2500,bw=500;
+  svg.innerHTML=rows.map((r,i)=>{const y=26+i*58,w=Math.max(3,(r.v/max)*bw);
+    return `<text x="${left-12}" y="${y+20}" text-anchor="end" font-size="14" fill="var(--text)">${r.n}</text>
+    <rect x="${left}" y="${y}" width="${w}" height="26" fill="${r.c}" rx="3"/>
+    <text x="${left+w+10}" y="${y+20}" font-size="14" fill="var(--text-dim)">${r.v} млн $</text>`}).join('');
+}
+function drawNights(pct){
+  const svg=$('nights'); if(!svg) return;
+  const W=900,H=200,pad=40;
+  const nights=v=>Math.round(14*Math.pow(1-v/100,1.6));
+  let d='';
+  for(let v=0;v<=100;v++){const x=pad+(v/100)*(W-pad*2), y=H-pad-(nights(v)/14)*(H-pad*2);
+    d+=(v?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)+' ';}
+  const x=pad+(pct/100)*(W-pad*2), y=H-pad-(nights(pct)/14)*(H-pad*2);
+  svg.innerHTML=`<path d="${d}" fill="none" stroke="var(--alt)" stroke-width="3"/>
+    <circle cx="${x}" cy="${y}" r="7" fill="var(--flaw)"/>
+    <text x="${x+12}" y="${y-8}" font-size="15" fill="var(--text)">${nights(pct)} ночей за сезон</text>
+    <text x="${pad}" y="${H-10}" font-size="13" fill="var(--text-dim)">ничего не перестроено</text>
+    <text x="${W-pad}" y="${H-10}" text-anchor="end" font-size="13" fill="var(--text-dim)">перестроено полностью</text>`;
+  $('milesLabel').textContent=`${pct}% перестроено`+(pct===17?' — примерно там, где сейчас крупнейшая программа страны':'');
+}
+function buildTl(){
+  const w=$('tl'); if(!w) return;
+  w.innerHTML=TL.map((e,i)=>`<button data-i="${i}">${e.d}</button>`).join('');
+  const show=i=>{[...w.children].forEach((b,k)=>b.classList.toggle('on',k===i));$('tlDetail').textContent=TL[i].t};
+  [...w.children].forEach(b=>b.onclick=()=>show(+b.dataset.i));
+  show(0);
+}
+function buildCards(){
+  const w=$('cards'); if(!w) return;
+  w.innerHTML=CARDS.map((c,i)=>`<div class="card${i===0?' on':''}"><h3>${c.k}</h3><div class="price">Цена: ${c.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawLedger(false);drawLoss();drawNights(17);buildTl();buildCards();
+
+if(!isAuto){
+  $('ledA').onclick=()=>{$('ledA').classList.add('on');$('ledB').classList.remove('on');drawLedger(false)};
+  $('ledB').onclick=()=>{$('ledB').classList.add('on');$('ledA').classList.remove('on');drawLedger(true)};
+  $('miles').addEventListener('input',e=>drawNights(+e.target.value));
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s1') master.call(()=>{drawLedger(false);setTimeout(()=>drawLedger(true),Math.min(20000,d*500))},null,t+2);
+    if(s.id==='s4') master.call(()=>{let i=0;const step=()=>{if(i<TL.length){[...$('tl').children].forEach((b,k)=>b.classList.toggle('on',k===i));$('tlDetail').textContent=TL[i].t;i++;setTimeout(step,Math.max(2200,d*1000/TL.length))}};step()},null,t+2);
+    if(s.id==='s5') master.call(()=>{let v=0;const step=()=>{v+=2;if(v<=100){drawNights(v);setTimeout(step,600)}};step()},null,t+2);
+    master.set(s,{className:'section'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>

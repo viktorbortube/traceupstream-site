@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — The Safest Grid Is the One That's Switched Off</title>
+<meta name="description" content="Cutting the power is the only wildfire measure that costs an electricity company nothing: fire damage is a priced liability, shutoff damage is priced at zero, and hardening the wire earns a return only over decades. Reno, August 2026, and three designs with real prices.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#7A6250;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:160px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.tl{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.tl button{font-family:var(--font-mono);font-size:12px;padding:7px 10px;border:1px solid var(--grid);background:var(--bg-raised);border-radius:6px;cursor:pointer;color:var(--text)}
+.tl button.on{border-color:var(--flaw);color:var(--flaw)}
+.slider{width:100%;max-width:520px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:94px}
+body.auto h2{font-size:64px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:100px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .tl,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.047</div>
+<div class="deck">
+
+<section class="section" id="s0" data-duration="56.9">
+  <div class="kicker">Trace Upstream · Episode 047</div>
+  <h1>The safest grid is the one that's switched off</h1>
+  <div class="prose lede keep">
+    <p>A fire above Reno, Nevada. Forty-two thousand people ordered out. And ten thousand customers switched off <em class="flaw">on purpose</em> — which, with the fire that close, was probably right. The question is why the switch is the cheapest move a utility has.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">10,000</div><div class="l">customers de-energised, 22 Aug 2026</div></div>
+    <div class="stat"><div class="n">$0</div><div class="l">what that costs the company</div></div>
+    <div class="stat"><div class="n">$3M</div><div class="l">a mile to bury the line instead</div></div>
+  </div>
+</section>
+
+<section class="section" id="s1" data-duration="91.6">
+  <h2>Two ledgers, one of them empty</h2>
+  <div class="prose">
+    <p>A utility whose wires run through dry country has two ways to stop them burning a town down: rebuild the network over decades, or turn the power off tonight. Both are legal, both reduce risk — and the rules price them completely differently.</p>
+    <p>If the wires start a fire, the damage is a liability. California goes furthest: a utility there owes for property damage <em class="fact">even if it broke no rule</em>. Nevada does not do that; NV Energy would be judged the ordinary way, on carelessness — with one detail that matters, because a written shutoff policy that goes unused on the night of a fire becomes evidence against the company.</p>
+    <p>If instead the company cuts the power, the loss lands on the customer, and <em class="flaw">nothing requires the company to count it</em>. That is not a court's ruling. It is the company's own published position.</p>
+  </div>
+  <div class="fig">
+    <div class="toggle" role="group" aria-label="How the ledger is kept">
+      <button id="ledA" class="on">As counted today</button><button id="ledB">If both sides counted</button>
+    </div>
+    <svg id="ledger" viewBox="0 0 900 240" width="100%" height="240" role="img" aria-label="The two sides of the ledger, as counted today and if both were counted"></svg>
+    <div class="figcap" id="ledCap">Fire damage is measured, litigated and paid. Shutoff damage is real and lands on customers, and no rule requires anyone to add it up.</div>
+  </div>
+</section>
+
+<section class="section" id="s2" data-duration="129.4">
+  <h2>What the free option actually costs</h2>
+  <div class="prose">
+    <p>A shutoff is not a flicker. Restoration requires one hundred percent of the system to be inspected by eye, so a planned event runs one to a few days. In that time the fridge, the well pump, the oxygen concentrator and the shop's card reader are simply gone.</p>
+    <p>California ran this at scale. In 2019 PG&amp;E cut power to two million customers across the season; its largest single event took out around 800,000 at once. More than 30,000 registered medical-baseline customers were in the affected counties, and across three shutoffs the company failed to warn 1,100 of them.</p>
+    <p>The regulator did act — on the warnings, not the decision. About <em class="fact">$20 million</em> in credits and backup batteries, and $86 million more at the governor's demand: $100 a household, $250 a small business. Against an estimated <em class="flaw">$2.5 billion</em> of economic loss from one October event.</p>
+  </div>
+  <div class="fig">
+    <h3>What was lost, and what was paid back</h3>
+    <svg id="loss" viewBox="0 0 900 220" width="100%" height="220" role="img" aria-label="Estimated losses from one shutoff against the credits paid back"></svg>
+    <div class="figcap">Loss estimate: Michael Wara, Stanford, for the October 2019 event. Credits: CPUC decision and the governor-ordered payments.</div>
+  </div>
+</section>
+
+<section class="section" id="s3" data-duration="65.3">
+  <h2>Rule one — the fire side is priced, and priced hard</h2>
+  <div class="prose">
+    <p>In 2018 the Camp Fire destroyed Paradise, California and killed 85 people. PG&amp;E, whose equipment started it, filed for bankruptcy that January against roughly <em class="flaw">$30 billion</em> in wildfire claims.</p>
+    <p>Behind that number sits inverse condemnation: if a utility's equipment is a substantial cause of a fire, it owes for property damage regardless of fault. The reasoning is that the company serves the public and can spread the cost through everyone's bills — which is what makes the liability certain as well as enormous. Nevada does not apply it to private utilities; there, carelessness has to be shown.</p>
+  </div>
+</section>
+
+<section class="section" id="s4" data-duration="56.9">
+  <h2>Rule two — the other side is priced at zero</h2>
+  <div class="prose">
+    <p>NV Energy's own information sheet on emergency de-energization says the shutoff ensures safe delivery of electricity, and that the company <em class="flaw">is not liable for product loss</em> as a result. That is the whole ledger entry.</p>
+    <p>Nothing here was hidden. Nevada requires a wildfire plan filed with the state, and the policy sits inside it. California gave its companies the same authority in 2012, to be used only as a last resort. Colorado is writing its own version now. Governments across the West authorised the switch deliberately — and none of them decided who pays for it.</p>
+  </div>
+  <div class="fig">
+    <h3>Every time the ledger moved</h3>
+    <div class="tl" id="tl"></div>
+    <div class="prose keep" style="font-size:16px"><span id="tlDetail" class="figcap" style="font-size:14px"></span></div>
+  </div>
+</section>
+
+<section class="section" id="s5" data-duration="60.4">
+  <h2>Rule three — fixing the wires earns, but slowly</h2>
+  <div class="prose">
+    <p>Burying a line costs about $3 million a mile; PG&amp;E has done 384 of the 2,300 miles it plans. Covered conductor is cheaper — one California utility puts it at $438,000 a mile — but PG&amp;E's own assessment is that it removes <em class="fact">less than 65%</em> of ignition risk on its own.</p>
+    <p>This work is not unrewarded: money in the network enters the rate base and earns a regulated return for decades. But it earns slowly and protects slowly. The switch protects tonight and costs nothing tonight — and that is the choice the rules put in front of the person on shift when the wind picks up.</p>
+  </div>
+  <div class="fig">
+    <h3>How much hardening buys how few shutoffs</h3>
+    <input class="slider" id="miles" type="range" min="0" max="100" value="17" step="1" aria-label="Percentage of the high-risk network hardened">
+    <div class="prose keep" style="font-size:16px;margin-top:8px"><span class="figcap" style="font-size:14px" id="milesLabel">17% hardened — roughly where the largest programme in the country stands</span></div>
+    <svg id="nights" viewBox="0 0 900 200" width="100%" height="200" role="img" aria-label="Nights of shutoff per season against the share of the network hardened"></svg>
+    <div class="figcap" id="nightsCap">Illustrative: the switch is a function of work not yet done, and the last stretch of network is the most expensive.</div>
+  </div>
+</section>
+
+<section class="section" id="s6" data-duration="37.1">
+  <div class="kicker">Design one</div>
+  <h2>Buy the risk out of the wire</h2>
+  <div class="prose">
+    <p>Keep hardening until the switch is no longer needed: bury what can be buried, wrap the rest, and treat it as a permanent programme rather than a project.</p>
+    <p><em class="flaw">The price.</em> At $3 million a mile, at the pace the largest programme in the country has managed, this is a twenty-year answer to a problem that arrives every August. Customers carry it through their bills either way. And through the whole transition the switch stays exactly where it is, because a half-hardened network still has a dangerous half.</p>
+  </div>
+</section>
+
+<section class="section" id="s7" data-duration="80.2">
+  <div class="kicker">Design two</div>
+  <h2>Move the liability</h2>
+  <div class="prose">
+    <p>California did this in 2019, and for a reason worth stating: PG&amp;E had just gone bankrupt, and bankruptcy is the outcome in which burned-out families are paid last and least. So the law kept the liability and built a cushion around it — a $21 billion fund available once claims from a single fire pass $1 billion, a safety certificate that presumes a certified company acted reasonably, and a limit on how much shareholders must put back.</p>
+    <p><em class="flaw">The price.</em> Half the fund is paid by customers, at about half a cent per kilowatt-hour — the households already carrying the shutoffs also capitalise the cushion. The certificate weakens the exact incentive the liability existed to create. And a burned-out family now files against a fund of fixed size with a statutory end date in 2035, instead of a company with everything it owns behind the claim.</p>
+  </div>
+</section>
+
+<section class="section" id="s8" data-duration="67.7">
+  <div class="kicker">Design three</div>
+  <h2>Put a price on the switch</h2>
+  <div class="prose">
+    <p>Change neither the wire nor the liability, but the empty side of the ledger: an automatic payment for every hour a customer is dark, backup power supplied rather than suggested to every medical-baseline customer, compensation for spoiled stock and shops that could not open. California has done every piece of this once — but as a one-off punishment for bad warnings, not as the standing price of the measure.</p>
+    <p><em class="flaw">The price.</em> A utility recovers what it is made to pay, through the rate base — so unless the law forbids it, the compensation returns through everybody's bill and the switch is free to the shareholder again. Forbid it, and the money comes from the people who are supposed to be burying the wire. And make the switch expensive enough, and a company may hesitate on the one night it should have thrown it.</p>
+  </div>
+  <div class="fig">
+    <h3>Three designs, three prices</h3>
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+<section class="section" id="s9" data-duration="56.4">
+  <h2>The question worth carrying out</h2>
+  <div class="prose">
+    <p>By Sunday night the fire was still uncontained, six people were hurt, a hospital emergency room had been evacuated, and about 10,000 customers were dark by decision rather than by damage.</p>
+    <p>None of the three designs makes that go away. Hardening is a twenty-year bill paid by the people it protects. Moving the liability keeps the company alive and hands the burned-out family a fund of fixed size. Pricing the switch raises everyone's bill and risks a moment's hesitation on the worst night of the year. Each moves the cost somewhere else — and each puts a different group in the room when the decision gets made.</p>
+    <p><em class="flaw">When somebody offers you a safety measure that costs nothing — in a rule, in a plan, in a law being written this year — what would you need to know to find out who is actually paying for it?</em></p>
+  </div>
+  <div class="cta">
+    <div style="font-family:var(--font-display);font-weight:700;font-size:22px">TRACE UPSTREAM</div>
+    <p class="figcap" style="font-size:14px">Not who's to blame — how it's built.</p>
+    <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+  </div>
+</section>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+const TL=[
+ {d:'Nov 2018',t:'The Camp Fire destroys Paradise, California and kills 85 people. Its cause is traced to PG&E equipment.'},
+ {d:'Jan 2019',t:'PG&E files for bankruptcy against roughly $30 billion in wildfire claims.'},
+ {d:'2019',t:'Planned shutoffs reach two million customers across the season; one October event takes out about 800,000 at once.'},
+ {d:'Jul 2019',t:'California passes AB 1054: a $21 billion fund, a safety certificate that presumes reasonable conduct, and a limit on shareholder repayment.'},
+ {d:'2020–21',t:'The regulator penalises PG&E for the warnings it failed to send — about $20 million in credits and batteries. Nothing is charged for the decision to cut power.'},
+ {d:'2024',t:'NV Energy formalises emergency de-energization: when a fire reaches its equipment, the power goes off. Its sheet states it is not liable for product loss.'},
+ {d:'Jan 2026',t:'Colorado begins writing its own shutoff rules. Wildfire plan frameworks now exist across the West.'},
+ {d:'22 Aug 2026',t:'The Hawk Fire reaches NV Energy equipment above Reno. About 10,000 customers are switched off.'}];
+const CARDS=[
+ {k:'Harden the wire',p:'A twenty-year bill at $3M a mile, paid by the customers it protects — and the switch stays through the whole transition.'},
+ {k:'Move the liability',p:'Half the $21B fund comes from customers; the safety certificate weakens the incentive; the fund has a fixed size and expires in 2035.'},
+ {k:'Price the switch',p:'Recovered through the rate base, it is free to the shareholder again; forbidden, it takes money from hardening — and may cause hesitation on the wrong night.'}];
+
+function drawLedger(both){
+  const svg=$('ledger'); if(!svg) return;
+  const W=900,base=190,bw=150;
+  const bars=[{n:'Fire damage',v:100,c:'var(--flaw)',x:150},
+              {n:'Shutoff damage',v:both?72:0,c:both?'var(--fact)':'var(--grid)',x:520}];
+  svg.innerHTML=bars.map(b=>{const h=(b.v/100)*140;
+    return `<rect x="${b.x}" y="${base-h}" width="${bw}" height="${h||3}" fill="${b.c}" rx="3"/>
+      <text x="${b.x+bw/2}" y="${base+24}" text-anchor="middle" font-size="15" fill="var(--text)">${b.n}</text>
+      <text x="${b.x+bw/2}" y="${base-h-10}" text-anchor="middle" font-size="15" fill="var(--text-dim)">${b.v?(b.v===100?'measured and paid':'real, and now counted'):'counted as zero'}</text>`}).join('');
+  $('ledCap').textContent = both
+    ? 'Counted honestly, the second column is not small: one October shutoff alone was estimated at $2.5 billion of economic loss.'
+    : 'Fire damage is measured, litigated and paid. Shutoff damage is real and lands on customers, and no rule requires anyone to add it up.';
+}
+function drawLoss(){
+  const svg=$('loss'); if(!svg) return;
+  const rows=[{n:'Estimated loss, one shutoff',v:2500,c:'var(--flaw)'},
+              {n:'Governor-ordered credits',v:86,c:'var(--fact)'},
+              {n:'Regulator’s penalty credits',v:20,c:'var(--fact)'}];
+  const left=280,max=2500,bw=560;
+  svg.innerHTML=rows.map((r,i)=>{const y=26+i*58,w=Math.max(3,(r.v/max)*bw);
+    return `<text x="${left-12}" y="${y+20}" text-anchor="end" font-size="15" fill="var(--text)">${r.n}</text>
+    <rect x="${left}" y="${y}" width="${w}" height="26" fill="${r.c}" rx="3"/>
+    <text x="${left+w+10}" y="${y+20}" font-size="15" fill="var(--text-dim)">$${r.v}M</text>`}).join('');
+}
+function drawNights(pct){
+  const svg=$('nights'); if(!svg) return;
+  const W=900,H=200,pad=40;
+  const nights=v=>Math.round(14*Math.pow(1-v/100,1.6));
+  let d='';
+  for(let v=0;v<=100;v++){const x=pad+(v/100)*(W-pad*2), y=H-pad-(nights(v)/14)*(H-pad*2);
+    d+=(v?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)+' ';}
+  const x=pad+(pct/100)*(W-pad*2), y=H-pad-(nights(pct)/14)*(H-pad*2);
+  svg.innerHTML=`<path d="${d}" fill="none" stroke="var(--alt)" stroke-width="3"/>
+    <circle cx="${x}" cy="${y}" r="7" fill="var(--flaw)"/>
+    <text x="${x+12}" y="${y-8}" font-size="15" fill="var(--text)">${nights(pct)} nights a season</text>
+    <text x="${pad}" y="${H-10}" font-size="13" fill="var(--text-dim)">nothing hardened</text>
+    <text x="${W-pad}" y="${H-10}" text-anchor="end" font-size="13" fill="var(--text-dim)">fully hardened</text>`;
+  $('milesLabel').textContent=`${pct}% hardened`+(pct===17?' — roughly where the largest programme in the country stands':'');
+}
+function buildTl(){
+  const w=$('tl'); if(!w) return;
+  w.innerHTML=TL.map((e,i)=>`<button data-i="${i}">${e.d}</button>`).join('');
+  const show=i=>{[...w.children].forEach((b,k)=>b.classList.toggle('on',k===i));$('tlDetail').textContent=TL[i].t};
+  [...w.children].forEach(b=>b.onclick=()=>show(+b.dataset.i));
+  show(0);
+}
+function buildCards(){
+  const w=$('cards'); if(!w) return;
+  w.innerHTML=CARDS.map((c,i)=>`<div class="card${i===0?' on':''}"><h3>${c.k}</h3><div class="price">Price: ${c.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawLedger(false);drawLoss();drawNights(17);buildTl();buildCards();
+
+if(!isAuto){
+  $('ledA').onclick=()=>{$('ledA').classList.add('on');$('ledB').classList.remove('on');drawLedger(false)};
+  $('ledB').onclick=()=>{$('ledB').classList.add('on');$('ledA').classList.remove('on');drawLedger(true)};
+  $('miles').addEventListener('input',e=>drawNights(+e.target.value));
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s1') master.call(()=>{drawLedger(false);setTimeout(()=>drawLedger(true),Math.min(20000,d*500))},null,t+2);
+    if(s.id==='s4') master.call(()=>{let i=0;const step=()=>{if(i<TL.length){[...$('tl').children].forEach((b,k)=>b.classList.toggle('on',k===i));$('tlDetail').textContent=TL[i].t;i++;setTimeout(step,Math.max(2200,d*1000/TL.length))}};step()},null,t+2);
+    if(s.id==='s5') master.call(()=>{let v=0;const step=()=>{v+=2;if(v<=100){drawNights(v);setTimeout(step,600)}};step()},null,t+2);
+    master.set(s,{className:'section'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
