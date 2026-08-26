@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — 127 стран согласны. Голосования не было ни разу</title>
+<meta name="description" content="Сто двадцать семь государств хотят обязательный закон об оружии, которое само выбирает цель. Вопрос отнесли в орган, решающий консенсусом, поэтому большинство не проигрывает голосование: голосования просто не бывает. Дефект — в правиле принятия решений, а не в оружии.">
+<link rel="canonical" href="https://traceupstream.com/episodes/049-never-a-vote/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#4C5A6B;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:160px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.tl{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.tl button{font-family:var(--font-mono);font-size:12px;padding:7px 10px;border:1px solid var(--grid);background:var(--bg-raised);border-radius:6px;cursor:pointer;color:var(--text)}
+.tl button.on{border-color:var(--flaw);color:var(--flaw)}
+.ctrl{font-family:var(--font-mono);font-size:13px;color:var(--text-dim);margin:4px 0 10px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:94px}
+body.auto h2{font-size:64px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:100px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .tl,body.auto .ctrl,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.049</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="48.2">
+  <div class="kicker">Дефект конструкции · Выпуск 049</div>
+  <h1>127 стран согласны. Голосования не было ни разу.</h1>
+  <div class="prose lede keep">
+    <p>Есть комната, где решение существует, только если согласны все. Двенадцать лет в ней решают, можно ли машине самой выбирать, в кого стрелять. Чтобы остановить там весь мир, <em class="flaw">хватит одной поднятой руки</em>.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">127</div><div class="l">государств хотят обязательный закон</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">отказывают в согласии</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">голосований за двенадцать лет</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="47.9">
+  <h2>Комната</h2>
+  <div class="prose">
+    <p>Любой международный вопрос надо куда-то отнести, а вместе с адресом достаётся процедура. Этот отнесли в группу экспертов при конвенции об обычных вооружениях, а она работает <em class="fact">консенсусом</em> — не большинством и не двумя третями. Решение есть, только если никто не сказал «нет».</p>
+    <p>Для большинства тем это разумно: крупные не могут перевесить малых голосами, а то, что выходит из зала, поддержано всеми и потому исполняется. Теперь приложите правило сюда. Отказывающих мало, просящих закон много: <em class="flaw">многим нужны немногие, а немногим не нужен никто</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Одни и те же голоса, три правила</h3>
+    <div class="toggle" role="group" aria-label="Правило принятия решения">
+      <button id="rC" class="on">Консенсус</button><button id="r23">Две трети</button><button id="rM">Простое большинство</button>
+    </div>
+    <svg id="rule" viewBox="0 0 900 220" width="100%" height="220" role="img" aria-label="Один и тот же расклад 127 против 6 при трёх разных правилах"></svg>
+    <div class="figcap" id="ruleCap">При единогласии счёт не имеет значения: решает один отказ, поэтому голосование и не проводят.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="57.3">
+  <h2>Двенадцать лет</h2>
+  <div class="prose">
+    <p>Разговоры начались в 2014-м. В 2023-м группе выдали свежий мандат: <em class="fact">рассматривать возможные элементы</em> будущего документа, а не писать его. В том же году одна делегация не дала утвердить правила процедуры самой группы, и на это ушёл целый рабочий день.</p>
+    <p>Двенадцать лет, ни текста, ни переговоров, и ни одного проигранного голосования: не на что показать и сказать «идею отвергли», потому что её ни разу не ставили. Один раз, в 2024-м, мир всё-таки проголосовал — за перенос темы в Генеральную Ассамблею, где хватает большинства. <em class="flaw">Туда её тоже не внесли.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Что решено на каждом шаге</h3>
+    <div class="tl" id="tl"></div>
+    <div class="figcap" id="tlDetail">Выберите год.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="33">
+  <h2>Заблокировать бесплатно</h2>
+  <div class="prose">
+    <p>Голосовать против дорого. Надо назвать, против чего вы, найти союзников — один голос это один голос, — и ваше имя уходит в протокол.</p>
+    <p>Отказ в консенсусе не стоит ничего из этого. Довод не нужен: его никто не проверяет. Союзники не нужны: хватает одного. Объясняться не нужно: встреча просто кончается без текста, а это не новость. <em class="flaw">Одной стороне нужно 127 согласий. Другой — один отказ.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="27.6">
+  <h2>Замок с внутренней стороны</h2>
+  <div class="prose">
+    <p>Казалось бы, поменяйте процедуру. Но процедуру меняют по процедуре, а она консенсусная: те, кого единогласие защищает, должны сами от него отказаться. <em class="flaw">Комната, устроенная так, чтобы не решать, не может решить и переустроить себя.</em></p>
+    <p>Никто не жульничает. Все следуют правилам буквально, а правила писали по хорошим причинам люди, которые про такое оружие ещё не слышали.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="64.4">
+  <h2>Другая сторона</h2>
+  <div class="prose">
+    <p>Эти шестеро — Соединённые Штаты, Россия, Израиль, Индия, Австралия и Южная Корея. Такой список не ложится ни на чью внутреннюю политику, и это первый признак, что спор не про правых и левых. Китай — ни в одном лагере: он говорит «да» обязательному закону, <em class="fact">когда согласуют определения</em>, а определения и есть то, что не согласуют никогда.</p>
+    <p>Довод простой. Договор связывает того, кто подписал. Те, кто вероятнее всего построит такое оружие, вероятнее всего и не подпишут: значит, запрет свяжет руки тем, кто и не собирался строить, и даст преимущество всякому, кто остался снаружи. Изнутри этой логики блокировать — не обструкция, <em class="flaw">это отказ разоружаться в одиночку</em>. Запомните: этот довод сломает все три выхода.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="34.9">
+  <h2>Выход первый: всё-таки проголосовать</h2>
+  <div class="prose">
+    <p>Перестать соблюдать единогласие. В ноябре в Женеве собирается обзорная конференция, и она может решить большинством. Сто двадцать семь против шести — спорить не о чем.</p>
+    <p><em class="flaw">Цена:</em> такой договор свяжет тех, кто и не был проблемой, то есть докажет только что услышанное возражение вашим же способом. А консенсус — это то, что держит шестерых в зале: сломайте его, они уйдут, и вы окажетесь во втором выходе, не выбрав его.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="65">
+  <h2>Выход второй: уйти и построить снаружи</h2>
+  <div class="prose">
+    <p>Так уже делали. Мины, 1997. Кассетные боеприпасы, 2008. Оба договора написаны в стороне от возражавших, оба выросли огромными, и миллионы складированных мин под ними уничтожены.</p>
+    <p>А теперь посмотрите на прошлый год. Из договора о минах вышли пять европейских стран: три страны Балтии, потом Финляндия, потом Польша, последний выход вступил в силу в феврале. Украина действие договора приостановила. Польша, уничтожившая при вступлении больше миллиона своих мин, объявила о <em class="flaw">пяти-шести миллионах новых</em> для восточной границы; Финляндия возобновляет производство.</p>
+    <p>Здесь эта конструкция и заканчивается. Правило, построенное без тех, у кого оружие в руках, продержалось четверть века и прогнулось, когда война подошла к границе подписавшей страны.</p>
+  </div>
+  <div class="fig">
+    <h3>Договор о запрете мин, 1997–2026</h3>
+    <svg id="ott" viewBox="0 0 900 200" width="100%" height="200" role="img" aria-label="Число участников договора о минах с 1997 года и пять выходов в 2025–2026"></svg>
+    <div class="figcap">Рост почти до всеобщего участия, а затем первая череда выходов за всю историю договора — и все они у стран, граничащих с войной.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="68.8">
+  <h2>Выход третий: определить человека</h2>
+  <div class="prose">
+    <p>Двенадцать лет ушло на определение машины: любое определение либо захватывает оружие, которому сорок лет, либо не достаёт до того, чего боятся. Тогда переверните. Запретите то, чьё поведение никто не может предсказать, и всё, что построено стрелять по людям; для остального закрепите границы заранее — где работает, как долго, по каким целям — и поставьте сверху человека, который видит работу и может выключить.</p>
+    <p><em class="flaw">Цена:</em> никто не может сказать, что делает этот контроль настоящим. Когда военные выбирают цель, решение размазано по многим людям и многим минутам, единой точки для ответственности нет, а офицер, утверждающий сто целей в минуту, выполняет требование буквально. И проверить нельзя: ракетные шахты считают с орбиты, но <em class="flaw">заглянуть внутрь программы, которая выбирает цель, не выйдет</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Три выхода, три цены</h3>
+    <div class="cards" id="cards"></div>
+    <div class="figcap">Ни один не выигрывает. Каждый упирается в одну и ту же фразу, и в этом смысл выпуска.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s9" data-duration="78.2">
+  <h2>Любая дорога идёт через то же согласие</h2>
+  <div class="prose keep">
+    <p>Значит, стройте не договор, а проверку: общие процедуры испытаний, обязательный отчёт об инцидентах, чёрный ящик в оружии, который пишет, что оно решило и когда. А теперь приложите к этому тот же довод. Чёрный ящик попадает в оружие, когда государство-производитель согласилось, — значит, записи придут от тех, кто вас и не беспокоил, и ничего от шестерых. <em class="flaw">Любая дорога наружу идёт через согласие тех, кого вы больше всего хотите связать.</em></p>
+    <p>Комната тут не злодей. Проиграть голосование сильным — настоящий вред, и малые государства десятилетиями прячутся за консенсусом. Все в зале следуют правилам правильно. В этом и дело.</p>
+    <p>Поэтому, когда очевидное не происходит, полезный вопрос редко звучит как «кто против». Полезный вопрос — <em class="flaw">в какую комнату это отнесли и что этой комнате нужно, чтобы сказать «да»</em>. Если ответ «нужны все», исход был решён до того, как кто-то открыл рот.</p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" href="https://www.youtube.com/@defekt-konstrukcii" target="_blank" rel="noopener">Подписаться</a>
+  <div class="kicker" style="margin-top:14px"><a href="../" style="color:var(--text-dim)">In English →</a></div>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать нарацию">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+const TL=[
+ {d:'2014',t:'Под конвенцией об обычных вооружениях начинаются неформальные встречи по автономному оружию.'},
+ {d:'2016',t:'Создана группа правительственных экспертов. Работает консенсусом: решение есть, только если ни одно государство не возражает.'},
+ {d:'2023',t:'Свежий мандат: рассматривать возможные элементы документа, а не согласовывать его. Одна делегация блокирует правила процедуры самой группы, теряется целый рабочий день.'},
+ {d:'2023',t:'Генеральный секретарь ООН и Красный Крест совместно призывают заключить обязывающий документ к 2026 году.'},
+ {d:'2024',t:'Мир голосует за внесение темы в повестку Генеральной Ассамблеи, где хватает большинства. Туда ничего не вносят.'},
+ {d:'2026',t:'Срок истекает, переговоры так и не начаты. В августе призыв повторяют.'},
+ {d:'Ноябрь 2026',t:'Обзорная конференция в Женеве решает: начинать переговоры, продлить обсуждение или дать процессу истечь.'}];
+const CARDS=[
+ {k:'Всё-таки проголосовать',p:'Договор свяжет тех, кто и не был проблемой, то есть докажет возражение. А консенсус — это то, что держит шестерых в зале.'},
+ {k:'Уйти и построить снаружи',p:'Сработало с минами и кассетными боеприпасами. А потом пять государств вышли из договора о минах, когда война подошла к их границам.'},
+ {k:'Определить человека',p:'Никто не может сказать, что делает контроль настоящим, и снаружи ничего не проверить: в программу выбора цели не заглянуть.'}];
+
+function drawRule(mode){
+  const svg=$('rule'); if(!svg) return;
+  const W=900,base=150,unit=(W-260)/133;
+  const forW=127*unit, agW=6*unit;
+  const pass = mode==='C' ? false : true;
+  svg.innerHTML=
+   `<rect x="130" y="60" width="${forW.toFixed(1)}" height="34" fill="var(--fact)" rx="3"/>
+    <rect x="${(130+forW).toFixed(1)}" y="60" width="${agW.toFixed(1)}" height="34" fill="var(--flaw)" rx="3"/>
+    <text x="130" y="50" font-size="15" fill="var(--fact)">127 за</text>
+    <text x="${(130+forW+agW+10).toFixed(1)}" y="82" font-size="15" fill="var(--flaw)">6 против</text>
+    <text x="130" y="${base}" font-size="26" fill="${pass?'var(--alt)':'var(--flaw)'}">${pass?'ПРИНЯТО':'РЕШЕНИЯ НЕТ'}</text>
+    <text x="130" y="${base+30}" font-size="14" fill="var(--text-dim)">${mode==='C'?'консенсус: решает один отказ':mode==='23'?'две трети: нужно 89':'простое большинство: нужно 67'}</text>`;
+  $('ruleCap').textContent = mode==='C'
+    ? 'При единогласии счёт не имеет значения: решает один отказ, поэтому голосование и не проводят.'
+    : 'Голоса не меняются. Меняется только правило, а вместе с ним исход.';
+}
+function drawOtt(){
+  const svg=$('ott'); if(!svg) return;
+  const pts=[[1997,0],[1999,45],[2003,110],[2008,150],[2014,161],[2020,164],[2025,166],[2026,161]];
+  const W=900,pad=60,H=200,x0=1997,x1=2026,max=175;
+  const X=y=>pad+((y-x0)/(x1-x0))*(W-pad*2), Y=v=>H-40-(v/max)*(H-70);
+  let d='';
+  pts.forEach((p,i)=>{d+=(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)+' '});
+  const lx=X(2026), ly=Y(161);
+  svg.innerHTML=`<path d="${d}" fill="none" stroke="var(--alt)" stroke-width="3"/>
+    <circle cx="${lx}" cy="${ly}" r="6" fill="var(--flaw)"/>
+    <text x="${lx-8}" y="${ly-14}" text-anchor="end" font-size="14" fill="var(--flaw)">вышли пять государств</text>
+    <text x="${pad}" y="${H-12}" font-size="13" fill="var(--text-dim)">1997</text>
+    <text x="${W-pad}" y="${H-12}" text-anchor="end" font-size="13" fill="var(--text-dim)">2026</text>
+    <text x="${pad}" y="30" font-size="14" fill="var(--text-dim)">государств-участников</text>`;
+}
+function buildTl(){
+  const w=$('tl'); if(!w) return;
+  w.innerHTML=TL.map((e,i)=>`<button data-i="${i}">${e.d}</button>`).join('');
+  const show=i=>{[...w.children].forEach((b,k)=>b.classList.toggle('on',k===i));$('tlDetail').textContent=TL[i].t};
+  [...w.children].forEach(b=>b.onclick=()=>show(+b.dataset.i));
+  show(0);
+}
+function buildCards(){
+  const w=$('cards'); if(!w) return;
+  w.innerHTML=CARDS.map((c,i)=>`<div class="card${i===0?' on':''}"><h3>${c.k}</h3><div class="price">Цена: ${c.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawRule('C');drawOtt();buildTl();buildCards();
+
+if(!isAuto){
+  $('rC').onclick=()=>{[...$('rC').parentNode.children].forEach(b=>b.classList.remove('on'));$('rC').classList.add('on');drawRule('C')};
+  $('r23').onclick=()=>{[...$('r23').parentNode.children].forEach(b=>b.classList.remove('on'));$('r23').classList.add('on');drawRule('23')};
+  $('rM').onclick=()=>{[...$('rM').parentNode.children].forEach(b=>b.classList.remove('on'));$('rM').classList.add('on');drawRule('M')};
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s1') master.call(()=>{const m=['C','23','M'];let i=0;const step=()=>{drawRule(m[i%3]);i++;setTimeout(step,Math.max(2600,d*1000/3))};step()},null,t+2);
+    if(s.id==='s2') master.call(()=>{let i=0;const step=()=>{if(i<TL.length){[...$('tl').children].forEach((b,k)=>b.classList.toggle('on',k===i));$('tlDetail').textContent=TL[i].t;i++;setTimeout(step,Math.max(2200,d*1000/TL.length))}};step()},null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>

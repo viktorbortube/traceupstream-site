@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — 127 Countries Agree. There Was Never a Vote.</title>
+<meta name="description" content="A hundred and twenty-seven states want a binding law on weapons that choose their own targets. The question sits with a body that decides by consensus, so the majority never loses a vote — no vote is ever held. The defect is the decision rule of the room, not the weapon.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#4C5A6B;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:160px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.tl{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.tl button{font-family:var(--font-mono);font-size:12px;padding:7px 10px;border:1px solid var(--grid);background:var(--bg-raised);border-radius:6px;cursor:pointer;color:var(--text)}
+.tl button.on{border-color:var(--flaw);color:var(--flaw)}
+.ctrl{font-family:var(--font-mono);font-size:13px;color:var(--text-dim);margin:4px 0 10px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:94px}
+body.auto h2{font-size:64px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:100px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .tl,body.auto .ctrl,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.049</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="46">
+  <div class="kicker">Trace Upstream · Episode 049</div>
+  <h1>127 countries agree. There was never a vote.</h1>
+  <div class="prose lede keep">
+    <p>There is a room where a decision exists only if everyone agrees. For twelve years that room has been deciding whether a machine may choose who to shoot. To stop the whole world there, <em class="flaw">one raised hand is enough</em>.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">127</div><div class="l">states want a binding law</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">withhold their consent</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">votes held in twelve years</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="38">
+  <h2>The room</h2>
+  <div class="prose">
+    <p>Every international question has to be sent somewhere, and the address comes with a procedure attached. This one went to a group of experts at a conventional weapons convention, and that group works by <em class="fact">consensus</em> — not a majority, not two thirds. A decision exists only if nobody says no.</p>
+    <p>For most subjects that is sane. It stops large states outvoting small ones, and whatever comes out has everyone behind it, so it actually gets done. Now apply it here. The states refusing are few, the states asking are many: <em class="flaw">the many need the few, and the few need nobody</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Same votes, three rules</h3>
+    <div class="toggle" role="group" aria-label="Decision rule">
+      <button id="rC" class="on">Consensus</button><button id="r23">Two thirds</button><button id="rM">Simple majority</button>
+    </div>
+    <svg id="rule" viewBox="0 0 900 220" width="100%" height="220" role="img" aria-label="The same 127 to 6 split under three different decision rules"></svg>
+    <div class="figcap" id="ruleCap">Under unanimity the tally is irrelevant: one refusal is decisive, so no vote is ever taken.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="48.6">
+  <h2>Twelve years</h2>
+  <div class="prose">
+    <p>Talks began in 2014. In 2023 the group was given a fresh mandate — to <em class="fact">consider possible elements</em> of an instrument, not to draft one. That year one delegation blocked the group's own rules of procedure, costing a full working day before the meeting could start.</p>
+    <p>Twelve years, no text, no negotiation, and no vote lost: there is nothing to point at and call a rejection, because nothing was ever put. Once, in 2024, most of the world did vote — to move the subject to the General Assembly, where a majority is enough. <em class="flaw">Nothing was put there either.</em></p>
+  </div>
+  <div class="fig">
+    <h3>What each step decided</h3>
+    <div class="tl" id="tl"></div>
+    <div class="figcap" id="tlDetail">Pick a year.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="35.5">
+  <h2>Blocking is free</h2>
+  <div class="prose">
+    <p>Voting no is expensive. You have to name what you object to, find allies because one vote is one vote, and your name goes into the record.</p>
+    <p>Refusing consensus costs none of that. No argument, because nothing is being tested against it. No allies, because one is enough. No explanation, because the meeting simply ends without a text — and a meeting with no text is not news. <em class="flaw">One side needs 127 agreements. The other needs one refusal.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="32">
+  <h2>The lock is on the inside</h2>
+  <div class="prose">
+    <p>The obvious fix is to change the procedure. But the procedure can only be changed by the procedure, and the procedure runs on consensus: the states protected by unanimity would have to agree to give up unanimity. <em class="flaw">A room built not to decide cannot decide to rebuild itself.</em></p>
+    <p>Nobody is cheating. Every delegate follows the rules exactly as written, and the rules were written for good reasons by people who had never heard of this weapon.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="53.5">
+  <h2>The other side</h2>
+  <div class="prose">
+    <p>The six are the United States, Russia, Israel, India, Australia and South Korea — a list that matches no country's domestic politics, which is the first clue this is not left against right. China is in neither camp: it says yes to a binding law <em class="fact">once the definitions are agreed</em>, and the definitions are the thing that never gets agreed.</p>
+    <p>Their case is simple. A treaty binds whoever signs it. The states most likely to build these weapons are the least likely to sign, so a ban ties the hands of countries that were never going to build them and hands an advantage to anyone who stays outside. From inside that logic, blocking is not obstruction — <em class="flaw">it is refusing to disarm alone</em>. Remember it: it breaks all three ways out.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="33.3">
+  <h2>Way out one — vote anyway</h2>
+  <div class="prose">
+    <p>Stop honouring unanimity. In November a review conference meets in Geneva and could decide by majority instead; 127 against 6 is not close.</p>
+    <p><em class="flaw">Price:</em> that treaty binds the states that were never the problem, which proves the objection you just heard using your own method. And consensus is the thing keeping those six in the room — break it and they walk out, and you are in way number two without having chosen it.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="52.8">
+  <h2>Way out two — leave and build outside</h2>
+  <div class="prose">
+    <p>It has been done. Landmines, 1997. Cluster munitions, 2008. Both written away from the objectors, both grew huge, and millions of stockpiled mines were destroyed under them.</p>
+    <p>Then look at last year. Five European states left the landmine treaty — the three Baltic countries, then Finland, then Poland, the last exit taking effect in February. Ukraine suspended it instead. Poland, which destroyed more than a million of its own mines when it joined, now plans <em class="flaw">five or six million new ones</em> for its eastern border; Finland has restarted production.</p>
+    <p>That is where this design stops. A rule built without the states that hold the weapons lasted a quarter of a century — and bent when a war reached the border of a country that had signed it.</p>
+  </div>
+  <div class="fig">
+    <h3>The mine ban treaty, 1997–2026</h3>
+    <svg id="ott" viewBox="0 0 900 200" width="100%" height="200" role="img" aria-label="Membership of the mine ban treaty rising from 1997 and the five withdrawals of 2025 and 2026"></svg>
+    <div class="figcap">Growth to near-universal membership, then the first cluster of withdrawals in the treaty's history — all of them states bordering the war.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="52.1">
+  <h2>Way out three — define the human</h2>
+  <div class="prose">
+    <p>Twelve years went on defining the machine: every definition either catches weapons that have existed for forty years, or misses the ones people are afraid of. So flip it. Ban what nobody can predict, and anything built to attack people; for the rest, fix the limits in advance — where it may operate, for how long, what it may attack — and put a human above it who can watch it work and switch it off.</p>
+    <p><em class="flaw">Price:</em> nobody can say what makes that human control real. In actual targeting the decision is spread across many people and many minutes, so there is no single moment to pin responsibility to, and an officer approving a hundred targets a minute meets the words exactly. And you cannot check: missile silos can be counted from orbit, but <em class="flaw">you cannot look inside the program that picks the target</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Three ways out, three prices</h3>
+    <div class="cards" id="cards"></div>
+    <div class="figcap">None of them wins. Each runs into the same sentence — which is the point of the episode.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s9" data-duration="63.9">
+  <h2>Every road runs through the same consent</h2>
+  <div class="prose keep">
+    <p>So build the checking instead of the treaty: shared test procedures, mandatory incident reports, a black box in the weapon recording what it decided and when. Now aim the same argument at that. A black box goes into a weapon because the state building it agreed — so you would get recordings from the states that were never the worry, and nothing from the six. <em class="flaw">Every road out runs through the consent of the states you most want bound.</em></p>
+    <p>The room is not the villain. Being outvoted is a real harm, and small states have sheltered behind consensus for decades. Everyone in that hall is following the rules correctly. That is the point.</p>
+    <p>So when something obvious does not happen, the useful question is rarely who is against it. It is <em class="flaw">which room it was sent to, and what that room needs in order to say yes</em>. If the answer is everyone, the outcome was settled before anyone spoke.</p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" href="https://www.youtube.com/@TraceUpstream" target="_blank" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+const TL=[
+ {d:'2014',t:'Informal meetings on autonomous weapons begin under the conventional weapons convention.'},
+ {d:'2016',t:'A Group of Governmental Experts is formed. It works by consensus: a decision exists only if no state objects.'},
+ {d:'2023',t:'A fresh mandate — to consider possible elements of an instrument, not to negotiate one. One delegation blocks the group’s own rules of procedure, costing a full working day.'},
+ {d:'2023',t:'The UN Secretary-General and the ICRC jointly call for a legally binding instrument by 2026.'},
+ {d:'2024',t:'Most of the world votes to place the subject on the UN General Assembly agenda, where a majority is enough. Nothing is put there.'},
+ {d:'2026',t:'The deadline passes with no negotiation ever opened. The two call again in August.'},
+ {d:'Nov 2026',t:'The review conference in Geneva decides whether to negotiate, to extend the discussion, or to let the process lapse.'}];
+const CARDS=[
+ {k:'Vote anyway',p:'The treaty binds the states that were never the problem — proving the objection. And consensus is what keeps the six in the room.'},
+ {k:'Leave and build outside',p:'It worked for mines and cluster munitions. Then five states walked out of the mine treaty when a war reached their borders.'},
+ {k:'Define the human',p:'Nobody can say what makes human control real, and nothing can be verified from outside: you cannot inspect a targeting program.'}];
+
+function drawRule(mode){
+  const svg=$('rule'); if(!svg) return;
+  const W=900,base=150,unit=(W-260)/133;
+  const forW=127*unit, agW=6*unit;
+  const pass = mode==='C' ? false : true;
+  svg.innerHTML=
+   `<rect x="130" y="60" width="${forW.toFixed(1)}" height="34" fill="var(--fact)" rx="3"/>
+    <rect x="${(130+forW).toFixed(1)}" y="60" width="${agW.toFixed(1)}" height="34" fill="var(--flaw)" rx="3"/>
+    <text x="130" y="50" font-size="15" fill="var(--fact)">127 in favour</text>
+    <text x="${(130+forW+agW+10).toFixed(1)}" y="82" font-size="15" fill="var(--flaw)">6 against</text>
+    <text x="130" y="${base}" font-size="26" fill="${pass?'var(--alt)':'var(--flaw)'}">${pass?'ADOPTED':'NO DECISION'}</text>
+    <text x="130" y="${base+30}" font-size="14" fill="var(--text-dim)">${mode==='C'?'consensus — one refusal is decisive':mode==='23'?'two thirds — 89 needed':'simple majority — 67 needed'}</text>`;
+  $('ruleCap').textContent = mode==='C'
+    ? 'Under unanimity the tally is irrelevant: one refusal is decisive, so no vote is ever taken.'
+    : 'The votes do not change. Only the rule does — and with it, the outcome.';
+}
+function drawOtt(){
+  const svg=$('ott'); if(!svg) return;
+  const pts=[[1997,0],[1999,45],[2003,110],[2008,150],[2014,161],[2020,164],[2025,166],[2026,161]];
+  const W=900,pad=60,H=200,x0=1997,x1=2026,max=175;
+  const X=y=>pad+((y-x0)/(x1-x0))*(W-pad*2), Y=v=>H-40-(v/max)*(H-70);
+  let d='';
+  pts.forEach((p,i)=>{d+=(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)+' '});
+  const lx=X(2026), ly=Y(161);
+  svg.innerHTML=`<path d="${d}" fill="none" stroke="var(--alt)" stroke-width="3"/>
+    <circle cx="${lx}" cy="${ly}" r="6" fill="var(--flaw)"/>
+    <text x="${lx-8}" y="${ly-14}" text-anchor="end" font-size="14" fill="var(--flaw)">five states leave</text>
+    <text x="${pad}" y="${H-12}" font-size="13" fill="var(--text-dim)">1997</text>
+    <text x="${W-pad}" y="${H-12}" text-anchor="end" font-size="13" fill="var(--text-dim)">2026</text>
+    <text x="${pad}" y="30" font-size="14" fill="var(--text-dim)">states party</text>`;
+}
+function buildTl(){
+  const w=$('tl'); if(!w) return;
+  w.innerHTML=TL.map((e,i)=>`<button data-i="${i}">${e.d}</button>`).join('');
+  const show=i=>{[...w.children].forEach((b,k)=>b.classList.toggle('on',k===i));$('tlDetail').textContent=TL[i].t};
+  [...w.children].forEach(b=>b.onclick=()=>show(+b.dataset.i));
+  show(0);
+}
+function buildCards(){
+  const w=$('cards'); if(!w) return;
+  w.innerHTML=CARDS.map((c,i)=>`<div class="card${i===0?' on':''}"><h3>${c.k}</h3><div class="price">Price: ${c.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawRule('C');drawOtt();buildTl();buildCards();
+
+if(!isAuto){
+  $('rC').onclick=()=>{[...$('rC').parentNode.children].forEach(b=>b.classList.remove('on'));$('rC').classList.add('on');drawRule('C')};
+  $('r23').onclick=()=>{[...$('r23').parentNode.children].forEach(b=>b.classList.remove('on'));$('r23').classList.add('on');drawRule('23')};
+  $('rM').onclick=()=>{[...$('rM').parentNode.children].forEach(b=>b.classList.remove('on'));$('rM').classList.add('on');drawRule('M')};
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s1') master.call(()=>{const m=['C','23','M'];let i=0;const step=()=>{drawRule(m[i%3]);i++;setTimeout(step,Math.max(2600,d*1000/3))};step()},null,t+2);
+    if(s.id==='s2') master.call(()=>{let i=0;const step=()=>{if(i<TL.length){[...$('tl').children].forEach((b,k)=>b.classList.toggle('on',k===i));$('tlDetail').textContent=TL[i].t;i++;setTimeout(step,Math.max(2200,d*1000/TL.length))}};step()},null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
