@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — The Flood Warning Stopped at the Border</title>
+<meta name="description" content="A glacier fell in Tibet, and a wall of water reached Nepal seven minutes later. Nepal's flood office heard about it sixteen minutes after the crossing — from its own district office. River data belongs to the country the gauge stands in, and no duty to warn downstream exists until two states write one down. Three designs, three prices.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#4F6B7A;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:160px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:94px}
+body.auto h2{font-size:64px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:100px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.050</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="37.4">
+  <div class="kicker">Trace Upstream · Episode 050</div>
+  <h1>The flood warning stopped at the border.</h1>
+  <div class="prose lede keep">
+    <p>On Thursday China warned Nepal about a lake at the border, and people moved uphill. Two days earlier a wall of water came down the same river and killed close to five hundred people. Nobody called. <em class="flaw">That is not an accident. It is a rule.</em></p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">7 min</div><div class="l">glacier fall to the border</div></div>
+    <div class="stat"><div class="n">16 min</div><div class="l">after the crossing, Nepal's flood office learns</div></div>
+    <div class="stat"><div class="n">2×</div><div class="l">same bridge, thirteen months apart</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="78.8">
+  <h2>Seven minutes</h2>
+  <div class="prose">
+    <p>At 08:37 on Wednesday a piece of glacier broke off a mountain in Tibet and fell more than a kilometre. Seismometers in Germany and the United States felt it within minutes. The ice and rock dammed a small river, the dam gave way, and the flood covered the first 22 km at roughly <em class="fact">190 km/h</em> — about seven minutes to the border, ten more to the town of Syabrubesi.</p>
+    <p>Nepal's flood office learned the wave existed about sixteen minutes after it crossed — six minutes after Syabrubesi — and not from China, but from its own district office watching the river go past. Within minutes it sent more than half a million text messages downriver; the four gauges nearest the border were already gone. <em class="flaw">Downstream, the system worked. Upstream of the border it did not exist.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Two clocks</h3>
+    <div class="toggle" role="group" aria-label="Which timeline">
+      <button id="tA" class="on">What happened</button><button id="tB">If the gauge number had crossed at 08:37</button>
+    </div>
+    <svg id="clock" viewBox="0 0 900 230" width="100%" height="230" role="img" aria-label="Timeline of the 26 August flood against the timeline of the warning"></svg>
+    <div class="figcap" id="clockCap">Physics gave seventeen minutes to Syabrubesi. The institutions used none of them.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="54.2">
+  <h2>The same bridge</h2>
+  <div class="prose">
+    <p>Thirteen months earlier, in July 2025, a lake on top of a glacier in Tibet burst. That flood came down the same river, took out the same border bridge and killed eighteen people. Nepal's flood office said it had received no warning because <em class="fact">there was no formal channel for one</em>. By late August the two governments had agreed to share information about glacial lake risk.</p>
+    <p>Two weeks before this flood, a landslide blocked a neighbouring branch of the river on the Chinese side; Nepal found out when the water level dropped. Then, on Wednesday, the wave. <em class="flaw">The agreement existed and the warning still did not.</em> So the problem is not whether the neighbours talk. It is what kind of thing the agreement is.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="89.4">
+  <h2>Who owns a number</h2>
+  <div class="prose">
+    <p>A river gauge is a post in the water with a sensor on it. Every few minutes it produces a number, and the question that decides everything is: whose number is that? Everywhere in the world the answer is the same — <em class="fact">the number belongs to the country the post stands in</em>. No general law obliges a country to tell the country downstream what its rivers are doing. That duty exists only where two states have written it down and signed it.</p>
+    <p>A 1992 United Nations convention on shared rivers does exactly this: its Article 14 says riparian states must warn each other of a critical situation without delay and build joint alarm systems. China has not signed it. Nepal has not. Neither has India. What the two governments agreed last August was to share information — not who calls whom, within how many minutes, on which line. <em class="flaw">A courtesy is real, and this week it worked for a lake that sat there for a day. It cannot work for a wave, because a courtesy has no deadline in it.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Where the gauges stand</h3>
+    <svg id="basin" viewBox="0 0 900 260" width="100%" height="260" role="img" aria-label="The Bhote Koshi basin: sixty percent upstream of the border in China, all of Nepal's gauges and sirens below the line"></svg>
+    <div class="figcap">About 60% of the catchment lies across the line, with 28 lakes rated likely to burst. Every gauge Nepal can read is below it.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="96.3">
+  <h2>Way one — write the deadline in</h2>
+  <div class="prose">
+    <p>In 1986 a chemical warehouse burned in Basel, and the water used to put it out carried tonnes of pesticide down the Rhine, killing fish for hundreds of kilometres into three other countries. The Rhine states wrote a rule: any country that sees an accident or an imminent flood must inform the others <em class="fact">immediately</em>. Main alarm centres, a model that predicts where the wave will be, drills to test that the phone gets answered — Article 14 running for forty years.</p>
+    <p><em class="flaw">Price:</em> the Rhine states handed each other their river data because none of them treats its stretch as a military secret. Tibet is a border zone, and a live feed of its rivers is a live feed of how its dams are run. A duty with a deadline hands the neighbour a lever over you. China has never signed one with India; India has not signed one with Bangladesh, nor Turkey with Iraq.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="44.2">
+  <h2>Way two — buy the number</h2>
+  <div class="prose">
+    <p>Since 2008 India has paid China every year for the readings from three gauges on the Brahmaputra, with a clause about immediate notice of anything abnormal. In 2017 the two armies faced off in the Himalayas, and that flood season the data stopped — China said its stations were being upgraded; Bangladesh kept receiving readings from the same stations. The feed came back a year later, and it only ever runs from mid-May to mid-October.</p>
+    <p><em class="flaw">Price:</em> a purchased number is a number you can be cut off from, on a schedule the seller sets. Nepal would be a much smaller customer than India.</p>
+  </div>
+  <div class="fig">
+    <h3>The Brahmaputra feed, 2008–2026</h3>
+    <svg id="feed" viewBox="0 0 900 170" width="100%" height="170" role="img" aria-label="Seasonal data windows each year, a gap in 2017, resumption in 2018"></svg>
+    <div class="figcap">Five months a year of readings, and one year of none.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="98.7">
+  <h2>Way three — see it yourself</h2>
+  <div class="prose">
+    <p>Seismometers a continent away felt the glacier fall within minutes — no treaty, no payment. Satellites worked out the cause of last year's flood from orbit. On the Mekong in 2020 a satellite study showed China's dams holding water back during a downstream drought; Beijing called it groundless and, six months later, agreed to share river data all year round after eighteen years of wet-season-only sharing. <em class="fact">There was no treaty behind that. There was a picture anyone could see.</em> Nepal could wire a seismic trigger on its own side straight to its own sirens.</p>
+    <p><em class="flaw">Price:</em> on Wednesday the first reading of that seismic signal was wrong — the experts called it an earthquake, and it took hours to reclassify. A trigger fast enough to matter must fire before anyone has checked, so it will fire for earthquakes, quarry blasts and landslides that dam nothing. After the third empty siren, the official who switches it off breaks no rule. Nepal's automated sirens at a glacial lake near Everest, installed ten years ago, are rusting; some have no batteries.</p>
+  </div>
+  <div class="fig">
+    <h3>Three designs, three prices</h3>
+    <div class="cards" id="cards"></div>
+    <div class="figcap">Each answers a different question. None is free.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="48.6">
+  <h2>Which rule was written down</h2>
+  <div class="prose keep">
+    <p>Nobody broke a rule on Wednesday. The public argument is whether the neighbour should have called. The three designs ask something else: whether a country upstream will bind itself with a deadline, whether it will sell you the number, or whether you will build a machine that sounds the alarm without asking anyone — and live with every time it sounds for nothing.</p>
+    <p>Twenty-eight more lakes above this valley and the next are rated likely to burst. Sixty percent of the land that drains into this river is across the line. <em class="flaw">So when the next wave comes, the useful question will not be why nobody called. It will be whether any of these three rules was written down in the meantime — and who agreed to pay its price.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+const CARDS=[
+ {k:'Write the deadline in',p:'A duty with a clock hands the neighbour a lever. Upstream states do not sign it for neighbours they do not trust — China, India and Turkey all declined.'},
+ {k:'Buy the number',p:'A purchased feed can be cut off in a dispute, runs on the seller’s calendar, and comes from the stations the seller picks.'},
+ {k:'See it yourself',p:'A trigger fast enough to matter fires before anyone checks. After the third empty siren, someone switches it off — and breaks no rule.'}];
+
+function drawClock(mode){
+  const svg=$('clock'); if(!svg) return;
+  const W=900,pad=70,x0=0,x1=40; // minutes after 08:37
+  const X=m=>pad+(m/(x1-x0))*(W-pad*2);
+  const evA=[[0,'glacier falls'],[7,'border'],[17,'Syabrubesi'],[23,'flood office told'],[26,'SMS goes out']];
+  const evB=[[0,'glacier falls · number crosses'],[7,'border'],[17,'Syabrubesi']];
+  const ev=mode==='A'?evA:evB;
+  let s=`<line x1="${pad}" y1="120" x2="${W-pad}" y2="120" stroke="var(--grid)" stroke-width="3"/>`;
+  ev.forEach((e,i)=>{const x=X(e[0]);const c=(mode==='A'&&e[0]>=23)?'var(--flaw)':(mode==='B'?'var(--alt)':'var(--fact)');
+    s+=`<circle cx="${x}" cy="120" r="7" fill="${c}"/><text x="${x}" y="${i%2?155:98}" text-anchor="middle" font-size="13" fill="${c}">${e[1]}</text>
+        <text x="${x}" y="${i%2?175:82}" text-anchor="middle" font-size="12" fill="var(--text-dim)">+${e[0]} min</text>`});
+  if(mode==='B'){s+=`<rect x="${X(0)}" y="200" width="${X(17)-X(0)}" height="12" fill="var(--alt)" opacity=".35"/><text x="${X(0)}" y="222" font-size="12" fill="var(--alt)">seventeen minutes of warning for Syabrubesi</text>`}
+  else{s+=`<rect x="${X(17)}" y="200" width="${X(23)-X(17)}" height="12" fill="var(--flaw)" opacity=".5"/><text x="${X(17)}" y="222" font-size="12" fill="var(--flaw)">town hit six minutes before anyone in Kathmandu knew</text>`}
+  svg.innerHTML=s;
+  $('clockCap').textContent = mode==='A'
+    ? 'Physics gave seventeen minutes to Syabrubesi. The institutions used none of them.'
+    : 'Same physics. The only change is which side of the line the number is allowed to cross.';
+}
+function drawBasin(){
+  const svg=$('basin'); if(!svg) return;
+  const W=900;
+  let lakes='';
+  for(let i=0;i<28;i++){const x=120+((i*137)%560),y=62+((i*53)%66);lakes+=`<circle cx="${x}" cy="${y}" r="4" fill="var(--flaw)"/>`}
+  svg.innerHTML=`<rect x="60" y="20" width="${W-120}" height="120" fill="var(--grid)" opacity=".35"/>
+    ${lakes}
+    <line x1="60" y1="140" x2="${W-60}" y2="140" stroke="var(--text)" stroke-width="2" stroke-dasharray="8 6"/>
+    <path d="M 420 50 C 430 80, 410 120, 430 140 C 450 170, 440 200, 470 235" fill="none" stroke="var(--fact)" stroke-width="4"/>
+    <text x="70" y="40" font-size="13" fill="var(--text-dim)">CHINA · ~60% of the catchment · 28 lakes rated likely to burst</text>
+    <text x="70" y="160" font-size="13" fill="var(--text-dim)">NEPAL · every gauge and siren</text>
+    <text x="${W-70}" y="135" text-anchor="end" font-size="12" fill="var(--text)">border — the number stops here</text>
+    <g fill="var(--alt)"><rect x="452" y="165" width="6" height="18"/><rect x="470" y="195" width="6" height="18"/><rect x="486" y="222" width="6" height="18"/></g>
+    <text x="500" y="180" font-size="12" fill="var(--alt)">gauges (all four swept away on 26 Aug)</text>`;
+}
+function drawFeed(){
+  const svg=$('feed'); if(!svg) return;
+  const W=900,pad=50,y0=2008,y1=2026;
+  const X=y=>pad+((y-y0)/(y1-y0+1))*(W-pad*2), w=(W-pad*2)/(y1-y0+1);
+  let s=`<line x1="${pad}" y1="110" x2="${W-pad}" y2="110" stroke="var(--grid)" stroke-width="2"/>`;
+  for(let y=y0;y<=y1;y++){const on=y!==2017;
+    s+=`<rect x="${X(y)+2}" y="${on?60:100}" width="${w*0.42}" height="${on?50:10}" fill="${on?'var(--fact)':'var(--flaw)'}" opacity="${on?.85:1}"/>`;
+    if(y%3===0||y===2017) s+=`<text x="${X(y)+w*0.21}" y="132" text-anchor="middle" font-size="12" fill="var(--text-dim)">${y}</text>`}
+  s+=`<text x="${X(2017)+w*0.21}" y="52" text-anchor="middle" font-size="12" fill="var(--flaw)">no data</text>
+      <text x="${pad}" y="30" font-size="13" fill="var(--text-dim)">each bar = the five-month window China sells readings for</text>`;
+  svg.innerHTML=s;
+}
+function buildCards(){
+  const w=$('cards'); if(!w) return;
+  w.innerHTML=CARDS.map((c,i)=>`<div class="card${i===0?' on':''}"><h3>${c.k}</h3><div class="price">Price: ${c.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawClock('A');drawBasin();drawFeed();buildCards();
+
+if(!isAuto){
+  $('tA').onclick=()=>{$('tA').classList.add('on');$('tB').classList.remove('on');drawClock('A')};
+  $('tB').onclick=()=>{$('tB').classList.add('on');$('tA').classList.remove('on');drawClock('B')};
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s1') master.call(()=>{let i=0;const step=()=>{drawClock(i%2?'B':'A');i++;setTimeout(step,Math.max(4000,d*1000/4))};step()},null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
