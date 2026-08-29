@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Слежка, за которую никто не голосовал</title>
+<meta name="description" content="Машины двух человек сняли 526 и 849 раз за четыре месяца, и федеральный судья решил, что обыска не было, — потому что записи хранят двадцать один день. В большей части США это число не выбирал никто: оно стоит в настройках поставщика. Как пять тысяч отдельных решений городских советов собрались в одну национальную базу и четыре конструкции починки, у каждой своя цена.">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#5B6E7F;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:160px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:94px}
+body.auto h2{font-size:64px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:100px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">ВЫПУСК 051</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="70.2">
+  <div class="kicker">Дефект конструкции · Выпуск 051</div>
+  <h1>Слежка, за которую никто не голосовал.</h1>
+  <div class="prose lede keep">
+    <p>Двое жителей Виргинии спросили через суд, сколько раз полицейские камеры Норфолка сфотографировали их машины. Ответы: 526 и 849 примерно за четыре месяца. Ни один из них не был под следствием. <em class="flaw">Федеральный судья прочитал эти числа и постановил, что обыска не было.</em></p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">849</div><div class="l">снимков машины одного человека без обвинений, четыре месяца</div></div>
+    <div class="stat"><div class="n">21 день</div><div class="l">срок хранения, сделавший это законным</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">федеральных законов об этих камерах на август 2026</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="75">
+  <h2>Ответ, который не ответ</h2>
+  <div class="prose">
+    <p>Напрашивается простое объяснение: улица публичная. Почти весь двадцатый век это и было правом. В 2018 году Верховный суд его сломал: изъятие у оператора данных о том, где месяцами был телефон человека, признано обыском — не потому, что какая-то улица приватна, а потому, что <em class="fact">накопление</em> превращает поездку в жизнь. Формула суда — <em>вся совокупность передвижений человека</em>.</p>
+    <p>Вопрос о правах превращается в вопрос арифметики. Насколько далеко назад? Виргиния разрешает хранить снимки номеров 21 день, и судья решил, что три недели обычных поездок, да ещё с разрывами там, куда камеры не достают, — это ещё не вся совокупность. <em class="flaw">Значит, сеть законна благодаря числу, и это число кто-то выбрал.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="97.5">
+  <h2>Кто выбирает число</h2>
+  <div class="prose">
+    <p>Кое-где число взвесил законодатель. 21 день Виргинии написал парламент штата; Иллинойс разрешает до пяти лет для записей, привязанных к расследованию; Нью-Гэмпшир принял самое строгое правило в стране: нет совпадения — снимок уничтожается за три минуты и никуда не передаётся. <em class="fact">Камеры одни и те же, поставщик один и тот же, а в одном штате три минуты, в другом пять лет.</em></p>
+    <p>В большей части страны не взвешивал никто. К августу 2026 года Конгресс не написал об этих камерах ни одного федерального закона. Там, где штат ничего не принял, срок хранения — это то, что стоит в продукте по умолчанию. А 13 августа 2026 года компания, которой принадлежит большая часть этих камер, объявлением сменила свою настройку с тридцати дней на семь. <em class="flaw">Число, которое федеральный судья счёл границей между законным и незаконным, во множестве городов — поле в меню настроек.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Регулятор, который никто не обсуждал</h3>
+    <div class="toggle" role="group" aria-label="Срок хранения">
+      <button class="rt on" data-i="0">3 минуты</button><button class="rt" data-i="1">7 дней</button><button class="rt" data-i="2">21 день</button><button class="rt" data-i="3">5 лет</button>
+    </div>
+    <svg id="dial" viewBox="0 0 900 240" width="100%" height="240" role="img" aria-label="Как срок хранения меняет видимость для полиции и возможность общественного контроля"></svg>
+    <div class="figcap" id="dialCap"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="120.7">
+  <h2>Что на самом деле покупает город</h2>
+  <div class="prose">
+    <p>Никто никогда не покупал сеть. Одна камера стоит около 3000 долларов в год по подписке, и оборудование управлению не принадлежит. Заявка идёт в городской совет, её утверждают, и слушаний по ней нет, потому что по расходу в 3000 долларов слушаний не бывает. И они работают: компания приписывает своим камерам около миллиона закрытых расследований и десять тысяч найденных пропавших за год к августу 2026 года. Цифру даёт продавец, но мэр города, который потом сам выключил у себя камеры, прямо сказал, что полиции они помогали.</p>
+    <p>К августу 2026 года такое же маленькое решение приняли больше 5000 правоохранительных ведомств: свыше 120 000 камер в 49 штатах, больше 20 миллиардов снимков машин в месяц. <em class="fact">Город покупал не камеру. Он покупал подписку на общий архив</em>, доступный для поиска другим ведомствам. Каждое решение было местным и скромным. <em class="flaw">Сумма — общенациональная запись о том, куда ездят машины, которую не одобрял ни один общенациональный орган, потому что ни одного не спросили.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Пять тысяч маленьких «за»</h3>
+    <svg id="mesh" viewBox="0 0 900 260" width="100%" height="260" role="img" aria-label="Отдельные муниципальные покупки, складывающиеся в один связанный архив"></svg>
+    <div class="figcap">Каждая точка — решение одного ведомства. Линии между ними и есть продукт.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="66.1">
+  <h2>Дверь, которая открывается в одну сторону</h2>
+  <div class="prose">
+    <p>26 августа 2026 года город Темпе в Аризоне выключил все свои камеры и заявил, что другого поставщика искать не будет. Через три часа то же сделал соседний Кейв-Крик. Темпе стабильно голосует за демократов, Кейв-Крик склоняется к республиканцам, и уговаривать друг друга им не пришлось. К концу августа 2026 года около девяноста городов расторгли или отклонили такие контракты.</p>
+    <p>Но жителя Темпе снимут, как только он въедет в город, который камеры оставил, и запись ляжет в архив того города. Всё, что успели снять камеры самого Темпе, осталось в руках чужих ведомств. <em class="flaw">Проголосовать за то, чтобы перестать платить, можно. Проголосовать за то, чтобы перестать быть видимым, нельзя.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="114.9">
+  <h2>Не проверяет никто</h2>
+  <div class="prose">
+    <p>К августу 2026 года компания подтвердила, что не проверяет по своей инициативе, как используется её система: ни кто искал, ни зачем, ни было ли правдой указанное основание. Журналы ведутся; читает их то самое ведомство, которое ищет, — если вообще кто-то читает. 19 августа 2026 года «Вашингтон пост» насчитала больше пятидесяти американских полицейских, которые обвинялись, привлекались или были осуждены за злоупотребление такими системами, в том числе ради слежки за бывшими партнёрами.</p>
+    <p>Наверх не проверял никто тоже: отвечая сенатору-демократу, компания подтвердила, что доступ в пилотных программах получали несколько федеральных ведомств, — и что её собственным заказчикам из полиции говорили, будто никаких дел с ними у компании нет. <em class="fact">А дальше деталь, которая всё решила в Темпе: город провёл аудит системы перед отключением и не нашёл ничего.</em> Ни злоупотреблений, ни нарушений. <em class="flaw">Совет закрыл программу всё равно, решив, что чистый аудит от тех, кто системой и пользуется, — не то доказательство, на которое стоит опираться.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="98.3">
+  <h2>Почва сдвинулась</h2>
+  <div class="prose">
+    <p>Через пять месяцев после решения по Норфолку, 29 июня 2026 года, Верховный суд шестью голосами против трёх постановил: обращение к сохранённым данным о местоположении — это обыск, даже на коротком отрезке и даже если записи лежат на серверах чужой компании. Двух часов таких данных, отметил суд, хватает, чтобы поместить человека на оружейную выставку или политический митинг. <em class="fact">То есть судья, признавший законным Норфолк, работал по правилу, которого Верховный суд ещё не написал.</em></p>
+    <p>Суд назвал то, что его встревожило: слежка <em>ретроспективная и неизбирательная</em> — её ведут на всех и заранее, а ищут в ней задним числом, когда кто-то стал интересен. Это описание сети камер. Норфолк ушёл в апелляцию, а другой федеральный апелляционный суд уже посмотрел на считыватели номеров и тоже сказал, что обыска в них нет. <em class="flaw">Суд может отменить число. Взять следующее ему неоткуда.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="276.8">
+  <h2>Четыре конструкции, четыре цены</h2>
+  <div class="prose">
+    <p>Удалять сразу — конституционный спор кончается, потому что архива нет; вместе с ним кончается и поиск задним числом, ради которого эти сети покупали. Ордер на запрос сторожит дверь, но вы пропишете исключение для экстренных случаев, и спор переедет в это исключение; к тому же ордер связывает государство, а не архив, который продают и товариществам собственников жилья, и частным компаниям. Записать число в закон и оплатить арбитра — и выяснится, что арбитра нигде так и не оплатили, а сам закон о сроках хранения уже соглашается, что сеть должна быть. Перерезать провода — и машины исчезают на границе округа, потому что именно общий архив делал подписку дешёвой для маленького управления.</p>
+  </div>
+  <div class="fig">
+    <h3>Выберите конструкцию и прочтите её счёт</h3>
+    <div class="cards" id="cards"></div>
+    <div class="figcap">Каждая конструкция у кого-то что-то отнимает. Вопрос не в том, какая правильная, а в том, кто в итоге выбирает.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="45.9">
+  <h2>Два вопроса вашему городскому совету</h2>
+  <div class="prose keep">
+    <p>526 снимков. 849. Двое людей, которым никогда ничего не предъявляли, в городе, который не сделал ничего необычного, в системе, которую суд признал законной из-за числа, случайно выбранного парламентом Виргинии, — тогда как в большей части страны его не выбирал никто.</p>
+    <p><em class="flaw">Сколько дней ваш город хранит записи и кому разрешено это менять? И в тот день, когда вы проголосуете за отключение, что будет со всем, что уже собрано?</em> Кто-то в вашем городе может ответить на оба вопроса.</p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="../" rel="noopener">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать нарацию">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+
+const RET=[
+ {k:'3 минуты', who:'закон Нью-Гэмпшира',        police:.02, public:.05, pl:'почти ничего', pu:'почти ничего',
+  cap:'Искать задним числом негде — и запросу на публичные записи дотянуться тоже не до чего.'},
+ {k:'7 дней',   who:'настройка поставщика',      police:.28, public:.30, pl:'неделя', pu:'если успеть',
+  cap:'Сменено с тридцати дней объявлением 13 августа 2026 года. Ни один законодатель в этом не участвовал.'},
+ {k:'21 день',  who:'парламент Виргинии',        police:.55, public:.62, pl:'три недели', pu:'месяц на запрос',
+  cap:'Число, на которое опёрся суд в Норфолке: три недели, решил он, — ещё не вся совокупность передвижений.'},
+ {k:'5 лет',    who:'Иллинойс, для расследований',police:1,   public:.95, pl:'годы', pu:'годы',
+  cap:'Достаточно долго, чтобы те же рассуждения пришлось вести заново.'}];
+
+const CARDS=[
+ {k:'Удалять сразу',p:'Искать задним числом негде — а ради этого сети и покупали. Короткое хранение бьёт и по запросам на публичные записи: в штате Вашингтон файлы исчезали раньше, чем до них добирались.'},
+ {k:'Ордер на запрос',p:'Придётся прописать исключение для экстренных случаев, а решают, какой запрос экстренный, те же, кто хочет искать. И ордер связывает государство, а не архив.'},
+ {k:'Число в законе плюс арбитр',p:'Калифорнийский запрет на передачу за пределы штата нарушался годами, а арбитра нигде так и не оплатили. Плюс закон о сроках уже соглашается, что сеть должна быть.'},
+ {k:'Перерезать провода',p:'Машина, пересёкшая границу округа, исчезает. Изолированные данные — дорогие: общий архив и делал подписку доступной для маленького управления.'}];
+
+function drawDial(i){
+  const svg=$('dial'); if(!svg) return;
+  const r=RET[i],W=900,x0=250,bw=520;
+  const bar=(y,frac,col,lab,val)=>`
+    <text x="${x0-16}" y="${y+21}" text-anchor="end" font-size="14" fill="var(--text-dim)">${lab}</text>
+    <rect x="${x0}" y="${y}" width="${bw}" height="30" fill="var(--grid)" opacity=".5"/>
+    <rect x="${x0}" y="${y}" width="${Math.max(4,bw*frac)}" height="30" fill="${col}"/>
+    <text x="${x0+bw+14}" y="${y+21}" font-size="14" fill="${col}">${val}</text>`;
+  svg.innerHTML=`
+    <text x="0" y="34" font-size="30" fill="var(--text)" font-weight="700">${r.k}</text>
+    <text x="0" y="60" font-size="14" fill="var(--text-dim)">кто выставил: ${r.who}</text>
+    ${bar(96, r.police,'var(--flaw)','сколько вашего прошлого восстановит полиция', r.pl)}
+    ${bar(156,r.public,'var(--fact)','сколько из этого ещё можно проверить обществу',        r.pu)}
+    <text x="${x0}" y="222" font-size="13" fill="var(--text-dim)">Обе шкалы двигаются вместе. Об этом размене в зале суда никто не спорил.</text>`;
+  $('dialCap').textContent=r.cap;
+}
+function drawMesh(){
+  const svg=$('mesh'); if(!svg) return;
+  const pts=[];
+  for(let i=0;i<46;i++){const x=60+((i*151)%790),y=40+((i*67)%170);pts.push([x,y])}
+  let lines='';
+  pts.forEach((p,i)=>{const q=pts[(i*7+3)%pts.length];
+    lines+=`<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="var(--fact)" stroke-width="1" opacity=".28"/>`});
+  const dots=pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="var(--text)"/>`).join('');
+  svg.innerHTML=`${lines}${dots}
+    <text x="60" y="228" font-size="13" fill="var(--text-dim)">каждая точка — голосование совета по строке в 3000 долларов</text>
+    <text x="840" y="228" text-anchor="end" font-size="13" fill="var(--fact)">каждая линия — запрос, который сделает другое ведомство</text>`;
+}
+function buildCards(){
+  const w=$('cards'); if(!w) return;
+  w.innerHTML=CARDS.map((c,i)=>`<div class="card${i===0?' on':''}"><h3>${c.k}</h3><div class="price">Цена: ${c.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawDial(2);drawMesh();buildCards();
+
+if(!isAuto){
+  document.querySelectorAll('.toggle button.rt').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.toggle button.rt').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');drawDial(+b.dataset.i)});
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s2') master.call(()=>{let i=0;const step=()=>{drawDial(i%RET.length);i++;setTimeout(step,Math.max(3500,d*1000/5))};step()},null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>

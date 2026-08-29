@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — The Surveillance Nobody Voted For</title>
+<meta name="description" content="Two people's cars were photographed 526 and 849 times in four months, and a federal judge ruled it was not a search — because the records are kept for 21 days. In most of the United States nobody chose that number: it is a vendor default. How 5,000 separate town-council votes built one national location archive, and four designs for fixing it, each with a price.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#5B6E7F;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:160px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:94px}
+body.auto h2{font-size:64px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:100px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.051</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="63.3">
+  <div class="kicker">Trace Upstream · Episode 051</div>
+  <h1>The surveillance nobody voted for.</h1>
+  <div class="prose lede keep">
+    <p>Two people in Virginia asked the courts how often the police cameras in Norfolk had photographed their cars. The answers were 526 and 849, over about four months. Neither was under investigation. <em class="flaw">A federal judge read those numbers and ruled that none of it counted as a search.</em></p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">849</div><div class="l">photographs of one uncharged man’s car, four months</div></div>
+    <div class="stat"><div class="n">21 days</div><div class="l">the retention that made it lawful</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">federal laws on these cameras, as of August 2026</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="69.8">
+  <h2>The answer that isn’t the answer</h2>
+  <div class="prose">
+    <p>The obvious explanation is that a public street is public. For most of the last century that was the law. In 2018 the Supreme Court broke it: pulling months of a person’s phone location out of the company that stored it was a search — not because any street was private, but because <em class="fact">accumulation</em> turns a journey into a life. The phrase the court used was <em>the whole of a person’s movements</em>.</p>
+    <p>That converts a question about rights into a question about arithmetic. How far back does it go? Virginia caps its licence plate cameras at 21 days, and the judge decided three weeks of ordinary driving, with gaps where the cameras do not reach, is not yet the whole of anything. <em class="flaw">So the network is lawful because of a number — and somebody chose that number.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="78.7">
+  <h2>Who picks the number</h2>
+  <div class="prose">
+    <p>In a few places a legislature weighed it. Virginia’s 21 days came from its state legislature; Illinois allows up to five years for records tied to an investigation; New Hampshire wrote the strictest rule in the country — no match, and the photograph is destroyed within three minutes and never sent anywhere. <em class="fact">Same cameras, same company, three minutes in one state and five years in another.</em></p>
+    <p>In most of the country nobody weighed anything. As of August 2026 Congress had written no federal law on these cameras at all. Where a state has not legislated, the retention period is whatever the product does out of the box — and on 13 August 2026 the company behind most of these cameras moved its default from thirty days to seven, by announcement. <em class="flaw">The number a federal judge treated as the line between lawful and unlawful is, in a great many towns, a field in a settings menu.</em></p>
+  </div>
+  <div class="fig">
+    <h3>The dial nobody debated</h3>
+    <div class="toggle" role="group" aria-label="Retention period">
+      <button class="rt on" data-i="0">3 minutes</button><button class="rt" data-i="1">7 days</button><button class="rt" data-i="2">21 days</button><button class="rt" data-i="3">5 years</button>
+    </div>
+    <svg id="dial" viewBox="0 0 900 240" width="100%" height="240" role="img" aria-label="How retention length trades police visibility against public oversight"></svg>
+    <div class="figcap" id="dialCap"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="110.2">
+  <h2>What a town actually buys</h2>
+  <div class="prose">
+    <p>Nobody ever bought a network. A single camera costs about $3,000 a year on a subscription, and the department does not own the hardware. It goes to a town council, it is approved, and it gets no hearing, because nothing that costs $3,000 gets a hearing. And they work: the company credits its cameras with roughly a million closed investigations and ten thousand missing people found in the year to August 2026 — a figure from the seller, though the mayor who later switched his own city’s cameras off said plainly they had helped his police department.</p>
+    <p>By August 2026 more than 5,000 police agencies had made that same small decision, running over 120,000 cameras across 49 states and photographing more than 20 billion vehicles a month. <em class="fact">What the town bought was not a camera. It was a subscription to a shared archive</em>, searchable by other agencies. Each decision was local and modest. <em class="flaw">The sum is a national record of where cars go, which no national body ever approved, because none was ever asked.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Five thousand small yes votes</h3>
+    <svg id="mesh" viewBox="0 0 900 260" width="100%" height="260" role="img" aria-label="Separate municipal purchases resolving into one connected archive"></svg>
+    <div class="figcap">Each dot is one agency’s decision. The lines are the product.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="56.1">
+  <h2>The door that only opens one way</h2>
+  <div class="prose">
+    <p>On 26 August 2026 Tempe, Arizona switched off every plate camera it owned and said it would not look for another supplier. Three hours later the neighbouring town of Cave Creek did the same. Tempe votes reliably Democratic; Cave Creek leans Republican; neither had to be talked into it. By late August 2026 something like ninety towns and cities had cancelled or refused these contracts.</p>
+    <p>But a driver in Tempe is still photographed on crossing into a town that kept its cameras, and that record sits in that town’s archive. Everything Tempe’s own cameras collected before the switch is still in other agencies’ hands. <em class="flaw">You can vote to stop paying for it. You cannot vote to stop being seen by it.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="88.4">
+  <h2>Nobody is checking</h2>
+  <div class="prose">
+    <p>As of August 2026 the company had confirmed that it does not proactively audit how its system is used — not who searched, not why, not whether the stated reason was true. The logs exist; the agency doing the searching is the one that reads them, if anyone does. On 19 August 2026 the Washington Post counted more than fifty American officers accused, charged or convicted of misusing plate reader systems, including to follow former partners.</p>
+    <p>Nobody was checking upward either: answering a Democratic senator, the company confirmed several federal agencies had pilot access — and that its own police customers had been told it had no dealings with them. <em class="fact">Then the detail that decided it in Tempe: the city audited the system before pulling the plug, and found nothing.</em> No misuse, no violations. <em class="flaw">The council closed the programme anyway, having decided a clean audit from the people running the system was not evidence it wanted to rely on.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="76.5">
+  <h2>The ground moved</h2>
+  <div class="prose">
+    <p>Five months after the Norfolk ruling, on 29 June 2026, the Supreme Court held 6–3 that reaching into stored location data is a search — even for a short stretch, and even though the records sit on another company’s servers. Two hours of it, the court noted, is enough to place a person at a gun show or a political rally. <em class="fact">Which is to say the judge who upheld Norfolk had been working from a rule the Supreme Court had not yet written.</em></p>
+    <p>The court named what bothered it: surveillance that is <em>retrospective and indiscriminate</em> — collected on everybody, in advance, searched backwards once somebody becomes interesting. That is a description of a plate camera network. So Norfolk went to appeal, while a different federal appeals court has already looked at plate readers and said they are not a search either. <em class="flaw">A court can strike a number down. It has no way to supply the next one.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="240.1">
+  <h2>Four designs, four prices</h2>
+  <div class="prose">
+    <p>Delete on sight ends the constitutional argument because there is no archive — and ends retrospective search, which is the entire reason these networks were bought. A warrant for the query guards the door instead, but you will write an emergency exception, and the exception is where the argument moves next; a warrant also binds the government, not the archive, which is also sold to homeowners’ associations and private businesses. Put the number in law and pay a referee, and you discover the referee has never been funded anywhere — and that legislating retention concedes the network should exist. Cut the wires, and cars vanish at the county line, because the shared archive is what made the subscription cheap enough for a small department in the first place.</p>
+  </div>
+  <div class="fig">
+    <h3>Pick one and read its bill</h3>
+    <div class="cards" id="cards"></div>
+    <div class="figcap">Every design takes something from somebody. The question is not which is right — it is who ends up choosing.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="43.6">
+  <h2>Two questions for your own council</h2>
+  <div class="prose keep">
+    <p>526 photographs. 849. Two people never accused of anything, in a city that did nothing unusual, in a system a court found lawful because of a number Virginia’s legislature happened to pick — while in most of the country nobody picked it at all.</p>
+    <p><em class="flaw">How many days does your town keep the records, and who is allowed to change that? And on the day you vote to switch them off, what happens to everything already collected?</em> Somebody in your town can answer both.</p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who’s to blame. How it’s built.</div>
+  <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+
+const RET=[
+ {k:'3 minutes',  who:'New Hampshire statute',        police:.02, public:.05, pl:'almost nothing', pu:'almost nothing',
+  cap:'Nothing to search backwards through — and nothing left for a records request to reach either.'},
+ {k:'7 days',     who:'the vendor’s default setting', police:.28, public:.30, pl:'one week', pu:'only if you are fast',
+  cap:'Changed from thirty days by announcement on 13 August 2026. No legislature was involved.'},
+ {k:'21 days',    who:'Virginia’s legislature',       police:.55, public:.62, pl:'three weeks', pu:'a month to ask',
+  cap:'The number the Norfolk court relied on: three weeks, it held, is not yet the whole of a person’s movements.'},
+ {k:'5 years',    who:'Illinois, for investigations', police:1,   public:.95, pl:'years', pu:'years',
+  cap:'Long enough that the same reasoning would have to be argued all over again.'}];
+
+const CARDS=[
+ {k:'Delete on sight',p:'No archive to search backwards through — which is what these networks were bought for. Short retention also defeats public records requests: in Washington state the files were gone before anyone retrieved them.'},
+ {k:'A warrant for the query',p:'You must write an emergency exception, and the people classifying a search as urgent are the people who want to search. A warrant also binds the government, not the archive.'},
+ {k:'The number in law, plus a referee',p:'California’s out-of-state ban was broken for years, and the referee has never been funded anywhere. Legislating retention also concedes the network should exist.'},
+ {k:'Cut the wires',p:'A car that crosses a county line disappears. Isolated data is expensive data — the shared archive is what made the subscription affordable for a small department.'}];
+
+function drawDial(i){
+  const svg=$('dial'); if(!svg) return;
+  const r=RET[i],W=900,x0=250,bw=520;
+  const bar=(y,frac,col,lab,val)=>`
+    <text x="${x0-16}" y="${y+21}" text-anchor="end" font-size="14" fill="var(--text-dim)">${lab}</text>
+    <rect x="${x0}" y="${y}" width="${bw}" height="30" fill="var(--grid)" opacity=".5"/>
+    <rect x="${x0}" y="${y}" width="${Math.max(4,bw*frac)}" height="30" fill="${col}"/>
+    <text x="${x0+bw+14}" y="${y+21}" font-size="14" fill="${col}">${val}</text>`;
+  svg.innerHTML=`
+    <text x="0" y="34" font-size="30" fill="var(--text)" font-weight="700">${r.k}</text>
+    <text x="0" y="60" font-size="14" fill="var(--text-dim)">set by ${r.who}</text>
+    ${bar(96, r.police,'var(--flaw)','how much of your past the police can reconstruct', r.pl)}
+    ${bar(156,r.public,'var(--fact)','how much of it the public can still audit',        r.pu)}
+    <text x="${x0}" y="222" font-size="13" fill="var(--text-dim)">Both bars move together. That is the trade nobody in the courtroom was arguing about.</text>`;
+  $('dialCap').textContent=r.cap;
+}
+function drawMesh(){
+  const svg=$('mesh'); if(!svg) return;
+  const pts=[];
+  for(let i=0;i<46;i++){const x=60+((i*151)%790),y=40+((i*67)%170);pts.push([x,y])}
+  let lines='';
+  pts.forEach((p,i)=>{const q=pts[(i*7+3)%pts.length];
+    lines+=`<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="var(--fact)" stroke-width="1" opacity=".28"/>`});
+  const dots=pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="var(--text)"/>`).join('');
+  svg.innerHTML=`${lines}${dots}
+    <text x="60" y="228" font-size="13" fill="var(--text-dim)">each dot: one council vote on a $3,000 line item</text>
+    <text x="840" y="228" text-anchor="end" font-size="13" fill="var(--fact)">each line: a search another agency can run</text>`;
+}
+function buildCards(){
+  const w=$('cards'); if(!w) return;
+  w.innerHTML=CARDS.map((c,i)=>`<div class="card${i===0?' on':''}"><h3>${c.k}</h3><div class="price">Price: ${c.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawDial(2);drawMesh();buildCards();
+
+if(!isAuto){
+  document.querySelectorAll('.toggle button.rt').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.toggle button.rt').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');drawDial(+b.dataset.i)});
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s2') master.call(()=>{let i=0;const step=()=>{drawDial(i%RET.length);i++;setTimeout(step,Math.max(3500,d*1000/5))};step()},null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
