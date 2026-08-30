@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Исландия ответила «нет» раньше, чем появилось предложение</title>
+<meta name="description" content="В Исландии прошёл референдум о том, разрешено ли правительству выяснить, во что обойдётся вступление в ЕС. Явка 82,5% — выше, чем на выборах парламента, — и 52,8% сказали «нет». Условия появляются только после согласия вести переговоры, а главу о рыболовстве за три года так и не открыли. Три другие конструкции того же решения, у каждой своя цена.">
+<link rel="canonical" href="https://traceupstream.com/episodes/052-vote-before-the-terms/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#5B6E7F;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:160px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:94px}
+body.auto h2{font-size:64px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:100px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">ВЫПУСК 052</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="32.3">
+  <div class="kicker">Дефект конструкции · Выпуск 052</div>
+  <h1>Исландия ответила «нет» раньше, чем появилось предложение.</h1>
+  <div class="prose lede keep">
+    <p>Референдум был не о вступлении в Европейский союз. Он был о том, разрешено ли правительству пойти и выяснить, во что вступление обойдётся. <em class="flaw">Отвечать на это пришло больше людей, чем приходит выбирать парламент.</em></p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">82.5%</div><div class="l">явка против 80,18% на выборах 2024 года</div></div>
+    <div class="stat"><div class="n">52.8%</div><div class="l">сказали «нет» началу переговоров</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">документов с условиями, от которых отказались</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="43.6">
+  <h2>Страна, которая и так соблюдает правила</h2>
+  <div class="prose">
+    <p>Исландия внутри европейского единого рынка с 1994 года. Товары, услуги, деньги и люди пересекают её границу по европейским правилам, и каждый год исландское право впитывает регламенты, написанные в Брюсселе, в комнатах, где у Исландии вообще нет голоса.</p>
+    <p>У сторонников членства есть название для такого устройства. <em class="fact">Они называют его факс-демократией: правила ты получаешь, комнату, где их пишут, — нет.</em> Значит, голосовали вовсе не о том, соблюдать ли европейские правила. Это решили три десятилетия назад.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="64">
+  <h2>Единственная отрасль, которой никто не касался</h2>
+  <div class="prose">
+    <p>Морепродукты — это 38,9% товаров, которые Исландия продаёт за границу: не продовольственного экспорта, а всего, что она вывозит. Европейский союз распоряжается рыболовными квотами на своём уровне: кто сколько ловит и где.</p>
+    <p>А у соглашения, которое вступило в силу в 1994 году, исключений почти нет. <em class="fact">Оно выводит за скобки ровно две отрасли: сельское хозяйство и рыболовство.</em> <em class="flaw">Голосовали о единственном, чего Исландия не отдала, — и о том, чего ни одно соглашение никогда не покрывало.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Что действующее соглашение уже покрывает</h3>
+    <svg id="cover" viewBox="0 0 900 200" width="100%" height="200" role="img" aria-label="The EEA covers nearly every sector and excludes agriculture and fisheries"></svg>
+    <div class="figcap">Всё синее уже решается не здесь. Голосовали о двух янтарных полосах.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="160.1">
+  <h2>Чтобы узнать цену, надо согласиться её заплатить</h2>
+  <div class="prose">
+    <p>Нигде нет документа, который описывал бы, как выглядели бы права на вылов для Исландии внутри Союза. Он не засекречен и не спрятан — его не существует. Изъятия, переходные периоды и постоянные исключения производятся в ходе переговоров, а до их начала у переговорщиков Союза нет полномочий от двадцати семи правительств обещать хоть что-нибудь.</p>
+    <p><em class="flaw">Чтобы узнать цену, надо сначала согласиться её заплатить. А чтобы согласиться, нужно знать цену.</em> Перед голосованием Брюссель дал понять, что готов к необычной гибкости по рыбе. Сигнал — это не документ: читать нечего, проверять нечего, предъявить потом нечего.</p>
+    <p>Круг должен размыкаться изнутри. Исландия это проверила. Переговоры о вступлении разрезаны на 35 предметных областей, каждая открывается, обсуждается и закрывается отдельно; Исландия просидела за этим столом три года с июля 2010-го и открыла 27 из них. <em class="fact">Ту, что про рыболовство, не открыла ни разу.</em> В 2013 году она ушла из-за стола, а через два года попросила не считать её кандидатом — поэтому голосование 2026 года и было о возобновлении.</p>
+    <p>Уйти оказалось дёшево, и дёшево по понятной причине: за три года она так и не дошла до той темы, ради которой садилась. Самую тяжёлую тему оставляют на конец по устройству процесса, когда страна уже потратила годы и политический капитал и уйти дороже, чем уступить. <em class="flaw">Поэтому отказ начинать — это не невежество. Это выход, пока он ещё бесплатный, потому что цена выхода растёт по мере приближения к ответу.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Три года, тридцать пять областей</h3>
+    <svg id="chapters" viewBox="0 0 900 220" width="100%" height="220" role="img" aria-label="27 of 35 accession chapters opened, 11 closed, fisheries never opened"></svg>
+    <div class="figcap" id="chapCap">Наведите на квадрат. Та область, что решила исход референдума, не открывалась ни разу.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="90.9">
+  <h2>Норвегия дошла до конца</h2>
+  <div class="prose">
+    <p>Норвегия дважды сделала наоборот: полные переговоры, подписанные условия вступления, все цифры на столе — и только потом референдум по готовому документу. В 1972 году норвежцы прочитали условия и сказали «нет», 53,5 против 46,5. В 1994-м проделали всё заново, при правительстве, агитировавшем за вступление, и с хорошими условиями на руках, и снова сказали «нет» — 52 против 48. Хорватия прошла тем же путём и сказала «да» в 2012 году, так что это риск, а не приговор.</p>
+    <p>Но риск настоящий, и кто-то его несёт: годы переговоров выброшены, дважды, той самой страной, которая их и просила. <em class="flaw">И есть вторая цена. После двух информированных отказов Норвегия живёт ровно там же, где Исландия: внутри единого рынка, принимает правила и не имеет голоса ни по одному из них.</em> Путь, который лучше всех информирует избирателя, оба раза дал «нет», а «нет» приводит ровно в то устройство, в котором Исландия уже живёт.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="126.1">
+  <h2>Дания, за пять месяцев</h2>
+  <div class="prose">
+    <p>2 июня 1992 года датчане отклонили Маастрихтский договор — тот самый, что создал евро и превратил общий рынок в союз, — с перевесом в полтора пункта. Такой отказ останавливает договор для всех, и Европа задвигалась быстро. К декабрю национальные правительства на встрече в Эдинбурге выписали Дании четыре постоянных изъятия: из евро, из обороны, из правосудия и внутренних дел, из европейского гражданства. В мае 1993 года Дания проголосовала снова, по тому же договору вместе с изъятиями, и он прошёл. <em class="fact">Пять месяцев, и никому не пришлось сначала на что-то соглашаться: условия сперва написали, а потом по ним проголосовали.</em></p>
+    <p>Теперь посмотрите, чем эти изъятия обернулись. Три десятилетия Дания провела вне комнат, где решали по обороне, по правосудию, по валюте, — решения всё равно её касались. В 2022 году она провела ещё один референдум и вернула оборонное изъятие обратно. <em class="flaw">Изъятие купило Дании то же самое место, что есть у Исландии: правила применяются, а комната, где их пишут, находится в другом месте. Разница только в том, что дверь Дания заперла сама.</em></p>
+    <p>И есть причина, по которой этот фокус никто не повторил. Дания уже была членом и ратифицировала договор, а не стучалась снаружи, и ни для одного кандидата такого предложения никто никогда не писал. Изъятия составили правительства, сидя вместе, — <em class="flaw">то есть за тем самым столом, куда кандидата не позвали.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="94.6">
+  <h2>Швейцария разобрала его на части</h2>
+  <div class="prose">
+    <p>Швейцария отвергла то самое соглашение о едином рынке, которое Исландия приняла, — 6 декабря 1992 года, с перевесом в шесть десятых пункта. А потом собрала доступ к рынку из кусков: больше 120 отдельных соглашений, каждое обсуждалось само по себе. Первым была связка из семи, и она прошла всенародное голосование в 2000 году с 67%. <em class="fact">Разобранный на части доступ к рынку прошёл. Целиком, одним куском, он в Швейцарии не проходил никогда.</em></p>
+    <p>Цена вписана в сами договоры. Эти семь связаны гильотинной оговоркой: расторгни любое одно — и погибнут все семь. <em class="flaw">Выбор по частям на бумаге, снова пакет на деле.</em> Изменения европейских правил, которые она не писала, Швейцария тоже обязана принимать, и переговоры не кончаются: третий пакет согласован в 2025 году и всенародного голосования ещё ждёт — спустя три с лишним десятилетия после того, как страна выбрала этот путь, чтобы избежать одного большого решения.</p>
+  </div>
+  <div class="fig">
+    <h3>Четыре места, четыре счёта</h3>
+    <svg id="ladder" viewBox="0 0 900 250" width="100%" height="250" role="img" aria-label="How many EU rules each country takes against how much vote it holds"></svg>
+    <div class="figcap">Принятые правила против голоса при их написании. Пустой угол не занят никем.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="80.8">
+  <h2>От какой из трёх конструкций Исландия отказалась?</h2>
+  <div class="prose">
+    <p>От норвежского, вообще-то, — только с воротами перед входом. Голосование по готовому документу Исландии обещали. Сначала надо было проголосовать за то, чтобы этот документ начали писать, а к моменту, когда он появится, у выхода уже есть цена. 52,8% отказались проходить в эти ворота. Они и дальше будут принимать правила, за которые не голосовали, и дальше будут держать ту единственную отрасль, которую эти правила не трогают.</p>
+    <p><em class="flaw">Варианта, где не платит никто, здесь нет.</em> Норвегия платит дважды: выброшенными переговорами и теми правилами, которые всё равно принимает. Дания заплатила за свои изъятия местами, которые ради них отдала. Швейцария платит переговорами без конца.</p>
+  </div>
+  <div class="fig">
+    <h3>Выберите конструкцию и прочтите её счёт</h3>
+    <div class="cards" id="cards"></div>
+    <div class="figcap">Поэтому, когда следующий вопрос по принципу «всё или ничего» дойдёт до вас — в бюллетене, на собрании в вашей организации, в договоре, который просят подписать сегодня, — полезно спрашивать не о том, как ответить. А о том, существуют ли уже условия и кто решил, что отвечать вы будете первым.</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Полезный вопрос не в том, как ответить. А в том, существуют ли уже условия, — и если их нет, кто решил, что отвечать вы будете первым.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker" style="margin-bottom:6px"><a href="../" style="color:var(--text-dim)">In English → </a></div>
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать нарацию">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+
+const CARDS=[
+ {k:'Голосовать по тексту',p:'Норвегия сделала так дважды и дважды сказала «нет» — годы переговоров выброшены, а переговорщик сидит за столом без мандата. Оба раза «нет» дало те же правила без права голоса.'},
+ {k:'Написать условия заранее',p:'Дания получила четыре изъятия за пять месяцев — проиграв референдум и будучи членом, а не кандидатом. Изъятия купили три десятилетия вне комнат, где принимались решения.'},
+ {k:'Разобрать пакет на части',p:'Швейцария собрала 120 соглашений по одному — а потом связала семь из них гильотинной оговоркой, так что расторжение одного отменяет все. Пересогласование не прекращалось никогда.'},
+ {k:'Спрашивать разрешения спросить',p:'Собственная конструкция Исландии. Выход остаётся бесплатным, потому что вы не входите, — но условия, от которых вы отказались, так и остаются ненаписанными, и никто не узнает, что предлагали.'}];
+
+const SEATS=[
+ {k:'Член ЕС',       rules:1,   say:1,    note:'принимает правила и голосует по ним'},
+ {k:'Исландия',     rules:.75, say:0,    note:'единый рынок, голоса нет'},
+ {k:'Норвегия',     rules:.75, say:0,    note:'то же устройство, после двух информированных отказов'},
+ {k:'Швейцария',    rules:.55, say:0,    note:'120 соглашений, гильотинная оговорка, голоса нет'}];
+
+function drawCover(){
+  const svg=$('cover'); if(!svg) return;
+  const W=860,x0=20,n=22,gap=4,bw=(W-gap*(n-1))/n;
+  let out='';
+  for(let i=0;i<n;i++){
+    const excl=(i>=n-2);
+    out+=`<rect x="${x0+i*(bw+gap)}" y="40" width="${bw}" height="70" rx="3" fill="${excl?'var(--flaw)':'var(--fact)'}" opacity="${excl?1:.55}"/>`;
+  }
+  svg.innerHTML=`
+    <text x="${x0}" y="26" font-size="14" fill="var(--text-dim)">соглашение 1994 года, отрасль за отраслью</text>
+    ${out}
+    <text x="${x0}" y="140" font-size="15" fill="var(--fact)">правила приходят из Брюсселя, голоса у Исландии нет</text>
+    <text x="${x0+W}" y="140" text-anchor="end" font-size="15" fill="var(--flaw)">сельское хозяйство · рыболовство</text>
+    <text x="${x0}" y="176" font-size="13" fill="var(--text-dim)">Морепродукты — 38,9% товарного экспорта, и лежат они в тех двух полосах, которых соглашение не коснулось.</text>`;
+}
+function drawChapters(hi){
+  const svg=$('chapters'); if(!svg) return;
+  const cols=12,cell=54,gap=8,x0=20,y0=44;
+  let out='';
+  for(let i=0;i<35;i++){
+    const c=i%cols,r=(i-c)/cols;
+    const fish=(i===34);
+    const closed=i<11, open=i<27;
+    const fill=fish?'var(--bg-raised)':closed?'var(--fact)':open?'var(--fact)':'var(--bg-raised)';
+    const op=fish?1:closed?.9:open?.4:1;
+    const stroke=fish?'var(--flaw)':'var(--grid)';
+    const sw=fish?3:1;
+    out+=`<rect x="${x0+c*(cell+gap)}" y="${y0+r*(cell+gap)}" width="${cell}" height="${cell}" rx="4"
+      fill="${fill}" opacity="${op}" stroke="${stroke}" stroke-width="${sw}"
+      ${hi===i?'stroke="var(--text)" stroke-width="3"':''}/>`;
+  }
+  svg.innerHTML=`
+    <text x="${x0}" y="28" font-size="14" fill="var(--text-dim)">35 предметных областей · открыто 27 · предварительно закрыто 11 · не открыта ни разу 1</text>
+    ${out}
+    <text x="${x0}" y="212" font-size="13" fill="var(--flaw)">обведённый квадрат — рыболовство, ради которого всё и решалось</text>`;
+}
+function drawLadder(){
+  const svg=$('ladder'); if(!svg) return;
+  const x0=180,W=620,y0=40,rh=40,gap=12;
+  let out='';
+  SEATS.forEach((s,i)=>{
+    const y=y0+i*(rh+gap);
+    out+=`
+      <text x="${x0-16}" y="${y+26}" text-anchor="end" font-size="15" fill="var(--text)">${s.k}</text>
+      <rect x="${x0}" y="${y}" width="${W}" height="${rh}" fill="var(--grid)" opacity=".4" rx="3"/>
+      <rect x="${x0}" y="${y}" width="${Math.max(6,W*s.rules)}" height="${rh}" fill="var(--fact)" opacity=".75" rx="3"/>
+      <rect x="${x0}" y="${y+rh-9}" width="${Math.max(4,W*s.say)}" height="9" fill="var(--alt)" rx="2"/>
+      <text x="${x0+W+12}" y="${y+26}" font-size="13" fill="var(--text-dim)">${s.note}</text>`;
+  });
+  svg.innerHTML=`${out}
+    <text x="${x0}" y="${y0+4*(rh+gap)+22}" font-size="13" fill="var(--fact)">синий: какую долю правил ты принимаешь</text>
+    <text x="${x0+330}" y="${y0+4*(rh+gap)+22}" font-size="13" fill="var(--alt)">зелёный: сколько у тебя голоса при их написании</text>`;
+}
+function buildCards(){
+  const w=$('cards'); if(!w) return;
+  w.innerHTML=CARDS.map((c,i)=>`<div class="card${i===0?' on':''}"><h3>${c.k}</h3><div class="price">Цена: ${c.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawCover();drawChapters(-1);drawLadder();buildCards();
+
+if(!isAuto){
+  const cs=$('chapters');
+  if(cs) cs.addEventListener('mousemove',e=>{
+    const r=cs.getBoundingClientRect(),sx=900/r.width;
+    const x=(e.clientX-r.left)*sx,y=(e.clientY-r.top)*sx;
+    const c=Math.floor((x-20)/62),rw=Math.floor((y-44)/62),i=rw*12+c;
+    if(i>=0&&i<35&&c>=0&&c<12){
+      drawChapters(i);
+      $('chapCap').textContent = i===34
+        ? 'Рыболовство — не открывалось за три года переговоров, и только ради него референдум и имел смысл.'
+        : i<11 ? 'Предварительно закрыто: образование, наука, защита прав потребителей и подобное — лёгкие.'
+               : 'Открыта, но не закрыта. За три года открыли двадцать семь.';
+    }
+  });
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s3') master.call(()=>{let i=0;const step=()=>{drawChapters(i<27?i:34);i=(i+3)%36;setTimeout(step,1400)};step()},null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>

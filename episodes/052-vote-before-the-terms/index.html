@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — Iceland Said No Before the Offer Existed</title>
+<meta name="description" content="Iceland held a referendum on whether its government was allowed to go and ask what joining the EU would cost. 82.5% turned out — more than elect a parliament — and 52.8% said no. The terms only exist after you agree to negotiate, and the fisheries chapter was never opened in three years of talks. Three other designs for the same decision, each with a price.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#5B6E7F;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:160px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:94px}
+body.auto h2{font-size:64px}
+body.auto h3{font-size:34px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:100px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.052</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="25.4">
+  <div class="kicker">Trace Upstream · Episode 052</div>
+  <h1>Iceland said no before the offer existed.</h1>
+  <div class="prose lede keep">
+    <p>The referendum was not about joining the European Union. It was about whether the government was allowed to go and ask what joining would cost. <em class="flaw">More people turned out to answer that than turn out to elect a parliament.</em></p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">82.5%</div><div class="l">turnout, against 80.18% at the 2024 election</div></div>
+    <div class="stat"><div class="n">52.8%</div><div class="l">said no to starting the talks</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">documents describing the terms being refused</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="35.9">
+  <h2>The country that already follows the rules</h2>
+  <div class="prose">
+    <p>Iceland has been inside the European single market since 1994. Goods, services, money and people cross its border under European rules, and every year Icelandic law absorbs regulations drafted in Brussels, in rooms where Iceland has no vote at all.</p>
+    <p>Supporters of membership have a name for the arrangement. <em class="fact">They call it fax democracy: you get the rules, you do not get the room where they are written.</em> So the vote was never about whether to follow European rules. That was settled three decades ago.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="54.8">
+  <h2>The one sector nobody has touched</h2>
+  <div class="prose">
+    <p>Marine products are 38.9% of the goods Iceland sells abroad — not of its food exports, of everything it ships out. The European Union manages fishing quotas at Union level: who catches how much, and where.</p>
+    <p>And the agreement that took effect in 1994 has almost no exceptions. <em class="fact">It excludes exactly two sectors: agriculture and fisheries.</em> <em class="flaw">The vote was about the one thing Iceland had not given up — and the one thing no agreement has ever covered.</em></p>
+  </div>
+  <div class="fig">
+    <h3>What the existing deal already covers</h3>
+    <svg id="cover" viewBox="0 0 900 200" width="100%" height="200" role="img" aria-label="The EEA covers nearly every sector and excludes agriculture and fisheries"></svg>
+    <div class="figcap">Everything blue is already decided elsewhere. The vote was about the two amber strips.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="131.1">
+  <h2>To learn the price, you must agree to pay it</h2>
+  <div class="prose">
+    <p>There is no document anywhere describing what fishing rights would look like for Iceland inside the Union. Not classified, not buried — it does not exist. Exemptions, transition periods and permanent carve-outs are produced during the negotiations, and before talks open the Union's negotiators have no authority from twenty-seven governments to promise anything at all.</p>
+    <p><em class="flaw">To learn the price, you must first agree to pay it. And to agree, you would need to know the price.</em> Brussels signalled before the vote that it was ready to be unusually flexible about fish. A signal is not a document: nothing to read, nothing to check, nothing to hold anyone to afterwards.</p>
+    <p>The circle should open from the inside. Iceland has tested that. Accession talks are cut into 35 subject areas, each opened, argued over and closed separately; Iceland spent three years at that table from July 2010 and opened 27 of them. <em class="fact">The fisheries one it never opened. Not once.</em> In 2013 it left the table, and two years later asked to be taken off the candidate list — which is why the 2026 vote was about restarting.</p>
+    <p>Leaving was cheap, and it was cheap for a reason: three years in, it still had not reached the subject it came for. The hardest subject waits for the end by design, when a country has spent years and political capital and walking away costs more than conceding. <em class="flaw">So declining to start is not ignorance. It is the exit taken while it is still free, because the price of leaving climbs as you get nearer the answer.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Three years, thirty-five subjects</h3>
+    <svg id="chapters" viewBox="0 0 900 220" width="100%" height="220" role="img" aria-label="27 of 35 accession chapters opened, 11 closed, fisheries never opened"></svg>
+    <div class="figcap" id="chapCap">Hover a square. The one that decided the referendum was never opened.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="72.4">
+  <h2>Norway went all the way in</h2>
+  <div class="prose">
+    <p>Norway did the opposite twice: full negotiations, signed accession terms, every number on the table, and only then a referendum on the finished document. In 1972 Norwegians read the terms and said no, 53.5 to 46.5. In 1994 they did the whole thing again, with a government campaigning for yes and good terms in hand, and said no again — 52 to 48. Croatia ran the same route and said yes in 2012, so this is a risk rather than a verdict.</p>
+    <p>But it is a real risk, and someone carries it: years of negotiation thrown away, twice, by the country that asked for them. <em class="flaw">And there is a second cost. After two informed noes, Norway lives exactly where Iceland lives — inside the single market, taking the rules, holding no vote on any of them.</em> The route that informs the voter best produced a no both times, and the no delivers the arrangement Iceland is already living in.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="113.8">
+  <h2>Denmark, in five months</h2>
+  <div class="prose">
+    <p>On 2 June 1992, Danish voters rejected the Maastricht treaty — the one that created the euro and turned a common market into a union — by one and a half points. A rejection like that stops the treaty for everyone, so Europe moved fast. By December the national governments meeting in Edinburgh had written Denmark four permanent exemptions: from the euro, from defence, from justice and home affairs, and from European citizenship. In May 1993 Denmark voted again on the same treaty plus the exemptions, and it passed. <em class="fact">Five months, and nobody had to agree to anything first: the terms were written, and then they were voted on.</em></p>
+    <p>Then look at what those exemptions cost. Denmark spent three decades outside the rooms where decisions on defence, on justice, on the currency were taken — decisions that reached it anyway. In 2022 it held another referendum and handed the defence exemption back. <em class="flaw">The exemption bought Denmark the same seat Iceland has: the rules apply, and the room where they are written is somewhere else. The difference is that Denmark locked that door itself.</em></p>
+    <p>And there is a reason nobody has repeated the trick. Denmark was already a member ratifying a treaty, not an outsider asking to join, and no such offer has ever been written for a candidate. The exemptions were drafted by the governments sitting together — <em class="flaw">which is exactly the table a candidate has not been invited to.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="68.0">
+  <h2>Switzerland took it apart</h2>
+  <div class="prose">
+    <p>Switzerland rejected the same single-market agreement Iceland accepted, on 6 December 1992, by six-tenths of a point. Then it built market access out of pieces: more than 120 separate agreements, negotiated one at a time. The first of them was a bundle of seven, and it passed a public vote in 2000 with 67%. <em class="fact">Taken apart, market access passed. As a whole, it has never passed in Switzerland at all.</em></p>
+    <p>The price is written into the contracts. Those seven are tied together by the guillotine clause: cancel any one of them, and all seven die. <em class="flaw">Choice by pieces on paper, a package again in practice.</em> Switzerland also has to absorb changes to European rules it did not write, and the negotiating never ends — a third package was agreed in 2025 and still has to face a public vote, more than three decades after the country chose this route to avoid one big decision.</p>
+  </div>
+  <div class="fig">
+    <h3>Four seats, four bills</h3>
+    <svg id="ladder" viewBox="0 0 900 250" width="100%" height="250" role="img" aria-label="How many EU rules each country takes against how much vote it holds"></svg>
+    <div class="figcap">Rules taken, against say in writing them. Nobody occupies the empty corner.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="61.7">
+  <h2>Which of the three did Iceland turn down?</h2>
+  <div class="prose">
+    <p>Norway's, in fact — with a gate in front of it. Iceland was promised the vote on the finished document. What it had to do first was vote to have the document written, and by the time it exists, leaving has a price. 52.8% declined to walk through that gate. They will go on taking rules they had no vote on, and go on holding the one industry those rules leave alone.</p>
+    <p><em class="flaw">There is no version of this where nobody pays.</em> Norway pays twice: in discarded negotiations, and in the rules it ends up taking anyway. Denmark paid for its exemptions with the seats it gave up to get them. Switzerland pays in a negotiation with no end.</p>
+  </div>
+  <div class="fig">
+    <h3>Pick a design and read its bill</h3>
+    <div class="cards" id="cards"></div>
+    <div class="figcap">So when the next all-or-nothing question reaches you — on a ballot, in a vote at work, in a contract someone wants signed today — the useful thing to ask is not which way to answer. It is whether the terms exist yet, and who decided that you would answer first.</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">The useful question is not which way to answer. It is whether the terms exist yet — and if they do not, who decided that you would answer first.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+
+const CARDS=[
+ {k:'Vote on the text',p:'Norway did it twice and said no twice — years of negotiation discarded, and a negotiator with no mandate at the table. Both times the no delivered the same rules with no vote.'},
+ {k:'Write the terms first',p:'Denmark got four exemptions in five months — after losing a referendum, as a member, not a candidate. The exemptions bought three decades outside the rooms where the decisions were taken.'},
+ {k:'Take the package apart',p:'Switzerland assembled 120 agreements one at a time — then tied seven of them to a guillotine clause, so cancelling one cancels all. The renegotiation has never stopped.'},
+ {k:'Ask permission to ask',p:'Iceland’s own design. The exit stays free, because you never enter — and the terms you declined stay unwritten, so nobody ever learns what was on offer.'}];
+
+const SEATS=[
+ {k:'EU member',    rules:1,   say:1,    note:'takes the rules, votes on them'},
+ {k:'Iceland',      rules:.75, say:0,    note:'single market, no vote'},
+ {k:'Norway',       rules:.75, say:0,    note:'same arrangement, after two informed noes'},
+ {k:'Switzerland',  rules:.55, say:0,    note:'120 agreements, guillotine clause, no vote'}];
+
+function drawCover(){
+  const svg=$('cover'); if(!svg) return;
+  const W=860,x0=20,n=22,gap=4,bw=(W-gap*(n-1))/n;
+  let out='';
+  for(let i=0;i<n;i++){
+    const excl=(i>=n-2);
+    out+=`<rect x="${x0+i*(bw+gap)}" y="40" width="${bw}" height="70" rx="3" fill="${excl?'var(--flaw)':'var(--fact)'}" opacity="${excl?1:.55}"/>`;
+  }
+  svg.innerHTML=`
+    <text x="${x0}" y="26" font-size="14" fill="var(--text-dim)">the 1994 agreement, sector by sector</text>
+    ${out}
+    <text x="${x0}" y="140" font-size="15" fill="var(--fact)">rules arrive from Brussels, Iceland has no vote</text>
+    <text x="${x0+W}" y="140" text-anchor="end" font-size="15" fill="var(--flaw)">agriculture · fisheries</text>
+    <text x="${x0}" y="176" font-size="13" fill="var(--text-dim)">Marine products are 38.9% of goods exports — and sit in the two strips the agreement never touched.</text>`;
+}
+function drawChapters(hi){
+  const svg=$('chapters'); if(!svg) return;
+  const cols=12,cell=54,gap=8,x0=20,y0=44;
+  let out='';
+  for(let i=0;i<35;i++){
+    const c=i%cols,r=(i-c)/cols;
+    const fish=(i===34);
+    const closed=i<11, open=i<27;
+    const fill=fish?'var(--bg-raised)':closed?'var(--fact)':open?'var(--fact)':'var(--bg-raised)';
+    const op=fish?1:closed?.9:open?.4:1;
+    const stroke=fish?'var(--flaw)':'var(--grid)';
+    const sw=fish?3:1;
+    out+=`<rect x="${x0+c*(cell+gap)}" y="${y0+r*(cell+gap)}" width="${cell}" height="${cell}" rx="4"
+      fill="${fill}" opacity="${op}" stroke="${stroke}" stroke-width="${sw}"
+      ${hi===i?'stroke="var(--text)" stroke-width="3"':''}/>`;
+  }
+  svg.innerHTML=`
+    <text x="${x0}" y="28" font-size="14" fill="var(--text-dim)">35 subject areas · 27 opened · 11 provisionally closed · 1 never opened</text>
+    ${out}
+    <text x="${x0}" y="212" font-size="13" fill="var(--flaw)">the outlined square is fisheries — the reason the whole thing was being decided</text>`;
+}
+function drawLadder(){
+  const svg=$('ladder'); if(!svg) return;
+  const x0=180,W=620,y0=40,rh=40,gap=12;
+  let out='';
+  SEATS.forEach((s,i)=>{
+    const y=y0+i*(rh+gap);
+    out+=`
+      <text x="${x0-16}" y="${y+26}" text-anchor="end" font-size="15" fill="var(--text)">${s.k}</text>
+      <rect x="${x0}" y="${y}" width="${W}" height="${rh}" fill="var(--grid)" opacity=".4" rx="3"/>
+      <rect x="${x0}" y="${y}" width="${Math.max(6,W*s.rules)}" height="${rh}" fill="var(--fact)" opacity=".75" rx="3"/>
+      <rect x="${x0}" y="${y+rh-9}" width="${Math.max(4,W*s.say)}" height="9" fill="var(--alt)" rx="2"/>
+      <text x="${x0+W+12}" y="${y+26}" font-size="13" fill="var(--text-dim)">${s.note}</text>`;
+  });
+  svg.innerHTML=`${out}
+    <text x="${x0}" y="${y0+4*(rh+gap)+22}" font-size="13" fill="var(--fact)">blue: how much of the rulebook you take</text>
+    <text x="${x0+330}" y="${y0+4*(rh+gap)+22}" font-size="13" fill="var(--alt)">green: how much say you have in writing it</text>`;
+}
+function buildCards(){
+  const w=$('cards'); if(!w) return;
+  w.innerHTML=CARDS.map((c,i)=>`<div class="card${i===0?' on':''}"><h3>${c.k}</h3><div class="price">Price: ${c.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+drawCover();drawChapters(-1);drawLadder();buildCards();
+
+if(!isAuto){
+  const cs=$('chapters');
+  if(cs) cs.addEventListener('mousemove',e=>{
+    const r=cs.getBoundingClientRect(),sx=900/r.width;
+    const x=(e.clientX-r.left)*sx,y=(e.clientY-r.top)*sx;
+    const c=Math.floor((x-20)/62),rw=Math.floor((y-44)/62),i=rw*12+c;
+    if(i>=0&&i<35&&c>=0&&c<12){
+      drawChapters(i);
+      $('chapCap').textContent = i===34
+        ? 'Fisheries — never opened in three years of talks, and the only reason the referendum mattered.'
+        : i<11 ? 'Provisionally closed: education, science, consumer protection and the like — the easy ones.'
+               : 'Opened but never closed. Twenty-seven were opened in three years.';
+    }
+  });
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s3') master.call(()=>{let i=0;const step=()=>{drawChapters(i<27?i:34);i=(i+3)%36;setTimeout(step,1400)};step()},null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
