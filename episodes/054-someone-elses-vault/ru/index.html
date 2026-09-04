@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Почему центробанки держат золото в чужом хранилище</title>
+<meta name="description" content="Центробанк Нидерландов перевёз 86 тонн золота в Лондон ради готовности к кризису — в то самое хранилище, где с 2018 года лежит недоступное владельцу золото Венесуэлы. Продать за час и попасть под заморозку — это одно свойство, а не два. Четыре конструкции, у каждой цена.">
+<link rel="canonical" href="https://traceupstream.com/episodes/054-someone-elses-vault/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#4A5A6B;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:150px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.picks{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.pick{font-family:var(--font-mono);font-size:13px;padding:10px 14px;border:1.5px solid var(--grid);
+border-radius:8px;background:var(--bg-raised);cursor:pointer;color:var(--text)}
+.pick.on{border-color:var(--fact);color:var(--fact);box-shadow:0 0 0 2px rgba(43,94,196,.12)}
+.verdict{font-size:18px}
+.verdict .name{font-family:var(--font-display);font-weight:700;font-size:24px;margin-bottom:6px}
+.verdict .cost{color:var(--flaw);margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:92px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:96px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .verdict{font-size:32px}
+body.auto .verdict .name{font-size:46px}
+body.auto .prose,body.auto .toggle,body.auto .picks,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.054</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="55.4">
+  <div class="kicker">Дефект конструкции · Выпуск 054</div>
+  <h1>Почему центробанки держат золото в чужом хранилище.</h1>
+  <div class="prose lede keep">
+    <p>Центральный банк полгода перевозил золота на двенадцать миллиардов долларов подальше от геополитического риска. Бо́льшая часть золота никуда не поехала: её продали там, где она лежала. <em class="flaw">А хранилище, куда всё это переехало, — то самое, где с 2018 года лежит чужое золото, недоступное владельцу.</em></p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">86 т</div><div class="l">вывезено из Нью-Йорка и Оттавы, март — август 2026</div></div>
+    <div class="stat"><div class="n">59 т</div><div class="l">из них никуда не ехали: продали в одном городе, купили в другом</div></div>
+    <div class="stat"><div class="n">31 т</div><div class="l">венесуэльского золота заморожено в Лондоне с 2018 года</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="75.3">
+  <h2>Тот самый час</h2>
+  <div class="prose">
+    <p>Резерв — это не богатство. Это обещание про один конкретный час: тот час, когда ваша валюта падает, никто вам не одалживает, а чужие деньги нужны сегодня. Значит, важен один вопрос: можно ли продать резерв внутри этого часа.</p>
+    <p>Золото продать можно, но не везде. Цена на экране — это не цена золота вообще. Это цена золота, лежащего в Лондоне, на счетах лондонского клиринга, в слитках стандарта «надлежащая поставка». <em class="flaw">Слиток вне этой цепочки — по-прежнему золото, но не по этой цене и не сегодня.</em> Его надо проверить на пробу, иногда переплавить, перевезти и принять.</p>
+    <p><em class="fact">Этот стандарт написан не государством.</em> Его ведёт частная ассоциация торговцев слитками. Металл превращают в резерв частный стандарт и почтовый индекс.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="59.4">
+  <h2>Хранилище, которое ничего не стоит</h2>
+  <div class="prose">
+    <p>Федеральный резервный банк Нью-Йорка не берёт за хранение золота ничего. Он берёт около двух долларов за слиток, когда металл заходит, уходит или переезжает между отсеками. Там лежит пятьсот тысяч слитков трёх десятков государств и организаций, и продать золото соседу — это клерк, переносящий слитки между отсеками в одной комнате.</p>
+    <p><em class="fact">Никто никогда не решал собрать мировые резервы в двух городах.</em> Была длинная череда по отдельности разумных решений: тут бесплатное хранение, там самый глубокий рынок. Концентрация оказалась их осадком.</p>
+  </div>
+  <div class="fig">
+    <h3>Где лежит голландский резерв</h3>
+    <div class="toggle" role="group" aria-label="Переключение между состоянием до и после переезда">
+      <button id="tBefore" class="on">До</button><button id="tAfter">После переезда</button>
+    </div>
+    <svg id="vaults" viewBox="0 0 900 260" width="100%" height="260" role="img" aria-label="Доли голландского золота в Нью-Йорке, Оттаве, Лондоне и Нидерландах до и после переезда 2026 года"></svg>
+    <div class="figcap" id="vaultCap">До: самая большая зарубежная доля в Нью-Йорке. Источник: De Nederlandsche Bank, 2 сентября 2026.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="97">
+  <h2>Золото, которое не сдвинуть</h2>
+  <div class="prose">
+    <p>Около тридцати одной тонны, принадлежащей центральному банку Венесуэлы, лежит в Банке Англии и заморожено с 2018 года. И вот что понимают неправильно: британское право защищает это золото свирепо. По Акту об иммунитете государств 1978 года имущество чужого центрального банка считается никогда не коммерческим, а это даёт почти абсолютный иммунитет от взыскания. <em class="fact">Кредитор, который судится и выигрывает, не заберёт ни одного слитка.</em></p>
+    <p><em class="flaw">И владелец не заберёт тоже.</em> В декабре 2021 года Верховный суд Великобритании объяснил почему. Английские суды следуют доктрине одного голоса: если правительство признаёт кого-то главой государства, суд обязан признавать того же человека. Когда две соперничающие администрации обе требуют права распоряжаться банком, ответ даёт сертификат министерства иностранных дел. А суду не позволено спрашивать, верен ли этот сертификат.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Закон закрывает дверь для судей наглухо и оставляет её открытой для министра. Вопрос не в том, чьё это золото. Вопрос в том, кому позволено сказать слово «продать».</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="76">
+  <h2>Одно свойство, два имени</h2>
+  <div class="prose">
+    <p>Быстро продать можно только там, где рынок глубокий. Глубокий рынок есть в очень немногих городах. Город — это юрисдикция, а юрисдикция это ровно тот, кто может в плохое утро решить, что ваше поручение исполнено не будет. <em class="flaw">Скорость и уязвимость — не две настройки, между которыми выбирает казначей. Это одно свойство с двумя именами.</em></p>
+    <p>Поэтому уход из Северной Америки поднял лондонскую долю голландцев примерно до трети всего запаса. Это их крупнейшее зарубежное хранилище, и находится оно в юрисдикции, которая держит венесуэльское золото. И поэтому пятьдесят девять из восьмидесяти шести тонн физически никуда не ехали: их продали в Нью-Йорке и купили в Лондоне, на бумаге, обычным обменом по месту хранения. <em class="fact">Защищали не металл. Защищали запись о том, где металл считается лежащим.</em></p>
+  </div>
+  <div class="fig">
+    <h3>От чего зависит слиток золота</h3>
+    <svg id="chain" viewBox="0 0 900 250" width="100%" height="250" role="img" aria-label="Слиток золота зависит от рыночного стандарта в части цены и от юрисдикции в части разрешения продать"></svg>
+    <div class="figcap">Обе стрелки выходят из одного слитка. Рынок даёт ему цену, юрисдикция — разрешение.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="78.7">
+  <h2>Нейтральный хранитель</h2>
+  <div class="prose">
+    <p>Первый ответ, который приходит в голову, — хозяин получше, по-настоящему нейтральный. Это уже проверили. Банк международных расчётов в Базеле принадлежит центральным банкам мира и существует, чтобы их обслуживать. Он сохранял нейтралитет всю Вторую мировую войну, обслуживая центральные банки обеих сторон. Десятого марта 2022 года он приостановил доступ российского центрального банка ко всем своим услугам, встречам и мероприятиям.</p>
+    <p>Швейцария, слово, которое используют как синоним нейтрального хранения, в том же году присоединилась к санкциям. А три с половиной миллиарда долларов резервов афганского центрального банка лежат в женевском фонде, на счету в том же базельском банке, с сентября 2022 года. Формально не заморожены. Просто ни разу не выплачены. <em class="flaw">Нейтралитет — не свойство хранилища. Это решение, которое кто-то продлевает. Или не продлевает.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="76.4">
+  <h2>Домой</h2>
+  <div class="prose">
+    <p>Германия вернула 674 тонны из Нью-Йорка и Парижа между 2013 и 2017 годами, полностью опустошив парижское хранилище. Индия за 2024 и 2025 годы перевезла домой больше 200 тонн, доведя долю внутри страны примерно до шестидесяти процентов.</p>
+    <p>Индия же — то место, где записана цена этого выбора, потому что Индия поставила тот же опыт с другого конца. В 1991 году, когда резервов осталось примерно на две недели импорта, золото уже было дома. <em class="flaw">Дом не помог.</em> Тем летом шестьдесят семь тонн вывезли из страны и заложили банкам в Лондоне, Токио и Цюрихе примерно за шестьсот миллионов долларов. Всё делали тайно; когда об этом всё равно узнали, правительство пало.</p>
+    <p><em class="fact">Поэтому Германия, вернув весь этот металл, намеренно оставила половину запаса за границей.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Восемь моментов, когда это правило проверяли</h3>
+    <svg id="tl" viewBox="0 0 900 210" width="100%" height="210" role="img" aria-label="Хроника возвратов золота и заморозок с 1991 по 2026 год"></svg>
+    <div class="figcap" id="tlCap">Нажмите на точку, чтобы увидеть, что произошло. Возвраты — над линией, заморозки — под ней.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="22.1">
+  <h2>Разложить</h2>
+  <div class="prose keep">
+    <p><em class="flaw">Безопасность делится. Ликвидность — нет.</em> Не бывает так, чтобы вы держали треть резерва на глубоком рынке, треть на мелком и получили один и тот же час с обоих. Разложить металл — значит разложить хранение. Выход при этом не раскладывается.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="114.4">
+  <h2>Правило, которое уже написано</h2>
+  <div class="prose">
+    <p>Конвенция ООН об иммунитете государств, принятая в декабре 2004 года, говорит, что имущество центрального банка не считается коммерческим. Это международная версия британской защиты. Чтобы она заработала, её должны ратифицировать тридцать стран; к 2026 году это сделали около двадцати трёх. <em class="flaw">Правило написали и так и не включили.</em></p>
+    <p>Но представим, что включили. Оно закрывает взыскание, то есть кредитора с решением суда. А каждая заморозка в этом выпуске пришла совсем из другого места: указ, регламент совета, сертификат министерства. <em class="fact">Самое сильное правило об иммунитете из написанных нацелено в суды, а суды никогда не были проблемой.</em></p>
+    <p>И у него есть цена с другой стороны. Около 210 млрд евро резервов российского центрального банка были обездвижены в Бельгии после 2022 года. В декабре 2025 года Европейский союз продлил заморозку бессрочно, а потом, вместо того чтобы тронуть тело, занял 90 млрд евро собственных денег, чтобы одолжить их Украине. Возражение Бельгии было не сентиментальным: заберите тело — и каждый управляющий резервами на земле узнает, чего стоит ваше хранилище в кризис. <em class="flaw">Абсолютный иммунитет для ваших резервов означает абсолютный иммунитет для всех чужих, включая резервы воюющей страны.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s9" data-duration="67.8">
+  <h2>Арендовать выход</h2>
+  <div class="prose">
+    <p>Час можно купить, а не хранить. У Федеральной резервной системы есть постоянные своп-линии с пятью центральными банками, и они выдают доллары по требованию. В марте 2020 года она открыла временные линии ещё девяти и построила механизм, к которому может присоединиться почти любой центральный банк.</p>
+    <p>Пересчитайте предложение ещё раз. Пять постоянных, девять временных и очередь для остальных. А широкий механизм работает под залог — под государственные облигации США, лежащие в США. <em class="flaw">Страховка от решений одной страны написана, оценена и отзывается той же самой страной.</em> На пике худшей недели за поколение он выдал около 1,5 млрд долларов. Им почти никто не воспользовался. Дело было не в займе, а в том, чтобы стоять в списке.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s10" data-duration="84.9">
+  <h2>Выберите два</h2>
+  <div class="prose">
+    <p>Резерв даёт три обещания: что вы продадите его внутри часа, что никто не сможет его у вас отобрать и что никто не сможет запретить вам им воспользоваться. <em class="flaw">Все три не даёт никто</em>, потому что тот самый час существует только там, где рынок глубокий, а право того места приезжает вместе с ним.</p>
+    <p>Вот что голландцы на самом деле делали полгода. Металл почти не двигался, потому что меняли не металл. Меняли адрес.</p>
+  </div>
+  <div class="fig">
+    <h3>Выберите два обещания. Прочтите, чего это стоит.</h3>
+    <div class="picks" id="picks" role="group" aria-label="Выберите два из трёх обещаний резерва"></div>
+    <div class="verdict" id="verdict"></div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">У вашей страны резерв, в котором одного из трёх обещаний нет. Вопрос не в том, где должны лежать слитки. Вопрос в том, каким обещанием пожертвовали за вас и чья подпись это подтвердит.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker" style="margin-bottom:6px"><a href="../" style="color:var(--text-dim)">In English → </a></div>
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать нарацию">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+
+const VAULTS={
+  before:[{k:'Нью-Йорк',v:31.3},{k:'Нидерланды',v:30.8},{k:'Оттава',v:19.7},{k:'Лондон',v:18.1}],
+  after:[{k:'Лондон',v:32.1},{k:'Нидерланды',v:30.8},{k:'Нью-Йорк',v:18.5},{k:'Оттава',v:18.5}]
+};
+const TL=[
+ {y:1991,up:false,k:'Индия вывозит 67 т',p:'Резервов осталось на две недели импорта. Золото было дома, и, чтобы сработать, ему пришлось покинуть страну.'},
+ {y:2013,up:true,k:'Германия начинает возвращать 674 т',p:'Из Нью-Йорка и Парижа, закончили к 2017 году. Половина запаса намеренно осталась за границей.'},
+ {y:2018,up:false,k:'Венесуэла заморожена в Лондоне',p:'Около 31 т. Недосягаемо для любого кредитора и недоступно владельцу.'},
+ {y:2021,up:false,k:'Верховный суд: один голос',p:'Кого признаёт МИД, того признаёт и суд. Сертификат оспорить нельзя.'},
+ {y:2022,up:false,k:'Базель отключает участника',p:'Институт, сохранявший нейтралитет всю Вторую мировую, отключил центральный банк за день.'},
+ {y:2024,up:true,k:'Индия возвращает 200+ т',p:'За 2024 и 2025 годы, пока внутри страны не оказалось около 60% запаса.'},
+ {y:2025,up:true,k:'Франция забирает 129 т из Нью-Йорка',p:'С июля 2025 по январь 2026 года, то же направление движения.'},
+ {y:2026,up:true,k:'Нидерланды перевозят 86 т',p:'Из Нью-Йорка и Оттавы; 59 т из них продали в одном городе и купили в другом.'}];
+
+const PROMISES=[
+ {id:'fast',k:'Продать внутри часа'},
+ {id:'safe',k:'Никто не отберёт'},
+ {id:'own',k:'Никто не запретит пользоваться'}];
+
+const COMBOS={
+ 'fast+safe':{n:'Золото в чужом хранилище',t:'Лондон или Нью-Йорк. Продаётся за час, и ни один кредитор, выигравший у вас суд, не тронет ни слитка.',c:'Цена: позволено ли вам его продать, решает сертификат министерства. У Венесуэлы с 2018 года есть оба свойства и нет ни одного применения.'},
+ 'safe+own':{n:'Золото дома',t:'Франкфурт, Мумбаи, Зейст. Никто не отберёт и никто не запретит.',c:'Цена: в то утро, когда нужны чужие деньги, это тяжёлый металл в подвале. У Индии в 1991 году оно было дома, и всё равно пришлось вывезти 67 тонн, чтобы получить 600 млн долларов.'},
+ 'fast+own':{n:'Своп-линия вместо актива',t:'Арендовать час, а не хранить его: постоянные линии с ФРС есть у пяти центральных банков.',c:'Цена: вы не владеете ничем. Линия — это обещание, написанное, оценённое и отзываемое той страной, от которой вы страховались, и постоянных всего пять.'}};
+
+function drawVaults(mode){
+  const svg=$('vaults'); if(!svg) return;
+  const rows=VAULTS[mode||'before'];
+  const x0=210,W=560,top=34,rowH=48;
+  let out='';
+  rows.forEach((r,i)=>{
+    const y=top+i*rowH, w=(r.v/35)*W;
+    const isLondon=r.k==='London';
+    out+=`<text x="${x0-16}" y="${y+21}" text-anchor="end" font-size="15" fill="var(--text)">${r.k}</text>
+      <rect x="${x0}" y="${y}" width="${w}" height="28" rx="3" fill="${isLondon?'var(--flaw)':'var(--fact)'}" opacity="${isLondon?.9:.55}"/>
+      <text x="${x0+w+12}" y="${y+21}" font-size="16" fill="${isLondon?'var(--flaw)':'var(--text)'}">${r.v.toFixed(1).replace('.',',')}%</text>`;
+  });
+  svg.innerHTML=`<line x1="${x0}" y1="${top-12}" x2="${x0}" y2="${top+4*rowH-6}" stroke="var(--grid)" stroke-width="2"/>${out}
+    <text x="${x0-16}" y="${top+4*rowH+22}" text-anchor="end" font-size="13" fill="var(--text-dim)">доля от 612 тонн</text>`;
+}
+
+let vaultMode='before';
+function setVaults(m){
+  vaultMode=m; drawVaults(m);
+  const cap=$('vaultCap');
+  if(cap) cap.textContent = m==='after'
+    ? 'После: Лондон стал крупнейшим зарубежным хранилищем — внутри юрисдикции, которая держит золото Венесуэлы с 2018 года.'
+    : 'До: самая большая зарубежная доля в Нью-Йорке. Источник: De Nederlandsche Bank, 2 сентября 2026.';
+  const b=$('tBefore'),a=$('tAfter');
+  if(b&&a){b.classList.toggle('on',m!=='after');a.classList.toggle('on',m==='after')}
+}
+
+function drawChain(){
+  const svg=$('chain'); if(!svg) return;
+  const box=(x,y,w,h,t,c,dash)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="var(--bg-raised)"
+      stroke="${c}" stroke-width="2" ${dash?'stroke-dasharray="7 6"':''}/>
+      <text x="${x+w/2}" y="${y+h/2+5}" text-anchor="middle" font-size="15" fill="var(--text)">${t}</text>`;
+  const arrow=(x1,y1,x2,y2,c)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="2" marker-end="url(#ah2)"/>`;
+  svg.innerHTML=`
+    <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--text-dim)"/></marker></defs>
+    ${box(40,92,180,60,'ОДИН СЛИТОК','var(--text)')}
+    ${box(330,26,240,60,'СТАНДАРТ РЫНКА','var(--fact)')}
+    ${box(330,158,240,60,'ЮРИСДИКЦИЯ','var(--flaw)')}
+    ${box(650,26,210,60,'ЦЕНА','var(--fact)')}
+    ${box(650,158,210,60,'РАЗРЕШЕНИЕ','var(--flaw)')}
+    ${arrow(220,110,330,62,'var(--text-dim)')}
+    ${arrow(220,134,330,182,'var(--text-dim)')}
+    ${arrow(570,56,650,56,'var(--fact)')}
+    ${arrow(570,188,650,188,'var(--flaw)')}
+    <text x="330" y="18" font-size="13" fill="var(--fact)">частный, написан ассоциацией торговцев</text>
+    <text x="330" y="240" font-size="13" fill="var(--flaw)">публичная, и может закрыться за утро</text>`;
+}
+
+let tlSel=-1;
+function drawTl(){
+  const svg=$('tl'); if(!svg) return;
+  const x0=60,W=790,mid=104;
+  let out='';
+  TL.forEach((e,i)=>{
+    const x=x0+(W/(TL.length-1))*i, y=e.up?mid-44:mid+44;
+    const c=e.up?'var(--alt)':'var(--flaw)';
+    const on=i===tlSel;
+    out+=`<line x1="${x}" y1="${mid}" x2="${x}" y2="${y}" stroke="${c}" stroke-width="${on?3:1.5}" opacity="${on?1:.6}"/>
+      <circle cx="${x}" cy="${y}" r="${on?9:6}" fill="${c}" data-i="${i}" style="cursor:pointer"/>
+      <text x="${x}" y="${e.up?y-16:y+24}" text-anchor="middle" font-size="13" fill="${on?c:'var(--text-dim)'}">${e.y}</text>`;
+  });
+  svg.innerHTML=`<line x1="${x0-24}" y1="${mid}" x2="${x0+W+24}" y2="${mid}" stroke="var(--grid)" stroke-width="2"/>
+    <text x="${x0-24}" y="${mid-72}" font-size="12" fill="var(--alt)">металл вернули домой</text>
+    <text x="${x0-24}" y="${mid+86}" font-size="12" fill="var(--flaw)">доступ закрыли</text>${out}`;
+  const cap=$('tlCap');
+  if(cap) cap.textContent = tlSel>=0 ? `${TL[tlSel].y} — ${TL[tlSel].k}. ${TL[tlSel].p}`
+    : 'Нажмите на точку, чтобы увидеть, что произошло. Возвраты — над линией, заморозки — под ней.';
+}
+
+let picked=['fast','safe'];
+function drawPicks(){
+  const w=$('picks'); if(!w) return;
+  w.innerHTML=PROMISES.map(p=>`<button class="pick${picked.includes(p.id)?' on':''}" data-id="${p.id}">${p.k}</button>`).join('');
+  [...w.children].forEach(b=>b.onclick=()=>{
+    const id=b.dataset.id;
+    if(picked.includes(id)) return;
+    picked=[picked[1],id];
+    drawPicks();
+  });
+  const key=['fast','safe','own'].filter(k=>picked.includes(k)).join('+');
+  const c=COMBOS[key];
+  const v=$('verdict');
+  if(v&&c) v.innerHTML=`<div class="name">${c.n}</div><div>${c.t}</div><div class="cost">${c.c}</div>`;
+}
+
+setVaults('before');drawChain();drawTl();drawPicks();
+
+if(!isAuto){
+  const b=$('tBefore'),a=$('tAfter');
+  if(b&&a){b.onclick=()=>setVaults('before');a.onclick=()=>setVaults('after')}
+  const tl=$('tl');
+  if(tl) tl.addEventListener('click',e=>{
+    const i=e.target?.dataset?.i;
+    if(i!==undefined){tlSel=+i;drawTl()}
+  });
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s2') master.call(()=>{
+      let after=false;const step=()=>{setVaults(after?'after':'before');after=!after;setTimeout(step,3600)};step();
+    },null,t+2);
+    if(s.id==='s6') master.call(()=>{
+      let k=0;const step=()=>{tlSel=k%TL.length;drawTl();k++;setTimeout(step,2600)};step();
+    },null,t+2);
+    if(s.id==='s10') master.call(()=>{
+      const order=[['fast','safe'],['safe','own'],['fast','own']];
+      let k=0;const step=()=>{picked=order[k%order.length];drawPicks();k++;setTimeout(step,4200)};step();
+    },null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>

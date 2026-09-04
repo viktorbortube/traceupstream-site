@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — Why Central Banks Keep Their Gold in Someone Else's Vault</title>
+<meta name="description" content="The Dutch central bank moved 86 tonnes of gold to London for crisis readiness — into the same vault that has held Venezuela's gold beyond its owner's reach since 2018. Selling within the hour and being frozen are one property, not two. Four designs, each with a price.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#4A5A6B;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:150px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.card.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.picks{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.pick{font-family:var(--font-mono);font-size:13px;padding:10px 14px;border:1.5px solid var(--grid);
+border-radius:8px;background:var(--bg-raised);cursor:pointer;color:var(--text)}
+.pick.on{border-color:var(--fact);color:var(--fact);box-shadow:0 0 0 2px rgba(43,94,196,.12)}
+.verdict{font-size:18px}
+.verdict .name{font-family:var(--font-display);font-weight:700;font-size:24px;margin-bottom:6px}
+.verdict .cost{color:var(--flaw);margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:92px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:96px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .verdict{font-size:32px}
+body.auto .verdict .name{font-size:46px}
+body.auto .prose,body.auto .toggle,body.auto .picks,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.054</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="45">
+  <div class="kicker">Trace Upstream · Episode 054</div>
+  <h1>Why central banks keep their gold in someone else's vault.</h1>
+  <div class="prose lede keep">
+    <p>A central bank spent six months moving twelve billion dollars of gold away from geopolitical risk. Most of that gold never moved — it was sold where it stood. <em class="flaw">And the vault it moved into is the one holding another country's gold beyond its owner's reach since 2018.</em></p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">86 t</div><div class="l">moved out of New York and Ottawa, March to August 2026</div></div>
+    <div class="stat"><div class="n">59 t</div><div class="l">of that never travelled — sold in one city, bought in the other</div></div>
+    <div class="stat"><div class="n">31 t</div><div class="l">Venezuelan gold frozen in London since 2018</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="70.2">
+  <h2>The hour that matters</h2>
+  <div class="prose">
+    <p>A reserve is not wealth. It is a promise about one particular hour: the hour your currency is falling, nobody will lend to you, and you need foreign money today. So the only question that matters is whether it can be sold inside that hour.</p>
+    <p>Gold can, but not everywhere. The price on the screen is not the price of gold in general — it is the price of gold sitting in London, on the accounts of the London clearing system, in bars meeting a specification called Good Delivery. <em class="flaw">A bar outside that chain is still gold, and it is not that price today.</em> It has to be assayed, sometimes recast, shipped and accepted.</p>
+    <p><em class="fact">That specification was not written by a government.</em> It is maintained by a private trade association of bullion dealers. What turns metal into a reserve is a private standard and a postcode.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="53.1">
+  <h2>The vault that costs nothing</h2>
+  <div class="prose">
+    <p>The Federal Reserve Bank of New York charges nothing to store gold. It charges about two dollars a bar when metal enters, leaves, or moves between compartments. Five hundred thousand bars sit there for three dozen governments and institutions, and selling gold to a neighbour is a clerk moving bars between compartments in one room.</p>
+    <p><em class="fact">Nobody ever decided that the world's monetary reserves should be concentrated in two cities.</em> There was a long series of individually sensible choices — free storage here, the deepest market there — and concentration was the residue they left behind.</p>
+  </div>
+  <div class="fig">
+    <h3>Where the Dutch reserve sits</h3>
+    <div class="toggle" role="group" aria-label="Switch between the holding before and after the move">
+      <button id="tBefore" class="on">Before</button><button id="tAfter">After the move</button>
+    </div>
+    <svg id="vaults" viewBox="0 0 900 260" width="100%" height="260" role="img" aria-label="Share of Dutch gold held in New York, Ottawa, London and the Netherlands, before and after the 2026 move"></svg>
+    <div class="figcap" id="vaultCap">Before: New York holds the largest share abroad. Source: De Nederlandsche Bank, 2 September 2026.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="79.4">
+  <h2>The gold nobody can move</h2>
+  <div class="prose">
+    <p>About thirty-one tonnes belonging to the central bank of Venezuela sit in the Bank of England, frozen since 2018. And the part everybody gets wrong is that British law protects that gold ferociously: under the State Immunity Act 1978 the property of a foreign central bank is treated as never commercial, which gives it almost absolute immunity from enforcement. <em class="fact">A creditor who sues and wins cannot take a single bar.</em></p>
+    <p><em class="flaw">And the owner cannot take one either.</em> In December 2021 the United Kingdom's Supreme Court explained why. English courts follow the one voice doctrine: if the government recognises someone as a head of state, the court must recognise the same person. When two rival administrations both claim the right to instruct the bank, the answer comes from a certificate issued by the Foreign Office — and the court is not permitted to ask whether that certificate is right.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">The law shuts the door to judges completely and leaves it open to a minister. The question is not who owns the gold. It is who may say the word "sell."</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="71.4">
+  <h2>One property, two names</h2>
+  <div class="prose">
+    <p>You can only sell fast where the market is deep. The market is deep in a small number of cities. A city is a jurisdiction, and a jurisdiction is exactly the entity that can decide, on a bad morning, that your instruction will not be executed. <em class="flaw">Speed and vulnerability are not two features a treasurer trades off. They are one property with two names.</em></p>
+    <p>Which is why leaving North America raised the Dutch share in London to roughly a third of the national stock — their largest foreign holding — inside the jurisdiction holding Venezuela's gold. And why fifty-nine of the eighty-six tonnes never physically travelled: they were sold in New York and bought in London, on paper, in a routine swap of location. <em class="fact">What was being protected was not the metal. It was the record of where the metal counts.</em></p>
+  </div>
+  <div class="fig">
+    <h3>What a bar of gold depends on</h3>
+    <svg id="chain" viewBox="0 0 900 250" width="100%" height="250" role="img" aria-label="One bar of gold depends on a market standard for its price and on a jurisdiction for permission to sell"></svg>
+    <div class="figcap">Both arrows leave the same bar. The market gives it a price; the jurisdiction gives it permission.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="56.4">
+  <h2>The neutral custodian</h2>
+  <div class="prose">
+    <p>The instinctive answer is a better landlord — someone genuinely neutral. That has been tested. The Bank for International Settlements in Basel is owned by the world's central banks and exists to serve them; it stayed neutral through the Second World War, banking central banks on both sides. On 10 March 2022 it suspended the Russian central bank from all of its services, meetings and activities.</p>
+    <p>Switzerland, the word people use as a synonym for neutral storage, joined the sanctions that same year. And three and a half billion dollars of Afghan central bank reserves have sat in a Geneva fund, in an account at that same Basel institution, since September 2022 — not frozen, officially, simply never paid out. <em class="flaw">Neutrality is not a property of a vault. It is a decision someone renews, or doesn't.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="68.4">
+  <h2>Home</h2>
+  <div class="prose">
+    <p>Germany brought 674 tonnes back from New York and Paris between 2013 and 2017, emptying the Paris vault entirely. India moved more than 200 tonnes home across 2024 and 2025, until about sixty per cent of its reserve was inside the country.</p>
+    <p>India is also where the price of this option is written down, because India ran the experiment from the other direction. In 1991, with reserves down to about two weeks of imports, the gold was already home. <em class="flaw">Home did not help.</em> Sixty-seven tonnes left the country that summer, flown out and pledged to banks in London, Tokyo and Zurich for roughly six hundred million dollars. It was done in secret; when the news came out anyway, the government fell.</p>
+    <p><em class="fact">Which is why Germany, having repatriated all of that metal, deliberately left half its reserve abroad.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Eight moments this rule has been tested</h3>
+    <svg id="tl" viewBox="0 0 900 210" width="100%" height="210" role="img" aria-label="Timeline of gold repatriations and freezes from 1991 to 2026"></svg>
+    <div class="figcap" id="tlCap">Click a point for what happened. Repatriations above the line, freezes below it.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="18">
+  <h2>Spread it</h2>
+  <div class="prose keep">
+    <p><em class="flaw">Safety divides. Liquidity doesn't.</em> There is no version where you hold a third of your reserve in a deep market and a third in a shallow one and get the same hour out of both. Spreading the metal spreads the storage. It does not spread the exit.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="94.3">
+  <h2>The rule that already exists</h2>
+  <div class="prose">
+    <p>The United Nations convention on state immunity, adopted in December 2004, says the property of a central bank is not to be treated as commercial property — the international version of the British protection. It needs thirty countries to ratify it; by 2026 about twenty-three had. <em class="flaw">The rule was written and never switched on.</em></p>
+    <p>Suppose it were. It blocks enforcement — a creditor with a judgment. Every freeze in this episode came from somewhere else entirely: an executive order, a council regulation, a certificate from a ministry. <em class="fact">The strongest immunity rule ever drafted is aimed at the courts, and the courts were never the problem.</em></p>
+    <p>It also carries a cost on the other side. About €210bn of Russian central bank reserves were immobilised in Belgium after 2022. In December 2025 the European Union froze them indefinitely and then, rather than touch the principal, borrowed €90bn of its own money to lend to Ukraine. Belgium's objection was not sentimental: seize the principal, and every reserve manager on earth learns what your vault is worth in a crisis. <em class="flaw">Absolute immunity for your reserves means absolute immunity for everyone's, including the reserves of a country at war.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s9" data-duration="50.4">
+  <h2>Rent the exit instead</h2>
+  <div class="prose">
+    <p>You can buy the hour instead of storing it. The Federal Reserve keeps standing swap lines with five central banks, which produce dollars on demand; in March 2020 it opened temporary lines to nine more and built a facility almost any central bank may join.</p>
+    <p>Count the offer again. Five permanent, nine temporary, and a queue for the rest — and the wider facility runs on collateral, United States government bonds held in the United States. <em class="flaw">The insurance against one country's decisions is written, priced and revocable by that same country.</em> At the peak of the worst funding week in a generation it lent about $1.5bn. Almost nobody used it. It was never about borrowing; it was about being on the list.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s10" data-duration="77.3">
+  <h2>Pick two</h2>
+  <div class="prose">
+    <p>A reserve makes three promises: that you can sell it inside the hour, that nobody can take it from you, and that nobody can stop you using it. <em class="flaw">Nobody offers all three</em>, because the hour only exists where the market is deep, and the law of that place comes attached to it.</p>
+    <p>Which is what the Dutch were really doing for six months. Most of the metal never moved, because the metal was never the thing being changed. The address was.</p>
+  </div>
+  <div class="fig">
+    <h3>Choose two promises. Read what it costs.</h3>
+    <div class="picks" id="picks" role="group" aria-label="Choose two of the three promises a reserve makes"></div>
+    <div class="verdict" id="verdict"></div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Your country holds a reserve missing one of those three promises. The question is not where the bars should sit — it is which promise was given up on your behalf, and whose signature would prove it.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+
+const VAULTS={
+  before:[{k:'New York',v:31.3},{k:'Netherlands',v:30.8},{k:'Ottawa',v:19.7},{k:'London',v:18.1}],
+  after:[{k:'London',v:32.1},{k:'Netherlands',v:30.8},{k:'New York',v:18.5},{k:'Ottawa',v:18.5}]
+};
+const TL=[
+ {y:1991,up:false,k:'India flies 67 t out',p:'Reserves down to two weeks of imports. The gold was already home, and it had to leave the country to work.'},
+ {y:2013,up:true,k:'Germany starts bringing 674 t home',p:'From New York and Paris, finished by 2017. Half the reserve deliberately stayed abroad.'},
+ {y:2018,up:false,k:'Venezuela frozen in London',p:'About 31 t. Immune from every creditor, unreachable by its owner.'},
+ {y:2021,up:false,k:'UK Supreme Court: one voice',p:'Whoever the Foreign Office recognises is who the court recognises. The certificate cannot be questioned.'},
+ {y:2022,up:false,k:'Basel suspends a member',p:'The institution that stayed neutral through the Second World War cut off a central bank in a day.'},
+ {y:2024,up:true,k:'India repatriates 200 t+',p:'Across 2024 and 2025, until about 60% of the reserve sat inside the country.'},
+ {y:2025,up:true,k:'France pulls 129 t from New York',p:'Between July 2025 and January 2026, the same direction of travel.'},
+ {y:2026,up:true,k:'The Netherlands moves 86 t',p:'Out of New York and Ottawa; 59 t of it sold in one city and bought in the other.'}];
+
+const PROMISES=[
+ {id:'fast',k:'Sell it inside the hour'},
+ {id:'safe',k:'Nobody can take it from you'},
+ {id:'own',k:'Nobody can stop you using it'}];
+
+const COMBOS={
+ 'fast+safe':{n:'Gold in a foreign vault',t:'London or New York. It sells in an hour and no creditor who wins a case against you can touch a bar of it.',c:'Price: a certificate from a ministry decides whether you may sell it at all. Venezuela has had both properties and neither use since 2018.'},
+ 'safe+own':{n:'Gold at home',t:'Frankfurt, Mumbai, Zeist. Nobody can take it and nobody can stop you.',c:'Price: on the morning you need foreign money it is a heavy metal in a basement. India had it at home in 1991 and still had to fly 67 tonnes out to raise $600m.'},
+ 'fast+own':{n:'A swap line, not an asset',t:'Rent the hour instead of storing it: five central banks hold standing lines with the Federal Reserve.',c:'Price: you own nothing. The line is a promise written, priced and revocable by the country you were hedging against — and only five are permanent.'}};
+
+function drawVaults(mode){
+  const svg=$('vaults'); if(!svg) return;
+  const rows=VAULTS[mode||'before'];
+  const x0=210,W=560,top=34,rowH=48;
+  let out='';
+  rows.forEach((r,i)=>{
+    const y=top+i*rowH, w=(r.v/35)*W;
+    const isLondon=r.k==='London';
+    out+=`<text x="${x0-16}" y="${y+21}" text-anchor="end" font-size="15" fill="var(--text)">${r.k}</text>
+      <rect x="${x0}" y="${y}" width="${w}" height="28" rx="3" fill="${isLondon?'var(--flaw)':'var(--fact)'}" opacity="${isLondon?.9:.55}"/>
+      <text x="${x0+w+12}" y="${y+21}" font-size="16" fill="${isLondon?'var(--flaw)':'var(--text)'}">${r.v.toFixed(1)}%</text>`;
+  });
+  svg.innerHTML=`<line x1="${x0}" y1="${top-12}" x2="${x0}" y2="${top+4*rowH-6}" stroke="var(--grid)" stroke-width="2"/>${out}
+    <text x="${x0-16}" y="${top+4*rowH+22}" text-anchor="end" font-size="13" fill="var(--text-dim)">share of 612 tonnes</text>`;
+}
+
+let vaultMode='before';
+function setVaults(m){
+  vaultMode=m; drawVaults(m);
+  const cap=$('vaultCap');
+  if(cap) cap.textContent = m==='after'
+    ? 'After: London is now the largest foreign vault — inside the jurisdiction that has held Venezuela’s gold since 2018.'
+    : 'Before: New York holds the largest share abroad. Source: De Nederlandsche Bank, 2 September 2026.';
+  const b=$('tBefore'),a=$('tAfter');
+  if(b&&a){b.classList.toggle('on',m!=='after');a.classList.toggle('on',m==='after')}
+}
+
+function drawChain(){
+  const svg=$('chain'); if(!svg) return;
+  const box=(x,y,w,h,t,c,dash)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="var(--bg-raised)"
+      stroke="${c}" stroke-width="2" ${dash?'stroke-dasharray="7 6"':''}/>
+      <text x="${x+w/2}" y="${y+h/2+5}" text-anchor="middle" font-size="15" fill="var(--text)">${t}</text>`;
+  const arrow=(x1,y1,x2,y2,c)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="2" marker-end="url(#ah2)"/>`;
+  svg.innerHTML=`
+    <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--text-dim)"/></marker></defs>
+    ${box(40,92,180,60,'ONE GOLD BAR','var(--text)')}
+    ${box(330,26,240,60,'MARKET STANDARD','var(--fact)')}
+    ${box(330,158,240,60,'JURISDICTION','var(--flaw)')}
+    ${box(650,26,210,60,'THE PRICE','var(--fact)')}
+    ${box(650,158,210,60,'PERMISSION','var(--flaw)')}
+    ${arrow(220,110,330,62,'var(--text-dim)')}
+    ${arrow(220,134,330,182,'var(--text-dim)')}
+    ${arrow(570,56,650,56,'var(--fact)')}
+    ${arrow(570,188,650,188,'var(--flaw)')}
+    <text x="330" y="18" font-size="13" fill="var(--fact)">private, written by a dealers’ association</text>
+    <text x="330" y="240" font-size="13" fill="var(--flaw)">public, and it can close in a morning</text>`;
+}
+
+let tlSel=-1;
+function drawTl(){
+  const svg=$('tl'); if(!svg) return;
+  const x0=60,W=790,mid=104;
+  let out='';
+  TL.forEach((e,i)=>{
+    const x=x0+(W/(TL.length-1))*i, y=e.up?mid-44:mid+44;
+    const c=e.up?'var(--alt)':'var(--flaw)';
+    const on=i===tlSel;
+    out+=`<line x1="${x}" y1="${mid}" x2="${x}" y2="${y}" stroke="${c}" stroke-width="${on?3:1.5}" opacity="${on?1:.6}"/>
+      <circle cx="${x}" cy="${y}" r="${on?9:6}" fill="${c}" data-i="${i}" style="cursor:pointer"/>
+      <text x="${x}" y="${e.up?y-16:y+24}" text-anchor="middle" font-size="13" fill="${on?c:'var(--text-dim)'}">${e.y}</text>`;
+  });
+  svg.innerHTML=`<line x1="${x0-24}" y1="${mid}" x2="${x0+W+24}" y2="${mid}" stroke="var(--grid)" stroke-width="2"/>
+    <text x="${x0-24}" y="${mid-72}" font-size="12" fill="var(--alt)">metal moved home</text>
+    <text x="${x0-24}" y="${mid+86}" font-size="12" fill="var(--flaw)">access closed</text>${out}`;
+  const cap=$('tlCap');
+  if(cap) cap.textContent = tlSel>=0 ? `${TL[tlSel].y} — ${TL[tlSel].k}. ${TL[tlSel].p}`
+    : 'Click a point for what happened. Repatriations above the line, freezes below it.';
+}
+
+let picked=['fast','safe'];
+function drawPicks(){
+  const w=$('picks'); if(!w) return;
+  w.innerHTML=PROMISES.map(p=>`<button class="pick${picked.includes(p.id)?' on':''}" data-id="${p.id}">${p.k}</button>`).join('');
+  [...w.children].forEach(b=>b.onclick=()=>{
+    const id=b.dataset.id;
+    if(picked.includes(id)) return;
+    picked=[picked[1],id];
+    drawPicks();
+  });
+  const key=['fast','safe','own'].filter(k=>picked.includes(k)).join('+');
+  const c=COMBOS[key];
+  const v=$('verdict');
+  if(v&&c) v.innerHTML=`<div class="name">${c.n}</div><div>${c.t}</div><div class="cost">${c.c}</div>`;
+}
+
+setVaults('before');drawChain();drawTl();drawPicks();
+
+if(!isAuto){
+  const b=$('tBefore'),a=$('tAfter');
+  if(b&&a){b.onclick=()=>setVaults('before');a.onclick=()=>setVaults('after')}
+  const tl=$('tl');
+  if(tl) tl.addEventListener('click',e=>{
+    const i=e.target?.dataset?.i;
+    if(i!==undefined){tlSel=+i;drawTl()}
+  });
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s2') master.call(()=>{
+      let after=false;const step=()=>{setVaults(after?'after':'before');after=!after;setTimeout(step,3600)};step();
+    },null,t+2);
+    if(s.id==='s6') master.call(()=>{
+      let k=0;const step=()=>{tlSel=k%TL.length;drawTl();k++;setTimeout(step,2600)};step();
+    },null,t+2);
+    if(s.id==='s10') master.call(()=>{
+      const order=[['fast','safe'],['safe','own'],['fast','own']];
+      let k=0;const step=()=>{picked=order[k%order.length];drawPicks();k++;setTimeout(step,4200)};step();
+    },null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
