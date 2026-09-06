@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — The Map Everyone Uses and Nobody Chose</title>
+<meta name="description" content="The UN asked the world to stop using Mercator. Asking is all it can do: a default has no owner. Mercator survives because in 2005 web maps needed square tiles, and only one projection gives them. Four ways to change it, each with a price.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#4A5A6B;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:150px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:92px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:96px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.055</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="53">
+  <div class="kicker">Trace Upstream · Episode 055</div>
+  <h1>The map everyone uses and nobody chose.</h1>
+  <div class="prose lede keep">
+    <p>On the map you looked at today, Greenland is about the size of Africa. <em class="flaw">Africa is fourteen times bigger.</em> That is not a mistake — the map is doing exactly what it was built to do, and it was not built to show you how big things are.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">164–1</div><div class="l">UN General Assembly vote, 4 September 2026, asking the world to switch</div></div>
+    <div class="stat"><div class="n">1569</div><div class="l">the year the arrangement was published, to help ships hold a bearing</div></div>
+    <div class="stat"><div class="n">2005</div><div class="l">the year it was chosen again, to make web map tiles square</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="37.9">
+  <h2>There is no correct map</h2>
+  <div class="prose">
+    <p>In 1827 Carl Friedrich Gauss proved that a sphere cannot be flattened onto a plane without stretching it somewhere. Wrap paper around a ball and it creases; wrap it around a tube and it lies flat, because a tube is a bent sheet and a ball is not.</p>
+    <p><em class="fact">So every flat map of the Earth is wrong — not badly made, but wrong by mathematics, permanently.</em> The only real question a map answers is which kind of wrong you would like. Which makes it a choice somebody made.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="62.3">
+  <h2>What the distortion bought</h2>
+  <div class="prose">
+    <p>At sea you steer by holding a constant compass bearing. On a globe that path curves into a slow spiral. Gerardus Mercator published the arrangement in 1569 where holding one bearing becomes a straight line you can draw with a ruler.</p>
+    <p>To keep every bearing true, scale has to grow away from the equator, and area grows with it — about twofold near the latitude of Paris, more than eightfold in northern Greenland. <em class="flaw">The swollen Arctic is not a flaw. It is the receipt.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Same real area, drawn twice</h3>
+    <div class="toggle" role="group" aria-label="Switch between Mercator and an equal-area projection">
+      <button id="tMerc" class="on">Mercator</button><button id="tEqual">Equal-area</button>
+    </div>
+    <svg id="grid" viewBox="0 0 900 330" width="100%" height="330" role="img" aria-label="Two identical patches of the Earth's surface drawn on Mercator and on an equal-area projection"></svg>
+    <div class="figcap" id="gridCap">Both grey blocks cover the same real area. On Mercator the northern one is drawn far larger.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="72.5">
+  <h2>The argument that changed nothing</h2>
+  <div class="prose">
+    <p>In 1973 Arno Peters put forward a map that keeps areas true and accused cartographers of drawing the world to flatter empires. The construction was not new: James Gall had published it in 1855 and nobody cared. The profession answered that area-true costs shape — the tropics stretch tall and thin.</p>
+    <p>Boston put the area-true map into its classrooms in 2017; cartographers drew a better one, Equal Earth, in 2018 to end the quarrel. <em class="flaw">Fifty years of argument, a genuinely better answer, and the map on your phone did not move a pixel.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="88">
+  <h2>What is actually holding it</h2>
+  <div class="prose">
+    <p>In 2005 a team at Google had to cut the world into pieces small enough to send over a slow connection. The answer is a pyramid of squares: the whole world is one square, then four, then sixteen, each level the one above cut into quarters.</p>
+    <p>A tile is a square picture of a square patch of world. If the map squeezes one direction harder than the other, that patch arrives as a rectangle and the picture shears. So the map must stretch both directions equally at every point — and of the maps that do, <em class="fact">one lays the world out as a plain rectangle, north always up, with meridians evenly spaced.</em> Mercator. It fits inside a square only because the web version cuts the top and bottom off near 85°; Mercator's own Arctic runs upward forever.</p>
+    <p>Bing, Apple and OpenStreetMap followed, because tiles from different providers must line up on one grid. The industry registered a number for it: 900913, which on a screen reads as the word google. <em class="flaw">The picture was not chosen by cartographers or governments. It was chosen by whoever needed the tiles to be square.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="44.7">
+  <h2>The thing with no owner</h2>
+  <div class="prose">
+    <p>164 countries asked. The United States voted against, calling it ideological. Six abstained. Then nothing was obliged to happen, because there is nobody to oblige: no international regulator of maps, no treaty assigning the picture to anyone. The tile grid belongs to an industry, the schoolbooks to ministries, the map in your pocket to a company.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">A rule has an author you can go to. A default has only the reason it was convenient — and that reason may have expired decades ago without anyone noticing.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="98">
+  <h2>Four ways, four bills</h2>
+  <div class="prose">
+    <p>Stop having one map, stop flattening it, change the tiles, or legislate the classroom. Each is real, and each is priced. And there is a fifth option, the one currently running: keep it — whose price is a fourteenfold error on the one comparison people make most, which is how big my part of the world is.</p>
+  </div>
+  <div class="fig">
+    <h3>Pick a design and read its bill</h3>
+    <div class="bills" id="bills"></div>
+    <div class="figcap">Every one of them runs into the same wall: no flat map can be faithful, and no one owns the one in use.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="79.2">
+  <h2>Nobody decided this</h2>
+  <div class="prose">
+    <p>Nobody crosses an ocean on a constant compass bearing any more. The navigator's reason expired — and nothing had to replace it, because by then something else was holding the same shape in place. Not a cartographer, not a ministry: an engineer with a deadline, cutting the world into squares small enough to travel down a slow wire.</p>
+    <p><em class="fact">A rule gets made by someone who knows they are deciding. A default gets set by someone solving a smaller problem, who would be astonished to learn what they settled.</em> So it never gets a vote, or an author, or a date when someone checks whether it still makes sense.</p>
+  </div>
+  <div class="fig">
+    <h3>Four and a half centuries of the same picture</h3>
+    <svg id="tl" viewBox="0 0 900 200" width="100%" height="200" role="img" aria-label="Timeline from the publication of the Mercator projection in 1569 to the UN resolution of 2026"></svg>
+    <div class="figcap" id="tlCap">Click a point for what happened. Above the line: attempts to change the picture. Below: things that fixed it in place.</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">What around you looks like the way things are — and if you wanted it changed, who exactly would you ask?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+
+const BILLS=[
+ {k:'Stop having one map',p:'Area-true when the question is size, Mercator when it is a heading, plus the compromise National Geographic has printed since 1998. Price: comparison breaks — two sources, two shapes, no way to lay one over the other — and the classroom wall still holds one poster.'},
+ {k:'Stop flattening it',p:'Google desktop has shown a globe when you zoom out since 2018, and on a globe the problem does not exist. Price: a globe shows you half a world, and seeing all of it at once is the reason people open a world map. The phone version stayed flat.'},
+ {k:'Change the tiles',p:'Vector tiles send shapes instead of pictures, so the projection can be decided on your device. The technical obstacle is gone. Price: every square cached since 2005, millions of applications with EPSG:3857 written into them, coordinate databases that assume it — and the map is still wrong at the end of it.'},
+ {k:'Legislate the classroom',p:'Ghana, Kenya and South Africa have begun rewriting school atlases. Price: a government picks the picture children grow up with, the new map’s own authors call their final choice partly a matter of taste, and the wall will disagree with the phone in the same child’s hand.'},
+ {k:'Keep it',p:'The option currently running, and the only one usually treated as free. Price: a fourteenfold error on the one comparison people make most often — how big is my part of the world.'}];
+
+const TL=[
+ {y:1569,up:false,k:'Mercator publishes',p:'Not a picture of the world: an arrangement in which a constant compass bearing becomes a straight line.'},
+ {y:1827,up:false,k:'Gauss proves it cannot be fixed',p:'A sphere and a plane are not isometric. Every flat map distorts something, permanently.'},
+ {y:1855,up:true,k:'Gall draws an area-true map',p:'The same construction Peters would present 118 years later. Nobody cared at the time.'},
+ {y:1973,up:true,k:'Peters revives it',p:'And accuses cartographers of drawing the world to flatter empires. The fight runs for decades.'},
+ {y:1998,up:true,k:'National Geographic switches',p:'To the Winkel Tripel: neither area-true nor angle-true, a compromise that keeps both errors small.'},
+ {y:2005,up:false,k:'Web Mercator is chosen',p:'Because it is the projection that lets the world be cut into square tiles and quartered forever.'},
+ {y:2017,up:true,k:'Boston changes its classrooms',p:'The first US district to make the area-true map official.'},
+ {y:2018,up:true,k:'Equal Earth is drawn',p:'Area-true without the stretch, made specifically to end the Mercator-versus-Peters quarrel. Google adds a globe the same year.'},
+ {y:2026,up:true,k:'The UN asks',p:'164 votes to 1. The resolution recommends and obliges nobody, because a default has no owner.'}];
+
+function drawGrid(mode){
+  const svg=$('grid'); if(!svg) return;
+  const W=760,x0=70,H=250,y0=40;
+  const merc = f => Math.log(Math.tan(Math.PI/4 + f*Math.PI/360));
+  const maxM = merc(80);
+  const yOf = f => mode==='equal'
+    ? y0 + H/2 - (Math.sin(f*Math.PI/180)/Math.sin(80*Math.PI/180))*(H/2)
+    : y0 + H/2 - (merc(f)/maxM)*(H/2);
+  let lines='';
+  for(let f=-80;f<=80;f+=20){
+    const y=yOf(f);
+    lines+=`<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x0+W}" y2="${y.toFixed(1)}" stroke="var(--grid)" stroke-width="1.5"/>
+      <text x="${x0-12}" y="${(y+4).toFixed(1)}" text-anchor="end" font-size="12" fill="var(--text-dim)">${f}°</text>`;
+  }
+  const patch=(f1,f2,label,c)=>{
+    const yA=yOf(f2), yB=yOf(f1);
+    return `<rect x="${x0+200}" y="${yA.toFixed(1)}" width="360" height="${(yB-yA).toFixed(1)}" rx="2"
+      fill="${c}" opacity=".8"/>
+      <text x="${x0+380}" y="${((yA+yB)/2+5).toFixed(1)}" text-anchor="middle" font-size="14" fill="var(--bg-raised)">${label}</text>`;
+  };
+  svg.innerHTML=`${lines}
+    ${patch(0,20,'20° of latitude at the equator','var(--fact)')}
+    ${patch(60,80,'20° of latitude in the far north','var(--flaw)')}`;
+  const cap=$('gridCap');
+  if(cap) cap.textContent = mode==='equal'
+    ? 'Equal-area: both blocks cover the same real area, and both are drawn the same size. Shapes pay for it instead.'
+    : 'Mercator: both blocks cover the same real area. The northern one is drawn several times larger.';
+  const a=$('tMerc'),b=$('tEqual');
+  if(a&&b){a.classList.toggle('on',mode!=='equal');b.classList.toggle('on',mode==='equal')}
+}
+let gridMode='merc';
+
+let tlSel=-1;
+function drawTl(){
+  const svg=$('tl'); if(!svg) return;
+  const x0=60,W=790,mid=100;
+  const span=2026-1569;
+  let out='';
+  TL.forEach((e,i)=>{
+    const x=x0+((e.y-1569)/span)*W, y=e.up?mid-40:mid+40;
+    const c=e.up?'var(--alt)':'var(--flaw)', on=i===tlSel;
+    out+=`<line x1="${x.toFixed(1)}" y1="${mid}" x2="${x.toFixed(1)}" y2="${y}" stroke="${c}" stroke-width="${on?3:1.5}" opacity="${on?1:.6}"/>
+      <circle cx="${x.toFixed(1)}" cy="${y}" r="${on?9:6}" fill="${c}" data-i="${i}" style="cursor:pointer"/>
+      <text x="${x.toFixed(1)}" y="${e.up?y-16:y+24}" text-anchor="middle" font-size="12" fill="${on?c:'var(--text-dim)'}">${e.y}</text>`;
+  });
+  svg.innerHTML=`<line x1="${x0-20}" y1="${mid}" x2="${x0+W+20}" y2="${mid}" stroke="var(--grid)" stroke-width="2"/>${out}`;
+  const cap=$('tlCap');
+  if(cap) cap.textContent = tlSel>=0 ? `${TL[tlSel].y} — ${TL[tlSel].k}. ${TL[tlSel].p}`
+    : 'Click a point for what happened. Above the line: attempts to change the picture. Below: things that fixed it in place.';
+}
+
+function buildBills(){
+  const w=$('bills'); if(!w) return;
+  w.innerHTML=BILLS.map((b,i)=>`<div class="bill${i===0?' on':''}"><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+
+drawGrid('merc');drawTl();buildBills();
+
+if(!isAuto){
+  const a=$('tMerc'),b=$('tEqual');
+  if(a&&b){a.onclick=()=>{gridMode='merc';drawGrid('merc')};b.onclick=()=>{gridMode='equal';drawGrid('equal')}}
+  const tl=$('tl');
+  if(tl) tl.addEventListener('click',e=>{const i=e.target?.dataset?.i; if(i!==undefined){tlSel=+i;drawTl()}});
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s2') master.call(()=>{
+      let eq=false;const step=()=>{drawGrid(eq?'equal':'merc');eq=!eq;setTimeout(step,3800)};step();
+    },null,t+2);
+    if(s.id==='s7') master.call(()=>{
+      let k=0;const step=()=>{tlSel=k%TL.length;drawTl();k++;setTimeout(step,2800)};step();
+    },null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>

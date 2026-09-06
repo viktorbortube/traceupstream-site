@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Карта, которой пользуются все и которую никто не выбирал</title>
+<meta name="description" content="ООН попросила мир перестать пользоваться Меркатором. Попросить — всё, что она может: у умолчания нет хозяина. Меркатор держится потому, что в 2005 году веб-картам понадобились квадратные плитки, а даёт их одна проекция. Четыре способа это изменить, у каждого своя цена.">
+<link rel="canonical" href="https://traceupstream.com/episodes/055-map-nobody-chose/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#4A5A6B;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:150px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:92px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:96px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.055</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="59.8">
+  <div class="kicker">Дефект конструкции · Выпуск 055</div>
+  <h1>Карта, которой пользуются все и которую никто не выбирал.</h1>
+  <div class="prose lede keep">
+    <p>На карте, в которую вы сегодня смотрели, Гренландия примерно такого же размера, как Африка. <em class="flaw">Африка больше в четырнадцать раз.</em> Это не ошибка: карта делает ровно то, ради чего её построили, а построили её не для того, чтобы показывать размеры.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">164–1</div><div class="l">голосование Генассамблеи ООН 4 сентября 2026 года с просьбой сменить карту</div></div>
+    <div class="stat"><div class="n">1569</div><div class="l">год публикации построения — чтобы корабли держали курс</div></div>
+    <div class="stat"><div class="n">2005</div><div class="l">год, когда его выбрали заново — чтобы плитки веб-карт были квадратными</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="53.9">
+  <h2>Правильной карты не существует</h2>
+  <div class="prose">
+    <p>В 1827 году Карл Фридрих Гаусс доказал, что сферу нельзя развернуть на плоскость, нигде её не растянув. Оберните бумагу вокруг мяча — она сомнётся. Оберните вокруг трубы — ляжет ровно, потому что труба это согнутый лист, а мяч нет.</p>
+    <p><em class="fact">Значит, любая плоская карта Земли неверна: не плохо сделана, а неверна математически и навсегда.</em> Единственный настоящий вопрос, на который она отвечает, — какую именно неправду вы предпочитаете. А это уже чей-то выбор.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="68.8">
+  <h2>Что купили на это искажение</h2>
+  <div class="prose">
+    <p>В море курс держат по компасу, не меняя направления. На шаре такой путь заворачивается в медленную спираль. В 1569 году Герард Меркатор опубликовал построение, при котором постоянный курс превращается в прямую, которую можно провести линейкой.</p>
+    <p>Чтобы все направления оставались верными, масштаб обязан расти по мере удаления от экватора, а вместе с ним растёт площадь: примерно вдвое на широте Парижа и больше чем в восемь раз на севере Гренландии. <em class="flaw">Раздутая Арктика — не дефект. Это чек.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Одна и та же площадь, нарисованная дважды</h3>
+    <div class="toggle" role="group" aria-label="Переключение между Меркатором и равновеликой проекцией">
+      <button id="tMerc" class="on">Меркатор</button><button id="tEqual">Равновеликая</button>
+    </div>
+    <svg id="grid" viewBox="0 0 900 330" width="100%" height="330" role="img" aria-label="Два одинаковых по площади участка поверхности Земли на Меркаторе и на равновеликой проекции"></svg>
+    <div class="figcap" id="gridCap">Оба блока покрывают одинаковую реальную площадь. На Меркаторе северный нарисован намного больше.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="79.6">
+  <h2>Спор, который ничего не изменил</h2>
+  <div class="prose">
+    <p>В 1973 году Арно Петерс предложил карту, сохраняющую площади, и обвинил картографов в том, что они рисуют мир в угоду империям. Построение было не новым: Джеймс Голл опубликовал его в 1855 году, и это никого не заинтересовало. Профессия ответила, что верные площади оплачены формой: тропики вытягиваются вверх и сжимаются с боков.</p>
+    <p>В 2017 году Бостон повесил равновеликую карту в своих школах, а в 2018-м картографы нарисовали карту получше и назвали её Equal Earth, чтобы закрыть ссору. <em class="flaw">Пятьдесят лет спора, по-настоящему хороший ответ в конце, и карта в вашем телефоне не сдвинулась ни на пиксель.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="118">
+  <h2>Что её держит на самом деле</h2>
+  <div class="prose">
+    <p>В 2005 году команда в Google должна была разрезать мир на куски, достаточно мелкие для медленного соединения. Ответ — пирамида квадратов: весь мир один квадрат, потом четыре, потом шестнадцать, и каждый уровень это предыдущий, разрезанный на четвертинки.</p>
+    <p>Плитка — это квадратная картинка квадратного куска мира. Если карта сжимает одно направление сильнее другого, кусок приезжает прямоугольником и картинку перекашивает. Значит, карта обязана растягивать оба направления одинаково в каждой точке, а из тех, что так умеют, <em class="fact">только одна раскладывает мир простым прямоугольником, севером вверх, с равномерными меридианами.</em> Меркатор. И влезает она в квадрат лишь потому, что в вебе ей отрезают верх и низ примерно на 85°; у настоящего Меркатора Арктика уходит вверх бесконечно.</p>
+    <p>Следом пошли Bing, Apple и OpenStreetMap, потому что плитки разных поставщиков обязаны совпадать на одной сетке. Отрасль зарегистрировала для этого номер: 900913, который на экране читается как слово google. <em class="flaw">Картинку выбрали не картографы и не правительства. Её выбрал тот, кому нужны были квадратные плитки.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="57.9">
+  <h2>У умолчания нет хозяина</h2>
+  <div class="prose">
+    <p>164 страны попросили. Соединённые Штаты проголосовали против, назвав это идеологией. Шесть воздержались. И дальше ничего не обязано произойти, потому что обязывать некого: международного регулятора карт нет, ни один договор не закрепляет картинку ни за кем. Сетка плиток принадлежит отрасли, учебники министерствам, карта в кармане компании.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">У правила есть автор, к которому можно прийти. У умолчания есть только причина, по которой оно когда-то было удобным, и эта причина могла исчезнуть десятилетия назад, а никто и не заметил.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="127.6">
+  <h2>Четыре способа, четыре цены</h2>
+  <div class="prose">
+    <p>Перестать иметь одну карту, перестать её расплющивать, сменить плитки или поменять школу законом. Каждый способ настоящий, и у каждого есть цена. Есть и пятый вариант, тот, что работает сейчас: оставить как есть. Его цена — ошибка в четырнадцать раз в том сравнении, которое люди делают чаще всего: насколько велика моя часть мира.</p>
+  </div>
+  <div class="fig">
+    <h3>Выберите конструкцию и прочтите её счёт</h3>
+    <div class="bills" id="bills"></div>
+    <div class="figcap">Все они упираются в одну стену: верной плоской карты не бывает, а той, что в ходу, никто не владеет.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="95.5">
+  <h2>Этого никто не решал</h2>
+  <div class="prose">
+    <p>Океан больше никто не пересекает, держа постоянный курс по компасу. Причина штурмана истекла, и заменять её было незачем: к тому времени ту же форму уже держало другое. Не картограф и не министерство, а инженер со сроком сдачи, который резал мир на квадраты, достаточно мелкие, чтобы пролезть по медленному проводу.</p>
+    <p><em class="fact">Правило пишет тот, кто знает, что он решает. Умолчание ставит тот, кто решает задачу поменьше и очень удивился бы, узнав, что именно закрепил.</em> Поэтому у него нет ни голосования, ни автора, ни даты, когда кто-нибудь проверит, есть ли в нём ещё смысл.</p>
+  </div>
+  <div class="fig">
+    <h3>Четыре с половиной века одной картинки</h3>
+    <svg id="tl" viewBox="0 0 900 200" width="100%" height="200" role="img" aria-label="Хроника от публикации проекции Меркатора в 1569 году до резолюции ООН 2026 года"></svg>
+    <div class="figcap" id="tlCap">Нажмите на точку, чтобы увидеть, что произошло. Над линией — попытки сменить картинку. Под линией — то, что закрепляло её.</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Что вокруг вас выглядит просто устройством вещей — и если бы вы захотели это изменить, к кому именно вы пошли бы?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker" style="margin-bottom:6px"><a href="../" style="color:var(--text-dim)">In English → </a></div>
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать нарацию">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+
+const BILLS=[
+ {k:'Перестать иметь одну карту',p:'Равновеликая, когда вопрос про размер, Меркатор — когда про курс, плюс компромисс, который National Geographic печатает с 1998 года. Цена: ломается сравнение. Два источника, две формы, одну на другую не наложить. А на стене класса всё равно один плакат.'},
+ {k:'Перестать её расплющивать',p:'Настольные карты Google при отдалении показывают шар с 2018 года, и на шаре проблемы нет. Цена: шар показывает полмира, а увидеть его целиком сразу — это и есть причина, по которой открывают карту мира. Телефонная версия осталась плоской.'},
+ {k:'Сменить плитки',p:'Векторные плитки передают фигуры, а не картинки, поэтому проекцию можно выбрать на вашем устройстве. Техническое препятствие исчезло. Цена: все квадраты, накопленные с 2005 года, миллионы приложений с EPSG:3857 внутри, базы координат, которые на него опираются. И карта в конце всё равно неверна.'},
+ {k:'Поменять школу законом',p:'Гана, Кения и ЮАР начали переписывать школьные атласы. Цена: картинку, с которой растут дети, выбирает государство, авторы новой карты сами называют своё решение отчасти делом вкуса, а карта на стене разойдётся с телефоном в руке того же ребёнка.'},
+ {k:'Оставить как есть',p:'Вариант, который работает сейчас, и единственный, который обычно считают бесплатным. Цена: ошибка в четырнадцать раз в том сравнении, которое люди делают чаще всего: насколько велика моя часть мира.'}];
+
+const TL=[
+ {y:1569,up:false,k:'Меркатор публикует',p:'Не картина мира, а построение, в котором постоянный курс по компасу превращается в прямую.'},
+ {y:1827,up:false,k:'Гаусс доказывает, что это неисправимо',p:'Сфера и плоскость не изометричны. Любая плоская карта что-нибудь искажает, и навсегда.'},
+ {y:1855,up:true,k:'Голл рисует равновеликую карту',p:'То же построение, которое Петерс представит через 118 лет. Тогда это никого не заинтересовало.'},
+ {y:1973,up:true,k:'Петерс возвращает её',p:'И обвиняет картографов в том, что они рисуют мир в угоду империям. Спор идёт десятилетиями.'},
+ {y:1998,up:true,k:'National Geographic меняет карту',p:'На проекцию Винкеля: ни площади, ни углы не верны точно, зато обе ошибки малы.'},
+ {y:2005,up:false,k:'Выбирают Web Mercator',p:'Потому что это проекция, позволяющая резать мир на квадратные плитки и делить их на четвертинки бесконечно.'},
+ {y:2017,up:true,k:'Бостон меняет карты в классах',p:'Первый школьный округ США, официально перешедший на равновеликую карту.'},
+ {y:2018,up:true,k:'Рисуют Equal Earth',p:'Верные площади без растяжения, специально чтобы закрыть спор Меркатора с Петерсом. В том же году Google добавляет шар.'},
+ {y:2026,up:true,k:'ООН просит',p:'164 голоса против одного. Резолюция рекомендует и никого не обязывает, потому что у умолчания нет хозяина.'}];
+
+function drawGrid(mode){
+  const svg=$('grid'); if(!svg) return;
+  const W=760,x0=70,H=250,y0=40;
+  const merc = f => Math.log(Math.tan(Math.PI/4 + f*Math.PI/360));
+  const maxM = merc(80);
+  const yOf = f => mode==='equal'
+    ? y0 + H/2 - (Math.sin(f*Math.PI/180)/Math.sin(80*Math.PI/180))*(H/2)
+    : y0 + H/2 - (merc(f)/maxM)*(H/2);
+  let lines='';
+  for(let f=-80;f<=80;f+=20){
+    const y=yOf(f);
+    lines+=`<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x0+W}" y2="${y.toFixed(1)}" stroke="var(--grid)" stroke-width="1.5"/>
+      <text x="${x0-12}" y="${(y+4).toFixed(1)}" text-anchor="end" font-size="12" fill="var(--text-dim)">${f}°</text>`;
+  }
+  const patch=(f1,f2,label,c)=>{
+    const yA=yOf(f2), yB=yOf(f1);
+    return `<rect x="${x0+200}" y="${yA.toFixed(1)}" width="360" height="${(yB-yA).toFixed(1)}" rx="2"
+      fill="${c}" opacity=".8"/>
+      <text x="${x0+380}" y="${((yA+yB)/2+5).toFixed(1)}" text-anchor="middle" font-size="14" fill="var(--bg-raised)">${label}</text>`;
+  };
+  svg.innerHTML=`${lines}
+    ${patch(0,20,'20° широты у экватора','var(--fact)')}
+    ${patch(60,80,'20° широты на крайнем севере','var(--flaw)')}`;
+  const cap=$('gridCap');
+  if(cap) cap.textContent = mode==='equal'
+    ? 'Равновеликая: оба блока покрывают одинаковую реальную площадь и нарисованы одинаково. Платят за это формы.'
+    : 'Меркатор: оба блока покрывают одинаковую реальную площадь. Северный нарисован в несколько раз больше.';
+  const a=$('tMerc'),b=$('tEqual');
+  if(a&&b){a.classList.toggle('on',mode!=='equal');b.classList.toggle('on',mode==='equal')}
+}
+let gridMode='merc';
+
+let tlSel=-1;
+function drawTl(){
+  const svg=$('tl'); if(!svg) return;
+  const x0=60,W=790,mid=100;
+  const span=2026-1569;
+  let out='';
+  TL.forEach((e,i)=>{
+    const x=x0+((e.y-1569)/span)*W, y=e.up?mid-40:mid+40;
+    const c=e.up?'var(--alt)':'var(--flaw)', on=i===tlSel;
+    out+=`<line x1="${x.toFixed(1)}" y1="${mid}" x2="${x.toFixed(1)}" y2="${y}" stroke="${c}" stroke-width="${on?3:1.5}" opacity="${on?1:.6}"/>
+      <circle cx="${x.toFixed(1)}" cy="${y}" r="${on?9:6}" fill="${c}" data-i="${i}" style="cursor:pointer"/>
+      <text x="${x.toFixed(1)}" y="${e.up?y-16:y+24}" text-anchor="middle" font-size="12" fill="${on?c:'var(--text-dim)'}">${e.y}</text>`;
+  });
+  svg.innerHTML=`<line x1="${x0-20}" y1="${mid}" x2="${x0+W+20}" y2="${mid}" stroke="var(--grid)" stroke-width="2"/>${out}`;
+  const cap=$('tlCap');
+  if(cap) cap.textContent = tlSel>=0 ? `${TL[tlSel].y} — ${TL[tlSel].k}. ${TL[tlSel].p}`
+    : 'Нажмите на точку, чтобы увидеть, что произошло. Над линией — попытки сменить картинку. Под линией — то, что закрепляло её.';
+}
+
+function buildBills(){
+  const w=$('bills'); if(!w) return;
+  w.innerHTML=BILLS.map((b,i)=>`<div class="bill${i===0?' on':''}"><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+
+drawGrid('merc');drawTl();buildBills();
+
+if(!isAuto){
+  const a=$('tMerc'),b=$('tEqual');
+  if(a&&b){a.onclick=()=>{gridMode='merc';drawGrid('merc')};b.onclick=()=>{gridMode='equal';drawGrid('equal')}}
+  const tl=$('tl');
+  if(tl) tl.addEventListener('click',e=>{const i=e.target?.dataset?.i; if(i!==undefined){tlSel=+i;drawTl()}});
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s2') master.call(()=>{
+      let eq=false;const step=()=>{drawGrid(eq?'equal':'merc');eq=!eq;setTimeout(step,3800)};step();
+    },null,t+2);
+    if(s.id==='s7') master.call(()=>{
+      let k=0;const step=()=>{tlSel=k%TL.length;drawTl();k++;setTimeout(step,2800)};step();
+    },null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
