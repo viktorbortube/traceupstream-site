@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — The Airport Was Compliant. That Is Why It Had No Net.</title>
+<meta name="description" content="An arrestor bed is funded only where a runway cannot have the required 1,000-foot safety area. Meeting the standard earns no credit for a second layer, so the airport that failed the rule gets the machine and the airport that passed gets a lawn. Four designs, four bills.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#4A5A6B;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0}
+.stat{min-width:150px}
+.stat .n{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1}
+.stat .l{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:6px;letter-spacing:.04em}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:6px}
+.sim label{display:block;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-bottom:6px;letter-spacing:.04em}
+.sim input[type=range]{width:100%}
+.sim .v{font-family:var(--font-display);font-weight:700;font-size:26px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:70px 90px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:92px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .lede{font-size:40px}
+body.auto .stat .n{font-size:96px}
+body.auto .stat .l{font-size:22px}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .sim,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.056</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="43">
+  <div class="kicker">Trace Upstream · Episode 056</div>
+  <h1>The airport was compliant. That is why it had no net.</h1>
+  <div class="prose lede keep">
+    <p>Five people were killed when a cargo jet ran off a runway in Miami in 2026. <em class="flaw">None of them were on the aircraft.</em> There is a system built for exactly this — a bed of crushable concrete that stops an overrunning aircraft. That runway does not have one, and the reason is not that the airport was cutting costs.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">1,000 ft</div><div class="l">of empty ground the rule requires past the runway end</div></div>
+    <div class="stat"><div class="n">70 kt</div><div class="l">the speed an arrestor bed is designed to stop</div></div>
+    <div class="stat"><div class="n">112 kt</div><div class="l">the speed this aircraft left the runway at</div></div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="55.5">
+  <h2>What the rule asks for</h2>
+  <div class="prose">
+    <p>Every commercial runway in the United States must end in a safety area: 1,000 feet long, 500 feet wide, flat, clear and empty. <em class="fact">That is the whole standard.</em> Not how fast an aircraft might arrive, not how much energy the ground must absorb — just how much emptiness there is, checkable with a tape measure and an annual inspection.</p>
+    <p>The number is old; what made it urgent was a crash. In 1999 an airliner overran a wet runway at Little Rock and eleven people died. Six years later Congress ordered every commercial airport to bring its safety areas up to standard by the end of 2015, and most of them did. Which leaves the airports that physically cannot.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="55">
+  <h2>The invention for airports that could not comply</h2>
+  <div class="prose">
+    <p>Many American airports were laid out in the 1940s and 1950s, when they sat in empty fields. The fields became suburbs, and a thousand feet past the runway there is now a motorway, a river, a neighbourhood or a cliff. So in the 1990s the aviation authority funded a different answer: a bed of lightweight cellular concrete engineered to crumble under a landing gear. The wheels sink; the aircraft ploughs to a stop in hundreds of feet instead of thousands.</p>
+    <p>The first was laid at a New York airport in 1996. By 2026 there are beds at <em class="fact">122 runway ends at 70 airports</em>, and they have stopped 26 aircraft carrying 497 people.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="42.6">
+  <h2>The answer that sounds like an excuse</h2>
+  <div class="prose">
+    <p>The airport had skipped nothing. Runway 30 in Miami has the full 1,000-foot safety area the rule requires, verified in the annual federal inspection. And then comes the sentence this turns on, and it is the airport's own: the bed is intended as an alternative, <em class="flaw">not as an additional layer on top of a safety area</em> — and no airport in the country has both.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">That is not an excuse. It is a description of how the rule is written.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="65">
+  <h2>The inversion</h2>
+  <div class="prose">
+    <p>The rule measures compliance, not risk. <em class="fact">The safety area is a distance. The bed is a machine.</em> The authority made them interchangeable by declaring the bed an equivalent level of safety — which is what lets an airport with no room be counted as compliant. But equivalent means substitute: adding a bed to a runway that already has the field ticks no box that exists.</p>
+    <p>And the money follows the box. Nothing forbids a compliant airport from building one anyway, but the authority pays for beds where the standard cannot be reached. <em class="flaw">So the airport that could not reach the standard is handed a machine that grabs aircraft. The airport that met it is handed a lawn.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Same runway end, two ways to check it</h3>
+    <div class="toggle" role="group" aria-label="Switch between checking by distance and checking by energy">
+      <button id="tDist" class="on">By distance</button><button id="tEnergy">By energy</button>
+    </div>
+    <svg id="check" viewBox="0 0 900 260" width="100%" height="260" role="img" aria-label="Two runway ends assessed by distance and by absorbed energy"></svg>
+    <div class="figcap" id="checkCap">By distance: the field passes, the bed passes, and adding them together is meaningless — they are alternatives.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="67.7">
+  <h2>The obvious fix and what it costs</h2>
+  <div class="prose">
+    <p>Put beds everywhere. It fails three ways. <em class="flaw">Speed:</em> a standard bed is designed to stop an aircraft entering at 70 knots — a figure drawn from thirteen years of data showing about nine in ten overruns happen at or below it. The jet in Miami left the runway at roughly 112. A bed would have slowed it, not stopped it.</p>
+    <p><em class="flaw">Subscription:</em> a bed is not a structure. Little Rock laid one in autumn 2000 and replaced it in 2018 — eighteen years, then you buy it again. <em class="flaw">And a cost that gets left out:</em> in the Little Rock investigation the engineers who build these beds calculated that for that aircraft, on that night, it would have shed about 15 knots, still not stopped inside the safety area, and the loads would likely have collapsed two landing gear legs. A layer that protects people on the ground can injure the people in the aircraft.</p>
+  </div>
+  <div class="fig">
+    <h3>Where does it stop?</h3>
+    <div class="sim">
+      <div><label for="spd">Speed leaving the runway</label><input id="spd" type="range" min="40" max="130" value="112" step="1"><div class="v" id="spdv">112 kt</div></div>
+    </div>
+    <svg id="stop" viewBox="0 0 900 230" width="100%" height="230" role="img" aria-label="Stopping distance on a plain safety area compared with an arrestor bed, by exit speed"></svg>
+    <div class="figcap" id="stopCap">The bed is designed for 70 knots. Above that it buys distance, not a stop.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="103.8">
+  <h2>Four designs, four bills</h2>
+  <div class="prose">
+    <p>Measure energy instead of distance, and a field and a bed stop being alternatives — they become quantities you can add up. Or declare a landing distance shorter than the concrete you own, and buy compliance with a timetable. Or move the road out of the line of the runway. Or write the second layer into the rule wherever there are people just past the end.</p>
+    <p><em class="fact">Each one is real, and each one is priced.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Pick a design and read its bill</h3>
+    <div class="bills" id="bills"></div>
+    <div class="figcap">Note what the fourth one costs: money spent on people who are not the airport's customers, judged by the agency that already certified it as compliant.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="81.7">
+  <h2>Who the rule counts</h2>
+  <div class="prose">
+    <p>Since June 1999, no passenger or crew member has been killed on board an aircraft in a runway overrun in the United States. Not one, in more than a quarter of a century — and that last death was Little Rock, the crash that made the safety area urgent. It is a real achievement, and the safety area is part of it.</p>
+    <p>But look at who has died in those same years. A six-year-old boy in a car on a Chicago street, when an airliner came through the fence in 2005. Five people in Miami in 2026. <em class="flaw">The risk did not disappear. It moved past the edge of the thousand feet — and that edge is not the airport fence.</em> One of the vans in Miami was parked well inside the airport. The rule's blind spot starts where its measurement stops.</p>
+  </div>
+  <div class="fig">
+    <h3>Thirty years at the end of the runway</h3>
+    <svg id="tl" viewBox="0 0 900 200" width="100%" height="200" role="img" aria-label="Timeline from the first arrestor bed in 1996 to the Miami overrun in 2026"></svg>
+    <div class="figcap" id="tlCap">Click a point for what happened. Above the line: the rule being built. Below: who died.</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">When you are told that something meets the standard, you have been told one of two very different things. That it is safe — or that it is not required to be any safer.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+
+const BILLS=[
+ {k:'Measure energy, not distance',p:'Require the runway end to absorb a stated amount of kinetic energy, and a field and a bed become additive. Price: somebody must name a percentile in public — ninety, ninety-five, ninety-nine — and each is a line with people on the far side of it, chosen in advance and written down.'},
+ {k:'Declare a shorter runway',p:'Already in use: an airport declares a landing distance shorter than the concrete it owns and keeps the difference as margin. Price: some aircraft can no longer use the runway or must carry less, so the airline loses payload and the airport loses the freight that goes elsewhere.'},
+ {k:'Move the people, not the aircraft',p:'Take the road out of the line of the runway and close the ground beyond it to parking and work. Price: the land. That street exists because the city does, and buying a corridor through a built-up neighbourhood costs more than any bed — and the risk relocates to whoever stands at the new boundary.'},
+ {k:'Require a second layer where people are',p:'A bed on top of a full safety area wherever there are people just past the runway end. Price: several million dollars per runway end plus replacement every couple of decades, spent on drivers and neighbours who buy no tickets, judged by the agency that already certifies the airport — and a trigger somebody has to write: how many people, how close.'}];
+
+const TL=[
+ {y:1996,up:true,k:'First arrestor bed',p:'Laid at a New York airport, for runways that cannot have the full safety area.'},
+ {y:1999,up:false,k:'Little Rock',p:'An airliner overruns a wet runway; eleven people die. The last on-board deaths in a US overrun.'},
+ {y:2000,up:true,k:'A bed for Little Rock',p:'Installed at the departure end of runway 4R, the year after the crash. Replaced in 2018.'},
+ {y:2005,up:false,k:'Chicago Midway',p:'An airliner leaves the airport onto Central Avenue. A six-year-old in a car is killed. The NTSB finds the absence of a bed made it worse.'},
+ {y:2005,up:true,k:'Congress sets a deadline',p:'All commercial airports must bring safety areas to standard by the end of 2015.'},
+ {y:2026,up:false,k:'Miami',p:'A cargo jet leaves runway 30 at about 112 knots, crosses the perimeter and a street. Five die, none on board.'}];
+
+function drawCheck(mode){
+  const svg=$('check'); if(!svg) return;
+  const energy = mode==='energy';
+  const box=(x,y,w,h,t,c,dash)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="var(--bg-raised)"
+      stroke="${c}" stroke-width="2" ${dash?'stroke-dasharray="7 6"':''}/>
+      <text x="${x+w/2}" y="${y+h/2+5}" text-anchor="middle" font-size="15" fill="var(--text)">${t}</text>`;
+  const verdict=(x,y,t,c)=>`<text x="${x}" y="${y}" font-size="15" fill="${c}">${t}</text>`;
+  svg.innerHTML=`
+    <text x="40" y="30" font-size="13" fill="var(--text-dim)">runway end A — full field, no bed</text>
+    ${box(40,45,260,58,'1,000 ft of grass','var(--text)')}
+    ${verdict(320,80, energy?'absorbs X':'PASSES', energy?'var(--fact)':'var(--alt)')}
+    <text x="40" y="150" font-size="13" fill="var(--text-dim)">runway end B — no room, bed instead</text>
+    ${box(40,165,260,58,'300 ft of bed','var(--text)')}
+    ${verdict(320,200, energy?'absorbs X':'PASSES', energy?'var(--fact)':'var(--alt)')}
+    ${box(470,105,380,58, energy?'A + B can be added together':'A and B are alternatives', energy?'var(--alt)':'var(--flaw)', !energy)}`;
+  const cap=$('checkCap');
+  if(cap) cap.textContent = energy
+    ? 'By energy: both ends state how much they absorb, so a field and a bed can be summed — and a compliant end can still be improved.'
+    : 'By distance: the field passes, the bed passes, and adding them together is meaningless — they are alternatives.';
+  const a=$('tDist'),b=$('tEnergy');
+  if(a&&b){a.classList.toggle('on',!energy);b.classList.toggle('on',energy)}
+}
+let checkMode='dist';
+
+function drawStop(v){
+  const svg=$('stop'); if(!svg) return;
+  const spd=v??+($('spd')?.value ?? 112);
+  const x0=70,W=760,base=150;
+  // plain field: roll-out roughly with the square of speed; bed: absorbs up to its design speed
+  const field=Math.min(1, Math.pow(spd/95,2));
+  const bed=Math.min(1, Math.pow(Math.max(0,spd-70)/70,2)*0.85);
+  const bar=(y,frac,label,c)=>`<rect x="${x0}" y="${y}" width="${(W*frac).toFixed(1)}" height="30" rx="3" fill="${c}" opacity=".8"/>
+      <text x="${x0-12}" y="${y+21}" text-anchor="end" font-size="13" fill="var(--text-dim)">${label}</text>`;
+  svg.innerHTML=`
+    <line x1="${x0+W}" y1="30" x2="${x0+W}" y2="${base+50}" stroke="var(--flaw)" stroke-width="2" stroke-dasharray="6 6"/>
+    <text x="${x0+W-8}" y="24" text-anchor="end" font-size="13" fill="var(--flaw)">airport boundary</text>
+    ${bar(50,field,'plain field','var(--text-dim)')}
+    ${bar(105,bed,'with a bed','var(--alt)')}
+    <text x="${x0}" y="${base+45}" font-size="13" fill="var(--text-dim)">Design speed of the bed: 70 kt. This aircraft: 112 kt.</text>`;
+  const cap=$('stopCap');
+  if(cap) cap.textContent = spd<=70
+    ? 'At or below 70 knots the bed is designed to bring the aircraft to a stop inside it.'
+    : 'Above 70 knots the bed buys distance, not a stop — the faster the entry, the less of the overrun it removes.';
+  const out=$('spdv'); if(out) out.textContent=spd+' kt';
+}
+
+let tlSel=-1;
+function drawTl(){
+  const svg=$('tl'); if(!svg) return;
+  const x0=60,W=790,mid=100,span=2026-1996;
+  let out='';
+  TL.forEach((e,i)=>{
+    const x=x0+((e.y-1996)/span)*W, y=e.up?mid-40:mid+40;
+    const c=e.up?'var(--alt)':'var(--flaw)', on=i===tlSel;
+    out+=`<line x1="${x.toFixed(1)}" y1="${mid}" x2="${x.toFixed(1)}" y2="${y}" stroke="${c}" stroke-width="${on?3:1.5}" opacity="${on?1:.6}"/>
+      <circle cx="${x.toFixed(1)}" cy="${y}" r="${on?9:6}" fill="${c}" data-i="${i}" style="cursor:pointer"/>
+      <text x="${x.toFixed(1)}" y="${e.up?y-16:y+24}" text-anchor="middle" font-size="12" fill="${on?c:'var(--text-dim)'}">${e.y}</text>`;
+  });
+  svg.innerHTML=`<line x1="${x0-20}" y1="${mid}" x2="${x0+W+20}" y2="${mid}" stroke="var(--grid)" stroke-width="2"/>${out}`;
+  const cap=$('tlCap');
+  if(cap) cap.textContent = tlSel>=0 ? `${TL[tlSel].y} — ${TL[tlSel].k}. ${TL[tlSel].p}`
+    : 'Click a point for what happened. Above the line: the rule being built. Below: who died.';
+}
+
+function buildBills(){
+  const w=$('bills'); if(!w) return;
+  w.innerHTML=BILLS.map((b,i)=>`<div class="bill${i===0?' on':''}"><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+
+drawCheck('dist');drawStop(112);drawTl();buildBills();
+
+if(!isAuto){
+  const a=$('tDist'),b=$('tEnergy');
+  if(a&&b){a.onclick=()=>{checkMode='dist';drawCheck('dist')};b.onclick=()=>{checkMode='energy';drawCheck('energy')}}
+  const sp=$('spd'); if(sp) sp.addEventListener('input',()=>drawStop());
+  const tl=$('tl');
+  if(tl) tl.addEventListener('click',e=>{const i=e.target?.dataset?.i; if(i!==undefined){tlSel=+i;drawTl()}});
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p,.fig,.stat'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.stat,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    if(s.id==='s4') master.call(()=>{
+      let e=false;const step=()=>{drawCheck(e?'energy':'dist');e=!e;setTimeout(step,3600)};step();
+    },null,t+2);
+    if(s.id==='s5') master.call(()=>{
+      const seq=[112,95,70,55,70,95];let k=0;
+      const step=()=>{drawStop(seq[k%seq.length]);k++;setTimeout(step,2600)};step();
+    },null,t+2);
+    if(s.id==='s7') master.call(()=>{
+      let k=0;const step=()=>{tlSel=k%TL.length;drawTl();k++;setTimeout(step,2800)};step();
+    },null,t+2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
