@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Нехватку ракет записали в бюджет</title>
+<meta name="description" content="За пять недель войны с Ираном в 2026 году коалиция выпустила 1 700 перехватчиков «Пэтриот»; единственный завод, собирающий новейшую версию, сдал за год до этого 620; заказ США на тот год — 341. Почему перехватчики покупают на один бюджетный год, почему временный бюджет замораживает темп выпуска и почему выход в многолетний контракт подходит мирному времени. Три конструкции, три цены.">
+<link rel="canonical" href="https://traceupstream.com/episodes/057-ordered-for-peacetime/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#56606B;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:6px}
+.sim label{display:block;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-bottom:6px;letter-spacing:.04em}
+.sim input[type=range]{width:100%}
+.sim .v{font-family:var(--font-display);font-weight:700;font-size:26px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .sim,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.057</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="60.6">
+  <div class="kicker">Дефект конструкции · Выпуск 057</div>
+  <h1>Нехватку ракет записали в бюджет</h1>
+  <div class="prose lede">
+    <p>За первые пять недель войны с Ираном в 2026 году Соединённые Штаты и их союзники выпустили больше <em class="flaw">1 700 перехватчиков «Пэтриот»</em>. Новейшую версию этого перехватчика собирают на одном-единственном заводе в мире, и за год до войны он сдал <em class="fact">620</em>. Для собственной армии на тот бюджетный год, в который началась война, США заказали <em class="fact">341</em> — примерно столько коалиция выпускала каждую неделю.</p>
+    <p>Поэтому, когда у Саудовской Аравии, по словам региональных чиновников, стали заканчиваться перехватчики и она попросила о помощи четыре страны, её привычному поставщику нечего было уступить. Зачем стране покупать на целый год столько, сколько она может израсходовать за неделю?</p>
+  </div>
+  <div class="fig">
+    <h3>Выпущено, сдано, заказано</h3>
+    <svg id="burn" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Столбцы: 1 700 перехватчиков выпущено за пять недель, 620 сдано в 2025 году, 341 заказан на 2026 финансовый год">
+      <g id="burnRows">
+        <text x="0" y="62" font-size="34" fill="var(--text-dim)">ВЫПУЩЕНО</text>
+        <rect id="bFired" x="190" y="24" width="760" height="56" rx="4" fill="var(--flaw)"/>
+        <text id="nFired" x="205" y="64" font-size="36" fill="#fff">1 700</text>
+        <text x="190" y="118" font-size="32" fill="var(--text-dim)">за 5 недель</text>
+      </g><g id="burnBuilt">
+
+        <text x="0" y="192" font-size="34" fill="var(--text-dim)">СДАНО</text>
+        <rect id="bBuilt" x="190" y="154" width="277" height="56" rx="4" fill="var(--fact)"/>
+        <text id="nBuilt" x="485" y="194" font-size="36" fill="var(--fact)">620</text>
+        <text x="190" y="248" font-size="32" fill="var(--text-dim)">за весь 2025 год</text>
+      </g><g id="burnOrd">
+
+        <text x="0" y="322" font-size="34" fill="var(--text-dim)">ЗАКАЗАНО</text>
+        <rect id="bOrd" x="190" y="284" width="152" height="56" rx="4" fill="var(--text)"/>
+        <text id="nOrd" x="360" y="324" font-size="36" fill="var(--text)">341</text>
+        <text x="190" y="378" font-size="32" fill="var(--text-dim)">заказ США на 2026 год</text>
+      </g>
+    </svg>
+    <div class="figcap">Длина столбцов в масштабе. Источники: FPRI (май 2026) — выпущено и сдано; CSIS (август 2026) — заказ на 2026 финансовый год, армия и флот вместе.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="45.8">
+  <h2>Ответ про завод</h2>
+  <div class="prose">
+    <p>Первый ответ: завод просто слишком медленный, и отчасти это правда. Финальная сборка идёт на одной линии, в городе Камден, штат Арканзас. Головку самонаведения, которая находит цель, делает один завод в Алабаме. Ракетный двигатель делает одна компания.</p>
+    <p>Построить ещё заводы? Посмотрите, что при этом предполагается. <em class="flaw">Второй завод головок самонаведения стоит годы и огромных денег, и ни одна компания его не построит, если никто не пообещает покупать у неё ещё долго после открытия.</em> А кто-нибудь такое обещал?</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="96.2">
+  <h2>Что бывает, когда заказы прекращаются</h2>
+  <div class="prose">
+    <p>Когда в 2022 году Америка отправила тысячи ракет «Стингер» Украине и их понадобилось восполнить, оказалось, что Пентагон не покупал новых примерно восемнадцать лет. Производитель позвал обратно пенсионеров за семьдесят, чтобы они научили новых рабочих собирать ракету по чертежам времён президента Картера. Испытательное оборудование доставали со складов, электронику перепроектировали, потому что микросхемы давно не выпускались. От решения возобновить производство до первых новых ракет прошло около двух с половиной лет.</p>
+    <p><em class="fact">Производственная линия на самом деле не здание. Это люди, поставщики и умение, которые живут, только пока приходят заказы.</em></p>
+    <p>«Пэтриот» так не бросали, и нехватка его не была тайной. К июлю 2025 года, после нескольких лет поставок перехватчиков Украине и ещё до новой войны, запас «Пэтриотов» в Америке составлял примерно четверть от минимума, который сам Пентагон счёл необходимым. <em class="flaw">Потребность была записана. Обязанности её восполнить записано не было.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Восемнадцать лет без заказа</h3>
+    <svg id="stinger" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Шкала: около восемнадцати лет без нового заказа на «Стингер», затем заказ 2022 года и около тридцати месяцев на перезапуск">
+      <line x1="60" y1="170" x2="960" y2="170" stroke="var(--text-dim)" stroke-width="2"/>
+      <g id="stTicks"></g>
+      <rect id="stGap" x="90" y="130" width="0" height="40" fill="var(--flaw)" opacity=".22"/>
+      <text id="stGapT" x="120" y="115" font-size="30" fill="var(--flaw)">0 лет без нового заказа</text>
+      <circle id="stOrder" cx="630" cy="170" r="12" fill="var(--text)"/>
+      <text id="stOrderT" x="630" y="242" text-anchor="middle" font-size="26" fill="var(--text)">заказ 2022 г.</text>
+      <rect id="stRamp" x="630" y="178" width="0" height="14" fill="var(--alt)"/>
+      <text id="stRampT" x="770" y="276" text-anchor="middle" font-size="26" fill="var(--alt)">~30 месяцев на перезапуск</text>
+    </svg>
+    <div class="figcap">Источники: глава RTX Грег Хейз (Breaking Defense, апрель 2022): «Минобороны не покупало Stinger около 18 лет»; Raytheon (Defense One, июнь 2023): пенсионеры, чертежи времён Картера, около 30 месяцев.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="65.1">
+  <h2>Ритм в один год</h2>
+  <div class="prose">
+    <p>В Соединённых Штатах тратить деньги может только Конгресс, и выделяет он их на один год за раз. Так задумано: каждый новый Конгресс может передумать насчёт того, за что платит страна. Но завод — это ставка на десять или двадцать лет, и компании прямо говорят: пока Конгресс не проголосовал за деньги, они не строят.</p>
+    <p>А год редко начинается с уже принятым бюджетом. В 37 из 49 бюджетных лет до 2026 года Пентагон начинал год на временном законе о финансировании. <em class="flaw">Стандартный временный закон запрещает тратить деньги на то, чтобы выпускать любое оружие быстрее, чем в прошлом году, даже если за это время началась война, и запрещает заключать новые многолетние контракты.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Потолок, который временный бюджет ставит новому году</h3>
+    <svg id="freeze" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Схема: потребность подпрыгивает в начале бюджетного года, а выпуск удерживается на темпе прошлого года до принятия полного бюджета">
+      <line x1="80" y1="320" x2="960" y2="320" stroke="var(--text-dim)" stroke-width="2"/>
+      <line x1="80" y1="40" x2="80" y2="320" stroke="var(--text-dim)" stroke-width="2"/>
+      <text x="96" y="358" font-size="26" fill="var(--text-dim)">1 окт</text>
+      <text x="880" y="358" text-anchor="middle" font-size="26" fill="var(--text-dim)">30 сен</text>
+      <line id="frCeil" x1="80" y1="230" x2="560" y2="230" stroke="var(--flaw)" stroke-width="3" stroke-dasharray="10 8"/>
+      <text id="frCeilT" x="96" y="276" font-size="26" fill="var(--flaw)">темп прошлого года</text>
+      <polyline id="frDemand" points="80,230 180,230 200,80 960,80" fill="none" stroke="var(--text)" stroke-width="3"/>
+      <text id="frDemandT" x="220" y="64" font-size="26" fill="var(--text)">потребность</text>
+      <polyline id="frProd" points="80,236 560,236 640,150 960,110" fill="none" stroke="var(--alt)" stroke-width="5"/>
+      <text id="frProdT" x="700" y="178" font-size="26" fill="var(--alt)">выпуск</text>
+      <line id="frPass" x1="560" y1="40" x2="560" y2="320" stroke="var(--fact)" stroke-width="2" stroke-dasharray="4 6"/>
+      <text id="frPassT" x="575" y="300" font-size="24" fill="var(--fact)">принят полный бюджет</text>
+    </svg>
+    <div class="figcap">Схема, а не данные. Правило: стандартная секция 102 временного закона запрещает «повышение темпов производства сверх достигнутых» на средства прошлого года (GAO-26-107065).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="103.6">
+  <h2>Дверь, которая подходит мирному времени</h2>
+  <div class="prose">
+    <p>Многолетний контракт позволяет государству пообещать покупать сразу несколько лет подряд. Здесь важнее всего два условия закона (10 U.S.C. § 3501): государство должно рассчитывать, что каждый год контракта ему понадобится примерно одно и то же количество, и конструкция должна быть устоявшейся.</p>
+    <p>Перечитайте их, думая о войне. <em class="fact">Ровная потребность, которая никого не удивит, — так выглядит мир.</em> Военный спрос тоже может пройти по условиям, но только после скачка, когда новая, более высокая потребность начинает выглядеть ровной. А к тому времени полка уже пуста. Такие условия нужны, чтобы государство не привязывало налогоплательщиков к покупкам, которые могут им не понадобиться. <em class="flaw">Бюджет построен так, чтобы защищать свободу передумать. А заводу нужно, чтобы кто-то от этой свободы отказался.</em></p>
+  </div>
+  <div class="fig">
+    <h3>От денег до ракеты</h3>
+    <svg id="lead" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Шкала от декабря 2026 до июля 2029: тридцать один месяц между деньгами и первым поставленным перехватчиком, через два новых бюджетных года">
+      <line x1="80" y1="160" x2="920" y2="160" stroke="var(--text-dim)" stroke-width="3"/>
+      <g id="leadTicks"></g>
+      <line x1="351" y1="90" x2="351" y2="200" stroke="var(--fact)" stroke-width="2" stroke-dasharray="5 6"/>
+      <text x="351" y="80" text-anchor="middle" font-size="24" fill="var(--fact)">новый бюджетный год</text>
+      <line x1="676" y1="90" x2="676" y2="200" stroke="var(--fact)" stroke-width="2" stroke-dasharray="5 6"/>
+      <text x="676" y="80" text-anchor="middle" font-size="24" fill="var(--fact)">новый бюджетный год</text>
+      <circle cx="80" cy="160" r="12" fill="var(--text)"/>
+      <text x="80" y="240" text-anchor="middle" font-size="26" fill="var(--text)">дек 2026</text>
+      <text x="80" y="272" text-anchor="middle" font-size="22" fill="var(--text-dim)">деньги</text>
+      <circle id="leadEnd" cx="920" cy="160" r="12" fill="var(--flaw)"/>
+      <text x="920" y="240" text-anchor="middle" font-size="26" fill="var(--flaw)">июл 2029</text>
+      <text x="920" y="272" text-anchor="middle" font-size="22" fill="var(--text-dim)">ракета</text>
+      <rect id="leadRun" x="80" y="152" width="0" height="16" rx="3" fill="var(--flaw)"/>
+      <text id="leadN" x="500" y="128" text-anchor="middle" font-size="34" fill="var(--flaw)">0 месяцев</text>
+    </svg>
+    <div class="figcap">Срок изготовления PAC-3 MSE: 31 месяц (Тодд Харрисон, AEI, Defense One, август 2026). Бюджетный год начинается 1 октября.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="176.8">
+  <h2>Три выхода, три цены</h2>
+  <div class="prose">
+    <p><em class="alt">Обязаться на годы.</em> В июле 2026 года армия подписала самый крупный на тот момент контракт на «Пэтриоты»: до 58,6 миллиарда долларов на семь лет, с целью выйти на 2 000 перехватчиков в год к 2030 году. Цена: конструкция заморожена, потому что закон требует устоявшейся; каждый будущий Конгресс наследует обязательство, за которое не голосовал, и платит неустойку, если выходит из него. И даже это не делает обещание твёрдым: в сентябре 2026 года временный закон, как обычно и бывает с такими законами, не разрешил вкладывать новые деньги в пять многолетних ракетных контрактов, и «Пэтриот» среди них.</p>
+    <p><em class="alt">Владеть заводом.</em> Норвегия и Финляндия держат своего производителя боеприпасов, компанию «Наммо», в руках государства. Государство платит за готовность линий, а не только за снаряды, которые с них сходят. Цена: станки и обученные люди, которые могут простаивать десятилетиями; в каждый трудный год такую линию проще всего сократить; а завод защищают ради рабочих мест в городе.</p>
+    <p><em class="alt">Покупать то, что делается быстро.</em> Украинский дрон-перехватчик «Стинг» стоит около 2 100 долларов против примерно 4 миллионов за перехватчик «Пэтриот», и к марту 2026 года их выпускали больше 10 000 в месяц. Цена: баллистическую ракету он не догонит, и для неё по-прежнему нужен перехватчик, который делают тридцать один месяц.</p>
+  </div>
+  <div class="fig">
+    <h3>Сколько стоит один перехват</h3>
+    <svg id="tiers" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Логарифмическая шкала цен: дрон-перехватчик «Стинг» около 2 100 долларов, ударный дрон около 35 000, перехватчик «Пэтриот» около 4 миллионов">
+      <line x1="80" y1="170" x2="940" y2="170" stroke="var(--text-dim)" stroke-width="2"/>
+      <g id="tiersTicks"></g>
+      <g id="tA"><circle cx="0" cy="170" r="14" fill="var(--alt)"/><text x="0" y="118" text-anchor="middle" font-size="28" fill="var(--alt)">$2 100</text><text x="0" y="86" text-anchor="middle" font-size="22" fill="var(--text-dim)">дрон-перехватчик</text></g>
+      <g id="tB"><circle cx="0" cy="170" r="14" fill="var(--text)"/><text x="0" y="118" text-anchor="middle" font-size="28" fill="var(--text)">$35 000</text><text x="0" y="86" text-anchor="middle" font-size="22" fill="var(--text-dim)">ударный дрон</text></g>
+      <g id="tC"><circle cx="0" cy="170" r="14" fill="var(--flaw)"/><text x="0" y="118" text-anchor="middle" font-size="28" fill="var(--flaw)">$4 000 000</text><text x="0" y="86" text-anchor="middle" font-size="22" fill="var(--text-dim)">перехватчик «Пэтриот»</text></g>
+    </svg>
+    <div class="figcap">Логарифмическая шкала: каждое деление в десять раз больше предыдущего. Источники: FPRI (май 2026) — «Пэтриот» и ударный дрон; National Defense Magazine (апрель 2026) — «Стинг».</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Попробуйте: сколько полка простоит пустой?</h3>
+    <div class="sim">
+      <div><label for="rate">Перехватчиков в сутки</label><input id="rate" type="range" min="10" max="225" value="50" step="5"><div class="v" id="ratev">50 в сутки</div></div>
+      <div><label for="days">Дней боёв</label><input id="days" type="range" min="7" max="120" value="35" step="7"><div class="v" id="daysv">35 дней</div></div>
+    </div>
+    <svg id="shelf" viewBox="0 0 1000 200" width="100%" height="200" role="img" aria-label="Сколько месяцев нужно, чтобы восполнить израсходованное при 620 в год и при 2 000 в год"></svg>
+    <div class="figcap" id="shelfCap">Темп восполнения: 620 в год (выпуск 2025) и 2 000 в год (цель к 2030). Прибавьте 31 месяц, прежде чем придёт первая ракета нового заказа.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Один завод, два способа заказывать</h3>
+    <div class="toggle" role="group" aria-label="Переключение между годовым и многолетним заказом">
+      <button id="tYear" class="on">По году за раз</button><button id="tMulti">Сразу на семь лет</button>
+    </div>
+    <svg id="order" viewBox="0 0 1000 220" width="100%" height="220" role="img" aria-label="Что может завод и что сохраняет Конгресс при годовом и многолетнем заказе"></svg>
+    <div class="figcap" id="orderCap"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="55.8">
+  <h2>Для чего нужен кошелёк</h2>
+  <div class="prose">
+    <p>Посмотрите ещё раз на заказ в 341 ракету. Это было число мирного времени, заданное правилами, рассчитанными на ровную потребность, а война пришла посреди его года.</p>
+    <p>Власть кошелька, то есть контроль Конгресса над деньгами, и есть причина, по которой никто не может тихо обязать страну платить десятилетиями. А завод строится только тогда, когда кто-то именно это и делает. Каждый год такого обещания — это год, отнятый у тех, кого выбирают избиратели. Такой обмен может того стоить. Но это всё равно обмен.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Когда кто-то обещает больше ракет, спрашивать стоит не сколько. А на сколько лет — и какие решения мы готовы перестать принимать каждый год, чтобы их получить.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <div class="kicker" style="margin-bottom:6px"><a href="../" style="color:var(--text-dim)">In English → </a></div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать нарацию">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const pl=(n,a,b,c)=>{const m=n%10,h=n%100;return n+' '+(m===1&&h!==11?a:(m>=2&&m<=4&&(h<12||h>14)?b:c))};
+const yrs=n=>pl(n,'год','года','лет'),mon=n=>pl(n,'месяц','месяца','месяцев');
+
+/* ---------- burn: three bars to scale ---------- */
+const BURN={fired:760,built:760*620/1700,ord:760*341/1700};
+window.__fig.burn=()=>{
+  const n={v:0};
+  gsap.set(['#bFired','#bBuilt','#bOrd'],{attr:{width:0}});
+  gsap.set(['#nFired','#nBuilt','#nOrd'],{opacity:0});
+  return gsap.timeline()
+    .to('#bFired',{attr:{width:BURN.fired},duration:1.4,ease:'power2.out'})
+    .to('#nFired',{opacity:1,duration:.3},'-=0.3')
+    .to('#bBuilt',{attr:{width:BURN.built},duration:1.2,ease:'power1.out'},'+=0.3')
+    .to('#nBuilt',{opacity:1,duration:.3},'-=0.2')
+    .to('#bOrd',{attr:{width:BURN.ord},duration:.9,ease:'power1.out'},'+=0.3')
+    .to('#nOrd',{opacity:1,duration:.3},'-=0.2')
+    .to({},{duration:4.2});
+};
+
+/* ---------- stinger: the gap ---------- */
+const ST={x0:90,x1:930,y0:2000,y1:2027};
+const stX=y=>ST.x0+(y-ST.y0)/(ST.y1-ST.y0)*(ST.x1-ST.x0);
+(function(){
+  const g=$('stTicks'); if(!g) return;
+  let s='';
+  for(let y=2000;y<=2025;y+=5) s+=`<line x1="${stX(y)}" y1="162" x2="${stX(y)}" y2="178" stroke="var(--text-dim)" stroke-width="2"/><text x="${stX(y)}" y="${y===2020?262:210}" text-anchor="middle" font-size="24" fill="var(--text-dim)">${y===2020?'':y}</text>`;
+  g.innerHTML=s;
+  const gx=stX(2004), ox=stX(2022);
+  $('stGap').setAttribute('x',gx);
+  $('stGapT').setAttribute('x',gx+20);
+  $('stOrder').setAttribute('cx',ox); $('stOrderT').setAttribute('x',ox);
+  $('stRamp').setAttribute('x',ox);
+})();
+window.__fig.stinger=()=>{
+  const gx=stX(2004), ox=stX(2022), rx=stX(2024.5), c={y:0};
+  gsap.set('#stGap',{attr:{width:0}}); gsap.set(['#stOrder','#stOrderT','#stRampT'],{opacity:0});
+  gsap.set('#stRamp',{attr:{width:0}});
+  $('stGapT').textContent='0 лет без нового заказа';
+  return gsap.timeline()
+    .to('#stGap',{attr:{width:ox-gx},duration:2.4,ease:'none'})
+    .to(c,{y:18,duration:2.4,ease:'none',onUpdate:()=>{$('stGapT').textContent=yrs(Math.round(c.y))+' без нового заказа'}},0)
+    .to(['#stOrder','#stOrderT'],{opacity:1,duration:.4})
+    .to('#stRamp',{attr:{width:rx-ox},duration:1.2,ease:'none'})
+    .to('#stRampT',{opacity:1,duration:.4},'-=0.4')
+    .to({},{duration:4.4});
+};
+
+/* ---------- freeze: the stopgap ceiling ---------- */
+window.__fig.freeze=()=>{
+  const dem=$('frDemand'), prod=$('frProd');
+  const ld=dem.getTotalLength(), lp=prod.getTotalLength();
+  gsap.set(dem,{strokeDasharray:ld,strokeDashoffset:ld});
+  gsap.set(prod,{strokeDasharray:lp,strokeDashoffset:lp});
+  gsap.set(['#frDemandT','#frProdT','#frPass','#frPassT','#frCeil','#frCeilT'],{opacity:0});
+  return gsap.timeline()
+    .to(['#frCeil','#frCeilT'],{opacity:1,duration:.5})
+    .to(dem,{strokeDashoffset:0,duration:1.2,ease:'none'})
+    .to('#frDemandT',{opacity:1,duration:.3})
+    .to(prod,{strokeDashoffset:lp*0.42,duration:1.6,ease:'none'})
+    .to(['#frPass','#frPassT'],{opacity:1,duration:.4})
+    .to(prod,{strokeDashoffset:0,duration:1.0,ease:'none'})
+    .to('#frProdT',{opacity:1,duration:.3})
+    .to({},{duration:3.5});
+};
+
+/* ---------- lead: 31 months ---------- */
+const LD={x0:80,x1:920,m:31};
+(function(){
+  const g=$('leadTicks'); if(!g) return;
+  let s='';
+  for(let m=0;m<=LD.m;m++){const x=LD.x0+m/LD.m*(LD.x1-LD.x0);s+=`<line x1="${x.toFixed(1)}" y1="${m%12===10?146:152}" x2="${x.toFixed(1)}" y2="${m%12===10?174:168}" stroke="var(--text-dim)" stroke-width="${m%12===10?2:1}"/>`}
+  g.innerHTML=s;
+})();
+window.__fig.lead=()=>{
+  const c={m:0};
+  gsap.set('#leadRun',{attr:{width:0}}); $('leadN').textContent='0 месяцев';
+  return gsap.timeline()
+    .to('#leadRun',{attr:{width:LD.x1-LD.x0},duration:3.6,ease:'none'})
+    .to(c,{m:31,duration:3.6,ease:'none',onUpdate:()=>{$('leadN').textContent=mon(Math.round(c.m))}},0)
+    .fromTo('#leadEnd',{attr:{r:12}},{attr:{r:20},duration:.3,yoyo:true,repeat:1})
+    .to({},{duration:4.0});
+};
+
+/* ---------- tiers: log price ladder ---------- */
+const TR={x0:120,x1:900,lo:3,hi:7};
+const trX=v=>TR.x0+(Math.log10(v)-TR.lo)/(TR.hi-TR.lo)*(TR.x1-TR.x0);
+(function(){
+  const g=$('tiersTicks'); if(!g) return;
+  const lab={3:'$1 тыс',4:'$10 тыс',5:'$100 тыс',6:'$1 млн',7:'$10 млн'};
+  let s='';
+  for(let p=TR.lo;p<=TR.hi;p++){const x=trX(10**p);s+=`<line x1="${x}" y1="160" x2="${x}" y2="180" stroke="var(--text-dim)" stroke-width="2"/><text x="${x}" y="222" text-anchor="middle" font-size="24" fill="var(--text-dim)">${lab[p]}</text>`}
+  g.innerHTML=s;
+  gsap.set('#tA',{x:trX(2100)});gsap.set('#tB',{x:trX(35000)});gsap.set('#tC',{x:trX(4e6)});
+})();
+window.__fig.tiers=()=>{
+  gsap.set(['#tA','#tB','#tC'],{opacity:0});
+  return gsap.timeline()
+    .fromTo('#tB',{opacity:0,y:-30},{opacity:1,y:0,duration:.6})
+    .fromTo('#tC',{opacity:0,y:-30},{opacity:1,y:0,duration:.6},'+=0.5')
+    .fromTo('#tA',{opacity:0,y:-30},{opacity:1,y:0,duration:.6},'+=0.5')
+    .to({},{duration:5.0});
+};
+
+/* ---------- web-only interactives ---------- */
+function drawShelf(){
+  const svg=$('shelf'); if(!svg) return;
+  const rate=+($('rate')?.value??50), days=+($('days')?.value??35), fired=rate*days;
+  const now=fired/620*12, fut=fired/2000*12, max=Math.max(40,now);
+  const W=760,x0=190;
+  const bar=(y,m,c,l)=>`<text x="0" y="${y+30}" font-size="22" fill="var(--text-dim)">${l}</text>
+    <rect x="${x0}" y="${y}" width="${(W*m/max).toFixed(1)}" height="40" rx="4" fill="${c}"/>
+    <text x="${x0+W*m/max+12}" y="${y+30}" font-size="24" fill="${c}">${m.toFixed(1).replace('.',',')} мес.</text>`;
+  svg.innerHTML=`${bar(30,now,'var(--flaw)','620 в год')}${bar(110,fut,'var(--alt)','2 000 в год')}`;
+  $('ratev').textContent=rate+' в сутки'; $('daysv').textContent=pl(days,'день','дня','дней');
+  $('shelfCap').textContent=`Выпущено ${fired.toLocaleString('ru-RU')}. Расчёт исходит из того, что весь выпуск идёт на восполнение, а на деле в очереди ещё и союзники (больше 4 300 ракет в заказе).`;
+}
+const ORD={
+ year:{f:['Завод может: выполнить заказ этого года.','Ни второго цеха, ни новой линии, ни найма впрок.'],
+       c:['Конгресс сохраняет: новое голосование каждый год,','право сменить конструкцию, выход без неустойки.']},
+ multi:{f:['Завод может: подписать поставщиков, строить линии,','нанимать; выпуск к 2030 году планируют утроить.'],
+       c:['Конгресс отдаёт ежегодный выбор: следующий Конгресс,','выходя из контракта, платит неустойку; конструкция зафиксирована.']}};
+function drawOrder(mode){
+  const svg=$('order'); if(!svg) return;
+  const o=ORD[mode], multi=mode==='multi';
+  const years=multi?7:1;
+  let bars='';
+  for(let i=0;i<7;i++) bars+=`<rect x="${60+i*128}" y="30" width="112" height="44" rx="4" fill="${i<years?'var(--alt)':'none'}" stroke="var(--text-dim)" stroke-dasharray="${i<years?'0':'6 6'}"/><text x="${116+i*128}" y="60" text-anchor="middle" font-size="18" fill="${i<years?'#fff':'var(--text-dim)'}">FY${26+i}</text>`;
+  const lines=(s,y,c)=>s.map((l,i)=>`<text x="60" y="${y+i*24}" font-size="18" fill="${c}">${l}</text>`).join('');
+  svg.innerHTML=bars+lines(o.f,118,'var(--text)')+lines(o.c,172,'var(--flaw)');
+  $('orderCap').textContent=multi?'Сразу на семь лет: завод может планировать, а голосование уже не может дёшево передумать.':'По году за раз: каждый Конгресс может сменить курс, но ни один завод не планирует дальше следующего сентября.';
+  const a=$('tYear'),b=$('tMulti'); if(a&&b){a.classList.toggle('on',!multi);b.classList.toggle('on',multi)}
+}
+
+drawShelf();drawOrder('year');
+
+if(!isAuto){
+  const a=$('tYear'),b=$('tMulti');
+  if(a&&b){a.onclick=()=>drawOrder('year');b.onclick=()=>drawOrder('multi')}
+  ['rate','days'].forEach(id=>{const e=$(id); if(e) e.addEventListener('input',drawShelf)});
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  ['burn','stinger','freeze','lead','tiers'].forEach(id=>{
+    const el=$(id); if(!el) return;
+    ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  const FIG={s0:'burn',s2:'stinger',s3:'freeze',s4:'lead',s5:'tiers'};
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    const f=FIG[s.id];
+    if(f) master.add(window.__fig[f](),t+1.2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>

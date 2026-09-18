@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — The Missile Shortage Was Written Into the Budget</title>
+<meta name="description" content="In 2026 a coalition fired 1,700 Patriot interceptors in five weeks; the only factory that finishes the newest version had delivered 620 the year before; the US order for the year was 341. Why interceptors are bought one budget year at a time, why a stopgap budget freezes production at last year's rate, why the multi-year exception fits peacetime — and three designs, three prices.">
+<link rel="canonical" href="https://traceupstream.com/episodes/057-ordered-for-peacetime/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#56606B;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:6px}
+.sim label{display:block;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-bottom:6px;letter-spacing:.04em}
+.sim input[type=range]{width:100%}
+.sim .v{font-family:var(--font-display);font-weight:700;font-size:26px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .sim,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.057</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="49.1">
+  <div class="kicker">Trace Upstream · Episode 057</div>
+  <h1>The missile shortage was written into the budget</h1>
+  <div class="prose lede">
+    <p>In the first five weeks of the 2026 war with Iran, the United States and its partners fired more than <em class="flaw">1,700 Patriot interceptors</em>. The newest version of that interceptor is finished in one factory on Earth, and the year before, it had delivered <em class="fact">620</em>. For its own forces, in the budget year the war broke out, the United States had ordered <em class="fact">341</em> — about as many as the coalition was firing every week.</p>
+    <p>So when, according to regional officials, Saudi Arabia started running short and asked four other countries for help, its usual supplier had none to spare. Why would a country buy, for a whole year, what it can use up in a week?</p>
+  </div>
+  <div class="fig">
+    <h3>Fired, built, ordered</h3>
+    <svg id="burn" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Bars comparing 1,700 interceptors fired in five weeks, 620 delivered in 2025 and 341 ordered for fiscal 2026">
+      <g id="burnRows">
+        <text x="0" y="62" font-size="34" fill="var(--text-dim)">FIRED</text>
+        <rect id="bFired" x="190" y="24" width="760" height="56" rx="4" fill="var(--flaw)"/>
+        <text id="nFired" x="205" y="64" font-size="36" fill="#fff">1,700</text>
+        <text x="190" y="118" font-size="32" fill="var(--text-dim)">in 5 weeks</text>
+      </g><g id="burnBuilt">
+
+        <text x="0" y="192" font-size="34" fill="var(--text-dim)">BUILT</text>
+        <rect id="bBuilt" x="190" y="154" width="277" height="56" rx="4" fill="var(--fact)"/>
+        <text id="nBuilt" x="485" y="194" font-size="36" fill="var(--fact)">620</text>
+        <text x="190" y="248" font-size="32" fill="var(--text-dim)">in all of 2025</text>
+      </g><g id="burnOrd">
+
+        <text x="0" y="322" font-size="34" fill="var(--text-dim)">ORDERED</text>
+        <rect id="bOrd" x="190" y="284" width="152" height="56" rx="4" fill="var(--text)"/>
+        <text id="nOrd" x="360" y="324" font-size="36" fill="var(--text)">341</text>
+        <text x="190" y="378" font-size="32" fill="var(--text-dim)">US order, FY2026</text>
+      </g>
+    </svg>
+    <div class="figcap">Bar length to scale. Sources: FPRI (May 2026) for fired and built; CSIS (Aug 2026) for the FY2026 order, Army and Navy combined.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="38">
+  <h2>The factory answer</h2>
+  <div class="prose">
+    <p>The first answer is that the factory is simply too slow, and part of that is true. Final assembly happens on one line, in Camden, Arkansas. The guidance head that finds the target comes from one plant in Alabama. The rocket motor comes from one company.</p>
+    <p>So build more factories? Notice what that fix assumes. <em class="flaw">A second guidance-head plant costs years and a fortune, and no company builds one unless somebody promises to keep buying from it long after it opens.</em> Was anybody making that promise?</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="69.6">
+  <h2>What happens when the orders stop</h2>
+  <div class="prose">
+    <p>When America sent thousands of Stinger missiles to Ukraine in 2022 and needed to replace them, the Pentagon had not bought a new one in about eighteen years. The maker called back retired workers in their seventies to teach new staff how to assemble it, from drawings that dated from the Carter administration. Test equipment came out of storage; electronics were redesigned because the chips were no longer made. From the decision to restart to the first new missiles took about two and a half years.</p>
+    <p><em class="fact">A production line is not really a building. It is people, suppliers and know-how that stay alive only while orders keep arriving.</em></p>
+    <p>Patriot was never abandoned like that, and its gap was no secret. By July 2025, after years of sending interceptors to Ukraine and before the new war, America's Patriot stock stood at about a quarter of the minimum the Pentagon itself had calculated. <em class="flaw">The requirement was written down. An obligation to refill it was not.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Eighteen years without an order</h3>
+    <svg id="stinger" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Timeline: no new Stinger order for about eighteen years, then an order in 2022 and about thirty months to restart production">
+      <line x1="60" y1="170" x2="960" y2="170" stroke="var(--text-dim)" stroke-width="2"/>
+      <g id="stTicks"></g>
+      <rect id="stGap" x="90" y="130" width="0" height="40" fill="var(--flaw)" opacity=".22"/>
+      <text id="stGapT" x="120" y="115" font-size="30" fill="var(--flaw)">0 years without a new order</text>
+      <circle id="stOrder" cx="630" cy="170" r="12" fill="var(--text)"/>
+      <text id="stOrderT" x="630" y="242" text-anchor="middle" font-size="26" fill="var(--text)">2022 order</text>
+      <rect id="stRamp" x="630" y="178" width="0" height="14" fill="var(--alt)"/>
+      <text id="stRampT" x="800" y="276" text-anchor="middle" font-size="26" fill="var(--alt)">~30 months to restart</text>
+    </svg>
+    <div class="figcap">Sources: RTX CEO Greg Hayes (Breaking Defense, April 2022): "DoD hasn't bought a Stinger in about 18 years"; Raytheon (Defense One, June 2023): retirees, Carter-era drawings, about 30 months.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="51.1">
+  <h2>The one-year rhythm</h2>
+  <div class="prose">
+    <p>In the United States, only Congress can spend money, and it grants that money one year at a time. That is deliberate: every new Congress gets to change its mind about what the country pays for. But a factory is a bet on ten or twenty years, and the companies say so openly: until Congress votes the money, they do not build.</p>
+    <p>And the year rarely starts with the money voted. In 37 of the 49 budget years before 2026, the Pentagon began the year on a temporary stopgap law. <em class="flaw">The standard stopgap forbids spending money to build any weapon faster than the year before, even if a war started in between, and forbids signing new multi-year contracts.</em></p>
+  </div>
+  <div class="fig">
+    <h3>The ceiling a stopgap puts on a new year</h3>
+    <svg id="freeze" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Schematic: demand jumps at the start of a budget year while production is held at last year's rate until a full-year budget passes">
+      <line x1="80" y1="320" x2="960" y2="320" stroke="var(--text-dim)" stroke-width="2"/>
+      <line x1="80" y1="40" x2="80" y2="320" stroke="var(--text-dim)" stroke-width="2"/>
+      <text x="96" y="358" font-size="26" fill="var(--text-dim)">Oct 1</text>
+      <text x="880" y="358" text-anchor="middle" font-size="26" fill="var(--text-dim)">Sep 30</text>
+      <line id="frCeil" x1="80" y1="230" x2="560" y2="230" stroke="var(--flaw)" stroke-width="3" stroke-dasharray="10 8"/>
+      <text id="frCeilT" x="96" y="276" font-size="26" fill="var(--flaw)">last year's rate</text>
+      <polyline id="frDemand" points="80,230 180,230 200,80 960,80" fill="none" stroke="var(--text)" stroke-width="3"/>
+      <text id="frDemandT" x="220" y="64" font-size="26" fill="var(--text)">need</text>
+      <polyline id="frProd" points="80,236 560,236 640,150 960,110" fill="none" stroke="var(--alt)" stroke-width="5"/>
+      <text id="frProdT" x="700" y="178" font-size="26" fill="var(--alt)">production</text>
+      <line id="frPass" x1="560" y1="40" x2="560" y2="320" stroke="var(--fact)" stroke-width="2" stroke-dasharray="4 6"/>
+      <text id="frPassT" x="575" y="300" font-size="24" fill="var(--fact)">full budget passes</text>
+    </svg>
+    <div class="figcap">Schematic, not data. Rule: standard continuing-resolution Section 102 bars "the increase in production rates above those sustained" with the prior year's funds (GAO-26-107065).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="80.9">
+  <h2>The door that fits peacetime</h2>
+  <div class="prose">
+    <p>A multi-year contract lets the government promise to buy for several years at once. Two of the conditions in the law (10 U.S.C. § 3501) matter most here: the government has to expect to need about the same amount every year of the contract, and the design has to be settled.</p>
+    <p>Read those with a war in mind. <em class="fact">A steady need that nobody expects to change is what peace looks like.</em> War demand can qualify too, but only after the jump, once the new and higher need looks steady — and by then the shelf is already empty. Those conditions exist to stop the government locking taxpayers into things they may not need. <em class="flaw">The budget is built to protect the freedom to change our minds. A factory needs someone to give that freedom up.</em></p>
+  </div>
+  <div class="fig">
+    <h3>From money to missile</h3>
+    <svg id="lead" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="A ruler from December 2026 to July 2029: thirty-one months between funding and the first delivered interceptor, crossing two new budget years">
+      <line x1="80" y1="160" x2="920" y2="160" stroke="var(--text-dim)" stroke-width="3"/>
+      <g id="leadTicks"></g>
+      <line x1="351" y1="90" x2="351" y2="200" stroke="var(--fact)" stroke-width="2" stroke-dasharray="5 6"/>
+      <text x="351" y="80" text-anchor="middle" font-size="24" fill="var(--fact)">new budget year</text>
+      <line x1="676" y1="90" x2="676" y2="200" stroke="var(--fact)" stroke-width="2" stroke-dasharray="5 6"/>
+      <text x="676" y="80" text-anchor="middle" font-size="24" fill="var(--fact)">new budget year</text>
+      <circle cx="80" cy="160" r="12" fill="var(--text)"/>
+      <text x="80" y="240" text-anchor="middle" font-size="26" fill="var(--text)">Dec 2026</text>
+      <text x="80" y="272" text-anchor="middle" font-size="22" fill="var(--text-dim)">money</text>
+      <circle id="leadEnd" cx="920" cy="160" r="12" fill="var(--flaw)"/>
+      <text x="920" y="240" text-anchor="middle" font-size="26" fill="var(--flaw)">Jul 2029</text>
+      <text x="920" y="272" text-anchor="middle" font-size="22" fill="var(--text-dim)">missile</text>
+      <rect id="leadRun" x="80" y="152" width="0" height="16" rx="3" fill="var(--flaw)"/>
+      <text id="leadN" x="500" y="128" text-anchor="middle" font-size="34" fill="var(--flaw)">0 months</text>
+    </svg>
+    <div class="figcap">PAC-3 MSE procurement lead time: 31 months (Todd Harrison, AEI, in Defense One, August 2026). Budget years start on 1 October.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="131.5">
+  <h2>Three ways out, three prices</h2>
+  <div class="prose">
+    <p><em class="alt">Commit for years.</em> In July 2026 the Army signed the largest Patriot contract up to then: up to $58.6 billion over seven years, aiming at 2,000 interceptors a year by 2030. Price: the design is frozen, because the law demands a settled one; and every future Congress inherits a commitment it never voted for, with a penalty if it walks away. Even that does not make the promise firm: in September 2026 the stopgap Congress passed, as stopgaps normally do, left out permission to put new money into five multi-year missile contracts, the Patriot among them.</p>
+    <p><em class="alt">Own the factory.</em> Norway and Finland keep their ammunition maker, Nammo, in state hands. The state pays to keep lines ready, not only for the rounds that come off them. Price: machines and trained workers that may sit idle for decades, the easiest line to cut in every tight year, and plants defended for the jobs they give a town.</p>
+    <p><em class="alt">Buy what is quick to make.</em> Ukraine's Sting interceptor drone costs about $2,100 against roughly $4 million for a Patriot interceptor, and more than 10,000 a month were being built by March 2026. Price: it cannot catch a ballistic missile, and for that you still need the kind that takes thirty-one months.</p>
+  </div>
+  <div class="fig">
+    <h3>What one interception costs</h3>
+    <svg id="tiers" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Log price scale: Sting interceptor drone about 2,100 dollars, attack drone about 35,000 dollars, Patriot interceptor about 4 million dollars">
+      <line x1="80" y1="170" x2="940" y2="170" stroke="var(--text-dim)" stroke-width="2"/>
+      <g id="tiersTicks"></g>
+      <g id="tA"><circle cx="0" cy="170" r="14" fill="var(--alt)"/><text x="0" y="118" text-anchor="middle" font-size="28" fill="var(--alt)">$2,100</text><text x="0" y="86" text-anchor="middle" font-size="22" fill="var(--text-dim)">interceptor drone</text></g>
+      <g id="tB"><circle cx="0" cy="170" r="14" fill="var(--text)"/><text x="0" y="118" text-anchor="middle" font-size="28" fill="var(--text)">$35,000</text><text x="0" y="86" text-anchor="middle" font-size="22" fill="var(--text-dim)">attack drone</text></g>
+      <g id="tC"><circle cx="0" cy="170" r="14" fill="var(--flaw)"/><text x="0" y="118" text-anchor="middle" font-size="28" fill="var(--flaw)">$4,000,000</text><text x="0" y="86" text-anchor="middle" font-size="22" fill="var(--text-dim)">Patriot interceptor</text></g>
+    </svg>
+    <div class="figcap">Log scale: each tick is ten times the last. Sources: FPRI (May 2026) for Patriot and attack drone; National Defense Magazine (April 2026) for Sting.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Try it: how long does the shelf stay empty?</h3>
+    <div class="sim">
+      <div><label for="rate">Interceptors fired per day</label><input id="rate" type="range" min="10" max="225" value="50" step="5"><div class="v" id="ratev">50 / day</div></div>
+      <div><label for="days">Days of fighting</label><input id="days" type="range" min="7" max="120" value="35" step="7"><div class="v" id="daysv">35 days</div></div>
+    </div>
+    <svg id="shelf" viewBox="0 0 1000 200" width="100%" height="200" role="img" aria-label="Months to replace what was fired at 620 a year and at 2,000 a year"></svg>
+    <div class="figcap" id="shelfCap">Refill rates: 620 a year (2025 output) and 2,000 a year (the 2030 target). Add 31 months before the first extra missile of a new order arrives.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Same factory, two ways to order</h3>
+    <div class="toggle" role="group" aria-label="Switch between yearly and multi-year orders">
+      <button id="tYear" class="on">One year at a time</button><button id="tMulti">Seven years at once</button>
+    </div>
+    <svg id="order" viewBox="0 0 1000 220" width="100%" height="220" role="img" aria-label="What a factory can do and what Congress keeps under yearly versus multi-year orders"></svg>
+    <div class="figcap" id="orderCap"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="46.1">
+  <h2>What the purse is for</h2>
+  <div class="prose">
+    <p>Look again at that order of 341. It was a peacetime number, set by rules built for a steady need, and the war arrived in the middle of its year.</p>
+    <p>The power of the purse, Congress's control over money, is the reason nobody can quietly commit a country to decades of spending. A factory gets built only when somebody does exactly that. Every year of that promise is a year taken out of the hands of the people voters elect. That trade can be worth making. It is still a trade.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">When someone promises more missiles, the number worth asking about is not how many. It is for how many years — and which decisions we are willing to stop making every year to get them.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+
+/* ---------- burn: three bars to scale ---------- */
+const BURN={fired:760,built:760*620/1700,ord:760*341/1700};
+window.__fig.burn=()=>{
+  const n={v:0};
+  gsap.set(['#bFired','#bBuilt','#bOrd'],{attr:{width:0}});
+  gsap.set(['#nFired','#nBuilt','#nOrd'],{opacity:0});
+  return gsap.timeline()
+    .to('#bFired',{attr:{width:BURN.fired},duration:1.4,ease:'power2.out'})
+    .to('#nFired',{opacity:1,duration:.3},'-=0.3')
+    .to('#bBuilt',{attr:{width:BURN.built},duration:1.2,ease:'power1.out'},'+=0.3')
+    .to('#nBuilt',{opacity:1,duration:.3},'-=0.2')
+    .to('#bOrd',{attr:{width:BURN.ord},duration:.9,ease:'power1.out'},'+=0.3')
+    .to('#nOrd',{opacity:1,duration:.3},'-=0.2')
+    .to({},{duration:1.2});
+};
+
+/* ---------- stinger: the gap ---------- */
+const ST={x0:90,x1:930,y0:2000,y1:2027};
+const stX=y=>ST.x0+(y-ST.y0)/(ST.y1-ST.y0)*(ST.x1-ST.x0);
+(function(){
+  const g=$('stTicks'); if(!g) return;
+  let s='';
+  for(let y=2000;y<=2025;y+=5) s+=`<line x1="${stX(y)}" y1="162" x2="${stX(y)}" y2="178" stroke="var(--text-dim)" stroke-width="2"/><text x="${stX(y)}" y="${y===2020?262:210}" text-anchor="middle" font-size="24" fill="var(--text-dim)">${y===2020?'':y}</text>`;
+  g.innerHTML=s;
+  const gx=stX(2004), ox=stX(2022);
+  $('stGap').setAttribute('x',gx);
+  $('stGapT').setAttribute('x',gx+20);
+  $('stOrder').setAttribute('cx',ox); $('stOrderT').setAttribute('x',ox);
+  $('stRamp').setAttribute('x',ox);
+})();
+window.__fig.stinger=()=>{
+  const gx=stX(2004), ox=stX(2022), rx=stX(2024.5), c={y:0};
+  gsap.set('#stGap',{attr:{width:0}}); gsap.set(['#stOrder','#stOrderT','#stRampT'],{opacity:0});
+  gsap.set('#stRamp',{attr:{width:0}});
+  $('stGapT').textContent='0 years without a new order';
+  return gsap.timeline()
+    .to('#stGap',{attr:{width:ox-gx},duration:2.4,ease:'none'})
+    .to(c,{y:18,duration:2.4,ease:'none',onUpdate:()=>{$('stGapT').textContent=Math.round(c.y)+' years without a new order'}},0)
+    .to(['#stOrder','#stOrderT'],{opacity:1,duration:.4})
+    .to('#stRamp',{attr:{width:rx-ox},duration:1.2,ease:'none'})
+    .to('#stRampT',{opacity:1,duration:.4},'-=0.4')
+    .to({},{duration:1.2});
+};
+
+/* ---------- freeze: the stopgap ceiling ---------- */
+window.__fig.freeze=()=>{
+  const dem=$('frDemand'), prod=$('frProd');
+  const ld=dem.getTotalLength(), lp=prod.getTotalLength();
+  gsap.set(dem,{strokeDasharray:ld,strokeDashoffset:ld});
+  gsap.set(prod,{strokeDasharray:lp,strokeDashoffset:lp});
+  gsap.set(['#frDemandT','#frProdT','#frPass','#frPassT','#frCeil','#frCeilT'],{opacity:0});
+  return gsap.timeline()
+    .to(['#frCeil','#frCeilT'],{opacity:1,duration:.5})
+    .to(dem,{strokeDashoffset:0,duration:1.2,ease:'none'})
+    .to('#frDemandT',{opacity:1,duration:.3})
+    .to(prod,{strokeDashoffset:lp*0.42,duration:1.6,ease:'none'})
+    .to(['#frPass','#frPassT'],{opacity:1,duration:.4})
+    .to(prod,{strokeDashoffset:0,duration:1.0,ease:'none'})
+    .to('#frProdT',{opacity:1,duration:.3})
+    .to({},{duration:1.0});
+};
+
+/* ---------- lead: 31 months ---------- */
+const LD={x0:80,x1:920,m:31};
+(function(){
+  const g=$('leadTicks'); if(!g) return;
+  let s='';
+  for(let m=0;m<=LD.m;m++){const x=LD.x0+m/LD.m*(LD.x1-LD.x0);s+=`<line x1="${x.toFixed(1)}" y1="${m%12===10?146:152}" x2="${x.toFixed(1)}" y2="${m%12===10?174:168}" stroke="var(--text-dim)" stroke-width="${m%12===10?2:1}"/>`}
+  g.innerHTML=s;
+})();
+window.__fig.lead=()=>{
+  const c={m:0};
+  gsap.set('#leadRun',{attr:{width:0}}); $('leadN').textContent='0 months';
+  return gsap.timeline()
+    .to('#leadRun',{attr:{width:LD.x1-LD.x0},duration:3.6,ease:'none'})
+    .to(c,{m:31,duration:3.6,ease:'none',onUpdate:()=>{$('leadN').textContent=Math.round(c.m)+' months'}},0)
+    .fromTo('#leadEnd',{attr:{r:12}},{attr:{r:20},duration:.3,yoyo:true,repeat:1})
+    .to({},{duration:1.0});
+};
+
+/* ---------- tiers: log price ladder ---------- */
+const TR={x0:120,x1:900,lo:3,hi:7};
+const trX=v=>TR.x0+(Math.log10(v)-TR.lo)/(TR.hi-TR.lo)*(TR.x1-TR.x0);
+(function(){
+  const g=$('tiersTicks'); if(!g) return;
+  const lab={3:'$1K',4:'$10K',5:'$100K',6:'$1M',7:'$10M'};
+  let s='';
+  for(let p=TR.lo;p<=TR.hi;p++){const x=trX(10**p);s+=`<line x1="${x}" y1="160" x2="${x}" y2="180" stroke="var(--text-dim)" stroke-width="2"/><text x="${x}" y="222" text-anchor="middle" font-size="24" fill="var(--text-dim)">${lab[p]}</text>`}
+  g.innerHTML=s;
+  gsap.set('#tA',{x:trX(2100)});gsap.set('#tB',{x:trX(35000)});gsap.set('#tC',{x:trX(4e6)});
+})();
+window.__fig.tiers=()=>{
+  gsap.set(['#tA','#tB','#tC'],{opacity:0});
+  return gsap.timeline()
+    .fromTo('#tB',{opacity:0,y:-30},{opacity:1,y:0,duration:.6})
+    .fromTo('#tC',{opacity:0,y:-30},{opacity:1,y:0,duration:.6},'+=0.5')
+    .fromTo('#tA',{opacity:0,y:-30},{opacity:1,y:0,duration:.6},'+=0.5')
+    .to({},{duration:1.6});
+};
+
+/* ---------- web-only interactives ---------- */
+function drawShelf(){
+  const svg=$('shelf'); if(!svg) return;
+  const rate=+($('rate')?.value??50), days=+($('days')?.value??35), fired=rate*days;
+  const now=fired/620*12, fut=fired/2000*12, max=Math.max(40,now);
+  const W=760,x0=190;
+  const bar=(y,m,c,l)=>`<text x="0" y="${y+30}" font-size="22" fill="var(--text-dim)">${l}</text>
+    <rect x="${x0}" y="${y}" width="${(W*m/max).toFixed(1)}" height="40" rx="4" fill="${c}"/>
+    <text x="${x0+W*m/max+12}" y="${y+30}" font-size="24" fill="${c}">${m.toFixed(1)} months</text>`;
+  svg.innerHTML=`${bar(30,now,'var(--flaw)','at 620/yr')}${bar(110,fut,'var(--alt)','at 2,000/yr')}`;
+  $('ratev').textContent=rate+' / day'; $('daysv').textContent=days+' days';
+  $('shelfCap').textContent=`${fired.toLocaleString('en-US')} fired. Refill times assume the whole output goes to replacing them — in reality allies are in the queue too (4,300+ rounds on order).`;
+}
+const ORD={
+ year:{f:['Factory can do: build this year\u2019s order.','No second plant, no new line, no hiring ahead.'],
+       c:['Congress keeps: a fresh vote every year,','the right to change the design, no penalty for stopping.']},
+ multi:{f:['Factory can do: sign suppliers, build lines, hire,','with output planned to triple by 2030.'],
+       c:['Congress gives up the yearly choice: a later Congress','that walks away pays a penalty, and the design is fixed.']}};
+function drawOrder(mode){
+  const svg=$('order'); if(!svg) return;
+  const o=ORD[mode], multi=mode==='multi';
+  const years=multi?7:1;
+  let bars='';
+  for(let i=0;i<7;i++) bars+=`<rect x="${60+i*128}" y="30" width="112" height="44" rx="4" fill="${i<years?'var(--alt)':'none'}" stroke="var(--text-dim)" stroke-dasharray="${i<years?'0':'6 6'}"/><text x="${116+i*128}" y="60" text-anchor="middle" font-size="18" fill="${i<years?'#fff':'var(--text-dim)'}">FY${26+i}</text>`;
+  const lines=(s,y,c)=>s.map((l,i)=>`<text x="60" y="${y+i*24}" font-size="18" fill="${c}">${l}</text>`).join('');
+  svg.innerHTML=bars+lines(o.f,118,'var(--text)')+lines(o.c,172,'var(--flaw)');
+  $('orderCap').textContent=multi?'Seven years at once: the factory can plan; the vote cannot change its mind cheaply.':'One year at a time: every Congress can change course; no factory plans past next September.';
+  const a=$('tYear'),b=$('tMulti'); if(a&&b){a.classList.toggle('on',!multi);b.classList.toggle('on',multi)}
+}
+
+drawShelf();drawOrder('year');
+
+if(!isAuto){
+  const a=$('tYear'),b=$('tMulti');
+  if(a&&b){a.onclick=()=>drawOrder('year');b.onclick=()=>drawOrder('multi')}
+  ['rate','days'].forEach(id=>{const e=$(id); if(e) e.addEventListener('input',drawShelf)});
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,
+      scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  ['burn','stinger','freeze','lead','tiers'].forEach(id=>{
+    const el=$(id); if(!el) return;
+    ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()});
+  });
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  const FIG={s0:'burn',s2:'stinger',s3:'freeze',s4:'lead',s5:'tiers'};
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig'),{opacity:0,y:26},
+      {opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    const f=FIG[s.id];
+    if(f) master.add(window.__fig[f](),t+1.2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master;
+  window.__seek=t=>{master.pause().time(t);};
+  window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0);
+  if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
