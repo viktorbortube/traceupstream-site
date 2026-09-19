@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — Britain's Spies Lied to Three Courts. Who Could Check?</title>
+<meta name="description" content="In 2022 MI5 told the High Court it had never confirmed an informant's identity to a BBC journalist. It had, in nine phone calls. The false statement misled two High Court cases, a tribunal, the special advocates and a commissioner for almost three years. Why every independent check learned its facts from the party it was checking — and three ways to get a second source, each with a price.">
+<link rel="canonical" href="https://traceupstream.com/episodes/058-secret-witness/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#56606B;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:6px}
+.sim label{display:block;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-bottom:6px;letter-spacing:.04em}
+.sim input[type=range]{width:100%}
+.sim .v{font-family:var(--font-display);font-weight:700;font-size:26px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .sim,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.058</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="67.5">
+  <div class="kicker">Trace Upstream · Episode 058</div>
+  <h1>Britain's spies lied to three courts. Who could check?</h1>
+  <div class="prose lede">
+    <p>In January 2022 a senior MI5 officer told a High Court judge, in a signed statement, that the service had never confirmed to a journalist who one of its informants was. The government was trying to stop the BBC from naming that man. In the summer of 2020 an MI5 officer, with permission, had confirmed exactly that to the BBC journalist over <em class="fact">nine phone calls</em> — and the journalist had notes, and recordings of some of them.</p>
+    <p>The false statement misled the High Court in two separate cases and a special tribunal, and it stood for <em class="flaw">almost three years</em>. In September 2026 MI5 accepted without reservation an official report finding that the evidence it gave was based on lies. None of the people whose job was to check found it.</p>
+  </div>
+  <div class="fig">
+    <h3>How long the false account stood</h3>
+    <svg id="gap" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Timeline 2020 to 2026: nine calls in June 2020, the false statement from January 2022 standing for 35 months until the recordings were heard in December 2024, and MI5 accepting the report in September 2026">
+      <g id="gapAxis"></g>
+      <g id="gapCalls"><circle id="gcDot" cx="0" cy="250" r="14" fill="var(--fact)"/><text id="gcT" x="0" y="190" text-anchor="middle" font-size="34" fill="var(--fact)">9 calls</text></g>
+      <rect id="gapBar" x="0" y="232" width="0" height="36" rx="4" fill="var(--flaw)"/>
+      <text id="gapN" x="0" y="120" text-anchor="middle" font-size="40" fill="var(--flaw)">0 months</text>
+      <g id="gapEnd"><circle id="geDot" cx="0" cy="250" r="14" fill="var(--text)"/><text id="geT" x="0" y="190" text-anchor="middle" font-size="34" fill="var(--text)">accepted</text></g>
+    </svg>
+    <div class="figcap">Bar: from Witness A's statement (January 2022) to MI5's lawyers hearing the journalist's recordings (December 2024). Sources: [2025] EWHC 1669 (KB); IPCO report, 16 July 2026.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="54.7">
+  <h2>The checks were real</h2>
+  <div class="prose">
+    <p>The natural answer is that the checks were not really independent. That turns out not to be true. The judges owed nothing to MI5. The Investigatory Powers Tribunal, a special court that hears complaints against the spy agencies, is made up of senior lawyers and judges. The Investigatory Powers Commissioner exists to watch those agencies, and was misled too.</p>
+    <p>And the judge who heard the BBC case, Mr Justice Chamberlain, had spent years as a special advocate inside exactly these secret hearings. In 2012, as a barrister, he wrote that they belonged in a novel by Kafka. <em class="flaw">He was misled anyway.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="62.9">
+  <h2>How a secret case works</h2>
+  <div class="prose">
+    <p>Normally each side sees the other side's evidence and can attack it. That is how a court finds lies. Since the Justice and Security Act 2013, British courts can hear part of a civil case in a <em class="fact">closed procedure</em>: the secret part is heard only by the judge and a special advocate, a security-cleared lawyer who argues for the side that is shut out.</p>
+    <p>Once the special advocate has seen the secret material, they may not discuss it with the people they defend. They can only ask the state. <em class="flaw">The side that might know whether the secret evidence is true is the side that cannot hear it.</em></p>
+  </div>
+  <div class="fig">
+    <h3>One courtroom, two rooms</h3>
+    <svg id="rooms" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="A courtroom split by a wall: the judge, the special advocate and MI5's evidence in the closed room; the BBC and its lawyers outside; the line between the special advocate and the BBC is cut">
+      <rect x="20" y="30" width="960" height="320" rx="10" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+      <text x="40" y="70" font-size="26" fill="var(--text-dim)">OPEN</text>
+      <text x="960" y="70" text-anchor="end" font-size="26" fill="var(--text-dim)">CLOSED</text>
+      <g id="rmOpen">
+        <rect x="60" y="150" width="240" height="80" rx="8" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/>
+        <text x="180" y="200" text-anchor="middle" font-size="28" fill="var(--text)">BBC</text>
+      </g>
+      <g id="rmClosed">
+        <rect x="620" y="100" width="300" height="60" rx="8" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/>
+        <text x="770" y="140" text-anchor="middle" font-size="26" fill="var(--text)">judge</text>
+        <rect x="620" y="180" width="300" height="60" rx="8" fill="var(--bg-raised)" stroke="var(--fact)" stroke-width="2"/>
+        <text x="770" y="220" text-anchor="middle" font-size="26" fill="var(--fact)">special advocate</text>
+        <rect x="620" y="260" width="300" height="60" rx="8" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="2"/>
+        <text x="770" y="300" text-anchor="middle" font-size="26" fill="var(--flaw)">MI5 evidence</text>
+      </g>
+      <line id="rmLink" x1="300" y1="200" x2="620" y2="210" stroke="var(--fact)" stroke-width="4"/>
+      <rect id="rmWall" x="455" y="30" width="16" height="0" fill="var(--text)"/>
+      <g id="rmCut"><line x1="440" y1="180" x2="486" y2="226" stroke="var(--flaw)" stroke-width="6"/><line x1="486" y1="180" x2="440" y2="226" stroke="var(--flaw)" stroke-width="6"/></g>
+    </svg>
+    <div class="figcap">Justice and Security Act 2013, ss.6 and 9: after seeing closed material, the special advocate may not communicate with the excluded party about it.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="76.2">
+  <h2>One source</h2>
+  <div class="prose">
+    <p>The judge had MI5's statement. In the secret part of the case the special advocates acting for the BBC asked MI5 direct, precise questions and twice received false answers; the BBC itself never heard them. The tribunal and the commissioner relied on the same statement. <em class="fact">Every one of them was independent of MI5, and every one of them learned the facts from MI5.</em></p>
+    <p>The court put it in one sentence: the proper operation of each of these safeguards depends on high standards of candour from the agencies. The falsehood came to light only when the journalist later found his notes and recordings. MI5's two commissioned inquiries never contacted him; the court found their conclusions could not be relied on.</p>
+  </div>
+  <div class="fig">
+    <h3>Five checks, one source</h3>
+    <svg id="funnel" viewBox="0 0 1000 420" width="100%" height="420" role="img" aria-label="Five checks — the High Court twice, the tribunal, the commissioner and the special advocates — all draw their facts from one MI5 statement; the only other source is the journalist's notes and recordings">
+      <g id="fnNodes"></g>
+      <g id="fnArrows"></g>
+      <rect x="700" y="160" width="270" height="70" rx="8" fill="var(--bg-raised)" stroke="var(--flaw)" stroke-width="3"/>
+      <text x="835" y="205" text-anchor="middle" font-size="26" fill="var(--flaw)">MI5 statement</text>
+      <g id="fnSide">
+        <rect x="660" y="320" width="310" height="70" rx="8" fill="var(--bg-raised)" stroke="var(--alt)" stroke-width="3" stroke-dasharray="8 6"/>
+        <text x="815" y="364" text-anchor="middle" font-size="24" fill="var(--alt)">journalist's notes</text>
+      </g>
+    </svg>
+    <div class="figcap">"The proper operation of each of these safeguards is dependent upon high standards of candour on the part of the agencies." — Divisional Court, 2 July 2025.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="137.7">
+  <h2>Three ways to get a second source</h2>
+  <div class="prose">
+    <p><em class="alt">Refuse secret evidence.</em> In Al Rawi (2011) the Supreme Court held that judges have no general power to hold secret hearings in ordinary civil cases. Price: while the courts were still deciding, the government settled with former Guantanamo detainees rather than disclose its evidence — confidential sums, no admission of fault, and no court ever found out what happened. That was the government's own argument for the 2013 law.</p>
+    <p><em class="alt">Put a real opponent in the room.</em> An opponent who reads only the agency's paper has what the special advocates had; it becomes a second source only if it can talk to the people outside, and every extra person who hears a secret is another way for it to leak. So access is rationed: the US surveillance court's outside lawyers (2015) are called in only when judges choose. Four judges approved the Carter Page applications without one; the inspector general later found seventeen significant errors and omissions.</p>
+    <p><em class="alt">Make every claim traceable and every lie expensive.</em> Documents behind each asserted fact, named sources, sanctions. The FBI has had such rules since 2001; British judges ordered something similar after this case. Price: paper checks rest on the agency's own paper — in a sample of 29 other FBI applications, four had no supporting file at all, and 209 errors were counted.</p>
+  </div>
+  <div class="fig">
+    <h3>Rules on paper, errors in practice</h3>
+    <svg id="errors" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Bars: 17 significant errors in the four Carter Page applications; 209 errors across a sample of 29 other applications, four with no supporting file">
+      <text x="0" y="78" font-size="26" fill="var(--text-dim)">Carter Page</text>
+      <text x="0" y="108" font-size="20" fill="var(--text-dim)">4 applications</text>
+      <rect id="erA" x="240" y="50" width="0" height="50" rx="4" fill="var(--flaw)"/>
+      <text id="erAn" x="250" y="86" font-size="30" fill="var(--flaw)">0</text>
+      <text x="0" y="198" font-size="26" fill="var(--text-dim)">29 others</text>
+      <text x="0" y="228" font-size="20" fill="var(--text-dim)">4 with no file</text>
+      <rect id="erB" x="240" y="170" width="0" height="50" rx="4" fill="var(--flaw)"/>
+      <text id="erBn" x="250" y="206" font-size="30" fill="var(--flaw)">0</text>
+    </svg>
+    <div class="figcap">Bar length to scale. DOJ Office of the Inspector General: Carter Page review (December 2019); audit of 29 FBI FISA applications (2020–2021).</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Pick a design and read its bill</h3>
+    <div class="bills" id="bills"></div>
+    <div class="figcap">Each design buys a second source in a different currency.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="26.9">
+  <h2>What independent means</h2>
+  <div class="prose">
+    <p>Nobody required the journalist to record those nine calls, and no law could have. They were the only record of those calls that had not passed through MI5's hands, and nothing in the system had asked for them.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">When you are told something has been independently checked, ask not who did the checking, but where the checker got the facts — and whether any of them came from somewhere else.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={months:n=>n+' months',
+ funnel:['High Court: injunction','High Court: review','Tribunal','Commissioner','Special advocates'],
+ bills:[
+  {k:'Refuse secret evidence',p:'Price: the state settles rather than disclose — money instead of a ruling, and no court finds out what happened (Guantanamo claims, 2010).'},
+  {k:'Put a real opponent in the room',p:'Price: an opponent becomes a second source only if they can talk to people outside; every extra person who hears a secret is another way for it to leak, so access gets rationed.'},
+  {k:'Make every claim traceable',p:'Price: the checks rest on the agency’s own paperwork — 4 of 29 sampled FBI applications had no supporting file.'}]};
+
+/* gap: 35 months on a 2020–2026 axis */
+const GP={x0:80,x1:940,y0:2020,y1:2027};
+const gX=y=>GP.x0+(y-GP.y0)/(GP.y1-GP.y0)*(GP.x1-GP.x0);
+(function(){
+  const g=$('gapAxis'); if(!g) return;
+  let s=`<line x1="${GP.x0}" y1="250" x2="${GP.x1}" y2="250" stroke="var(--text-dim)" stroke-width="3"/>`;
+  for(let y=2020;y<=2026;y++){const x=gX(y);s+=`<line x1="${x}" y1="238" x2="${x}" y2="262" stroke="var(--text-dim)" stroke-width="2"/><text x="${x}" y="320" text-anchor="middle" font-size="32" fill="var(--text-dim)">${y}</text>`}
+  g.innerHTML=s;
+  $('gcDot').setAttribute('cx',gX(2020.42)); $('gcT').setAttribute('x',gX(2020.42));
+  $('geDot').setAttribute('cx',gX(2026.71)); $('geT').setAttribute('x',Math.min(gX(2026.71),900));
+  $('gapBar').setAttribute('x',gX(2022.0)); $('gapN').setAttribute('x',(gX(2022)+gX(2024.92))/2);
+})();
+window.__fig.gap=()=>{
+  const c={m:0}, w=gX(2024.92)-gX(2022.0);
+  gsap.set('#gapBar',{attr:{width:0}}); gsap.set(['#gapCalls','#gapEnd','#gapN'],{opacity:0});
+  $('gapN').textContent=L.months(0);
+  return gsap.timeline()
+    .to('#gapCalls',{opacity:1,duration:.5})
+    .to('#gapN',{opacity:1,duration:.3},'+=0.4')
+    .to('#gapBar',{attr:{width:w},duration:3.0,ease:'none'})
+    .to(c,{m:35,duration:3.0,ease:'none',onUpdate:()=>{$('gapN').textContent=L.months(Math.round(c.m))}},'<')
+    .to('#gapEnd',{opacity:1,duration:.5},'+=0.4');
+};
+
+/* rooms: the wall drops, the line is cut */
+window.__fig.rooms=()=>{
+  gsap.set('#rmWall',{attr:{height:0}}); gsap.set('#rmCut',{opacity:0}); gsap.set('#rmLink',{attr:{'stroke-dasharray':'0'},opacity:1});
+  gsap.set(['#rmOpen','#rmClosed'],{opacity:0});
+  return gsap.timeline()
+    .to(['#rmOpen','#rmClosed'],{opacity:1,duration:.6,stagger:.3})
+    .to('#rmWall',{attr:{height:320},duration:1.2,ease:'power2.in'},'+=0.6')
+    .to('#rmLink',{attr:{'stroke-dasharray':'10 10'},opacity:.35,duration:.4})
+    .to('#rmCut',{opacity:1,duration:.4});
+};
+
+/* funnel: five checks, one source */
+(function(){
+  const n=$('fnNodes'), a=$('fnArrows'); if(!n) return;
+  let s='',r='';
+  L.funnel.forEach((t,i)=>{const y=30+i*76;
+    s+=`<g class="fnN"><rect x="20" y="${y}" width="380" height="58" rx="8" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/><text x="210" y="${y+38}" text-anchor="middle" font-size="24" fill="var(--text)">${t}</text></g>`;
+    r+=`<path class="fnA" d="M400 ${y+29} C 560 ${y+29}, 560 195, 700 195" fill="none" stroke="var(--text-dim)" stroke-width="3"/>`});
+  n.innerHTML=s; a.innerHTML=r;
+})();
+window.__fig.funnel=()=>{
+  const paths=[...document.querySelectorAll('#fnArrows .fnA')];
+  paths.forEach(p=>{const l=p.getTotalLength();gsap.set(p,{strokeDasharray:l,strokeDashoffset:l})});
+  gsap.set('.fnN',{opacity:0}); gsap.set('#fnSide',{opacity:0});
+  return gsap.timeline()
+    .to('.fnN',{opacity:1,duration:.4,stagger:.25})
+    .to(paths,{strokeDashoffset:0,duration:1.2,stagger:.2,ease:'none'},'+=0.2')
+    .to('#fnSide',{opacity:1,duration:.6},'+=0.6');
+};
+
+/* errors: 17 and 209 to scale */
+window.__fig.errors=()=>{
+  const W=600, a={v:0}, b={v:0};
+  gsap.set(['#erA','#erB'],{attr:{width:0}}); $('erAn').textContent='0'; $('erBn').textContent='0';
+  gsap.set('#erAn',{attr:{x:250}}); gsap.set('#erBn',{attr:{x:250}});
+  return gsap.timeline()
+    .to('#erA',{attr:{width:W*17/209},duration:.8,ease:'power1.out'})
+    .to(a,{v:17,duration:.8,onUpdate:()=>{$('erAn').textContent=Math.round(a.v);$('erAn').setAttribute('x',240+W*17/209*a.v/17+14)}},'<')
+    .to('#erB',{attr:{width:W},duration:2.0,ease:'power1.out'},'+=0.5')
+    .to(b,{v:209,duration:2.0,onUpdate:()=>{$('erBn').textContent=Math.round(b.v);$('erBn').setAttribute('x',240+W*b.v/209+14)}},'<');
+};
+
+function buildBills(){
+  const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+buildBills();
+
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  ['gap','rooms','funnel','errors'].forEach(id=>{const el=$(id); if(!el) return;
+    ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  const FIG={s0:'gap',s2:'rooms',s3:'funnel',s4:'errors'};
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    const f=FIG[s.id]; if(f) master.add(window.__fig[f](),t+1.2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
