@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — The Dig That Grounded Five Airports</title>
+<meta name="description" content="On 21 September 2026 a construction crew in New Jersey cut the backup line for the air traffic facility that guides planes into Newark, minutes after the old main circuit failed. Five airports were held on the ground. The cable got the same digging rules as a line to a garden shed: nobody had to audit or tag it, and in most of the US the bill for cutting it stops at a fine and a splice. Three designs that change who pays to know where a critical line runs — each with a price.">
+<link rel="canonical" href="https://traceupstream.com/episodes/059-wire-nobody-labeled/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#7A93A8;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+.cell-yes{fill:var(--fact)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.059</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="72.4">
+  <div class="kicker">Trace Upstream · Episode 059</div>
+  <h1>The dig that grounded five airports</h1>
+  <div class="prose lede">
+    <p>On a Monday morning in September 2026 the air traffic facility that guides planes into Newark lost its connection. Within hours planes were held on the ground at Newark, Kennedy, LaGuardia, Philadelphia and Teterboro. By six in the evening more than <em class="fact">600 flights</em> in and out of Newark had been cancelled — more than half of the day's schedule — and about 7,000 flights across the system were delayed or cancelled.</p>
+    <p>The cause: a construction crew on a rail project in New Jersey dug up and cut about 600 feet of fibre-optic cable beside the Amtrak line. NJ Transit said the crew had been working <em class="flaw">about ten feet from the utility markings</em>, and that the markings may not have been accurate. Verizon, which owns the cable, said it bears no responsibility. The Transportation Secretary first said an Amtrak crew had cut it; Amtrak replied that the work was on NJ Transit property, by an NJ Transit contractor.</p>
+    <p>The investigation will decide who is right. This page is about a question it will not decide: did the rules ask anything more of anyone for this cable than for a phone line to a garden shed?</p>
+  </div>
+  <div class="fig">
+    <h3>Monday, 21 September 2026</h3>
+    <svg id="hook" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="More than 600 Newark cancellations; the crew was about ten feet from the paint">
+      <g id="hkA"><text x="250" y="150" text-anchor="middle" font-size="96" font-weight="500" fill="var(--flaw)">600+</text>
+        <text x="250" y="220" text-anchor="middle" font-size="34" fill="var(--text-dim)">Newark flights cut</text></g>
+      <g id="hkB"><text x="750" y="150" text-anchor="middle" font-size="96" font-weight="500" fill="var(--fact)">10 ft</text>
+        <text x="750" y="220" text-anchor="middle" font-size="34" fill="var(--text-dim)">from the paint</text></g>
+    </svg>
+    <div class="figcap">FlightAware via AP, 6 p.m. 21 Sept 2026; NJ Transit statement. Figures as reported on the day.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="66.5">
+  <h2>Two lines, two failures</h2>
+  <div class="prose">
+    <p>The airspace around Newark is managed from a control facility in Philadelphia, which depends on communication lines leased from Verizon. That Monday an old circuit serving it failed — it was already scheduled for replacement — and the system switched to the backup line. <em class="flaw">The backup was the cable the crew had just cut.</em> The main line failed because it was old; the backup failed because it had been dug up. The two had nothing to do with each other, and there was no third line.</p>
+    <p>In spring 2025 the same facility lost its links and radar picture on Newark several times in a few weeks. The answer was more lines and separate paths — bought as equipment under a contract, not written as a new rule about digging or about how buried lines are recorded.</p>
+  </div>
+  <div class="fig">
+    <h3>Main line, backup line, no third</h3>
+    <svg id="corridor" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Schematic: the Philadelphia control facility reaches five airports over a main circuit and a backup fibre beside the rail line. The main circuit fails from age; the switch goes to the backup, which is already cut; the airports go dark.">
+      <rect x="30" y="170" width="220" height="100" rx="10" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+      <text x="140" y="212" text-anchor="middle" font-size="26" fill="var(--text)">control</text>
+      <text x="140" y="246" text-anchor="middle" font-size="26" fill="var(--text)">facility</text>
+      <path id="crMain" d="M250 195 C 420 110, 580 110, 740 150" fill="none" stroke="var(--fact)" stroke-width="6"/>
+      <text id="crMainT" x="490" y="72" text-anchor="middle" font-size="26" fill="var(--fact)">main circuit</text>
+      <line x1="270" y1="352" x2="740" y2="352" stroke="var(--text-dim)" stroke-width="10" stroke-dasharray="4 14"/>
+      <text x="505" y="410" text-anchor="middle" font-size="22" fill="var(--text-dim)">rail line</text>
+      <path id="crBack" d="M250 245 C 300 330, 360 330, 420 330 L 620 330 C 690 330, 720 300, 740 290" fill="none" stroke="var(--fact)" stroke-width="6"/>
+      <text id="crBackT" x="140" y="330" text-anchor="middle" font-size="26" fill="var(--fact)">backup fibre</text>
+      <g id="crX1" opacity="0"><line x1="470" y1="100" x2="510" y2="140" stroke="var(--flaw)" stroke-width="8"/><line x1="510" y1="100" x2="470" y2="140" stroke="var(--flaw)" stroke-width="8"/>
+        <text x="520" y="190" text-anchor="middle" font-size="26" fill="var(--flaw)">old — fails</text></g>
+      <g id="crX2" opacity="0"><rect x="500" y="316" width="70" height="28" fill="var(--bg-raised)"/><line x1="515" y1="310" x2="555" y2="350" stroke="var(--flaw)" stroke-width="8"/><line x1="555" y1="310" x2="515" y2="350" stroke="var(--flaw)" stroke-width="8"/>
+        <text x="535" y="296" text-anchor="middle" font-size="26" fill="var(--flaw)">cut</text></g>
+      <circle id="crPulse" cx="250" cy="195" r="11" fill="var(--fact)"/>
+      <g id="crPorts"></g>
+    </svg>
+    <div class="figcap">Schematic, not to scale. Philadelphia TRACON; primary Verizon circuit and backup fibre between New Brunswick and Newark (FAA, NJ Transit, 21 Sept 2026).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="82.3">
+  <h2>What the paint says</h2>
+  <div class="prose">
+    <p>Before you dig in the United States you call a number, and the owners of buried lines come out and mark what is underneath. The marks are colour-coded by kind of line: <em class="flaw">orange</em> for communications, yellow for gas, red for electric power. In New Jersey the paint may be up to 18 inches from the real line, and nobody may use a machine within two feet of a mark; inside that zone you dig by hand.</p>
+    <p>By NJ Transit's account the crew was about ten feet away. If that figure holds, either the paint was not over the cable or this cable was not painted at all. Verizon says its cable was where it should be, and that it is the contractor's job to ask for the right stretch of ground to be marked. The investigation is checking who marked it, and how.</p>
+    <p>And even perfect paint says only what kind of line it is. <em class="fact">Nothing says what depends on it.</em> The orange over a line to a single house and the orange over the backup for a region's airspace are the same orange, under the same rules.</p>
+  </div>
+  <div class="fig">
+    <h3>Eighteen inches, two feet, ten feet</h3>
+    <svg id="tenfeet" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Scale in feet from the paint mark: the paint may be off by up to 18 inches, machines are barred within 2 feet, the crew was about 10 feet away">
+      <line x1="60" y1="300" x2="960" y2="300" stroke="var(--text-dim)" stroke-width="3"/>
+      <g id="tfTicks"></g>
+      <rect id="tfZone" x="100" y="120" width="0" height="180" fill="var(--flaw)" opacity=".16"/>
+      <rect id="tfPaint" x="100" y="160" width="0" height="140" fill="var(--flaw)" opacity=".34"/>
+      <rect x="92" y="90" width="16" height="210" fill="var(--flaw)"/>
+      <text x="100" y="72" text-anchor="middle" font-size="26" fill="var(--flaw)">paint</text>
+      <g id="tfZoneT" opacity="0"><text x="300" y="110" font-size="24" fill="var(--flaw)">no machines: 2 ft</text></g>
+      <g id="tfPaintT" opacity="0"><text x="300" y="150" font-size="24" fill="var(--flaw)">paint may be off: 18 in</text></g>
+      <g id="tfCrew" opacity="0">
+        <line id="tfCrewL" x1="100" y1="80" x2="100" y2="300" stroke="var(--fact)" stroke-width="6"/>
+        <text id="tfCrewT" x="100" y="60" text-anchor="end" font-size="30" fill="var(--fact)">crew ≈10 ft</text>
+      </g>
+    </svg>
+    <div class="figcap">Distances from the paint mark, to scale. N.J.S.A. 48:2-82; N.J.A.C. 14:2-3.3. Ten-foot figure: NJ Transit, 21 Sept 2026 (preliminary).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="160.7">
+  <h2>Where the rules are different</h2>
+  <div class="prose">
+    <p>Two kinds of line get stricter rules: pipelines, because of what they carry, and emergency call lines, because of what depends on them. Under a 2006 law the federal pipeline safety agency checks how each state enforces its digging rules and, where enforcement is inadequate, can go after the digger directly. Telecommunications lines are outside it. New Jersey's own law draws the same kind of line: break its digging rules near an ordinary buried line and the fine is capped at <em class="fact">$25,000</em> for a series of violations; near a gas line the ceiling is <em class="flaw">$2,000,000</em>. The rules know how to charge more for what a line carries, not for what depends on it.</p>
+    <p>After a 2012 storm knocked out 911 service in several states, the FCC required companies that carry emergency calls to certify every year that the critical lines into each call centre really run separately, that those lines are tagged, and that no single point is left where one cut takes everything out. Air traffic control has no outside rule of either kind; the FAA's internal standard for separate lines binds the agency itself, not the phone company's records or the people digging.</p>
+    <p>This is not a story about careless officials. These rules are born after a specific disaster, inside whichever agency owned it, covering exactly what it touched. A different colour on the ground would not have moved a machine ten feet from the paint, and on a morning when the main line failed from age and the backup was cut, even the 911 rule might not have helped. What it does is name someone who must know where a critical line runs. For this line, no outside rule gave anyone that job.</p>
+  </div>
+  <div class="toggle webonly" id="covToggle"><button class="on">as built</button><button>as it could be</button></div>
+  <div class="fig">
+    <h3>Who gets stricter rules</h3>
+    <svg id="coverage" viewBox="0 0 1000 420" width="100%" height="420" role="img" aria-label="Matrix: pipelines have federal enforcement on diggers and a higher New Jersey fine tier; 911 lines have annual route audits and tagging; the air traffic control backup has none of the three">
+      <g id="cvHead"></g>
+      <g id="cvRows"></g>
+      <g id="cvCells"></g>
+      <rect id="cvATC" x="785" y="30" width="190" height="370" rx="10" fill="none" stroke="var(--flaw)" stroke-width="4" opacity="0"/>
+      <g id="cvRed" opacity="0"></g>
+    </svg>
+    <div class="figcap">49 CFR Parts 196/198 (PIPES Act 2006); N.J.S.A. 48:2-88 and 48:2-86(c); 47 CFR 9.19 as amended 2026; FAA JO 6000.36B is internal.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="139.7">
+  <h2>The bill stops at the splice</h2>
+  <div class="prose">
+    <p>In 1969 in Birmingham, England, a contractor with an excavator cut the power cable feeding a steel works — having been given plans showing where the cables were. The court awarded the ruined metal and its profit, and refused the profit lost during some fourteen hours of darkness, as a matter of policy: that kind of loss spreads too far. <em class="flaw">The same limit still holds in most of the United States.</em> Whether a mistake is in the digging or in the marking, whoever made it may pay a state fine and the cost of the cable. Not the flights.</p>
+    <p>An industry group put the cost of damage to buried lines in the US in 2025 at <em class="fact">$83.2 billion</em>. Repairing the lines was about 6 per cent of it: for every dollar spent fixing a damaged line, about sixteen more landed on everyone else.</p>
+    <p>The exception sits in New Jersey. In 1985 the state Supreme Court heard a case brought by People Express, an airline based at Newark whose offices had been evacuated after a fire at a nearby rail yard, and ruled that it could in principle sue for purely financial losses — the exceptions courts kept making, it said, exposed the "hopeless artificiality" of the blanket ban. In the decades since, that has stayed a minority view. And even there, a company digging a trench or a crew painting marks cannot pay for a day of grounded flights.</p>
+  </div>
+  <div class="fig">
+    <h3>One dollar of repair, sixteen of everything else</h3>
+    <svg id="stack" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="One block for the cost of repairing the line, sixteen blocks for the rest of the damage, and a line that cuts the sixteen off from whoever made the mistake">
+      <rect id="skOne" x="60" y="250" width="60" height="60" rx="4" fill="var(--flaw)"/>
+      <text x="90" y="350" text-anchor="middle" font-size="26" fill="var(--flaw)">repair</text>
+      <g id="skMany"></g>
+      <text id="skManyT" x="590" y="350" text-anchor="middle" font-size="26" fill="var(--text-dim)" opacity="0">everyone else</text>
+      <line id="skCut" x1="160" y1="60" x2="160" y2="0" stroke="var(--text)" stroke-width="5"/>
+      <text id="skCutT" x="170" y="50" font-size="24" fill="var(--text)" opacity="0">the limit</text>
+      <text id="skTot" x="590" y="80" text-anchor="middle" font-size="40" fill="var(--text)" opacity="0">$83.2bn, 2025</text>
+    </svg>
+    <div class="figcap">Common Ground Alliance, report released August 2026: $83.2bn total, $4.9bn repair (5.9%). Spartan Steel &amp; Alloys v Martin [1973] QB 27; People Express v. Consolidated Rail, 100 N.J. 246 (1985).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="152.8">
+  <h2>Three designs, three prices</h2>
+  <div class="prose">
+    <p>Nobody has found a fair way to send the whole bill for an outage to whoever caused it. What the real designs change is who pays to make it less likely.</p>
+    <p><em class="alt">The government.</em> A legal class for lines that other critical systems depend on, as gas pipelines already have one: taxpayers fund federal oversight of how they are marked, and whoever gets it wrong pays a higher fine sized to the danger, not to the outage. Price: a list of critical lines is also a map of what to attack, and every owner will want on it — a class everyone joins stops being a class.</p>
+    <p><em class="alt">The owners, through one shared map.</em> Britain's Data (Use and Access) Act 2025 makes its register of underground pipes and cables official; once the detailed rules are in force owners must upload their routes and pay to run it. By September 2026 more than 400 owners had added data. Price: time and old records — much of what is underground was recorded decades ago, on paper, often wrongly, and the register is not expected to be full before 2027. And an official map is trusted more, so every entry still wrong becomes more dangerous.</p>
+    <p><em class="alt">The customer.</em> The agency that depends on a line buys more independence: a third path, and an independent check of where every path actually runs. Price: money, with limits this story shows — after 2025 the agency had paid for separate paths and still lost both lines. Each extra path costs more and protects against less, across hundreds of facilities, while Congress was being asked in 2026 for another $17.5 billion just to finish modernising the system.</p>
+  </div>
+  <div class="fig webonly">
+    <h3>Pick a design and read its bill</h3>
+    <div class="bills" id="bills"></div>
+    <div class="figcap">Each design moves the cost of knowing to someone different.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="34.6">
+  <h2>The question to carry</h2>
+  <div class="prose">
+    <p>On that Monday an old circuit failed, and the line meant to cover for it had just been cut. The investigation will say who made the mistake, if anyone did. It will not change this: the rules asked the same thing of that cable as of a line to a garden shed. Most of the cost landed on airlines and their passengers.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">About any line a city depends on, the useful question is not who dug it up. It is who is required to know exactly where it runs — and what they owe when they are wrong.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ ports:['EWR','JFK','LGA','PHL','TEB'],
+ heads:['pipelines','911 lines','ATC backup'],
+ rows:['federal rule reaches the digger','routes audited and tagged','higher New Jersey fine'],
+ grid:[[1,0,0],[0,1,0],[1,0,0]],
+ bills:[
+  {w:'The government',k:'A legal class by what depends on a line',p:'Price: the list is a map of targets, and a class everyone joins stops being a class.'},
+  {w:'The owners',k:'One shared, official map',p:'Price: years of checking old paper records — and a trusted map makes every remaining error more dangerous.'},
+  {w:'The customer',k:'A third path, independently checked',p:'Price: each extra path costs more and protects against less, across hundreds of facilities.'}]};
+
+/* hook: two numbers */
+window.__fig.hook=()=>{
+  gsap.set(['#hkA','#hkB'],{opacity:0,y:20});
+  return gsap.timeline().to('#hkA',{opacity:1,y:0,duration:.6}).to('#hkB',{opacity:1,y:0,duration:.6},'+=0.8');
+};
+
+/* corridor: main fails, switch to backup, backup already cut, airports dark */
+(function(){
+  const g=$('crPorts'); if(!g) return;
+  g.innerHTML=L.ports.map((p,i)=>{const y=70+i*72;
+    return `<g class="crP"><circle cx="850" cy="${y}" r="26" fill="var(--fact)"/><text x="895" y="${y+9}" font-size="28" fill="var(--text)">${p}</text></g>`}).join('');
+})();
+window.__fig.corridor=()=>{
+  const main=$('crMain'), back=$('crBack');
+  const lm=main.getTotalLength(), lb=back.getTotalLength();
+  const pm={t:0}, pb={t:0};
+  const at=(path,t)=>path.getPointAtLength(t);
+  gsap.set(['#crX1','#crX2'],{opacity:0}); gsap.set('#crMain',{stroke:'var(--fact)',opacity:1}); gsap.set('#crBack',{stroke:'var(--fact)'});
+  gsap.set('.crP circle',{fill:'var(--fact)'}); gsap.set('#crPulse',{opacity:1,attr:{cx:250,cy:195}});
+  return gsap.timeline()
+    .to(pm,{t:lm*0.5,duration:1.1,ease:'none',onUpdate:()=>{const p=at(main,pm.t);$('crPulse').setAttribute('cx',p.x);$('crPulse').setAttribute('cy',p.y)}})
+    .to('#crX1',{opacity:1,duration:.3})
+    .to('#crMain',{stroke:'var(--flaw)',opacity:.45,duration:.4},'<')
+    .set('#crPulse',{attr:{cx:250,cy:245}},'+=0.3')
+    .to(pb,{t:lb*0.62,duration:1.2,ease:'none',onUpdate:()=>{const p=at(back,pb.t);$('crPulse').setAttribute('cx',p.x);$('crPulse').setAttribute('cy',p.y)}})
+    .to('#crX2',{opacity:1,duration:.3})
+    .to('#crBack',{stroke:'var(--flaw)',duration:.4},'<')
+    .to('#crPulse',{opacity:0,duration:.2})
+    .to('.crP circle',{fill:'var(--text-dim)',duration:.3,stagger:.18},'+=0.2');
+};
+
+/* tenfeet: bands grow from the paint, the crew marker slides to ten feet */
+const TF={x0:100,px:80}; /* 80 px per foot, 0..10.5 ft */
+(function(){
+  const g=$('tfTicks'); if(!g) return; let s='';
+  for(let f=0;f<=10;f+=2){const x=TF.x0+f*TF.px;s+=`<line x1="${x}" y1="292" x2="${x}" y2="312" stroke="var(--text-dim)" stroke-width="2"/><text x="${x}" y="350" text-anchor="middle" font-size="26" fill="var(--text-dim)">${f} ft</text>`}
+  g.innerHTML=s;
+})();
+window.__fig.tenfeet=()=>{
+  const cx={f:0};
+  gsap.set('#tfZone',{attr:{width:0}}); gsap.set('#tfPaint',{attr:{width:0}});
+  gsap.set(['#tfZoneT','#tfPaintT','#tfCrew','#tfCrewT'],{opacity:0});
+  const place=()=>{const x=TF.x0+cx.f*TF.px;$('tfCrewL').setAttribute('x1',x);$('tfCrewL').setAttribute('x2',x);$('tfCrewT').setAttribute('x',Math.max(x+12,330))};
+  place();
+  return gsap.timeline()
+    .to('#tfPaint',{attr:{width:1.5*TF.px},duration:.7})
+    .to('#tfPaintT',{opacity:1,duration:.3})
+    .to('#tfZone',{attr:{width:2*TF.px},duration:.7},'+=0.3')
+    .to('#tfZoneT',{opacity:1,duration:.3})
+    .to('#tfCrew',{opacity:1,duration:.3},'+=0.4')
+    .to(cx,{f:10,duration:1.8,ease:'power1.inOut',onUpdate:place})
+    .to('#tfCrewT',{opacity:1,duration:.3});
+};
+
+/* coverage: three columns, the ATC column stays empty */
+const CV={x:[540,700,880],y:[150,250,350]};
+(function(){
+  const h=$('cvHead'), r=$('cvRows'), c=$('cvCells'), red=$('cvRed'); if(!h) return;
+  h.innerHTML=L.heads.map((t,i)=>`<text x="${CV.x[i]}" y="80" text-anchor="middle" font-size="24" fill="${i===2?'var(--flaw)':'var(--text)'}">${t}</text>`).join('');
+  r.innerHTML=L.rows.map((t,j)=>`<text x="20" y="${CV.y[j]+9}" font-size="22" fill="var(--text-dim)">${t}</text>`).join('');
+  let s='';
+  L.grid.forEach((row,j)=>row.forEach((v,i)=>{const x=CV.x[i]-26,y=CV.y[j]-26;
+    s+=`<rect class="cv c${i}" x="${x}" y="${y}" width="52" height="52" rx="8" fill="${v?'var(--fact)':'none'}" stroke="${v?'var(--fact)':'var(--grid)'}" stroke-width="3"/>`}));
+  c.innerHTML=s;
+  red.innerHTML=CV.y.map(y=>`<rect x="${CV.x[2]-26}" y="${y-26}" width="52" height="52" rx="8" fill="none" stroke="var(--alt)" stroke-width="3" stroke-dasharray="8 6"/>`).join('');
+})();
+window.__fig.coverage=()=>{
+  gsap.set('.cv',{opacity:0}); gsap.set('#cvATC',{opacity:0});
+  return gsap.timeline()
+    .to('.cv.c0',{opacity:1,duration:.4,stagger:.25})
+    .to('.cv.c1',{opacity:1,duration:.4,stagger:.25},'+=0.3')
+    .to('.cv.c2',{opacity:1,duration:.4,stagger:.25},'+=0.3')
+    .to('#cvATC',{opacity:1,duration:.5},'+=0.2');
+};
+
+/* stack: one block of repair, sixteen of everything else, a line cuts them off */
+(function(){
+  const g=$('skMany'); if(!g) return; let s='';
+  for(let i=0;i<16;i++){const col=i%8,row=Math.floor(i/8);
+    s+=`<rect class="skB" x="${230+col*90}" y="${250-row*90}" width="60" height="60" rx="4" fill="var(--text-dim)"/>`}
+  g.innerHTML=s;
+})();
+window.__fig.stack=()=>{
+  gsap.set('.skB',{opacity:0,y:-30}); gsap.set(['#skManyT','#skCutT','#skTot'],{opacity:0}); gsap.set('#skCut',{attr:{y2:60}});
+  gsap.set('#skOne',{opacity:0});
+  return gsap.timeline()
+    .to('#skOne',{opacity:1,duration:.4})
+    .to('.skB',{opacity:1,y:0,duration:.25,stagger:.08},'+=0.3')
+    .to(['#skManyT','#skTot'],{opacity:1,duration:.4})
+    .to('#skCut',{attr:{y2:320},duration:.7,ease:'power2.in'},'+=0.3')
+    .to('#skCutT',{opacity:1,duration:.3});
+};
+
+function buildBills(){
+  const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w} pays</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+buildBills();
+
+(function(){
+  const t=$('covToggle'); if(!t) return;
+  const [a,b]=t.querySelectorAll('button');
+  a.onclick=()=>{a.classList.add('on');b.classList.remove('on');gsap.to('#cvRed',{opacity:0,duration:.3})};
+  b.onclick=()=>{b.classList.add('on');a.classList.remove('on');gsap.to('#cvRed',{opacity:1,duration:.3})};
+})();
+
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  ['hook','corridor','tenfeet','coverage','stack'].forEach(id=>{const el=$(id); if(!el) return;
+    ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  const FIG={s0:'hook',s1:'corridor',s2:'tenfeet',s3:'coverage',s4:'stack'};
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    const f=FIG[s.id]; if(f) master.add(window.__fig[f](),t+1.2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
