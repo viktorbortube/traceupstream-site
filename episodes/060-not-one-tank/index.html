@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — Why a Diesel Export Ban Helps Texas, Not New York</title>
+<meta name="description" content="In September 2026 US diesel hit a record $6.53 a gallon, and a ban on diesel exports was floated in Washington. A Dallas Fed economist warned it could make diesel dearer in New York. The reason is not the tap but the links: a full pipeline, a 1920 law on which ships may sail between US ports, and a reserve Congress halved. Three designs, each with a price.">
+<link rel="canonical" href="https://traceupstream.com/episodes/060-not-one-tank/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#B08468;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.slider{display:flex;gap:14px;align-items:center;font-family:var(--font-mono);font-size:13px;margin:4px 0 10px}
+.slider input{flex:1;accent-color:var(--alt)}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .slider,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.060</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="56.8">
+  <div class="kicker">Trace Upstream · Episode 060</div>
+  <h1>Why a diesel export ban helps Texas, not New York</h1>
+  <div class="prose lede">
+    <p>America refines more diesel than it burns: about <em class="fact">5.3 million barrels a day</em> against about 3.6 million used at home, with the rest sold abroad. Yet on 22 September 2026 diesel at American pumps hit a record <em class="flaw">$6.53 a gallon</em>, and California passed $8. The war with Iran had closed the Strait of Hormuz since February; in July Russia stopped selling diesel abroad.</p>
+    <p>The obvious fix went around Washington: stop exporting diesel and keep it at home. A bill in Congress would switch a ban on automatically whenever the national average reaches $5. Then a Dallas Fed economist, Garrett Golding, warned that a ban could make diesel <em class="flaw">more expensive in New York</em>. How can keeping fuel at home make it dearer at home?</p>
+  </div>
+  <div class="toggle webonly" id="tankToggle"><button class="on">tap open</button><button>tap closed</button></div>
+  <div class="fig">
+    <h3>One country, three tanks</h3>
+    <svg id="tanks" viewBox="0 0 1000 420" width="100%" height="420" role="img" aria-label="Three fuel tanks: a big full one on the Gulf Coast with a tap to the world, smaller ones for the West Coast and New York. When the tap closes, the Gulf tank fills and its price falls; the New York price does not.">
+      <g id="tkLinks"></g>
+      <g id="tkTanks"></g>
+      <g id="tkTap"><path d="M640 280 H700 V300" fill="none" stroke="var(--text)" stroke-width="5"/>
+        <line id="tkStream" x1="700" y1="306" x2="700" y2="360" stroke="var(--topic)" stroke-width="10" stroke-linecap="round"/>
+        <text x="760" y="392" font-size="31" fill="var(--fact)">to the world</text></g>
+      <text id="tkBan" x="820" y="250" text-anchor="middle" font-size="40" fill="var(--flaw)" opacity="0">BAN</text>
+    </svg>
+    <div class="figcap">Schematic. US distillate balance: CBS News, 22 Sept 2026; EIA weekly exports. Price direction after a ban: Dallas Fed (Golding), CNN 22 Sept 2026.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="59.8">
+  <h2>The tank in our heads</h2>
+  <div class="prose">
+    <p>Picture the country as one big tank with a tap on the side, where the surplus runs out to ships bound for Mexico, South America and Europe. Close the tap and the level rises; in that picture the price falls everywhere at once.</p>
+    <p>Golding's warning starts with the rest of the world. By September 2026 American diesel exports were running at about <em class="fact">1.6 million barrels a day</em>. Pull that out of a world market already short of diesel and the world price jumps — and it comes back like a boomerang to the parts of America that buy fuel from abroad, the East Coast most of all.</p>
+    <p>The East Coast imports only a small share of its diesel, mostly from Canada. But a Canadian refinery can sell to New York or to Europe, so New York has to pay what Europe would pay. Why would any corner of a country with a surplus pay the world price at all?</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="109">
+  <h2>Several tanks</h2>
+  <div class="prose">
+    <p>Because it isn't one tank. <em class="fact">No pipeline carries fuel from the Gulf over the Rocky Mountains</em>; California lives mostly on its own refineries, and a tanker from Texas needs about ten days through the Panama Canal. That is how California paid over $8 while the country paid $6.50.</p>
+    <p>The East is connected through one enormous pipe. The Colonial Pipeline runs from Houston to the New York area, and its diesel line carries about a million barrels a day. For years before this crisis the Energy Information Administration described it as running at or near full. More diesel in Texas does not make it wider; its rules only decide which companies get the space that exists.</p>
+    <p>That leaves the sea, where a <em class="flaw">law from 1920</em> applies: any ship carrying cargo between two American ports must be built in America, owned by Americans, flagged American and crewed by Americans. A foreign tanker may carry Texas diesel to Rotterdam, not to New York. In 1950 more than 400 ocean-going ships qualified; in the last official count, for 2018, about 100 did, fewer than 60 of them tankers.</p>
+  </div>
+  <div class="fig">
+    <h3>Four stamps to sail from Houston to New York</h3>
+    <svg id="stamps" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="A ship receives four stamps: built, owned, flag, crew. Below, the fleet that qualifies shrinks from 434 ships in 1950 to 99 in 2018.">
+      <g id="stShip"><path d="M120 150 H420 L460 180 L420 210 H120 Z" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+        <rect x="150" y="110" width="70" height="40" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/></g>
+      <g id="stStamps"></g>
+      <g id="stFleet"></g>
+      <text id="stY0" x="120" y="380" font-size="26" fill="var(--text-dim)">1950: 434 ships</text>
+      <text id="stY1" x="620" y="380" font-size="26" fill="var(--flaw)" opacity="0">2018: 99</text>
+    </svg>
+    <div class="figcap">46 U.S.C. 55102 (Merchant Marine Act 1920, §27). Fleet counts: CRS R45725 (2018 data).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="85.3">
+  <h2>The lane opened</h2>
+  <div class="prose">
+    <p>On 17 March 2026, at the request of the military, the Department of Homeland Security suspended the 1920 law for fuel shipments and later extended the waiver. In April, diesel moving by water from the Gulf to the East Coast hit a record of about <em class="fact">220,000 barrels a day</em> — and East Coast prices kept setting records anyway.</p>
+    <p>That shows when the lane matters. As long as Texas sells to the world, Texas diesel costs about what world diesel costs, and a cheaper ship changes little: economists Ryan Kellogg and Richard Sweeney put the 1920 law's normal-times effect on East Coast diesel at about <em class="fact">two cents a gallon</em>, because most of it arrives by pipe. In the war market of 2026, by one Jones Act operator's count, a foreign tanker from Houston to New York even cost slightly more than an American one.</p>
+    <p>But on the day the tap closes, Texas diesel becomes cheaper than world diesel, and the only question is whether it can reach New York. <em class="alt">A ban with the lane open lets the relief travel; a ban with the lane shut keeps it in Texas.</em></p>
+  </div>
+  <div class="toggle webonly" id="laneToggle"><button class="on">ban, lane shut</button><button>ban, lane open</button></div>
+  <div class="fig">
+    <h3>What a ship costs, before and during the war</h3>
+    <svg id="freight" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Day rates before the war: American product tanker about 89 thousand dollars a day, foreign about 9 thousand. Wartime freight Houston to New York: foreign 14.5 cents a gallon, American 13.5.">
+      <line x1="60" y1="320" x2="960" y2="320" stroke="var(--text-dim)" stroke-width="3"/>
+      <text x="260" y="370" text-anchor="middle" font-size="26" fill="var(--text-dim)">day rate, 2025</text>
+      <text x="740" y="370" text-anchor="middle" font-size="26" fill="var(--text-dim)">¢/gal, 2026 war</text>
+      <rect id="frA1" x="170" y="320" width="80" height="0" fill="var(--flaw)"/>
+      <rect id="frF1" x="280" y="320" width="80" height="0" fill="var(--fact)"/>
+      <rect id="frA2" x="650" y="320" width="80" height="0" fill="var(--flaw)"/>
+      <rect id="frF2" x="760" y="320" width="80" height="0" fill="var(--fact)"/>
+      <g id="frT" opacity="0">
+        <text x="210" y="60" text-anchor="middle" font-size="26" fill="var(--flaw)">US $89k</text>
+        <text x="320" y="270" text-anchor="middle" font-size="26" fill="var(--fact)">$9k</text>
+        <text x="690" y="100" text-anchor="middle" font-size="26" fill="var(--flaw)">US 13.5</text>
+        <text x="800" y="70" text-anchor="middle" font-size="26" fill="var(--fact)">14.5</text>
+      </g>
+    </svg>
+    <div class="figcap">Day rates: Balsa Research (reform advocacy) citing Argus, 2025. Wartime freight: Sam Norton, CEO of OSG (Jones Act operator), gCaptain, 10 March 2026. Normal-times effect: Kellogg &amp; Sweeney, NBER WP 31938.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="82.9">
+  <h2>The last tank</h2>
+  <div class="prose">
+    <p>For the Northeast there is a reserve, in place since 2000: the Northeast Home Heating Oil Reserve, held in tanks in Maine, Massachusetts, Connecticut and New York Harbor. On 22 September 2026 Maine's two senators asked the President to open it; heating oil in Maine cost about three quarters more than a year earlier.</p>
+    <p>Congress first sized it at <em class="fact">two million barrels</em>, about ten days of the region's heating oil at the time. In 2011 it cut it to one million — about one day of what the Colonial diesel line carries, and a few days at the height of a cold snap.</p>
+    <p>Opening it has a rule: the President must find a severe supply interruption, and for a price spike the heating oil margin must stay more than 60 per cent above its five-year average for seven days in a row, still rising, and <em class="flaw">only between mid-October and March</em>. In September it could not be opened for price at all. In its first quarter century it was drawn on once, after Hurricane Sandy in 2012, and never for a price.</p>
+  </div>
+  <div class="slider webonly"><span>reserve</span><input id="resRange" type="range" min="1" max="6" step="1" value="1"><span id="resVal">1M bbl</span></div>
+  <div class="fig">
+    <h3>A price trigger that only works in winter</h3>
+    <svg id="reserve" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Calendar strip: the price trigger can only count from mid-October to March. The reserve tank was two million barrels and was cut to one million in 2011.">
+      <g id="rvMonths"></g>
+      <rect id="rvWin1" x="60" y="80" width="0" height="80" fill="var(--alt)" opacity=".18"/>
+      <rect id="rvWin2" x="0" y="80" width="0" height="80" fill="var(--alt)" opacity=".18"/>
+      <rect id="rvSep" x="0" y="72" width="0" height="96" fill="none" stroke="var(--flaw)" stroke-width="4"/>
+      <text id="rvSepT" x="0" y="205" text-anchor="middle" font-size="26" fill="var(--flaw)" opacity="0">September: closed</text>
+      <rect x="330" y="240" width="140" height="130" fill="none" stroke="var(--text)" stroke-width="3" stroke-dasharray="8 6"/>
+      <rect id="rvFill" x="330" y="370" width="140" height="0" fill="var(--topic)" opacity=".8"/>
+      <text x="400" y="232" text-anchor="middle" font-size="24" fill="var(--text-dim)">2000: 2M</text>
+      <text id="rvCut" x="560" y="330" font-size="26" fill="var(--flaw)" opacity="0">2011: cut to 1M</text>
+    </svg>
+    <div class="figcap">42 U.S.C. 6250b; DOE release criteria. Size history: CRS R43511, CRS IF12205. Sandy loan: ~120,000 bbl, Nov 2012.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="166.7">
+  <h2>Three designs, three prices</h2>
+  <div class="prose">
+    <p><em class="alt">The tap.</em> A ban, perhaps with an automatic trigger like the $5 bill. Russia banned diesel exports in July 2026 to protect its own supply. Analysts expect Gulf and Midwest prices to fall by tens of cents a gallon — real money for farmers and truckers there. Price: refineries that cannot sell diesel run slower, so less gasoline and jet fuel; Mexico, which gets more than 100,000 barrels a day of US diesel overland, loses a supplier with its own stocks under a week; and a Dallas Fed study of a similar crude ban called it "not only ineffective, but also counterproductive". The White House said at the time that no ban was under consideration.</p>
+    <p><em class="alt">The links.</em> Rewrite the shipping rule, which would also let any future ban reach the coasts. The EU let any member state's ships carry cargo between its ports in the 1990s; Canada lets a foreign ship in only when no Canadian one is available. Reformers argue the law's real cost is the coastal shipping that never happens. Price: the ships and mariners the military can call on — in 2018 the Maritime Administration estimated a shortage of about 1,800 mariners for a long mobilisation, and by the American shipping industry's own study almost a quarter of the ships used under the 2026 waiver were built in China.</p>
+    <p><em class="alt">The reserve.</em> Make it big enough to matter — weeks, not days — with a trigger that can fire outside winter. EU law already requires member states to hold oil stocks of at least 90 days of net imports. Price: about $6.5 million a year just to run today's million barrels, and well over $100 million of diesel for every extra million; an easy trigger invites politically timed releases and lets private suppliers keep thinner stocks. And a reserve does not change the world price. It buys time, not cheap fuel.</p>
+  </div>
+  <div class="fig webonly">
+    <h3>Pick a design and read its bill</h3>
+    <div class="bills" id="bills"></div>
+    <div class="figcap">Each design moves the cost to someone different.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="33.9">
+  <h2>The question to carry</h2>
+  <div class="prose">
+    <p>The debate in September 2026 was framed as yes or no. But the ban and the links are not rivals: one decides whether the other works. And the links were set long before this crisis, by Congress and a federal regulator.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">When someone promises to lower the price by closing a tap, ask which tank fills up when it closes — and who decided how wide the connection to yours would be.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ tanks:[{id:'W',x:150,w:130,h:150,lab:'WEST'},{id:'G',x:500,w:190,h:220,lab:'GULF'},{id:'N',x:850,w:130,h:150,lab:'NEW YORK'}],
+ stamps:['BUILT','OWNED','FLAG','CREW'],
+ months:['J','F','M','A','M','J','J','A','S','O','N','D'],
+ bills:[
+  {w:'The tap',k:'An export ban, maybe with a price trigger',p:'Price: slower refineries, less gasoline and jet fuel, Mexico loses a supplier — and without open links the coasts gain little.'},
+  {w:'The links',k:'Rewrite who may ship between US ports',p:'Price: the ships, yards and mariners the military counts on in a war.'},
+  {w:'The reserve',k:'Weeks of cover, a trigger that can fire',p:'Price: millions a year to hold it, over $100M per extra million barrels, and releases timed to politics.'}]};
+
+/* tanks: three tanks; closing the tap fills the Gulf tank and drops its needle, New York's needle rises */
+const TK={base:360};
+(function(){
+  const g=$('tkTanks'); if(!g) return; let s='';
+  L.tanks.forEach(t=>{const x=t.x-t.w/2, y=TK.base-t.h, ry=t.w*.16;
+    s+=`<g id="tk${t.id}"><rect x="${x}" y="${y}" width="${t.w}" height="${t.h}" fill="var(--bg-raised)"/>
+    <rect id="tk${t.id}L" x="${x}" y="${TK.base}" width="${t.w}" height="0" fill="var(--topic)" opacity=".75"/>
+    <path d="M${x} ${y} V${TK.base} M${x+t.w} ${y} V${TK.base}" stroke="var(--text)" stroke-width="4"/>
+    <ellipse cx="${t.x}" cy="${y}" rx="${t.w/2}" ry="${ry}" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+    <ellipse cx="${t.x}" cy="${TK.base}" rx="${t.w/2}" ry="${ry}" fill="none" stroke="var(--text)" stroke-width="4"/>
+    <line id="tk${t.id}N" x1="${t.x}" y1="${y-4}" x2="${t.x}" y2="${y-60}" stroke="var(--text)" stroke-width="6" stroke-linecap="round" transform="rotate(-50 ${t.x} ${y-4})"/>
+    <path d="M${t.x-56} ${y-4} A56 56 0 0 1 ${t.x+56} ${y-4}" fill="none" stroke="var(--text)" stroke-width="3"/>
+    <text x="${t.x}" y="${TK.base+50}" text-anchor="middle" font-size="31" fill="var(--text)">${t.lab}</text></g>`});
+  g.innerHTML=s;
+})();
+const tkState=(lv,nd)=>{const tl=gsap.timeline();
+  L.tanks.forEach(t=>{const y=TK.base-t.h;
+    tl.to(`#tk${t.id}L`,{attr:{y:TK.base-t.h*lv[t.id],height:t.h*lv[t.id]},duration:1.2},0)
+      .to(`#tk${t.id}N`,{rotation:nd[t.id],svgOrigin:`${t.x} ${y-4}`,duration:1.2},0)
+      .to(`#tk${t.id}N`,{stroke:nd[t.id]>20?'var(--flaw)':'var(--text)',duration:.3},0)});
+  return tl;};
+window.__fig.tanks=()=>{
+  gsap.set(['#tkWL','#tkGL','#tkNL'],{attr:{y:TK.base,height:0}}); gsap.set('#tkBan',{opacity:0}); gsap.set('#tkStream',{attr:{y2:360}});
+  return gsap.timeline()
+    .add(tkState({W:.45,G:.8,N:.45},{W:30,G:25,N:25}))
+    .to('#tkStream',{attr:{y2:306},duration:.6},'+=0.6')
+    .to('#tkBan',{opacity:1,duration:.3},'<')
+    .add(tkState({W:.45,G:.97,N:.45},{W:30,G:-20,N:45}),'+=0.1');
+};
+
+/* stamps: four stamps land on the ship; the qualifying fleet thins from 434 to 99 */
+(function(){
+  const s=$('stStamps'), f=$('stFleet'); if(!s) return;
+  s.innerHTML=L.stamps.map((t,i)=>`<g class="stS" transform="translate(${540+i*110},90) rotate(-8)"><rect x="-50" y="-26" width="100" height="52" rx="6" fill="none" stroke="var(--fact)" stroke-width="4"/><text x="0" y="10" text-anchor="middle" font-size="24" fill="var(--fact)">${t}</text></g>`).join('');
+  let h=''; for(let i=0;i<44;i++){const c=i%22,r=Math.floor(i/22); h+=`<rect class="stF${i<10?' keep':''}" x="${120+c*38}" y="${270+r*32}" width="26" height="14" rx="3" fill="var(--text-dim)"/>`}
+  f.innerHTML=h;
+})();
+window.__fig.stamps=()=>{
+  gsap.set('.stS',{opacity:0,scale:1.6,transformOrigin:'50% 50%'}); gsap.set('.stF',{opacity:1}); gsap.set('#stY1',{opacity:0});
+  return gsap.timeline()
+    .to('.stS',{opacity:1,scale:1,duration:.35,stagger:.5,ease:'back.out(2)'})
+    .to('.stF:not(.keep)',{opacity:.12,duration:.25,stagger:.04},'+=0.4')
+    .to('#stY1',{opacity:1,duration:.4});
+};
+
+/* freight: day-rate bars, then wartime cents per gallon */
+window.__fig.freight=()=>{
+  gsap.set(['#frA1','#frF1','#frA2','#frF2'],{attr:{y:320,height:0}}); gsap.set('#frT',{opacity:0});
+  return gsap.timeline()
+    .to('#frA1',{attr:{y:80,height:240},duration:1.1})
+    .to('#frF1',{attr:{y:296,height:24},duration:.6},'-=0.3')
+    .to('#frA2',{attr:{y:120,height:200},duration:.9},'+=0.4')
+    .to('#frF2',{attr:{y:105,height:215},duration:.9},'-=0.5')
+    .to('#frT',{opacity:1,duration:.4});
+};
+
+/* reserve: months; the price window lights from mid-October to March; September is marked closed; the tank halves */
+const RV={x0:60,w:73};
+(function(){
+  const g=$('rvMonths'); if(!g) return;
+  g.innerHTML=L.months.map((m,i)=>`<rect x="${RV.x0+i*RV.w}" y="80" width="${RV.w-4}" height="80" fill="none" stroke="var(--grid)" stroke-width="2"/><text x="${RV.x0+i*RV.w+RV.w/2-2}" y="130" text-anchor="middle" font-size="26" fill="var(--text-dim)">${m}</text>`).join('');
+  $('rvWin2').setAttribute('x',RV.x0+9.5*RV.w); $('rvSep').setAttribute('x',RV.x0+8*RV.w-4); $('rvSepT').setAttribute('x',RV.x0+8.5*RV.w);
+})();
+window.__fig.reserve=()=>{
+  gsap.set(['#rvWin1','#rvWin2','#rvSep'],{attr:{width:0}}); gsap.set(['#rvSepT','#rvCut'],{opacity:0}); gsap.set('#rvFill',{attr:{y:370,height:0}});
+  return gsap.timeline()
+    .to('#rvFill',{attr:{y:240,height:130},duration:1})
+    .to('#rvFill',{attr:{y:305,height:65},duration:.8},'+=0.4')
+    .to('#rvCut',{opacity:1,duration:.3},'<')
+    .to('#rvWin1',{attr:{width:3*RV.w-4},duration:.8},'+=0.4')
+    .to('#rvWin2',{attr:{width:2.5*RV.w-4},duration:.6},'<')
+    .to('#rvSep',{attr:{width:RV.w+4},duration:.4},'+=0.3')
+    .to('#rvSepT',{opacity:1,duration:.3});
+};
+
+function buildBills(){
+  const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w}</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+buildBills();
+
+(function(){
+  const t=$('tankToggle'); if(!t) return; const [a,b]=t.querySelectorAll('button');
+  a.onclick=()=>{a.classList.add('on');b.classList.remove('on');gsap.to('#tkStream',{attr:{y2:360},duration:.4});gsap.to('#tkBan',{opacity:0});tkState({W:.45,G:.8,N:.45},{W:30,G:25,N:25})};
+  b.onclick=()=>{b.classList.add('on');a.classList.remove('on');gsap.to('#tkStream',{attr:{y2:306},duration:.4});gsap.to('#tkBan',{opacity:1});tkState({W:.45,G:.97,N:.45},{W:30,G:-20,N:45})};
+})();
+(function(){
+  const t=$('laneToggle'); if(!t) return; const [a,b]=t.querySelectorAll('button');
+  a.onclick=()=>{a.classList.add('on');b.classList.remove('on');document.querySelector('#s0').scrollIntoView({behavior:'smooth'});tkState({W:.45,G:.97,N:.45},{W:30,G:-20,N:45})};
+  b.onclick=()=>{b.classList.add('on');a.classList.remove('on');document.querySelector('#s0').scrollIntoView({behavior:'smooth'});tkState({W:.45,G:.85,N:.62},{W:30,G:0,N:10})};
+})();
+(function(){
+  const r=$('resRange'); if(!r) return;
+  r.oninput=()=>{const v=+r.value; $('resVal').textContent=`${v}M bbl · ~${Math.round(v*0.9)} day${v>1?'s':''} of Colonial's diesel line`;
+    gsap.to('#rvFill',{attr:{y:370-Math.min(130,65*v),height:Math.min(130,65*v)},duration:.4})};
+})();
+
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  ['tanks','stamps','freight','reserve'].forEach(id=>{const el=$(id); if(!el) return;
+    ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  const FIG={s0:'tanks',s2:'stamps',s3:'freight',s4:'reserve'};
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    const f=FIG[s.id]; if(f) master.add(window.__fig[f](),t+1.2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>

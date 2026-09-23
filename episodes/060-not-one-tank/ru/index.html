@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Почему запрет экспорта дизеля поможет Техасу, а не Нью-Йорку</title>
+<meta name="description" content="В сентябре 2026 года дизель в США стоил рекордные $6,53 за галлон, и в Вашингтоне заговорили о запрете экспорта. Экономист ФРБ Далласа предупредил: в Нью-Йорке дизель от этого может подорожать. Дело не в кране, а в связях между регионами: полная труба, закон 1920 года о том, какие суда могут ходить между портами США, и резерв, который Конгресс урезал вдвое. Три конструкции, у каждой своя цена.">
+<link rel="canonical" href="https://traceupstream.com/episodes/060-not-one-tank/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#B08468;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.slider{display:flex;gap:14px;align-items:center;font-family:var(--font-mono);font-size:13px;margin:4px 0 10px}
+.slider input{flex:1;accent-color:var(--alt)}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .slider,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.060</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="81.7">
+  <div class="kicker">Дефект конструкции · Выпуск 060</div>
+  <h1>Почему запрет экспорта дизеля поможет Техасу, а не Нью-Йорку</h1>
+  <div class="prose lede">
+    <p>Америка производит больше дизеля, чем сжигает: около <em class="fact">5,3 млн баррелей в день</em> против 3,6 млн, потребляемых внутри страны, остальное уходит за границу. И всё же 22 сентября 2026 года дизель на американских заправках поставил рекорд — <em class="flaw">$6,53 за галлон</em> (галлон — почти 4 литра), а в Калифорнии перевалил за $8. С февраля Ормузский пролив был закрыт войной с Ираном, а в июле Россия перестала продавать дизель за границу.</p>
+    <p>В Вашингтоне заговорили об очевидном решении: перестать вывозить дизель и оставить его дома. Законопроект в Конгрессе включал бы запрет автоматически, когда средняя цена по стране дойдёт до $5. И тут экономист ФРБ Далласа Гаррет Голдинг предупредил, что после запрета дизель <em class="flaw">в Нью-Йорке может подорожать</em>. Как топливо может подорожать дома оттого, что его оставили дома?</p>
+  </div>
+  <div class="toggle webonly" id="tankToggle"><button class="on">кран открыт</button><button>кран закрыт</button></div>
+  <div class="fig">
+    <h3>Одна страна, три бака</h3>
+    <svg id="tanks" viewBox="0 0 1000 420" width="100%" height="420" role="img" aria-label="Три топливных бака: большой и полный на побережье Мексиканского залива с краном в мир, поменьше — на Западном побережье и в Нью-Йорке. Когда кран закрывают, бак на Заливе наполняется и цена там падает, а в Нью-Йорке — нет.">
+      <g id="tkLinks"></g>
+      <g id="tkTanks"></g>
+      <g id="tkTap"><path d="M640 280 H700 V300" fill="none" stroke="var(--text)" stroke-width="5"/>
+        <line id="tkStream" x1="700" y1="306" x2="700" y2="360" stroke="var(--topic)" stroke-width="10" stroke-linecap="round"/>
+        <text x="760" y="392" font-size="31" fill="var(--fact)">в мир</text></g>
+      <text id="tkBan" x="820" y="250" text-anchor="middle" font-size="40" fill="var(--flaw)" opacity="0">ЗАПРЕТ</text>
+    </svg>
+    <div class="figcap">Схема. Баланс дистиллятов США: CBS News, 22.09.2026; недельный экспорт — EIA. Направление цен после запрета: ФРБ Далласа (Голдинг), CNN, 22.09.2026.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="75.6">
+  <h2>Бак в нашей голове</h2>
+  <div class="prose">
+    <p>Представьте страну как один большой бак с краном сбоку, через который излишек уходит на суда в Мексику, Южную Америку и Европу. Закройте кран — уровень поднимется, и в этой картинке цена упадёт везде сразу.</p>
+    <p>Предупреждение Голдинга начинается с остального мира. К сентябрю 2026 года Америка вывозила около <em class="fact">1,6 млн баррелей дизеля в день</em>. Уберите их с мирового рынка, где дизеля и так не хватает, и мировая цена подскочит, а потом бумерангом вернётся туда, где топливо покупают за границей, и прежде всего на Восточное побережье.</p>
+    <p>Восточное побережье ввозит лишь небольшую часть дизеля, и в основном из Канады. Но канадский завод может продать топливо и Нью-Йорку, и Европе, поэтому Нью-Йорк платит столько, сколько заплатила бы Европа. Почему часть страны, где топлива в избытке, вообще платит мировую цену?</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="136.3">
+  <h2>Несколько баков</h2>
+  <div class="prose">
+    <p>Потому что бак не один. <em class="fact">Ни один трубопровод не везёт топливо с Залива через Скалистые горы</em>; Калифорния живёт в основном своими заводами, а танкеру из Техаса нужно около десяти дней через Панамский канал. Поэтому в Калифорнии платили больше $8, когда по стране платили $6,50.</p>
+    <p>Восток связан одной огромной трубой. Трубопровод Colonial идёт из Хьюстона до окрестностей Нью-Йорка, его дизельная линия везёт около миллиона баррелей в день. Ещё задолго до кризиса Управление энергетической информации США писало, что он работает на пределе или почти на пределе. От того, что дизеля в Техасе больше, труба шире не станет, а её правила решают лишь, каким компаниям достанется место, которое в ней есть.</p>
+    <p>Остаётся море, а там действует <em class="flaw">закон 1920 года</em>: судно, которое везёт груз между двумя американскими портами, должно быть построено в Америке, принадлежать американцам, ходить под американским флагом и иметь американскую команду. Иностранный танкер может отвезти техасский дизель в Роттердам, но не в Нью-Йорк. В 1950 году этим условиям отвечали больше 400 морских судов, по последнему официальному подсчёту за 2018 год — около 100, из них танкеров меньше 60.</p>
+  </div>
+  <div class="fig">
+    <h3>Четыре штампа, чтобы пройти из Хьюстона в Нью-Йорк</h3>
+    <svg id="stamps" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Судно получает четыре штампа: постройка, владелец, флаг, экипаж. Ниже флот, который им отвечает, сокращается с 434 судов в 1950 году до 99 в 2018-м.">
+      <g id="stShip"><path d="M120 150 H420 L460 180 L420 210 H120 Z" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+        <rect x="150" y="110" width="70" height="40" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/></g>
+      <g id="stStamps"></g>
+      <g id="stFleet"></g>
+      <text id="stY0" x="120" y="380" font-size="26" fill="var(--text-dim)">1950: 434 судна</text>
+      <text id="stY1" x="620" y="380" font-size="26" fill="var(--flaw)" opacity="0">2018: 99</text>
+    </svg>
+    <div class="figcap">46 U.S.C. 55102 (закон о торговом флоте 1920 года, §27). Численность флота: CRS R45725 (данные 2018 года).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="115.5">
+  <h2>Морской путь открыли</h2>
+  <div class="prose">
+    <p>17 марта 2026 года по просьбе военных Министерство внутренней безопасности приостановило закон 1920 года для перевозок топлива, а потом продлило исключение. В апреле перевозки дизеля морем с Залива на Восточное побережье достигли рекорда — около <em class="fact">220 тыс. баррелей в день</em>, а цены на Восточном побережье всё равно продолжали ставить рекорды.</p>
+    <p>Это показывает, когда морской путь имеет значение. Пока Техас продаёт топливо миру, техасский дизель стоит примерно как мировой, и более дешёвое судно мало что меняет: экономисты Райан Келлогг и Ричард Суини оценивают эффект закона 1920 года в обычное время примерно в <em class="fact">два цента за галлон</em>, потому что основная часть дизеля приходит по трубе. А на военном рынке 2026 года, по подсчёту одного американского судовладельца, иностранный танкер из Хьюстона в Нью-Йорк обходился даже чуть дороже американского.</p>
+    <p>Но в тот день, когда кран закрывают, техасский дизель становится дешевле мирового, и вопрос один: доберётся ли он до Нью-Йорка. <em class="alt">Запрет при открытом морском пути даёт облегчению доехать, запрет при закрытом оставляет его в Техасе.</em></p>
+  </div>
+  <div class="toggle webonly" id="laneToggle"><button class="on">запрет, путь закрыт</button><button>запрет, путь открыт</button></div>
+  <div class="fig">
+    <h3>Сколько стоит судно — до войны и во время войны</h3>
+    <svg id="freight" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Суточные ставки до войны: американский продуктовый танкер около 89 тысяч долларов в день, иностранный около 9 тысяч. Фрахт Хьюстон — Нью-Йорк в войну: иностранный 14,5 цента за галлон, американский 13,5.">
+      <line x1="60" y1="320" x2="960" y2="320" stroke="var(--text-dim)" stroke-width="3"/>
+      <text x="260" y="370" text-anchor="middle" font-size="26" fill="var(--text-dim)">ставка в сутки, 2025</text>
+      <text x="740" y="370" text-anchor="middle" font-size="26" fill="var(--text-dim)">¢/галлон, война 2026</text>
+      <rect id="frA1" x="170" y="320" width="80" height="0" fill="var(--flaw)"/>
+      <rect id="frF1" x="280" y="320" width="80" height="0" fill="var(--fact)"/>
+      <rect id="frA2" x="650" y="320" width="80" height="0" fill="var(--flaw)"/>
+      <rect id="frF2" x="760" y="320" width="80" height="0" fill="var(--fact)"/>
+      <g id="frT" opacity="0">
+        <text x="210" y="60" text-anchor="middle" font-size="26" fill="var(--flaw)">США $89 тыс.</text>
+        <text x="320" y="270" text-anchor="middle" font-size="26" fill="var(--fact)">$9 тыс.</text>
+        <text x="690" y="100" text-anchor="middle" font-size="26" fill="var(--flaw)">США 13,5</text>
+        <text x="800" y="70" text-anchor="middle" font-size="26" fill="var(--fact)">14,5</text>
+      </g>
+    </svg>
+    <div class="figcap">Ставки: Balsa Research (сторонники реформы) по данным Argus, 2025. Фрахт в войну: Сэм Нортон, глава OSG (оператор судов по закону Джонса), gCaptain, 10.03.2026. Эффект в обычное время: Kellogg &amp; Sweeney, NBER WP 31938.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="112.3">
+  <h2>Последний бак</h2>
+  <div class="prose">
+    <p>Для Северо-Востока есть резерв, он существует с 2000 года: Северо-восточный резерв топочного мазута в резервуарах в Мэне, Массачусетсе, Коннектикуте и нью-йоркской гавани. 22 сентября 2026 года оба сенатора от Мэна попросили президента его открыть: мазут в Мэне стоил примерно на три четверти дороже, чем годом раньше.</p>
+    <p>Сначала Конгресс рассчитал его на <em class="fact">два миллиона баррелей</em> — около десяти дней потребления мазута в регионе по тогдашним меркам. В 2011 году резерв урезали до миллиона: это примерно один день того, что везёт дизельная линия Colonial, и несколько дней в самые сильные морозы.</p>
+    <p>Открыть его можно только по правилу: президент должен признать серьёзный перебой в поставках, а для скачка цены наценка на мазут должна семь дней подряд держаться больше чем на 60% выше пятилетней средней и продолжать расти, причём <em class="flaw">только с середины октября по март</em>. В сентябре открыть его из-за цен было нельзя вообще. За первую четверть века резерв задействовали один раз, после урагана «Сэнди» в 2012 году, и ни разу — из-за цен.</p>
+  </div>
+  <div class="slider webonly"><span>резерв</span><input id="resRange" type="range" min="1" max="6" step="1" value="1"><span id="resVal">1 млн барр.</span></div>
+  <div class="fig">
+    <h3>Ценовое правило, которое работает только зимой</h3>
+    <svg id="reserve" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Календарь: ценовое правило считается только с середины октября по март. Резерв был на два миллиона баррелей и в 2011 году урезан до одного.">
+      <g id="rvMonths"></g>
+      <rect id="rvWin1" x="60" y="80" width="0" height="80" fill="var(--alt)" opacity=".18"/>
+      <rect id="rvWin2" x="0" y="80" width="0" height="80" fill="var(--alt)" opacity=".18"/>
+      <rect id="rvSep" x="0" y="72" width="0" height="96" fill="none" stroke="var(--flaw)" stroke-width="4"/>
+      <text id="rvSepT" x="0" y="205" text-anchor="middle" font-size="26" fill="var(--flaw)" opacity="0">сентябрь: закрыт</text>
+      <rect x="330" y="240" width="140" height="130" fill="none" stroke="var(--text)" stroke-width="3" stroke-dasharray="8 6"/>
+      <rect id="rvFill" x="330" y="370" width="140" height="0" fill="var(--topic)" opacity=".8"/>
+      <text x="400" y="232" text-anchor="middle" font-size="24" fill="var(--text-dim)">2000: 2 млн</text>
+      <text id="rvCut" x="560" y="330" font-size="26" fill="var(--flaw)" opacity="0">2011: урезан до 1 млн</text>
+    </svg>
+    <div class="figcap">42 U.S.C. 6250b; критерии выпуска DOE. История объёма: CRS R43511, CRS IF12205. Заём после «Сэнди»: ~120 тыс. барр., ноябрь 2012.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="210.5">
+  <h2>Три конструкции, три цены</h2>
+  <div class="prose">
+    <p><em class="alt">Кран.</em> Запрет, возможно с автоматическим порогом, как в законопроекте про $5. Россия запретила вывоз дизеля в июле 2026 года, чтобы сохранить его для себя. Аналитики ждут, что на Заливе и Среднем Западе цены упадут на десятки центов за галлон — настоящие деньги для фермеров и водителей грузовиков. Цена: заводы, которые не могут продать дизель, снижают загрузку, а значит, выпускают меньше бензина и авиатоплива; Мексика, которая получает по суше больше 100 тыс. баррелей американского дизеля в день, теряет поставщика, когда её запасов меньше чем на неделю; а исследование ФРБ Далласа о похожем запрете на вывоз нефти назвало его «не просто бесполезным, а вредным». Белый дом тогда заявил, что запрет не рассматривается.</p>
+    <p><em class="alt">Связи.</em> Переписать правило о судоходстве, что позволило бы и будущему запрету дотянуться до побережий. ЕС в девяностые разрешил судам любой страны союза возить грузы между его портами; Канада пускает иностранное судно, только если нет подходящего канадского. Сторонники реформы говорят, что настоящая цена закона — прибрежные перевозки, которых так и не случилось. Цена: суда и моряки, которых военные могут призвать на войну, — в 2018 году Морская администрация США оценивала нехватку примерно в 1800 моряков на случай долгой мобилизации, а по исследованию самой судоходной отрасли почти четверть судов, работавших по исключению 2026 года, построены в Китае.</p>
+    <p><em class="alt">Резерв.</em> Сделать его достаточно большим, чтобы он что-то значил, — запас на недели, а не на дни, и правило, которое может сработать не только зимой. Законы ЕС уже требуют от стран держать запасы нефти не меньше чем на 90 дней чистого импорта. Цена: около $6,5 млн в год только на содержание нынешнего миллиона баррелей и больше $100 млн на дизель за каждый следующий миллион; лёгкое правило подталкивает открывать резерв к выборам, а частные поставщики начинают держать запасы поменьше. И резерв не меняет мировую цену. Он покупает время, а не дешёвое топливо.</p>
+  </div>
+  <div class="fig webonly">
+    <h3>Выберите конструкцию и прочтите её счёт</h3>
+    <div class="bills" id="bills"></div>
+    <div class="figcap">Каждая конструкция перекладывает цену на кого-то своего.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="40.1">
+  <h2>Вопрос, который стоит унести с собой</h2>
+  <div class="prose">
+    <p>В сентябре 2026 года спор подавали как выбор между «да» и «нет». Но запрет и связи не соперники: одно решает, сработает ли другое. А связи задали задолго до кризиса Конгресс и федеральный регулятор.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Когда вам обещают снизить цену, закрыв кран, спросите, какой бак наполнится, когда его закроют, и кто решил, насколько широкой будет связь с вашим.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ tanks:[{id:'W',x:150,w:130,h:150,lab:'ЗАПАД'},{id:'G',x:500,w:190,h:220,lab:'ЗАЛИВ'},{id:'N',x:850,w:130,h:150,lab:'НЬЮ-ЙОРК'}],
+ stamps:['ПОСТР.','ВЛАД.','ФЛАГ','ЭКИПАЖ'],
+ months:['Я','Ф','М','А','М','И','И','А','С','О','Н','Д'],
+ bills:[
+  {w:'Кран',k:'Запрет экспорта, возможно с ценовым порогом',p:'Цена: заводы снижают загрузку, меньше бензина и авиатоплива, Мексика теряет поставщика, а без открытых связей побережья почти ничего не выигрывают.'},
+  {w:'Связи',k:'Переписать, кто может возить грузы между портами США',p:'Цена: суда, верфи и моряки, на которых военные рассчитывают в войну.'},
+  {w:'Резерв',k:'Запас на недели и правило, которое срабатывает',p:'Цена: миллионы в год на хранение, больше $100 млн за каждый следующий миллион баррелей и выпуски к выборам.'}]};
+
+/* tanks: three tanks; closing the tap fills the Gulf tank and drops its needle, New York's needle rises */
+const TK={base:360};
+(function(){
+  const g=$('tkTanks'); if(!g) return; let s='';
+  L.tanks.forEach(t=>{const x=t.x-t.w/2, y=TK.base-t.h, ry=t.w*.16;
+    s+=`<g id="tk${t.id}"><rect x="${x}" y="${y}" width="${t.w}" height="${t.h}" fill="var(--bg-raised)"/>
+    <rect id="tk${t.id}L" x="${x}" y="${TK.base}" width="${t.w}" height="0" fill="var(--topic)" opacity=".75"/>
+    <path d="M${x} ${y} V${TK.base} M${x+t.w} ${y} V${TK.base}" stroke="var(--text)" stroke-width="4"/>
+    <ellipse cx="${t.x}" cy="${y}" rx="${t.w/2}" ry="${ry}" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+    <ellipse cx="${t.x}" cy="${TK.base}" rx="${t.w/2}" ry="${ry}" fill="none" stroke="var(--text)" stroke-width="4"/>
+    <line id="tk${t.id}N" x1="${t.x}" y1="${y-4}" x2="${t.x}" y2="${y-60}" stroke="var(--text)" stroke-width="6" stroke-linecap="round" transform="rotate(-50 ${t.x} ${y-4})"/>
+    <path d="M${t.x-56} ${y-4} A56 56 0 0 1 ${t.x+56} ${y-4}" fill="none" stroke="var(--text)" stroke-width="3"/>
+    <text x="${t.x}" y="${TK.base+50}" text-anchor="middle" font-size="31" fill="var(--text)">${t.lab}</text></g>`});
+  g.innerHTML=s;
+})();
+const tkState=(lv,nd)=>{const tl=gsap.timeline();
+  L.tanks.forEach(t=>{const y=TK.base-t.h;
+    tl.to(`#tk${t.id}L`,{attr:{y:TK.base-t.h*lv[t.id],height:t.h*lv[t.id]},duration:1.2},0)
+      .to(`#tk${t.id}N`,{rotation:nd[t.id],svgOrigin:`${t.x} ${y-4}`,duration:1.2},0)
+      .to(`#tk${t.id}N`,{stroke:nd[t.id]>20?'var(--flaw)':'var(--text)',duration:.3},0)});
+  return tl;};
+window.__fig.tanks=()=>{
+  gsap.set(['#tkWL','#tkGL','#tkNL'],{attr:{y:TK.base,height:0}}); gsap.set('#tkBan',{opacity:0}); gsap.set('#tkStream',{attr:{y2:360}});
+  return gsap.timeline()
+    .add(tkState({W:.45,G:.8,N:.45},{W:30,G:25,N:25}))
+    .to('#tkStream',{attr:{y2:306},duration:.6},'+=0.6')
+    .to('#tkBan',{opacity:1,duration:.3},'<')
+    .add(tkState({W:.45,G:.97,N:.45},{W:30,G:-20,N:45}),'+=0.1');
+};
+
+/* stamps: four stamps land on the ship; the qualifying fleet thins from 434 to 99 */
+(function(){
+  const s=$('stStamps'), f=$('stFleet'); if(!s) return;
+  s.innerHTML=L.stamps.map((t,i)=>`<g class="stS" transform="translate(${540+i*110},90) rotate(-8)"><rect x="-50" y="-26" width="100" height="52" rx="6" fill="none" stroke="var(--fact)" stroke-width="4"/><text x="0" y="10" text-anchor="middle" font-size="24" fill="var(--fact)">${t}</text></g>`).join('');
+  let h=''; for(let i=0;i<44;i++){const c=i%22,r=Math.floor(i/22); h+=`<rect class="stF${i<10?' keep':''}" x="${120+c*38}" y="${270+r*32}" width="26" height="14" rx="3" fill="var(--text-dim)"/>`}
+  f.innerHTML=h;
+})();
+window.__fig.stamps=()=>{
+  gsap.set('.stS',{opacity:0,scale:1.6,transformOrigin:'50% 50%'}); gsap.set('.stF',{opacity:1}); gsap.set('#stY1',{opacity:0});
+  return gsap.timeline()
+    .to('.stS',{opacity:1,scale:1,duration:.35,stagger:.5,ease:'back.out(2)'})
+    .to('.stF:not(.keep)',{opacity:.12,duration:.25,stagger:.04},'+=0.4')
+    .to('#stY1',{opacity:1,duration:.4});
+};
+
+/* freight: day-rate bars, then wartime cents per gallon */
+window.__fig.freight=()=>{
+  gsap.set(['#frA1','#frF1','#frA2','#frF2'],{attr:{y:320,height:0}}); gsap.set('#frT',{opacity:0});
+  return gsap.timeline()
+    .to('#frA1',{attr:{y:80,height:240},duration:1.1})
+    .to('#frF1',{attr:{y:296,height:24},duration:.6},'-=0.3')
+    .to('#frA2',{attr:{y:120,height:200},duration:.9},'+=0.4')
+    .to('#frF2',{attr:{y:105,height:215},duration:.9},'-=0.5')
+    .to('#frT',{opacity:1,duration:.4});
+};
+
+/* reserve: months; the price window lights from mid-October to March; September is marked closed; the tank halves */
+const RV={x0:60,w:73};
+(function(){
+  const g=$('rvMonths'); if(!g) return;
+  g.innerHTML=L.months.map((m,i)=>`<rect x="${RV.x0+i*RV.w}" y="80" width="${RV.w-4}" height="80" fill="none" stroke="var(--grid)" stroke-width="2"/><text x="${RV.x0+i*RV.w+RV.w/2-2}" y="130" text-anchor="middle" font-size="26" fill="var(--text-dim)">${m}</text>`).join('');
+  $('rvWin2').setAttribute('x',RV.x0+9.5*RV.w); $('rvSep').setAttribute('x',RV.x0+8*RV.w-4); $('rvSepT').setAttribute('x',RV.x0+8.5*RV.w);
+})();
+window.__fig.reserve=()=>{
+  gsap.set(['#rvWin1','#rvWin2','#rvSep'],{attr:{width:0}}); gsap.set(['#rvSepT','#rvCut'],{opacity:0}); gsap.set('#rvFill',{attr:{y:370,height:0}});
+  return gsap.timeline()
+    .to('#rvFill',{attr:{y:240,height:130},duration:1})
+    .to('#rvFill',{attr:{y:305,height:65},duration:.8},'+=0.4')
+    .to('#rvCut',{opacity:1,duration:.3},'<')
+    .to('#rvWin1',{attr:{width:3*RV.w-4},duration:.8},'+=0.4')
+    .to('#rvWin2',{attr:{width:2.5*RV.w-4},duration:.6},'<')
+    .to('#rvSep',{attr:{width:RV.w+4},duration:.4},'+=0.3')
+    .to('#rvSepT',{opacity:1,duration:.3});
+};
+
+function buildBills(){
+  const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w}</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+buildBills();
+
+(function(){
+  const t=$('tankToggle'); if(!t) return; const [a,b]=t.querySelectorAll('button');
+  a.onclick=()=>{a.classList.add('on');b.classList.remove('on');gsap.to('#tkStream',{attr:{y2:360},duration:.4});gsap.to('#tkBan',{opacity:0});tkState({W:.45,G:.8,N:.45},{W:30,G:25,N:25})};
+  b.onclick=()=>{b.classList.add('on');a.classList.remove('on');gsap.to('#tkStream',{attr:{y2:306},duration:.4});gsap.to('#tkBan',{opacity:1});tkState({W:.45,G:.97,N:.45},{W:30,G:-20,N:45})};
+})();
+(function(){
+  const t=$('laneToggle'); if(!t) return; const [a,b]=t.querySelectorAll('button');
+  a.onclick=()=>{a.classList.add('on');b.classList.remove('on');document.querySelector('#s0').scrollIntoView({behavior:'smooth'});tkState({W:.45,G:.97,N:.45},{W:30,G:-20,N:45})};
+  b.onclick=()=>{b.classList.add('on');a.classList.remove('on');document.querySelector('#s0').scrollIntoView({behavior:'smooth'});tkState({W:.45,G:.85,N:.62},{W:30,G:0,N:10})};
+})();
+(function(){
+  const r=$('resRange'); if(!r) return;
+  r.oninput=()=>{const v=+r.value; $('resVal').textContent=`${v} млн барр. · ~${Math.round(v*0.9)} дн. дизельной линии Colonial`;
+    gsap.to('#rvFill',{attr:{y:370-Math.min(130,65*v),height:Math.min(130,65*v)},duration:.4})};
+})();
+
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  ['tanks','stamps','freight','reserve'].forEach(id=>{const el=$(id); if(!el) return;
+    ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  const FIG={s0:'tanks',s2:'stamps',s3:'freight',s4:'reserve'};
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    const f=FIG[s.id]; if(f) master.add(window.__fig[f](),t+1.2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
