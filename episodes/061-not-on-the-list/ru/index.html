@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Поколение Z в Марокко вышло на улицы, а в списках избирателей его 4%</title>
+<meta name="description" content="Через год после протестов GenZ 212 люди от 18 до 24 лет составили лишь 4% списка избирателей Марокко на выборах сентября 2026 года, а люди старше 60 — 29%. Причина в двух правилах: в список входят только по заявке, в одно декабрьское окно, а выпадают при переезде. Три конструкции из Франции, Австралии и США, у каждой своя цена.">
+<link rel="canonical" href="https://traceupstream.com/episodes/061-not-on-the-list/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#8A9B84;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:inline-flex;border:1px solid var(--text);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:8px 14px;background:transparent;border:0;cursor:pointer;color:var(--text)}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.slider{display:flex;gap:14px;align-items:center;font-family:var(--font-mono);font-size:13px;margin:4px 0 10px}
+.slider input{flex:1;accent-color:var(--alt)}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .toggle,body.auto .slider,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.061</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="59.1">
+  <div class="kicker">Дефект конструкции · Выпуск 061</div>
+  <h1>Поколение Z в Марокко вышло на улицы, а в списках избирателей его 4%</h1>
+  <div class="prose lede">
+    <p>Марокко — молодая страна: <em class="fact">почти каждый шестой взрослый</em> там в возрасте от 18 до 24 лет. Осенью 2025 года десятки тысяч из них вышли на улицы под именем GenZ 212, требуя больниц, школ, работы и конца коррупции.</p>
+    <p>23 сентября 2026 года Марокко выбирало новый парламент. В списке тех, кому разрешено голосовать, людей от 18 до 24 лет было <em class="flaw">4%</em>. Людей старше шестидесяти — <em class="flaw">29%</em>. Список избирателей записывает не только тех, кому не всё равно. Он записывает тех, кто прошёл через дверь.</p>
+  </div>
+  <div class="toggle webonly" id="pyrToggle"><button>список 2021</button><button class="on">список 2026</button></div>
+  <div class="fig">
+    <h3>Страна и её список избирателей</h3>
+    <svg id="pyramids" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Две возрастные пирамиды: взрослое население Марокко, широкое внизу, и список избирателей 2026 года, где младшая полоса почти пуста, а полоса старше 60 — самая широкая.">
+      <text x="250" y="40" text-anchor="middle" font-size="34" fill="var(--text)">население</text>
+      <text x="750" y="40" text-anchor="middle" font-size="34" fill="var(--flaw)">список</text>
+      <g id="pyPop"></g><g id="pyList"></g><g id="pyLab"></g>
+    </svg>
+    <div class="figcap">Взрослые по возрастным группам, млн. Население: проекция HCP на 1 июля 2026. Список: доли МВД от 15,8 млн (2026) и 18,0 млн (2021).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="77.1">
+  <h2>Очевидная история</h2>
+  <div class="prose">
+    <p>Явка — 38%, самая низкая с 2007 года (в 2021 году в один день прошли и общенациональные, и местные выборы). Крупное исламистское движение призвало к бойкоту, а политолог Абдеррахим Эль Аллам сказал, что молодые, протестовавшие на улицах, теперь протестуют тем, что не приходят.</p>
+    <p>Но посмотрите на сам список. В 2021 году люди 18–24 лет составляли <em class="fact">8%</em> его, как и все десять лет до того; в 2026-м — вдвое меньше. И весь список сжался, примерно с 18 до менее чем 16 млн имён, хотя население росло. Как марокканец попадает в список и как из него выпадает?</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="107.4">
+  <h2>Вход</h2>
+  <div class="prose">
+    <p>Восемнадцатилетие не вносит в список. Нужно подать заявку по месту, где прожил не меньше трёх месяцев, с удостоверением личности, онлайн или в местной администрации, и только во время ежегодного пересмотра: для выборов сентября 2026 года это был <em class="flaw">декабрь 2025-го</em>, плюс исключительное окно на 30 дней в мае–июне. Список закрыли за три месяца до голосования.</p>
+    <p>Эль Аллам считает, что зарегистрироваться теперь просто, а люди отказываются. В 2021 году статистическое управление насчитало в списке около трети людей 18–24 лет против 94% людей старше 60; в 2026-м, по нашему расчёту из официальных данных, около седьмой части самых молодых. Декабрьское правило было тем же и в 2021 году, поэтому само по себе спад не объясняет. Оно объясняет, сколько спад длится: один пропущенный месяц может стоить целого созыва парламента.</p>
+  </div>
+  <div class="slider webonly"><span>окно закрывается</span><input id="winRange" type="range" min="1" max="12" step="1" value="9"><span id="winVal">за 9 мес. до выборов</span></div>
+  <div class="fig">
+    <h3>Один месяц в году</h3>
+    <svg id="calendar" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Календарь с января 2025 по сентябрь 2026: запись открыта только в декабре 2025 и в окно на 30 дней в мае–июне 2026; список закрывается в июле; выборы 23 сентября.">
+      <g id="calMonths"></g>
+      <rect id="calDec" x="0" y="120" width="0" height="90" fill="var(--alt)" opacity=".3"/>
+      <rect id="calEx" x="0" y="120" width="0" height="90" fill="var(--alt)" opacity=".3"/>
+      <g id="calVote" opacity="0"><line x1="0" y1="100" x2="0" y2="230" stroke="var(--flaw)" stroke-width="6"/><text x="0" y="270" text-anchor="middle" font-size="30" fill="var(--flaw)">выборы</text></g>
+      <text id="calDecT" x="0" y="80" text-anchor="middle" font-size="30" fill="var(--alt)" opacity="0">дек.</text>
+      <text id="calExT" x="0" y="80" text-anchor="middle" font-size="30" fill="var(--alt)" opacity="0">май–июнь</text>
+      <circle id="calDot" cx="40" cy="320" r="16" fill="var(--fact)"/>
+    </svg>
+    <div class="figcap">Ежегодный пересмотр 1–31 декабря 2025 (коммюнике МВД от 1.12.2025); исключительный пересмотр 15 мая – 13 июня 2026; списки закрыты 10 июля 2026.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="79.4">
+  <h2>Выход</h2>
+  <div class="prose">
+    <p>В январе 2026 года министр внутренних дел сообщил парламенту, что удалено около <em class="flaw">1,4 млн</em> записей, главным образом потому, что люди больше не живут там, где записаны; за то же время впервые записались около 380 тыс. человек. Удалять переехавших — разумное правило: списком, полным людей, живущих в другом месте, можно злоупотребить. Возраст удалённых министерство не публиковало, но группа, которая переезжает чаще всех, 25–34 года, сократилась с 19% списка до 15%.</p>
+    <p>Сложите две двери, и список с каждыми выборами становится старше. В абсолютных числах выросла только группа старше 60. Так почему бы просто не внести в список всех?</p>
+  </div>
+  <div class="fig">
+    <h3>Кто в списке, 2021 и 2026</h3>
+    <svg id="bands" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Миллионы зарегистрированных избирателей по возрастным группам в 2021 и 2026 годах: группы 18–24 и 25–34 резко сокращаются, группа старше 60 растёт.">
+      <line x1="80" y1="330" x2="960" y2="330" stroke="var(--text-dim)" stroke-width="3"/>
+      <g id="bdBars"></g>
+    </svg>
+    <div class="figcap">Зарегистрированные избиратели по возрасту, млн (доли от 17,98 млн в 2021 и 15,80 млн в 2026; МВД, округлено). Удаления: министр Лафтит, январь 2026.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="192.7">
+  <h2>Три конструкции, три цены</h2>
+  <div class="prose">
+    <p>Сначала марокканская цена: с 2021 года места партии в округе считают от числа <em class="flaw">зарегистрированных</em>, а не проголосовавших. Измените состав списка, и изменится распределение мест, поэтому у каждой партии свой интерес.</p>
+    <p><em class="alt">Строить список из существующих записей.</em> Франция с 1997 года вносит 18-летних автоматически; к 2022 году в списке было 99 из 100 французов моложе 30. Орегон записывает людей в службе водительских прав. Цена — точность: почти четверо из десяти французов 18–25 лет записаны не там, где живут; служба прав Калифорнии в 2018 году отправила 23 тыс. ошибочных регистраций и записала около 1 500 неграждан; Германия держит списки точными, штрафуя до €1 000 тех, кто не сообщил о переезде за две недели.</p>
+    <p><em class="alt">Сделать это обязанностью.</em> Австралия требует записываться и голосовать и вносит людей напрямую по данным других ведомств; к июню 2026 года в списке были примерно девять из десяти людей 18–24 лет. Цена: принуждение, штрафы, сведённые вместе государственные данные — и люди в списке, которые предпочли бы в нём не быть.</p>
+    <p><em class="alt">Понизить ступеньку.</em> Оставить запись добровольной, но открытой до самого голосования или в день выборов: в штатах США с регистрацией в день выборов явка 18–24-летних выросла на 3–7 пунктов. Цена: нагрузка на участки и споры о подтверждении личности у стойки.</p>
+    <p>Реформа Марокко 2025 года возмещает до трёх четвертей расходов на кампанию спискам кандидатов не старше 35 лет. Баллотироваться молодым стало дешевле, а то, что нужно, чтобы голосовать, не изменилось.</p>
+  </div>
+  <div class="fig">
+    <h3>Доля самых молодых взрослых в списке</h3>
+    <svg id="designs" viewBox="0 0 1000 360" width="100%" height="360" role="img" aria-label="Доля молодых взрослых в списке: Франция около 99% людей моложе 30, Австралия около 90% людей 18–24, Марокко около 15% людей 18–24.">
+      <g id="dsBars"></g>
+    </svg>
+    <div class="figcap">Франция: моложе 30, 2022 (Сенат Франции). Австралия: 18–24, июнь 2026 (AEC). Марокко: 18–24, 2026, наш расчёт по данным МВД и HCP.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Выберите конструкцию и прочтите её счёт</h3>
+    <div class="bills" id="bills"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="53.6">
+  <h2>Вопрос, который стоит унести с собой</h2>
+  <div class="prose">
+    <p>Всё это не доказывает, что молодые марокканцы хотели голосовать и им помешали; многие не хотели. Но правила решают, как долго длится отказ и насколько он заметен. Автоматический список считает оставшегося дома молодого человека избирателем, который не проголосовал; обязательный приводит его штрафом; низкая ступенька оставляет выбор ближе ко дню выборов. А здесь до следующего декабря его просто нет в списке.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Когда список избирателей молодой страны с каждыми выборами становится старше, спросите, кто решил, что нужно, чтобы попасть в список, и что — чтобы из него выпасть.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ bands:['18–24','25–34','35–44','45–54','55–59','60+'],
+ pop:[4.08,5.20,5.16,4.47,1.79,5.33],
+ l26:[0.63,2.37,3.32,3.32,1.58,4.58],
+ l21:[1.44,3.42,3.78,3.60,1.62,4.14],
+ months:['Я','Ф','М','А','М','И','И','А','С','О','Н','Д','Я','Ф','М','А','М','И','И','А','С'],
+ yrs:['2025','2026'],
+ designs:[{n:'Франция (до 30)',v:99},{n:'Австралия (18–24)',v:90},{n:'Марокко (18–24)',v:15}],
+ unit:'M',
+ bills:[
+  {w:'Существующие записи',k:'Строить список из реестров, которые ведёт государство',p:'Цена: запись не по месту жительства, ошибки ведомств и обязанность сообщать о каждом переезде.'},
+  {w:'Обязанность',k:'Обязательная запись и голосование',p:'Цена: штрафы, сведённые государственные данные и люди в списке, которые не хотели бы в нём быть.'},
+  {w:'Низкая ступенька',k:'Добровольно, но открыто до голосования или в день выборов',p:'Цена: нагрузка на участки и споры о подтверждении личности у стойки.'}]};
+
+/* pyramids: population on the left, voter list on the right; 1M = 38px */
+const PY={y0:390,h:52,px:38};
+(function(){
+  const p=$('pyPop'),l=$('pyList'),lab=$('pyLab'); if(!p) return; let a='',b='',c='';
+  L.bands.forEach((n,i)=>{const y=PY.y0-(i+1)*PY.h;
+    a+=`<rect class="pyP" x="${250-L.pop[i]*PY.px/2}" y="${y}" width="${L.pop[i]*PY.px}" height="${PY.h-6}" fill="var(--topic)"/>`;
+    b+=`<rect class="pyL" id="pyL${i}" x="750" y="${y}" width="0" height="${PY.h-6}" fill="var(--flaw)"/>`;
+    c+=`<text x="500" y="${y+PY.h/2+6}" text-anchor="middle" font-size="31" fill="var(--text-dim)">${n}</text>`});
+  p.innerHTML=a; l.innerHTML=b; lab.innerHTML=c;
+})();
+const pySet=(arr,dur)=>{const tl=gsap.timeline();
+  arr.forEach((v,i)=>tl.to(`#pyL${i}`,{attr:{x:750-v*PY.px/2,width:v*PY.px},duration:dur},0)); return tl;};
+window.__fig.pyramids=()=>{
+  gsap.set('.pyP',{scaleX:0,transformOrigin:'50% 50%'}); L.bands.forEach((_,i)=>gsap.set(`#pyL${i}`,{attr:{x:750,width:0}}));
+  return gsap.timeline().to('.pyP',{scaleX:1,duration:.5,stagger:.12}).add(pySet(L.l26,.8),'+=0.4');
+};
+
+/* calendar: Jan 2025 .. Sep 2026 */
+const CL={x0:40,w:44};
+(function(){
+  const g=$('calMonths'); if(!g) return; let s='';
+  L.months.forEach((m,i)=>{s+=`<rect x="${CL.x0+i*CL.w}" y="120" width="${CL.w-4}" height="90" fill="none" stroke="var(--grid)" stroke-width="2"/><text x="${CL.x0+i*CL.w+CL.w/2-2}" y="176" text-anchor="middle" font-size="24" fill="var(--text-dim)">${m}</text>`});
+  s+=`<text x="${CL.x0}" y="250" font-size="26" fill="var(--text-dim)">${L.yrs[0]}</text><text x="${CL.x0+12*CL.w}" y="250" font-size="26" fill="var(--text-dim)">${L.yrs[1]}</text>`;
+  g.innerHTML=s;
+  $('calDec').setAttribute('x',CL.x0+11*CL.w); $('calDecT').setAttribute('x',CL.x0+11.5*CL.w);
+  $('calEx').setAttribute('x',CL.x0+16.5*CL.w); $('calExT').setAttribute('x',CL.x0+17*CL.w);
+  $('calVote').setAttribute('transform',`translate(${CL.x0+20.75*CL.w},0)`);
+})();
+window.__fig.calendar=()=>{
+  gsap.set(['#calDec','#calEx'],{attr:{width:0}}); gsap.set(['#calDecT','#calExT','#calVote'],{opacity:0}); gsap.set('#calDot',{attr:{cx:40}});
+  return gsap.timeline()
+    .to('#calDec',{attr:{width:CL.w-4},duration:.5}).to('#calDecT',{opacity:1,duration:.3})
+    .to('#calEx',{attr:{width:CL.w-4},duration:.5},'+=0.3').to('#calExT',{opacity:1,duration:.3})
+    .to('#calVote',{opacity:1,duration:.3},'+=0.3')
+    .to('#calDot',{attr:{cx:CL.x0+20*CL.w},duration:2.4,ease:'none'},'+=0.2');
+};
+
+/* bands: 2021 vs 2026 registered voters, millions; 1M = 60px */
+(function(){
+  const g=$('bdBars'); if(!g) return; let s='';
+  L.bands.forEach((n,i)=>{const x=110+i*140;
+    s+=`<rect class="bd21" id="bd21_${i}" x="${x}" y="330" width="50" height="0" fill="var(--text-dim)" opacity=".5"/>`;
+    s+=`<rect class="bd26" id="bd26_${i}" x="${x+56}" y="330" width="50" height="0" fill="var(--flaw)"/>`;
+    s+=`<text x="${x+53}" y="372" text-anchor="middle" font-size="28" fill="var(--text)">${n}</text>`});
+  s+=`<text x="110" y="40" font-size="28" fill="var(--text-dim)">■ 2021</text><text x="260" y="40" font-size="28" fill="var(--flaw)">■ 2026</text>`;
+  g.innerHTML=s;
+})();
+window.__fig.bands=()=>{
+  const tl=gsap.timeline();
+  L.bands.forEach((_,i)=>{gsap.set([`#bd21_${i}`,`#bd26_${i}`],{attr:{y:330,height:0}});
+    tl.to(`#bd21_${i}`,{attr:{y:330-L.l21[i]*60,height:L.l21[i]*60},duration:.5},i*.12)});
+  L.bands.forEach((_,i)=>tl.to(`#bd26_${i}`,{attr:{y:330-L.l26[i]*60,height:L.l26[i]*60},duration:.6},1.4+i*.12));
+  return tl;
+};
+
+/* designs: horizontal bars */
+(function(){
+  const g=$('dsBars'); if(!g) return; let s='';
+  L.designs.forEach((d,i)=>{const y=60+i*100;
+    s+=`<text x="40" y="${y+40}" font-size="30" fill="var(--text)">${d.n}</text>`;
+    s+=`<rect x="420" y="${y+8}" width="500" height="44" fill="none" stroke="var(--grid)" stroke-width="2"/>`;
+    s+=`<rect class="dsB" id="ds${i}" x="420" y="${y+8}" width="0" height="44" fill="${i===2?'var(--flaw)':'var(--alt)'}"/>`;
+    s+=`<text class="dsT" id="dsT${i}" x="${420+d.v*5+12}" y="${y+42}" font-size="30" fill="var(--text)" opacity="0">${d.v}%</text>`});
+  g.innerHTML=s;
+})();
+window.__fig.designs=()=>{
+  const tl=gsap.timeline();
+  L.designs.forEach((d,i)=>{gsap.set(`#ds${i}`,{attr:{width:0}}); gsap.set(`#dsT${i}`,{opacity:0});
+    tl.to(`#ds${i}`,{attr:{width:d.v*5},duration:.8},i*.5).to(`#dsT${i}`,{opacity:1,duration:.3},i*.5+.7)});
+  return tl;
+};
+
+function buildBills(){
+  const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w}</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+buildBills();
+(function(){
+  const t=$('pyrToggle'); if(!t) return; const [a,b]=t.querySelectorAll('button');
+  a.onclick=()=>{a.classList.add('on');b.classList.remove('on');pySet(L.l21,.6)};
+  b.onclick=()=>{b.classList.add('on');a.classList.remove('on');pySet(L.l26,.6)};
+})();
+(function(){
+  const r=$('winRange'); if(!r) return;
+  r.oninput=()=>{const v=+r.value; $('winVal').textContent=RU_WIN(v);
+    $('calDec').setAttribute('x',CL.x0+(20-v)*CL.w); $('calDecT').setAttribute('x',CL.x0+(20.5-v)*CL.w)};
+})();
+function RU_WIN(v){return `за ${v} мес. до выборов`;}
+
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  ['pyramids','calendar','bands','designs'].forEach(id=>{const el=$(id); if(!el) return;
+    ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  const FIG={s0:'pyramids',s2:'calendar',s3:'bands',s4:'designs'};
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    const f=FIG[s.id]; if(f) master.add(window.__fig[f](),t+1.2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
