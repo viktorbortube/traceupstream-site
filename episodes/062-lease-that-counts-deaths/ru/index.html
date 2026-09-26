@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Выселена в 87 по закону, который считал смерти в её семье</title>
+<meta name="description" content="23 сентября 2026 года 87-летнюю Марикармен Абаскаль выселили из мадридской квартиры, которую её семья снимала с 1956 года. Она ни разу не пропустила платёж. Испанская реформа 1994 года прекращала пожизненные договоры «старой аренды» по счёту смертей в семье: вторая передача договора действует два года, если у наследника нет инвалидности от 65% или передача не попала в десятилетнее окно, закрывшееся 1 января 2005 года. Её мать умерла позже в том же году. Три другие конструкции — Португалия, Франция, выкуп регионом — и кто в каждой платит.">
+<link rel="canonical" href="https://traceupstream.com/episodes/062-lease-that-counts-deaths/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#8A9B84;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px;font-family:var(--font-mono);font-size:14px;margin:6px 0 14px}
+.calc label{display:flex;flex-direction:column;gap:6px}
+.calc input[type=range]{accent-color:var(--fact)}
+.calc .chk{flex-direction:row;align-items:center;gap:10px}
+.verdict{font-family:var(--font-display);font-size:24px;padding:14px 16px;border-radius:8px;border:1.5px solid var(--text)}
+.verdict.life{border-color:var(--alt);color:var(--alt)}
+.verdict.two{border-color:var(--flaw);color:var(--flaw)}
+.verdict small{display:block;font-family:var(--font-body);font-size:14px;color:var(--text-dim);margin-top:6px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .calc,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.062</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="57.4">
+  <div class="kicker">Дефект конструкции · Выпуск 062</div>
+  <h1>Выселена в 87 по закону, который считал смерти в её семье</h1>
+  <div class="prose lede">
+    <p>23 сентября 2026 года в мадридском районе Ретиро судебные исполнители и полиция выселили <em class="fact">Марикармен Абаскаль</em>, 87 лет, из квартиры, которую её семья снимала с 1956 года. Её вынесли на носилках. Она платила за квартиру каждый месяц.</p>
+    <p>Если бы её мать умерла на год раньше, закон разрешил бы ей остаться пожизненно. Что это за правило, которое решает это по дате смерти матери?</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Семьдесят лет в одной квартире. Два года по бумагам.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="29.9">
+  <h2>Первый подозреваемый: она не платила</h2>
+  <div class="prose">
+    <p>Она платила около <em class="fact">500 € в месяц</em>, каждый месяц. Иск собственника никогда не был о долге: он заявил, что срок договора просто истёк.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="49">
+  <h2>Второй подозреваемый: фонд-стервятник</h2>
+  <div class="prose">
+    <p>Собственник — Urbagestión, небольшая мадридская компания, около семи сотрудников; её владельцы сказали испанской газете, что этот дом — их единственная собственность. Компания отказала незнакомцу, предлагавшему платить за Марикармен аренду, и государственной компании CASA 47, предлагавшей выкупить квартиру. Это было её право. Но без суда собственник никого выселить не может.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="67">
+  <h2>Третий подозреваемый: бессердечный суд</h2>
+  <div class="prose">
+    <p><em class="alt">27 января 2022</em> — суд первой инстанции встал на её сторону: прежние владельцы годами принимали от неё плату и обращались с ней как с арендатором.</p>
+    <p><em class="flaw">30 июня 2022</em> — апелляционный суд Мадрида разделил дело на два вопроса. Законно ли она приняла договор матери? Да. Сколько он мог после этого длиться? Два года.</p>
+    <p><em class="flaw">13 декабря 2023</em> — Верховный суд не принял её жалобу: спор шёл о том, сколько договор мог действовать, а не о том, унаследовала ли она его.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="121.7">
+  <h2>Пункт, который считает смерти</h2>
+  <div class="prose">
+    <p>Отец подписал договор в 1956 году по старым правилам: пожизненное продление, почти замороженная плата, а после смерти арендатора договор могла принять семья. В Испании это называется <em class="fact">renta antigua</em>, «старая аренда». В 1960 году договор приняла мать: первая передача.</p>
+    <p>Реформа 1994 года (в силе с 1 января 1995-го) дала таким договорам последний день — по счёту смертей. Кто принял договор до реформы, сохранял его пожизненно. После его смерти договор мог ещё один раз принять кто-то из детей, и через <em class="flaw">два года</em> договор прекращался. Мать умерла в 2005 году; по букве закона договор Марикармен закончился в 2007-м.</p>
+  </div>
+  <div class="fig">
+    <h3>Три имени, две передачи</h3>
+    <svg id="chain" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Договор переходит от отца (1956) к матери (1960), которая держит его пожизненно, и к Марикармен (2005), чья вторая передача действует лишь два года, до 2007-го.">
+      <g id="chN0" opacity="0"><circle cx="160" cy="150" r="54" fill="var(--topic)"/><text x="160" y="160" text-anchor="middle" font-size="30" fill="#fff">1956</text><text x="160" y="250" text-anchor="middle" font-size="30" fill="var(--text)">отец</text><text x="160" y="290" text-anchor="middle" font-size="24" fill="var(--text-dim)">подписал</text></g>
+      <g id="chN1" opacity="0"><circle cx="500" cy="150" r="54" fill="var(--fact)"/><text x="500" y="160" text-anchor="middle" font-size="30" fill="#fff">1960</text><text x="500" y="250" text-anchor="middle" font-size="30" fill="var(--text)">мать</text><text x="500" y="290" text-anchor="middle" font-size="24" fill="var(--text-dim)">передача 1</text></g>
+      <g id="chN2" opacity="0"><circle cx="840" cy="150" r="54" fill="var(--flaw)"/><text x="840" y="160" text-anchor="middle" font-size="30" fill="#fff">2005</text><text x="840" y="250" text-anchor="middle" font-size="30" fill="var(--text)">Марикармен</text><text x="840" y="290" text-anchor="middle" font-size="24" fill="var(--text-dim)">передача 2</text></g>
+      <line id="chA0" x1="220" y1="150" x2="440" y2="150" stroke="var(--text-dim)" stroke-width="5"/>
+      <line id="chA1" x1="560" y1="150" x2="780" y2="150" stroke="var(--text-dim)" stroke-width="5"/>
+      <text id="chL1" x="500" y="60" text-anchor="middle" font-size="30" fill="var(--alt)" opacity="0">пожизненно</text>
+      <text id="chL2" x="840" y="60" text-anchor="middle" font-size="30" fill="var(--flaw)" opacity="0">2 года → 2007</text>
+      <text id="chCount" x="500" y="370" text-anchor="middle" font-size="32" fill="var(--text)">передач насчитано: <tspan id="chC">0</tspan></text>
+    </svg>
+    <div class="figcap">Договор подписан 03.09.1956; первая передача 1960, вторая 2005 (Europa Press). Норма: закон 29/1994, переходное положение 2, пункт 5.</div>
+  </div>
+  <div class="prose">
+    <p>У закона было два исключения. Первое: при инвалидности <em class="flaw">от 65%</em> договор действовал до смерти самого наследника. Официальная инвалидность Марикармен — 50%.</p>
+  </div>
+  <div class="fig webonly-auto">
+    <h3>Порог в 65%</h3>
+    <svg id="threshold" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Шкала инвалидности от 0 до 100%: исключение начинается с 65%; признанная инвалидность Марикармен — 50%, на 15 пунктов меньше.">
+      <rect x="60" y="120" width="880" height="60" fill="none" stroke="var(--grid)" stroke-width="3"/>
+      <rect id="thFill" x="60" y="120" width="0" height="60" fill="var(--fact)"/>
+      <line x1="632" y1="90" x2="632" y2="200" stroke="var(--flaw)" stroke-width="6"/>
+      <text x="632" y="70" text-anchor="middle" font-size="30" fill="var(--flaw)">65%: пожизненно</text>
+      <text x="60" y="240" font-size="26" fill="var(--text-dim)">0%</text><text x="940" y="240" text-anchor="end" font-size="26" fill="var(--text-dim)">100%</text>
+      <text id="thVal" x="500" y="160" text-anchor="end" font-size="30" fill="#fff" opacity="0">50%</text>
+      <g id="thGap" opacity="0"><rect x="500" y="120" width="132" height="60" fill="var(--flaw)" opacity=".18"/><text x="566" y="265" text-anchor="middle" font-size="28" fill="var(--flaw)">не хватило 15 пунктов</text></g>
+    </svg>
+    <div class="figcap">Пункт 5: исключение при инвалидности от 65%. Её признанная инвалидность — 50% (El Español, Europa Press).</div>
+  </div>
+  <div class="prose">
+    <p>Второе исключение — окно во времени. Если передача случилась в течение <em class="alt">десяти лет</em> после 1 января 1995 года, а наследнику было больше 65 лет или он уже был на пенсии, договор действовал пожизненно. Марикармен на пенсии с 1998 года. Окно закрылось 1 января 2005 года. Мать умерла позже в том же году.</p>
+  </div>
+  <div class="fig webonly-auto">
+    <h3>Окно, которое закрылось раньше</h3>
+    <svg id="window" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Шкала 1995–2008: десятилетнее окно с 1 января 1995 по 1 января 2005 года, в которое наследник-пенсионер сохранил бы договор пожизненно; смерть матери — ноябрь 2005 года, примерно через одиннадцать месяцев после закрытия окна; договор кончается в 2007-м.">
+      <line x1="60" y1="200" x2="960" y2="200" stroke="var(--text-dim)" stroke-width="3"/>
+      <g id="wnTicks"></g>
+      <rect id="wnBand" x="60" y="140" width="0" height="60" fill="var(--alt)" opacity=".35"/>
+      <text id="wnBandT" x="376" y="125" text-anchor="middle" font-size="28" fill="var(--alt)" opacity="0">передача здесь — пожизненно</text>
+      <line id="wnShut" x1="752" y1="120" x2="752" y2="220" stroke="var(--alt)" stroke-width="6" opacity="0"/>
+      <g id="wnDot" transform="translate(120,0)"><circle cx="0" cy="200" r="16" fill="var(--flaw)"/><text x="0" y="290" text-anchor="middle" font-size="26" fill="var(--flaw)">смерть матери</text></g>
+      <g id="wnGap" opacity="0"><path d="M752 250 L813 250" stroke="var(--flaw)" stroke-width="4"/><text x="785" y="330" text-anchor="middle" font-size="26" fill="var(--flaw)">~11 месяцев спустя</text></g>
+    </svg>
+    <div class="figcap">Пункт 8: десять лет с вступления в силу (01.01.1995) для детей старше 65 лет или пенсионеров по старости. На пенсии с 1998 года, мать умерла 19.11.2005 (OKDiario); год подтверждает Europa Press.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Дожил бы договор? Примените правило</h3>
+    <p style="margin:0 0 10px;font-size:15px;color:var(--text-dim)">Для договора, который предыдущий арендатор принял до 1995 года и который переходит к его ребёнку (пункты 5 и 8).</p>
+    <div class="calc">
+      <label>Год смерти предыдущего арендатора: <strong id="cYv">2005</strong><input id="cY" type="range" min="1995" max="2015" value="2005"></label>
+      <label>Признанная инвалидность наследника: <strong id="cDv">50%</strong><input id="cD" type="range" min="0" max="100" step="5" value="50"></label>
+      <label class="chk"><input id="cR" type="checkbox" checked> наследник старше 65 или на пенсии в момент передачи</label>
+    </div>
+    <div class="verdict two" id="cOut"></div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Счётчик смертей, порог в 65% и календарь.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="64.6">
+  <h2>Часы, которые тикали молча</h2>
+  <div class="prose">
+    <p>По бумагам договор кончился в 2007 году. Семья, которой принадлежал дом, принимала от неё плату <em class="fact">ещё одиннадцать лет</em>; апелляционный суд назвал это договором, молча продлевавшимся из года в год, который собственник мог прекратить в конце любого года. В 2018 году квартиру купил новый собственник и решил договор прекратить: попросил подтвердить инвалидность в 65%, предложил новую плату 1 650 € в месяц, больше её пенсии, и после отказа пошёл в суд.</p>
+  </div>
+  <div class="fig">
+    <h3>Одиннадцать лет взаймы</h3>
+    <svg id="silent-clock" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Шкала 2005–2026: по бумагам договор кончается в 2007 году, но платежи идут каждый месяц ещё одиннадцать лет, пока в 2018 году квартиру не покупает новый собственник; суды — 2022 и 2023; выселение — 2026.">
+      <line x1="60" y1="190" x2="960" y2="190" stroke="var(--text-dim)" stroke-width="3"/>
+      <g id="scTicks"></g>
+      <g id="scPay"></g>
+      <g id="scEnd" opacity="0"><line x1="146" y1="110" x2="146" y2="200" stroke="var(--flaw)" stroke-width="6"/><text x="146" y="90" text-anchor="middle" font-size="26" fill="var(--flaw)">конец по бумагам</text></g>
+      <g id="scOwner" opacity="0"><line x1="619" y1="110" x2="619" y2="200" stroke="var(--text)" stroke-width="6"/><text x="619" y="90" text-anchor="middle" font-size="26" fill="var(--text)">новый собственник</text></g>
+      <text id="scLab" x="382" y="150" text-anchor="middle" font-size="28" fill="var(--fact)" opacity="0">плата шла ещё 11 лет</text>
+      <g id="scOut" opacity="0"><circle cx="917" cy="190" r="16" fill="var(--flaw)"/><text x="917" y="90" text-anchor="middle" font-size="26" fill="var(--flaw)">выселена</text></g>
+    </svg>
+    <div class="figcap">Прежние владельцы соблюдали договор старой аренды (elDiario.es); Urbagestión купила квартиру в июне 2018 года; выселение 23.09.2026 (Europa Press).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="68.8">
+  <h2>Другой счёт</h2>
+  <div class="prose">
+    <p>Она платила около <em class="fact">5 € за м²</em>; в 2026 году похожие квартиры в том же районе предлагали в четыре-семь раз дороже. Обещание квартиры пожизненно по старой цене дало государство, законом, а разницу каждый месяц платил тот, кому принадлежала квартира. В 2026 году число действующих договоров старой аренды в Испании оценивали примерно в <em class="fact">150 000</em>; все они подписаны до середины 1980-х.</p>
+    <p>Реформа 1994 года оставила эти расходы на собственниках ещё на поколение, а потом переложила их целиком на одного арендатора, в один день. Можно ли закончить такое обещание иначе?</p>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="192.2">
+  <h2>Три конструкции, три плательщика</h2>
+  <div class="prose">
+    <p><em class="alt">Португалия: заморозка для уязвимых.</em> С 2012 года старые договоры переводятся на рыночную плату, но для арендаторов старше 65 лет, с тяжёлой инвалидностью или с низким доходом они заморожены; в 2023 году заморозка стала постоянной. Марикармен осталась бы дома. Цена: платят собственники. По оценке правительственного исследования, они несут около 650 млн € в год; государство возвращает около 27 млн, примерно 4%. В июле 2026 года правительство предложило отменить заморозку и вместо неё платить бедным арендаторам субсидию.</p>
+  </div>
+  <div class="fig">
+    <h3>Кто платит за старую аренду в Португалии (в год)</h3>
+    <svg id="who-pays" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Два столбца: собственники несут около 653 млн евро неявной субсидии в год; государство возвращает около 26,6 млн, примерно четыре процента.">
+      <line x1="80" y1="320" x2="920" y2="320" stroke="var(--text-dim)" stroke-width="3"/>
+      <rect id="wpO" x="220" y="320" width="180" height="0" fill="var(--flaw)"/>
+      <rect id="wpS" x="600" y="320" width="180" height="0" fill="var(--alt)"/>
+      <text id="wpOT" x="310" y="60" text-anchor="middle" font-size="32" fill="var(--flaw)" opacity="0">собственники 653 млн €</text>
+      <text id="wpST" x="690" y="290" text-anchor="middle" font-size="32" fill="var(--alt)" opacity="0">государство 27 млн €</text>
+      <text x="310" y="360" text-anchor="middle" font-size="28" fill="var(--text)">собственники</text>
+      <text x="690" y="360" text-anchor="middle" font-size="28" fill="var(--text)">государство</text>
+      <text id="wpP" x="690" y="200" text-anchor="middle" font-size="44" fill="var(--alt)" opacity="0">≈4%</text>
+    </svg>
+    <div class="figcap">Компенсация 26,6 млн €/год на ~124 000 договоров до 1990 года против 653 млн €/год неявной субсидии собственников (правительственное исследование; ECO, Público, 29.11.2023).</div>
+  </div>
+  <div class="prose">
+    <p><em class="alt">Франция: часы по доходу.</em> По закону о старой аренде собственник может за восемь лет поднять плату до рыночной, но только для арендаторов с доходом выше порога; арендаторы старше 65 лет сохраняют право остаться. Цена — время. За полвека такие договоры сократились с половины всего арендного жилья до нескольких тысяч, и до тех пор разницу за бедных и старых арендаторов несут собственники.</p>
+    <p><em class="alt">Платит общество напрямую.</em> Каталония и Балеарские острова дают региональному правительству право первым купить некоторые квартиры при продаже и сдавать их по социальной цене. Цена: бюджетные деньги по рыночной цене; право работает, только когда собственник сам решил продать; и оно хрупкое в суде — в Берлине федеральный суд сузил его в 2021 году, и им почти перестали пользоваться.</p>
+  </div>
+  <div class="fig webonly">
+    <h3>Выберите конструкцию и посмотрите счёт</h3>
+    <div class="bills" id="bills"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="38.9">
+  <h2>Вопрос, который стоит унести</h2>
+  <div class="prose">
+    <p>Марикармен потеряла дом не из-за того, что она сделала. Она потеряла его потому, что правило 1994 года измерило её датой смерти матери, и одиннадцать лет его откладывало только то, что ни один собственник не решил им воспользоваться.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Когда государство даёт обещание за чужой счёт, спросите, кто платит, пока оно действует, и что решает, когда оно кончается: смерть в семье, доход или возраст.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+if(isAuto) document.querySelectorAll('.webonly-auto').forEach(e=>e.classList.add('webonly'));
+window.__fig=window.__fig||{};
+const L={
+ life:'Договор пожизненный',
+ two:y=>`Договор кончается в ${y} году`,
+ whyD:'Инвалидность от 65% (пункт 5).',
+ whyW:'Передача в десятилетнее окно наследнику старше 65 лет или пенсионеру (пункт 8).',
+ whyN:y=>`Вторая передача: два года с ${y} года. Окно закрылось 1 января 2005 года.`,
+ bills:[
+  {w:'Португалия',k:'Заморозка для старых, больных и бедных',p:'Платят собственники; государство возвращает около 4%.'},
+  {w:'Франция',k:'Выход по доходу, старше 65 защищены',p:'Платят арендаторы, которым по силам рынок; остальное десятилетиями несут собственники.'},
+  {w:'Выкуп регионом',k:'Регион покупает первым при продаже',p:'Платят налогоплательщики, по рыночной цене; работает, только если собственник продаёт.'},
+  {w:'Испания, 1994',k:'Считать смерти в семье',p:'Платят собственники ещё поколение, потом один арендатор — в один день.'}]};
+
+/* chain */
+window.__fig.chain=()=>{
+  gsap.set(['#chN0','#chN1','#chN2','#chL1','#chL2'],{opacity:0}); gsap.set(['#chA0','#chA1'],{attr:{x2:(i,e)=>+e.getAttribute('x1')}});
+  gsap.set('#chA1',{stroke:'var(--text-dim)'}); $('chC').textContent='0';
+  return gsap.timeline()
+    .to('#chN0',{opacity:1,duration:.4})
+    .to('#chA0',{attr:{x2:440},duration:.6})
+    .to('#chN1',{opacity:1,duration:.4}).call(()=>{$('chC').textContent='1'})
+    .to('#chL1',{opacity:1,duration:.3})
+    .to('#chA1',{attr:{x2:780},duration:.6},'+=0.3')
+    .to('#chN2',{opacity:1,duration:.4}).call(()=>{$('chC').textContent='2'})
+    .to('#chA1',{stroke:'var(--flaw)',duration:.3})
+    .to('#chL2',{opacity:1,duration:.4})
+    .to({},{duration:.6});
+};
+/* threshold: 0..100% over 880px */
+window.__fig.threshold=()=>{
+  gsap.set('#thFill',{attr:{width:0}}); gsap.set(['#thVal','#thGap'],{opacity:0});
+  return gsap.timeline().to('#thFill',{attr:{width:440},duration:1.8,ease:'power2.out'})
+    .to('#thVal',{opacity:1,duration:.3}).to('#thGap',{opacity:1,duration:.5},'+=0.3').to({},{duration:.6});
+};
+/* window: 1995..2008, 1995 at x=60, 69px per year */
+const WY=y=>60+(y-1995)*69.2;
+(function(){
+  const g=$('wnTicks'); if(!g) return; let s='';
+  for(let y=1995;y<=2008;y++){const x=WY(y);s+=`<line x1="${x}" y1="192" x2="${x}" y2="208" stroke="var(--text-dim)" stroke-width="2"/>`;
+    if(y%5===0||y===2007) s+=`<text x="${x}" y="240" text-anchor="middle" font-size="24" fill="var(--text-dim)">${y}</text>`;}
+  g.innerHTML=s;
+})();
+window.__fig.window=()=>{
+  gsap.set('#wnBand',{attr:{width:0}}); gsap.set(['#wnBandT','#wnShut','#wnGap'],{opacity:0}); gsap.set('#wnDot',{attr:{transform:`translate(${WY(1996)},0)`}});
+  return gsap.timeline()
+    .to('#wnBand',{attr:{width:WY(2005)-WY(1995)},duration:1.2,ease:'none'})
+    .to('#wnBandT',{opacity:1,duration:.3})
+    .to('#wnShut',{opacity:1,duration:.3})
+    .to('#wnDot',{attr:{transform:`translate(${WY(2005.88)},0)`},duration:1.6,ease:'power1.inOut'},'+=0.2')
+    .to('#wnGap',{opacity:1,duration:.4}).to({},{duration:.6});
+};
+/* silent clock: 2005..2026, 2005 at x=60, 40.8px per year */
+const SY=y=>60+(y-2005)*40.8;
+(function(){
+  const g=$('scTicks'); if(!g) return; let s='';
+  [2005,2007,2010,2015,2018,2020,2025].forEach(y=>{s+=`<text x="${SY(y)}" y="240" text-anchor="middle" font-size="22" fill="var(--text-dim)">${y}</text>`});
+  g.innerHTML=s;
+  let p='';for(let m=0;m<11*12;m++){p+=`<rect class="scP" x="${SY(2007+m/12)-1}" y="178" width="2.4" height="24" fill="var(--fact)" opacity="0"/>`}
+  $('scPay').innerHTML=p;
+  $('scEnd').querySelector('line').setAttribute('x1',SY(2007));$('scEnd').querySelector('line').setAttribute('x2',SY(2007));$('scEnd').querySelector('text').setAttribute('x',SY(2007));
+  $('scOwner').querySelector('line').setAttribute('x1',SY(2018.45));$('scOwner').querySelector('line').setAttribute('x2',SY(2018.45));$('scOwner').querySelector('text').setAttribute('x',SY(2018.45));
+  $('scLab').setAttribute('x',SY(2012.5)); $('scOut').querySelector('circle').setAttribute('cx',SY(2026.73)); $('scOut').querySelector('text').setAttribute('x',SY(2026.2));
+})();
+window.__fig['silent-clock']=()=>{
+  gsap.set(['#scEnd','#scOwner','#scLab','#scOut','.scP'],{opacity:0});
+  return gsap.timeline().to('#scEnd',{opacity:1,duration:.4})
+    .to('.scP',{opacity:1,duration:.05,stagger:2.4/132},'+=0.2')
+    .to('#scLab',{opacity:1,duration:.3},'-=1.2')
+    .to('#scOwner',{opacity:1,duration:.4})
+    .to('#scOut',{opacity:1,duration:.4},'+=0.3').to({},{duration:.6});
+};
+/* who pays: 653 → 250px; 26.6 → ~10px */
+window.__fig['who-pays']=()=>{
+  gsap.set(['#wpO','#wpS'],{attr:{y:320,height:0}}); gsap.set(['#wpOT','#wpST','#wpP'],{opacity:0});
+  return gsap.timeline().to('#wpO',{attr:{y:70,height:250},duration:1.4,ease:'power2.out'}).to('#wpOT',{opacity:1,duration:.3})
+    .to('#wpS',{attr:{y:310,height:10},duration:.6},'+=0.2').to('#wpST',{opacity:1,duration:.3}).to('#wpP',{opacity:1,duration:.4},'+=0.2').to({},{duration:.6});
+};
+
+function calc(){
+  const y=+$('cY').value,d=+$('cD').value,r=$('cR').checked,o=$('cOut');
+  $('cYv').textContent=y; $('cDv').textContent=d+'%';
+  let life=false,why=L.whyN(y);
+  if(d>=65){life=true;why=L.whyD}else if(r&&y<2005){life=true;why=L.whyW}
+  o.className='verdict '+(life?'life':'two'); o.innerHTML=(life?L.life:L.two(y+2))+`<small>${why}</small>`;
+}
+['cY','cD','cR'].forEach(id=>{const e=$(id); if(e) e.oninput=calc;}); if($('cOut')) calc();
+function buildBills(){
+  const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w}</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+buildBills();
+
+const FIGS=['chain','threshold','window','silent-clock','who-pays'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  FIGS.forEach(id=>{const el=$(id); if(!el) return;
+    ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  const FIG={s4:'chain',s5:'silent-clock',s7:'who-pays'};
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    const f=FIG[s.id]; if(f) master.add(window.__fig[f](),t+1.2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>

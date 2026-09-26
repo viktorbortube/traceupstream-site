@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — Evicted at 87 by a Law That Counted Her Parents</title>
+<meta name="description" content="On 23 September 2026 Maricarmen Abascal, 87, was evicted from the Madrid flat her family had rented since 1956. She never missed rent. Spain's 1994 reform ended lifetime 'old rent' leases by counting deaths in the family: a second handover lasts two years unless the heir has a 65% disability, or the handover fell inside a ten-year window that closed on 1 January 2005. Her mother died later that year. Three other designs from Portugal, France and public purchase, each with its payer.">
+<link rel="canonical" href="https://traceupstream.com/episodes/062-lease-that-counts-deaths/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#8A9B84;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px;font-family:var(--font-mono);font-size:14px;margin:6px 0 14px}
+.calc label{display:flex;flex-direction:column;gap:6px}
+.calc input[type=range]{accent-color:var(--fact)}
+.calc .chk{flex-direction:row;align-items:center;gap:10px}
+.verdict{font-family:var(--font-display);font-size:24px;padding:14px 16px;border-radius:8px;border:1.5px solid var(--text)}
+.verdict.life{border-color:var(--alt);color:var(--alt)}
+.verdict.two{border-color:var(--flaw);color:var(--flaw)}
+.verdict small{display:block;font-family:var(--font-body);font-size:14px;color:var(--text-dim);margin-top:6px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .calc,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.062</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="42.3">
+  <div class="kicker">Trace Upstream · Episode 062</div>
+  <h1>Evicted at 87 by a law that counted her parents</h1>
+  <div class="prose lede">
+    <p>On 23 September 2026, in the Retiro district of Madrid, court officials and police evicted <em class="fact">Maricarmen Abascal</em>, 87, from the flat her family had rented since 1956. She was carried out on a stretcher. She had paid her rent every month.</p>
+    <p>If her mother had died one year earlier, the law would have let her stay for life. What kind of rule decides that by the date of a mother's death?</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Seventy years in one flat. Two years left on paper.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="22.4">
+  <h2>Suspect one: she stopped paying</h2>
+  <div class="prose">
+    <p>She paid about <em class="fact">€500 a month</em>, every month. The owner's claim in court was never about a debt: it said the lease had simply run out.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="36.6">
+  <h2>Suspect two: the vulture fund</h2>
+  <div class="prose">
+    <p>The owner is Urbagestión, a small Madrid company with about seven employees; its owners told a Spanish newspaper this building is their only property. It turned down an offer from a stranger to pay her rent, and an offer from the public housing company CASA 47 to buy the flat. That was its right. But no landlord can evict anyone without a court.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="53.4">
+  <h2>Suspect three: a heartless court</h2>
+  <div class="prose">
+    <p><em class="alt">27 January 2022</em> — the first court sided with her: the earlier owners had taken her rent for years and treated her as their tenant.</p>
+    <p><em class="flaw">30 June 2022</em> — the Madrid appeals court split the case in two. Did she legally take over her mother's lease? Yes. How long could it last after that? Two years.</p>
+    <p><em class="flaw">13 December 2023</em> — the Supreme Court refused to hear her appeal: the dispute was about how long the lease could run, not whether she had inherited it.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="102.3">
+  <h2>The paragraph that counts deaths</h2>
+  <div class="prose">
+    <p>Her father signed the lease in 1956 under the old rules: renewable for life, rent almost frozen, and the family could take it over when the tenant died. In Spain this is <em class="fact">renta antigua</em>, old rent. Her mother took it over in 1960: the first handover.</p>
+    <p>The 1994 reform (in force from 1 January 1995) gave these leases a last day by counting deaths. Anyone who had taken over a lease before the reform kept it for life. After that person died, one child could take it over once more, and the lease would end <em class="flaw">two years later</em>. Her mother died in 2005; by the letter of the law, Maricarmen's lease ended in 2007.</p>
+  </div>
+  <div class="fig">
+    <h3>Three names, two handovers</h3>
+    <svg id="chain" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="The lease passes from the father in 1956 to the mother in 1960, who keeps it for life, and to Maricarmen in 2005, whose second handover lasts only two years, to 2007.">
+      <g id="chN0" opacity="0"><circle cx="160" cy="150" r="54" fill="var(--topic)"/><text x="160" y="160" text-anchor="middle" font-size="30" fill="#fff">1956</text><text x="160" y="250" text-anchor="middle" font-size="30" fill="var(--text)">father</text><text x="160" y="290" text-anchor="middle" font-size="24" fill="var(--text-dim)">signs</text></g>
+      <g id="chN1" opacity="0"><circle cx="500" cy="150" r="54" fill="var(--fact)"/><text x="500" y="160" text-anchor="middle" font-size="30" fill="#fff">1960</text><text x="500" y="250" text-anchor="middle" font-size="30" fill="var(--text)">mother</text><text x="500" y="290" text-anchor="middle" font-size="24" fill="var(--text-dim)">handover 1</text></g>
+      <g id="chN2" opacity="0"><circle cx="840" cy="150" r="54" fill="var(--flaw)"/><text x="840" y="160" text-anchor="middle" font-size="30" fill="#fff">2005</text><text x="840" y="250" text-anchor="middle" font-size="30" fill="var(--text)">Maricarmen</text><text x="840" y="290" text-anchor="middle" font-size="24" fill="var(--text-dim)">handover 2</text></g>
+      <line id="chA0" x1="220" y1="150" x2="440" y2="150" stroke="var(--text-dim)" stroke-width="5"/>
+      <line id="chA1" x1="560" y1="150" x2="780" y2="150" stroke="var(--text-dim)" stroke-width="5"/>
+      <text id="chL1" x="500" y="60" text-anchor="middle" font-size="30" fill="var(--alt)" opacity="0">for life</text>
+      <text id="chL2" x="840" y="60" text-anchor="middle" font-size="30" fill="var(--flaw)" opacity="0">2 years → 2007</text>
+      <text id="chCount" x="500" y="370" text-anchor="middle" font-size="32" fill="var(--text)">handovers counted: <tspan id="chC">0</tspan></text>
+    </svg>
+    <div class="figcap">Lease signed 3 Sept 1956; first handover 1960; second handover 2005 (Europa Press). Rule: Ley 29/1994, transitional provision 2, paragraph 5.</div>
+  </div>
+  <div class="prose">
+    <p>The law had two ways out. The first: a disability of <em class="flaw">65% or more</em> kept the lease until that child's own death. Maricarmen's official disability was 50%.</p>
+  </div>
+  <div class="fig webonly-auto">
+    <h3>The line at 65%</h3>
+    <svg id="threshold" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="A scale of disability from 0 to 100 percent: the exception starts at 65 percent; Maricarmen's recognised disability stops at 50 percent, 15 points short.">
+      <rect x="60" y="120" width="880" height="60" fill="none" stroke="var(--grid)" stroke-width="3"/>
+      <rect id="thFill" x="60" y="120" width="0" height="60" fill="var(--fact)"/>
+      <line x1="632" y1="90" x2="632" y2="200" stroke="var(--flaw)" stroke-width="6"/>
+      <text x="632" y="70" text-anchor="middle" font-size="30" fill="var(--flaw)">65%: lease for life</text>
+      <text x="60" y="240" font-size="26" fill="var(--text-dim)">0%</text><text x="940" y="240" text-anchor="end" font-size="26" fill="var(--text-dim)">100%</text>
+      <text id="thVal" x="500" y="160" text-anchor="end" font-size="30" fill="#fff" opacity="0">50%</text>
+      <g id="thGap" opacity="0"><rect x="500" y="120" width="132" height="60" fill="var(--flaw)" opacity=".18"/><text x="566" y="265" text-anchor="middle" font-size="28" fill="var(--flaw)">15 points short</text></g>
+    </svg>
+    <div class="figcap">Paragraph 5: exception for a disability of 65% or more. Her recognised disability: 50% (El Español, Europa Press).</div>
+  </div>
+  <div class="prose">
+    <p>The second way out was a window in time. If the handover happened within <em class="alt">ten years</em> of 1 January 1995, and the child taking over was over 65 or already retired, the lease lasted for life. Maricarmen had been retired since 1998. The window closed on 1 January 2005. Her mother died later that year.</p>
+  </div>
+  <div class="fig webonly-auto">
+    <h3>A window that closed first</h3>
+    <svg id="window" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Timeline from 1995 to 2008: a ten-year window from 1 January 1995 to 1 January 2005 in which a retired heir would keep the lease for life; the mother's death falls in November 2005, about eleven months after the window closed; the lease then ends in 2007.">
+      <line x1="60" y1="200" x2="960" y2="200" stroke="var(--text-dim)" stroke-width="3"/>
+      <g id="wnTicks"></g>
+      <rect id="wnBand" x="60" y="140" width="0" height="60" fill="var(--alt)" opacity=".35"/>
+      <text id="wnBandT" x="376" y="125" text-anchor="middle" font-size="28" fill="var(--alt)" opacity="0">handover here: lease for life</text>
+      <line id="wnShut" x1="752" y1="120" x2="752" y2="220" stroke="var(--alt)" stroke-width="6" opacity="0"/>
+      <g id="wnDot" transform="translate(120,0)"><circle cx="0" cy="200" r="16" fill="var(--flaw)"/><text x="0" y="290" text-anchor="middle" font-size="26" fill="var(--flaw)">mother dies</text></g>
+      <g id="wnGap" opacity="0"><path d="M752 250 L813 250" stroke="var(--flaw)" stroke-width="4"/><text x="785" y="330" text-anchor="middle" font-size="26" fill="var(--flaw)">~11 months late</text></g>
+    </svg>
+    <div class="figcap">Paragraph 8: ten years from entry into force (1 Jan 1995) for children over 65 or retirement pensioners. Retired in 1998, mother died 19 Nov 2005 (OKDiario); year confirmed by Europa Press.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Would the lease have lasted? Try the rule</h3>
+    <p style="margin:0 0 10px;font-size:15px;color:var(--text-dim)">For a lease whose previous holder had taken it over before 1995, passed to their child (paragraphs 5 and 8).</p>
+    <div class="calc">
+      <label>Year the previous holder died: <strong id="cYv">2005</strong><input id="cY" type="range" min="1995" max="2015" value="2005"></label>
+      <label>Child's recognised disability: <strong id="cDv">50%</strong><input id="cD" type="range" min="0" max="100" step="5" value="50"></label>
+      <label class="chk"><input id="cR" type="checkbox" checked> child over 65 or retired at the handover</label>
+    </div>
+    <div class="verdict two" id="cOut"></div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">A counter of deaths, a line at 65%, and a calendar.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="54.2">
+  <h2>The silent clock</h2>
+  <div class="prose">
+    <p>On paper the lease ended in 2007. The family who owned the building kept taking her rent for <em class="fact">another eleven years</em>; the appeals court later called it a lease renewed silently, year by year, which the owner could end at the close of any year. In 2018 a new owner bought the flat and chose to end it: it asked her to prove a 65% disability, offered a new rent of €1,650 a month, more than her pension, and went to court when she refused.</p>
+  </div>
+  <div class="fig">
+    <h3>Eleven years on borrowed time</h3>
+    <svg id="silent-clock" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Timeline 2005 to 2026: the lease ends on paper in 2007, but rent payments continue every month for eleven more years until a new owner buys the flat in 2018; courts rule in 2022 and 2023; eviction in 2026.">
+      <line x1="60" y1="190" x2="960" y2="190" stroke="var(--text-dim)" stroke-width="3"/>
+      <g id="scTicks"></g>
+      <g id="scPay"></g>
+      <g id="scEnd" opacity="0"><line x1="146" y1="110" x2="146" y2="200" stroke="var(--flaw)" stroke-width="6"/><text x="146" y="90" text-anchor="middle" font-size="26" fill="var(--flaw)">ends on paper</text></g>
+      <g id="scOwner" opacity="0"><line x1="619" y1="110" x2="619" y2="200" stroke="var(--text)" stroke-width="6"/><text x="619" y="90" text-anchor="middle" font-size="26" fill="var(--text)">new owner</text></g>
+      <text id="scLab" x="382" y="150" text-anchor="middle" font-size="28" fill="var(--fact)" opacity="0">rent still paid: 11 years</text>
+      <g id="scOut" opacity="0"><circle cx="917" cy="190" r="16" fill="var(--flaw)"/><text x="917" y="90" text-anchor="middle" font-size="26" fill="var(--flaw)">evicted</text></g>
+    </svg>
+    <div class="figcap">Previous owners respected the old-rent lease (elDiario.es); Urbagestión bought in June 2018; eviction 23 Sept 2026 (Europa Press).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="52.8">
+  <h2>The other bill</h2>
+  <div class="prose">
+    <p>She paid about <em class="fact">€5 per square metre</em>; in 2026, comparable flats in the same district were listed at four to seven times as much. The promise of a flat for life at an old price was made by the state, in law, but the monthly difference was paid by whoever owned the flat. In 2026, estimates put the number of old-rent leases still alive in Spain at around <em class="fact">150,000</em>, all signed before the mid-1980s.</p>
+    <p>The 1994 reform kept that cost on owners for one more generation, then moved all of it onto one tenant, in one day. Is there a way to end a promise like this that does not land like that?</p>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="141.9">
+  <h2>Three designs, three payers</h2>
+  <div class="prose">
+    <p><em class="alt">Portugal: freeze for the vulnerable.</em> From 2012 old leases moved toward market rents, but stayed frozen for tenants over 65, with a serious disability, or on low incomes; in 2023 the freeze became permanent. Maricarmen would still be at home. Price: owners keep paying. By a government study they carry about €650 million a year; the state pays back about €27 million, around 4%. In July 2026 the government proposed ending the freeze and paying poorer tenants a subsidy instead.</p>
+  </div>
+  <div class="fig">
+    <h3>Who carries Portugal's old rents, per year</h3>
+    <svg id="who-pays" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Two columns: owners carry about 653 million euros a year of implicit subsidy; the state pays back about 26.6 million, around four percent.">
+      <line x1="80" y1="320" x2="920" y2="320" stroke="var(--text-dim)" stroke-width="3"/>
+      <rect id="wpO" x="220" y="320" width="180" height="0" fill="var(--flaw)"/>
+      <rect id="wpS" x="600" y="320" width="180" height="0" fill="var(--alt)"/>
+      <text id="wpOT" x="310" y="60" text-anchor="middle" font-size="32" fill="var(--flaw)" opacity="0">owners €653M</text>
+      <text id="wpST" x="690" y="290" text-anchor="middle" font-size="32" fill="var(--alt)" opacity="0">state €27M</text>
+      <text x="310" y="360" text-anchor="middle" font-size="28" fill="var(--text)">owners</text>
+      <text x="690" y="360" text-anchor="middle" font-size="28" fill="var(--text)">state</text>
+      <text id="wpP" x="690" y="200" text-anchor="middle" font-size="44" fill="var(--alt)" opacity="0">≈4%</text>
+    </svg>
+    <div class="figcap">Compensation €26.6M/year for ~124,000 pre-1990 contracts vs €653M/year implicit landlord subsidy (government study; ECO, Público, 29 Nov 2023).</div>
+  </div>
+  <div class="prose">
+    <p><em class="alt">France: a clock based on income.</em> Under its old-rent law an owner can raise the rent to the market over eight years, but only for tenants above an income limit; tenants over 65 keep their right to stay. Price: time. It took half a century for these leases to shrink from half of all rentals to a few thousand, and owners of poor and old tenants carry the gap until then.</p>
+    <p><em class="alt">The public pays directly.</em> Catalonia and the Balearic Islands give the regional government the right to buy certain homes first when they are sold, then rent them at social prices. Price: public money at market prices; the right works only when an owner decides to sell; and it is fragile in court: in Berlin a federal court narrowed it in 2021 and its use almost stopped.</p>
+  </div>
+  <div class="fig webonly">
+    <h3>Pick a design and read its bill</h3>
+    <div class="bills" id="bills"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="38.1">
+  <h2>The question to carry</h2>
+  <div class="prose">
+    <p>Maricarmen did not lose her home because of anything she did. She lost it because a rule written in 1994 measured her by the date of her mother's death, and the only thing that delayed it for eleven years was that no owner chose to use it.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">When a state makes a promise with someone else's money, ask who pays while it lasts — and what decides when it ends: a death in the family, an income, or an age.</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+if(isAuto) document.querySelectorAll('.webonly-auto').forEach(e=>e.classList.add('webonly'));
+window.__fig=window.__fig||{};
+const L={
+ life:'Lease for life',
+ two:y=>`Lease ends in ${y}`,
+ whyD:'Disability of 65% or more (paragraph 5).',
+ whyW:'Handover inside the ten-year window to a child over 65 or retired (paragraph 8).',
+ whyN:y=>`Second handover: two years from ${y}. The window closed on 1 January 2005.`,
+ bills:[
+  {w:'Portugal',k:'Freeze for the old, the sick and the poor',p:'Payer: owners, with about 4% returned by the state.'},
+  {w:'France',k:'Exit by income, over-65s protected',p:'Payer: tenants who can afford the market; owners carry the rest for decades.'},
+  {w:'Public purchase',k:'The region buys first when a home is sold',p:'Payer: taxpayers, at market prices; works only when an owner sells.'},
+  {w:'Spain 1994',k:'Count deaths in the family',p:'Payer: owners for one more generation, then one tenant, in one day.'}]};
+
+/* chain */
+window.__fig.chain=()=>{
+  gsap.set(['#chN0','#chN1','#chN2','#chL1','#chL2'],{opacity:0}); gsap.set(['#chA0','#chA1'],{attr:{x2:(i,e)=>+e.getAttribute('x1')}});
+  gsap.set('#chA1',{stroke:'var(--text-dim)'}); $('chC').textContent='0';
+  return gsap.timeline()
+    .to('#chN0',{opacity:1,duration:.4})
+    .to('#chA0',{attr:{x2:440},duration:.6})
+    .to('#chN1',{opacity:1,duration:.4}).call(()=>{$('chC').textContent='1'})
+    .to('#chL1',{opacity:1,duration:.3})
+    .to('#chA1',{attr:{x2:780},duration:.6},'+=0.3')
+    .to('#chN2',{opacity:1,duration:.4}).call(()=>{$('chC').textContent='2'})
+    .to('#chA1',{stroke:'var(--flaw)',duration:.3})
+    .to('#chL2',{opacity:1,duration:.4})
+    .to({},{duration:.6});
+};
+/* threshold: 0..100% over 880px */
+window.__fig.threshold=()=>{
+  gsap.set('#thFill',{attr:{width:0}}); gsap.set(['#thVal','#thGap'],{opacity:0});
+  return gsap.timeline().to('#thFill',{attr:{width:440},duration:1.8,ease:'power2.out'})
+    .to('#thVal',{opacity:1,duration:.3}).to('#thGap',{opacity:1,duration:.5},'+=0.3').to({},{duration:.6});
+};
+/* window: 1995..2008, 1995 at x=60, 69px per year */
+const WY=y=>60+(y-1995)*69.2;
+(function(){
+  const g=$('wnTicks'); if(!g) return; let s='';
+  for(let y=1995;y<=2008;y++){const x=WY(y);s+=`<line x1="${x}" y1="192" x2="${x}" y2="208" stroke="var(--text-dim)" stroke-width="2"/>`;
+    if(y%5===0||y===2007) s+=`<text x="${x}" y="240" text-anchor="middle" font-size="24" fill="var(--text-dim)">${y}</text>`;}
+  g.innerHTML=s;
+})();
+window.__fig.window=()=>{
+  gsap.set('#wnBand',{attr:{width:0}}); gsap.set(['#wnBandT','#wnShut','#wnGap'],{opacity:0}); gsap.set('#wnDot',{attr:{transform:`translate(${WY(1996)},0)`}});
+  return gsap.timeline()
+    .to('#wnBand',{attr:{width:WY(2005)-WY(1995)},duration:1.2,ease:'none'})
+    .to('#wnBandT',{opacity:1,duration:.3})
+    .to('#wnShut',{opacity:1,duration:.3})
+    .to('#wnDot',{attr:{transform:`translate(${WY(2005.88)},0)`},duration:1.6,ease:'power1.inOut'},'+=0.2')
+    .to('#wnGap',{opacity:1,duration:.4}).to({},{duration:.6});
+};
+/* silent clock: 2005..2026, 2005 at x=60, 40.8px per year */
+const SY=y=>60+(y-2005)*40.8;
+(function(){
+  const g=$('scTicks'); if(!g) return; let s='';
+  [2005,2007,2010,2015,2018,2020,2025].forEach(y=>{s+=`<text x="${SY(y)}" y="240" text-anchor="middle" font-size="22" fill="var(--text-dim)">${y}</text>`});
+  g.innerHTML=s;
+  let p='';for(let m=0;m<11*12;m++){p+=`<rect class="scP" x="${SY(2007+m/12)-1}" y="178" width="2.4" height="24" fill="var(--fact)" opacity="0"/>`}
+  $('scPay').innerHTML=p;
+  $('scEnd').querySelector('line').setAttribute('x1',SY(2007));$('scEnd').querySelector('line').setAttribute('x2',SY(2007));$('scEnd').querySelector('text').setAttribute('x',SY(2007));
+  $('scOwner').querySelector('line').setAttribute('x1',SY(2018.45));$('scOwner').querySelector('line').setAttribute('x2',SY(2018.45));$('scOwner').querySelector('text').setAttribute('x',SY(2018.45));
+  $('scLab').setAttribute('x',SY(2012.5)); $('scOut').querySelector('circle').setAttribute('cx',SY(2026.73)); $('scOut').querySelector('text').setAttribute('x',SY(2026.2));
+})();
+window.__fig['silent-clock']=()=>{
+  gsap.set(['#scEnd','#scOwner','#scLab','#scOut','.scP'],{opacity:0});
+  return gsap.timeline().to('#scEnd',{opacity:1,duration:.4})
+    .to('.scP',{opacity:1,duration:.05,stagger:2.4/132},'+=0.2')
+    .to('#scLab',{opacity:1,duration:.3},'-=1.2')
+    .to('#scOwner',{opacity:1,duration:.4})
+    .to('#scOut',{opacity:1,duration:.4},'+=0.3').to({},{duration:.6});
+};
+/* who pays: 653 → 250px; 26.6 → ~10px */
+window.__fig['who-pays']=()=>{
+  gsap.set(['#wpO','#wpS'],{attr:{y:320,height:0}}); gsap.set(['#wpOT','#wpST','#wpP'],{opacity:0});
+  return gsap.timeline().to('#wpO',{attr:{y:70,height:250},duration:1.4,ease:'power2.out'}).to('#wpOT',{opacity:1,duration:.3})
+    .to('#wpS',{attr:{y:310,height:10},duration:.6},'+=0.2').to('#wpST',{opacity:1,duration:.3}).to('#wpP',{opacity:1,duration:.4},'+=0.2').to({},{duration:.6});
+};
+
+function calc(){
+  const y=+$('cY').value,d=+$('cD').value,r=$('cR').checked,o=$('cOut');
+  $('cYv').textContent=y; $('cDv').textContent=d+'%';
+  let life=false,why=L.whyN(y);
+  if(d>=65){life=true;why=L.whyD}else if(r&&y<2005){life=true;why=L.whyW}
+  o.className='verdict '+(life?'life':'two'); o.innerHTML=(life?L.life:L.two(y+2))+`<small>${why}</small>`;
+}
+['cY','cD','cR'].forEach(id=>{const e=$(id); if(e) e.oninput=calc;}); if($('cOut')) calc();
+function buildBills(){
+  const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w}</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});
+}
+buildBills();
+
+const FIGS=['chain','threshold','window','silent-clock','who-pays'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{
+    gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});
+  });
+  FIGS.forEach(id=>{const el=$(id); if(!el) return;
+    ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){
+    const btn=$('listen');let audio=null,idx=0;
+    const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{
+      if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
+        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
+      play(idx||Math.max(0,top));
+    };
+  })();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];
+  const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});
+  const FIG={s4:'chain',s5:'silent-clock',s7:'who-pays'};
+  let t=0;
+  secs.forEach(s=>{
+    const d=+s.dataset.duration||10;
+    master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    const f=FIG[s.id]; if(f) master.add(window.__fig[f](),t+1.2);
+    master.set(s,{className:'section ep'},t+d);
+    t+=d;
+  });
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();};
+  window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd);
+  master.play(at);
+}
+</script>
+</body>
+</html>
