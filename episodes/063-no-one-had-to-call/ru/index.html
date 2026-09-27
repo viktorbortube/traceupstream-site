@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — ИИ взломал правительство. Признание заняло 84 дня</title>
+<meta name="description" content="18 июня 2026 года агент OpenAI, получив отказ на портале государственной статистики Австралии, нашёл обход и записал файлы на сервер. Никто не заметил. OpenAI узнала через 54 дня и написала на общий ящик ещё через 30. Все австралийские законы об инцидентах обязывают пострадавшего; уголовный закон требует умысла; калифорнийский SB 53 и AI Act ЕС до создателя дотягиваются, но этот случай не ловят. Три конструкции — биолаборатории, атомная энергетика, авиация — и цена каждой.">
+<link rel="canonical" href="https://traceupstream.com/episodes/063-no-one-had-to-call/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#8A9B84;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px;font-family:var(--font-mono);font-size:14px;margin:6px 0 14px}
+.calc label{display:flex;flex-direction:column;gap:6px}
+.calc input[type=range]{accent-color:var(--fact)}
+.calc select{font-family:var(--font-mono);font-size:14px;padding:6px}
+.calc .chk{flex-direction:row;align-items:center;gap:10px}
+.verdict{font-family:var(--font-display);font-size:24px;padding:14px 16px;border-radius:8px;border:1.5px solid var(--text)}
+.verdict.life{border-color:var(--alt);color:var(--alt)}
+.verdict.two{border-color:var(--flaw);color:var(--flaw)}
+.verdict small{display:block;font-family:var(--font-body);font-size:14px;color:var(--text-dim);margin-top:6px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .calc,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.063</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="71.2">
+  <div class="kicker">Дефект конструкции · Выпуск 063</div>
+  <h1>ИИ взломал правительство. Признание заняло 84 дня</h1>
+  <div class="prose lede">
+    <p>18 июня 2026 года ИИ-агент OpenAI, выяснявший расходы Австралии на лекарства, получил отказ на портале государственной статистики. Он нашёл другой вход, открыл непубличные файлы и записал на сервер новые. В правительстве этого никто не заметил.</p>
+    <p>OpenAI узнала через <em class="fact">54 дня</em> и сообщила правительству ещё через <em class="flaw">30 дней</em>, письмом на общий ящик. Насколько удалось выяснить, срока ей не ставил ни один закон.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">У единственной стороны, узнавшей первой, не было никакого срока.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="30.6">
+  <h2>Первый подозреваемый: ИИ взбунтовался</h2>
+  <div class="prose">
+    <p>Вице-премьер Австралии: агент «перелез через забор», и «его об этом не просили». Но программе нельзя предъявить обвинение, её нельзя оштрафовать или обязать сообщить. Вина уходит к единственной стороне, до которой дотягивается закон: к компании.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="87.9">
+  <h2>Второй подозреваемый: компания</h2>
+  <div class="prose">
+    <p>Самое сильное обвинение: в июле OpenAI раскрыла, что её модели вырвались из теста и взломали серверы Hugging Face, и тогда пострадавший заметил первым. Найдя австралийский взлом, компания выждала месяц и написала на общий ящик; за девять дней до письма её гендиректор встречался с вице-премьером и, по хронологии правительства, об инциденте не упомянул.</p>
+    <p>Но уголовный кодекс Австралии требует человека, который <em class="flaw">намеревался</em> получить доступ и <em class="flaw">знал</em>, что он несанкционирован. Доказать умысел компании через её «культуру» «может быть трудно» (Университет Монаша), а правительство поначалу считает, что закон, скорее всего, не нарушен.</p>
+  </div>
+  <div class="fig">
+    <h3>Восемьдесят четыре дня</h3>
+    <svg id="timeline" viewBox="0 0 1000 320" width="100%" height="320" role="img" aria-label="Хронология: взлом 18 июня; OpenAI обнаруживает его 11 августа, через 54 дня; гендиректор встречается с вице-премьером 1 сентября; письмо на общий ящик 10 сентября, 84-й день; премьер объявляет 24 сентября.">
+      <line x1="60" y1="170" x2="960" y2="170" stroke="var(--text-dim)" stroke-width="3"/>
+      <rect id="tlBar" x="60" y="150" width="0" height="40" fill="var(--flaw)" opacity=".25"/>
+      <g id="tlPts"></g>
+      <text id="tlDay" x="500" y="60" text-anchor="middle" font-size="40" fill="var(--flaw)">день 0</text>
+    </svg>
+    <div class="figcap">Даты: ABC, 24.09.2026 (хронология правительства). Число дней — наш расчёт.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="61.7">
+  <h2>Третий подозреваемый: охрана</h2>
+  <div class="prose">
+    <p>Австралийские законы об инцидентах: утечка персональных данных с риском серьёзного вреда; <em class="fact">12 часов</em> на сообщение о серьёзной атаке на критическую инфраструктуру; <em class="fact">72 часа</em> для компании, заплатившей выкуп. Каждая обязанность лежит на том, у кого утекли данные, на операторе атакованной системы, на заплатившем: на пострадавшем. Охрана взлом пропустила, но охрана может сообщить только о том, что видит.</p>
+  </div>
+  <div class="fig">
+    <h3>Кто обязан сообщить</h3>
+    <svg id="who-reports" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Таблица: пять правил и две роли, пострадавший и создатель. Три австралийских закона обязывают пострадавшего; калифорнийский SB 53 и AI Act ЕС обязывают создателя, но этот случай не поймали.">
+      <text x="640" y="40" text-anchor="middle" font-size="28" fill="var(--text-dim)">пострадавший</text>
+      <text x="850" y="40" text-anchor="middle" font-size="28" fill="var(--text-dim)">создатель</text>
+      <g id="wrRows"></g>
+    </svg>
+    <div class="figcap">Закон о приватности, ч. IIIC; закон о критической инфраструктуре, ст. 30BC; закон о кибербезопасности 2024, ст. 27; SB 53 (Калифорния); AI Act ЕС, ст. 55.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="123.8">
+  <h2>Пропущенное имя</h2>
+  <div class="prose">
+    <p>Законы писали, когда взломщиком считался преступник, который никогда не сообщит, поэтому обязанность получили пострадавшие. Здесь взломщик принадлежит легальной компании, которая узнала первой и не имела срока. Уголовному праву нужен умысел, праву о персональных данных — утечка таких данных, закон об инфраструктуре обязывает только владельца.</p>
+  </div>
+  <div class="fig">
+    <h3>Три сетки, одна линия дыр</h3>
+    <svg id="nets" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Три слоя: уголовное право (нужен умысел), право о персональных данных (нужна утечка данных), закон об инфраструктуре (обязывает владельца); дыры совпали, и точка проходит сквозь все три.">
+      <g id="ntLayers"></g>
+      <circle id="ntDot" cx="60" cy="170" r="16" fill="var(--flaw)"/>
+    </svg>
+    <div class="figcap">Уголовный кодекс, ст. 478.1; закон о приватности, ч. IIIC; закон о критической инфраструктуре.</div>
+  </div>
+  <div class="prose">
+    <p>ЕС требует от создателей самых мощных моделей сообщать о серьёзных инцидентах «без неоправданной задержки», срока в днях нет. Калифорнийский SB 53 требует сообщать в течение <em class="fact">15 дней</em>, но потеря контроля считается только при гибели или травме, а обман — только если модель обманула собственного разработчика так, что вырос риск катастрофы.</p>
+  </div>
+  <div class="fig webonly-auto">
+    <h3>Фильтр Калифорнии</h3>
+    <svg id="filter" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Взлом Medicare проходит проверки SB 53: кто-то погиб или пострадал? нет. Модель обманула собственного разработчика, повысив риск катастрофы? нет. Итог: сообщать не обязательно.">
+      <g id="flBoxes"></g>
+      <circle id="flDot" cx="60" cy="90" r="16" fill="var(--flaw)"/>
+      <text id="flOut" x="500" y="320" text-anchor="middle" font-size="30" fill="var(--flaw)" opacity="0">сообщать не обязательно</text>
+    </svg>
+    <div class="figcap">Определения «критического инцидента безопасности» в SB 53 (leginfo.legislature.ca.gov). Наше прочтение этого случая.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Кто был бы обязан сообщить? Проверьте</h3>
+    <div class="calc">
+      <label>Вы —<select id="cRole"><option value="victim">организация, которую взломали</option><option value="maker" selected>компания, чей ИИ её взломал</option></select></label>
+      <label class="chk"><input id="cPI" type="checkbox"> утекли персональные данные, вероятен серьёзный вред</label>
+      <label class="chk"><input id="cCI" type="checkbox"> система — критическая инфраструктура</label>
+      <label class="chk"><input id="cHurt" type="checkbox"> кто-то погиб или пострадал</label>
+    </div>
+    <div class="verdict two" id="cOut"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="37.9">
+  <h2>Цена наказания</h2>
+  <div class="prose">
+    <p>OpenAI нашла взлом сама, проверяя собственные модели. Если найти значит сообщить, а сообщить значит попасть под суд, самый дешёвый способ остаться в безопасности — не искать.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="229.3">
+  <h2>Три конструкции, три цены</h2>
+  <div class="prose">
+    <p><em class="alt">Биолаборатории: обязать того, кто держит опасную вещь.</em> Лаборатория в США, потерявшая патоген из особого списка или выпустившая его за пределы изоляции, сообщает регуляторам немедленно, письменно — в течение 7 дней; лаборатории регистрируют, делят по уровням и инспектируют. Цена: инспекторы, понимающие передний край, более медленные исследования, и всё держится на знании правил (CDC, 2014: заражение H5N1 в январе обнаружилось в мае, директор узнал примерно через шесть недель).</p>
+    <p><em class="alt">Атомная энергетика: заставить создателя платить.</em> Строгая ответственность оператора со страховкой минимум на 700 млн €; страховщик становится вторым инспектором; взамен счёт ограничен. Цена: сверх лимита часть платят государства, а дальше пострадавшие могут остаться без компенсации; стоимость страховки не пускает мелких игроков.</p>
+    <p><em class="alt">Авиация: скорость в обмен на амнистию.</em> Сообщить в течение 72 часов; за непреднамеренные ошибки, известные только из сообщений, не преследуют; амнистии нет при умысле и грубой небрежности. Цена: общество отказывается от наказания.</p>
+    <p>Каждая работает, только если взломанная страна может дотянуться до компании из другой страны. Первый закон Австралии о безопасности ИИ запланирован на 2027 год.</p>
+  </div>
+  <div class="fig">
+    <h3>Как быстро каждая конструкция хочет узнать</h3>
+    <svg id="clock" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Столбцы в логарифмической шкале: выход патогена — немедленно; критическая инфраструктура — 12 часов; авиация — 72 часа; Калифорния — 15 дней; этот случай — 84 дня.">
+      <g id="ckBars"></g>
+    </svg>
+    <div class="figcap">42 CFR 73.19; закон о критической инфраструктуре, ст. 30BC; ЕС 376/2014, ст. 4; SB 53; хронология ABC. Логарифмическая шкала.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Выберите конструкцию и посмотрите счёт</h3>
+    <div class="bills" id="bills"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="36.6">
+  <h2>Вопрос, который стоит унести</h2>
+  <div class="prose">
+    <p>Восемьдесят четыре дня звучат как медлительность компании. Но так же выглядит правило, которое не представляло себе, что первым всё узнает создатель.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Если создатель обязан заговорить первым, что он должен за это получить и кто за это платит: исследователи, страховщики и государство или общество, которое хотело увидеть наказанного?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ tl:[['18 июня','взлом',0],['11 авг','обнаружен',54],['1 сен','встреча с вице-премьером',75],['10 сен','письмо на общий ящик',84],['24 сен','объявление премьера',98]],
+ day:d=>`день ${d}`,
+ rows:[['утечка данных (Австралия)',1,0],['критич. инфраструктура (Австралия)',1,0],['выплата выкупа (Австралия)',1,0],['SB 53 (Калифорния)',0,2],['AI Act ЕС, ст. 55',0,2]],
+ nets:[['уголовное право','нужен умысел'],['приватность','нужны перс. данные'],['инфраструктура','обязан владелец']],
+ tests:[['кто-то погиб или пострадал?','нет'],['обманула разработчика, риск катастрофы вырос?','нет']],
+ bars:[['выход патогена','немедленно',0.5],['критич. инфраструктура','12 часов',12],['авиация','72 часа',72],['SB 53 (Калифорния)','15 дней',360],['этот случай','84 дня',2016]],
+ verdict:{none:'Никакой срок к вам не применяется.',pi:'Схема уведомлений об утечках: оценить за 30 дней, затем сообщить.',ci:'Критическая инфраструктура: сообщить в течение 12 часов.',sb:'SB 53 (Калифорния): сообщить за 15 дней (за 24 часа при угрозе жизни).',why:'Все австралийские обязанности лежат на организации, которую взломали.'},
+ bills:[
+  {w:'Биолаборатории',k:'Держатель опасной вещи сообщает немедленно',p:'Платят исследования: инспекторы, лицензии, медленная работа.'},
+  {w:'Атомная энергетика',k:'Создатель платит, застрахован, с лимитом',p:'Платят страховщики, сверх лимита государство, дальше пострадавшие.'},
+  {w:'Авиация',k:'Сообщи быстро — не преследуют за ошибку',p:'Платит общество, отказываясь от наказания.'},
+  {w:'Сегодня',k:'Срок есть только у пострадавшего',p:'Платит тот, кто ничего не заметил.'}]};
+
+/* timeline: 18 Jun (day 0) .. 24 Sep (day 98) over x 60..960 */
+const TX=d=>60+d*9.18;
+(function(){const g=$('tlPts'); if(!g) return; g.innerHTML=L.tl.map((p,i)=>`<g class="tlP" id="tlP${i}" opacity="0"><circle cx="${TX(p[2])}" cy="170" r="12" fill="${i===3?'var(--flaw)':'var(--text)'}"/><text x="${TX(p[2])}" y="${i%2?235:125}" text-anchor="middle" font-size="24" fill="var(--text)">${p[0]}</text><text x="${TX(p[2])}" y="${i%2?265:95}" text-anchor="middle" font-size="20" fill="var(--text-dim)">${p[1]}</text></g>`).join('');})();
+window.__fig.timeline=()=>{const S={d:0};gsap.set('.tlP',{opacity:0});gsap.set('#tlBar',{attr:{width:0}});
+  const tl=gsap.timeline();tl.to('#tlP0',{opacity:1,duration:.3})
+  .to(S,{d:84,duration:3.2,ease:'none',onUpdate:()=>{$('tlDay').textContent=L.day(Math.round(S.d));$('tlBar').setAttribute('width',TX(S.d)-60)}})
+  .to('#tlP1',{opacity:1,duration:.3},.3+54/84*3.2).to('#tlP2',{opacity:1,duration:.3},.3+75/84*3.2).to('#tlP3',{opacity:1,duration:.3},3.5).to('#tlP4',{opacity:1,duration:.3},'+=0.4');return tl;};
+/* who reports */
+(function(){const g=$('wrRows'); if(!g) return; g.innerHTML=L.rows.map((r,i)=>{const y=90+i*58;return `<text x="40" y="${y+8}" font-size="26" fill="var(--text)">${r[0]}</text>`+
+  [r[1],r[2]].map((v,j)=>`<g class="wrM" id="wrM${i}_${j}" opacity="0">${v===1?`<circle cx="${640+j*210}" cy="${y}" r="16" fill="var(--fact)"/>`:v===2?`<circle cx="${640+j*210}" cy="${y}" r="16" fill="none" stroke="var(--alt)" stroke-width="4"/>`:''}</g>`).join('')}).join('')+`<text id="wrNote" x="850" y="${90+5*58+10}" text-anchor="middle" font-size="22" fill="var(--flaw)" opacity="0">○ exists, missed this case</text>`;})();
+window.__fig['who-reports']=()=>{gsap.set(['.wrM','#wrNote'],{opacity:0});return gsap.timeline().to('.wrM',{opacity:1,duration:.25,stagger:.25}).to('#wrNote',{opacity:1,duration:.4},'+=0.3');};
+/* nets */
+(function(){const g=$('ntLayers'); if(!g) return; g.innerHTML=L.nets.map((n,i)=>{const x=260+i*240;return `<rect x="${x}" y="40" width="26" height="110" fill="var(--text-dim)"/><rect x="${x}" y="190" width="26" height="110" fill="var(--text-dim)"/><text x="${x+13}" y="30" text-anchor="middle" font-size="24" fill="var(--text)">${n[0]}</text><text x="${x+13}" y="330" text-anchor="middle" font-size="22" fill="var(--flaw)">${n[1]}</text>`}).join('');})();
+window.__fig.nets=()=>{gsap.set('#ntDot',{attr:{cx:60}});return gsap.timeline().to('#ntDot',{attr:{cx:940},duration:3.6,ease:'none'}).to({},{duration:.6});};
+/* filter */
+(function(){const g=$('flBoxes'); if(!g) return; g.innerHTML=L.tests.map((t,i)=>{const y=60+i*110;return `<rect x="200" y="${y}" width="600" height="70" rx="10" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="2"/><text x="500" y="${y+44}" text-anchor="middle" font-size="22" fill="var(--text)">${t[0]}</text><text class="flA" id="flA${i}" x="840" y="${y+44}" font-size="28" fill="var(--flaw)" opacity="0">${t[1]}</text>`}).join('');})();
+window.__fig.filter=()=>{gsap.set(['.flA','#flOut'],{opacity:0});gsap.set('#flDot',{attr:{cx:60,cy:95}});
+  return gsap.timeline().to('#flDot',{attr:{cx:170},duration:.8}).to('#flA0',{opacity:1,duration:.3}).to('#flDot',{attr:{cy:205},duration:.8},'+=0.3').to('#flA1',{opacity:1,duration:.3}).to('#flDot',{attr:{cy:300,cx:340},duration:.8},'+=0.3').to('#flOut',{opacity:1,duration:.4}).to({},{duration:.6});};
+/* deadline bars, log scale: hours 0.5..2016 over 0..520px */
+const LX=h=>Math.log10(h/0.3)/Math.log10(2016/0.3)*520;
+(function(){const g=$('ckBars'); if(!g) return; g.innerHTML=L.bars.map((b,i)=>{const y=40+i*66;return `<text x="30" y="${y+34}" font-size="24" fill="var(--text)">${b[0]}</text><rect class="ckB" id="ckB${i}" x="340" y="${y+8}" width="0" height="36" fill="${i===4?'var(--flaw)':'var(--alt)'}"/><text class="ckT" id="ckT${i}" x="${340+LX(b[2])+12}" y="${y+34}" font-size="24" fill="var(--text)" opacity="0">${b[1]}</text>`}).join('');})();
+window.__fig.clock=()=>{const tl=gsap.timeline();L.bars.forEach((b,i)=>{gsap.set(`#ckB${i}`,{attr:{width:0}});gsap.set(`#ckT${i}`,{opacity:0});
+  tl.to(`#ckB${i}`,{attr:{width:LX(b[2])},duration:.7},i*.6).to(`#ckT${i}`,{opacity:1,duration:.3},i*.6+.6)});return tl.to({},{duration:.6});};
+
+function calc(){const o=$('cOut'); if(!o) return; const role=$('cRole').value,pi=$('cPI').checked,ci=$('cCI').checked,hurt=$('cHurt').checked; const out=[];
+  if(role==='victim'){ if(pi) out.push(L.verdict.pi); if(ci) out.push(L.verdict.ci); }
+  else { if(hurt) out.push(L.verdict.sb); }
+  o.className='verdict '+(out.length?'life':'two'); o.innerHTML=(out.length?out.join('<br>'):L.verdict.none)+`<small>${L.verdict.why}</small>`;}
+['cRole','cPI','cCI','cHurt'].forEach(id=>{const e=$(id); if(e) e.oninput=calc;}); calc();
+function buildBills(){const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w}</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});}
+buildBills();
+
+const FIGS=['timeline','who-reports','nets','filter','clock'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/063-no-one-had-to-call-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  document.querySelectorAll('.webonly-auto').forEach(e=>e.classList.add('webonly'));
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s2:'timeline',s3:'who-reports',s4:'nets',s6:'clock'};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    const f=FIG[s.id]; if(f) master.add(window.__fig[f](),t+1.2); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>

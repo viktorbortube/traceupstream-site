@@ -910,8 +910,8 @@ if(!isAuto&&!thumb){
   const order=['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9'];
   btn.onclick=()=>{
     if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
-    if(!audio){audio=new Audio('audio/'+order[idx]+'.mp3');
-      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('audio/'+order[idx]+'.mp3');audio.play();}
+    if(!audio){audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/044-outage-that-doesnt-count/'+order[idx]+'.mp3');
+      audio.onended=()=>{idx++;if(idx<order.length){audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/044-outage-that-doesnt-count/'+order[idx]+'.mp3');audio.play();}
         else{btn.classList.remove('playing');idx=0;audio=null;}};}
     audio.play();btn.classList.add('playing');
   };

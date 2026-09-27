@@ -297,7 +297,7 @@ if(!isAuto){
       if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
       const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
         idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});
-        audio=new Audio('audio/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
+        audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/056-net-only-if-you-fail-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);
         audio.play();btn.classList.add('playing')};
       const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);
       play(idx||Math.max(0,top));

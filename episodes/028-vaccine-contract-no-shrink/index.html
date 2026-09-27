@@ -750,7 +750,7 @@ if(!isAuto&&!thumb){
     return 0;}
   function playSection(i){
     if(i>=secs.length){stopListen();return;}
-    cur=i; player.src='audio/'+secs[i].id+'.mp3';
+    cur=i; player.src='https://github.com/viktorbortube/traceupstream-audio/releases/download/028-vaccine-contract-no-shrink/'+secs[i].id+'.mp3';
     player.play().catch(stopListen);
     secs[i].scrollIntoView({behavior:'smooth',block:'start'});
     lab.textContent='Pause · '+(i+1)+'/'+secs.length;}
