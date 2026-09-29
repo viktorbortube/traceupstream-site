@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Полиция ЮАР теряет по 49 стволов в месяц</title>
+<meta name="description" content="В сентябре 2026 года две массовые стрельбы за одну ночь унесли в ЮАР 27 жизней. Большинство нелегальных стволов там начинали легальными — гражданскими или государственными. Гражданский ствол проверяет кто-то другой, а оружие самого государства считает, списывает и возвращает то же ведомство, что его держит. 888 стволов со склада полиции, ждавших уничтожения, связаны больше чем с тысячей убийств. Три конструкции, которые не держатся ни на чьём слове, и цена каждой.">
+<link rel="canonical" href="https://traceupstream.com/episodes/064-the-states-own-guns/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#8A9B84;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px;font-family:var(--font-mono);font-size:14px;margin:6px 0 14px}
+.calc label{display:flex;flex-direction:column;gap:6px}
+.calc input[type=range]{accent-color:var(--fact)}
+.calc select{font-family:var(--font-mono);font-size:14px;padding:6px}
+.calc .chk{flex-direction:row;align-items:center;gap:10px}
+.verdict{font-family:var(--font-display);font-size:24px;padding:14px 16px;border-radius:8px;border:1.5px solid var(--text)}
+.verdict.life{border-color:var(--alt);color:var(--alt)}
+.verdict.two{border-color:var(--flaw);color:var(--flaw)}
+.verdict small{display:block;font-family:var(--font-body);font-size:14px;color:var(--text-dim);margin-top:6px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .calc,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.064</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="75.9">
+  <div class="kicker">Дефект конструкции · Выпуск 064</div>
+  <h1>Полиция ЮАР теряет по 49 стволов в месяц</h1>
+  <div class="prose lede">
+    <p>В ночь на 27 сентября 2026 года вооружённые люди убили 17 человек в таверне под Йоханнесбургом и ещё 10 под Кейптауном. Откуда было это оружие, пока неизвестно.</p>
+    <p>За десять лет до этого полиция проследила <em class="fact">888</em> бандитских стволов, связанных криминалистикой больше чем с <em class="flaw">1 000 убийств</em>, до полицейского склада, где они ждали уничтожения. Многие уже числились уничтоженными.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Уничтожены на бумаге. Убивают до сих пор.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="66">
+  <h2>Первый подозреваемый: слабый закон об оружии</h2>
+  <div class="prose">
+    <p>На бумаге закон ЮАР один из самых строгих: лицензия, проверка навыков, запись в национальном реестре, а отложенный законопроект убрал бы самооборону из причин владеть оружием. Одно расследование 2026 года оценило долю внутреннего оружия среди нелегального в <em class="fact">99%</em>: большинство стволов начинали легальными, гражданскими или государственными. Каждого гражданина-владельца проверяет кто-то другой. А кто проверяет государство?</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="76.6">
+  <h2>Второй подозреваемый: несколько продажных полицейских</h2>
+  <div class="prose">
+    <p>Полковник Крис Принслоо признал, что продал бандам около 2 000 стволов с полицейских складов, и в 2016 году получил 18 лет. Но с апреля 2022 года до середины 2026-го полиция потеряла или лишилась <em class="flaw">2 523</em> собственных стволов, около 49 в месяц, — а она лишь один из более чем 500 госорганов с оружием, которые обязаны сообщать о потерях и, как выяснила исследовательница, «просто не сообщают».</p>
+  </div>
+  <div class="fig">
+    <h3>Сорок девять в месяц</h3>
+    <svg id="leak" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Сетка из 2 523 квадратиков заполняется помесячно с апреля 2022 по середину 2026 года, около 49 полицейских стволов в месяц.">
+      <g id="lkGrid"></g>
+      <text id="lkN" x="960" y="360" text-anchor="end" font-size="34" fill="var(--flaw)">0</text>
+      <text x="40" y="360" font-size="24" fill="var(--text-dim)">апр. 2022 → сер. 2026</text>
+    </svg>
+    <div class="figcap">Стволы полиции ЮАР, потерянные или украденные с апреля 2022 по середину 2026 года: 2 523 (ответ парламенту, The Citizen, 19.08.2026). Один квадратик — один ствол.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="96.6">
+  <h2>Каждая проверка проверяет саму себя</h2>
+  <div class="prose">
+    <p>Гражданский ствол лицензирует, регистрирует и может изъять кто-то другой, не владелец: полиция. Оружие самой полиции проверяется в три момента — учёт, уничтожение, возврат, — и в каждом проверяющий и проверяемый совпадают. Реестр ведёт полиция; уничтожение удостоверяют те, кто хранит (в деле Кейп-Флэтс, по данным следствия, второй офицер подписывал акты на неуничтоженные стволы); список по решению суда показал <em class="flaw">35 202</em> «уничтоженных» ствола без актов; генеральный аудитор, который читает отчёты, но не открывает склады, нашёл двойной счёт возвратов.</p>
+  </div>
+  <div class="fig">
+    <h3>Кто кого проверяет</h3>
+    <svg id="selfcheck" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Три точки проверки — учёт, уничтожение, возврат. Для гражданского ствола стрелка идёт от полиции к владельцу; для полицейского возвращается к самой полиции.">
+      <g id="scCols"></g>
+    </svg>
+    <div class="figcap">Центральный реестр оружия (ведёт полиция); документы об уничтожении (IRR / Высокий суд); генеральный аудитор 2024/25.</div>
+  </div>
+  <div class="fig webonly-auto">
+    <h3>Уничтожено на бумаге</h3>
+    <svg id="certificate" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Опечатанный ящик со штампом «УНИЧТОЖЕНО»; пистолеты по одному покидают его, штамп остаётся.">
+      <rect x="330" y="120" width="340" height="170" rx="10" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+      <text x="500" y="220" text-anchor="middle" font-size="44" fill="var(--flaw)" transform="rotate(-8 500 210)">УНИЧТОЖЕНО</text>
+      <g id="ctGuns"></g>
+      <text id="ctN" x="500" y="330" text-anchor="middle" font-size="28" fill="var(--text)" opacity="0">35 202 в списке, актов нет</text>
+    </svg>
+    <div class="figcap">Списки уничтожения, представленные полицией по решению Высокого суда (IRR / BizNews).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="44.5">
+  <h2>Проблема аудитора</h2>
+  <div class="prose">
+    <p>Аудитор — человек, которого можно подкупить или запугать, а посторонний приходит раз в год, тогда как склад открыт каждый день. В деле Кейп-Флэтс вторая подпись уже была; по данным следствия, она оказалась ложной. Какие конструкции работают, когда людям внутри нельзя доверять?</p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="152.4">
+  <h2>Три конструкции, три цены</h2>
+  <div class="prose">
+    <p><em class="alt">Не оставлять ничего, что можно украсть.</em> Стандарты ООН: изъятое нелегальное оружие уничтожать, а не хранить, при свидетелях и с проверкой. Кения в июне 2025 года публично сожгла больше 6 000 стволов. Цена: улики и охват — в ЮАР больше 16 000 стволов уничтожены без обязательного баллистического отстрела, доказательств, что сожжения снижают утечку, нет, а на оружие в обороте это не влияет.</p>
+    <p><em class="alt">Пусть каждая утечка подписывается.</em> Бразилия (закон 10.826/2003) маркирует патроны полиции по партии и покупателю; гильзы с убийства Марьелле Франко привели к партии, проданной федеральной полиции. Цена: точность и время лабораторий — та партия насчитывала около 1,86 млн патронов на 27 управлений, а у баллистической лаборатории ЮАР в конце 2025 года стояло больше 41 000 дел.</p>
+  </div>
+  <div class="fig">
+    <h3>Одна партия, двадцать семь управлений</h3>
+    <svg id="lot" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Одна партия примерно из 1,86 млн патронов расходится по 27 региональным управлениям; метка называет ведомство, а не человека.">
+      <circle id="ltSrc" cx="140" cy="190" r="60" fill="var(--fact)"/>
+      <text x="140" y="290" text-anchor="middle" font-size="24" fill="var(--text)">1,86 млн патронов</text>
+      <g id="ltDst"></g>
+    </svg>
+    <div class="figcap">Партия UZZ-18, продана федеральной полиции Бразилии 29.12.2006 (Metrópoles).</div>
+  </div>
+  <div class="prose">
+    <p><em class="alt">Никогда один.</em> Американское правило двух для ядерного оружия: никто не находится рядом с ним один, каждый может заметить ошибку другого. На складе оружия: двое из разных цепочек подчинения на каждое вскрытие и каждое списание. Цена: штат на каждом складе больше чем 500 органов — и двое всё равно могут договориться.</p>
+  </div>
+  <div class="fig webonly-auto">
+    <h3>Два ключа, одна рука</h3>
+    <svg id="two" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Два ключа у двоих из разных цепочек; потом оба ключа в одной руке.">
+      <g id="twA"><rect x="260" y="120" width="120" height="40" rx="8" fill="var(--fact)"/><text x="320" y="210" text-anchor="middle" font-size="24" fill="var(--text)">хранитель</text></g>
+      <g id="twB"><rect x="620" y="120" width="120" height="40" rx="8" fill="var(--alt)"/><text x="680" y="210" text-anchor="middle" font-size="24" fill="var(--text)">вторая цепочка</text></g>
+      <text id="twC" x="500" y="270" text-anchor="middle" font-size="26" fill="var(--flaw)" opacity="0">труднее, но не невозможно</text>
+    </svg>
+    <div class="figcap">Концепция двух лиц Минобороны США; дело Кейп-Флэтс по данным следствия.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Выберите конструкцию и посмотрите счёт</h3>
+    <div class="bills" id="bills"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="45.3">
+  <h2>Вопрос, который стоит унести</h2>
+  <div class="prose">
+    <p>Никто пока не знает, откуда было оружие в той таверне, и по нынешним правилам никто вне государства не смог бы это проверить.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Какую цену парламент готов платить за проверки, которые не держатся ни на чьём слове, — улики, точность и лаборатории или штат, — и кто будет проверять тех, кто их исполняет?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+if(isAuto) document.querySelectorAll('.webonly-auto').forEach(e=>e.classList.add('webonly'));
+window.__fig=window.__fig||{};
+const L={
+ cols:['учёт','уничтожение','возврат'], civ:'гражданский ствол', pol:'ствол полиции', police:'полиция', owner:'владелец',
+ bills:[
+  {w:'Уничтожать публично',k:'Нечего украсть',p:'Платят улики (сначала отстрел), оружие в обороте не затронуто.'},
+  {w:'Метка на каждом патроне',k:'Утечка подписана',p:'Платят точность (размер партии) и время лабораторий.'},
+  {w:'Правило двух',k:'Никогда один',p:'Платит штат на каждом складе, и двое всё равно могут сговориться.'},
+  {w:'Сегодня',k:'Держатель проверяет себя сам',p:'Платит тот, в кого стреляют из «уничтоженного» ствола.'}]};
+
+/* leak: 2,523 squares, 51 months */
+(function(){const g=$('lkGrid'); if(!g) return; let s=''; const cols=90;
+  for(let i=0;i<2523;i++){const x=40+(i%cols)*10.2, y=30+Math.floor(i/cols)*10.2; s+=`<rect class="lkS" x="${x}" y="${y}" width="8" height="8" fill="var(--flaw)" opacity="0"/>`;}
+  g.innerHTML=s;})();
+window.__fig.leak=()=>{const sq=[...document.querySelectorAll('.lkS')]; gsap.set(sq,{opacity:0}); const S={n:0};
+  return gsap.timeline().to(S,{n:2523,duration:4,ease:'none',onUpdate:()=>{const n=Math.round(S.n); $('lkN').textContent=n.toLocaleString('ru-RU'); for(let i=0;i<n;i++) sq[i].setAttribute('opacity',1);}}).to({},{duration:.6});};
+/* selfcheck */
+(function(){const g=$('scCols'); if(!g) return; let s='';
+  s+=`<text x="40" y="150" font-size="26" fill="var(--text)">${L.civ}</text><text x="40" y="300" font-size="26" fill="var(--text)">${L.pol}</text>`;
+  L.cols.forEach((c,i)=>{const x=380+i*220; s+=`<text x="${x}" y="50" text-anchor="middle" font-size="26" fill="var(--text-dim)">${c}</text>`+
+    `<g class="scA" opacity="0"><circle cx="${x-50}" cy="140" r="26" fill="var(--fact)"/><circle cx="${x+50}" cy="140" r="26" fill="var(--topic)"/><path d="M${x-22} 140 H${x+20}" stroke="var(--text)" stroke-width="4"/></g>`+
+    `<g class="scB" opacity="0"><circle cx="${x}" cy="290" r="26" fill="var(--fact)"/><path d="M${x+18} 272 C ${x+70} 220, ${x-70} 220, ${x-18} 272" fill="none" stroke="var(--flaw)" stroke-width="4"/></g>`;});
+  s+=`<text x="380" y="95" font-size="20" fill="var(--text-dim)" class="scA" opacity="0">${L.police} → ${L.owner}</text><text x="380" y="345" font-size="20" fill="var(--flaw)" class="scB" opacity="0">${L.police} → ${L.police}</text>`;
+  g.innerHTML=s;})();
+window.__fig.selfcheck=()=>{gsap.set(['.scA','.scB'],{opacity:0});return gsap.timeline().to('.scA',{opacity:1,duration:.3,stagger:.3}).to('.scB',{opacity:1,duration:.3,stagger:.4},'+=0.4').to({},{duration:.6});};
+/* certificate */
+(function(){const g=$('ctGuns'); if(!g) return; g.innerHTML=[0,1,2,3,4].map(i=>`<rect class="ctG" x="${400+i*40}" y="160" width="30" height="14" rx="3" fill="var(--text)"/>`).join('');})();
+window.__fig.certificate=()=>{gsap.set('.ctG',{attr:{y:160},opacity:1});gsap.set('#ctN',{opacity:0});
+  return gsap.timeline().to('.ctG',{attr:{y:40},opacity:0,duration:.8,stagger:.4}).to('#ctN',{opacity:1,duration:.4}).to({},{duration:.6});};
+/* lot */
+(function(){const g=$('ltDst'); if(!g) return; let s=''; for(let i=0;i<27;i++){const x=520+(i%9)*50, y=90+Math.floor(i/9)*80; s+=`<line class="ltL" x1="200" y1="190" x2="${x}" y2="${y}" stroke="var(--fact)" stroke-width="2" opacity="0"/><circle class="ltD" cx="${x}" cy="${y}" r="14" fill="var(--topic)" opacity="0"/>`;} g.innerHTML=s+'<text x="720" y="360" text-anchor="middle" font-size="24" fill="var(--flaw)" class="ltD" opacity="0">27 offices</text>';})();
+window.__fig.lot=()=>{gsap.set(['.ltL','.ltD'],{opacity:0});return gsap.timeline().to('.ltL',{opacity:.6,duration:.2,stagger:.06}).to('.ltD',{opacity:1,duration:.2,stagger:.04},'-=1.2').to({},{duration:.6});};
+/* two */
+window.__fig.two=()=>{gsap.set('#twA',{x:0});gsap.set('#twB',{x:0});gsap.set('#twC',{opacity:0});
+  return gsap.timeline().to({},{duration:1}).to('#twB',{x:-300,duration:1.2,ease:'power2.inOut'}).to('#twC',{opacity:1,duration:.4}).to({},{duration:.6});};
+
+function buildBills(){const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w}</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});}
+buildBills();
+
+const FIGS=['leak','selfcheck','certificate','lot','two'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/064-the-states-own-guns-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s2:'leak',s3:'selfcheck',s5:'lot'};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    const f=FIG[s.id]; if(f) master.add(window.__fig[f](),t+1.2); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>
