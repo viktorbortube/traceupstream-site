@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — The Door Built to Save Pilots Locked Them In</title>
+<meta name="description" content="On 30 September 2026 a flydubai Boeing 737 lost more than 14,000 feet in half a minute after an altercation between its two pilots behind the locked cockpit door. Airport security, pilot screening and the two-person rule all fail to explain it. The door does: since 2001 it is built so that whoever is inside decides who comes in. Four designs that deal with the danger inside — a code that cannot be refused, more people in the cockpit, safe reporting for ill pilots, a machine that can take the aircraft back — and what each one reopens.">
+<link rel="canonical" href="https://traceupstream.com/episodes/065-door-locked-from-inside/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#8A9B84;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px;font-family:var(--font-mono);font-size:14px;margin:6px 0 14px}
+.calc label{display:flex;flex-direction:column;gap:6px}
+.calc input[type=range]{accent-color:var(--fact)}
+.calc select{font-family:var(--font-mono);font-size:14px;padding:6px}
+.calc .chk{flex-direction:row;align-items:center;gap:10px}
+.verdict{font-family:var(--font-display);font-size:24px;padding:14px 16px;border-radius:8px;border:1.5px solid var(--text)}
+.verdict.life{border-color:var(--alt);color:var(--alt)}
+.verdict.two{border-color:var(--flaw);color:var(--flaw)}
+.verdict small{display:block;font-family:var(--font-body);font-size:14px;color:var(--text-dim);margin-top:6px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .calc,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.065</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="70.7">
+  <div class="kicker">Trace Upstream · Episode 065</div>
+  <h1>The door built to save pilots locked them in</h1>
+  <div class="prose lede">
+    <p>After 2001 the cockpit door became the best-protected door on a passenger jet, built to keep attackers out of the flight deck. On 30 September 2026, 34,000 feet above Saudi Arabia, the struggle happened on the inside of it.</p>
+    <p>A flydubai Boeing 737 from Dubai to Tel Aviv, 180 people on board, lost <em class="flaw">more than 14,000 feet in half a minute</em>. The airline reports an altercation between the two pilots; Israeli officials say the first officer stabbed the captain and tried to crash the plane. As of early October 2026 the motive had not been established. The plane landed at Tabuk.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Two pilots, airport security, an armoured door — and everything depended on one locked room.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="48.2">
+  <h2>Suspect one: security missed a knife</h2>
+  <div class="prose">
+    <p>On this flight a knife may have mattered, because the other pilot was in the room. But take the knife away and the danger stays: a pilot already controls the aircraft. On 24 March 2015 a Germanwings co-pilot locked the captain out and turned one knob from <em class="fact">38,000</em> to <em class="flaw">100 feet</em>. He carried nothing. 150 people died about ten minutes later.</p>
+  </div>
+  <div class="fig">
+    <h3>Two descents</h3>
+    <svg id="drop" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Altitude against time. The flydubai flight falls from 34,000 to about 20,000 feet in 29 seconds and levels off. Germanwings descends from 38,000 feet to the ground over about ten minutes.">
+      <g id="drAxes"></g>
+      <path id="drGW" d="" fill="none" stroke="var(--text)" stroke-width="4"/>
+      <path id="drFZ" d="" fill="none" stroke="var(--flaw)" stroke-width="5"/>
+      <text id="drLFZ" x="250" y="150" font-size="22" fill="var(--flaw)" opacity="0">FZ1073: −14,125 ft in 29 s</text>
+      <text id="drLGW" x="560" y="250" font-size="22" fill="var(--text)" opacity="0">Germanwings 9525: ~10 min to impact</text>
+    </svg>
+    <div class="figcap">Flightradar24 via Al Jazeera (FZ1073, 30 Sep 2026); BEA final report (4U9525, 24 Mar 2015). Time axis: first 12 minutes.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="67.9">
+  <h2>Suspect two: airlines hire the wrong pilots</h2>
+  <div class="prose">
+    <p>Since February 2021 every EU airline must assess each pilot's psychology before hiring and offer a support programme. The US looked at mandatory testing in 2015 and turned it down, finding no convincing evidence that it works: a test shows the day of the test, not the day of a flight. In a 2022 survey of nearly 4,000 pilots, <em class="flaw">more than half</em> had avoided a doctor for fear of losing their licence and about one in four had held back information.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="37.9">
+  <h2>Suspect three: nobody else was in the cockpit</h2>
+  <div class="prose">
+    <p>Three days after Germanwings, Europe's aviation safety agency recommended two people on the flight deck at all times. Within two years it made the rule optional; Lufthansa and others dropped it, and Germany's airline association said it meant the door was opened more often and more predictably. On the flydubai flight the condition was met: <em class="fact">both pilots were inside</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>The two-person rule, 2015–2017</h3>
+    <svg id="rule" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Timeline: March 2015 recommended; July 2016 made optional; May 2017 Lufthansa group drops it.">
+      <line x1="80" y1="150" x2="920" y2="150" stroke="var(--grid)" stroke-width="6"/>
+      <g id="ruPts"></g>
+    </svg>
+    <div class="figcap">EASA SIB 2015-04 and 2016-09; AFP (Lufthansa group, 1 May 2017).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="114.4">
+  <h2>The door obeys whoever is inside</h2>
+  <div class="prose">
+    <p>After 11 September 2001 the US required doors that resist bullets and forced entry, and ICAO wrote it into international standards: the door must lock, and it must unlock from either pilot's seat. On an Airbus a crew member outside types an emergency code; a buzzer sounds for <em class="fact">15 seconds</em>; if nobody reacts, the door unlocks. If the pilot inside selects LOCK, the keypad goes dead for <em class="flaw">5 minutes</em> — repeatable without limit. Boeing's door has a similar switch.</p>
+    <p>The door was built against attackers from the cabin: Germany's airline association counts more than a thousand hijackings since the 1930s. Deliberate crashes are far rarer, but one study found eighteen in more than half a century, and in thirteen the killer was a pilot.</p>
+  </div>
+  <div class="fig">
+    <h3>The lock, from the outside</h3>
+    <svg id="door" viewBox="0 0 1000 360" width="100%" height="360" role="img" aria-label="A cockpit seen from above. Outside, a keypad sends an emergency code; a 15-second buzzer runs; inside, a switch set to LOCK disables the keypad for five minutes, again and again.">
+      <rect x="380" y="40" width="460" height="280" rx="40" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+      <rect id="dSeatL" x="470" y="90" width="90" height="90" rx="14" fill="var(--grid)"/>
+      <rect id="dSeatR" x="660" y="90" width="90" height="90" rx="14" fill="var(--grid)"/>
+      <rect id="dDoor" x="372" y="190" width="16" height="90" fill="var(--text)"/>
+      <rect x="60" y="210" width="70" height="50" rx="6" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+      <text x="95" y="242" text-anchor="middle" font-size="16" fill="var(--text)">CODE</text>
+      <rect x="60" y="290" width="200" height="12" rx="6" fill="var(--grid)"/>
+      <rect id="dBar" x="60" y="290" width="0" height="12" rx="6" fill="var(--fact)"/>
+      <text id="dT" x="270" y="302" font-size="20" fill="var(--fact)">0 s</text>
+      <text id="dLock" x="610" y="250" text-anchor="middle" font-size="30" fill="var(--flaw)" opacity="0">LOCK · 5:00</text>
+      <text id="dRep" x="610" y="290" text-anchor="middle" font-size="20" fill="var(--flaw)" opacity="0">repeatable</text>
+    </svg>
+    <div class="figcap">Airbus A320 door logic as described by BEA (Germanwings 9525 report). ICAO Annex 6, Part I, §13.2.</div>
+  </div>
+  <div class="fig">
+    <h3>The threat the door was built for</h3>
+    <svg id="ledger" viewBox="0 0 1000 320" width="100%" height="320" role="img" aria-label="Two counts side by side: more than 1,000 hijackings since 1931; 18 deliberate crashes meant to kill everyone on board, 1956–2012, 13 of them by pilots.">
+      <g id="lgA"></g><g id="lgB"></g>
+      <text x="60" y="300" font-size="20" fill="var(--text-dim)">hijackings since 1931 (BDL)</text>
+      <text x="640" y="300" font-size="20" fill="var(--text-dim)">deliberate crashes 1956–2012</text>
+      <text id="lgNA" x="60" y="40" font-size="32" fill="var(--fact)">0</text>
+      <text id="lgNB" x="640" y="40" font-size="32" fill="var(--flaw)">0</text>
+    </svg>
+    <div class="figcap">German airline association BDL via AFP (2017); Kenedi et al., Aerospace Medicine and Human Performance, 2016. Different periods and definitions.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="128.4">
+  <h2>Four doors, four prices</h2>
+  <div class="prose">
+    <p><em class="alt">A code the cockpit cannot refuse.</em> It would have let the Germanwings captain back in. Price: once the inside cannot refuse, anyone in the cabin with a knife has a reason to get the code out of a flight attendant.</p>
+    <p><em class="alt">More people behind the door.</em> Always two, or a third pilot. Price: the door opens more often, the second person is often a flight attendant who cannot stop a pilot — and sometimes the extra person is the threat (Horizon Air, 2023: an off-duty pilot in the jump seat pulled the engine fuel handles; the two pilots stopped him).</p>
+    <p><em class="alt">Make it safe to say "I'm ill".</em> An FAA advisory committee made 24 recommendations in 2024, including routine therapy without automatically losing the medical certificate. Price: some pilots in treatment keep flying, judged by their doctor rather than a fixed rule; it does nothing against intent.</p>
+    <p><em class="alt">A machine that takes the aircraft back.</em> Autoland has landed small planes at the press of a button since 2020; after Germanwings, Germany's air traffic chief suggested letting the ground take over. Price: a new key — a link that can be hacked, jammed or misused.</p>
+  </div>
+  <div class="fig">
+    <h3>Each design moves the key</h3>
+    <svg id="choices" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Four doors. Each closes one danger and reopens another: code without refusal — the hijacker; more people — the extra person; safe reporting — intent; remote recovery — the hacker.">
+      <g id="chG"></g>
+    </svg>
+    <div class="figcap">Designs and prices as discussed in the episode.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Pick a design and read its bill</h3>
+    <div class="bills" id="bills"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="29.5">
+  <h2>The question to carry</h2>
+  <div class="prose">
+    <p>There is no door that stops both the person outside and the person inside. Every design picks whom to trust, and that choice is written into standards by ICAO and national regulators, usually reopened only after a flight like this one.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">On our airlines, who, if anyone, can open the cockpit door against the will of the person inside — and who decided that?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+if(isAuto) document.querySelectorAll('.webonly-auto').forEach(e=>e.classList.add('webonly'));
+window.__fig=window.__fig||{};
+const L={
+ alt:'ft', min:'min',
+ rule:[['Mar 2015','recommended'],['Jul 2016','made optional'],['May 2017','Lufthansa group drops it']],
+ doors:[['code, no refusal','reopens: the hijacker'],['more people inside','reopens: the extra person'],['safe to say "ill"','misses: intent'],['remote recovery','reopens: the hacker']],
+ bills:[
+  {w:'Code without refusal',k:'Crew can always get in',p:'Payer: the next flight with a hijacker in the cabin.'},
+  {w:'Two or three inside',k:'Never one pilot alone',p:'Payer: a door that opens more often — and the extra person.'},
+  {w:'Safe reporting',k:'Ill pilots seek help',p:'Payer: trust in a doctor\'s judgement; nothing against intent.'},
+  {w:'Remote recovery',k:'The plane can be taken back',p:'Payer: a ground link that can be hacked or misused.'},
+  {w:'Today',k:'The person inside decides',p:'Payer: everyone on board when the danger is in the seat.'}]};
+const loc=n=>n.toLocaleString('en-US');
+
+/* drop: x = minutes 0..12 -> 120..940, y = ft 0..40000 -> 280..40 */
+(function(){const X=m=>120+m*68.3,Y=f=>280-f*0.006;
+  let a=`<line x1="120" y1="280" x2="940" y2="280" stroke="var(--grid)" stroke-width="2"/><line x1="120" y1="40" x2="120" y2="280" stroke="var(--grid)" stroke-width="2"/>`;
+  [0,10000,20000,30000,40000].forEach(f=>a+=`<text x="110" y="${Y(f)+6}" text-anchor="end" font-size="16" fill="var(--text-dim)">${loc(f)}</text>`);
+  [0,2,4,6,8,10,12].forEach(m=>a+=`<text x="${X(m)}" y="305" text-anchor="middle" font-size="16" fill="var(--text-dim)">${m} ${L.min}</text>`);
+  $('drAxes').innerHTML=a;
+  $('drFZ').setAttribute('d',`M${X(0)} ${Y(34000)} H${X(1)} L${X(1+29/60)} ${Y(19875)} C ${X(2)} ${Y(17500)}, ${X(3)} ${Y(16000)}, ${X(5)} ${Y(15000)} H${X(12)}`);
+  $('drGW').setAttribute('d',`M${X(0)} ${Y(38000)} H${X(0.5)} L${X(10.6)} ${Y(6000)} L${X(10.8)} ${Y(6000)}`);})();
+window.__fig.drop=()=>{const p=[$('drFZ'),$('drGW')];p.forEach(e=>{const l=e.getTotalLength();gsap.set(e,{strokeDasharray:l,strokeDashoffset:l});});gsap.set(['#drLFZ','#drLGW'],{opacity:0});
+  return gsap.timeline().to('#drFZ',{strokeDashoffset:0,duration:2,ease:'none'}).to('#drLFZ',{opacity:1,duration:.4}).to('#drGW',{strokeDashoffset:0,duration:3,ease:'none'}).to('#drLGW',{opacity:1,duration:.4}).to({},{duration:.6});};
+/* rule */
+(function(){const g=$('ruPts');g.innerHTML=L.rule.map(([d,t],i)=>{const x=170+i*330;return `<g class="ruP" opacity="0"><circle cx="${x}" cy="150" r="16" fill="${i?'var(--flaw)':'var(--fact)'}"/><text x="${x}" y="110" text-anchor="middle" font-size="22" fill="var(--text)">${d}</text><text x="${x}" y="200" text-anchor="middle" font-size="18" fill="var(--text-dim)">${t}</text></g>`}).join('');})();
+window.__fig.rule=()=>{gsap.set('.ruP',{opacity:0});return gsap.timeline().to('.ruP',{opacity:1,duration:.4,stagger:.7}).to({},{duration:.6});};
+/* door */
+window.__fig.door=()=>{const S={t:0};gsap.set('#dBar',{attr:{width:0}});gsap.set(['#dLock','#dRep'],{opacity:0});$('dT').textContent='0 s';
+  return gsap.timeline().to(S,{t:15,duration:2.4,ease:'none',onUpdate:()=>{$('dBar').setAttribute('width',S.t/15*200);$('dT').textContent=Math.round(S.t)+' s';}},.3)
+    .to('#dLock',{opacity:1,duration:.3},1.6).set('#dBar',{attr:{width:0}},2.8).to('#dRep',{opacity:1,duration:.4},3.2).to({},{duration:.8});};
+/* ledger */
+(function(){let a='',b='';for(let i=0;i<107;i++){a+=`<rect class="lgA" x="${60+(i%27)*18}" y="${70+Math.floor(i/27)*18}" width="14" height="14" fill="var(--fact)" opacity="0"/>`;}
+  for(let i=0;i<18;i++){b+=`<rect class="lgB" x="${640+(i%9)*30}" y="${70+Math.floor(i/9)*30}" width="24" height="24" fill="${i<13?'var(--flaw)':'var(--topic)'}" opacity="0"/>`;}
+  $('lgA').innerHTML=a+`<text x="60" y="170" font-size="16" fill="var(--text-dim)">one square = 10</text>`;$('lgB').innerHTML=b+`<text x="640" y="150" font-size="18" fill="var(--flaw)">13 by pilots</text>`;})();
+window.__fig.ledger=()=>{const S={a:0,b:0};gsap.set(['.lgA','.lgB'],{opacity:0});
+  return gsap.timeline().to('.lgA',{opacity:1,duration:.05,stagger:.015}).to(S,{a:1074,duration:1.6,onUpdate:()=>$('lgNA').textContent=loc(Math.round(S.a))+'+'},0)
+    .to('.lgB',{opacity:1,duration:.15,stagger:.08}).to(S,{b:18,duration:1.4,onUpdate:()=>$('lgNB').textContent=Math.round(S.b)},'<').to({},{duration:.6});};
+/* choices */
+(function(){$('chG').innerHTML=L.doors.map(([a,b],i)=>{const x=40+i*240;return `<g class="chD" opacity="0"><rect x="${x}" y="40" width="200" height="180" rx="10" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/><rect x="${x+150}" y="120" width="12" height="12" rx="6" fill="var(--text)"/><text x="${x+100}" y="255" text-anchor="middle" font-size="18" fill="var(--alt)">${a}</text><text x="${x+100}" y="285" text-anchor="middle" font-size="17" fill="var(--flaw)">${b}</text></g>`}).join('');})();
+window.__fig.choices=()=>{gsap.set('.chD',{opacity:0,y:20});return gsap.timeline().to('.chD',{opacity:1,y:0,duration:.5,stagger:.6}).to({},{duration:.6});};
+
+function buildBills(){const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w}</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});}
+buildBills();
+
+const FIGS=['drop','rule','door','ledger','choices'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/065-door-locked-from-inside/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s1:['drop'],s3:['rule'],s4:['door','ledger'],s5:['choices']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>

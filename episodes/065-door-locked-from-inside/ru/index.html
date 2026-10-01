@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Дверь, которая заперла пилотов с угрозой</title>
+<meta name="description" content="On 30 September 2026 a flydubai Boeing 737 lost more than 14,000 feet in half a minute after an altercation between its two pilots behind the locked cockpit door. Airport security, pilot screening and the two-person rule all fail to explain it. The door does: since 2001 it is built so that whoever is inside decides who comes in. Four designs that deal with the danger inside — a code that cannot be refused, more people in the cockpit, safe reporting for ill pilots, a machine that can take the aircraft back — and what each one reopens.">
+<link rel="canonical" href="https://traceupstream.com/episodes/065-door-locked-from-inside/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#8A9B84;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px;font-family:var(--font-mono);font-size:14px;margin:6px 0 14px}
+.calc label{display:flex;flex-direction:column;gap:6px}
+.calc input[type=range]{accent-color:var(--fact)}
+.calc select{font-family:var(--font-mono);font-size:14px;padding:6px}
+.calc .chk{flex-direction:row;align-items:center;gap:10px}
+.verdict{font-family:var(--font-display);font-size:24px;padding:14px 16px;border-radius:8px;border:1.5px solid var(--text)}
+.verdict.life{border-color:var(--alt);color:var(--alt)}
+.verdict.two{border-color:var(--flaw);color:var(--flaw)}
+.verdict small{display:block;font-family:var(--font-body);font-size:14px;color:var(--text-dim);margin-top:6px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .calc,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.065</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="91.4">
+  <div class="kicker">Дефект конструкции · Выпуск 065</div>
+  <h1>Дверь, которая заперла пилотов с угрозой</h1>
+  <div class="prose lede">
+    <p>После 2001 года дверь кабины стала самой защищённой дверью в пассажирском самолёте: её строили, чтобы нападающий не попал к пилотам. 30 сентября 2026 года на высоте 34 000 футов над Саудовской Аравией борьба случилась по ту сторону этой двери, внутри.</p>
+    <p>«Боинг 737» авиакомпании flydubai из Дубая в Тель-Авив, 180 человек на борту, потерял <em class="flaw">больше 14 000 футов за полминуты</em>. Авиакомпания сообщает о столкновении между двумя пилотами; израильские официальные лица говорят, что второй пилот ударил командира ножом и пытался разбить самолёт. На начало октября 2026 года мотив установлен не был. Самолёт сел в Табуке.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Два пилота, досмотр, бронированная дверь — и всё зависело от одной запертой комнаты.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="55.2">
+  <h2>Первый подозреваемый: досмотр пропустил нож</h2>
+  <div class="prose">
+    <p>На этом рейсе нож мог иметь значение: второй пилот был рядом. Но уберите нож, и опасность останется: самолётом пилот и так управляет. 24 марта 2015 года второй пилот Germanwings запер командира снаружи и повернул одну ручку с <em class="fact">38 000</em> на <em class="flaw">100 футов</em>. Он ничего не проносил. Примерно через десять минут погибли 150 человек.</p>
+  </div>
+  <div class="fig">
+    <h3>Два снижения</h3>
+    <svg id="drop" viewBox="0 0 1000 380" width="100%" height="380" role="img" aria-label="Высота во времени. Рейс flydubai падает с 34 000 до примерно 20 000 футов за 29 секунд и выравнивается. Germanwings снижается с 38 000 футов до земли примерно за десять минут.">
+      <g id="drAxes"></g>
+      <path id="drGW" d="" fill="none" stroke="var(--text)" stroke-width="4"/>
+      <path id="drFZ" d="" fill="none" stroke="var(--flaw)" stroke-width="5"/>
+      <text id="drLFZ" x="250" y="150" font-size="22" fill="var(--flaw)" opacity="0">FZ1073: −14 125 футов за 29 с</text>
+      <text id="drLGW" x="560" y="250" font-size="22" fill="var(--text)" opacity="0">Germanwings 9525: ~10 мин до удара</text>
+    </svg>
+    <div class="figcap">Flightradar24 по данным Al Jazeera (FZ1073, 30.09.2026); итоговый отчёт BEA (4U9525, 24.03.2015). Ось времени: первые 12 минут.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="92.4">
+  <h2>Второй подозреваемый: берут не тех пилотов</h2>
+  <div class="prose">
+    <p>С февраля 2021 года каждая авиакомпания ЕС обязана оценивать психологию пилота до найма и держать программу поддержки. США рассматривали обязательные тесты в 2015 году и отказались, не найдя убедительных доказательств, что они работают: тест показывает день теста, а не день рейса. В опросе 2022 года почти 4 000 пилотов <em class="flaw">больше половины</em> избегали врачей из страха потерять допуск, примерно каждый четвёртый утаивал сведения.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="50.4">
+  <h2>Третий подозреваемый: в кабине никого не было рядом</h2>
+  <div class="prose">
+    <p>Через три дня после Germanwings европейское агентство авиационной безопасности рекомендовало, чтобы в кабине всегда было двое. За два года правило стало необязательным; «Люфтганза» и другие от него отказались, а немецкая ассоциация авиакомпаний сказала, что из-за него дверь открывают чаще и предсказуемее. На рейсе flydubai условие было соблюдено: <em class="fact">в кабине были оба пилота</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Правило двух лиц, 2015–2017</h3>
+    <svg id="rule" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Хронология: март 2015 — рекомендовано; июль 2016 — необязательно; май 2017 — группа Lufthansa отказалась.">
+      <line x1="80" y1="150" x2="920" y2="150" stroke="var(--grid)" stroke-width="6"/>
+      <g id="ruPts"></g>
+    </svg>
+    <div class="figcap">EASA SIB 2015-04 и 2016-09; AFP (группа Lufthansa, 01.05.2017).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="144.9">
+  <h2>Дверь подчиняется тому, кто внутри</h2>
+  <div class="prose">
+    <p>После 11 сентября 2001 года США потребовали двери, которые выдерживают пули и взлом, а ИКАО записала это в международные стандарты: дверь должна запираться и отпираться с кресла любого пилота. На «Эйрбасе» бортпроводник снаружи набирает аварийный код, <em class="fact">15 секунд</em> звучит зуммер, и если внутри никто не ответил, дверь отпирается. Если пилот внутри выбирает «заперто», клавиатура отключается на <em class="flaw">5 минут</em>, и повторять можно без ограничений. У «Боинга» похожий переключатель.</p>
+    <p>Дверь строили против нападающих из салона: немецкая ассоциация авиакомпаний насчитывает больше тысячи угонов с 1930-х годов. Намеренные катастрофы гораздо реже, но одно исследование нашло восемнадцать больше чем за полвека, и в тринадцати убийцей был пилот.</p>
+  </div>
+  <div class="fig">
+    <h3>Замок глазами того, кто снаружи</h3>
+    <svg id="door" viewBox="0 0 1000 360" width="100%" height="360" role="img" aria-label="Кабина сверху. Снаружи клавиатура отправляет аварийный код, 15 секунд звучит зуммер; внутри переключатель «заперто» отключает клавиатуру на пять минут, снова и снова.">
+      <rect x="380" y="40" width="460" height="280" rx="40" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="4"/>
+      <rect id="dSeatL" x="470" y="90" width="90" height="90" rx="14" fill="var(--grid)"/>
+      <rect id="dSeatR" x="660" y="90" width="90" height="90" rx="14" fill="var(--grid)"/>
+      <rect id="dDoor" x="372" y="190" width="16" height="90" fill="var(--text)"/>
+      <rect x="60" y="210" width="70" height="50" rx="6" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/>
+      <text x="95" y="242" text-anchor="middle" font-size="16" fill="var(--text)">КОД</text>
+      <rect x="60" y="290" width="200" height="12" rx="6" fill="var(--grid)"/>
+      <rect id="dBar" x="60" y="290" width="0" height="12" rx="6" fill="var(--fact)"/>
+      <text id="dT" x="270" y="302" font-size="20" fill="var(--fact)">0 с</text>
+      <text id="dLock" x="610" y="250" text-anchor="middle" font-size="30" fill="var(--flaw)" opacity="0">ЗАПЕРТО · 5:00</text>
+      <text id="dRep" x="610" y="290" text-anchor="middle" font-size="20" fill="var(--flaw)" opacity="0">повторяется</text>
+    </svg>
+    <div class="figcap">Логика двери Airbus A320 по описанию BEA (отчёт по Germanwings 9525). ИКАО, Приложение 6, часть I, §13.2.</div>
+  </div>
+  <div class="fig">
+    <h3>Угроза, под которую строили дверь</h3>
+    <svg id="ledger" viewBox="0 0 1000 320" width="100%" height="320" role="img" aria-label="Два счёта рядом: больше 1 000 угонов с 1931 года; 18 намеренных катастроф с целью убить всех на борту, 1956–2012, 13 из них совершили пилоты.">
+      <g id="lgA"></g><g id="lgB"></g>
+      <text x="60" y="300" font-size="20" fill="var(--text-dim)">угоны с 1931 (BDL)</text>
+      <text x="640" y="300" font-size="20" fill="var(--text-dim)">намеренные катастрофы 1956–2012</text>
+      <text id="lgNA" x="60" y="40" font-size="32" fill="var(--fact)">0</text>
+      <text id="lgNB" x="640" y="40" font-size="32" fill="var(--flaw)">0</text>
+    </svg>
+    <div class="figcap">Немецкая ассоциация авиакомпаний BDL по данным AFP (2017); Kenedi et al., Aerospace Medicine and Human Performance, 2016. Периоды и определения разные.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="169.6">
+  <h2>Четыре двери, четыре цены</h2>
+  <div class="prose">
+    <p><em class="alt">Код, которому кабина не может отказать.</em> Он пустил бы командира Germanwings обратно. Цена: как только изнутри нельзя отказать, у любого в салоне с ножом появляется причина выбить код из бортпроводника.</p>
+    <p><em class="alt">Больше людей за дверью.</em> Всегда двое или третий пилот. Цена: дверь открывается чаще, вторым часто оказывается бортпроводник, который не остановит пилота, а иногда лишний человек сам и есть угроза (Horizon Air, 2023: пилот не на смене с откидного кресла потянул ручки перекрытия топлива, двое пилотов его остановили).</p>
+    <p><em class="alt">Чтобы сказать «я болен» было безопасно.</em> Комитет при FAA в 2024 году дал 24 рекомендации, среди них обычная психотерапия без автоматической потери медицинского допуска. Цена: часть пилотов летает во время лечения, годность решает врач, а не жёсткое правило; против умысла не помогает.</p>
+    <p><em class="alt">Машина, которая заберёт самолёт.</em> «Автоленд» с 2020 года сажает небольшие самолёты по нажатию кнопки; после Germanwings глава немецкой службы управления воздушным движением предложил разрешить земле брать управление. Цена: новый ключ, канал, который можно взломать, заглушить или использовать во зло.</p>
+  </div>
+  <div class="fig">
+    <h3>Каждая конструкция передаёт ключ</h3>
+    <svg id="choices" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Четыре двери. Каждая закрывает одну опасность и открывает другую: код без отказа — угонщик; больше людей — лишний человек; безопасное признание — умысел; управление с земли — взломщик.">
+      <g id="chG"></g>
+    </svg>
+    <div class="figcap">Конструкции и цены — как в выпуске.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Выберите конструкцию и посмотрите счёт</h3>
+    <div class="bills" id="bills"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="41">
+  <h2>Вопрос, который стоит задать</h2>
+  <div class="prose">
+    <p>Нет двери, которая остановит и того, кто снаружи, и того, кто внутри. Каждая конструкция выбирает, кому доверять, а этот выбор записывают в стандарты ИКАО и национальные регуляторы и пересматривают обычно только после такого рейса, как этот.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Кто на наших рейсах, если вообще кто-то, может открыть дверь кабины против воли того, кто внутри, и кто это решил?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+if(isAuto) document.querySelectorAll('.webonly-auto').forEach(e=>e.classList.add('webonly'));
+window.__fig=window.__fig||{};
+const L={
+ alt:'фт', min:'мин',
+ rule:[['март 2015','рекомендовано'],['июль 2016','необязательно'],['май 2017','Lufthansa отказалась']],
+ doors:[['код без отказа','открывает: угонщику'],['больше людей','открывает: лишнему'],['признаться без страха','мимо: умысел'],['управление с земли','открывает: взломщику']],
+ bills:[
+  {w:'Код без отказа',k:'Экипаж всегда войдёт',p:'Платит: следующий рейс, где в салоне угонщик.'},
+  {w:'Двое или трое внутри',k:'Пилот никогда не один',p:'Платит: дверь, которая открывается чаще, и лишний человек.'},
+  {w:'Признаться без страха',k:'Больные пилоты лечатся',p:'Платит: доверие к решению врача; против умысла ничего.'},
+  {w:'Управление с земли',k:'Самолёт можно забрать',p:'Платит: наземный канал, который можно взломать.'},
+  {w:'Сейчас',k:'Решает тот, кто внутри',p:'Платят все на борту, когда опасность сидит в кресле.'}]};
+const loc=n=>n.toLocaleString('ru-RU');
+
+/* drop: x = minutes 0..12 -> 120..940, y = ft 0..40000 -> 280..40 */
+(function(){const X=m=>120+m*68.3,Y=f=>280-f*0.006;
+  let a=`<line x1="120" y1="280" x2="940" y2="280" stroke="var(--grid)" stroke-width="2"/><line x1="120" y1="40" x2="120" y2="280" stroke="var(--grid)" stroke-width="2"/>`;
+  [0,10000,20000,30000,40000].forEach(f=>a+=`<text x="110" y="${Y(f)+6}" text-anchor="end" font-size="16" fill="var(--text-dim)">${loc(f)}</text>`);
+  [0,2,4,6,8,10,12].forEach(m=>a+=`<text x="${X(m)}" y="305" text-anchor="middle" font-size="16" fill="var(--text-dim)">${m} ${L.min}</text>`);
+  $('drAxes').innerHTML=a;
+  $('drFZ').setAttribute('d',`M${X(0)} ${Y(34000)} H${X(1)} L${X(1+29/60)} ${Y(19875)} C ${X(2)} ${Y(17500)}, ${X(3)} ${Y(16000)}, ${X(5)} ${Y(15000)} H${X(12)}`);
+  $('drGW').setAttribute('d',`M${X(0)} ${Y(38000)} H${X(0.5)} L${X(10.6)} ${Y(6000)} L${X(10.8)} ${Y(6000)}`);})();
+window.__fig.drop=()=>{const p=[$('drFZ'),$('drGW')];p.forEach(e=>{const l=e.getTotalLength();gsap.set(e,{strokeDasharray:l,strokeDashoffset:l});});gsap.set(['#drLFZ','#drLGW'],{opacity:0});
+  return gsap.timeline().to('#drFZ',{strokeDashoffset:0,duration:2,ease:'none'}).to('#drLFZ',{opacity:1,duration:.4}).to('#drGW',{strokeDashoffset:0,duration:3,ease:'none'}).to('#drLGW',{opacity:1,duration:.4}).to({},{duration:.6});};
+/* rule */
+(function(){const g=$('ruPts');g.innerHTML=L.rule.map(([d,t],i)=>{const x=170+i*330;return `<g class="ruP" opacity="0"><circle cx="${x}" cy="150" r="16" fill="${i?'var(--flaw)':'var(--fact)'}"/><text x="${x}" y="110" text-anchor="middle" font-size="22" fill="var(--text)">${d}</text><text x="${x}" y="200" text-anchor="middle" font-size="18" fill="var(--text-dim)">${t}</text></g>`}).join('');})();
+window.__fig.rule=()=>{gsap.set('.ruP',{opacity:0});return gsap.timeline().to('.ruP',{opacity:1,duration:.4,stagger:.7}).to({},{duration:.6});};
+/* door */
+window.__fig.door=()=>{const S={t:0};gsap.set('#dBar',{attr:{width:0}});gsap.set(['#dLock','#dRep'],{opacity:0});$('dT').textContent='0 s';
+  return gsap.timeline().to(S,{t:15,duration:2.4,ease:'none',onUpdate:()=>{$('dBar').setAttribute('width',S.t/15*200);$('dT').textContent=Math.round(S.t)+' с';}},.3)
+    .to('#dLock',{opacity:1,duration:.3},1.6).set('#dBar',{attr:{width:0}},2.8).to('#dRep',{opacity:1,duration:.4},3.2).to({},{duration:.8});};
+/* ledger */
+(function(){let a='',b='';for(let i=0;i<107;i++){a+=`<rect class="lgA" x="${60+(i%27)*18}" y="${70+Math.floor(i/27)*18}" width="14" height="14" fill="var(--fact)" opacity="0"/>`;}
+  for(let i=0;i<18;i++){b+=`<rect class="lgB" x="${640+(i%9)*30}" y="${70+Math.floor(i/9)*30}" width="24" height="24" fill="${i<13?'var(--flaw)':'var(--topic)'}" opacity="0"/>`;}
+  $('lgA').innerHTML=a+`<text x="60" y="170" font-size="16" fill="var(--text-dim)">один квадрат = 10</text>`;$('lgB').innerHTML=b+`<text x="640" y="150" font-size="18" fill="var(--flaw)">13 — пилоты</text>`;})();
+window.__fig.ledger=()=>{const S={a:0,b:0};gsap.set(['.lgA','.lgB'],{opacity:0});
+  return gsap.timeline().to('.lgA',{opacity:1,duration:.05,stagger:.015}).to(S,{a:1074,duration:1.6,onUpdate:()=>$('lgNA').textContent=loc(Math.round(S.a))+'+'},0)
+    .to('.lgB',{opacity:1,duration:.15,stagger:.08}).to(S,{b:18,duration:1.4,onUpdate:()=>$('lgNB').textContent=Math.round(S.b)},'<').to({},{duration:.6});};
+/* choices */
+(function(){$('chG').innerHTML=L.doors.map(([a,b],i)=>{const x=40+i*240;return `<g class="chD" opacity="0"><rect x="${x}" y="40" width="200" height="180" rx="10" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/><rect x="${x+150}" y="120" width="12" height="12" rx="6" fill="var(--text)"/><text x="${x+100}" y="255" text-anchor="middle" font-size="18" fill="var(--alt)">${a}</text><text x="${x+100}" y="285" text-anchor="middle" font-size="17" fill="var(--flaw)">${b}</text></g>`}).join('');})();
+window.__fig.choices=()=>{gsap.set('.chD',{opacity:0,y:20});return gsap.timeline().to('.chD',{opacity:1,y:0,duration:.5,stagger:.6}).to({},{duration:.6});};
+
+function buildBills(){const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w}</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});}
+buildBills();
+
+const FIGS=['drop','rule','door','ledger','choices'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/065-door-locked-from-inside-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s1:['drop'],s3:['rule'],s4:['door','ledger'],s5:['choices']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>
