@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Почти тысяча детей. Предел по закону — 20 000 долларов</title>
+<meta name="description" content="A September 2026 report by the Massachusetts attorney general identified 275 clergy accused of abusing 944 children in three Catholic dioceses; three cases reached prosecutors, one led to a charge. In civil court, Massachusetts caps what a charity can be made to pay at $20,000 — a figure set in 1971 and never indexed — so a third of it does not pay for the case and no lawyer can take it. Three designs — lift the cap, reopen expired claims, compensation funds — and who pays and who decides in each.">
+<link rel="canonical" href="https://traceupstream.com/episodes/066-priced-in-1971/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#8A9B84;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px;font-family:var(--font-mono);font-size:14px;margin:6px 0 14px}
+.calc label{display:flex;flex-direction:column;gap:6px}
+.calc input[type=range]{accent-color:var(--fact)}
+.calc select{font-family:var(--font-mono);font-size:14px;padding:6px}
+.calc .chk{flex-direction:row;align-items:center;gap:10px}
+.verdict{font-family:var(--font-display);font-size:24px;padding:14px 16px;border-radius:8px;border:1.5px solid var(--text)}
+.verdict.life{border-color:var(--alt);color:var(--alt)}
+.verdict.two{border-color:var(--flaw);color:var(--flaw)}
+.verdict small{display:block;font-family:var(--font-body);font-size:14px;color:var(--text-dim);margin-top:6px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .calc,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.066</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="65.6">
+  <div class="kicker">Дефект конструкции · Выпуск 066</div>
+  <h1>Почти тысяча детей. Предел по закону — 20 000 долларов</h1>
+  <div class="prose lede">
+    <p>В Массачусетсе суд может обязать благотворительную организацию заплатить за большинство видов вреда не больше <em class="flaw">20 000 долларов</em>. Сумму записали в закон в 1971 году и с тех пор поднимали один раз, только для больниц.</p>
+    <p>В сентябре 2026 года доклад генерального прокурора о трёх католических епархиях установил <em class="fact">275</em> священнослужителей, обвиняемых в насилии над <em class="fact">944</em> детьми за семь десятилетий. Прокурорам передали три дела, обвинение предъявили по одному.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Семь лет расследования. Одно обвинение. И гражданский предел из 1971 года.</em></p>
+  </div>
+  <div class="fig">
+    <h3>944 пострадавших, 3 передачи, 1 обвинение</h3>
+    <svg id="ledger" viewBox="0 0 1000 360" width="100%" height="360" role="img" aria-label="944 маленькие точки, по одной на пострадавшего; три стрелки ведут к прокурорам; одна отмечена галочкой — единственное обвинение.">
+      <g id="lgDots"></g>
+      <g id="lgArr"></g>
+      <text id="lgN" x="40" y="350" font-size="34" fill="var(--text-dim)">0 пострадавших</text>
+    </svg>
+    <div class="figcap">Генеральный прокурор Массачусетса, доклад о епархиях Фолл-Ривер, Спрингфилд и Вустер, 30.09.2026.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="29.8">
+  <h2>Первый подозреваемый: церковь всё скрыла</h2>
+  <div class="prose">
+    <p>Доклад описывает, как именно: священники возвращались в приходы после лечения без настоящего надзора, а некоторых переводили, не объясняя новому приходу причину. Сокрытие объясняет, почему всё всплыло только через десятилетия. Оно не объясняет, почему теперь почти ничего не доходит до суда.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="44.1">
+  <h2>Второй подозреваемый: прокуроры закрыли глаза</h2>
+  <div class="prose">
+    <p>Генеральный прокурор назвала три причины, по которым передать удалось лишь три дела: часть происходившего тогда не была преступлением, по большей части остального истёк срок давности, а многие причастные умерли. Уголовное право ищет одного человека для наказания. Вторая дверь — иск к организации.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="75.2">
+  <h2>Третий подозреваемый: всегда можно подать в суд</h2>
+  <div class="prose">
+    <p>По закону епархия считается благотворительной организацией, поэтому суд может взыскать с неё не больше 20 000 долларов. Пострадавшие обычно платят адвокату треть выигрыша — меньше <em class="flaw">7 000 долларов</em> за дело, которое может тянуться годами, — а расходы на подготовку такого дела сами могут превысить 20 000. Адвокаты говорят, что клиенту остаётся 10 000 или меньше. А 20 000 долларов 1971 года — это больше <em class="fact">150 000</em> в долларах 2026-го.</p>
+  </div>
+  <div class="fig">
+    <h3>Куда уходят 20 000 долларов</h3>
+    <svg id="lawyer" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Полоса в 20 000 долларов: треть адвокату, расходы на дело, которые могут превысить остаток, и то, что остаётся пострадавшему.">
+      <rect x="60" y="90" width="880" height="70" rx="8" fill="var(--grid)"/>
+      <rect id="lwFee" x="60" y="90" width="0" height="70" rx="8" fill="var(--flaw)"/>
+      <rect id="lwCost" x="353" y="90" width="0" height="70" fill="var(--topic)"/>
+      <text x="60" y="70" font-size="24" fill="var(--text)">потолок 20 000 $</text>
+      <text id="lwT1" x="70" y="200" font-size="22" fill="var(--flaw)" opacity="0">треть: меньше 7 000 $ адвокату</text>
+      <text id="lwT2" x="70" y="240" font-size="22" fill="var(--text)" opacity="0">расходы на дело сами могут превысить 20 000 $</text>
+      <text id="lwT3" x="70" y="280" font-size="22" fill="var(--alt)" opacity="0">клиенту остаётся 10 000 $ или меньше</text>
+    </svg>
+    <div class="figcap">Адвокаты Массачусетса в WBUR и GBH; M.G.L. c.231 §85K.</div>
+  </div>
+  <div class="fig">
+    <h3>Те же 20 000 долларов, 1971–2026</h3>
+    <svg id="erosion" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Две линии с 1971 по 2026 год: потолок остаётся на 20 000 долларов; та же сумма с поправкой на цены растёт до более чем 150 000.">
+      <g id="erAx"></g>
+      <path id="erFlat" fill="none" stroke="var(--flaw)" stroke-width="5"/>
+      <path id="erReal" fill="none" stroke="var(--fact)" stroke-width="5"/>
+      <text id="erL1" x="720" y="285" font-size="22" fill="var(--flaw)" opacity="0">потолок: 20 000 $</text>
+      <text id="erL2" x="650" y="70" font-size="22" fill="var(--fact)" opacity="0">20 000 $ 1971 года сегодня: 150 000+</text>
+    </svg>
+    <div class="figcap">Индекс потребительских цен США (BLS), приблизительно. Потолок ни разу не индексировали.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="114.7">
+  <h2>Потолок как запасной выход, и выбирает его не пострадавший</h2>
+  <div class="prose">
+    <p>В 2003 году Бостонская архиепархия согласилась выплатить <em class="fact">85 миллионов долларов</em> более чем пятистам пострадавшим — от 80 000 до 300 000 каждому. Кардинала и епископов судили лично, а у человека потолка нет; по сообщениям того времени, архиепархия согласилась не ссылаться на потолок. Значит, потолок задаёт самое большее, что организацию можно заставить заплатить, а не то, что получат пострадавшие. Сегодня личный путь закрывают ещё два правила: на насилие до 1971 года распространяется прежний полный иммунитет, а закон 2014 года открыл старые иски к организациям и надзиравшим только за насилие после 2014-го.</p>
+  </div>
+  <div class="fig">
+    <h3>Сколько дал бы потолок</h3>
+    <svg id="boston" viewBox="0 0 1000 320" width="100%" height="320" role="img" aria-label="Два столбца: 85 миллионов долларов, выплаченные Бостонской архиепархией в 2003 году, против примерно 11 миллионов, если бы каждый заявитель получил потолок в 20 000.">
+      <rect id="bsA" x="160" y="280" width="220" height="0" fill="var(--fact)"/>
+      <rect id="bsB" x="600" y="280" width="220" height="0" fill="var(--flaw)"/>
+      <text x="270" y="310" text-anchor="middle" font-size="22" fill="var(--text)">выплачено, 2003</text>
+      <text x="710" y="310" text-anchor="middle" font-size="22" fill="var(--text)">потолок × заявители</text>
+      <text id="bsTA" x="270" y="40" text-anchor="middle" font-size="28" fill="var(--fact)" opacity="0">85 млн $</text>
+      <text id="bsTB" x="710" y="210" text-anchor="middle" font-size="28" fill="var(--flaw)" opacity="0">≈ 11 млн $</text>
+    </svg>
+    <div class="figcap">Соглашение Бостонской архиепархии, 2003 (552 заявителя). Boston Globe и AP.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="167.7">
+  <h2>Три двери, три цены</h2>
+  <div class="prose">
+    <p><em class="alt">Снять или индексировать потолок.</em> Он касается любой благотворительной организации штата, от продовольственного банка до детской лиги; больницы, добившиеся его, утверждают, что страховка подорожает. Генеральный прокурор предлагает снять его только для исков о сексуальном насилии над детьми, как Нью-Джерси сделал в 2006 году для случаев недосмотра. Но большая часть насилия из доклада случилась до 2014 года, так что дверь раньше закрывают сроки давности.</p>
+    <p><em class="alt">Вновь открыть истёкшие иски.</em> Окно Нью-Йорка в 2019 году принесло около 11 000 исков; шесть епархий объявили банкротство; Роквилл-Сентр выплатила 323 миллиона долларов более чем 600 пострадавшим. Цена: банкротство замораживает и сводит все дела — нет суда, документы не раскрываются, выплаты по формуле.</p>
+    <p><em class="alt">Компенсационные фонды.</em> Епархии Пенсильвании выплатили 84 миллиона долларов через собственные фонды; национальная программа Австралии ограничивает выплату 150 000 австралийских долларов; ирландский совет по возмещению выплатил около 1,5 миллиарда евро. Цена: решает не суд — в Пенсильвании принять деньги значило отказаться от иска, в Австралии организация может не участвовать, а в Ирландии около пяти шестых заплатили налогоплательщики.</p>
+  </div>
+  <div class="fig">
+    <h3>Кто платит, кто решает</h3>
+    <svg id="choices" viewBox="0 0 1000 320" width="100%" height="320" role="img" aria-label="Три двери: снять потолок — решают присяжные, платит страховка всех благотворительных организаций; открыть иски — судья по банкротству решает по формуле; фонды — решает плательщик или государство, пострадавший отказывается от иска.">
+      <g id="chG"></g>
+    </svg>
+    <div class="figcap">Конструкции и цены — как в выпуске.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Выберите конструкцию и посмотрите счёт</h3>
+    <div class="bills" id="bills"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="39.9">
+  <h2>Вопрос, который стоит задать</h2>
+  <div class="prose">
+    <p>Вопрос не только в том, кто виноват. Вопрос в том, кто назначает цену вреда, случившегося десятилетия назад: присяжные, судья по банкротству, фонд организации или государства — или сумма, записанная в 1971 году.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Какой вариант вы выбираете — и кто за него платит?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+if(isAuto) document.querySelectorAll('.webonly-auto').forEach(e=>e.classList.add('webonly'));
+window.__fig=window.__fig||{};
+const L={
+ surv:'пострадавших',
+ doors:[['снять потолок','присяжные · страховка'],['открыть иски','судья · формула'],['фонд','плательщик · без иска']],
+ bills:[
+  {w:'Снять потолок',k:'Цену назначают присяжные',p:'Платят: организация и страховка всех благотворительных организаций. Старые иски закрыты сроками давности.'},
+  {w:'Открыть истёкшие иски',k:'Снова можно судиться',p:'Платит организация — пока банкротство не сведёт все дела и не решит формула.'},
+  {w:'Компенсационный фонд',k:'Без суда',p:'Платит организация или налогоплательщик. Пострадавший отказывается от права на иск.'},
+  {w:'Сейчас',k:'Сумма из 1971 года',p:'Платит пострадавший, который не может найти адвоката.'}]};
+const loc=n=>n.toLocaleString('ru-RU');
+
+/* ledger: 944 dots */
+(function(){let s='';for(let i=0;i<944;i++){const x=40+(i%59)*10,y=20+Math.floor(i/59)*18;s+=`<circle class="lgD" cx="${x}" cy="${y}" r="3.5" fill="var(--topic)" opacity="0"/>`;}$('lgDots').innerHTML=s;
+  $('lgArr').innerHTML=[0,1,2].map(i=>`<g class="lgA" opacity="0"><path d="M640 ${80+i*80} H860" stroke="var(--text)" stroke-width="4"/><path d="M850 ${72+i*80} L862 ${80+i*80} L850 ${88+i*80}" fill="none" stroke="var(--text)" stroke-width="4"/>${i===0?`<path class="lgT" d="M880 ${80+i*80} l10 10 l20 -22" fill="none" stroke="var(--alt)" stroke-width="6" opacity="0"/>`:''}</g>`).join('');})();
+window.__fig.ledger=()=>{const d=[...document.querySelectorAll('.lgD')];gsap.set(d,{opacity:0});gsap.set(['.lgA','.lgT'],{opacity:0});const S={n:0};
+  return gsap.timeline().to(S,{n:944,duration:2.4,ease:'none',onUpdate:()=>{const n=Math.round(S.n);for(let i=0;i<n;i++)d[i].setAttribute('opacity',1);$('lgN').textContent=loc(n)+' '+L.surv;}})
+    .to('.lgA',{opacity:1,duration:.3,stagger:.4}).to('.lgT',{opacity:1,duration:.3}).to({},{duration:.6});};
+/* lawyer */
+window.__fig.lawyer=()=>{gsap.set(['#lwFee','#lwCost'],{attr:{width:0}});gsap.set(['#lwT1','#lwT2','#lwT3'],{opacity:0});
+  return gsap.timeline().to('#lwFee',{attr:{width:293},duration:.8}).to('#lwT1',{opacity:1,duration:.3}).to('#lwCost',{attr:{width:587},duration:1}).to('#lwT2',{opacity:1,duration:.3}).to('#lwT3',{opacity:1,duration:.3}).to({},{duration:.6});};
+/* erosion: 1971..2026 x 80..940; $0..$180k y 300..40 */
+(function(){const X=y=>80+(y-1971)*15.6,Y=v=>300-v/180000*260;
+  const cpi={1971:40.5,1980:82.4,1990:130.7,2000:172.2,2010:218.1,2020:258.8,2026:330};
+  let a=`<line x1="80" y1="300" x2="940" y2="300" stroke="var(--grid)" stroke-width="2"/>`;[1971,1980,1990,2000,2010,2020,2026].forEach(y=>a+=`<text x="${X(y)}" y="325" text-anchor="middle" font-size="16" fill="var(--text-dim)">${y}</text>`);
+  [0,50000,100000,150000].forEach(v=>a+=`<text x="70" y="${Y(v)+5}" text-anchor="end" font-size="15" fill="var(--text-dim)">$${v/1000}k</text>`);$('erAx').innerHTML=a;
+  $('erFlat').setAttribute('d',`M${X(1971)} ${Y(20000)} H${X(2026)}`);
+  $('erReal').setAttribute('d','M'+Object.entries(cpi).map(([y,c])=>`${X(+y)} ${Y(20000*c/40.5)}`).join(' L'));})();
+window.__fig.erosion=()=>{['erFlat','erReal'].forEach(id=>{const e=$(id),l=e.getTotalLength();gsap.set(e,{strokeDasharray:l,strokeDashoffset:l});});gsap.set(['#erL1','#erL2'],{opacity:0});
+  return gsap.timeline().to('#erFlat',{strokeDashoffset:0,duration:1.4,ease:'none'}).to('#erL1',{opacity:1,duration:.3}).to('#erReal',{strokeDashoffset:0,duration:2,ease:'none'},.2).to('#erL2',{opacity:1,duration:.3}).to({},{duration:.6});};
+/* boston */
+window.__fig.boston=()=>{gsap.set('#bsA',{attr:{height:0,y:280}});gsap.set('#bsB',{attr:{height:0,y:280}});gsap.set(['#bsTA','#bsTB'],{opacity:0});
+  return gsap.timeline().to('#bsA',{attr:{height:220,y:60},duration:1.2}).to('#bsTA',{opacity:1,duration:.3}).to('#bsB',{attr:{height:29,y:251},duration:.6}).to('#bsTB',{opacity:1,duration:.3}).to({},{duration:.6});};
+/* choices */
+(function(){$('chG').innerHTML=L.doors.map(([a,b],i)=>{const x=170+i*330;return `<g class="chD" opacity="0"><path d="M${x-80} 230 V80 a80 36 0 0 1 160 0 V230 Z" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/><circle cx="${x+50}" cy="160" r="7" fill="var(--text)"/><text x="${x}" y="265" text-anchor="middle" font-size="20" fill="var(--alt)">${a}</text><text x="${x}" y="295" text-anchor="middle" font-size="17" fill="var(--flaw)">${b}</text></g>`}).join('');})();
+window.__fig.choices=()=>{gsap.set('.chD',{opacity:0,y:20});return gsap.timeline().to('.chD',{opacity:1,y:0,duration:.5,stagger:.6}).to({},{duration:.6});};
+
+function buildBills(){const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w}</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});}
+buildBills();
+
+const FIGS=['ledger','lawyer','erosion','boston','choices'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/066-priced-in-1971-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s0:['ledger'],s3:['lawyer','erosion'],s4:['boston'],s5:['choices']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>
