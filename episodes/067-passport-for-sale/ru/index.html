@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Аргентина продаёт паспорта. Платит Европа</title>
+<meta name="description" content="In October 2026 Argentina put a price on citizenship: USD 350,000, with no requirement to live there in the terms reported so far. What the buyer gets is visa-free entry to about 169 countries, including Schengen. The seller is paid; the countries at the far end carry the risk, and their only lever — suspending visa-free travel — lands on every citizen. Malta, Cyprus, Vanuatu, the Caribbean and golden visas: four designs and who pays in each.">
+<link rel="canonical" href="https://traceupstream.com/episodes/067-passport-for-sale/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#8A9B84;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px;font-family:var(--font-mono);font-size:14px;margin:6px 0 14px}
+.calc label{display:flex;flex-direction:column;gap:6px}
+.calc input[type=range]{accent-color:var(--fact)}
+.calc select{font-family:var(--font-mono);font-size:14px;padding:6px}
+.calc .chk{flex-direction:row;align-items:center;gap:10px}
+.verdict{font-family:var(--font-display);font-size:24px;padding:14px 16px;border-radius:8px;border:1.5px solid var(--text)}
+.verdict.life{border-color:var(--alt);color:var(--alt)}
+.verdict.two{border-color:var(--flaw);color:var(--flaw)}
+.verdict small{display:block;font-family:var(--font-body);font-size:14px;color:var(--text-dim);margin-top:6px}
+.bills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.bill{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px;cursor:pointer}
+.bill.on{border-color:var(--alt);box-shadow:0 0 0 2px rgba(14,138,99,.15)}
+.bill .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.bill .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .calc,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.067</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="50.6">
+  <div class="kicker">Дефект конструкции · Выпуск 067</div>
+  <h1>Аргентина продаёт паспорта. Платит Европа</h1>
+  <div class="prose lede">
+    <p>В октябре 2026 года министр экономики Аргентины назвал цену гражданства: <em class="flaw">350 000 долларов</em> в казну или 800 000 в облигации на семь лет. Судя по опубликованным условиям, жить в Аргентине покупателю не обязательно.</p>
+    <p>Покупатель получает паспорт, с которым можно без визы въехать примерно в <em class="fact">169</em> стран, включая 29 стран Шенгенской зоны.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Цену назначает Аргентина, деньги остаются у неё. Кто платит?</em></p>
+  </div>
+  <div class="fig">
+    <h3>За что платит покупатель</h3>
+    <svg id="doors" viewBox="0 0 1000 360" width="100%" height="360" role="img" aria-label="Аргентина слева, линии к регионам, куда её паспорт пускает без визы: Меркосур, Шенген, Великобритания, Азия.">
+      <circle cx="160" cy="200" r="34" fill="var(--fact)"/>
+      <text x="160" y="270" text-anchor="middle" font-size="32" fill="var(--text)">Аргентина</text>
+      <g id="drLines"></g>
+      <text id="drN" x="980" y="345" text-anchor="end" font-size="32" fill="var(--flaw)">0 стран</text>
+    </svg>
+    <div class="figcap">Безвизовые направления для граждан Аргентины (около 169, Henley Passport Index 2026). Шенген: 90 дней из 180 (EEAS).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="43.2">
+  <h2>Первый подозреваемый: это дело самой Аргентины</h2>
+  <div class="prose">
+    <p>Каждая страна сама решает, кого сделать гражданином. Но цену паспорта назначают не в Буэнос-Айресе: аргентинец проводит в Шенгене девяносто дней без визы, потому что европейские правительства доверяют тем, кого Аргентина делает гражданами, — доверие давали стране, чьи новые граждане годами жили на её земле, а не прейскуранту.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="70.5">
+  <h2>Второй подозреваемый: проверка отсеет не тех</h2>
+  <div class="prose">
+    <p>Аргентина обещает проверку новым агентством вместе с разведкой и финансовой разведкой. Но проверяет та же страна, которой платят. В 2020 году журналисты «Аль-Джазиры» выдали себя за покупателя с судимостью и сняли, как высокопоставленные кипрские политики предлагают помочь; официальное расследование установило, что <em class="flaw">больше половины</em> кипрских «инвесторских» паспортов не следовало выдавать. ЕС нашёл у Вануату гражданство, выданное людям из списков Интерпола, и крайне низкую долю отказов.</p>
+  </div>
+  <div class="fig">
+    <h3>Кипр, 2007–2020</h3>
+    <svg id="cyprus" viewBox="0 0 1000 220" width="100%" height="220" role="img" aria-label="Полоса всех паспортов, выданных по кипрской программе; 51,81% отмечены как незаконно выданные.">
+      <rect x="60" y="70" width="880" height="70" rx="8" fill="var(--grid)"/>
+      <rect id="cyBad" x="60" y="70" width="0" height="70" rx="8" fill="var(--flaw)"/>
+      <text x="60" y="50" font-size="24" fill="var(--text)">паспорта, выданные по программе</text>
+      <text id="cyT" x="60" y="190" font-size="26" fill="var(--flaw)" opacity="0">51,81% не следовало выдавать (официальное расследование)</text>
+    </svg>
+    <div class="figcap">«Аль-Джазира», 2021, о расследовании комиссии Николатоса.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="75">
+  <h2>Третий подозреваемый: Европа просто запретит</h2>
+  <div class="prose">
+    <p>Внутри ЕС суд в апреле 2025 года постановил, что гражданство Союза не может быть результатом коммерческой сделки; Мальта изменила закон в июле. За пределами ЕС рычаг один — само безвизовое соглашение. С Вануату ЕС сначала приостановил безвиз только для паспортов, выданных с 2015 года, потом для всех, а в декабре 2024 года ввёл визы. Великобритания ввела визы для Вануату и Доминики в 2023 году. С ноября 2025 года сама работа такой программы — основание приостановить безвиз.</p>
+  </div>
+  <div class="fig">
+    <h3>Вануату: от покупателей ко всем</h3>
+    <svg id="vanuatu" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Хронология: 2015 — начало продаж; март 2022 — частичная приостановка для паспортов с 2015 года; ноябрь 2022 — полная; декабрь 2024 — визы для всех.">
+      <line x1="80" y1="150" x2="920" y2="150" stroke="var(--grid)" stroke-width="6"/>
+      <g id="vaPts"></g>
+    </svg>
+    <div class="figcap">Пресс-релизы Совета ЕС от 03.03.2022, 08.11.2022, 12.12.2024.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="77.3">
+  <h2>Паспорт как связка</h2>
+  <div class="prose">
+    <p>Одна часть принадлежит Аргентине — право жить в стране и защита консульств. Другая взята взаймы — двери, которые открывают другие страны, доверяя её гражданам. А ещё гражданин получает голос: в июне 2026 года избирательная палата Аргентины отменила чрезвычайный указ, передавший право давать гражданство от судей миграционной службе, потому что гражданство даёт право голоса, а конституция не позволяет решать это указом. Через три месяца программу всё равно объявили.</p>
+  </div>
+  <div class="fig">
+    <h3>Что внутри паспорта</h3>
+    <svg id="bundle" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Паспорт распадается на три части: право жить в Аргентине, голос и двери, которые открывают другие страны.">
+      <g id="bnParts"></g>
+    </svg>
+    <div class="figcap">Национальная избирательная палата, 30.06.2026 (указ DNU 366/2025).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="116.2">
+  <h2>Четыре двери, четыре цены</h2>
+  <div class="prose">
+    <p><em class="alt">Правило сверху.</em> Общий суд решает, что гражданство нельзя купить (Мальта, 2025). Цена: действует только на тех, кто признаёт общий суд, и ограничивает право страны выбирать граждан.</p>
+    <p><em class="alt">Рычаг привратника.</em> Приостанавливать безвиз любой стране, которая продаёт (правило ЕС с 2025 года). Цена: за решение правительства платит весь народ, а закрывается только европейская дверь.</p>
+    <p><em class="alt">Продавцы следят за собой.</em> Пять карибских продавцов договорились в 2024 году о минимальной цене 200 000 долларов. Цена: общий минимум защищает доходы продавцов больше, чем чьи-либо границы; проверяет по-прежнему тот, кому платят.</p>
+    <p><em class="alt">Продавать меньше: золотая виза.</em> Вид на жительство для инвесторов вместо паспорта. Португалия убрала покупку недвижимости в 2023 году, Испания отменила программу в 2025-м, когда эти деньги обвинили в росте цен на жильё. Цена: аренда для тех, кто уже живёт в стране.</p>
+  </div>
+  <div class="fig">
+    <h3>Кто решает, кто платит</h3>
+    <svg id="choices" viewBox="0 0 1000 320" width="100%" height="320" role="img" aria-label="Четыре двери: кто решает и кто платит — суд; привратник; продавцы вместе; местный рынок жилья.">
+      <g id="chG"></g>
+    </svg>
+    <div class="figcap">Конструкции и цены — как в выпуске.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Выберите конструкцию и посмотрите счёт</h3>
+    <div class="bills" id="bills"></div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="37.1">
+  <h2>Вопрос, который стоит задать</h2>
+  <div class="prose">
+    <p>Паспорт — ключ к дверям, которые построили другие, и к избирательной урне дома. Вопрос в том, кто решает, когда ключ открывает чужую дверь, и кто платит, когда она открывается не тому.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Кто должен решать, можно ли купить гражданство вместе с голосом: указ, закон или судья?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" href="https://youtu.be/k6tpgU87kD4" rel="noopener">Смотреть на YouTube</a>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+if(isAuto) document.querySelectorAll('.webonly-auto').forEach(e=>e.classList.add('webonly'));
+window.__fig=window.__fig||{};
+const L={
+ countries:'стран',
+ regions:[['Меркосур',780,70],['Шенген',860,150],['Великобритания',780,230],['Азия',700,300]],
+ va:[['2015','начало продаж'],['март 2022','только купленные'],['ноябрь 2022','все граждане'],['декабрь 2024','визы для всех']],
+ parts:[['право жить в стране','аргентинское'],['голос','аргентинский — по закону?'],['двери в 169 стран','взаймы']],
+ doors:[['правило сверху','суд · только свои'],['рычаг привратника','платят все'],['продавцы вместе','проверяет продавец'],['золотая виза','платит аренда']],
+ bills:[
+  {w:'Правило сверху',k:'Гражданство нельзя купить',p:'Платит: свобода страны выбирать граждан; действует только на членов суда.'},
+  {w:'Рычаг привратника',k:'Продаёшь — теряешь безвиз',p:'Платит: каждый гражданин продавца, покупал он или нет.'},
+  {w:'Продавцы следят за собой',k:'Общая минимальная цена',p:'Платят: границы на другом конце — проверяющему по-прежнему платят.'},
+  {w:'Золотая виза',k:'Продавать жительство, а не гражданство',p:'Платят: арендаторы в стране-продавце.'},
+  {w:'Сейчас',k:'Продавец назначает цену связке',p:'Платит тот, кто по другую сторону двери.'}]};
+const loc=n=>n.toLocaleString('ru-RU');
+
+/* doors */
+(function(){$('drLines').innerHTML=L.regions.map(([n,x,y],i)=>`<path class="drL" d="M194 200 Q ${(194+x)/2} ${y-60} ${x} ${y}" fill="none" stroke="var(--fact)" stroke-width="4" opacity="0"/><text class="drT" x="${x+12}" y="${y+8}" font-size="26" fill="var(--text)" opacity="0">${n}</text>`).join('');})();
+window.__fig.doors=()=>{gsap.set(['.drL','.drT'],{opacity:0});const S={n:0};
+  return gsap.timeline().to('.drL',{opacity:1,duration:.4,stagger:.4}).to('.drT',{opacity:1,duration:.3,stagger:.4},.2).to(S,{n:169,duration:2,onUpdate:()=>$('drN').textContent=Math.round(S.n)+' '+L.countries},0).to({},{duration:.6});};
+/* cyprus */
+window.__fig.cyprus=()=>{gsap.set('#cyBad',{attr:{width:0}});gsap.set('#cyT',{opacity:0});
+  return gsap.timeline().to('#cyBad',{attr:{width:456},duration:1.4}).to('#cyT',{opacity:1,duration:.4}).to({},{duration:.6});};
+/* vanuatu */
+(function(){$('vaPts').innerHTML=L.va.map(([d,t],i)=>{const x=140+i*240;return `<g class="vaP" opacity="0"><circle cx="${x}" cy="150" r="16" fill="${i?'var(--flaw)':'var(--fact)'}"/><text x="${x}" y="110" text-anchor="middle" font-size="22" fill="var(--text)">${d}</text><text x="${x}" y="200" text-anchor="middle" font-size="18" fill="var(--text-dim)">${t}</text></g>`}).join('');})();
+window.__fig.vanuatu=()=>{gsap.set('.vaP',{opacity:0});return gsap.timeline().to('.vaP',{opacity:1,duration:.4,stagger:.7}).to({},{duration:.6});};
+/* bundle */
+(function(){$('bnParts').innerHTML=L.parts.map(([a,b],i)=>{const x=180+i*320;return `<g class="bnP" opacity="0"><rect x="${x-130}" y="60" width="260" height="150" rx="12" fill="var(--bg-raised)" stroke="${i===2?'var(--flaw)':'var(--text)'}" stroke-width="3"/><text x="${x}" y="130" text-anchor="middle" font-size="22" fill="var(--text)">${a}</text><text x="${x}" y="170" text-anchor="middle" font-size="18" fill="${i===2?'var(--flaw)':'var(--alt)'}">${b}</text></g>`}).join('');})();
+window.__fig.bundle=()=>{gsap.set('.bnP',{opacity:0,y:20});return gsap.timeline().to('.bnP',{opacity:1,y:0,duration:.5,stagger:.6}).to({},{duration:.6});};
+/* choices */
+(function(){$('chG').innerHTML=L.doors.map(([a,b],i)=>{const x=125+i*250;return `<g class="chD" opacity="0"><path d="M${x-70} 230 V80 a70 32 0 0 1 140 0 V230 Z" fill="var(--bg-raised)" stroke="var(--text)" stroke-width="3"/><circle cx="${x+45}" cy="160" r="6" fill="var(--text)"/><text x="${x}" y="265" text-anchor="middle" font-size="18" fill="var(--alt)">${a}</text><text x="${x}" y="292" text-anchor="middle" font-size="16" fill="var(--flaw)">${b}</text></g>`}).join('');})();
+window.__fig.choices=()=>{gsap.set('.chD',{opacity:0,y:20});return gsap.timeline().to('.chD',{opacity:1,y:0,duration:.5,stagger:.6}).to({},{duration:.6});};
+
+function buildBills(){const w=$('bills'); if(!w) return;
+  w.innerHTML=L.bills.map((b,i)=>`<div class="bill${i===0?' on':''}"><div class="who">${b.w}</div><h3>${b.k}</h3><div class="price">${b.p}</div></div>`).join('');
+  [...w.children].forEach(c=>c.onclick=()=>{[...w.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')});}
+buildBills();
+
+const FIGS=['doors','cyprus','vanuatu','bundle','choices'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/067-passport-for-sale-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s0:['doors'],s2:['cyprus'],s3:['vanuatu'],s4:['bundle'],s5:['choices']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>
