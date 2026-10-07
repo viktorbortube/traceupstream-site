@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Почему Америка не может перестать переводить часы</title>
+<meta name="description" content="К 2026 году девятнадцать штатов США приняли законы, чтобы перестать переводить часы, и ни один не перестал. Закон 1966 года разрешает штату уйти с летнего времени на стандартное, но не наоборот. Законопроект Палаты июля 2026 года эту дверь не открывает, а разворачивает. Карты рассветов, край часового пояса, 1974 год, Россия, Мексика, ЕС и Китай: три конструкции часов и кто платит в каждой.">
+<link rel="canonical" href="https://traceupstream.com/episodes/068-clock-one-way/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#9A8A6A;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim label{display:flex;gap:12px;align-items:center;font-family:var(--font-mono);font-size:14px;margin:6px 0 10px}
+.sim input[type=range]{accent-color:var(--fact);flex:1;max-width:420px}
+.sim table{border-collapse:collapse;font-family:var(--font-mono);font-size:14px;width:100%;max-width:640px}
+.sim td,.sim th{padding:5px 10px;border-bottom:1px solid var(--grid);text-align:left}
+.sim td.late{color:var(--flaw);font-weight:600}
+.sim td.early{color:var(--fact);font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:8px}
+.card{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:16px}
+.card .who{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+.card .price{color:var(--flaw);font-size:15px;margin-top:8px}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">ВЫП. 068</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="58.3">
+  <div class="kicker">Дефект конструкции · Выпуск 068</div>
+  <h1>Почему Америка не может перестать переводить часы</h1>
+  <div class="prose lede">
+    <p>К 2026 году <em class="fact">девятнадцать</em> американских штатов приняли законы, чтобы перестать переводить часы. Первой была Флорида, в 2018 году. И все эти штаты по-прежнему переводили часы дважды в год. <em class="alt">Аризона</em> перестала в 1968 году и с тех пор не переводит.</p>
+    <p>В июле 2026 года Палата представителей проголосовала 308 голосами против 117 за отмену перевода часов во всей стране; к октябрю Сенат так и не проголосовал.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Что есть у Аризоны, чего нет у Флориды?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="40.2">
+  <h2>Первый подозреваемый: кто-то блокирует</h2>
+  <div class="prose">
+    <p>В 2026 году Палата сказала «да», а Сенат не голосовал. Но в марте 2022 года Сенат единогласно принял ту же идею, а Палата так и не провела голосование. Каждая палата говорила «да», с разницей в четыре года, и каждый раз останавливала другая. Препятствие, которое переезжает из здания в здание, редко бывает одним человеком.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="78.2">
+  <h2>Второй подозреваемый: американцы не могут договориться</h2>
+  <div class="prose">
+    <p>Насчёт самого перевода они согласны: в опросе AP-NORC в октябре 2025 года нынешнюю систему поддержали только <em class="fact">12%</em> взрослых. Разногласие начинается на шаг позже, когда нужно навсегда оставить одно время: <em class="flaw">летнее</em> (светло допоздна вечером) или <em class="fact">стандартное</em> (светло рано утром).</p>
+  </div>
+  <div class="fig">
+    <h3>Одно время навсегда: победитель меняется</h3>
+    <svg id="polls" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Гэллап, январь 2025: стандартное время 48 процентов, летнее 24. AP-NORC, октябрь 2025: летнее 56 процентов, стандартное около 40.">
+      <g id="plG"></g>
+    </svg>
+    <div class="figcap">Gallup, 21–27 января 2025; AP-NORC, 9–13 октября 2025. Формулировки вопросов различались.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="77">
+  <h2>Третий подозреваемый: пусть решают штаты</h2>
+  <div class="prose">
+    <p>Закон о единообразном времени 1966 года (15 U.S.C. §260a) задаёт даты перевода часов и оставляет штату один выход: освободить себя и круглый год жить по <em class="fact">стандартному времени</em>. Так перестали Аризона и Гавайи. А круглый год жить по <em class="flaw">летнему времени</em> штату нельзя.</p>
+    <p>Все девятнадцать штатов хотели летнее время. Поэтому их законы — обещания, которые вступят в силу в день, когда это разрешит Конгресс; закон Делавэра ждёт ещё и Пенсильванию, Нью-Джерси и Мэриленд.</p>
+  </div>
+  <div class="fig">
+    <h3>Дверь, которая открывается в одну сторону</h3>
+    <div class="toggle" id="rtT"><button class="on" data-k="0">Закон 1966</button><button data-k="1">Законопроект, 2026</button></div>
+    <svg id="ratchet" viewBox="0 0 1000 360" width="100%" height="360" role="img" aria-label="Трое часов: перевод дважды в год в центре, стандартное время слева, летнее справа. По закону 1966 года стрелка к стандартному открыта, к летнему перекрыта. По законопроекту Палаты открыта стрелка к летнему, а на стандартном могут остаться только Аризона, Гавайи и территории.">
+      <g id="rtG"></g>
+    </svg>
+    <div class="figcap">15 U.S.C. §260a; H.R. 139 в редакции Палаты, 14 июля 2026 (govinfo).</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="41.7">
+  <h2>Четвёртый подозреваемый: реформа всё исправит</h2>
+  <div class="prose">
+    <p>Законопроект Палаты (H.R. 139) навсегда переводит всю страну на летнее время и отнимает путь назад, к стандартному. Сохранить прежнее время могут только уже освобождённые: Аризона, Гавайи и территории. И по старому закону, и по новому законопроекту направление для штата выбирает Вашингтон.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="107.2">
+  <h2>Последний подозреваемый: где ты стоишь в поясе</h2>
+  <div class="prose">
+    <p>Бостон и Детройт живут в одном поясе. Детройт примерно на 12 градусов долготы западнее, поэтому солнце там встаёт на <em class="flaw">48 минут</em> позже. 3 января солнце встаёт в Бостоне в 7:14, в Детройте в 8:02. При вечном летнем времени январский рассвет в Детройте будет в 9:02, в Индианаполисе в 9:06, в Бойсе в 9:18.</p>
+    <p>Китай по географии занимает около пяти часовых поясов, но с 1949 года живёт по одним часам, пекинским. В Кашгаре январское солнце встаёт около 10:17. В Синьцзяне многие уйгуры живут по неофициальному местному времени, на два часа позже пекинского.</p>
+    <p>Границы поясов двигает Министерство транспорта по просьбе округа, и критерий в законе — <em class="flaw">удобство торговли</em> (15 U.S.C. §261), а не рассвет.</p>
+  </div>
+  <div class="fig">
+    <h3>Одни часы, два рассвета</h3>
+    <svg id="zone" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Полоса восточного пояса от Бостона до Детройта. 3 января солнце встаёт в Бостоне в 7:14, в Детройте в 8:02, на 48 минут позже по тем же часам.">
+      <g id="znG"></g>
+    </svg>
+    <div class="figcap">Восход по алгоритму NOAA (зенит 90,833°), 3 января 2027, стандартное время.</div>
+  </div>
+  <div class="fig">
+    <h3>Январский рассвет при вечном летнем времени</h3>
+    <svg id="sunmap" viewBox="0 0 1000 560" width="100%" height="560" role="img" aria-label="Карта городов США по времени январского рассвета при вечном летнем времени. Детройт 9:02, Индианаполис 9:06, Фарго 9:13 и Бойсе 9:18 — после девяти; Бостон 8:14, Майами 8:08, Лос-Анджелес 7:59.">
+      <g id="smBase"></g><g id="smG"></g>
+    </svg>
+    <div class="figcap">Алгоритм восхода NOAA, 3 января 2027. Города по долготе и широте.</div>
+  </div>
+  <div class="fig webonly sim">
+    <h3>Попробуйте: восход и закат по месяцам</h3>
+    <div class="toggle" id="simT"><button class="on" data-k="now">Перевод (сейчас)</button><button data-k="dst">Летнее круглый год</button><button data-k="std">Стандартное круглый год</button></div>
+    <label>Месяц <input type="range" id="simM" min="0" max="11" value="0"><span id="simML">Январь</span></label>
+    <table><thead><tr><th>Город</th><th>Восход</th><th>Закат</th></tr></thead><tbody id="simB"></tbody></table>
+    <div class="figcap">Янтарный: восход после 8:30 или закат до 17:00. Синий: восход до 5:00.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="193.9">
+  <h2>Трое часов, три цены</h2>
+  <div class="prose">
+    <p>Никакие часы не добавят ни минуты света. Каждый вариант только решает, какому концу дня он достанется.</p>
+    <p><em class="alt">Летнее время круглый год, выбранное в Вашингтоне</em> (H.R. 139). За него проголосовали законодатели девятнадцати штатов, и его выбрало большинство в опросе октября 2025 года. Цена: зимние утра. Америка пробовала это в январе 1974 года как чрезвычайную меру нефтяного кризиса на два года; к февралю поддержка упала примерно с четырёх из пяти до двух из пяти, и Конгресс отменил меру до конца года.</p>
+    <p><em class="alt">Стандартное время круглый год.</em> Россия перешла на него в 2014 году после трёх лет постоянного летнего времени, когда декабрьское солнце в Москве вставало около десяти; Мексика выбрала его в 2022 году. Цена: июньский рассвет в Бостоне в 4:07, летние вечера на час короче и выбор против большинства того же опроса. Приграничные города Мексики продолжили переводить часы, чтобы не расходиться с США.</p>
+    <p><em class="alt">Каждый штат выбирает сам</em> (H.R. 9638, внесён в июле 2026: по умолчанию стандартное время, штат может сдвинуться вперёд круглый год или на лето; близко к предложению Еврокомиссии 2018 года). Цена: лоскутное одеяло; через границу поясов — два часа между соседями. Европарламент проголосовал за отмену перевода в марте 2019 года (410–192); к 2026 году правительства так и не договорились. В Аризоне земли навахо переводят часы, а резервация хопи внутри них — нет.</p>
+  </div>
+  <div class="fig">
+    <h3>Часы не добавляют света, только сдвигают его</h3>
+    <div class="toggle" id="dbT"><button class="on" data-k="0">Январь</button><button data-k="1">Июнь</button></div>
+    <svg id="daybar" viewBox="0 0 1000 330" width="100%" height="330" role="img" aria-label="Три суточные полосы для Бостона в январе и июне: перевод, летнее круглый год, стандартное круглый год. Светлая часть не меняет длину, а только сдвигается на час.">
+      <g id="dbG"></g>
+    </svg>
+    <div class="figcap">Бостон, 3 января 2027 и 21 июня 2026, алгоритм NOAA.</div>
+  </div>
+  <div class="fig">
+    <h3>Кто решает, кто платит</h3>
+    <svg id="choices" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Трое часов: летнее круглый год, решает Вашингтон, тёмные зимние утра; стандартное круглый год, решает Вашингтон, ранний летний рассвет и короткие вечера; каждый штат сам, лоскутное одеяло на границах.">
+      <g id="chG"></g>
+    </svg>
+    <div class="figcap">Конструкции и цены — как в выпуске.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="51.3">
+  <h2>Вопрос, который стоит задать</h2>
+  <div class="prose">
+    <p>У Аризоны не было ничего, кроме направления: она хотела то время, которое закон 1966 года разрешает оставить. Перестать переводить часы хочет большинство. Спорят о том, какое время оставить, и ответ ложится по-разному в зависимости от того, где город стоит в своём поясе.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Во сколько при вашем времени будет светать здесь в январе и темнеть здесь в июне? И если каждый штат сможет выбирать сам, что будет на границе с соседом?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ polls:[['Гэллап · янв. 2025',[['стандартное',48],['летнее',24]]],['AP-NORC · окт. 2025',[['летнее',56],['стандартное',40,'~']]]],
+ pct:'%',
+ rt:{sw:'перевод дважды в год',st:'стандартное всегда',su:'летнее всегда',open:'можно',shut:'нельзя',only:'только AZ, HI, территории',pend:'19 штатов ждут'},
+ zn:{e:'Бостон',w:'Детройт',tz:'ВОСТОЧНОЕ ВРЕМЯ',gap:'+48 мин',same:'одни часы'},
+ months:['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+ db:{rows:['перевод','летнее всегда','стандартное всегда'],m:['Январь','Июнь']},
+ ch:[['летнее круглый год','Вашингтон','тёмные зимние утра'],['стандартное круглый год','Вашингтон','июньский рассвет в 4'],['каждый штат сам','каждый штат','соседи: ±1–2 ч']],
+ who:'решает: ',pays:'платит: '
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',grid:'#D9E3F0'};
+
+/* ---------- NOAA sunrise (hours UTC) ---------- */
+function sunUTC(lat,lon,doy,rise){const r=Math.PI/180,lh=lon/15,t=doy+((rise?6:18)-lh)/24,M=.9856*t-3.289;
+ let Lm=(M+1.916*Math.sin(M*r)+.020*Math.sin(2*M*r)+282.634)%360;
+ let RA=(Math.atan(.91764*Math.tan(Lm*r))/r+360)%360;RA=(RA+Math.floor(Lm/90)*90-Math.floor(RA/90)*90)/15;
+ const sd=.39782*Math.sin(Lm*r),cd=Math.cos(Math.asin(sd));
+ const cosH=(Math.cos(90.833*r)-sd*Math.sin(lat*r))/(cd*Math.cos(lat*r));
+ let H=rise?360-Math.acos(cosH)/r:Math.acos(cosH)/r;H/=15;const T=H+RA-.06571*t-6.622;return ((T-lh)%24+24)%24;}
+const hm=h=>{h=((h%24)+24)%24;let m=Math.round(h*60);return Math.floor(m/60)+':'+String(m%60).padStart(2,'0');};
+const CITIES=[['Boston',42.36,-71.06,-5],['New York',40.71,-74.0,-5],['Miami',25.76,-80.19,-5],['Detroit',42.33,-83.05,-5],['Indianapolis',39.77,-86.16,-5],['Atlanta',33.75,-84.39,-5],['Chicago',41.88,-87.63,-6],['Little Rock',34.75,-92.29,-6],['Fargo',46.88,-96.79,-6],['Amarillo',35.22,-101.83,-6],['Denver',39.74,-104.99,-7],['Boise',43.62,-116.2,-7],['Seattle',47.61,-122.33,-8],['Los Angeles',34.05,-118.24,-8]];
+
+/* ---------- polls ---------- */
+(function(){let h='';L.polls.forEach(([name,bars],g)=>{const x0=90+g*470;h+=`<text x="${x0}" y="30" font-size="24" fill="${C.ink}">${name}</text>`;
+ bars.forEach(([k,v,pre=''],i)=>{const x=x0+i*170,col=(k==='summer'||k==='летнее')?C.flaw:C.fact;
+  h+=`<rect class="plB" data-v="${v}" x="${x}" y="300" width="120" height="0" fill="${col}"/><text class="plT" x="${x+60}" y="290" text-anchor="middle" font-size="30" fill="${col}" opacity="0">${pre}${v}${L.pct}</text><text x="${x+60}" y="330" text-anchor="middle" font-size="20" fill="${C.dim}">${k}</text>`;});});
+ $('plG').innerHTML=h;})();
+window.__fig.polls=()=>{const bs=[...document.querySelectorAll('.plB')];bs.forEach(b=>gsap.set(b,{attr:{y:300,height:0}}));gsap.set('.plT',{opacity:0});
+ const tl=gsap.timeline();bs.forEach((b,i)=>{const v=+b.dataset.v,hgt=v*3.6,g=Math.floor(i/2);tl.to(b,{attr:{y:300-hgt,height:hgt},duration:.9,ease:'power2.out'},g*1.6+(i%2)*.15);
+  tl.to(document.querySelectorAll('.plT')[i],{opacity:1,attr:{y:290-hgt},duration:.3},g*1.6+.9);});return tl.to({},{duration:.6});};
+
+/* ---------- ratchet ---------- */
+(function(){const clock=(x,y,col,lab)=>`<circle cx="${x}" cy="${y}" r="58" fill="#fff" stroke="${col}" stroke-width="6"/><line x1="${x}" y1="${y}" x2="${x}" y2="${y-38}" stroke="${col}" stroke-width="6" stroke-linecap="round"/><line x1="${x}" y1="${y}" x2="${x+26}" y2="${y}" stroke="${col}" stroke-width="6" stroke-linecap="round"/><text x="${x}" y="${y+100}" text-anchor="middle" font-size="22" fill="${C.ink}">${lab}</text>`;
+ $('rtG').innerHTML=clock(500,150,C.ink,L.rt.sw)+clock(150,150,C.fact,L.rt.st)+clock(850,150,C.flaw,L.rt.su)+
+ `<g id="rtL"><path d="M430 150 H230" stroke="${C.alt}" stroke-width="8" fill="none"/><path d="M245 132 L222 150 L245 168" stroke="${C.alt}" stroke-width="8" fill="none"/><text x="330" y="132" text-anchor="middle" font-size="22" fill="${C.alt}">${L.rt.open}</text></g>`+
+ `<g id="rtR"><path d="M570 150 H770" stroke="${C.dim}" stroke-width="8" stroke-dasharray="14 10" fill="none"/><rect x="655" y="105" width="14" height="90" fill="${C.flaw}"/><text x="670" y="90" text-anchor="middle" font-size="22" fill="${C.flaw}">${L.rt.shut}</text><text id="rtP" x="850" y="300" text-anchor="middle" font-size="20" fill="${C.flaw}" opacity="0">${L.rt.pend}</text></g>`+
+ `<g id="rtF" opacity="0"><path d="M570 150 H770" stroke="${C.alt}" stroke-width="8" fill="none"/><path d="M755 132 L778 150 L755 168" stroke="${C.alt}" stroke-width="8" fill="none"/><path d="M430 150 H230" stroke="${C.dim}" stroke-width="8" stroke-dasharray="14 10" fill="none"/><rect x="323" y="105" width="14" height="90" fill="${C.flaw}"/><text x="330" y="90" text-anchor="middle" font-size="22" fill="${C.flaw}">${L.rt.only}</text></g>`;})();
+const rtSet=k=>{gsap.set('#rtL',{opacity:k?0:1});gsap.set('#rtR',{opacity:k?0:1});gsap.set('#rtF',{opacity:k?1:0});};
+window.__fig.ratchet=()=>{rtSet(0);gsap.set(['#rtL','#rtR'],{opacity:0});gsap.set('#rtP',{opacity:0});
+ return gsap.timeline().to('#rtL',{opacity:1,duration:.6}).to('#rtR',{opacity:1,duration:.6},'+=.6').to('#rtP',{opacity:1,duration:.5},'+=.6').to({},{duration:.8});};
+document.querySelectorAll('#rtT button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#rtT button').forEach(x=>x.classList.remove('on'));b.classList.add('on');gsap.set('#rtP',{opacity:1});rtSet(+b.dataset.k);});
+
+/* ---------- zone ---------- */
+(function(){const e=sunUTC(42.36,-71.06,3,true)-5,w=sunUTC(42.33,-83.05,3,true)-5;
+ $('znG').innerHTML=`<rect x="80" y="110" width="840" height="60" rx="8" fill="${C.grid}"/><text x="500" y="95" text-anchor="middle" font-size="22" fill="${C.dim}">${L.zn.tz} · ${L.zn.same}</text>`+
+ `<circle cx="860" cy="140" r="12" fill="${C.ink}"/><text x="860" y="210" text-anchor="middle" font-size="24" fill="${C.ink}">${L.zn.e}</text><text id="znEt" x="860" y="250" text-anchor="middle" font-size="30" fill="${C.fact}" opacity="0">${hm(e)}</text>`+
+ `<circle cx="180" cy="140" r="12" fill="${C.ink}"/><text x="180" y="210" text-anchor="middle" font-size="24" fill="${C.ink}">${L.zn.w}</text><text id="znWt" x="180" y="250" text-anchor="middle" font-size="30" fill="${C.flaw}" opacity="0">${hm(w)}</text>`+
+ `<circle id="znSun" cx="940" cy="140" r="20" fill="#F2B33D" opacity="0"/><text id="znGap" x="500" y="280" text-anchor="middle" font-size="30" fill="${C.flaw}" opacity="0">${L.zn.gap}</text>`;})();
+window.__fig.zone=()=>{gsap.set(['#znEt','#znWt','#znGap','#znSun'],{opacity:0});gsap.set('#znSun',{attr:{cx:940}});
+ return gsap.timeline().to('#znSun',{opacity:1,duration:.3}).to('#znSun',{attr:{cx:860},duration:.8}).to('#znEt',{opacity:1,duration:.3})
+  .to('#znSun',{attr:{cx:180},duration:2.2,ease:'none'}).to('#znWt',{opacity:1,duration:.3}).to('#znGap',{opacity:1,duration:.4}).to({},{duration:.6});};
+
+/* ---------- sunmap ---------- */
+const PX=lon=>60+(lon+125)/(125-66)*880, PY=lat=>520-(lat-24)/(49.5-24)*460;
+(function(){$('smBase').innerHTML=`<rect x="40" y="40" width="920" height="500" rx="10" fill="none" stroke="${C.grid}" stroke-width="2"/>`+
+ [-120,-105,-90,-75].map(l=>`<line x1="${PX(l)}" y1="50" x2="${PX(l)}" y2="530" stroke="${C.grid}" stroke-width="1.5" stroke-dasharray="6 8"/>`).join('');
+ $('smG').innerHTML=CITIES.map(([n,la,lo,o],i)=>{const t=((sunUTC(la,lo,3,true)+o+1)%24+24)%24,late=t>=9;
+  const pos={'Chicago':'l','Detroit':'al','Boston':'a','New York':'r','Indianapolis':'b','Amarillo':'l','Fargo':'a'}[n]||'r';
+  const RN={"Boston": "Бостон", "New York": "Нью-Йорк", "Miami": "Майами", "Detroit": "Детройт", "Indianapolis": "Индианаполис", "Atlanta": "Атланта", "Chicago": "Чикаго", "Little Rock": "Литл-Рок", "Fargo": "Фарго", "Amarillo": "Амарилло", "Denver": "Денвер", "Boise": "Бойсе", "Seattle": "Сиэтл", "Los Angeles": "Лос-Анджелес"};const x=PX(lo),y=PY(la),tx=pos==='l'||pos==='al'?x-16:pos==='a'||pos==='b'?x:x+16,ty=pos==='a'||pos==='al'?y-20:pos==='b'?y+32:y+7,an=pos==='l'||pos==='al'?'end':pos==='a'||pos==='b'?'middle':'start';
+  return `<g class="smP" data-late="${late?1:0}" opacity="0"><circle cx="${x}" cy="${y}" r="${late?13:9}" fill="${late?C.flaw:C.fact}"/><text x="${tx}" y="${ty}" text-anchor="${an}" font-size="${late?22:18}" fill="${late?C.flaw:C.ink}" paint-order="stroke" stroke="#fff" stroke-width="5">${RN[n]||n} ${hm(t)}</text></g>`}).join('');
+ // US outline from us-atlas (computed geometry; drawn behind the points when available)
+ if(!isAuto){const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js';
+  s.onload=()=>fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/nation-10m.json').then(r=>r.json()).then(us=>{const geo=topojson.feature(us,us.objects.nation);
+   const ring=c=>c.map(([lo,la])=>`${PX(lo).toFixed(1)},${PY(la).toFixed(1)}`).join(' ');let d='';
+   geo.features[0].geometry.coordinates.forEach(poly=>{const r=poly[0];if(r.every(([lo,la])=>lo>-126&&lo<-65&&la>23))d+=`<polygon points="${ring(r)}" fill="#EEF2F8" stroke="${C.dim}" stroke-width="1.2"/>`;});
+   $('smBase').insertAdjacentHTML('afterbegin',d);}).catch(()=>{});document.head.appendChild(s);}})();
+window.__fig.sunmap=()=>{gsap.set('.smP',{opacity:0});const pts=[...document.querySelectorAll('.smP')];
+ return gsap.timeline().to(pts.filter(p=>p.dataset.late==='0'),{opacity:1,duration:.3,stagger:.12}).to(pts.filter(p=>p.dataset.late==='1'),{opacity:1,duration:.4,stagger:.35},'+=.3').to({},{duration:.8});};
+
+/* ---------- daybar ---------- */
+const DB=(()=>{const doy=[3,172],lat=42.36,lon=-71.06;return doy.map((d,m)=>{const nz=h=>((h%24)+24)%24,r=nz(sunUTC(lat,lon,d,true)-5),s=nz(sunUTC(lat,lon,d,false)-5);
+ const now=m?1:0;return [[r+now,s+now],[r+1,s+1],[r,s]];});})();
+(function(){let h='';for(let k=0;k<=24;k+=6)h+=`<line x1="${240+k*30}" y1="40" x2="${240+k*30}" y2="290" stroke="${C.grid}" stroke-width="1.5"/><text x="${240+k*30}" y="318" text-anchor="middle" font-size="18" fill="${C.dim}">${k}:00</text>`;
+ L.db.rows.forEach((r,i)=>{const y=60+i*80;h+=`<text x="225" y="${y+34}" text-anchor="end" font-size="20" fill="${C.ink}">${r}</text><rect x="240" y="${y}" width="720" height="50" fill="#1F2B3D" rx="4"/><rect class="dbD" data-i="${i}" x="240" y="${y}" width="0" height="50" fill="#F4D58D" rx="4"/><text class="dbR" data-i="${i}" x="0" y="${y-6}" font-size="18" fill="${C.ink}"></text>`;});
+ $('dbG').innerHTML=h;})();
+function dbDraw(m){document.querySelectorAll('.dbD').forEach(b=>{const [r,s]=DB[m][+b.dataset.i];gsap.set(b,{attr:{x:240+r*30,width:(s-r)*30}});});
+ document.querySelectorAll('.dbR').forEach(t=>{const [r,s]=DB[m][+t.dataset.i];t.setAttribute('x',240+r*30);t.textContent=hm(r)+' – '+hm(s);});}
+window.__fig.daybar=()=>{dbDraw(0);document.querySelectorAll('#dbT button').forEach((b,i)=>b.classList.toggle('on',i===0));const o={m:0};gsap.set(['.dbD','.dbR'],{opacity:0});
+ const tl=gsap.timeline().to('.dbD',{opacity:1,duration:.4,stagger:.3}).to('.dbR',{opacity:1,duration:.3,stagger:.3},'-=.6');
+ document.querySelectorAll('.dbD').forEach(b=>{const i=+b.dataset.i,[r0,s0]=DB[0][i],[r1,s1]=DB[1][i];
+  tl.to(b,{attr:{x:240+r1*30,width:(s1-r1)*30},duration:1.6,ease:'power1.inOut'},2.2);});
+ tl.call(()=>document.querySelectorAll('#dbT button').forEach((b,i)=>b.classList.toggle('on',i===1)),null,3.8);
+ tl.call(()=>document.querySelectorAll('.dbR').forEach(t=>{const [r,s]=DB[1][+t.dataset.i];t.setAttribute('x',240+r*30);t.textContent=hm(r)+' – '+hm(s);}),null,3.8);
+ return tl.to({},{duration:.8});};
+document.querySelectorAll('#dbT button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#dbT button').forEach(x=>x.classList.remove('on'));b.classList.add('on');gsap.set(['.dbD','.dbR'],{opacity:1});dbDraw(+b.dataset.k);});
+dbDraw(0);
+
+/* ---------- choices ---------- */
+(function(){$('chG').innerHTML=L.ch.map(([a,b,c],i)=>{const x=170+i*330,col=[C.flaw,C.fact,C.alt][i];
+ return `<g class="chC" opacity="0"><circle cx="${x}" cy="110" r="70" fill="#fff" stroke="${col}" stroke-width="6"/><line x1="${x}" y1="110" x2="${x}" y2="62" stroke="${col}" stroke-width="6" stroke-linecap="round"/><line x1="${x}" y1="110" x2="${x+32}" y2="110" stroke="${col}" stroke-width="6" stroke-linecap="round"/>`+
+ `<text x="${x}" y="225" text-anchor="middle" font-size="22" fill="${C.ink}">${a}</text><text x="${x}" y="262" text-anchor="middle" font-size="18" fill="${C.alt}">${L.who}${b}</text><text x="${x}" y="296" text-anchor="middle" font-size="18" fill="${C.flaw}">${L.pays}${c}</text></g>`}).join('');})();
+window.__fig.choices=()=>{gsap.set('.chC',{opacity:0,y:20});return gsap.timeline().to('.chC',{opacity:1,y:0,duration:.5,stagger:.8}).to({},{duration:.8});};
+
+/* ---------- simulator (web only) ---------- */
+(function(){const DOY=[15,46,74,105,135,166,196,227,258,288,319,349];let mode='now';
+ const inDST=m=>m>=3&&m<=9; // mid-month approx: April–October on summer time; March and November split
+ function draw(){const m=+$('simM').value;$('simML').textContent=L.months[m];
+  $('simB').innerHTML=CITIES.map(([n,la,lo,o])=>{const add=mode==='dst'?1:mode==='std'?0:(inDST(m)?1:0);
+   const nz=h=>((h%24)+24)%24,r=nz(sunUTC(la,lo,DOY[m],true)+o+add),s=nz(sunUTC(la,lo,DOY[m],false)+o+add);
+   const RN={"Boston": "Бостон", "New York": "Нью-Йорк", "Miami": "Майами", "Detroit": "Детройт", "Indianapolis": "Индианаполис", "Atlanta": "Атланта", "Chicago": "Чикаго", "Little Rock": "Литл-Рок", "Fargo": "Фарго", "Amarillo": "Амарилло", "Denver": "Денвер", "Boise": "Бойсе", "Seattle": "Сиэтл", "Los Angeles": "Лос-Анджелес"};return `<tr><td>${RN[n]||n}</td><td class="${r>=8.5?'late':r<5?'early':''}">${hm(r)}</td><td class="${s<17?'late':''}">${hm(s)}</td></tr>`}).join('');}
+ $('simM').oninput=draw;document.querySelectorAll('#simT button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#simT button').forEach(x=>x.classList.remove('on'));b.classList.add('on');mode=b.dataset.k;draw();});draw();})();
+
+const FIGS=['polls','ratchet','zone','sunmap','daybar','choices'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/068-clock-one-way-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s2:['polls'],s3:['ratchet'],s5:['zone','sunmap'],s6:['daybar','choices']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>
