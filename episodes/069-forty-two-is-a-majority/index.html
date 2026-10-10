@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — Italy Just Made 42% a Majority. Who Gets to Decide That?</title>
+<meta name="description" content="In 2006 Italy's election was decided by about 25,000 votes out of 38 million, and the winner got 67 more seats, under a rule written months earlier by the side that lost. In October 2026 Italy passed its fourth election law in twenty years: 42% of the vote now brings up to 70 bonus seats. Who writes the formula that turns votes into seats, and three ways to take the pen away: Ireland's constitution, New Zealand's and British Columbia's citizens, Brazil's one-year clock.">
+<link rel="canonical" href="https://traceupstream.com/episodes/069-forty-two-is-a-majority/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#9A8A6A;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim label{display:flex;gap:12px;align-items:center;font-family:var(--font-mono);font-size:14px;margin:6px 0 10px}
+.sim input[type=range]{accent-color:var(--fact);flex:1;max-width:420px}
+.sim table{border-collapse:collapse;font-family:var(--font-mono);font-size:14px;width:100%;max-width:640px}
+.sim td,.sim th{padding:5px 10px;border-bottom:1px solid var(--grid);text-align:left}
+.sim td.maj{color:var(--flaw);font-weight:600}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.069</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="56.4">
+  <div class="kicker">Trace Upstream · Episode 069</div>
+  <h1>Italy just made 42% a majority. Who gets to decide that?</h1>
+  <div class="prose lede">
+    <p>In April 2006 Italy's election was almost a perfect tie: out of 38 million votes for the lower house, the winners were ahead by about <em class="fact">25,000</em>. They still entered parliament with <em class="flaw">67 more seats</em>. The rule that did it had been passed less than four months earlier, by the side that lost.</p>
+    <p>On 8 October 2026 Italy's parliament passed a new rule of the same family: an alliance with <em class="flaw">42%</em> of the vote receives up to 70 extra seats in the lower house. It is the fourth election law in twenty years.</p>
+  </div>
+  <div class="fig">
+    <h3>A tie in votes, a landslide in seats</h3>
+    <svg id="margin" viewBox="0 0 1000 360" width="100%" height="360" role="img" aria-label="Italy, Chamber of Deputies, April 2006. Votes: Unione 49.81 percent, House of Freedoms 49.74 percent, a gap of 24,755 votes. Seats: 348 against 281.">
+      <g id="mgG"></g>
+    </svg>
+    <div class="figcap">Chamber of Deputies, 9–10 Apr 2006; seats include Italians abroad. Law 270/2005 ("Porcellum"), passed Dec 2005.</div>
+  </div>
+  <div class="fig">
+    <h3>How 42 votes in 100 become just over half the seats</h3>
+    <svg id="hemicycle" viewBox="0 0 1000 520" width="100%" height="520" role="img" aria-label="A 400-seat chamber. An alliance with 42 percent of the vote fills about 132 seats proportionally; the bonus adds 70 more, about 202 in all, past the majority line of 201. The winner's ceiling is 220.">
+      <g id="hmG"></g>
+    </svg>
+    <div class="figcap">2026 law: bonus of 70 deputies at 42% in both chambers, ceiling 220. Seat count is a simplified example (Geopop, 8 Oct 2026).</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Why does Italy keep rewriting this rule?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="61.8">
+  <h2>Suspect one: a trick from one side</h2>
+  <div class="prose">
+    <p>In 1923 Mussolini's government passed the Acerbo law: the largest party, with at least a quarter of the vote, took two thirds of the seats. But the tool did not stay with its inventors. In 1953 the Christian Democrats passed a law giving 65% of the seats to any alliance with more than half the vote; they missed by about 55,000 votes and the law was repealed in 1954. In 2005 the right passed a bonus; in 2015 the centre-left passed one too.</p>
+  </div>
+  <div class="fig">
+    <h3>Four camps, one tool</h3>
+    <svg id="ladder" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Votes needed and seats received under four bonus laws. 1923: 25 percent of votes, two thirds of seats. 1953: more than 50 percent of votes, 65 percent of seats, never triggered at 49.8 percent. 2005: no minimum, at least 55 percent of seats. 2026: 42 percent of votes, about half the seats.">
+      <g id="ldG"></g>
+    </svg>
+    <div class="figcap">Acerbo law, Nov 1923; Law 148/1953 (repealed by Law 615/1954); Law 270/2005; 2026 law.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="51.7">
+  <h2>Suspect two: just count the votes straight</h2>
+  <div class="prose">
+    <p>From the late 1940s to the early 1990s seats followed votes closely, and small parties could always hold the balance. Between 1946 and 1993 Italy went through about <em class="fact">fifty governments</em>. A bonus is meant to let one alliance govern for five years; it does not always work (the 2006 winner fell within two years when a small partner walked out). Its price: if 42% of voters get more than half the seats, 58% get less than half.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="58.3">
+  <h2>Suspect three: the court will stop it</h2>
+  <div class="prose">
+    <p>Italy's Constitutional Court has struck down election laws twice. The 2005 law gave its bonus with no minimum; the court ruled it unconstitutional at the end of 2013 (decision 1/2014), after it had already elected three parliaments. The last of them wrote the next law, and the court struck part of that one too (decision 35/2017) before any election was held under it.</p>
+  </div>
+  <div class="fig">
+    <h3>Five laws, and the referee arrives late</h3>
+    <svg id="laws" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Timeline 1993 to 2027. Mattarellum 1993. Porcellum 2005, used in elections of 2006, 2008 and 2013, struck by the court at the end of 2013. Italicum 2015, struck in part in 2017 before any election. Rosatellum 2017, used in 2018 and 2022. New law 2026.">
+      <g id="lwG"></g>
+    </svg>
+    <div class="figcap">Constitutional Court decisions 1/2014 and 35/2017.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="59.6">
+  <h2>The last suspect: who holds the pen</h2>
+  <div class="prose">
+    <p>In Italy, as in most democracies, the formula that turns votes into seats is an ordinary law, passed by a simple majority elected under the old formula. The 2005 and 2017 laws were passed about four months before the elections they governed; the 2026 law about a year before the next one is due. The pen does not decide who wins, as 2006 showed, but it lets its holder choose what counts as winning. In Italy it changes hands often, because each court ruling leaves a hole that whoever holds the pen that year gets to fill.</p>
+  </div>
+  <div class="fig webonly sim">
+    <h3>Try it: the same votes under different laws</h3>
+    <label>Largest alliance's vote share <input type="range" id="simV" min="25" max="55" value="42"><span id="simVL">42%</span></label>
+    <table><thead><tr><th>Rule</th><th>Seats of 400</th><th>Share</th></tr></thead><tbody id="simB"></tbody></table>
+    <div class="figcap">Simplified: one dominant alliance, the rest proportional, 400 seats. Amber: a majority (201+). Not a forecast.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="145.6">
+  <h2>Three locks, three prices</h2>
+  <div class="prose">
+    <p><em class="alt">Write it into the constitution.</em> Ireland did in 1937. The governing party twice asked voters to switch to a system that tends to hand the largest party a majority; voters said no in 1959 (52–48) and in 1968 (61–39). Price: any flaw is locked in too, and the government still picked the moment, holding the 1959 vote on the day its own leader ran for president.</p>
+    <p><em class="alt">Give it to citizens.</em> New Zealand: an expert commission in 1986, referendums in 1992 and 1993, proportional representation chosen by 54%. British Columbia: 160 citizens chosen at random proposed a new system; in 2005 it won 58%, short of the 60% bar the government had set in advance. Price: slow, and those in power still write the question and set the bar.</p>
+    <p><em class="alt">Start a clock.</em> Brazil's constitution (Art. 16): a law changing the electoral process does not apply to any election within a year. The Venice Commission recommends the same, as advice. Italy's 2026 law, about a year before the vote, would sit almost exactly on that line. Price: a clock delays a change rather than preventing it, and it also blocks an urgent fix after a court ruling.</p>
+  </div>
+  <div class="fig">
+    <h3>The one-year clock</h3>
+    <svg id="calendar" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="A 24-month strip ending at an election. The last 12 months before the vote are shaded: under Brazil's rule a new electoral law passed inside that shadow cannot apply. Italy's law of October 2026 lands about a year before a vote due by autumn 2027, at the edge of the shadow.">
+      <g id="clG"></g>
+    </svg>
+    <div class="figcap">Brazil, Constitution Art. 16; Venice Commission, Code of Good Practice in Electoral Matters, CDL-AD(2002)023rev, II.2.b.</div>
+  </div>
+  <div class="fig">
+    <h3>Who holds the pen, and what it costs</h3>
+    <svg id="locks" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="Three locks: the constitution, with flaws locked in too; citizens, slow, with the question still set by those in power; a one-year clock, which delays change and also delays fixes.">
+      <g id="lkG"></g>
+    </svg>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="15">
+  <h2>The question to carry</h2>
+  <div class="prose">
+    <p>The size of the bonus and the percentage that unlocks it are the second question.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Who held the pen, how many months before the election did they write the rule, and who, apart from the people that rule elects, could ever undo it?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ mg:{votes:'VOTES',seats:'SEATS',a:'Unione',b:'House of Freedoms',gap:'24,755 votes apart',sgap:'+67 seats'},
+ hm:{prop:'by vote share',bonus:'+70 bonus',maj:'majority 201',cap:'ceiling 220',tot:'≈202 of 400'},
+ ld:[['1923','25%','67%','Acerbo (fascist govt)'],['1953','50%+','65%','Christian Democrats · missed at 49.8%'],['2005','none','55%','centre-right'],['2026','42%','≈51%','centre-right']],
+ ldH:['votes needed','seats received'],
+ lw:{laws:[[1993,'Mattarellum'],[2005,'Porcellum'],[2015,'Italicum'],[2017,'Rosatellum'],[2026,'2026 law']],el:[1994,1996,2001,2006,2008,2013,2018,2022],x1:'struck 2013',x2:'struck 2017, never used',elab:'elections'},
+ cl:{shadow:'12 months: a new law cannot apply',vote:'vote due by autumn 2027',law:'law passed 8 Oct 2026',y:['2026','2027']},
+ lk:[['constitution','Ireland','pen: voters (referendum)','price: flaws locked in'],['citizens','N. Zealand · B. Columbia','pen: citizens, then voters','price: power sets the question'],['one-year clock','Brazil','pen: parliament, a year out','price: fixes wait too']],
+ who:'',pays:'',
+ sim:{rules:['Seats follow votes','2005 law (no minimum)','2026 law (42% bonus)']}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',grid:'#D9E3F0'};
+const fmt=n=>n.toLocaleString('en-US');
+
+/* ---------- margin (2006) ---------- */
+(function(){const k=4.6;let h=`<text x="250" y="34" text-anchor="middle" font-size="22" fill="${C.dim}">${L.mg.votes}</text><text x="750" y="34" text-anchor="middle" font-size="22" fill="${C.dim}">${L.mg.seats}</text>`;
+ [[49.81,C.fact],[49.74,C.dim]].forEach(([v,c],i)=>{const x=130+i*150;h+=`<rect class="mgV" data-h="${v*k}" x="${x}" y="300" width="110" height="0" fill="${c}"/><text class="mgVt" x="${x+55}" y="290" text-anchor="middle" font-size="24" fill="${c}" opacity="0">${v}%</text>`;});
+ [[348,C.fact],[281,C.dim]].forEach(([v,c],i)=>{const x=630+i*150;h+=`<rect class="mgS" data-h="${v*.68}" x="${x}" y="300" width="110" height="0" fill="${c}"/><text class="mgSt" x="${x+55}" y="290" text-anchor="middle" font-size="24" fill="${c}" opacity="0">${v}</text>`;});
+ h+=`<text x="140" y="332" font-size="18" fill="${C.fact}">${L.mg.a}</text><text x="290" y="332" font-size="18" fill="${C.dim}">${L.mg.b}</text><text x="640" y="332" font-size="18" fill="${C.fact}">${L.mg.a}</text><text x="790" y="332" font-size="18" fill="${C.dim}">${L.mg.b}</text>`;
+ h+=`<text id="mgGap" x="250" y="72" text-anchor="middle" font-size="22" fill="${C.ink}" opacity="0">${L.mg.gap}</text><text id="mgSg" x="750" y="72" text-anchor="middle" font-size="26" fill="${C.flaw}" opacity="0">${L.mg.sgap}</text>`;
+ $('mgG').innerHTML=h;})();
+const mgSet=f=>{document.querySelectorAll('.mgV,.mgS').forEach(b=>{const hh=+b.dataset.h;gsap.set(b,{attr:{y:300-hh,height:hh}});});
+ document.querySelectorAll('.mgVt,.mgSt').forEach((t,i)=>{const b=document.querySelectorAll('.mgV,.mgS')[i];t.setAttribute('y',300-(+b.dataset.h)-10);});};
+window.__fig.margin=()=>{gsap.set('.mgV,.mgS',{attr:{y:300,height:0}});gsap.set('.mgVt,.mgSt,#mgGap,#mgSg',{opacity:0});mgSet();
+ document.querySelectorAll('.mgV,.mgS').forEach(b=>gsap.set(b,{attr:{y:300,height:0}}));
+ const tl=gsap.timeline();document.querySelectorAll('.mgV').forEach(b=>tl.to(b,{attr:{y:300-(+b.dataset.h),height:+b.dataset.h},duration:1,ease:'power2.out'},0));
+ tl.to('.mgVt',{opacity:1,duration:.3},1).to('#mgGap',{opacity:1,duration:.4},1.3);
+ document.querySelectorAll('.mgS').forEach(b=>tl.to(b,{attr:{y:300-(+b.dataset.h),height:+b.dataset.h},duration:1,ease:'power2.out'},2.3));
+ return tl.to('.mgSt',{opacity:1,duration:.3},3.3).to('#mgSg',{opacity:1,duration:.4},3.6).to({},{duration:.8});};
+
+/* ---------- hemicycle (2026 rule at 42%) ---------- */
+const SEATS=(()=>{const rows=[[34,140],[44,180],[52,220],[60,260],[66,300],[72,340],[72,380]];const out=[];
+ rows.forEach(([n,r])=>{for(let i=0;i<n;i++){const a=Math.PI-(i+.5)/n*Math.PI;out.push({a,x:500+r*Math.cos(a),y:440-r*Math.sin(a)});}});
+ return out.sort((p,q)=>q.a-p.a).slice(0,400);})();
+(function(){let h='';SEATS.forEach((s,i)=>{h+=`<circle class="hmS" data-i="${i}" cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="9" fill="${C.grid}"/>`;});
+ const ang=n=>{const s=SEATS[n];return s;};const m=SEATS[200],c=SEATS[219];
+ h+=`<line id="hmMaj" x1="500" y1="440" x2="${(500+(m.x-500)*1.18).toFixed(1)}" y2="${(440+(m.y-440)*1.18).toFixed(1)}" stroke="${C.ink}" stroke-width="3" stroke-dasharray="8 6" opacity="0"/>`;
+ h+=`<text id="hmMajT" x="${(500+(m.x-500)*1.25).toFixed(1)}" y="${(440+(m.y-440)*1.25-8).toFixed(1)}" text-anchor="middle" font-size="20" fill="${C.ink}" opacity="0">${L.hm.maj}</text>`;
+ h+=`<text id="hmProp" x="150" y="490" font-size="22" fill="${C.fact}" opacity="0">■ ${L.hm.prop}</text><text id="hmBon" x="420" y="490" font-size="22" fill="${C.flaw}" opacity="0">■ ${L.hm.bonus}</text><text id="hmTot" x="500" y="425" text-anchor="middle" font-size="34" fill="${C.ink}" opacity="0">${L.hm.tot}</text>`;
+ $('hmG').innerHTML=h;})();
+window.__fig.hemicycle=()=>{const ss=[...document.querySelectorAll('.hmS')];ss.forEach(s=>s.setAttribute('fill',C.grid));gsap.set('#hmMaj,#hmMajT,#hmProp,#hmBon,#hmTot',{opacity:0});
+ const o={p:0,b:0},tl=gsap.timeline();const paint=()=>{ss.forEach((s,i)=>s.setAttribute('fill',i<Math.round(o.p)?C.fact:i<Math.round(o.p)+Math.round(o.b)?C.flaw:C.grid));};
+ return tl.to('#hmMaj,#hmMajT',{opacity:1,duration:.4}).to('#hmProp',{opacity:1,duration:.3}).to(o,{p:132,duration:1.6,ease:'none',onUpdate:paint})
+  .to('#hmBon',{opacity:1,duration:.3}).to(o,{b:70,duration:1.2,ease:'none',onUpdate:paint}).to('#hmTot',{opacity:1,duration:.4}).to({},{duration:.8});};
+
+/* ---------- ladder ---------- */
+(function(){const X0=330,W=600;let h=`<text x="${X0}" y="30" font-size="18" fill="${C.dim}">0%</text><text x="${X0+W}" y="30" text-anchor="end" font-size="18" fill="${C.dim}">100%</text><line x1="${X0+W/2}" y1="40" x2="${X0+W/2}" y2="380" stroke="${C.ink}" stroke-width="2" stroke-dasharray="6 6"/><text x="${X0+W/2}" y="30" text-anchor="middle" font-size="18" fill="${C.ink}">50%</text>`;
+ const vals=[[25,67],[50,65],[0,55],[42,51]];
+ L.ld.forEach(([y,v,s,who],i)=>{const yy=70+i*82,[vv,sv]=vals[i];
+  h+=`<g class="ldR" opacity="0"><text x="20" y="${yy+22}" font-size="30" fill="${C.ink}">${y}</text><text x="20" y="${yy+50}" font-size="15" fill="${C.dim}">${who}</text>`+
+   `<rect x="${X0}" y="${yy}" width="${W*vv/100}" height="22" fill="${C.fact}"/><text x="${X0+W*vv/100+8}" y="${yy+18}" font-size="17" fill="${C.fact}">${L.ldH[0]}: ${v}</text>`+
+   `<rect class="ldS" x="${X0}" y="${yy+28}" width="0" data-w="${W*sv/100}" height="22" fill="${C.flaw}"/><text class="ldSt" x="${X0+W*sv/100+8}" y="${yy+46}" font-size="17" fill="${C.flaw}" opacity="0">${L.ldH[1]}: ${s}</text></g>`;});
+ $('ldG').innerHTML=h;})();
+window.__fig.ladder=()=>{gsap.set('.ldR',{opacity:0});gsap.set('.ldS',{attr:{width:0}});gsap.set('.ldSt',{opacity:0});const tl=gsap.timeline();
+ document.querySelectorAll('.ldR').forEach((r,i)=>{const s=r.querySelector('.ldS');tl.to(r,{opacity:1,duration:.3},i*1.1).to(s,{attr:{width:+s.dataset.w},duration:.7,ease:'power2.out'},i*1.1+.3).to(r.querySelector('.ldSt'),{opacity:1,duration:.3},i*1.1+.9);});
+ return tl.to({},{duration:.8});};
+
+/* ---------- laws timeline ---------- */
+(function(){const X=y=>60+(y-1992)/(2028-1992)*880;let h=`<line x1="${X(1992)}" y1="150" x2="${X(2028)}" y2="150" stroke="${C.ink}" stroke-width="3"/>`;
+ L.lw.el.forEach(y=>{h+=`<circle class="lwE" cx="${X(y)}" cy="150" r="7" fill="${C.dim}" opacity="0"/><text class="lwE" x="${X(y)}" y="185" text-anchor="middle" font-size="15" fill="${C.dim}" opacity="0">${y}</text>`;});
+ L.lw.laws.forEach(([y,n],i)=>{h+=`<g class="lwL" opacity="0"><line x1="${X(y)}" y1="150" x2="${X(y)}" y2="${i%2?100:80}" stroke="${C.fact}" stroke-width="3"/><text x="${X(y)}" y="${i%2?92:72}" text-anchor="middle" font-size="18" fill="${C.fact}">${n} ${y}</text></g>`;});
+ h+=`<g id="lwX1" opacity="0"><path d="M${X(2013.95)-14} 136 l28 28 M${X(2013.95)+14} 136 l-28 28" stroke="${C.flaw}" stroke-width="5"/><text x="${X(2013.95)}" y="230" text-anchor="middle" font-size="18" fill="${C.flaw}">${L.lw.x1}</text></g>`;
+ h+=`<g id="lwX2" opacity="0"><path d="M${X(2017.1)-14} 220 l28 28 M${X(2017.1)+14} 220 l-28 28" stroke="${C.flaw}" stroke-width="5"/><text x="${X(2017.1)}" y="276" text-anchor="middle" font-size="18" fill="${C.flaw}">${L.lw.x2}</text></g>`;
+ h+=`<path id="lwSpan" d="M${X(2006)} 205 H${X(2013)}" stroke="${C.flaw}" stroke-width="4" opacity="0"/>`;
+ $('lwG').innerHTML=h;})();
+window.__fig.laws=()=>{gsap.set('.lwL,.lwE,#lwX1,#lwX2,#lwSpan',{opacity:0});
+ return gsap.timeline().to('.lwL',{opacity:1,duration:.4,stagger:.45}).to('.lwE',{opacity:1,duration:.2,stagger:.06},'-=.8')
+  .to('#lwSpan',{opacity:1,duration:.4},'+=.2').to('#lwX1',{opacity:1,duration:.4},'+=.3').to('#lwX2',{opacity:1,duration:.4},'+=.6').to({},{duration:.8});};
+
+/* ---------- calendar ---------- */
+(function(){const X=m=>80+m*35;let h='';for(let m=0;m<=24;m++){h+=`<line x1="${X(m)}" y1="130" x2="${X(m)}" y2="${m%12?150:165}" stroke="${C.dim}" stroke-width="${m%12?1.5:3}"/>`;}
+ h+=`<text x="${X(0)}" y="190" font-size="18" fill="${C.dim}">${L.cl.y[0]}</text><text x="${X(12)}" y="190" font-size="18" fill="${C.dim}">${L.cl.y[1]}</text><line x1="${X(0)}" y1="140" x2="${X(24)}" y2="140" stroke="${C.ink}" stroke-width="3"/>`;
+ // vote ~ Oct 2027 → month 21.5 from Jan 2026; law 8 Oct 2026 → month 9.25
+ h+=`<rect id="clSh" x="${X(21.5)}" y="100" width="0" data-w="${12*35}" height="80" fill="${C.flaw}" opacity=".18"/><text id="clShT" x="${X(15.5)}" y="88" text-anchor="middle" font-size="18" fill="${C.flaw}" opacity="0">${L.cl.shadow}</text>`;
+ h+=`<g id="clV" opacity="0"><rect x="${X(21.5)-4}" y="96" width="8" height="88" fill="${C.ink}"/><text x="${X(21.5)}" y="230" text-anchor="middle" font-size="18" fill="${C.ink}">${L.cl.vote}</text></g>`;
+ h+=`<g id="clL" opacity="0"><circle cx="${X(9.25)}" cy="140" r="12" fill="${C.fact}"/><text x="${X(9.25)}" y="260" text-anchor="middle" font-size="18" fill="${C.fact}">${L.cl.law}</text><line x1="${X(9.25)}" y1="152" x2="${X(9.25)}" y2="240" stroke="${C.fact}" stroke-width="2"/></g>`;
+ $('clG').innerHTML=h;})();
+window.__fig.calendar=()=>{const sh=$('clSh'),w=+sh.dataset.w,x0=+sh.getAttribute('x');gsap.set('#clV,#clL,#clShT',{opacity:0});gsap.set(sh,{attr:{width:0,x:x0}});
+ return gsap.timeline().to('#clV',{opacity:1,duration:.4}).to(sh,{attr:{width:w,x:x0-w},duration:1.8,ease:'power1.inOut'}).to('#clShT',{opacity:1,duration:.3}).to('#clL',{opacity:1,duration:.5},'+=.4').to({},{duration:.8});};
+
+/* ---------- locks ---------- */
+(function(){$('lkG').innerHTML=L.lk.map(([a,b,p,c],i)=>{const x=170+i*330,col=[C.fact,C.alt,C.flaw][i];
+ return `<g class="lkC" opacity="0"><rect x="${x-50}" y="60" width="100" height="76" rx="10" fill="#fff" stroke="${col}" stroke-width="6"/><path d="M${x-30} 60 V40 a30 30 0 0 1 60 0 V60" fill="none" stroke="${col}" stroke-width="6"/>`+
+ `<text x="${x}" y="182" text-anchor="middle" font-size="28" font-weight="600" fill="${C.ink}">${a}</text><text x="${x}" y="214" text-anchor="middle" font-size="17" fill="${C.dim}">${b}</text><text x="${x}" y="256" text-anchor="middle" font-size="18" fill="${col}">${p}</text><text x="${x}" y="292" text-anchor="middle" font-size="18" fill="${C.flaw}">${c}</text></g>`}).join('');})();
+window.__fig.locks=()=>{gsap.set('.lkC',{opacity:0,y:20});return gsap.timeline().to('.lkC',{opacity:1,y:0,duration:.5,stagger:.8}).to({},{duration:.8});};
+
+/* ---------- simulator (web only) ---------- */
+(function(){function draw(){const v=+$('simV').value;$('simVL').textContent=v+'%';
+  const prop=Math.round(v*4),p05=Math.max(prop,220),p26=v>=42?Math.min(220,Math.round(v*3.14)+70):prop;
+  $('simB').innerHTML=[prop,p05,p26].map((s,i)=>`<tr><td>${L.sim.rules[i]}</td><td class="${s>=201?'maj':''}">${s}</td><td>${Math.round(s/4)}%</td></tr>`).join('');}
+ $('simV').oninput=draw;draw();})();
+
+const FIGS=['margin','hemicycle','ladder','laws','calendar','locks'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/069-forty-two-is-a-majority/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s0:['margin','hemicycle'],s1:['ladder'],s3:['laws'],s5:['calendar','locks']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>
