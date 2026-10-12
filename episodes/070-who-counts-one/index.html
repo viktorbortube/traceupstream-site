@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — 26 Statements, 43.9 Million Violations: The Meta Math</title>
+<meta name="description" content="In 2010 Facebook's founder wrote one sentence about selling user data. In 2026 a New Mexico jury counted it as about 2.1 million violations of the state's consumer law, and 26 statements as 43.9 million, at up to $5,000 each. The law prices a violation but never says what one violation is. Who chooses the unit, when, and three ways to set the size of a fine before anyone is caught.">
+<link rel="canonical" href="https://traceupstream.com/episodes/070-who-counts-one/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#8A7A9A;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim label{display:flex;gap:12px;align-items:center;font-family:var(--font-mono);font-size:14px;margin:6px 0 10px}
+.sim input[type=range]{accent-color:var(--fact);flex:1;max-width:420px}
+.sim .out{font-family:var(--font-display);font-size:34px;font-weight:700;margin:8px 0 2px}
+.sim .sub{font-family:var(--font-mono);font-size:13px;color:var(--text-dim)}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.070</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="53.3">
+  <div class="kicker">Trace Upstream · Episode 070</div>
+  <h1>26 statements, 43.9 million violations: the Meta math</h1>
+  <div class="prose lede">
+    <p>In May 2010 Facebook's founder wrote one sentence in a newspaper column: <em class="fact">"We do not and never will sell any of your information to anyone."</em> Sixteen years later, at the end of a trial over the Cambridge Analytica scandal, a New Mexico jury decided that this sentence had broken the state's consumer law about <em class="flaw">2.1 million times</em>.</p>
+    <p>The jury found 26 statements misleading and counted <em class="flaw">43,899,720 violations</em>. The law allows up to $5,000 for each, a ceiling of about $219 billion. How does one sentence become two million breaches of the law?</p>
+  </div>
+  <div class="fig">
+    <h3>One sentence, counted once per reader</h3>
+    <svg id="multiply" viewBox="0 0 1000 420" width="100%" height="420" role="img" aria-label="One sentence from 2010 on the left. On the right, a block of dots standing for New Mexico's population fills up; the counter reaches about 2.1 million violations. Then 26 statements add up to 43,899,720 violations.">
+      <g id="muG"></g>
+    </svg>
+    <div class="figcap">Washington Post op-ed, 24 May 2010. Verdict of 25 Sep 2026, State of New Mexico v. Meta Platforms (D-101-CV-2021-00132).</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">How does one sentence become two million violations?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="42.6">
+  <h2>Suspect one: a jury that got carried away</h2>
+  <div class="prose">
+    <p>The jury did arithmetic, on a formula the state's trial lawyer proposed: take one statement and count everyone who could have read it. A statement in major newspapers counts about <em class="fact">2.1 million</em> times, roughly the state's population; a statement on Facebook's own pages counts about <em class="fact">1.4 million</em> times, the New Mexicans with a Facebook account in 2020. Twenty-six statements give the jury's total.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="55.4">
+  <h2>Suspect two: one unusual law</h2>
+  <div class="prose">
+    <p>Illinois protects fingerprints and face scans, also at up to $5,000 per violation. In 2023 its supreme court had to decide what one violation is for White Castle, whose workers clocked in with a finger scan: one per worker, or one per scan? Four to three, every scan counts. White Castle estimated it could owe more than <em class="flaw">$17 billion</em>; the majority wrote that the legislature should fix it if it was a problem.</p>
+  </div>
+  <div class="fig">
+    <h3>One worker, or every scan?</h3>
+    <svg id="units" viewBox="0 0 1000 400" width="100%" height="400" role="img" aria-label="Left: one worker counts as one violation. Right: the same worker scanning in at every shift, a column of scans that keeps growing. White Castle estimated its exposure under the per-scan reading at more than 17 billion dollars.">
+      <g id="unG"></g>
+    </svg>
+    <div class="figcap">Cothron v. White Castle System, 2023 IL 128004 (4–3). Exposure estimate is White Castle's, cited by the court.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="50.8">
+  <h2>Suspect three: the judge will sort it out</h2>
+  <div class="prose">
+    <p>The judge sets the price of each violation, up to $5,000. The state asked for <em class="fact">$35–40 billion</em>; Meta offered <em class="fact">$345 million to $3.45 billion</em>. More than a hundred times apart, yet both stand on the jury's count of 43.9 million: about $800–910 per violation against about $8–79. The two sides fight over the price; neither offer touches the count.</p>
+  </div>
+  <div class="fig">
+    <h3>Fine = count × price</h3>
+    <svg id="formula" viewBox="0 0 1000 360" width="100%" height="360" role="img" aria-label="A fine is a count times a price. The count box is already filled with 43.9 million. The price runs from one dollar to five thousand: Meta's offer sits at about 8 to 79 dollars, the state's ask at about 800 to 910 dollars.">
+      <g id="fmG"></g>
+    </svg>
+    <div class="figcap">Hearing of 1 Oct 2026 (Reuters, MediaPost). Per-violation prices are our division of each side's total by 43,899,720.</div>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="74.1">
+  <h2>The last suspect: one undefined word</h2>
+  <div class="prose">
+    <p>New Mexico's Unfair Practices Act sets a civil penalty of "not more than $5,000 per violation" (NMSA § 57-12-11) and never says what a single violation is. Count each misleading statement once and the verdict is 26 violations, <em class="fact">$130,000</em> at the top price. Count one per possible reader and it is <em class="flaw">$219 billion</em>. The price moves the fine up to 5,000 times (Meta argues the floor is $1); the choice of unit moved it more than a million times, and nobody wrote that choice down before the trial.</p>
+  </div>
+  <div class="fig">
+    <h3>Same verdict, two units</h3>
+    <svg id="range" viewBox="0 0 1000 340" width="100%" height="340" role="img" aria-label="A logarithmic scale from 100 thousand to 1 trillion dollars. Per statement: 130 thousand dollars. Meta's offer: 345 million to 3.45 billion. The state's ask: 35 to 40 billion. Per reader at the top price: 219.5 billion. The unit spans a factor of about 1.7 million.">
+      <g id="rgG"></g>
+    </svg>
+    <div class="figcap">26 × $5,000 = $130,000; 43,899,720 × $5,000 ≈ $219.5 billion.</div>
+  </div>
+  <div class="fig">
+    <h3>The count follows the size of the state that sues</h3>
+    <svg id="states" viewBox="0 0 1000 320" width="100%" height="320" role="img" aria-label="The same sentence counted once per resident: about 2.1 million violations in New Mexico, about 31 million in a state the size of Texas.">
+      <g id="stG"></g>
+    </svg>
+    <div class="figcap">US Census estimates. Texas is an illustration of the formula, not a claim about any case.</div>
+  </div>
+  <div class="fig webonly sim">
+    <h3>Try it: pick the unit, then the price</h3>
+    <div class="toggle" id="simU"><button data-n="26">per statement</button><button data-n="43899720" class="on">per possible reader</button></div>
+    <label>Price per violation <input type="range" id="simP" min="0" max="100" value="100"><span id="simPL">$5,000</span></label>
+    <div class="out" id="simO">$219.5 billion</div>
+    <div class="sub" id="simS">43,899,720 violations × $5,000</div>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="134.3">
+  <h2>Three ways to set the size first</h2>
+  <div class="prose">
+    <p><em class="alt">Write the unit into the law.</em> In August 2024 Illinois amended its biometric law (SB 2979): the same kind of violation against the same person counts once, however many scans. By one law firm's estimate, $17 billion would have become $10–50 million. Price: the unit was chosen after the bill was visible, and it made the bill smaller for the companies being sued.</p>
+    <p><em class="alt">Tie the fine to the company.</em> The EU's GDPR caps fines at 4% of worldwide annual turnover; in 2023 Ireland's regulator fined Meta €1.2 billion. The maximum is known in advance. Price: the fine follows size, not harm, and somebody still picks the point between 0 and 4%.</p>
+    <p><em class="alt">Tie the fine to the harm.</em> Take back the damage done or the money the misleading claims earned. Price: when a service is free and harm is spread thin across millions, proving damage person by person is close to impossible. Meta's own defence: 26 statements over more than a decade, "no evidence that any statement harmed any New Mexicans".</p>
+    <p>Today New Mexico counts persons instead of proving harm and leaves a judge or an appeals court to cut the total. Price: the size depends on which state sues and which judge hears it.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="22.1">
+  <h2>The question to carry</h2>
+  <div class="prose">
+    <p>That sentence from 2010 was one violation, or 2.1 million, and the law never said which. The price on the label is not the number to watch.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">What counts as one violation, and did anyone write that down before the counting began?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text);margin-left:10px" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ mu:{q:'“We do not and never will sell any of your information to anyone.”',who:'2010 · newspaper column',pop:'everyone in New Mexico who could have read it',per:'violations',tot:'26 statements',totv:'43,899,720 violations'},
+ un:{w:'per worker',s:'per scan',one:'1',shift:'one scan every shift',est:'> $17 billion'},
+ fm:{fine:'FINE',count:'COUNT',price:'PRICE',cv:'43.9 M',fixed:'arrives already decided',meta:'Meta ≈ $8–79',state:'State ≈ $800–910',cap:'cap $5,000',lo:'$1'},
+ rg:{ticks:['$100K','$10M','$1B','$100B'],st:'per statement · $130K',meta:'Meta $345M–3.45B',state:'State $35–40B',max:'per reader · $219.5B',unit:'unit × 1.7 million',price:'price × 5,000'},
+ st:{a:'New Mexico',b:'Texas-sized state',av:'≈2.1 M',bv:'≈31 M',lab:'violations from one sentence'},
+ sim:{bn:' billion',mn:' million',k:',',viol:' violations × '}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',grid:'#D9E3F0'};
+const fmt=n=>n.toLocaleString('en-US');
+
+/* ---------- multiply ---------- */
+(function(){let h=`<rect x="20" y="120" width="300" height="150" rx="10" fill="#fff" stroke="${C.ink}" stroke-width="2"/>`+
+ `<foreignObject x="34" y="132" width="272" height="130"><div xmlns="http://www.w3.org/1999/xhtml" style="font:500 17px/1.35 'IBM Plex Sans',sans-serif;color:${C.ink}">${L.mu.q}</div></foreignObject>`+
+ `<text x="20" y="295" font-size="15" fill="${C.dim}">${L.mu.who}</text><path id="muArr" d="M330 195 H400" stroke="${C.ink}" stroke-width="3" opacity="0"/>`;
+ for(let r=0;r<20;r++)for(let c=0;c<40;c++)h+=`<circle class="muD" cx="${420+c*13.5}" cy="${60+r*14}" r="5" fill="${C.grid}"/>`;
+ h+=`<text x="420" y="36" font-size="15" fill="${C.dim}">${L.mu.pop}</text><text id="muN" x="690" y="372" text-anchor="middle" font-size="38" font-weight="700" fill="${C.flaw}">0</text><text x="690" y="398" text-anchor="middle" font-size="15" fill="${C.dim}">${L.mu.per}</text>`;
+ h+=`<g id="muT" opacity="0"><rect x="20" y="330" width="300" height="70" rx="8" fill="${C.flaw}"/><text x="170" y="360" text-anchor="middle" font-size="16" fill="#fff">${L.mu.tot}</text><text x="170" y="388" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">${L.mu.totv}</text></g>`;
+ $('muG').innerHTML=h;})();
+window.__fig.multiply=()=>{const ds=[...document.querySelectorAll('.muD')];ds.forEach(d=>d.setAttribute('fill',C.grid));gsap.set('#muArr,#muT',{opacity:0});$('muN').textContent='0';
+ const o={f:0};return gsap.timeline().to('#muArr',{opacity:1,duration:.3}).to(o,{f:1,duration:2.6,ease:'power1.in',onUpdate:()=>{const n=Math.round(o.f*ds.length);ds.forEach((d,i)=>d.setAttribute('fill',i<n?C.fact:C.grid));$('muN').textContent=fmt(Math.round(o.f*2117000/1000)*1000);}})
+  .to('#muT',{opacity:1,duration:.5},'+=.4').to({},{duration:.8});};
+
+/* ---------- units (White Castle) ---------- */
+(function(){let h=`<text x="220" y="40" text-anchor="middle" font-size="22" fill="${C.ink}">${L.un.w}</text><text x="700" y="40" text-anchor="middle" font-size="22" fill="${C.ink}">${L.un.s}</text>`+
+ `<rect x="190" y="320" width="60" height="30" fill="${C.fact}"/><text x="220" y="385" text-anchor="middle" font-size="26" font-weight="700" fill="${C.fact}">${L.un.one}</text>`;
+ for(let i=0;i<40;i++)h+=`<rect class="unS" x="${520+(i%10)*36}" y="${320-Math.floor(i/10)*34-30}" width="30" height="28" fill="${C.flaw}" opacity="0"/>`;
+ h+=`<text x="700" y="385" text-anchor="middle" font-size="17" fill="${C.dim}">${L.un.shift}</text><text id="unE" x="700" y="150" text-anchor="middle" font-size="40" font-weight="700" fill="${C.flaw}" opacity="0">${L.un.est}</text>`;
+ $('unG').innerHTML=h;})();
+window.__fig.units=()=>{gsap.set('.unS,#unE',{opacity:0});return gsap.timeline().to('.unS',{opacity:1,duration:.12,stagger:.07}).to('#unE',{opacity:1,duration:.5},'+=.2').to({},{duration:.8});};
+
+/* ---------- formula ---------- */
+const PX=v=>120+Math.log10(v)/Math.log10(5000)*760;
+(function(){let h=`<text x="70" y="70" font-size="34" font-weight="700" fill="${C.ink}">${L.fm.fine} =</text>`+
+ `<rect x="250" y="30" width="260" height="60" rx="8" fill="${C.fact}"/><text x="380" y="70" text-anchor="middle" font-size="28" font-weight="700" fill="#fff">${L.fm.count} ${L.fm.cv}</text>`+
+ `<text x="540" y="70" font-size="34" font-weight="700" fill="${C.ink}">×</text><rect x="580" y="30" width="200" height="60" rx="8" fill="#fff" stroke="${C.ink}" stroke-width="3"/><text x="680" y="70" text-anchor="middle" font-size="28" font-weight="700" fill="${C.ink}">${L.fm.price}</text>`+
+ `<text x="380" y="118" text-anchor="middle" font-size="15" fill="${C.dim}">${L.fm.fixed}</text>`+
+ `<line x1="120" y1="230" x2="880" y2="230" stroke="${C.ink}" stroke-width="3"/><text x="120" y="262" text-anchor="middle" font-size="16" fill="${C.dim}">${L.fm.lo}</text><text x="880" y="262" text-anchor="middle" font-size="16" fill="${C.dim}">${L.fm.cap}</text>`+
+ `<g id="fmM" opacity="0"><rect x="${PX(7.86)}" y="212" width="${PX(78.6)-PX(7.86)}" height="36" fill="${C.fact}" opacity=".85"/><text x="${(PX(7.86)+PX(78.6))/2}" y="200" text-anchor="middle" font-size="18" fill="${C.fact}">${L.fm.meta}</text></g>`+
+ `<g id="fmS" opacity="0"><rect x="${PX(797)}" y="212" width="${PX(911)-PX(797)}" height="36" fill="${C.flaw}"/><text x="${PX(850)}" y="200" text-anchor="middle" font-size="18" fill="${C.flaw}">${L.fm.state}</text></g>`+
+ `<circle id="fmK" cx="${PX(1)}" cy="230" r="12" fill="${C.ink}"/>`;
+ $('fmG').innerHTML=h;})();
+window.__fig.formula=()=>{gsap.set('#fmM,#fmS',{opacity:0});const k=$('fmK');gsap.set(k,{attr:{cx:PX(1)}});
+ return gsap.timeline().to(k,{attr:{cx:PX(30)},duration:1,ease:'power2.inOut'}).to('#fmM',{opacity:1,duration:.4}).to(k,{attr:{cx:PX(850)},duration:1.2,ease:'power2.inOut'},'+=.3').to('#fmS',{opacity:1,duration:.4}).to({},{duration:.8});};
+
+/* ---------- range (log scale) ---------- */
+const RX=v=>60+(Math.log10(v)-5)/(12-5)*880;
+(function(){let h=`<line x1="60" y1="170" x2="940" y2="170" stroke="${C.ink}" stroke-width="3"/>`;
+ [[1e5,0],[1e7,1],[1e9,2],[1e11,3]].forEach(([v,i])=>{h+=`<line x1="${RX(v)}" y1="160" x2="${RX(v)}" y2="180" stroke="${C.dim}" stroke-width="2"/><text x="${RX(v)}" y="200" text-anchor="middle" font-size="15" fill="${C.dim}">${L.rg.ticks[i]}</text>`;});
+ const mk=(id,v1,v2,col,lab,y,anch)=>`<g id="${id}" opacity="0"><rect x="${RX(v1)-4}" y="150" width="${Math.max(8,RX(v2)-RX(v1)+8)}" height="40" fill="${col}"/><text x="${RX((v1*v2)**.5)}" y="${y}" text-anchor="${anch||'middle'}" font-size="18" fill="${col}">${lab}</text></g>`;
+ h+=mk('rgA',1.3e5,1.3e5,C.fact,L.rg.st,130,'start')+mk('rgM',3.45e8,3.45e9,C.ink,L.rg.meta,240)+mk('rgS',3.5e10,4e10,C.dim,L.rg.state,130,'end')+mk('rgB',2.195e11,2.195e11,C.flaw,L.rg.max,270,'end');
+ h+=`<g id="rgU" opacity="0"><path d="M${RX(1.3e5)} 300 V315 H${RX(2.195e11)} V300" fill="none" stroke="${C.flaw}" stroke-width="3"/><text x="${RX(2e8)}" y="335" text-anchor="middle" font-size="20" font-weight="700" fill="${C.flaw}">${L.rg.unit}</text></g>`;
+ h+=`<g id="rgP" opacity="0"><path d="M${RX(4.39e7)} 60 V45 H${RX(2.195e11)} V60" fill="none" stroke="${C.ink}" stroke-width="2"/><text x="${RX(3e9)}" y="35" text-anchor="middle" font-size="16" fill="${C.ink}">${L.rg.price}</text></g>`;
+ $('rgG').innerHTML=h;})();
+window.__fig.range=()=>{gsap.set('#rgA,#rgB,#rgM,#rgS,#rgU,#rgP',{opacity:0});
+ return gsap.timeline().to('#rgA',{opacity:1,duration:.4}).to('#rgB',{opacity:1,duration:.4},'+=.5').to('#rgU',{opacity:1,duration:.5},'+=.3').to('#rgM,#rgS',{opacity:1,duration:.4,stagger:.3},'+=.5').to('#rgP',{opacity:1,duration:.4},'+=.2').to({},{duration:.8});};
+
+/* ---------- states ---------- */
+(function(){const k=6.4;let h=`<text x="40" y="34" font-size="17" fill="${C.dim}">${L.st.lab}</text>`;
+ [[L.st.a,2.1,L.st.av,C.fact],[L.st.b,31.3,L.st.bv,C.flaw]].forEach(([n,v,t,c],i)=>{const y=80+i*110;
+  h+=`<text x="40" y="${y+30}" font-size="19" fill="${C.ink}">${n}</text><rect class="stB" x="360" y="${y}" width="0" data-w="${v*20}" height="44" fill="${c}"/><text class="stT" x="${370+v*20}" y="${y+32}" font-size="24" font-weight="700" fill="${c}" opacity="0">${t}</text>`;});
+ $('stG').innerHTML=h;})();
+window.__fig.states=()=>{gsap.set('.stB',{attr:{width:0}});gsap.set('.stT',{opacity:0});const tl=gsap.timeline();
+ document.querySelectorAll('.stB').forEach((b,i)=>tl.to(b,{attr:{width:+b.dataset.w},duration:i?1.6:.6,ease:'power2.out'},i?1:0));
+ return tl.to('.stT',{opacity:1,duration:.4,stagger:.3}).to({},{duration:.8});};
+
+/* ---------- simulator (web only) ---------- */
+(function(){let n=43899720;const price=()=>{const v=+$('simP').value;return Math.max(1,Math.round(10**(v/100*Math.log10(5000))));};
+ const money=x=>x>=1e9?'$'+(x/1e9).toFixed(x>=1e10?1:2)+L.sim.bn:x>=1e6?'$'+(x/1e6).toFixed(1)+L.sim.mn:'$'+fmt(Math.round(x));
+ function draw(){const p=price();$('simPL').textContent='$'+fmt(p);$('simO').textContent=money(n*p);$('simS').textContent=fmt(n)+L.sim.viol+'$'+fmt(p);}
+ document.querySelectorAll('#simU button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#simU button').forEach(x=>x.classList.remove('on'));b.classList.add('on');n=+b.dataset.n;draw();});
+ $('simP').oninput=draw;draw();})();
+
+const FIGS=['multiply','units','formula','range','states'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/070-who-counts-one/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s0:['multiply'],s2:['units'],s3:['formula'],s4:['range','states']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>
