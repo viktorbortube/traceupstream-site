@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — Your Pension Has a Formula. Who Pays When It Breaks?</title>
+<meta name="description" content="Spanish pensions rose by nothing in 2011, by 0.25% for five years from 2014, and by 8.5% in 2023. Same country, same pensioners: what changed was the formula that decides who absorbs the gap. Sweden's brake, Britain's triple lock and Germany's 48% floor each answer it differently, and each has a price.">
+<link rel="canonical" href="https://traceupstream.com/episodes/073-who-pays-the-pension/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#7A6E8F;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim .q{font-family:var(--font-display);font-size:24px;font-weight:700;margin:10px 0 6px}
+.sim .sub{font-family:var(--font-mono);font-size:13px;color:var(--text-dim)}
+.sim .who{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.sim .who span{font-family:var(--font-mono);font-size:13px;padding:6px 10px;border:1.5px solid var(--grid);border-radius:6px;color:var(--text-dim)}
+.sim .who span.hit{border-color:var(--flaw);color:var(--flaw);font-weight:600}
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--grid);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim)}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+svg .lab{paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}table.cmp{font-size:13px}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.073</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="40.6">
+  <div class="kicker">Trace Upstream · Episode 073</div>
+  <h1>Your pension has a formula. Who pays when it breaks?</h1>
+  <div class="prose lede">
+    <p>In 2011 prices in Spain rose by 2.4%, and pensions rose by <em class="flaw">nothing at all</em>. From 2014, pensions rose by <em class="flaw">a quarter of one percent</em>, five years in a row. In 2023 they rose by <em class="fact">8.5%</em>. Same country, same pensioners. Something else changed.</p>
+  </div>
+  <div class="fig">
+    <h3>Same country, three answers</h3>
+    <svg id="spain" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Spanish pension increases: 0% in 2011 while prices rose 2.4%; 0.25% each year from 2014 to 2018; 8.5% in 2023, equal to the rise in prices.">
+      <g id="spG"></g>
+    </svg>
+    <div class="figcap">Revaluation of contributory pensions. 2011: RDL 8/2010; CPI 2.4%. 2014–2018: Ley 23/2013 (IRP floor 0.25%). 2023: Ley 21/2021, average CPI Dec 2021–Nov 2022 (Seguridad Social).</div>
+  </div>
+  <div class="prose">
+    <p>On 24 October 2026, with prices rising fast again, tens of thousands of people marched through Madrid to keep that last version, a month before a general election. Yet both main parties had already promised to keep it. <em class="flaw">If everyone agrees, what are the marchers afraid of losing?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="53.5">
+  <h2>There is no pot</h2>
+  <div class="prose">
+    <p>There is no savings account with your name on it. The pensions paid this month come from the contributions of the people working this month, and when those fall short, the state budget covers the rest.</p>
+    <p>Inflation only sets the size of the bill. Each point of inflation that pensions follow costs Spain about <em class="fact">€2.6 billion a year</em>, and the cost never goes away, because next year's pension starts from this year's. When the money coming in falls short of what was promised, a gap opens, and <em class="flaw">only three numbers can move to close it</em>: what pensioners get, what workers pay, and what the state puts in.</p>
+  </div>
+  <div class="fig">
+    <h3>A gap, and three numbers that can close it</h3>
+    <svg id="gap" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Money in from workers' contributions is shorter than the pensions promised; the difference is the gap. Three numbers can close it: what pensioners get, what workers pay, what the state puts in.">
+      <g id="gaG"></g>
+    </svg>
+    <div class="figcap">Cost per CPI point: €2,606 million a year (Memoria de Análisis del Impacto Normativo, via El Independiente, 14.10.2025).</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Most systems have a rule that decides in advance which number moves.</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="31.7">
+  <h2>A rule that could be switched off</h2>
+  <div class="prose">
+    <p>On paper, Spanish pensions were supposed to follow prices. But in May 2010, in the middle of a debt crisis, the government used an emergency decree to cancel the next year's increase for most pensions.</p>
+    <p>When a single decree can switch the rule off, the gap goes to whoever is easiest to skip in that year's budget. In a crisis, that turned out to be pensioners. So the next step seemed obvious: <em class="flaw">take the decision out of politicians' hands</em> and let a formula tied to the system's own accounts make it.</p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="56.1">
+  <h2>The formula that balanced</h2>
+  <div class="prose">
+    <p>In 2013 Spain wrote exactly that formula. Pensions would rise depending on whether the pension system was in balance; in deficit, they would rise by the minimum, <em class="fact">0.25%</em>. The system was in deficit, so from 2014 to 2018 that is what pensioners got.</p>
+    <p><em class="flaw">Nobody voted on any of those increases.</em> While prices were flat, almost nobody noticed. Then prices started rising. From January 2018 pensioners in Bilbao gathered outside the town hall every Monday, and by March the municipal police counted more than 100,000 people in the city's streets.</p>
+    <p>The formula had sent the bill to pensioners, and it lasted only as long as pensioners accepted it. In 2021 Spain replaced it with the opposite formula.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So whose number moves now?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="65">
+  <h2>The opposite formula</h2>
+  <div class="prose">
+    <p>Since 2022, Spanish law says that every January pensions rise by the average rise in prices over the previous twelve months. That is why pensions rose by 8.5% in 2023. <em class="fact">The pensioners' number is now locked to prices.</em></p>
+    <p>So the gap moves to the other two numbers. The same reform added a new contribution on every wage, rising to <em class="flaw">1.2% by 2029</em>, and it does not raise the pension of the person who pays it. Whatever that does not cover falls on the state budget. Spain's independent fiscal watchdog, AIReF, projects pension spending growing by more than 4% a year until 2045, mostly because of the link to prices.</p>
+    <p>So the real question under this election is not whether pensioners get paid. It is who pays what the formula has already promised: the people working, the taxpayers, or one day a new formula that sends the bill back to pensioners.</p>
+  </div>
+  <div class="fig webonly sim">
+    <h3>Try it: when the gap opens, whose number moves?</h3>
+    <div class="toggle" id="simQ">
+      <button data-v="es11" class="on">Spain 2011</button><button data-v="es14">Spain 2014–18</button><button data-v="es22">Spain since 2022</button>
+      <button data-v="se">Sweden</button><button data-v="uk">Britain</button><button data-v="de">Germany</button>
+    </div>
+    <div class="q" id="simO"></div>
+    <div class="sub" id="simS"></div>
+    <div class="who" id="simW"><span data-w="p">What pensioners get</span><span data-w="w">What workers pay</span><span data-w="s">What the state puts in</span></div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Is there a formula that moves a number without a vote, and holds?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="63.4">
+  <h2>A brake that held</h2>
+  <div class="prose">
+    <p>Sweden built an automatic brake. In its earnings-based pension the contribution is fixed by law at 16%, so the only number left to move is the pension itself. Every year the system compares what it holds with what it owes; <em class="flaw">if that ratio drops below one, pensions are cut automatically</em>. No minister signs anything, and no parliament votes.</p>
+  </div>
+  <div class="fig">
+    <h3>The brake: below one, pensions step down</h3>
+    <svg id="brake" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Schematic. The balance ratio, what the system holds divided by what it owes, falls below 1.0 after the financial crash; the earnings-based pension index steps down by about 3% in 2010.">
+      <g id="brG"></g>
+    </svg>
+    <div class="figcap">Schematic. The brake applied in 2010, 2011 and 2014.</div>
+  </div>
+  <div class="prose">
+    <p>After the financial crash the brake did exactly that: earnings-based pensions fell by about 3% in 2010, and the brake kicked in again in the years that followed. The system stayed in balance, and there was nobody to march against.</p>
+    <p><em class="flaw">Price:</em> the whole shock lands on pensioners, in the worst years. And parliament softened the brake: in 2009 it voted to spread each shock over three years, and later it cut income taxes for pensioners to offset the losses. Part of the bill went back to taxpayers, by a vote after all.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">What about a rule built the other way round?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="44.2">
+  <h2>A lock that only turns one way</h2>
+  <div class="prose">
+    <p>Since 2011, Britain's state pension has risen each April by whichever is highest: <em class="fact">prices, wages, or 2.5%</em>. The British call it the triple lock.</p>
+  </div>
+  <div class="fig">
+    <h3>The triple lock: always the highest of three</h3>
+    <svg id="ratchet" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Schematic. Three lines: prices, wages and a flat 2.5%. The pension follows whichever is highest each year, jumping from line to line, and never takes the lower path.">
+      <g id="raG"></g>
+    </svg>
+    <div class="figcap">Schematic, not to scale. Triple lock since April 2011. OBR: long-run extra cost vs an earnings link ≈0.58% of GDP.</div>
+  </div>
+  <div class="prose">
+    <p>Compared with a pension that simply followed wages, Britain's budget watchdog estimates the lock costs about <em class="flaw">an extra half a percent of GDP each year</em> over the long run. But the harder part is getting out. In September 2026 Prime Minister Andy Burnham proposed dropping the link to wages, but only from April 2030, and his own party was divided over it.</p>
+    <p>A lock that only turns one way can be changed only by a vote that looks like a cut.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Is there a rule that splits the gap instead of guarding one number?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="52.1">
+  <h2>A split with a floor</h2>
+  <div class="prose">
+    <p>Since 2005 a German formula has slowed pension increases whenever there are fewer workers paying in for each pensioner. When the gap opens, pensioners get a bit less than they otherwise would, and contributions rise a bit less than they otherwise would.</p>
+    <p>But on top of the formula sits a floor. A standard German pension, after 45 years on an average wage, must stay at no less than <em class="alt">48% of the average wage</em>. In December 2025 the Bundestag extended that floor to 2031 and switched the formula off until then. The difference is paid from taxes: <em class="flaw">more than €200 billion in total by 2040</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>The formula, and the floor above it</h3>
+    <svg id="floor" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Schematic. The German pension level slides down under the formula until it reaches a floor of 48% of the average wage, set in 2018 and extended to 2031. Below the floor, the formula alone would have gone lower; taxes pay the difference.">
+      <g id="flG"></g>
+    </svg>
+    <div class="figcap">Schematic. 48% floor set 2018, extended to 2031 by the Bundestag (05.12.2025). Cost &gt;€200bn to 2040 (DRV).</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Who decides the split: the formula, or the vote above it?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="31.5">
+  <h2>The question to carry</h2>
+  <div class="prose">
+    <p>Every automatic rule in this story met a vote in the end. Spain's formula met it in the street, Sweden's brake in parliament, Britain's lock at a party conference, and Germany's formula under its floor. A formula decides who pays, until enough people decide to change it.</p>
+  </div>
+  <div class="fig">
+    <h3>Five rules, side by side</h3>
+    <table class="cmp">
+      <tr><th>Rule</th><th>Example</th><th>Whose number moves without a vote</th><th>Price</th></tr>
+      <tr><td>Balance formula</td><td>Spain 2014–2018</td><td>Pensioners</td><td>Lasted only as long as pensioners accepted it</td></tr>
+      <tr><td>Price link</td><td>Spain since 2022</td><td>Workers and the state budget</td><td>New wage contribution; spending &gt;4% a year to 2045</td></tr>
+      <tr><td>Automatic brake</td><td>Sweden</td><td>Pensioners, in the worst years</td><td>Softened by votes: smoothing, tax cuts</td></tr>
+      <tr><td>Triple lock</td><td>Britain</td><td>Taxpayers</td><td>≈0.58% of GDP a year; hard to unlock</td></tr>
+      <tr><td>Split with a floor</td><td>Germany</td><td>Both sides, then taxes under the floor</td><td>&gt;€200bn to 2040</td></tr>
+    </table>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">In your country, when the gap opens, whose number moves without a vote? And who would have to agree to change it?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ sp:{axis:'PENSION RISE, % A YEAR',prices:'prices',pen:'pensions',y11:'2011',y14:'2014–2018',y23:'2023',
+  r1:'SWITCHED OFF',r2:'BALANCE FORMULA',r3:'PRICE FORMULA',v0:'0%',v25:'0.25% × 5',v85:'8.5%',p24:'+2.4%',p85:'to Nov 2022: +8.5%'},
+ ga:{inn:'MONEY IN',out:'PROMISED',gap:'GAP',head:'ONLY THREE NUMBERS CAN MOVE',
+  n:[['What pensioners get','the pension'],['What workers pay','contributions'],['What the state puts in','the budget']]},
+ br:{top:'HOLDS ÷ OWES',one:'1.0',bot:'EARNINGS-BASED PENSION',cut:'−3%',yr:'2010',auto:'NO VOTE'},
+ ra:{p:'PRICES',w:'WAGES',f:'2.5%',pen:'ANNUAL RISE = HIGHEST OF THREE',never:'it follows whichever line is highest'},
+ fl:{axis:'PENSION AS % OF AVERAGE WAGE',floor:'FLOOR 48%',y05:'2005',y18:'2018',y31:'2031',form:'formula alone',tax:'TAXES PAY THE GAP'},
+ sim:{
+  es11:['A decree switches the rule off','2010 decree: no increase for most pensions in 2011.','p'],
+  es14:['The formula cuts the pension, quietly','Deficit → 0.25% a year, whatever prices do.','p'],
+  es22:['The pension is locked to prices','The gap goes to a new wage contribution and the budget.','ws'],
+  se:['The brake cuts the pension, automatically','Contribution fixed at 16%; below one, pensions step down.','p'],
+  uk:['The pension can only go up','Highest of prices, wages, 2.5%: the gap goes to taxpayers.','s'],
+  de:['Both sides give a little, then a floor','Under 48% the formula stops and taxes pay the difference.','pws']}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',topic:'#7A6E8F',grid:'#D9E3F0',paper:'#F8F9FB'};
+const drawIn=(sel)=>{document.querySelectorAll(sel).forEach(p=>{const l=p.getTotalLength();p.style.strokeDasharray=l;p.style.strokeDashoffset=l;});};
+
+/* ---------- spain: three regimes, one country ---------- */
+(function(){const B=380,K=30; // baseline y, px per percentage point
+ const bar=(x,v,c,cls)=>`<rect class="${cls}" x="${x}" y="${B}" width="46" height="0" data-h="${Math.max(v*K,0)}" fill="${c}"/>`;
+ let h=`<text x="20" y="34" font-size="20" font-weight="700" fill="${C.dim}">${L.sp.axis}</text>`+
+ `<line x1="20" y1="${B}" x2="980" y2="${B}" stroke="${C.ink}" stroke-width="2"/>`;
+ // 2011: zero bar, prices tick
+ h+=`<g id="sp1" opacity="0"><line x1="80" y1="${B-1}" x2="150" y2="${B-1}" stroke="${C.flaw}" stroke-width="6"/>`+
+  `<text x="115" y="${B-16}" text-anchor="middle" font-size="26" font-weight="700" fill="${C.flaw}">${L.sp.v0}</text></g>`+
+  `<g id="sp1p" opacity="0"><line x1="64" y1="${B-2.4*K}" x2="166" y2="${B-2.4*K}" stroke="${C.fact}" stroke-width="3" stroke-dasharray="8 6"/>`+
+  `<text class="lab" x="115" y="${B-2.4*K-12}" text-anchor="middle" font-size="22" fill="${C.fact}">${L.sp.prices} ${L.sp.p24}</text></g>`;
+ // 2014–2018: five slivers
+ for(let i=0;i<5;i++) h+=bar(330+i*62,0.25,C.flaw,'sp2b');
+ h+=`<text id="sp2v" x="${330+2*62+23}" y="${B-30}" text-anchor="middle" font-size="26" font-weight="700" fill="${C.flaw}" opacity="0">${L.sp.v25}</text>`;
+ // 2023: tall bar + prices tick
+ h+=bar(800,8.5,C.flaw,'sp3b')+
+  `<g id="sp3p" opacity="0"><line x1="770" y1="${B-8.5*K}" x2="876" y2="${B-8.5*K}" stroke="${C.fact}" stroke-width="3" stroke-dasharray="8 6"/>`+
+  `<text class="lab" x="823" y="${B-8.5*K-14}" text-anchor="middle" font-size="22" fill="${C.fact}">${L.sp.prices} ${L.sp.p85}</text></g>`+
+  `<text id="sp3v" class="lab" x="784" y="${B-4.2*K}" text-anchor="end" font-size="30" font-weight="700" fill="${C.flaw}" opacity="0">${L.sp.v85}</text>`;
+ [[115,L.sp.y11,L.sp.r1,'spL1'],[330+2*62+23,L.sp.y14,L.sp.r2,'spL2'],[823,L.sp.y23,L.sp.r3,'spL3']].forEach(([x,y,r,id])=>{
+  h+=`<g id="${id}" opacity="0"><text x="${x}" y="${B+32}" text-anchor="middle" font-size="22" font-weight="700" fill="${C.ink}">${y}</text>`+
+  `<text x="${x}" y="${B+56}" text-anchor="middle" font-size="17" fill="${C.dim}">${r}</text></g>`;});
+ $('spG').innerHTML=h;})();
+window.__fig.spain=()=>{gsap.set('#sp1,#sp1p,#sp2v,#sp3p,#sp3v,#spL1,#spL2,#spL3',{opacity:0});
+ document.querySelectorAll('.sp2b,.sp3b').forEach(r=>gsap.set(r,{attr:{y:380,height:0}}));
+ const grow=(sel,d)=>({attr:{y:i=>380-+document.querySelectorAll(sel)[i].dataset.h,height:i=>+document.querySelectorAll(sel)[i].dataset.h},duration:d});
+ return gsap.timeline().to('#spL1',{opacity:1,duration:.3}).to('#sp1p',{opacity:1,duration:.4}).to('#sp1',{opacity:1,duration:.4},'+=.2')
+  .to('#spL2',{opacity:1,duration:.3},'+=.5').to('.sp2b',{...grow('.sp2b',.25),stagger:.18}).to('#sp2v',{opacity:1,duration:.3})
+  .to('#spL3',{opacity:1,duration:.3},'+=.5').to('.sp3b',{...grow('.sp3b',1.1),ease:'power2.out'}).to('#sp3v',{opacity:1,duration:.3}).to('#sp3p',{opacity:1,duration:.4})
+  .to({},{duration:.8}).timeScale(2.2);}; // fast enough that 2023 lands under its sentence
+
+/* ---------- gap: money in vs promised, three numbers ---------- */
+(function(){const B=400;
+ let h=`<rect id="gaIn" x="70" y="${B}" width="150" height="0" fill="${C.alt}"/>`+
+ `<rect id="gaOut" x="260" y="${B}" width="150" height="0" fill="${C.fact}"/>`+
+ `<text x="145" y="${B+30}" text-anchor="middle" font-size="21" font-weight="700" fill="${C.alt}">${L.ga.inn}</text>`+
+ `<text x="335" y="${B+30}" text-anchor="middle" font-size="21" font-weight="700" fill="${C.fact}">${L.ga.out}</text>`+
+ `<rect id="gaGap" x="70" y="${B-320}" width="150" height="90" fill="none" stroke="${C.flaw}" stroke-width="3" stroke-dasharray="10 7" opacity="0"/>`+
+ `<text id="gaGapT" class="lab" x="145" y="${B-266}" text-anchor="middle" font-size="30" font-weight="700" fill="${C.flaw}" opacity="0">${L.ga.gap}</text>`+
+ `<text id="gaHead" x="490" y="56" font-size="21" font-weight="700" fill="${C.dim}" opacity="0">${L.ga.head}</text>`;
+ L.ga.n.forEach(([a,b],i)=>{const y=86+i*104;
+  h+=`<g class="gaN" id="gaN${i}" opacity="0"><rect x="490" y="${y}" width="480" height="84" rx="10" fill="#fff" stroke="${C.ink}" stroke-width="2.5"/>`+
+  `<circle cx="534" cy="${y+42}" r="22" fill="${C.flaw}"/><text x="534" y="${y+50}" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">${i+1}</text>`+
+  `<text x="574" y="${y+38}" font-size="23" font-weight="700" fill="${C.ink}">${a}</text><text x="574" y="${y+66}" font-size="18" fill="${C.dim}">${b}</text></g>`;});
+ $('gaG').innerHTML=h;})();
+window.__fig.gap=()=>{gsap.set('#gaIn,#gaOut',{attr:{y:400,height:0}});gsap.set('#gaGap,#gaGapT,#gaHead,.gaN',{opacity:0});
+ return gsap.timeline().to('#gaIn,#gaOut',{attr:{y:170,height:230},duration:.9,ease:'power2.out'})
+  .to('#gaOut',{attr:{y:80,height:320},duration:.9,ease:'power2.inOut'},'+=.5')
+  .to('#gaGap',{opacity:1,duration:.4}).to('#gaGapT',{opacity:1,duration:.3},'<')
+  .to('#gaHead',{opacity:1,duration:.3},'+=.4').to('.gaN',{opacity:1,x:0,duration:.4,stagger:.45}).to({},{duration:.8});};
+
+/* ---------- brake: the balance ratio falls below one ---------- */
+(function(){
+ const r=[1.02,1.025,1.02,1.015,0.968,0.985,1.002,1.01,1.015,1.012]; // schematic ratio, years 2006–2015
+ const X=i=>110+i*92, Y=v=>140-(v-1)*1500;
+ const line=r.map((v,i)=>`${i?'L':'M'}${X(i)} ${Y(v)}`).join(' ');
+ // pension index: rises, steps down at i=4 (2010)
+ const p=[0,1,2,3,4,5,6,7,8,9].map(i=>i<4?330-i*14:i===4?330-3*14+40:i===5?330-3*14+56:330-3*14+56-(i-5)*10); // steps down in 2010 and again in 2011
+ const step=p.map((y,i)=>`${i?'L'+X(i)+' '+p[i-1]+' L':'M'}${X(i)} ${y}`).join(' ');
+ let h=`<text x="20" y="34" font-size="20" font-weight="700" fill="${C.dim}">${L.br.top}</text>`+
+ `<line x1="90" y1="${Y(1)}" x2="980" y2="${Y(1)}" stroke="${C.ink}" stroke-width="2" stroke-dasharray="6 6"/>`+
+ `<text x="20" y="${Y(1)+8}" font-size="24" font-weight="700" fill="${C.ink}">${L.br.one}</text>`+
+ `<rect id="brZone" x="${X(3)+46}" y="${Y(1)}" width="${X(5)-X(3)}" height="${Y(0.96)-Y(1)}" fill="${C.flaw}" opacity="0"/>`+
+ `<path id="brLine" d="${line}" stroke="${C.fact}" stroke-width="4" fill="none"/>`+
+ `<text x="20" y="252" font-size="20" font-weight="700" fill="${C.dim}">${L.br.bot}</text>`+
+ `<path id="brStep" d="${step}" stroke="${C.alt}" stroke-width="5" fill="none"/>`+
+ `<g id="brCut" opacity="0"><line x1="${X(4)}" y1="${p[3]}" x2="${X(4)}" y2="${p[4]}" stroke="${C.flaw}" stroke-width="6"/>`+
+ `<text class="lab" x="${X(4)+16}" y="${p[4]+34}" font-size="30" font-weight="700" fill="${C.flaw}">${L.br.cut}</text>`+
+ `<text x="${X(4)}" y="420" text-anchor="middle" font-size="22" font-weight="700" fill="${C.ink}">${L.br.yr}</text></g>`+
+ `<text id="brAuto" class="lab" x="${X(7)}" y="${Y(1)+60}" text-anchor="middle" font-size="24" font-weight="700" fill="${C.flaw}" opacity="0">${L.br.auto}</text>`;
+ $('brG').innerHTML=h;})();
+window.__fig.brake=()=>{drawIn('#brLine,#brStep');gsap.set('#brCut,#brAuto',{opacity:0});gsap.set('#brZone',{opacity:0});
+ const L1=$('brLine').getTotalLength(),L2=$('brStep').getTotalLength();
+ return gsap.timeline().to('#brLine',{strokeDashoffset:L1*0.45,duration:1.4,ease:'none'})
+  .to('#brZone',{opacity:.18,duration:.4}).to('#brLine',{strokeDashoffset:0,duration:1.2,ease:'none'})
+  .to('#brStep',{strokeDashoffset:L2*0.62,duration:1,ease:'none'},'<-.6')
+  .to('#brStep',{strokeDashoffset:0,duration:1,ease:'none'}).to('#brCut',{opacity:1,duration:.4},'<.15')
+  .to('#brAuto',{opacity:1,duration:.4}).to({},{duration:.8});};
+
+/* ---------- ratchet: highest of three ---------- */
+(function(){
+ const P=[4.5,2.4,1.2,0.4,1.0,3.0,2.4,1.7,0.6,3.1,8.0,6.5,3.0],
+       W=[2.0,1.5,2.9,2.4,2.9,2.1,2.6,3.9,1.2,5.2,4.4,8.5,4.6],F=P.map(()=>2.5);
+ const X=i=>90+i*66, Y=v=>390-v*36;
+ const path=a=>a.map((v,i)=>`${i?'L':'M'}${X(i)} ${Y(v)}`).join(' ');
+ const M=P.map((v,i)=>Math.max(v,W[i],2.5));
+ let h=`<line x1="80" y1="390" x2="980" y2="390" stroke="${C.ink}" stroke-width="2"/>`+
+ `<path id="raP" d="${path(P)}" stroke="${C.fact}" stroke-width="2.5" fill="none" opacity=".75"/>`+
+ `<path id="raW" d="${path(W)}" stroke="${C.topic}" stroke-width="2.5" fill="none" opacity=".75"/>`+
+ `<path id="raF" d="${path(F)}" stroke="${C.dim}" stroke-width="2.5" fill="none" stroke-dasharray="8 6"/>`+
+ `<path id="raM" d="${path(M)}" stroke="${C.flaw}" stroke-width="7" fill="none" stroke-linejoin="round"/>`+
+ `<g id="raLab" opacity="0"><text class="lab" x="${X(12)+12}" y="${Y(P[12])+8}" font-size="20" font-weight="700" fill="${C.fact}">${L.ra.p}</text>`+
+ `<text class="lab" x="${X(12)+12}" y="${Y(W[12])-6}" font-size="20" font-weight="700" fill="${C.topic}">${L.ra.w}</text>`+
+ `<text class="lab" x="${X(12)+12}" y="${Y(2.5)+30}" font-size="20" font-weight="700" fill="${C.dim}">${L.ra.f}</text></g>`+
+ `<g id="raHead" opacity="0"><text class="lab" x="90" y="40" font-size="26" font-weight="700" fill="${C.flaw}">${L.ra.pen}</text>`+
+ `<text class="lab" x="90" y="72" font-size="20" fill="${C.dim}">${L.ra.never}</text></g>`;
+ $('raG').innerHTML=h;})();
+window.__fig.ratchet=()=>{drawIn('#raP,#raW,#raF,#raM');gsap.set('#raLab,#raHead',{opacity:0});
+ return gsap.timeline().to('#raP,#raW,#raF',{strokeDashoffset:0,duration:1.3,ease:'none',stagger:.25}).to('#raLab',{opacity:1,duration:.3})
+  .to('#raHead',{opacity:1,duration:.3},'+=.3').to('#raM',{strokeDashoffset:0,duration:2.4,ease:'none'}).to({},{duration:.8});};
+
+/* ---------- floor: the formula slides, the floor holds ---------- */
+(function(){
+ const X=y=>90+(y-2005)*25, V=v=>380-(v-44)*36;   // years 2005–2040, level 44–54%
+ const pre=[[2005,52.6],[2008,51.0],[2011,50.0],[2014,48.9],[2018,48.1]];
+ const alone=[[2018,48.1],[2022,48.1],[2025,48.0],[2031,46.3],[2036,45.6],[2040,45.0]];
+ const pth=a=>a.map(([y,v],i)=>`${i?'L':'M'}${X(y)} ${V(v)}`).join(' ');
+ let h=`<text x="20" y="34" font-size="20" font-weight="700" fill="${C.dim}">${L.fl.axis}</text>`+
+ `<line x1="80" y1="380" x2="980" y2="380" stroke="${C.ink}" stroke-width="2"/>`+
+ `<path id="flTax" d="${pth(alone.slice(2,4))} L${X(2031)} ${V(48)} L${X(2025)} ${V(48)} Z" fill="${C.flaw}" opacity="0"/>`+
+ `<path id="flPre" d="${pth(pre)}" stroke="${C.fact}" stroke-width="5" fill="none"/>`+
+ `<path id="flAlone" d="${pth(alone)}" stroke="${C.dim}" stroke-width="3" fill="none" stroke-dasharray="9 7"/>`+
+ `<line id="flFloor" x1="${X(2018)}" y1="${V(48)}" x2="${X(2031)}" y2="${V(48)}" stroke="${C.alt}" stroke-width="7"/>`+
+ `<g id="flFT" opacity="0"><text class="lab" x="${X(2018)}" y="${V(48)-18}" font-size="24" font-weight="700" fill="${C.alt}">${L.fl.floor}</text></g>`+
+ `<g id="flYrs" opacity="0">`+[[2005,L.fl.y05],[2018,L.fl.y18],[2025,'2025'],[2031,L.fl.y31]].map(([y,t])=>`<line x1="${X(y)}" y1="380" x2="${X(y)}" y2="390" stroke="${C.ink}" stroke-width="2"/><text x="${X(y)}" y="414" text-anchor="middle" font-size="21" font-weight="700" fill="${C.ink}">${t}</text>`).join('')+`</g>`+
+ `<text id="flAT" class="lab" x="${X(2034)}" y="${V(45.4)+32}" font-size="19" fill="${C.dim}" opacity="0">${L.fl.form}</text>`+
+ `<text id="flTT" class="lab" x="${X(2026)}" y="${V(46.2)+30}" text-anchor="middle" font-size="22" font-weight="700" fill="${C.flaw}" opacity="0">${L.fl.tax}</text>`;
+ $('flG').innerHTML=h;})();
+window.__fig.floor=()=>{drawIn('#flPre,#flAlone,#flFloor');gsap.set('#flFT,#flYrs,#flAT,#flTT',{opacity:0});gsap.set('#flTax',{opacity:0});
+ return gsap.timeline().to('#flYrs',{opacity:1,duration:.3}).to('#flPre',{strokeDashoffset:0,duration:1.4,ease:'none'})
+  .to('#flAlone',{strokeDashoffset:0,duration:1.4,ease:'none'}).to('#flAT',{opacity:1,duration:.3})
+  .to('#flFloor',{strokeDashoffset:0,duration:.8,ease:'power1.out'},'+=.3').to('#flFT',{opacity:1,duration:.3})
+  .to('#flTax',{opacity:.22,duration:.5},'+=.3').to('#flTT',{opacity:1,duration:.3}).to({},{duration:.8}).timeScale(1.5);};
+
+/* ---------- whose number moves (web only) ---------- */
+(function(){let v='es11';
+ function draw(){const [q,s,w]=L.sim[v];$('simO').textContent=q;$('simS').textContent=s;
+  document.querySelectorAll('#simW span').forEach(x=>x.classList.toggle('hit',w.includes(x.dataset.w)));}
+ document.querySelectorAll('#simQ button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#simQ button').forEach(x=>x.classList.remove('on'));b.classList.add('on');v=b.dataset.v;draw();});
+ draw();})();
+
+const FIGS=['spain','gap','brake','ratchet','floor'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/073-who-pays-the-pension/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s0:['spain'],s1:['gap'],s5:['brake'],s6:['ratchet'],s7:['floor']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>
