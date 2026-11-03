@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — Why America Counts Votes for Days — By Law</title>
+<meta name="description" content="Florida published three quarters of its 2020 votes within half an hour; Pennsylvania needed four days; California was still counting a month after the 2022 election. The length of the count is set by two moments written into each state's law: when the work on a mail ballot may start, and the last moment a ballot can still get in. Every choice makes someone pay.">
+<link rel="canonical" href="https://traceupstream.com/episodes/074-forbidden-until-seven/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#5F7A8C;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim .row{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;font-size:16px;margin-top:8px}
+.sim .row b{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim);font-weight:500;padding-top:3px}
+.sim .pay{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--flaw);margin-top:12px}
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--grid);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim)}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+svg .lab{paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}table.cmp{font-size:13px}.sim .row{grid-template-columns:1fr}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.074</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="43.9">
+  <div class="kicker">Trace Upstream · Episode 074</div>
+  <h1>Why America counts votes for days — by law</h1>
+  <div class="prose lede">
+    <p>In 2020 Florida had published <em class="fact">three quarters of its votes</em> within half an hour of its polls closing. Pennsylvania needed <em class="flaw">four days</em> to know who had won. In 2022 California was still counting <em class="flaw">a month</em> after the election. Same country, same kind of paper ballot.</p>
+    <p>The rules behind those numbers were still in force for the midterm elections of November 2026. And the gap has a cost: every time a count runs on for days, part of the country watches the numbers jump overnight and concludes that something is being stolen.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">What lets one state publish most of its votes in half an hour, while another needs a month?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="53.4">
+  <h2>The three a.m. jump</h2>
+  <div class="prose">
+    <p>On election night in 2020, at about three in the morning, the city of Milwaukee reported <em class="fact">169,583 votes</em> at once. On a results chart that looks like a wall appearing out of nowhere.</p>
+  </div>
+  <div class="fig">
+    <h3>Milwaukee, election night 2020: the jump came on schedule</h3>
+    <svg id="night" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Schematic. Votes reported in Milwaukee from 8 p.m. to 6 a.m. The line rises slowly through the night; a window from 3 to 6 a.m. is marked as announced in advance; at about 3 a.m. the line jumps by 169,583 mail ballots counted at the city's central facility.">
+      <g id="niG"></g>
+    </svg>
+    <div class="figcap">Schematic. 169,583 absentee ballots from Milwaukee's central count, reported ~3 a.m. on 04.11.2020; officials had said for weeks results would come between 3 and 6 a.m. (Wisconsin Elections Commission; PolitiFact, 20.11.2020).</div>
+  </div>
+  <div class="prose">
+    <p>But Milwaukee's election officials had said, weeks before, that this is exactly when it would happen. At 8 p.m. on election day they repeated it: all the mail ballots counted at the city's central facility would be reported together, sometime between three and six in the morning. The jump arrived on schedule, and fact-checkers found ballots being counted, not ballots appearing from nowhere. In other states and other years, late batches like this have favoured either side.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So why did Milwaukee's batch take until three in the morning? Were the officials simply slow?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="70.4">
+  <h2>Not one envelope before seven</h2>
+  <div class="prose">
+    <p>Under Wisconsin law they could not start counting those mail ballots until the morning of election day. Every envelope had to be opened, checked, flattened and scanned in a single day and night.</p>
+    <p>That is also why Pennsylvania needed four days. In 2019 a law passed with support from both parties let every voter in the state vote by mail for the first time. The same law said counties may not begin preparing a single mail ballot <em class="flaw">before 7 a.m. on election day</em>. A year later <em class="fact">2.6 million people</em> voted by mail, more than a third of everyone who voted — far more than the people who wrote the law had expected.</p>
+  </div>
+  <div class="fig">
+    <h3>When may officials start on a mail ballot?</h3>
+    <svg id="tiles" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Tile map of the 50 states and DC. 44 states and DC let officials begin processing mail ballots before election day. Six do not: Alabama, Mississippi, New Hampshire, Pennsylvania, West Virginia and Wisconsin.">
+      <g id="tiG"></g>
+    </svg>
+    <div class="figcap">NCSL, Table 16, updated 22.04.2026: 44 states + DC permit processing before election day; AL, MS, NH, PA, WV, WI only on election day.</div>
+  </div>
+  <div class="prose">
+    <p>Most states don't work this way. As of 2026, 44 of them let officials begin processing mail ballots before election day. Six do not, and Pennsylvania and Wisconsin are two of them. County officials in Pennsylvania have asked for years to be allowed to start earlier.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So the obvious fix is to let them. Give officials a head start, and the long wait disappears. Or does it?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="60.2">
+  <h2>Started early, finished late</h2>
+  <div class="prose">
+    <p>Arizona already gives its officials that head start: it can count mail ballots before election day. And yet in 2024 it needed until <em class="flaw">15 November</em> to finish counting, ten days after the election.</p>
+  </div>
+  <div class="fig">
+    <h3>Arizona 2024: a head start, and a pile that arrives on the last day</h3>
+    <svg id="arizona" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Schematic. Early mail ballots received before election day are already counted. About 225,000 mail ballots dropped off on election day in Maricopa County must pass a signature check that starts only after the polls close; a day counter runs to 15 November, ten days after the election.">
+      <g id="azG"></g>
+    </svg>
+    <div class="figcap">Schematic. Maricopa County: ~225,000 early ballots dropped off on election day (≈1 voter in 10); signature verification before opening. Count finished 15.11.2024 (Votebeat; SAN; KJZZ).</div>
+  </div>
+  <div class="prose">
+    <p>The reason sits at the other end of the calendar. Arizona lets voters hand in their mail ballot at any polling place, right up until the polls close. In Maricopa County around <em class="fact">225,000 people</em> did exactly that, about one voter in ten. Before any of those envelopes can be opened, the signature on it has to be checked against the voter's record, and for ballots handed in on the day, that checking only starts once the day is over.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">If it isn't the officials, and it isn't only the start, what actually sets the length of the wait?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="38.5">
+  <h2>Two moments in the law</h2>
+  <div class="prose">
+    <p>Every state's law already sets two moments. The <em class="alt">start</em>: the earliest moment officials may open an envelope, check it and feed the ballot into a scanner. The <em class="flaw">cut-off</em>: the last moment a ballot can still get into the count.</p>
+  </div>
+  <div class="fig">
+    <h3>Start, cut-off, and the work left when the polls close</h3>
+    <svg id="dates" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Schematic timeline from four weeks before election day to five weeks after. Florida starts 22 days before and cuts off at 7 p.m. on election day; its count is almost done when polls close. Pennsylvania starts at 7 a.m. on election day and cuts off at 8 p.m.; it counted for four days. Arizona starts weeks before and cuts off when polls close, but ballots dropped off on the day wait for a signature check; it counted for ten days. California starts weeks before and accepts ballots arriving up to seven days later, with signature fixes for weeks after; it counted for about a month.">
+      <g id="daG"></g>
+    </svg>
+    <div class="figcap">Schematic, not to scale for start dates other than Florida's. Counting periods: Florida and Pennsylvania 2020, Arizona 2024, California 2022.</div>
+  </div>
+  <div class="prose">
+    <p>The wait is all the work still left when the polls close: everything the start held back, plus every ballot that comes in on the last day or after it, right up to the cut-off. Machines and staff change how fast that work goes, but those two moments decide how much of it there is.</p>
+  </div>
+  <div class="fig webonly sim">
+    <h3>Try it: pick a state, see its two moments and who pays</h3>
+    <div class="toggle" id="simQ">
+      <button data-v="fl" class="on">Florida</button><button data-v="ca">California</button><button data-v="pa">Pennsylvania</button><button data-v="az">Arizona</button>
+    </div>
+    <div class="row"><b>Start</b><span id="simS"></span></div>
+    <div class="row"><b>Cut-off</b><span id="simC"></span></div>
+    <div class="row"><b>Left at poll close</b><span id="simW"></span></div>
+    <div class="pay" id="simP"></div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">If those two moments decide the wait, why doesn't every state simply set both as early as it can?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="47.7">
+  <h2>Florida: early start, early cut-off</h2>
+  <div class="prose">
+    <p>Florida comes close. Officials may start processing mail ballots <em class="alt">22 days before</em> the election. A mail ballot must reach the county by <em class="flaw">7 p.m. on election day</em>. And within 30 minutes of the polls closing, the results of those ballots must be published.</p>
+    <p><em class="flaw">The first price falls on the voter.</em> A ballot mailed on the Monday before the election that reaches the office on Wednesday is simply not counted, however it was marked.</p>
+    <p><em class="flaw">The second price is a risk.</em> For up to three weeks a partial count already exists while people are still voting. If it leaked, it could shape how the rest of the state votes. The only thing standing between that count and the public is the law: releasing any of it before the polls close is a felony.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">What if a state refuses to lose the late voter?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="53.3">
+  <h2>California: wait for everyone</h2>
+  <div class="prose">
+    <p>California does exactly that. A mail ballot counts if it was sent by election day and arrives <em class="alt">within the next seven days</em>. Since a Supreme Court ruling in June 2026 (<i>Watson v. RNC</i>, 5–4), that choice belongs firmly to each state. And if the signature on an envelope doesn't match, the voter can fix it until two days before the county certifies its result, which can be about a month after the election. California's real cut-off is weeks away.</p>
+    <p><em class="flaw">The price is time.</em> In 2022, a week after the election, control of the House of Representatives still depended on uncounted races in California. On 16 November the state still had about <em class="fact">2.8 million ballots</em> left to count, and counting went on into December.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">The rule we started with, in Pennsylvania, sits between these two. What does it buy?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="30.8">
+  <h2>Sealed until the day</h2>
+  <div class="prose">
+    <p>It has its own logic. Nothing is opened before election day, so there is no partial count sitting in an office for weeks, and nothing that could leak. Its cut-off is early too: a mail ballot must arrive by 8 p.m. on election day.</p>
+    <p><em class="flaw">The price is the one we started with:</em> days of waiting, and overnight jumps that look like theft to anyone who doesn't know the rule.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Is there a way of setting the two moments that costs nothing at all?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="26.7">
+  <h2>The question to carry</h2>
+  <div class="prose">
+    <p>There isn't. Each state has only chosen who pays: the voter whose envelope came a day late, a whole country kept waiting for weeks, or a count that looks suspicious for days.</p>
+  </div>
+  <div class="fig">
+    <h3>Three pairs of moments, three payers</h3>
+    <table class="cmp">
+      <tr><th>Design</th><th>Start</th><th>Cut-off</th><th>Who pays</th></tr>
+      <tr><td>Early start, early cut-off</td><td>Florida: 22 days before</td><td>7 p.m. on election day</td><td>The late voter; and the guards of a partial count that exists for weeks</td></tr>
+      <tr><td>Wait for everyone</td><td>California: weeks before</td><td>Arrival up to 7 days later; signature fixes for weeks</td><td>Everyone waiting for the result</td></tr>
+      <tr><td>Sealed until the day</td><td>Pennsylvania: 7 a.m. on election day</td><td>8 p.m. on election day</td><td>Days of waiting, and a count that looks suspicious</td></tr>
+    </table>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So when a count runs on for days, "who is hiding votes?" is the wrong first question. The better one: what two moments did your state write into its law, and whose price did it choose?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ ni:{axis:'VOTES REPORTED IN MILWAUKEE',win:'ANNOUNCED: 3–6 A.M.',jump:'+169,583 MAIL BALLOTS',
+  hours:['8 PM','10 PM','MIDNIGHT','2 AM','4 AM','6 AM'],prec:'polling places, through the night'},
+ ti:{yes:'MAY START BEFORE ELECTION DAY',yesN:'44 + DC',no:'ONLY ON ELECTION DAY',noN:'6'},
+ az:{early:'MAIL BALLOTS RECEIVED EARLY',early2:'counted before election day',drop:'≈225,000 DROPPED OFF',drop2:'ON ELECTION DAY · MARICOPA',
+  neck:'SIGNATURE CHECK',neck2:'starts after the polls close',day:'DAYS AFTER THE ELECTION',end:'15 NOV'},
+ da:{ed:'ELECTION DAY',start:'START',cut:'CUT-OFF',wait:'STILL COUNTING AFTER POLLS CLOSE',
+  rows:[['FLORIDA','22 days before','≈30 min'],['PENNSYLVANIA','7 a.m. on the day','4 days'],['ARIZONA','weeks before','10 days'],['CALIFORNIA','weeks before','≈1 month']],
+  cure:'signature fixes',axis:['−4 WEEKS','','+1 WEEK','+2','+3','+4']},
+ sim:{
+  fl:['22 days before election day','Ballot must arrive by 7 p.m. on election day','Almost nothing: most votes published within half an hour','The late voter, and the guards of a partial count'],
+  ca:['Weeks before election day','Ballot sent by election day may arrive up to 7 days later; signature fixes for weeks','Millions of ballots: counting into December in 2022','Everyone waiting for the result'],
+  pa:['7 a.m. on election day','Ballot must arrive by 8 p.m. on election day','Every mail ballot: four days in 2020','Days of waiting, and a count that looks suspicious'],
+  az:['Before election day','Polls close on election day, but drop-offs wait for a signature check','≈225,000 drop-offs in one county: ten days in 2024','Days of waiting, despite the head start']}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',topic:'#5F7A8C',grid:'#D9E3F0',paper:'#F8F9FB'};
+const drawIn=(sel)=>{document.querySelectorAll(sel).forEach(p=>{const l=p.getTotalLength();p.style.strokeDasharray=l;p.style.strokeDashoffset=l;});};
+
+/* ---------- night: Milwaukee, 8 p.m. to 6 a.m. ---------- */
+(function(){const X=h=>90+h*86, B=370, Y=v=>B-v*0.95; // h = hours after 8 p.m.; v = thousands of votes
+ // schematic: polling-place returns through the night, then the central count at ~3:05 a.m. (h=7.08)
+ const pts=[[0,0],[0.6,10],[1.2,32],[1.8,58],[2.5,80],[3.3,96],[4.2,106],[5.2,111],[6.2,114],[7.08,115]];
+ const line=pts.map(([h,v],i)=>`${i?'L':'M'}${X(h).toFixed(1)} ${Y(v).toFixed(1)}`).join(' ');
+ let h=`<text x="20" y="34" font-size="20" font-weight="700" fill="${C.dim}">${L.ni.axis}</text>`+
+ `<rect id="niWin" x="${X(7)}" y="60" width="${X(10)-X(7)}" height="${B-60}" fill="${C.flaw}" opacity="0"/>`+
+ `<g id="niWinT" opacity="0"><line x1="${X(7)}" y1="60" x2="${X(7)}" y2="${B}" stroke="${C.flaw}" stroke-width="2.5" stroke-dasharray="8 6"/>`+
+ `<line x1="${X(10)}" y1="60" x2="${X(10)}" y2="${B}" stroke="${C.flaw}" stroke-width="2.5" stroke-dasharray="8 6"/>`+
+ `<text class="lab" x="${X(8.5)}" y="86" text-anchor="middle" font-size="19" font-weight="700" fill="${C.flaw}">${L.ni.win}</text></g>`+
+ `<line x1="${X(0)}" y1="${B}" x2="${X(10)}" y2="${B}" stroke="${C.ink}" stroke-width="2"/>`+
+ L.ni.hours.map((t,i)=>`<line x1="${X(i*2)}" y1="${B}" x2="${X(i*2)}" y2="${B+8}" stroke="${C.ink}" stroke-width="2"/><text x="${X(i*2)}" y="${B+32}" text-anchor="middle" font-size="19" font-weight="700" fill="${C.ink}">${t}</text>`).join('')+
+ `<path id="niLine" d="${line}" stroke="${C.fact}" stroke-width="5" fill="none" stroke-linejoin="round"/>`+
+ `<text id="niPrec" class="lab" x="${X(2.6)}" y="${Y(80)+48}" font-size="18" fill="${C.fact}" opacity="0">${L.ni.prec}</text>`+
+ `<line id="niStep" x1="${X(7.08)}" y1="${Y(115)}" x2="${X(7.08)}" y2="${Y(115)}" stroke="${C.flaw}" stroke-width="7" stroke-linecap="round"/>`+
+ `<path id="niTail" d="M${X(7.08)} ${Y(284.6)} L${X(10)} ${Y(286)}" stroke="${C.fact}" stroke-width="5" fill="none"/>`+
+ `<text id="niJump" class="lab" x="${X(7.08)-30}" y="${Y(250)}" text-anchor="end" font-size="27" font-weight="700" fill="${C.flaw}" opacity="0">${L.ni.jump}</text>`;
+ $('niG').innerHTML=h;})();
+window.__fig.night=()=>{drawIn('#niLine,#niTail');gsap.set('#niWin,#niWinT,#niPrec,#niJump',{opacity:0});
+ const s=$('niStep'),y0=+s.getAttribute('y1');gsap.set(s,{attr:{y2:y0}});
+ return gsap.timeline().to('#niWinT',{opacity:1,duration:.4}).to('#niWin',{opacity:.12,duration:.4},'<')
+  .to('#niLine',{strokeDashoffset:0,duration:2.2,ease:'none'},'+=.3').to('#niPrec',{opacity:1,duration:.3},'-=1.2')
+  .to(s,{attr:{y2:370-284.6*0.95},duration:.35,ease:'power3.in'},'+=.2').to('#niJump',{opacity:1,duration:.3})
+  .to('#niTail',{strokeDashoffset:0,duration:.6,ease:'none'}).to({},{duration:.8});};
+
+/* ---------- tiles: who may start before election day ---------- */
+(function(){
+ const T={AK:[0,0],ME:[10,0],VT:[9,1],NH:[10,1],
+  WA:[0,2],ID:[1,2],MT:[2,2],ND:[3,2],MN:[4,2],IL:[5,2],WI:[6,2],MI:[7,2],NY:[8,2],RI:[9,2],MA:[10,2],
+  OR:[0,3],NV:[1,3],WY:[2,3],SD:[3,3],IA:[4,3],IN:[5,3],OH:[6,3],PA:[7,3],NJ:[8,3],CT:[9,3],
+  CA:[0,4],UT:[1,4],CO:[2,4],NE:[3,4],MO:[4,4],KY:[5,4],WV:[6,4],VA:[7,4],MD:[8,4],DE:[9,4],
+  AZ:[1,5],NM:[2,5],KS:[3,5],AR:[4,5],TN:[5,5],NC:[6,5],SC:[7,5],DC:[8,5],
+  OK:[3,6],LA:[4,6],MS:[5,6],AL:[6,6],GA:[7,6],HI:[0,7],TX:[3,7],FL:[8,7]};
+ const NO=['AL','MS','NH','PA','WV','WI'], S=46, X0=40, Y0=24;
+ let h='';
+ Object.entries(T).forEach(([k,[c,r]])=>{const x=X0+c*(S+4), y=Y0+r*(S+4), no=NO.includes(k);
+  h+=`<g class="${no?'tiN':'tiY'}" opacity="0"><rect class="tiR" x="${x}" y="${y}" width="${S}" height="${S}" rx="4" fill="#fff" stroke="${C.grid}" stroke-width="2" data-no="${no?1:0}"/>`+
+  `<text x="${x+S/2}" y="${y+S/2+6}" text-anchor="middle" font-size="16" font-weight="700" fill="${no?'#fff':C.ink}">${k}</text></g>`;});
+ const LX=640;
+ h+=`<g id="tiKY" opacity="0"><rect x="${LX}" y="120" width="38" height="38" rx="4" fill="#DCE7F8" stroke="${C.fact}" stroke-width="2"/>`+
+  `<text x="${LX+54}" y="150" font-size="44" font-weight="700" fill="${C.fact}" style="font-family:'Space Grotesk',sans-serif">${L.ti.yesN}</text>`+
+  `<text x="${LX}" y="192" font-size="17" font-weight="700" fill="${C.dim}">${L.ti.yes}</text></g>`+
+  `<g id="tiKN" opacity="0"><rect x="${LX}" y="250" width="38" height="38" rx="4" fill="${C.flaw}"/>`+
+  `<text x="${LX+54}" y="280" font-size="44" font-weight="700" fill="${C.flaw}" style="font-family:'Space Grotesk',sans-serif">${L.ti.noN}</text>`+
+  `<text x="${LX}" y="322" font-size="17" font-weight="700" fill="${C.dim}">${L.ti.no}</text></g>`;
+ $('tiG').innerHTML=h;})();
+window.__fig.tiles=()=>{gsap.set('.tiY,.tiN,#tiKY,#tiKN',{opacity:0});
+ document.querySelectorAll('.tiR').forEach(r=>gsap.set(r,{attr:{fill:'#fff',stroke:C.grid}}));
+ document.querySelectorAll('.tiN text').forEach(t=>gsap.set(t,{attr:{fill:C.ink}}));
+ return gsap.timeline().to('.tiY,.tiN',{opacity:1,duration:.25,stagger:{each:.018,from:'random'}})
+  .to('.tiY .tiR',{attr:{fill:'#DCE7F8',stroke:C.fact},duration:.5}).to('#tiKY',{opacity:1,duration:.3},'<.2')
+  .to('.tiN .tiR',{attr:{fill:C.flaw,stroke:C.flaw},duration:.4,stagger:.12},'+=.5').to('.tiN text',{attr:{fill:'#fff'},duration:.3},'<.3')
+  .to('#tiKN',{opacity:1,duration:.3}).to({},{duration:.8});};
+
+/* ---------- arizona: early ballots counted, the last-day pile drains slowly ---------- */
+(function(){
+ let h=`<rect id="azE" x="60" y="370" width="200" height="0" fill="${C.alt}"/>`+
+ `<text x="160" y="400" text-anchor="middle" font-size="17" font-weight="700" fill="${C.alt}">${L.az.early}</text>`+
+ `<text x="160" y="426" text-anchor="middle" font-size="18" fill="${C.dim}">${L.az.early2}</text>`+
+ `<g id="azPile" opacity="0"><rect id="azP" x="380" y="120" width="220" height="150" fill="${C.flaw}"/>`+
+ `<text class="lab" x="490" y="88" text-anchor="middle" font-size="22" font-weight="700" fill="${C.flaw}">${L.az.drop}</text>`+
+ `<text class="lab" x="490" y="112" text-anchor="middle" font-size="18" fill="${C.dim}">${L.az.drop2}</text></g>`+
+ `<g id="azNeck" opacity="0"><path d="M380 285 L600 285 L515 345 L515 380 L465 380 L465 345 Z" fill="none" stroke="${C.ink}" stroke-width="3"/>`+
+ `<text class="lab" x="630" y="320" font-size="20" font-weight="700" fill="${C.ink}">${L.az.neck}</text>`+
+ `<text class="lab" x="630" y="346" font-size="20" fill="${C.dim}">${L.az.neck2}</text></g>`+
+ `<rect id="azDrip" x="482" y="380" width="16" height="0" fill="${C.flaw}"/>`+
+ `<g id="azCnt" opacity="0"><text x="860" y="150" text-anchor="middle" font-size="19" font-weight="700" fill="${C.dim}">${L.az.day}</text>`+
+ `<text id="azN" x="860" y="230" text-anchor="middle" font-size="80" font-weight="700" fill="${C.flaw}" style="font-family:'Space Grotesk',sans-serif">1</text>`+
+ `<text id="azEnd" x="860" y="274" text-anchor="middle" font-size="24" font-weight="700" fill="${C.flaw}" opacity="0">${L.az.end}</text></g>`;
+ $('azG').innerHTML=h;})();
+window.__fig.arizona=()=>{gsap.set('#azE',{attr:{y:370,height:0}});gsap.set('#azPile,#azNeck,#azCnt,#azEnd',{opacity:0});
+ gsap.set('#azP',{attr:{y:120,height:150}});gsap.set('#azDrip',{attr:{height:0}});$('azN').textContent='+1';
+ const d={n:1};
+ return gsap.timeline().to('#azE',{attr:{y:120,height:250},duration:.9,ease:'power2.out'})
+  .to('#azPile',{opacity:1,duration:.4},'+=.3').to('#azNeck',{opacity:1,duration:.4},'+=.2').to('#azCnt',{opacity:1,duration:.3})
+  .to('#azDrip',{attr:{height:46},duration:.3})
+  .to('#azP',{attr:{y:248,height:22},duration:3.2,ease:'none'})
+  .to(d,{n:10,duration:3.2,ease:'none',onUpdate:()=>{$('azN').textContent='+'+Math.round(d.n)}},'<')
+  .to('#azEnd',{opacity:1,duration:.3},'>').to({},{duration:.8});};
+
+/* ---------- dates: start, cut-off, and the work left at poll close ---------- */
+(function(){
+ const K=10.4, X=d=>220+(d+28)*K, ED=X(0); // days from election day: −28 … +35
+ const rows=[{s:-22,c:0,w:0.03},{s:0,c:0,w:4},{s:-14,c:0,w:10,az:1},{s:-28,c:7,w:31,cure:26}];
+ let h=`<line x1="${ED}" y1="40" x2="${ED}" y2="372" stroke="${C.ink}" stroke-width="3"/>`+
+ `<text x="${ED}" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="${C.ink}">${L.da.ed}</text>`+
+ `<line x1="${X(-28)}" y1="372" x2="${X(35)}" y2="372" stroke="${C.ink}" stroke-width="2"/>`+
+ [[-28,L.da.axis[0]],[7,L.da.axis[2]],[14,L.da.axis[3]],[21,L.da.axis[4]],[28,L.da.axis[5]]].map(([d,t])=>`<line x1="${X(d)}" y1="372" x2="${X(d)}" y2="380" stroke="${C.ink}" stroke-width="2"/><text x="${X(d)}" y="402" text-anchor="middle" font-size="16" fill="${C.dim}">${t}</text>`).join('')+
+ `<g id="daKey" opacity="0"><rect x="560" y="418" width="22" height="14" fill="${C.flaw}" opacity=".35"/><text x="590" y="431" font-size="15" fill="${C.dim}">${L.da.wait}</text></g>`;
+ rows.forEach((r,i)=>{const y=80+i*76, [nm,sl,wl]=L.da.rows[i];
+  h+=`<text x="20" y="${y+6}" font-size="19" font-weight="700" fill="${C.ink}">${nm}</text>`+
+  `<line x1="${X(-28)}" y1="${y}" x2="${X(35)}" y2="${y}" stroke="${C.grid}" stroke-width="2"/>`+
+  `<rect class="daW" x="${ED}" y="${y-13}" width="${Math.max(3,r.w*K)}" height="26" fill="${C.flaw}" opacity="0" data-w="${Math.max(3,r.w*K)}"/>`+
+  `<text class="daWT lab" x="${ED+Math.max(3,r.w*K)+8}" y="${y+7}" font-size="17" font-weight="700" fill="${C.flaw}" opacity="0">${wl}</text>`+
+  (r.cure?`<line class="daCure" x1="${X(r.c)}" y1="${y}" x2="${X(r.cure)}" y2="${y}" stroke="${C.flaw}" stroke-width="3" stroke-dasharray="6 6" opacity="0"/>`+
+   `<text class="daCure lab" x="${X(r.cure)}" y="${y-18}" text-anchor="end" font-size="14" fill="${C.flaw}" opacity="0">${L.da.cure}</text>`:'')+
+  `<g class="daS" data-x="${X(r.s)}" transform="translate(${X(r.s)},${y})" opacity="0"><circle r="9" fill="${C.alt}"/>`+
+  `<text x="${r.s<-10?0:-12}" y="-17" text-anchor="${r.s<-10?'middle':'end'}" font-size="14" fill="${C.alt}">${sl}</text></g>`+
+  `<g class="daC" data-x="${X(r.c)}" transform="translate(${X(r.c)},${y})" opacity="0"><rect x="-4" y="-16" width="8" height="32" fill="${C.flaw}"/></g>`;});
+ h+=`<g id="daLeg" opacity="0"><circle cx="28" cy="424" r="8" fill="${C.alt}"/><text x="42" y="430" font-size="17" font-weight="700" fill="${C.alt}">${L.da.start}</text>`+
+  `<rect x="150" y="410" width="8" height="28" fill="${C.flaw}"/><text x="168" y="430" font-size="17" font-weight="700" fill="${C.flaw}">${L.da.cut}</text></g>`;
+ $('daG').innerHTML=h;})();
+window.__fig.dates=()=>{gsap.set('.daS,.daC,.daW,.daWT,.daCure,#daLeg,#daKey',{opacity:0});
+ document.querySelectorAll('.daW').forEach(r=>gsap.set(r,{attr:{width:0}}));
+ return gsap.timeline().to('#daLeg',{opacity:1,duration:.3})
+  .to('.daS',{opacity:1,duration:.3,stagger:.2}).to('.daC',{opacity:1,duration:.3,stagger:.2},'+=.2').to('.daCure',{opacity:1,duration:.4},'<.6')
+  .to('#daKey',{opacity:1,duration:.3},'+=.3')
+  .to('.daW',{opacity:.35,attr:{width:(i,el)=>+el.dataset.w},duration:1.4,ease:'power1.out',stagger:.15},'<')
+  .to('.daWT',{opacity:1,duration:.3,stagger:.15},'-=.6').to({},{duration:.8});};
+
+/* ---------- pick a state (web only) ---------- */
+(function(){let v='fl';
+ function draw(){const [s,c,w,p]=L.sim[v];$('simS').textContent=s;$('simC').textContent=c;$('simW').textContent=w;$('simP').textContent='Who pays: '+p;}
+ document.querySelectorAll('#simQ button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#simQ button').forEach(x=>x.classList.remove('on'));b.classList.add('on');v=b.dataset.v;draw();});
+ draw();})();
+
+const FIGS=['night','tiles','arizona','dates'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/074-forbidden-until-seven/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s1:['night'],s2:['tiles'],s3:['arizona'],s4:['dates']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>

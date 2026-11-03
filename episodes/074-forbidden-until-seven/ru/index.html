@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Почему Америка считает голоса днями — по закону</title>
+<meta name="description" content="В 2020 году Флорида опубликовала три четверти голосов за полчаса после закрытия участков, Пенсильвании понадобилось четыре дня, а Калифорния в 2022 году считала голоса ещё месяц. Длину подсчёта задают два момента в законе каждого штата: когда можно начать работу с бюллетенем по почте и до какой минуты бюллетень ещё попадает в подсчёт. При любом выборе кто-то платит.">
+<link rel="canonical" href="https://traceupstream.com/episodes/074-forbidden-until-seven/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#5F7A8C;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim .row{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;font-size:16px;margin-top:8px}
+.sim .row b{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim);font-weight:500;padding-top:3px}
+.sim .pay{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--flaw);margin-top:12px}
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--grid);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim)}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+svg .lab{paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}table.cmp{font-size:13px}.sim .row{grid-template-columns:1fr}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.074</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="52.7">
+  <div class="kicker">Дефект конструкции · Выпуск 074</div>
+  <h1>Почему Америка считает голоса днями — по закону</h1>
+  <div class="prose lede">
+    <p>В 2020 году Флорида опубликовала <em class="fact">три четверти своих голосов</em> в течение получаса после закрытия участков. Пенсильвании понадобилось <em class="flaw">четыре дня</em>, чтобы узнать, кто победил. А Калифорния в 2022 году всё ещё считала голоса <em class="flaw">через месяц</em> после выборов. Страна одна, и бумажный бюллетень везде одного рода.</p>
+    <p>Правила, которые стоят за этими цифрами, действовали и на промежуточных выборах в ноябре 2026 года. И у этой разницы есть цена: каждый раз, когда подсчёт тянется днями, часть страны видит, как цифры ночью прыгают, и делает вывод, что голоса крадут.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Почему один штат публикует большинство голосов за полчаса, а другому нужен месяц?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="64.3">
+  <h2>Скачок в три часа ночи</h2>
+  <div class="prose">
+    <p>В ночь выборов 2020 года, около трёх часов ночи, город Милуоки объявил <em class="fact">169 583 голоса</em> разом. На графике результатов это выглядит как стена, выросшая из ниоткуда.</p>
+  </div>
+  <div class="fig">
+    <h3>Милуоки, ночь выборов 2020 года: скачок пришёл по расписанию</h3>
+    <svg id="night" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Схема. Голоса, объявленные в Милуоки с 20:00 до 6:00. Линия медленно растёт всю ночь; окно с 3 до 6 утра отмечено как объявленное заранее; около 3 часов ночи линия подскакивает на 169 583 бюллетеня по почте, подсчитанных в центральном пункте города.">
+      <g id="niG"></g>
+    </svg>
+    <div class="figcap">Схема. 169 583 бюллетеня по почте из центрального подсчёта Милуоки, объявлены около 3:00 04.11.2020; чиновники неделями говорили, что результаты придут между 3 и 6 утра (Избирательная комиссия Висконсина; PolitiFact, 20.11.2020).</div>
+  </div>
+  <div class="prose">
+    <p>Но избирательные чиновники Милуоки ещё за несколько недель предупредили, что всё случится именно в это время. В 20:00 в день выборов они повторили: все бюллетени по почте, подсчитанные в центральном пункте города, будут объявлены вместе, где-то между тремя и шестью часами утра. Скачок пришёл точно по расписанию, и проверяющие нашли подсчёт бюллетеней, а не бюллетени из ниоткуда. В других штатах и в другие годы такие поздние пакеты работали на любую из сторон.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Тогда почему пакет из Милуоки появился только в три часа ночи? Неужели чиновники просто медленно работали?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="86.9">
+  <h2>Ни одного конверта до семи</h2>
+  <div class="prose">
+    <p>По закону Висконсина они не могли начать подсчёт этих бюллетеней по почте раньше утра дня выборов. Каждый конверт нужно было вскрыть, проверить, разгладить и отсканировать за одни сутки.</p>
+    <p>По той же причине Пенсильвании понадобилось четыре дня. В 2019 году закон, который поддержали обе партии, впервые разрешил всем избирателям штата голосовать по почте. Тот же закон запретил округам начинать подготовку хотя бы одного бюллетеня по почте <em class="flaw">раньше 7:00 в день выборов</em>. Через год по почте проголосовали <em class="fact">2,6 млн человек</em>, больше трети всех проголосовавших. Это было намного больше, чем ожидали авторы закона.</p>
+  </div>
+  <div class="fig">
+    <h3>Когда можно начинать работу с бюллетенем по почте?</h3>
+    <svg id="tiles" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Плиточная карта 50 штатов и округа Колумбия. 44 штата и округ Колумбия разрешают начинать обработку бюллетеней по почте до дня выборов. Шесть не разрешают: Алабама, Миссисипи, Нью-Гэмпшир, Пенсильвания, Западная Виргиния и Висконсин.">
+      <g id="tiG"></g>
+    </svg>
+    <div class="figcap">NCSL, таблица 16, обновлена 22.04.2026: 44 штата + DC разрешают обработку до дня выборов; AL, MS, NH, PA, WV, WI — только в день выборов.</div>
+  </div>
+  <div class="prose">
+    <p>Большинство штатов устроены иначе. По состоянию на 2026 год 44 штата разрешают начинать обработку бюллетеней по почте до дня выборов. Шесть не разрешают, и среди них Пенсильвания и Висконсин. Окружные чиновники в Пенсильвании годами просят разрешить им начинать раньше.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Очевидный выход в том, чтобы разрешить. Дайте чиновникам фору, и долгое ожидание исчезнет. Или нет?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="73.3">
+  <h2>Начали рано, закончили поздно</h2>
+  <div class="prose">
+    <p>Аризона уже даёт своим чиновникам такую фору: бюллетени по почте там можно считать до дня выборов. И всё же в 2024 году Аризона закончила подсчёт только <em class="flaw">15 ноября</em>, через десять дней после выборов.</p>
+  </div>
+  <div class="fig">
+    <h3>Аризона, 2024: фора на старте и стопка, которая приходит в последний день</h3>
+    <svg id="arizona" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Схема. Бюллетени по почте, полученные до дня выборов, уже подсчитаны. Около 225 000 бюллетеней, сданных в день выборов в округе Марикопа, должны пройти сверку подписи, которая начинается только после закрытия участков; счётчик дней доходит до 15 ноября, через десять дней после выборов.">
+      <g id="azG"></g>
+    </svg>
+    <div class="figcap">Схема. Округ Марикопа: около 225 000 бюллетеней по почте сданы в день выборов (≈1 избиратель из 10); подпись сверяется до вскрытия. Подсчёт завершён 15.11.2024 (Votebeat; SAN; KJZZ).</div>
+  </div>
+  <div class="prose">
+    <p>Причина на другом конце календаря. Аризона разрешает сдать бюллетень по почте на любом избирательном участке, вплоть до закрытия участков. В округе Марикопа так сделали около <em class="fact">225 000 человек</em>, примерно каждый десятый избиратель. Прежде чем вскрыть любой из этих конвертов, подпись на нём нужно сверить с записью избирателя. А для бюллетеней, сданных в сам день выборов, эта сверка начинается только после того, как день закончился.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Если дело не в чиновниках и не только в старте, что же на самом деле задаёт длину ожидания?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="51">
+  <h2>Два момента в законе</h2>
+  <div class="prose">
+    <p>Закон каждого штата уже задаёт два момента. <em class="alt">Старт</em> — самое раннее время, когда чиновникам можно вскрыть конверт, проверить его и отправить бюллетень в сканер. <em class="flaw">Отсечка</em> — последняя минута, когда бюллетень ещё может попасть в подсчёт.</p>
+  </div>
+  <div class="fig">
+    <h3>Старт, отсечка и работа, оставшаяся к закрытию участков</h3>
+    <svg id="dates" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Схематичная ось времени: от четырёх недель до дня выборов до пяти недель после. Флорида начинает за 22 дня и закрывает приём в 19:00 в день выборов; к закрытию участков её подсчёт почти готов. Пенсильвания начинает в 7:00 в день выборов и закрывает приём в 20:00; считала четыре дня. Аризона начинает за недели и закрывает приём с закрытием участков, но сданные в этот день бюллетени ждут сверки подписи; считала десять дней. Калифорния начинает за недели и принимает бюллетени, пришедшие до семи дней спустя, а подписи можно исправлять ещё недели; считала около месяца.">
+      <g id="daG"></g>
+    </svg>
+    <div class="figcap">Схема; даты старта, кроме флоридской, не в масштабе. Сроки подсчёта: Флорида и Пенсильвания — 2020, Аризона — 2024, Калифорния — 2022.</div>
+  </div>
+  <div class="prose">
+    <p>Ожидание — это вся работа, которая остаётся к закрытию участков: всё, что придержал старт, и каждый бюллетень, пришедший в последний день или позже, вплоть до отсечки. Машины и люди меняют скорость этой работы, но её объём решают эти два момента.</p>
+  </div>
+  <div class="fig webonly sim">
+    <h3>Попробуйте: выберите штат и посмотрите на его два момента и на того, кто платит</h3>
+    <div class="toggle" id="simQ">
+      <button data-v="fl" class="on">Флорида</button><button data-v="ca">Калифорния</button><button data-v="pa">Пенсильвания</button><button data-v="az">Аризона</button>
+    </div>
+    <div class="row"><b>Старт</b><span id="simS"></span></div>
+    <div class="row"><b>Отсечка</b><span id="simC"></span></div>
+    <div class="row"><b>Осталось к закрытию</b><span id="simW"></span></div>
+    <div class="pay" id="simP"></div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Если эти два момента решают, сколько ждать, почему бы каждому штату просто не поставить оба как можно раньше?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="64.6">
+  <h2>Флорида: ранний старт, ранняя отсечка</h2>
+  <div class="prose">
+    <p>Флорида почти так и делает. Чиновники могут начинать обработку бюллетеней по почте <em class="alt">за 22 дня</em> до выборов. Бюллетень по почте должен дойти до округа <em class="flaw">к 19:00 в день выборов</em>. А не позже чем через 30 минут после закрытия участков результаты по этим бюллетеням обязаны опубликовать.</p>
+    <p><em class="flaw">Первую цену платит избиратель.</em> Бюллетень, отправленный в понедельник перед выборами и дошедший до офиса в среду, просто не считается, как бы он ни был заполнен.</p>
+    <p><em class="flaw">Вторая цена — это риск.</em> До трёх недель частичный подсчёт уже существует, пока люди ещё голосуют. Если бы он утёк, он мог бы повлиять на то, как проголосует остальной штат. Между этим подсчётом и публикой стоит только закон: обнародовать что-либо из него до закрытия участков — уголовное преступление.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">А если штат не хочет терять опоздавшего избирателя?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="71.5">
+  <h2>Калифорния: ждать всех</h2>
+  <div class="prose">
+    <p>Калифорния так и поступает. Бюллетень по почте засчитывается, если его отправили не позже дня выборов и он пришёл <em class="alt">в течение следующих семи дней</em>. После решения Верховного суда в июне 2026 года (<i>Watson v. RNC</i>, 5–4) этот выбор окончательно остаётся за каждым штатом. А если подпись на конверте не совпадает, избиратель может её исправить до момента за два дня до того, как округ утвердит итоги. Это бывает примерно через месяц после выборов. Настоящая отсечка в Калифорнии наступает через несколько недель.</p>
+    <p><em class="flaw">Цена здесь — время.</em> В 2022 году, через неделю после выборов, контроль над Палатой представителей всё ещё зависел от неподсчитанных округов Калифорнии. 16 ноября в штате оставалось около <em class="fact">2,8 млн</em> неподсчитанных бюллетеней, и подсчёт продолжался до декабря.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Правило, с которого мы начали, пенсильванское, находится между этими двумя. Что оно покупает?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="34.4">
+  <h2>Запечатано до дня выборов</h2>
+  <div class="prose">
+    <p>У него своя логика. До дня выборов ничего не вскрывают, поэтому в офисе неделями не лежит частичный подсчёт и утечь нечему. Отсечка тоже ранняя: бюллетень по почте должен прийти к 20:00 в день выборов.</p>
+    <p><em class="flaw">Цена — та, с которой мы начали:</em> дни ожидания и ночные скачки, которые выглядят как кража для всех, кто не знает правила.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Есть ли способ поставить эти два момента так, чтобы это не стоило ничего?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="29.6">
+  <h2>Вопрос, который стоит задать</h2>
+  <div class="prose">
+    <p>Такого способа нет. Каждый штат лишь выбрал, кто платит: избиратель, чей конверт пришёл на день позже, вся страна, которая неделями ждёт, или подсчёт, который несколько дней выглядит подозрительно.</p>
+  </div>
+  <div class="fig">
+    <h3>Три пары моментов, три плательщика</h3>
+    <table class="cmp">
+      <tr><th>Конструкция</th><th>Старт</th><th>Отсечка</th><th>Кто платит</th></tr>
+      <tr><td>Ранний старт, ранняя отсечка</td><td>Флорида: за 22 дня</td><td>19:00 в день выборов</td><td>Опоздавший избиратель; и охрана частичного подсчёта, который существует неделями</td></tr>
+      <tr><td>Ждать всех</td><td>Калифорния: за несколько недель</td><td>Получение до 7 дней спустя; исправление подписи ещё недели</td><td>Все, кто ждёт итога</td></tr>
+      <tr><td>Запечатано до дня выборов</td><td>Пенсильвания: 7:00 в день выборов</td><td>20:00 в день выборов</td><td>Дни ожидания и подсчёт, который выглядит подозрительно</td></tr>
+    </table>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Поэтому, когда подсчёт тянется днями, вопрос «кто прячет голоса?» — не тот, с которого стоит начинать. Лучше спросить так: какие два момента записаны в законе там, где голосуете вы, и чью цену там выбрали?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват, а как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ ni:{axis:'ОБЪЯВЛЕННЫЕ ГОЛОСА, МИЛУОКИ',win:'ОБЪЯВЛЕНО: 3–6 УТРА',jump:'+169 583 ПО ПОЧТЕ',
+  hours:['20:00','22:00','ПОЛНОЧЬ','2:00','4:00','6:00'],prec:'участки, всю ночь'},
+ ti:{yes:'МОЖНО НАЧИНАТЬ ДО ДНЯ ВЫБОРОВ',yesN:'44 + DC',no:'ТОЛЬКО В ДЕНЬ ВЫБОРОВ',noN:'6'},
+ az:{early:'ПРИШЛИ ЗАРАНЕЕ',early2:'подсчитаны до дня выборов',drop:'≈225 000 СДАНО',drop2:'В ДЕНЬ ВЫБОРОВ · МАРИКОПА',
+  neck:'СВЕРКА ПОДПИСИ',neck2:'начинается после закрытия',day:'ДНЕЙ ПОСЛЕ ВЫБОРОВ',end:'15 НОЯБРЯ'},
+ da:{ed:'ДЕНЬ ВЫБОРОВ',start:'СТАРТ',cut:'ОТСЕЧКА',wait:'ПОДСЧЁТ ПОСЛЕ ЗАКРЫТИЯ УЧАСТКОВ',
+  rows:[['ФЛОРИДА','за 22 дня','≈30 мин'],['ПЕНСИЛЬВАНИЯ','в 7:00 в день выборов','4 дня'],['АРИЗОНА','за несколько недель','10 дней'],['КАЛИФОРНИЯ','за несколько недель','≈1 месяц']],
+  cure:'исправление подписи',axis:['−4 НЕДЕЛИ','','+1 НЕДЕЛЯ','+2','+3','+4']},
+ sim:{
+  fl:['За 22 дня до выборов','Бюллетень должен прийти к 19:00 в день выборов','Почти ничего: большинство голосов опубликовано за полчаса','Опоздавший избиратель и охрана частичного подсчёта'],
+  ca:['За несколько недель до выборов','Отправленный до дня выборов бюллетень может прийти до 7 дней спустя; подпись можно исправлять ещё недели','Миллионы бюллетеней: в 2022 году подсчёт шёл до декабря','Все, кто ждёт итога'],
+  pa:['7:00 в день выборов','Бюллетень должен прийти к 20:00 в день выборов','Все бюллетени по почте: четыре дня в 2020 году','Дни ожидания и подсчёт, который выглядит подозрительно'],
+  az:['До дня выборов','Участки закрываются в день выборов, но сданные в этот день бюллетени ждут сверки подписи','≈225 000 сданных в одном округе: десять дней в 2024 году','Дни ожидания, несмотря на фору']}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',topic:'#5F7A8C',grid:'#D9E3F0',paper:'#F8F9FB'};
+const drawIn=(sel)=>{document.querySelectorAll(sel).forEach(p=>{const l=p.getTotalLength();p.style.strokeDasharray=l;p.style.strokeDashoffset=l;});};
+
+/* ---------- night: Milwaukee, 8 p.m. to 6 a.m. ---------- */
+(function(){const X=h=>90+h*86, B=370, Y=v=>B-v*0.95; // h = hours after 8 p.m.; v = thousands of votes
+ // schematic: polling-place returns through the night, then the central count at ~3:05 a.m. (h=7.08)
+ const pts=[[0,0],[0.6,10],[1.2,32],[1.8,58],[2.5,80],[3.3,96],[4.2,106],[5.2,111],[6.2,114],[7.08,115]];
+ const line=pts.map(([h,v],i)=>`${i?'L':'M'}${X(h).toFixed(1)} ${Y(v).toFixed(1)}`).join(' ');
+ let h=`<text x="20" y="34" font-size="20" font-weight="700" fill="${C.dim}">${L.ni.axis}</text>`+
+ `<rect id="niWin" x="${X(7)}" y="60" width="${X(10)-X(7)}" height="${B-60}" fill="${C.flaw}" opacity="0"/>`+
+ `<g id="niWinT" opacity="0"><line x1="${X(7)}" y1="60" x2="${X(7)}" y2="${B}" stroke="${C.flaw}" stroke-width="2.5" stroke-dasharray="8 6"/>`+
+ `<line x1="${X(10)}" y1="60" x2="${X(10)}" y2="${B}" stroke="${C.flaw}" stroke-width="2.5" stroke-dasharray="8 6"/>`+
+ `<text class="lab" x="${X(8.5)}" y="86" text-anchor="middle" font-size="19" font-weight="700" fill="${C.flaw}">${L.ni.win}</text></g>`+
+ `<line x1="${X(0)}" y1="${B}" x2="${X(10)}" y2="${B}" stroke="${C.ink}" stroke-width="2"/>`+
+ L.ni.hours.map((t,i)=>`<line x1="${X(i*2)}" y1="${B}" x2="${X(i*2)}" y2="${B+8}" stroke="${C.ink}" stroke-width="2"/><text x="${X(i*2)}" y="${B+32}" text-anchor="middle" font-size="19" font-weight="700" fill="${C.ink}">${t}</text>`).join('')+
+ `<path id="niLine" d="${line}" stroke="${C.fact}" stroke-width="5" fill="none" stroke-linejoin="round"/>`+
+ `<text id="niPrec" class="lab" x="${X(2.6)}" y="${Y(80)+48}" font-size="18" fill="${C.fact}" opacity="0">${L.ni.prec}</text>`+
+ `<line id="niStep" x1="${X(7.08)}" y1="${Y(115)}" x2="${X(7.08)}" y2="${Y(115)}" stroke="${C.flaw}" stroke-width="7" stroke-linecap="round"/>`+
+ `<path id="niTail" d="M${X(7.08)} ${Y(284.6)} L${X(10)} ${Y(286)}" stroke="${C.fact}" stroke-width="5" fill="none"/>`+
+ `<text id="niJump" class="lab" x="${X(7.08)-30}" y="${Y(250)}" text-anchor="end" font-size="27" font-weight="700" fill="${C.flaw}" opacity="0">${L.ni.jump}</text>`;
+ $('niG').innerHTML=h;})();
+window.__fig.night=()=>{drawIn('#niLine,#niTail');gsap.set('#niWin,#niWinT,#niPrec,#niJump',{opacity:0});
+ const s=$('niStep'),y0=+s.getAttribute('y1');gsap.set(s,{attr:{y2:y0}});
+ return gsap.timeline().to('#niWinT',{opacity:1,duration:.4}).to('#niWin',{opacity:.12,duration:.4},'<')
+  .to('#niLine',{strokeDashoffset:0,duration:2.2,ease:'none'},'+=.3').to('#niPrec',{opacity:1,duration:.3},'-=1.2')
+  .to(s,{attr:{y2:370-284.6*0.95},duration:.35,ease:'power3.in'},'+=.2').to('#niJump',{opacity:1,duration:.3})
+  .to('#niTail',{strokeDashoffset:0,duration:.6,ease:'none'}).to({},{duration:.8});};
+
+/* ---------- tiles: who may start before election day ---------- */
+(function(){
+ const T={AK:[0,0],ME:[10,0],VT:[9,1],NH:[10,1],
+  WA:[0,2],ID:[1,2],MT:[2,2],ND:[3,2],MN:[4,2],IL:[5,2],WI:[6,2],MI:[7,2],NY:[8,2],RI:[9,2],MA:[10,2],
+  OR:[0,3],NV:[1,3],WY:[2,3],SD:[3,3],IA:[4,3],IN:[5,3],OH:[6,3],PA:[7,3],NJ:[8,3],CT:[9,3],
+  CA:[0,4],UT:[1,4],CO:[2,4],NE:[3,4],MO:[4,4],KY:[5,4],WV:[6,4],VA:[7,4],MD:[8,4],DE:[9,4],
+  AZ:[1,5],NM:[2,5],KS:[3,5],AR:[4,5],TN:[5,5],NC:[6,5],SC:[7,5],DC:[8,5],
+  OK:[3,6],LA:[4,6],MS:[5,6],AL:[6,6],GA:[7,6],HI:[0,7],TX:[3,7],FL:[8,7]};
+ const NO=['AL','MS','NH','PA','WV','WI'], S=46, X0=40, Y0=24;
+ let h='';
+ Object.entries(T).forEach(([k,[c,r]])=>{const x=X0+c*(S+4), y=Y0+r*(S+4), no=NO.includes(k);
+  h+=`<g class="${no?'tiN':'tiY'}" opacity="0"><rect class="tiR" x="${x}" y="${y}" width="${S}" height="${S}" rx="4" fill="#fff" stroke="${C.grid}" stroke-width="2" data-no="${no?1:0}"/>`+
+  `<text x="${x+S/2}" y="${y+S/2+6}" text-anchor="middle" font-size="16" font-weight="700" fill="${no?'#fff':C.ink}">${k}</text></g>`;});
+ const LX=640;
+ h+=`<g id="tiKY" opacity="0"><rect x="${LX}" y="120" width="38" height="38" rx="4" fill="#DCE7F8" stroke="${C.fact}" stroke-width="2"/>`+
+  `<text x="${LX+54}" y="150" font-size="44" font-weight="700" fill="${C.fact}" style="font-family:'Onest',sans-serif">${L.ti.yesN}</text>`+
+  `<text x="${LX}" y="192" font-size="17" font-weight="700" fill="${C.dim}">${L.ti.yes}</text></g>`+
+  `<g id="tiKN" opacity="0"><rect x="${LX}" y="250" width="38" height="38" rx="4" fill="${C.flaw}"/>`+
+  `<text x="${LX+54}" y="280" font-size="44" font-weight="700" fill="${C.flaw}" style="font-family:'Onest',sans-serif">${L.ti.noN}</text>`+
+  `<text x="${LX}" y="322" font-size="17" font-weight="700" fill="${C.dim}">${L.ti.no}</text></g>`;
+ $('tiG').innerHTML=h;})();
+window.__fig.tiles=()=>{gsap.set('.tiY,.tiN,#tiKY,#tiKN',{opacity:0});
+ document.querySelectorAll('.tiR').forEach(r=>gsap.set(r,{attr:{fill:'#fff',stroke:C.grid}}));
+ document.querySelectorAll('.tiN text').forEach(t=>gsap.set(t,{attr:{fill:C.ink}}));
+ return gsap.timeline().to('.tiY,.tiN',{opacity:1,duration:.25,stagger:{each:.018,from:'random'}})
+  .to('.tiY .tiR',{attr:{fill:'#DCE7F8',stroke:C.fact},duration:.5}).to('#tiKY',{opacity:1,duration:.3},'<.2')
+  .to('.tiN .tiR',{attr:{fill:C.flaw,stroke:C.flaw},duration:.4,stagger:.12},'+=.5').to('.tiN text',{attr:{fill:'#fff'},duration:.3},'<.3')
+  .to('#tiKN',{opacity:1,duration:.3}).to({},{duration:.8});};
+
+/* ---------- arizona: early ballots counted, the last-day pile drains slowly ---------- */
+(function(){
+ let h=`<rect id="azE" x="60" y="370" width="200" height="0" fill="${C.alt}"/>`+
+ `<text x="160" y="400" text-anchor="middle" font-size="17" font-weight="700" fill="${C.alt}">${L.az.early}</text>`+
+ `<text x="160" y="426" text-anchor="middle" font-size="18" fill="${C.dim}">${L.az.early2}</text>`+
+ `<g id="azPile" opacity="0"><rect id="azP" x="380" y="120" width="220" height="150" fill="${C.flaw}"/>`+
+ `<text class="lab" x="490" y="88" text-anchor="middle" font-size="22" font-weight="700" fill="${C.flaw}">${L.az.drop}</text>`+
+ `<text class="lab" x="490" y="112" text-anchor="middle" font-size="18" fill="${C.dim}">${L.az.drop2}</text></g>`+
+ `<g id="azNeck" opacity="0"><path d="M380 285 L600 285 L515 345 L515 380 L465 380 L465 345 Z" fill="none" stroke="${C.ink}" stroke-width="3"/>`+
+ `<text class="lab" x="630" y="320" font-size="20" font-weight="700" fill="${C.ink}">${L.az.neck}</text>`+
+ `<text class="lab" x="630" y="346" font-size="20" fill="${C.dim}">${L.az.neck2}</text></g>`+
+ `<rect id="azDrip" x="482" y="380" width="16" height="0" fill="${C.flaw}"/>`+
+ `<g id="azCnt" opacity="0"><text x="860" y="150" text-anchor="middle" font-size="19" font-weight="700" fill="${C.dim}">${L.az.day}</text>`+
+ `<text id="azN" x="860" y="230" text-anchor="middle" font-size="80" font-weight="700" fill="${C.flaw}" style="font-family:'Onest',sans-serif">1</text>`+
+ `<text id="azEnd" x="860" y="274" text-anchor="middle" font-size="24" font-weight="700" fill="${C.flaw}" opacity="0">${L.az.end}</text></g>`;
+ $('azG').innerHTML=h;})();
+window.__fig.arizona=()=>{gsap.set('#azE',{attr:{y:370,height:0}});gsap.set('#azPile,#azNeck,#azCnt,#azEnd',{opacity:0});
+ gsap.set('#azP',{attr:{y:120,height:150}});gsap.set('#azDrip',{attr:{height:0}});$('azN').textContent='+1';
+ const d={n:1};
+ return gsap.timeline().to('#azE',{attr:{y:120,height:250},duration:.9,ease:'power2.out'})
+  .to('#azPile',{opacity:1,duration:.4},'+=.3').to('#azNeck',{opacity:1,duration:.4},'+=.2').to('#azCnt',{opacity:1,duration:.3})
+  .to('#azDrip',{attr:{height:46},duration:.3})
+  .to('#azP',{attr:{y:248,height:22},duration:3.2,ease:'none'})
+  .to(d,{n:10,duration:3.2,ease:'none',onUpdate:()=>{$('azN').textContent='+'+Math.round(d.n)}},'<')
+  .to('#azEnd',{opacity:1,duration:.3},'>').to({},{duration:.8});};
+
+/* ---------- dates: start, cut-off, and the work left at poll close ---------- */
+(function(){
+ const K=10.4, X=d=>220+(d+28)*K, ED=X(0); // days from election day: −28 … +35
+ const rows=[{s:-22,c:0,w:0.03},{s:0,c:0,w:4},{s:-14,c:0,w:10,az:1},{s:-28,c:7,w:31,cure:26}];
+ let h=`<line x1="${ED}" y1="40" x2="${ED}" y2="372" stroke="${C.ink}" stroke-width="3"/>`+
+ `<text x="${ED}" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="${C.ink}">${L.da.ed}</text>`+
+ `<line x1="${X(-28)}" y1="372" x2="${X(35)}" y2="372" stroke="${C.ink}" stroke-width="2"/>`+
+ [[-28,L.da.axis[0]],[7,L.da.axis[2]],[14,L.da.axis[3]],[21,L.da.axis[4]],[28,L.da.axis[5]]].map(([d,t])=>`<line x1="${X(d)}" y1="372" x2="${X(d)}" y2="380" stroke="${C.ink}" stroke-width="2"/><text x="${X(d)}" y="402" text-anchor="middle" font-size="16" fill="${C.dim}">${t}</text>`).join('')+
+ `<g id="daKey" opacity="0"><rect x="560" y="418" width="22" height="14" fill="${C.flaw}" opacity=".35"/><text x="590" y="431" font-size="15" fill="${C.dim}">${L.da.wait}</text></g>`;
+ rows.forEach((r,i)=>{const y=80+i*76, [nm,sl,wl]=L.da.rows[i];
+  h+=`<text x="20" y="${y+6}" font-size="19" font-weight="700" fill="${C.ink}">${nm}</text>`+
+  `<line x1="${X(-28)}" y1="${y}" x2="${X(35)}" y2="${y}" stroke="${C.grid}" stroke-width="2"/>`+
+  `<rect class="daW" x="${ED}" y="${y-13}" width="${Math.max(3,r.w*K)}" height="26" fill="${C.flaw}" opacity="0" data-w="${Math.max(3,r.w*K)}"/>`+
+  `<text class="daWT lab" x="${ED+Math.max(3,r.w*K)+8}" y="${y+7}" font-size="17" font-weight="700" fill="${C.flaw}" opacity="0">${wl}</text>`+
+  (r.cure?`<line class="daCure" x1="${X(r.c)}" y1="${y}" x2="${X(r.cure)}" y2="${y}" stroke="${C.flaw}" stroke-width="3" stroke-dasharray="6 6" opacity="0"/>`+
+   `<text class="daCure lab" x="${X(r.cure)}" y="${y-18}" text-anchor="end" font-size="14" fill="${C.flaw}" opacity="0">${L.da.cure}</text>`:'')+
+  `<g class="daS" data-x="${X(r.s)}" transform="translate(${X(r.s)},${y})" opacity="0"><circle r="9" fill="${C.alt}"/>`+
+  `<text x="${r.s<-10?0:-12}" y="-17" text-anchor="${r.s<-10?'middle':'end'}" font-size="14" fill="${C.alt}">${sl}</text></g>`+
+  `<g class="daC" data-x="${X(r.c)}" transform="translate(${X(r.c)},${y})" opacity="0"><rect x="-4" y="-16" width="8" height="32" fill="${C.flaw}"/></g>`;});
+ h+=`<g id="daLeg" opacity="0"><circle cx="28" cy="424" r="8" fill="${C.alt}"/><text x="42" y="430" font-size="17" font-weight="700" fill="${C.alt}">${L.da.start}</text>`+
+  `<rect x="150" y="410" width="8" height="28" fill="${C.flaw}"/><text x="168" y="430" font-size="17" font-weight="700" fill="${C.flaw}">${L.da.cut}</text></g>`;
+ $('daG').innerHTML=h;})();
+window.__fig.dates=()=>{gsap.set('.daS,.daC,.daW,.daWT,.daCure,#daLeg,#daKey',{opacity:0});
+ document.querySelectorAll('.daW').forEach(r=>gsap.set(r,{attr:{width:0}}));
+ return gsap.timeline().to('#daLeg',{opacity:1,duration:.3})
+  .to('.daS',{opacity:1,duration:.3,stagger:.2}).to('.daC',{opacity:1,duration:.3,stagger:.2},'+=.2').to('.daCure',{opacity:1,duration:.4},'<.6')
+  .to('#daKey',{opacity:1,duration:.3},'+=.3')
+  .to('.daW',{opacity:.35,attr:{width:(i,el)=>+el.dataset.w},duration:1.4,ease:'power1.out',stagger:.15},'<')
+  .to('.daWT',{opacity:1,duration:.3,stagger:.15},'-=.6').to({},{duration:.8});};
+
+/* ---------- pick a state (web only) ---------- */
+(function(){let v='fl';
+ function draw(){const [s,c,w,p]=L.sim[v];$('simS').textContent=s;$('simC').textContent=c;$('simW').textContent=w;$('simP').textContent='Кто платит: '+p;}
+ document.querySelectorAll('#simQ button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#simQ button').forEach(x=>x.classList.remove('on'));b.classList.add('on');v=b.dataset.v;draw();});
+ draw();})();
+
+const FIGS=['night','tiles','arizona','dates'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>window.__fig[id]().play()})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/074-forbidden-until-seven-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s1:['night'],s2:['tiles'],s3:['arizona'],s4:['dates']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>
