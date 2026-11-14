@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — Why Americans Can't Afford to Move</title>
+<meta name="description" content="A family with a 3% mortgage would pay about $900 a month more to move into an identical house one street over. Since a 1982 federal law, an American lender may call in the whole loan the day a home is sold, so a cheap old loan, worth about $124,000 to that family, goes to whoever holds it. Assumable loans, Denmark's bond buyback and Canada's five-year terms each hand that value to someone else, and each has a price.">
+<link rel="canonical" href="https://traceupstream.com/episodes/075-too-cheap-to-leave/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#5F7A8C;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.sim .row{display:grid;grid-template-columns:190px 1fr;gap:6px 14px;font-size:16px;margin-top:8px}
+.sim .row b{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim);font-weight:500;padding-top:3px}
+.sim .pay{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--flaw);margin-top:12px}
+.sim input[type=range]{width:100%;max-width:520px;accent-color:#B45309}
+.sim .val{font-family:var(--font-display);font-weight:700;font-size:20px}
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--grid);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim)}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+svg .lab{paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+svg .big{font-family:var(--font-display)}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}table.cmp{font-size:13px}.sim .row{grid-template-columns:1fr}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.075</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="56.9">
+  <div class="kicker">Trace Upstream · Episode 075</div>
+  <h1>Why Americans can't afford to move</h1>
+  <div class="prose lede">
+    <p>Picture a family that bought a house in 2021 with a <em class="fact">$400,000 mortgage at 3%</em>. They pay about $1,690 a month. Five years later they want to move into an identical house one street over, for the same price. They would borrow exactly what they still owe, over the same 25 years they have left, on the same income. Their new payment would be about <em class="flaw">$2,590</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Same debt, same income, same kind of house</h3>
+    <svg id="twohouses" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Two identical houses side by side. Under the first, the family's current monthly payment of $1,686 at 3%. Under the second, the payment on the same remaining balance over the same 25 years at the October 2026 rate of 7.33%: $2,589. The difference, $902 a month, is highlighted.">
+      <g id="thG"></g>
+    </svg>
+    <div class="figcap">Illustrative calculation: $400,000 at 3.00% over 30 years (2021) = $1,686/month; balance after 5 years $355,625; same balance over 300 months at 7.33% (Freddie Mac average, October 2026) = $2,589. Principal and interest only.</div>
+  </div>
+  <div class="prose">
+    <p>That is <em class="flaw">$900 more every month</em> for a move of one street. In October 2026 Americans bought homes at the slowest pace since 2010. New mortgages cost more than 7%, and almost half of the mortgages Americans already had were below 4%.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So what exactly would that family be paying $900 a month for?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="43.2">
+  <h2>The sellers vanished too</h2>
+  <div class="prose">
+    <p>The obvious answer is that money got expensive: when rates rise, fewer people can afford to buy. But in America the <em class="flaw">sellers</em> disappeared as well. Economists at the Federal Housing Finance Agency found that for every percentage point the market rate sits above the rate a homeowner already pays, the chance that they sell falls by <em class="fact">nearly a fifth</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Rates on the mortgages Americans already had, against the rate on a new one</h3>
+    <svg id="rates" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Bar chart of outstanding US mortgages by interest rate, second quarter 2026: below 3%, 19.2%; 3 to 4%, 29.9%; 4 to 5%, 16.5%; 5 to 6%, 12.0%; 6% and above, 22.5%. A line for the new-mortgage rate rises to 7.33%, above almost every existing loan.">
+      <g id="raG"></g>
+    </svg>
+    <div class="figcap">Shares of outstanding mortgages by rate, Q2 2026 (FHFA National Mortgage Database). New-loan rate: 7.33%, 30-year fixed average, October 2026 (Freddie Mac).</div>
+  </div>
+  <div class="prose">
+    <p>Between mid-2022 and mid-2024, they estimated, that effect alone stopped about <em class="fact">1.7 million home sales</em>. With so few homes for sale, prices went up by more than the high rates had pushed them down.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Yet the family's debt doesn't change when they move. So why should their rate?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="87.9">
+  <h2>One way to lose it</h2>
+  <div class="prose">
+    <p>An American mortgage is a stranger deal than "a loan is a loan". If rates fall, the family can pay off the old loan early, with no penalty, and take a cheaper one. If rates rise, they keep the cheap rate for as long as thirty years. There is only one ordinary way to lose it: <em class="flaw">sell the house</em>. Almost every standard mortgage lets the lender demand the whole balance on the day the home is sold.</p>
+    <p>That was not always settled. In 1978 California's Supreme Court ruled that a lender could not use that clause unless the sale actually put its money at risk, and buyers there could take over a seller's cheap loan. In 1982 Congress overrode every state on this point: lenders <em class="flaw">may enforce</em> the clause, whatever a state's laws or courts say. Most American mortgages are written on standard forms from Fannie Mae and Freddie Mac, two companies the federal government has run since 2008. Those forms include the clause.</p>
+    <p>The same law lists the moments when a lender may not call in the loan: when the house passes to a spouse or to children, when the borrower dies, after a divorce. So the law already decides who keeps a cheap rate when a house changes hands, and a family that moves is not one of them.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">The obvious fix is to add them to the list. Who would pay for that?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="50.7">
+  <h2>The obvious fix</h2>
+  <div class="prose">
+    <p>Since late 2025 the agency that oversees Fannie Mae and Freddie Mac has said it is studying ways to let homeowners take their mortgage with them. In 2026 bills to do it were introduced in Congress; by November 2026 none had passed.</p>
+    <p>The catch: most American mortgages are bundled into bonds and sold to investors, who paid a price that assumed each loan would end when its house was sold. Let loans travel with their owners and investors hold 3% for years longer than planned. On the next mortgage bonds they ask for a higher return, and <em class="flaw">the next family to borrow pays a higher rate</em>.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So the cheap loan is worth something to somebody. How much, and whose is it?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="63.4">
+  <h2>What the loan is worth</h2>
+  <div class="prose">
+    <p>After five years the family still owes about <em class="fact">$355,000</em>. Imagine someone wanted to buy their loan: the right to collect $1,690 a month for the next 25 years. With new loans paying more than 7%, an investor would pay only about <em class="flaw">$230,000</em> for it, about 65 cents for every dollar the family owes.</p>
+  </div>
+  <div class="fig">
+    <h3>What the family owes, and what their loan is worth</h3>
+    <svg id="gift" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Two bars. What the family owes: $355,625. What the loan is worth to an investor at 7.33%: $231,660. The gap of about $124,000 is the value of the cheap rate; on the day of sale it moves to whoever holds the loan.">
+      <g id="giG"></g>
+    </svg>
+    <div class="figcap">Illustrative calculation: present value of $1,686/month for 300 months at 7.33% = $231,660 (65.1% of the $355,625 balance). Difference $123,965 = present value of the $902/month gap.</div>
+  </div>
+  <div class="prose">
+    <p>The difference, about <em class="flaw">$124,000</em>, is what the $900 a month from the start is worth in today's money. It is a real asset, and the family owns it only while they stay. On the day they sell they repay the full $355,000, and that $124,000 goes to whoever holds the loan.</p>
+  </div>
+  <div class="fig webonly sim">
+    <h3>Try it: move the new-loan rate</h3>
+    <div class="row"><b>New-loan rate</b><span><input type="range" id="simR" min="3" max="9" step="0.25" value="7.25"> <span class="val" id="simRv"></span></span></div>
+    <div class="row"><b>Payment after the move</b><span id="simP"></span></div>
+    <div class="row"><b>The loan is worth</b><span id="simV"></span></div>
+    <div class="pay" id="simG"></div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">A rule decides whose money it is. Are there rules that give it to someone else?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="57.4">
+  <h2>It stays with the house</h2>
+  <div class="prose">
+    <p>America already has one, on a small scale. Loans insured by the Federal Housing Administration or guaranteed by Veterans Affairs can be <em class="alt">taken over by the buyer</em> at the old rate.</p>
+    <p>Say the house sells for $450,000. The buyer takes over the $355,000 at 3%, but has to find the other <em class="flaw">$95,000</em> up front, or borrow it at the new rate. Because the loan is worth so much to whoever takes it, the family can ask more for the house. But only if a buyer comes along who wants that loan and has that much cash. And a loan that outlives its sale costs investors just as much as one that travels, so they price that in for everyone who borrows.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">What if the family could collect that value from any buyer, or with no buyer at all?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="101.5">
+  <h2>It becomes money</h2>
+  <div class="prose">
+    <p>Denmark does that. Every Danish mortgage is matched to a bond with exactly the same payments, and the family may pay off the loan by <em class="alt">buying the matching bond on the market</em>, at whatever it costs that day.</p>
+  </div>
+  <div class="fig">
+    <h3>Pay off the loan at the bond's price</h3>
+    <svg id="buyback" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Danish-style buyback applied to the American family. As rates rise from 3% to 7.33%, the price of the matching bond falls from 100 to about 65. The debt the family has to repay shrinks from $355,625 to $231,660; borrowed again at 7.33% over 25 years, it costs $1,686 a month, the same payment as before.">
+      <g id="bbG"></g>
+    </svg>
+    <div class="figcap">Illustrative calculation, the same family under Danish rules: buyback at 65.1 → new loan $231,660 at 7.33% over 300 months → $1,686/month. Denmark 2022: DKK 243bn (≈ $34bn) bought back at an average 18% discount (Danmarks Nationalbank).</div>
+  </div>
+  <div class="prose">
+    <p>In 2022 Danish fixed mortgage rates rose by about four percentage points, and homeowners bought back loans worth about <em class="fact">$34 billion</em>, on average 18% below what they owed.</p>
+    <p><em class="flaw">The price is paid at the start.</em> Danish loans live inside bonds that investors buy as close to risk-free, so Danish mortgage banks lend no more than <em class="flaw">80% of a home's value</em>. On a $450,000 house that leaves $90,000 to find from savings or from a costlier bank loan, where an American family can often put down $15,000–20,000. And it only works because each Danish loan is tied to a bond the family can find and buy; American mortgages are pooled by the thousand, and giving fifty million of them that link would mean rebuilding how the country pays for its homes.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Is there a way to stop the value from piling up in the first place?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s7" data-duration="56">
+  <h2>Nothing to lose</h2>
+  <div class="prose">
+    <p>That is what Canada does. A Canadian mortgage can usually be carried to the next home, but the fixed rate typically lasts only <em class="alt">five years</em>, and then the loan is renewed at whatever rates are by then. A promise that short never grows into a hundred-thousand-dollar asset.</p>
+  </div>
+  <div class="fig">
+    <h3>One promise for thirty years, or six promises of five</h3>
+    <svg id="terms" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Two 30-year timelines. The American fixed-rate mortgage is one flat band for the full 30 years. The Canadian mortgage is six five-year terms; at each renewal the rate steps to whatever the market is then, up or down. Schematic rates.">
+      <g id="teG"></g>
+    </svg>
+    <div class="figcap">Schematic. The Canadian steps illustrate renewal at market rates; they are not a forecast.</div>
+  </div>
+  <div class="prose">
+    <p><em class="flaw">The price is that the family carries the rate risk itself.</em> In 2025 the Bank of Canada estimated that about six in ten mortgages renewing in 2025 and 2026 would face higher payments; for five-year fixed loans, about 15–20% higher on average.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So which of these rules is the right one?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s8" data-duration="37.1">
+  <h2>The question to carry</h2>
+  <div class="prose">
+    <p>No rule makes the value disappear. It can go to whoever holds the loan, in exchange for a rate that never resets; to the family, through a buyer or through a bond; or to nobody, if the promise is kept short. And whoever doesn't get it pays for it.</p>
+  </div>
+  <div class="fig">
+    <h3>Who gets the value of a cheap old loan, and who pays</h3>
+    <table class="cmp">
+      <tr><th>Design</th><th>Where the value goes</th><th>Who pays</th></tr>
+      <tr><td>US rule: due on sale</td><td>Whoever holds the loan</td><td>The family that moves; everyone who stays put instead of moving</td></tr>
+      <tr><td>Take the rate along (proposed)</td><td>The family</td><td>The next family to borrow, through higher rates</td></tr>
+      <tr><td>Assumable loan (FHA/VA)</td><td>The family, through the sale price</td><td>A buyer with cash for the gap; and future borrowers</td></tr>
+      <tr><td>Denmark: buy back the bond</td><td>The family, from any buyer or none</td><td>Every borrower, with a 20% stake up front</td></tr>
+      <tr><td>Canada: five-year terms</td><td>Nobody: the value never builds up</td><td>The family, at every renewal</td></tr>
+    </table>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">When rates jump, who should own the value of a cheap old loan, and who should pay for it?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ th:{now:'NOW · 3%',next:'ONE STREET OVER · 7.33%',per:'/ MONTH',gap:'+$902 A MONTH',p1:'$1,686',p2:'$2,589'},
+ ra:{axis:'SHARE OF EXISTING MORTGAGES',bins:['<3%','3–4%','4–5%','5–6%','6%+'],line:'NEW MORTGAGE',half:'49% BELOW 4%'},
+ gi:{owe:'WHAT THEY OWE',w1:'WHAT THE LOAN',w2:'IS WORTH',gap:'≈ $124,000',gap2:'THE CHEAP RATE',sold:'ON THE DAY OF SALE',holder:'WHOEVER HOLDS THE LOAN',a:'$355,625',b:'$231,660'},
+ bb:{bond:'BOND PRICE',debt:'TO PAY OFF THE LOAN',pay:'MONTHLY PAYMENT',r0:'AT A 3% RATE',r1:'AT A 7.33% RATE',same:'= SAME PAYMENT AT 7.33%'},
+ te:{us:'UNITED STATES',ca:'CANADA',us2:'ONE RATE, 30 YEARS',ren:'RENEWALS AT MARKET RATES',first:'FIRST 5 YEARS',yrs:'YEARS'},
+ sim:{pay:'Payment after the move',worth:'The loan is worth',gap:v=>'Value lost on the day of sale: $'+v}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',topic:'#5F7A8C',grid:'#D9E3F0',paper:'#F8F9FB'};
+const fmt=n=>Math.round(n).toLocaleString('en-US');
+const ann=(P,i,n)=>P*i/(1-Math.pow(1+i,-n)), pv=(A,i,n)=>A*(1-Math.pow(1+i,-n))/i;
+
+/* ---------- twohouses: same house, two payments ---------- */
+(function(){
+ const house=(x,id)=>`<g id="${id}"><path d="M${x-110} 210 L${x} 110 L${x+110} 210 Z" fill="#fff" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/>`+
+  `<rect x="${x-90}" y="210" width="180" height="120" fill="#fff" stroke="${C.ink}" stroke-width="5"/>`+
+  `<rect x="${x-22}" y="260" width="44" height="70" fill="${C.grid}" stroke="${C.ink}" stroke-width="4"/>`+
+  `<rect x="${x-74}" y="232" width="36" height="30" fill="${C.grid}" stroke="${C.ink}" stroke-width="3"/>`+
+  `<rect x="${x+38}" y="232" width="36" height="30" fill="${C.grid}" stroke="${C.ink}" stroke-width="3"/></g>`;
+ const B=410,K=0.11; // bar baseline, px per dollar
+ let h=`<line x1="40" y1="330" x2="960" y2="330" stroke="${C.ink}" stroke-width="3"/>`+house(240,'thH1')+house(760,'thH2')+
+ `<path id="thArrow" d="M330 120 Q500 30 670 120" fill="none" stroke="${C.dim}" stroke-width="4" stroke-dasharray="10 8"/>`+
+ `<text x="240" y="372" text-anchor="middle" font-size="22" font-weight="700" fill="${C.dim}">${L.th.now}</text>`+
+ `<text x="760" y="372" text-anchor="middle" font-size="22" font-weight="700" fill="${C.dim}">${L.th.next}</text>`+
+ `<g id="thT1" opacity="0"><text class="big lab" x="240" y="425" text-anchor="middle" font-size="46" font-weight="700" fill="${C.fact}">${L.th.p1}</text></g>`+
+ `<g id="thT2" opacity="0"><text class="big lab" x="760" y="425" text-anchor="middle" font-size="46" font-weight="700" fill="${C.flaw}">${L.th.p2}</text></g>`+
+ `<g id="thGap" opacity="0"><text class="big lab" x="500" y="425" text-anchor="middle" font-size="34" font-weight="700" fill="${C.flaw}">${L.th.gap}</text></g>`;
+ $('thG').innerHTML=h;})();
+window.__fig.twohouses=()=>{gsap.set('#thT1,#thT2,#thGap',{opacity:0});gsap.set('#thH2',{opacity:0,x:0});
+ const a=$('thArrow'),l=a.getTotalLength();gsap.set(a,{strokeDasharray:l,strokeDashoffset:l});
+ return gsap.timeline().to('#thT1',{opacity:1,duration:.4},.2)
+  .to(a,{strokeDashoffset:0,duration:1,ease:'power1.inOut'},'+=.3').to('#thH2',{opacity:1,duration:.5},'-=.3')
+  .to('#thT2',{opacity:1,duration:.4},'+=.4').to('#thGap',{opacity:1,scale:1,duration:.4},'+=.4').to({},{duration:.8});};
+
+/* ---------- rates: existing loans along the rate axis, the new-loan rate sweeps past them ---------- */
+(function(){
+ const S=[19.2,29.9,16.5,12.0,22.5], B=330, X0=90, W=130, G=24, ST=W+G, K=8, Y=v=>B-v*K;
+ const X=r=>X0+(r-2)*ST-G/2; // rate → x: bin i spans rates 2+i … 3+i
+ let h=`<text x="20" y="30" font-size="20" font-weight="700" fill="${C.dim}">${L.ra.axis}</text>`+
+ `<line x1="${X0-20}" y1="${B}" x2="${X(7.6)}" y2="${B}" stroke="${C.ink}" stroke-width="2"/>`;
+ S.forEach((v,i)=>{const x=X0+i*ST;
+  h+=`<rect class="raB" x="${x}" y="${B}" width="${W}" height="0" data-h="${v*K}" data-top="${3+i}" fill="#DCE7F8" stroke="${C.fact}" stroke-width="2"/>`+
+  `<text class="raV" x="${x+W/2}" y="${Y(v)-12}" text-anchor="middle" font-size="22" font-weight="700" fill="${C.ink}" opacity="0">${v.toFixed(1)}%</text>`+
+  `<text x="${x+W/2}" y="${B+30}" text-anchor="middle" font-size="22" font-weight="700" fill="${C.ink}">${L.ra.bins[i]}</text>`;});
+ h+=`<g id="raHalf" opacity="0"><path d="M${X0} ${B+46} H${X0+2*W+G}" stroke="${C.flaw}" stroke-width="5"/>`+
+  `<text class="big" x="${X0+W+G/2}" y="${B+92}" text-anchor="middle" font-size="34" font-weight="700" fill="${C.flaw}">${L.ra.half}</text></g>`+
+  `<g id="raLine" opacity="0"><line x1="0" y1="60" x2="0" y2="${B}" stroke="${C.flaw}" stroke-width="5" stroke-dasharray="14 8"/>`+
+  `<text id="raLT" class="lab" x="-10" y="52" text-anchor="end" font-size="24" font-weight="700" fill="${C.flaw}">${L.ra.line} 3.00%</text></g>`;
+ $('raG').innerHTML=h; window.__raX=X;})();
+window.__fig.rates=()=>{const bars=[...document.querySelectorAll('.raB')], X=window.__raX;
+ bars.forEach(b=>gsap.set(b,{attr:{y:330,height:0,fill:'#DCE7F8',stroke:C.fact}}));gsap.set('.raV,#raHalf,#raLine',{opacity:0});
+ const r={v:3}, on=new Set();
+ const upd=()=>{$('raLine').setAttribute('transform',`translate(${X(r.v)},0)`);$('raLT').textContent=`${L.ra.line} ${r.v.toFixed(2)}%`;
+  bars.forEach((b,i)=>{if(r.v>+b.dataset.top&&!on.has(i)){on.add(i);gsap.to(b,{attr:{fill:'#F5DFC8',stroke:C.flaw},duration:.3});}});};
+ const T=window.__raT||{half:2.0};
+ return gsap.timeline()
+  .to(bars,{attr:{y:(i,el)=>330-el.dataset.h,height:(i,el)=>+el.dataset.h},duration:.6,stagger:.06,ease:'power2.out'},0)
+  .to('.raV',{opacity:1,duration:.3,stagger:.05},.5)
+  .to('#raLine',{opacity:1,duration:.3,onStart:upd},.4)
+  .to(r,{v:7.33,duration:1.8,ease:'power1.inOut',onUpdate:upd},.6)
+  .to('#raHalf',{opacity:1,duration:.4},T.half)
+  .to({},{duration:.8});};
+
+/* ---------- gift: owed vs worth, the gap leaves on sale ---------- */
+(function(){
+ const K=0.0018, X0=300, a=355625*K, b=231660*K; // px per dollar
+ let h=`<text x="20" y="120" font-size="22" font-weight="700" fill="${C.ink}">${L.gi.owe}</text>`+
+ `<rect id="giA" x="${X0}" y="90" width="0" height="56" fill="${C.fact}" data-w="${a}"/>`+
+ `<text id="giAT" class="big" x="${X0+16}" y="131" font-size="32" font-weight="700" fill="#fff" opacity="0">${L.gi.a}</text>`+
+ `<text x="20" y="210" font-size="22" font-weight="700" fill="${C.ink}">${L.gi.w1}</text>`+
+ `<text x="20" y="236" font-size="22" font-weight="700" fill="${C.ink}">${L.gi.w2}</text>`+
+ `<rect id="giB" x="${X0}" y="190" width="0" height="56" fill="${C.alt}" data-w="${b}"/>`+
+ `<text id="giBT" class="big" x="${X0+16}" y="231" font-size="32" font-weight="700" fill="#fff" opacity="0">${L.gi.b}</text>`+
+ `<g id="giGap" opacity="0"><rect x="${X0+b}" y="190" width="${a-b}" height="56" fill="${C.flaw}"/>`+
+ `<text class="big" x="${X0+b+(a-b)/2}" y="230" text-anchor="middle" font-size="30" font-weight="700" fill="#fff">${L.gi.gap}</text></g>`+
+ `<text id="giGapT" class="lab" x="${X0+b+(a-b)/2}" y="278" text-anchor="middle" font-size="20" font-weight="700" fill="${C.flaw}" opacity="0">${L.gi.gap2}</text>`+
+ `<g id="giHold" opacity="0"><rect x="600" y="360" width="300" height="60" rx="8" fill="#fff" stroke="${C.ink}" stroke-width="3"/>`+
+ `<text x="750" y="398" text-anchor="middle" font-size="19" font-weight="700" fill="${C.ink}">${L.gi.holder}</text>`+
+ `<text x="580" y="398" text-anchor="end" font-size="19" font-weight="700" fill="${C.dim}">${L.gi.sold} →</text></g>`;
+ $('giG').innerHTML=h; window.__giDx=750-(X0+b+(a-b)/2);})();
+window.__fig.gift=()=>{gsap.set('#giA,#giB',{attr:{width:0}});gsap.set('#giAT,#giBT,#giGap,#giGapT,#giHold',{opacity:0});gsap.set('#giGap',{x:0,y:0});
+ const T=window.__giT||{b:3.0,gap:11.5};
+ return gsap.timeline().to('#giA',{attr:{width:+$('giA').dataset.w},duration:.9,ease:'power2.out'},.2).to('#giAT',{opacity:1,duration:.3},1.1)
+  .to('#giB',{attr:{width:+$('giB').dataset.w},duration:.9,ease:'power2.out'},T.b).to('#giBT',{opacity:1,duration:.3},T.b+.9)
+  .to('#giGap,#giGapT',{opacity:1,duration:.4},T.gap)
+  .to({},{duration:.8});};
+// (figure.mjs holds the opening frame 0.9 s before it plays: positions above are narration times minus 0.9)
+// web only: on the page the gap then leaves for the loan's holder (in the video a photo shot carries that line)
+window.__giLeave=()=>gsap.timeline().to('#giHold',{opacity:1,duration:.4}).to('#giGapT',{opacity:0,duration:.3},'<')
+  .to('#giGap',{x:window.__giDx,y:100,duration:1.1,ease:'power2.inOut'},'+=.1');
+
+/* ---------- buyback: bond price falls, the debt shrinks, the payment stays ---------- */
+(function(){
+ const K=0.0022, X0=360;
+ let h=`<text x="20" y="80" font-size="22" font-weight="700" fill="${C.ink}">${L.bb.bond}</text>`+
+ `<text id="bbPx" class="big" x="${X0}" y="86" font-size="56" font-weight="700" fill="${C.fact}">100</text>`+
+ `<text x="${X0+110}" y="78" font-size="20" font-weight="700" fill="${C.dim}">PER 100 OWED</text>`+
+ `<text id="bbR" x="${X0+330}" y="78" font-size="22" font-weight="700" fill="${C.dim}">${L.bb.r0}</text>`+
+ `<text x="20" y="200" font-size="22" font-weight="700" fill="${C.ink}">${L.bb.debt}</text>`+
+ `<rect x="${X0}" y="170" width="${355625*K}" height="56" fill="none" stroke="${C.grid}" stroke-width="3" stroke-dasharray="8 6"/>`+
+ `<rect id="bbD" x="${X0}" y="170" width="${355625*K}" height="56" fill="${C.fact}"/>`+
+ `<text id="bbDT" class="big" x="${X0+16}" y="211" font-size="32" font-weight="700" fill="#fff">$355,625</text>`+
+ `<text x="20" y="330" font-size="22" font-weight="700" fill="${C.ink}">${L.bb.pay}</text>`+
+ `<g id="bbPay"><rect x="${X0}" y="290" width="240" height="64" rx="8" fill="#fff" stroke="${C.alt}" stroke-width="4"/>`+
+ `<text class="big" x="${X0+120}" y="336" text-anchor="middle" font-size="40" font-weight="700" fill="${C.alt}">≈ $1,690</text></g>`+
+ `<text id="bbSame" class="lab" x="${X0+270}" y="332" font-size="22" font-weight="700" fill="${C.alt}" opacity="0">${L.bb.same}</text>`;
+ $('bbG').innerHTML=h;})();
+window.__fig.buyback=()=>{const s={p:100};const K=0.0022;const T=window.__bbT||{drop:0.6,same:7.9};
+ const set=()=>{$('bbPx').textContent=Math.round(s.p);$('bbD').setAttribute('width',355625*K*s.p/100);$('bbDT').textContent='$'+fmt(355625*s.p/100);};
+ set();gsap.set('#bbSame',{opacity:0});$('bbR').textContent=L.bb.r0;$('bbPx').setAttribute('fill',C.fact);
+ return gsap.timeline().call(()=>{$('bbR').textContent=L.bb.r1;},null,T.drop-.4)
+  .to(s,{p:65.14165,duration:2.2,ease:'power1.inOut',onUpdate:set},T.drop).call(()=>{$('bbPx').setAttribute('fill',C.flaw)},null,T.drop+2.2)
+  .to('#bbPay',{scale:1.06,transformOrigin:'50% 50%',duration:.25,yoyo:true,repeat:1},T.same).to('#bbSame',{opacity:1,duration:.4},T.same)
+  .to({},{duration:.8});};
+
+/* ---------- terms: one 30-year promise vs six five-year ones ---------- */
+(function(){
+ const X=y=>130+y*27, Y1=150, Y2=330, R=r=>-(r-3)*22; // years → px; rate → offset
+ const ca=[3,5.2,4.1,6.0,3.6,4.8];
+ let h=`<text x="20" y="${Y1-60}" font-size="22" font-weight="700" fill="${C.ink}">${L.te.us}</text>`+
+ `<rect id="teUS" x="${X(0)}" y="${Y1-30}" width="0" height="36" fill="${C.fact}" data-w="${X(30)-X(0)}"/>`+
+ `<text id="teUST" class="lab" x="${X(15)}" y="${Y1+40}" text-anchor="middle" font-size="22" font-weight="700" fill="${C.fact}" opacity="0">${L.te.us2}</text>`+
+ `<text x="20" y="${Y2-90}" font-size="22" font-weight="700" fill="${C.ink}">${L.te.ca}</text>`;
+ ca.forEach((r,i)=>{h+=`<rect class="teCA" x="${X(i*5)+2}" y="${Y2-18+R(r)}" width="${X(5)-X(0)-4}" height="36" fill="${i?C.flaw:C.alt}" opacity="0"/>`;
+  if(i) h+=`<g class="teRen" opacity="0"><line x1="${X(i*5)}" y1="${Y2-80}" x2="${X(i*5)}" y2="${Y2+40}" stroke="${C.dim}" stroke-width="2" stroke-dasharray="5 5"/></g>`;});
+ h+=`<g id="teRenT" opacity="0"><text class="lab" x="${X(2.5)}" y="${Y2+62}" text-anchor="middle" font-size="18" font-weight="700" fill="${C.alt}">${L.te.first}</text>`+
+ `<text class="lab" x="${X(17.5)}" y="${Y2-96}" text-anchor="middle" font-size="20" font-weight="700" fill="${C.flaw}">${L.te.ren}</text></g>`+
+ `<line x1="${X(0)}" y1="410" x2="${X(30)}" y2="410" stroke="${C.ink}" stroke-width="2"/>`+
+ [0,5,10,15,20,25,30].map(y=>`<line x1="${X(y)}" y1="410" x2="${X(y)}" y2="418" stroke="${C.ink}" stroke-width="2"/><text x="${X(y)}" y="438" text-anchor="middle" font-size="18" fill="${C.dim}">${y}</text>`).join('')+
+ `<text x="${X(30)+14}" y="416" font-size="16" fill="${C.dim}">${L.te.yrs}</text>`;
+ $('teG').innerHTML=h;})();
+window.__fig.terms=()=>{gsap.set('#teUS',{attr:{width:0}});gsap.set('#teUST,.teCA,.teRen,#teRenT',{opacity:0});
+ return gsap.timeline().to('#teUS',{attr:{width:+$('teUS').dataset.w},duration:.9,ease:'none'}).to('#teUST',{opacity:1,duration:.3})
+  .to('.teCA',{opacity:1,duration:.25,stagger:.22},'+=.1').to('.teRen',{opacity:1,duration:.2,stagger:.22},'<.22').to('#teRenT',{opacity:1,duration:.3},'<')
+  .to({},{duration:.8});};
+
+/* ---------- slider (web only) ---------- */
+(function(){const r=$('simR');if(!r) return;
+ const draw=()=>{const m=+r.value/1200, B=355625, P=1686.42, n=300;
+  $('simRv').textContent=(+r.value).toFixed(2)+'%';
+  $('simP').textContent='$'+fmt(ann(B,m,n))+' a month (now $1,686)';
+  $('simV').textContent='$'+fmt(pv(P,m,n))+' of the $355,625 owed';
+  $('simG').textContent=L.sim.gap(fmt(Math.max(0,B-pv(P,m,n))));};
+ r.oninput=draw;draw();})();
+
+const FIGS=['twohouses','rates','gift','buyback','terms'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{const t=window.__fig[id]();if(id==='gift') t.add(window.__giLeave(),'+=1.2');t.play();}})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/075-too-cheap-to-leave/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s0:['twohouses'],s1:['rates'],s4:['gift'],s6:['buyback'],s7:['terms']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);
+}
+</script>
+</body>
+</html>
