@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Когда вы умерли? Решает закон, а не тело</title>
+<meta name="description" content="В некоторых американских больницах пациента объявляют умершим, потому что его сердце остановилось навсегда, а через несколько минут хирурги снова запускают это сердце внутри тела, чтобы сохранить органы. Американский закон называет смерть необратимой; врачи давно читают это как «окончательно». Общенациональные правила, принятые в ноябре 2026 года, велят пережать и вскрыть артерии к мозгу. Австралия, Великобритания с Нидерландами и Испания проводят черту в другом месте, и каждая платит свою цену.">
+<link rel="canonical" href="https://traceupstream.com/episodes/076-heart-still-beating/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#7A6A8C;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;gap:8px;margin:4px 0 12px;flex-wrap:wrap}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim .row{display:grid;grid-template-columns:190px 1fr;gap:6px 14px;font-size:16px;margin-top:8px}
+.sim .row b{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim);font-weight:500;padding-top:3px}
+.sim input[type=range]{width:100%;max-width:520px;accent-color:#B45309}
+.sim .val{font-family:var(--font-display);font-weight:700;font-size:20px}
+.sim .out{font-family:var(--font-display);font-size:20px;font-weight:700;margin-top:12px}
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--grid);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim)}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+svg .lab{paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+svg .big{font-family:var(--font-display)}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}table.cmp{font-size:13px}.sim .row{grid-template-columns:1fr}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.076</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="48.9">
+  <div class="kicker">Дефект конструкции · Выпуск 076</div>
+  <h1>Когда вы умерли? Решает закон, а не тело</h1>
+  <div class="prose lede">
+    <p>В некоторых американских больницах пациента объявляют умершим, потому что его сердце <em class="fact">остановилось навсегда</em>. Через несколько минут хирурги снова запускают это самое сердце, в той же груди. Никто в операционной не считает, что вернул пациента к жизни: они сохраняют живыми сердце, печень и почки для кого-то другого.</p>
+  </div>
+  <div class="fig">
+    <h3>Смерть констатирована, потом сердце снова бьётся</h3>
+    <svg id="monitor" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Кардиомонитор. После остановки сердца линия ровная; после периода невмешательства констатируют смерть; затем линия снова поднимается и опускается: сердце запускают внутри тела, чтобы сохранить органы.">
+      <g id="moG"></g>
+    </svg>
+    <div class="figcap">Схема. Контролируемое донорство после смерти по кровообращению с торакоабдоминальной нормотермической региональной перфузией (TA-NRP).</div>
+  </div>
+  <div class="prose">
+    <p>Первые общенациональные правила для этой процедуры приняли в <em class="fact">ноябре 2026 года</em>. Одно из них говорит хирургам, что делать с артериями, которые несут кровь к мозгу: пережать их, а потом <em class="flaw">вскрыть выше зажима</em>.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Был ли этот пациент мёртв?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="87.2">
+  <h2>Никто не спешит</h2>
+  <div class="prose">
+    <p>Первое подозрение: кто-то срезает углы, чтобы получить органы. Но решение, с которого всё начинается, принимает не хирург-трансплантолог. Пациент без надежды на выздоровление лежит на аппаратах жизнеобеспечения, и семья вместе с лечащими врачами решает их отключить, раньше, чем кто-либо заговорит о донорстве. Донорство начинается только после остановки сердца, и даже тогда бригада несколько минут ждёт, чтобы сердце не заработало само. Это <em class="fact">период невмешательства</em>; когда он заканчивается, констатируют смерть.</p>
+    <p>Когда сердце запускают внутри тела, хирурги видят, как оно работает, ещё до решения его брать, и метод распространился быстро.</p>
+  </div>
+  <div class="fig">
+    <h3>Американские доноры, у которых сердце запускали внутри тела</h3>
+    <svg id="hearts" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Столбчатая диаграмма: доноры в США с торакоабдоминальной нормотермической региональной перфузией: 34 с января 2020 по июнь 2021 года, 182 в 2023 году, 279 в 2024 году.">
+      <g id="heG"></g>
+    </svg>
+    <div class="figcap">Годовой отчёт OPTN/SRTR за 2024 год (182 в 2023, 279 в 2024); у 34 из 5 234 доноров после остановки сердца сердце запускали в теле, январь 2020 – июнь 2021 (исследование по национальному регистру, Transplantation Direct, 2023).</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Всё держится на моменте констатации смерти. Сколько длится ожидание?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="42">
+  <h2>Две минуты или двадцать</h2>
+  <div class="prose">
+    <p>Это зависит от того, где вы находитесь. Американские протоколы обычно требуют от двух до пяти минут. Испания, Великобритания и Франция: пять. Австрия и Швейцария: десять. В Италии сердце должно <em class="fact">двадцать минут не показывать никакой электрической активности</em>. В Германии остановки сердца <em class="flaw">вообще недостаточно, чтобы стать донором органов</em>; подходит только смерть всего мозга.</p>
+  </div>
+  <div class="fig">
+    <h3>Сколько врачи ждут после остановки сердца</h3>
+    <svg id="notouch" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Шкала минут после остановки сердца, от 0 до 20. США: от 2 до 5 минут. Испания, Великобритания, Франция: 5. Австрия, Швейцария: 10. Италия: 20. Германия: донорство после смерти по кровообращению не разрешено.">
+      <g id="ntG"></g>
+    </svg>
+    <div class="figcap">Периоды невмешательства в национальных протоколах (сравнительный обзор Transplant International; в США от 2 до 10, обычно 2–5). Германия: Федеральная врачебная палата.</div>
+  </div>
+  <div class="fig webonly sim">
+    <h3>Попробуйте: сколько минут сердце неподвижно?</h3>
+    <div class="row"><b>Минут после остановки</b><span><input type="range" id="simM" min="0" max="25" step="1" value="5"> <span class="val" id="simMv"></span></span></div>
+    <div class="out" id="simOut"></div>
+  </div>
+  <div class="prose">
+    <p>Медицина даёт измерения: нет пульса, нет давления, нет электрического сигнала. Где на этих часах проходит черта, <em class="flaw">решает правило</em>.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Так что же говорит американское правило?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="146">
+  <h2>Одно слово</h2>
+  <div class="prose">
+    <p>Почти все американские штаты приняли один и тот же типовой закон, <em class="fact">Закон об определении смерти</em> 1981 года. Человек мёртв, если остановились дыхание и кровообращение или если прекратились все функции всего мозга. В обоих случаях остановка должна быть <em class="flaw">необратимой</em>.</p>
+    <p>Сердце, которое молчит пять минут, часто можно запустить снова. Юристы, позже изучавшие закон, описали разницу так: <em class="fact">необратимо</em> значит, что обратить нельзя; <em class="fact">окончательно</em> значит, что можно, но этого не сделают. Десятилетиями врачи понимали «необратимо» как «окончательно». Это работало, пока сердце никто не запускал. Новая процедура его запускает.</p>
+  </div>
+  <div class="fig webonly">
+    <h3>Два прочтения одного слова</h3>
+    <div class="toggle" id="readT"><button class="on" data-k="perm">«Окончательно»: никто не запустит</button><button data-k="irr">«Необратимо»: запустить нельзя</button></div>
+    <div class="prose" id="readOut"></div>
+  </div>
+  <div class="fig">
+    <h3>Кровь возвращается в тело, но не в мозг</h3>
+    <svg id="clamp" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Схема кровообращения при TA-NRP. Насос вне тела запускает кровоток через сердце, печень и почки. Артерии, ведущие к мозгу, пережаты, и мозг не получает крови. С декабря 2026 года артерии нужно ещё и вскрывать выше зажима, чтобы просочившаяся кровь уходила наружу.">
+      <g id="clG"></g>
+    </svg>
+    <div class="figcap">Схема, не анатомия. Правила OPTN, принятые в ноябре 2026: пережать и вскрыть артерии к мозгу.</div>
+  </div>
+  <div class="prose">
+    <p>Сторонники отвечают половиной закона про мозг: если кровь не доходит до мозга, он не может восстановиться, значит, пациент мёртв по критерию мозга даже с бьющимся сердцем. Часть критиков говорит, что зажим держит не всегда; одна хирург-трансплантолог рассказала журналистам, что видела признаки жизни, когда кровь всё-таки доходила до мозга. Федеральный чиновник, отвечающий за систему трансплантации, отвечает, что поэтому новые правила и добавляют <em class="alt">второй барьер</em>.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Если всё дело в одном слове закона, почему бы его не изменить?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="92.9">
+  <h2>Пытались</h2>
+  <div class="prose">
+    <p>В 2021 году <em class="fact">Комиссия по единообразным законам</em>, собрание юристов, назначенных штатами, которое составило исходный закон, создала комитет для его обновления, и спор «необратимо или окончательно» оказался в центре. В <em class="flaw">сентябре 2023 года</em> работу приостановили на неопределённый срок, назвав причинами инерцию, политический климат и множество последствий любого изменения того, как закон описывает смерть.</p>
+    <p>Так слово осталось таким, каким его записали в 1981 году. Национальная сеть трансплантации, которая управляет системой по федеральному контракту, приняла новые правила 6 ноября 2026 года в экстренном порядке, ещё до того, как общество попросили высказаться. <em class="flaw">Законодатели голосовали за слово. За то, что оно значит, не голосовал никто.</em></p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Можно ли провести эту черту так, чтобы она не заканчивалась в операционной?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="134.1">
+  <h2>Три места для черты</h2>
+  <div class="fig">
+    <h3>Где проходит черта</h3>
+    <svg id="map" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Карта мира. Австралия, синим: запуск сердца внутри тела не применяется. Великобритания и Нидерланды, зелёным: только брюшная полость, грудной вариант приостановлен. Испания, серо-фиолетовым: оба варианта под аудитом одного национального агентства. США, янтарным: общенациональные правила, принятые в ноябре 2026 года.">
+      <g id="maG"></g>
+    </svg>
+    <div class="figcap">Brierley и др., Frontiers in Transplantation, 2024; контуры стран: Natural Earth (world-atlas).</div>
+  </div>
+  <div class="prose">
+    <p><em class="alt">Австралия читает слово буквально.</em> Её закон говорит о необратимом прекращении кровообращения в теле, поэтому запуск сердца внутри тела, судя по всему, незаконен и не применяется. В 2014 году хирурги в Сиднее одними из первых в мире запустили остановившееся сердце вне тела, в машине. <em class="flaw">Цена:</em> каждое такое сердце проделывает путь в машине, а печень и почки того же донора не получают пользы от крови, возвращённой внутри тела.</p>
+    <p><em class="alt">Великобритания и Нидерланды проводят черту вокруг мозга.</em> Они разрешают процедуру в брюшной полости, где она возвращает кровь печени и почкам, но приостановили вариант, при котором сердце запускают в груди. <em class="flaw">Цена платится сердцами</em>: их запускают в машине или не используют, а черта проходит по анатомии, а не по определению смерти.</p>
+    <p><em class="alt">Испания разрешает оба варианта и решает, кто проверяет.</em> Одно национальное агентство пишет протокол и проверяет случаи; артерии к мозгу пережимают и вскрывают до того, как начнут качать кровь, а мозг донора всё время под наблюдением. <em class="flaw">Цена платится до смерти:</em> с отдельного согласия семьи пациенту, который ещё жив, могут ввести препараты, разжижающие кровь, и установить трубки в сосуды ради кого-то другого. Многие страны именно это запрещают.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Каждая из этих стран выбрала черту. Но кто в каждой из них выбирал?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="40.1">
+  <h2>Вопрос, который стоит унести с собой</h2>
+  <div class="prose">
+    <p>Спор об этой операции обычно звучит как «да или нет». Но каждая из этих стран сначала ответила на другой вопрос: кто решает, где начинается смерть.</p>
+  </div>
+  <div class="fig">
+    <h3>Кто проводит черту</h3>
+    <table class="cmp">
+      <tr><th>Конструкция</th><th>Кто решает, где начинается смерть</th><th>Цена</th></tr>
+      <tr><td>США (правила ноября 2026)</td><td>Слово 1981 года; его значение определяет совет сети трансплантации, исполняют у постели больного</td><td>За значение слова никто не голосовал</td></tr>
+      <tr><td>Австралия: читать слово буквально</td><td>Формулировка закона</td><td>Сердца только через машину; другие органы не получают возвращённой крови</td></tr>
+      <tr><td>Великобритания, Нидерланды: только брюшная полость</td><td>Анатомия мозга</td><td>Сердца теряются или идут через машину</td></tr>
+      <tr><td>Испания: оба варианта под аудитом</td><td>Одно национальное агентство, которое проверяет каждый случай</td><td>Вмешательства у живого пациента с отдельного согласия семьи</td></tr>
+    </table>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Какое слово в вашем законе решает, что вы умерли? И кто последним решал, что это слово значит?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ mo:{stop:'СЕРДЦЕ ОСТАНОВИЛОСЬ',wait:'ПЕРИОД НЕВМЕШАТЕЛЬСТВА',dead:'СМЕРТЬ КОНСТАТИРОВАНА',again:'СЕРДЦЕ ЗАПУЩЕНО'},
+ he:{axis:'ДОНОРЫ В США: СЕРДЦЕ ЗАПУЩЕНО В ТЕЛЕ',yrs:['2020–21','2023','2024'],sub:['18 МЕСЯЦЕВ','','']},
+ nt:{axis:'МИНУТ ПОСЛЕ ОСТАНОВКИ СЕРДЦА',rows:['США','ИСПАНИЯ · БРИТАНИЯ · ФРАНЦИЯ','АВСТРИЯ · ШВЕЙЦАРИЯ','ИТАЛИЯ'],de:'ГЕРМАНИЯ: ОСТАНОВКА СЕРДЦА ДЛЯ ДОНОРСТВА НЕ В СЧЁТ · ТОЛЬКО СМЕРТЬ МОЗГА'},
+ cl:{brain:'МОЗГ',heart:'СЕРДЦЕ',body:'ПЕЧЕНЬ · ПОЧКИ',pump:'НАСОС',clamp:'ЗАЖИМ',vent:'ВСКРЫТЬ',vent2:'ПРАВИЛО С ДЕК. 2026'},
+ ma:{us:'США',au:'АВСТРАЛИЯ',uk:'БРИТАНИЯ',nl:'НИДЕРЛАНДЫ',es:'ИСПАНИЯ',k:['ЗАКОН БУКВАЛЬНО','ТОЛЬКО БРЮШНАЯ ПОЛОСТЬ','ОБА, ПОД АУДИТОМ','НОВЫЕ ПРАВИЛА, 11.2026']},
+ sim:{a:(m,c)=>`Через ${m} мин: мёртв в ${c}`,none:'Ни одна страна из сравнения ещё не констатирует смерть.',de:' (в Германии таким путём никогда)'},
+ rd:{perm:'Если читать как «окончательно», пациент мёртв, когда врачи подождали и решили не запускать сердце. Запуск после этого, ради органов, и есть новая процедура; критики говорят, что она ломает это прочтение.',
+     irr:'Если читать буквально, сердце, которое ещё можно запустить, остановилось не необратимо. При таком прочтении большинству донорств после смерти по кровообращению пришлось бы ждать гораздо дольше или прекратиться.'}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',topic:'#7A6A8C',grid:'#D9E3F0',paper:'#F8F9FB'};
+
+/* ---------- monitor (s0): flat line, declaration, restart ---------- */
+(function(){
+ let d='M40 220 ';const beats=x=>`L${x} 220 L${x+12} 205 L${x+22} 235 L${x+30} 120 L${x+40} 300 L${x+50} 220 `;
+ for(let x=60;x<300;x+=80) d+=beats(x);
+ d+='L700 220 '; for(let x=700;x<930;x+=80) d+=beats(x); d+='L960 220';
+ let h=`<rect x="20" y="40" width="960" height="330" rx="18" fill="#10161D"/>`+
+ `<path id="moTrace" d="${d}" fill="none" stroke="#3DDC97" stroke-width="5" stroke-linejoin="round"/>`+
+ `<g id="moStop" opacity="0"><line x1="320" y1="70" x2="320" y2="350" stroke="${C.dim}" stroke-width="2" stroke-dasharray="6 6"/></g>`+
+ `<g id="moDead" opacity="0"><line x1="560" y1="70" x2="560" y2="350" stroke="${C.flaw}" stroke-width="3" stroke-dasharray="8 6"/></g>`+
+ `<g id="moAgain" opacity="0"><line x1="700" y1="70" x2="700" y2="350" stroke="#3DDC97" stroke-width="3" stroke-dasharray="8 6"/></g>`;
+ $('moG').innerHTML=h;
+ // labels are added by script so the hook gate measures only the drawing, not page captions
+ const lab=(x,t,col,id)=>{const e=document.createElementNS('http://www.w3.org/2000/svg','text');e.setAttribute('x',x);e.setAttribute('y',412);e.setAttribute('text-anchor','middle');
+  e.setAttribute('font-size','24');e.setAttribute('font-weight','700');e.setAttribute('fill',col);e.textContent=t;$(id).appendChild(e);};
+ lab(320,L.mo.stop,C.dim,'moStop');lab(560,L.mo.dead,C.flaw,'moDead');lab(800,L.mo.again,'#0E8A63','moAgain');})();
+window.__fig.monitor=()=>{const p=$('moTrace'),l=p.getTotalLength();gsap.set(p,{strokeDasharray:l,strokeDashoffset:l});gsap.set('#moStop,#moDead,#moAgain',{opacity:0});
+ return gsap.timeline().to(p,{strokeDashoffset:l*0.45,duration:1.6,ease:'none'})
+  .to('#moStop',{opacity:1,duration:.3},.9).to('#moDead',{opacity:1,duration:.3},1.5)
+  .to(p,{strokeDashoffset:0,duration:1.4,ease:'none'},2.2).to('#moAgain',{opacity:1,duration:.3},2.4).to({},{duration:.8});};
+
+/* ---------- hearts (s1): 34 → 182 → 279 ---------- */
+(function(){
+ const V=[34,182,279], B=360, K=1.0, X0=180, W=170, G=110;
+ let h=`<line x1="${X0-40}" y1="${B}" x2="${X0+3*W+2*G+40}" y2="${B}" stroke="${C.ink}" stroke-width="3"/>`;
+ V.forEach((v,i)=>{const x=X0+i*(W+G);
+  h+=`<rect class="heB" x="${x}" y="${B}" width="${W}" height="0" data-h="${v*K}" fill="${i==2?C.flaw:'#DCE7F8'}" stroke="${i==2?C.flaw:C.fact}" stroke-width="3"/>`+
+  `<text class="heV big" x="${x+W/2}" y="${B-v*K-16}" text-anchor="middle" font-size="44" font-weight="700" fill="${i==2?C.flaw:C.ink}" opacity="0">${v}</text>`+
+  `<text x="${x+W/2}" y="${B+40}" text-anchor="middle" font-size="26" font-weight="700" fill="${C.ink}">${L.he.yrs[i]}</text>`+
+  (L.he.sub[i]?`<text x="${x+W/2}" y="${B+70}" text-anchor="middle" font-size="22" fill="${C.dim}">${L.he.sub[i]}</text>`:'');});
+ $('heG').innerHTML=h;})();
+window.__fig.hearts=()=>{const bars=[...document.querySelectorAll('.heB')];bars.forEach(b=>gsap.set(b,{attr:{y:360,height:0}}));gsap.set('.heV',{opacity:0});
+ const tl=gsap.timeline();
+ bars.forEach((b,i)=>{tl.to(b,{attr:{y:360-b.dataset.h,height:+b.dataset.h},duration:.8,ease:'power2.out'},.2+i*.7).to(document.querySelectorAll('.heV')[i],{opacity:1,duration:.25},'>');});
+ return tl.to({},{duration:.8});};
+
+/* ---------- notouch (s2): the clock sweeps, countries light up ---------- */
+(function(){
+ const X=m=>372+m*27, R=[80,150,220,290], TOP=50, BOT=330;
+ let h=`<text x="20" y="34" font-size="20" font-weight="700" fill="${C.dim}">${L.nt.axis}</text>`+
+ `<line x1="${X(0)}" y1="${BOT}" x2="${X(22)}" y2="${BOT}" stroke="${C.ink}" stroke-width="3"/>`+
+ [0,5,10,15,20].map(m=>`<line x1="${X(m)}" y1="${BOT}" x2="${X(m)}" y2="${BOT+10}" stroke="${C.ink}" stroke-width="3"/><text x="${X(m)}" y="${BOT+38}" text-anchor="middle" font-size="24" font-weight="700" fill="${C.ink}">${m}</text>`).join('');
+ const spans=[[2,5],[5,5],[10,10],[20,20]];
+ spans.forEach(([a,b],i)=>{const y=R[i];
+  h+=`<text x="20" y="${y+8}" font-size="19" font-weight="700" fill="${C.ink}">${L.nt.rows[i]}</text>`+
+  `<line x1="${X(0)}" y1="${y}" x2="${X(22)}" y2="${y}" stroke="${C.grid}" stroke-width="2"/>`+
+  (a<b?`<rect class="ntM" x="${X(a)}" y="${y-12}" width="${X(b)-X(a)}" height="24" rx="12" fill="${C.fact}" opacity=".25"/>`
+      :`<circle class="ntM" cx="${X(a)}" cy="${y}" r="14" fill="${C.fact}" opacity=".25"/>`);});
+ h+=`<g id="ntDE" opacity="0"><rect x="14" y="392" width="972" height="40" rx="8" fill="#FBEFE3"/><text x="28" y="419" font-size="20" font-weight="700" fill="${C.flaw}">${L.nt.de}</text></g>`+
+ `<g id="ntHand"><line x1="0" y1="${TOP}" x2="0" y2="${BOT}" stroke="${C.flaw}" stroke-width="4"/></g>`;
+ $('ntG').innerHTML=h; window.__ntX=X;})();
+window.__fig.notouch=()=>{const X=window.__ntX, m={v:0}, marks=[...document.querySelectorAll('.ntM')], at=[2,5,10,20];
+ const upd=()=>{$('ntHand').setAttribute('transform',`translate(${X(m.v)},0)`);marks.forEach((k,i)=>k.setAttribute('opacity',m.v>=at[i]?1:.25));};
+ gsap.set('#ntDE',{opacity:0});m.v=0;upd();
+ gsap.set('#ntHand',{opacity:1});
+ return gsap.timeline().to(m,{v:20.5,duration:4.0,ease:'none',onUpdate:upd},.3).to('#ntHand',{opacity:0,duration:.3}).to('#ntDE',{opacity:1,duration:.4},'<').to({},{duration:.8});};
+
+/* ---------- clamp (s3): flow returns to the body, not to the brain ---------- */
+(function(){
+ // loop: pump (left) → heart (centre) → body (right, below) → back to pump
+ const loop='M170 300 C170 200 330 200 420 230 L580 230 C700 230 800 260 800 320 C800 380 700 400 580 400 L300 400 C220 400 170 370 170 300 Z';
+ let h=`<path d="${loop}" fill="none" stroke="${C.grid}" stroke-width="16" stroke-linejoin="round"/>`+
+ `<path id="clFlow" d="${loop}" fill="none" stroke="#C4453B" stroke-width="10" stroke-linejoin="round" stroke-dasharray="26 18"/>`+
+ // branch to the brain
+ `<path d="M500 230 L500 120" stroke="${C.grid}" stroke-width="16"/>`+
+ `<path id="clUp" d="M500 230 L500 185" stroke="#C4453B" stroke-width="10" opacity="0"/>`+
+ `<circle cx="500" cy="80" r="46" fill="#fff" stroke="${C.dim}" stroke-width="5"/>`+
+ `<text x="560" y="72" font-size="24" font-weight="700" fill="${C.dim}">${L.cl.brain}</text>`+
+ `<circle id="clHeart" cx="500" cy="230" r="34" fill="#fff" stroke="#C4453B" stroke-width="6"/>`+
+ `<text x="500" y="290" text-anchor="middle" font-size="22" font-weight="700" fill="${C.ink}" class="lab">${L.cl.heart}</text>`+
+ `<rect x="640" y="352" width="200" height="70" rx="10" fill="#fff" stroke="${C.ink}" stroke-width="3"/>`+
+ `<text x="740" y="395" text-anchor="middle" font-size="20" font-weight="700" fill="${C.ink}">${L.cl.body}</text>`+
+ `<rect x="100" y="270" width="140" height="60" rx="10" fill="#fff" stroke="${C.ink}" stroke-width="3"/>`+
+ `<text x="170" y="308" text-anchor="middle" font-size="22" font-weight="700" fill="${C.ink}">${L.cl.pump}</text>`+
+ `<g id="clClamp" opacity="0"><rect x="470" y="176" width="60" height="16" rx="4" fill="${C.ink}"/>`+
+ `<text class="lab" x="560" y="190" font-size="22" font-weight="700" fill="${C.ink}">${L.cl.clamp}</text></g>`+
+ `<g id="clVent" opacity="0"><path d="M488 150 l-26 -10 M512 150 l26 -10 M488 135 l-26 -10 M512 135 l26 -10" stroke="${C.flaw}" stroke-width="5" stroke-linecap="round"/>`+
+ `<rect x="488" y="131" width="24" height="7" fill="#fff"/><rect x="488" y="146" width="24" height="7" fill="#fff"/>`+
+ `<text class="lab" x="432" y="150" text-anchor="end" font-size="24" font-weight="700" fill="${C.flaw}">${L.cl.vent}</text></g>`;
+ $('clG').innerHTML=h;})();
+window.__fig.clamp=()=>{const f=$('clFlow');gsap.set(f,{opacity:0,strokeDashoffset:0});gsap.set('#clUp,#clClamp,#clVent',{opacity:0});gsap.set('#clHeart',{scale:1,transformOrigin:'50% 50%'});
+ return gsap.timeline().to('#clClamp',{opacity:1,duration:.3},.2)
+  .to(f,{opacity:1,duration:.3},.6).to(f,{strokeDashoffset:-440,duration:4.4,ease:'none'},.6)
+  .to('#clHeart',{scale:1.15,duration:.25,yoyo:true,repeat:7,ease:'power1.inOut'},.8)
+  .to('#clUp',{opacity:1,duration:.3},1.2)
+  .to('#clVent',{opacity:1,duration:.4},2.6).to({},{duration:.6});};
+
+/* ---------- map (s5): computed outlines from world-atlas, filled one by one ---------- */
+(function(){
+ const ids={'840':['us',C.flaw],'036':['au',C.fact],'826':['uk',C.alt],'528':['nl',C.alt],'724':['es',C.topic]};
+ const g=$('maG');
+ const lib=(src)=>new Promise(r=>{const s=document.createElement('script');s.src=src;s.onload=r;s.onerror=r;document.head.appendChild(s);});
+ window.__maReady=(async()=>{try{
+  if(!window.d3) await lib('https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js');
+  if(!window.topojson) await lib('https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js');
+  const wa=await (await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json')).json();
+  const feats=topojson.feature(wa,wa.objects.countries).features.filter(f=>f.id!=='010');
+  const proj=d3.geoNaturalEarth1().fitExtent([[10,0],[990,340]],{type:'FeatureCollection',features:feats}),gp=d3.geoPath(proj);
+  let h='';feats.forEach(f=>{const k=ids[f.id];h+=`<path ${k?`class="maC" data-k="${k[0]}" data-c="${k[1]}"`:''} d="${gp(f)}" fill="#EEF1F5" stroke="#C9D2DE" stroke-width=".6"/>`;});
+  const lg=[[L.ma.k[0],C.fact],[L.ma.k[1],C.alt],[L.ma.k[2],C.topic],[L.ma.k[3],C.flaw]];
+  const P=(lo,la)=>proj([lo,la]);
+  const tags=[['au',L.ma.au,134,-25,'middle',70],['uk',L.ma.uk+' · '+L.ma.nl,18,67,'start',0],['es',L.ma.es,-11,38,'end',0],['us',L.ma.us,-102,21,'middle',0]];
+  h+=tags.map(([k,t,lo,la,an,dy])=>{const [x,y]=P(lo,la);return `<text class="maT lab" data-k="${k}" x="${x.toFixed(0)}" y="${(y+dy).toFixed(0)}" text-anchor="${an}" font-size="22" font-weight="700" fill="${C.ink}" opacity="0">${t}</text>`}).join('');
+  const [lx,ly]=P(18,67);
+  h+=[['uk',-2,54],['nl',5.3,52.2]].map(([k,lo,la])=>{const [x,y]=P(lo,la);return `<g class="maT" data-k="${k}" opacity="0"><line x1="${(lx-4).toFixed(0)}" y1="${(ly-8).toFixed(0)}" x2="${x.toFixed(0)}" y2="${y.toFixed(0)}" stroke="${C.ink}" stroke-width="1.5"/><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="9" fill="none" stroke="${C.alt}" stroke-width="3"/></g>`}).join('');
+  h+=lg.map(([t,c],i)=>`<g class="maL" data-i="${i}" opacity="0"><rect x="${20+(i%2)*500}" y="${(i<2?352:392)}" width="26" height="26" fill="${c}"/><text x="${56+(i%2)*500}" y="${(i<2?373:413)}" font-size="22" font-weight="700" fill="${C.ink}">${t}</text></g>`).join('');
+  g.innerHTML=h;}catch(e){g.innerHTML=`<text x="20" y="200" font-size="20" fill="${C.dim}">Не удалось загрузить данные карты.</text>`;}})();})();
+window.__fig.map=()=>{document.querySelectorAll('.maC').forEach(p=>p.setAttribute('fill','#EEF1F5'));document.querySelectorAll('.maL,.maT').forEach(e=>e.setAttribute('opacity',0));const tl=gsap.timeline();const order=['au','uk','nl','es','us'],leg={au:0,uk:1,nl:1,es:2,us:3};
+ order.forEach((k,i)=>{tl.call(()=>{document.querySelectorAll(`.maC[data-k="${k}"]`).forEach(p=>p.setAttribute('fill',p.dataset.c));
+  const l=document.querySelector(`.maL[data-i="${leg[k]}"]`);if(l) l.setAttribute('opacity',1);
+  document.querySelectorAll(`.maT[data-k="${k}"]`).forEach(t=>t.setAttribute('opacity',1));},null,.3+i*.9);});
+ tl.call(()=>{},null,.3);
+ return tl.to({},{duration:.8},'>');};
+
+/* ---------- web-only interactives ---------- */
+(function(){const r=$('simM');if(!r) return;
+ const P=[['США',2],['Испании, Великобритании и Франции',5],['Австрии и Швейцарии',10],['Италии',20]];
+ const draw=()=>{const m=+r.value;$('simMv').textContent=m+' мин';const c=P.filter(p=>m>=p[1]).map(p=>p[0]);
+  $('simOut').textContent=(c.length?L.sim.a(m,c.join(', ')):L.sim.none)+L.sim.de;};
+ r.oninput=draw;draw();})();
+(function(){const t=$('readT');if(!t) return;const out=$('readOut');
+ const set=k=>{t.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));out.textContent=L.rd[k];};
+ t.querySelectorAll('button').forEach(b=>b.onclick=()=>set(b.dataset.k));set('perm');})();
+
+const FIGS=['monitor','hearts','notouch','clamp','map'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{const go=()=>window.__fig[id]().play();id==='map'?window.__maReady.then(go):go();}})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/076-heart-still-beating-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  window.__maReady.then(()=>{
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s0:['monitor'],s1:['hearts'],s2:['notouch'],s3:['clamp'],s5:['map']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — When Are You Dead? The Law Decides, Not Your Body</title>
+<meta name="description" content="In some American hospitals a patient is declared dead because their heart has stopped for good, and minutes later surgeons restart that heart inside the body to save the organs. US law defines death as irreversible; doctors have long read that as 'permanent'. New national rules adopted in November 2026 tell surgeons to clamp and cut the arteries to the brain. Australia, Britain and the Netherlands, and Spain each draw the line somewhere else, and each pays a different price.">
+<link rel="canonical" href="https://traceupstream.com/episodes/076-heart-still-beating/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#7A6A8C;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;gap:8px;margin:4px 0 12px;flex-wrap:wrap}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.sim .row{display:grid;grid-template-columns:190px 1fr;gap:6px 14px;font-size:16px;margin-top:8px}
+.sim .row b{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim);font-weight:500;padding-top:3px}
+.sim input[type=range]{width:100%;max-width:520px;accent-color:#B45309}
+.sim .val{font-family:var(--font-display);font-weight:700;font-size:20px}
+.sim .out{font-family:var(--font-display);font-size:20px;font-weight:700;margin-top:12px}
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--grid);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim)}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+svg .lab{paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+svg .big{font-family:var(--font-display)}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}table.cmp{font-size:13px}.sim .row{grid-template-columns:1fr}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.076</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="41.6">
+  <div class="kicker">Trace Upstream · Episode 076</div>
+  <h1>When are you dead? The law decides, not your body</h1>
+  <div class="prose lede">
+    <p>In some American hospitals, a patient is declared dead because their heart has <em class="fact">stopped for good</em>. A few minutes later, surgeons start that same heart again, inside the same chest. Nobody in the room believes they have brought the patient back: they are keeping the heart, the liver and the kidneys alive for someone else.</p>
+  </div>
+  <div class="fig">
+    <h3>Declared dead, then the heart beats again</h3>
+    <svg id="monitor" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="A heart monitor. The trace is flat after the heart stops; after the no-touch period death is declared; then the trace rises and falls again as the heart is restarted inside the body for organ recovery.">
+      <g id="moG"></g>
+    </svg>
+    <div class="figcap">Schematic. Controlled donation after circulatory death with thoracoabdominal normothermic regional perfusion (TA-NRP).</div>
+  </div>
+  <div class="prose">
+    <p>The first national rules for this procedure were adopted in <em class="fact">November 2026</em>. One of them tells surgeons what to do with the arteries that carry blood to the brain: clamp them shut, and then <em class="flaw">cut them open above the clamp</em>.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Was that patient dead?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="65.9">
+  <h2>Nobody is in a hurry</h2>
+  <div class="prose">
+    <p>The first suspicion is that someone is cutting corners to get organs. But the decision that starts all this is not made by a transplant surgeon. A patient with no hope of recovery is on life support, and the family and the doctors caring for them decide to withdraw it, before anyone raises donation. Only after the heart stops does donation begin, and even then the team waits a few minutes to make sure the heart does not start again on its own. This is the <em class="fact">no-touch period</em>; when it ends, death is declared.</p>
+    <p>Restarting the heart inside the body lets surgeons see it working before they decide to use it, and the method has spread fast.</p>
+  </div>
+  <div class="fig">
+    <h3>US donors whose heart was restarted inside the body</h3>
+    <svg id="hearts" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Bar chart of US deceased donors with thoracoabdominal normothermic regional perfusion: 34 from January 2020 to June 2021, 182 in 2023, 279 in 2024.">
+      <g id="heG"></g>
+    </svg>
+    <div class="figcap">OPTN/SRTR 2024 Annual Data Report (182 in 2023, 279 in 2024); 34 of 5,234 donors after circulatory death had the heart restarted in the body, January 2020 to June 2021 (national registry study, Transplantation Direct, 2023).</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Everything depends on the moment death is declared. How long is the wait?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="35.7">
+  <h2>Two minutes or twenty</h2>
+  <div class="prose">
+    <p>It depends on where you are. American protocols usually ask for two to five minutes. Spain, Britain and France: five. Austria and Switzerland: ten. In Italy the heart must show <em class="fact">no electrical activity for twenty minutes</em>. In Germany a stopped heart is <em class="flaw">not enough to become an organ donor at all</em>; only the death of the whole brain is.</p>
+  </div>
+  <div class="fig">
+    <h3>How long doctors wait after the heart stops</h3>
+    <svg id="notouch" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Timeline of minutes after the heart stops, 0 to 20. United States: 2 to 5 minutes. Spain, United Kingdom, France: 5. Austria, Switzerland: 10. Italy: 20. Germany: donation after circulatory death not permitted.">
+      <g id="ntG"></g>
+    </svg>
+    <div class="figcap">No-touch periods in national protocols (Transplant International comparative review; US protocols range 2–10, typically 2–5). Germany: Bundesärztekammer.</div>
+  </div>
+  <div class="fig webonly sim">
+    <h3>Try it: how long has the heart been still?</h3>
+    <div class="row"><b>Minutes since it stopped</b><span><input type="range" id="simM" min="0" max="25" step="1" value="5"> <span class="val" id="simMv"></span></span></div>
+    <div class="out" id="simOut"></div>
+  </div>
+  <div class="prose">
+    <p>Medicine supplies the measurements: no pulse, no blood pressure, no electrical signal. Where the line falls on that clock is <em class="flaw">decided by a rule</em>.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So what does the American rule actually say?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="121.4">
+  <h2>One word</h2>
+  <div class="prose">
+    <p>Almost every American state has adopted the same model law, the <em class="fact">Uniform Determination of Death Act</em> of 1981. A person is dead when breathing and circulation have stopped, or when every function of the whole brain has stopped. In both cases the stop must be <em class="flaw">irreversible</em>.</p>
+    <p>A heart that has been still for five minutes can often be started again. The lawyers who later studied the act put the difference like this: <em class="fact">irreversible</em> means it cannot be reversed; <em class="fact">permanent</em> means it could be, but it will not be. For decades doctors have treated "irreversible" as if it said "permanent". That reading worked as long as nobody restarted the heart. The new procedure does.</p>
+  </div>
+  <div class="fig webonly">
+    <h3>Two readings of one word</h3>
+    <div class="toggle" id="readT"><button class="on" data-k="perm">"Permanent": nobody will restart it</button><button data-k="irr">"Irreversible": it cannot be restarted</button></div>
+    <div class="prose" id="readOut"></div>
+  </div>
+  <div class="fig">
+    <h3>Blood comes back to the body, not to the brain</h3>
+    <svg id="clamp" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Schematic of the circulation during TA-NRP. A pump outside the body restarts blood flow through the heart, liver and kidneys. The arteries that lead to the brain are clamped, so the brain receives no blood. From December 2026 the arteries must also be opened above the clamp, so any blood that slips past drains away.">
+      <g id="clG"></g>
+    </svg>
+    <div class="figcap">Schematic, not anatomy. OPTN rules adopted November 2026: clamp and cut open the arteries to the brain.</div>
+  </div>
+  <div class="prose">
+    <p>Defenders answer with the brain half of the law: if blood never reaches the brain, it cannot recover, so the patient is dead by the brain standard even with a beating heart. Some critics say the clamp does not always hold; one transplant surgeon has told reporters she has seen signs of life when blood did reach the brain. The federal official in charge of the transplant system answers that this is why the new rules add a <em class="alt">second barrier</em>.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">If one word in the law is the trouble, why not change the word?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="67.1">
+  <h2>They tried</h2>
+  <div class="prose">
+    <p>In 2021 the <em class="fact">Uniform Law Commission</em>, the body of state-appointed lawyers that drafted the original act, set up a committee to update it, and "irreversible versus permanent" was at the centre of the fight. In <em class="flaw">September 2023</em> it paused the work indefinitely, citing inertia, the political climate and the many consequences of changing how the law describes death.</p>
+    <p>So the word stayed as written in 1981. The national transplant network, which runs the system under a federal contract, adopted the new rules on 6 November 2026 as an emergency action, before the public was asked for comments. <em class="flaw">Legislatures voted on the word. Nobody voted on what it means.</em></p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Is there a way to draw this line that does not end up in the operating room?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="113">
+  <h2>Three places to draw the line</h2>
+  <div class="fig">
+    <h3>Where the line is drawn</h3>
+    <svg id="map" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="World map. Australia, in blue: restarting the heart inside the body is not used. The United Kingdom and the Netherlands, in green: abdomen only, the chest version paused. Spain, in grey-violet: both versions, under one audited national agency. The United States, in amber: national rules adopted November 2026.">
+      <g id="maG"></g>
+    </svg>
+    <div class="figcap">Brierley et al., Frontiers in Transplantation 2024; country outlines: Natural Earth via world-atlas.</div>
+  </div>
+  <div class="prose">
+    <p><em class="alt">Australia reads the word literally.</em> Its law speaks of the irreversible end of circulation in the body, so restarting the heart inside the body appears to be unlawful and is not used. In 2014 surgeons in Sydney were among the first in the world to restart a stopped heart outside the body, in a machine. <em class="flaw">The price:</em> every such heart travels in a machine, and the liver and kidneys of the same donor get none of the benefit of blood restored inside the body.</p>
+    <p><em class="alt">Britain and the Netherlands draw the line around the brain.</em> They allow the procedure in the abdomen, where it brings blood back to the liver and kidneys, but have paused the version that restarts the heart in the chest. <em class="flaw">The price is paid in hearts</em>, which are run on a machine or not used, and the line follows anatomy rather than any definition of death.</p>
+    <p><em class="alt">Spain allows both, and decides who checks.</em> One national agency writes the protocol and audits the cases; the arteries to the brain are clamped and opened before any blood is pumped, and the donor's brain is monitored throughout. <em class="flaw">The price is paid before death:</em> with a separate consent from the family, a patient who is still alive can be given blood thinners and have tubes placed in their blood vessels for the sake of someone else. Many countries forbid exactly that.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Each of these countries chose a line. But who, in each of them, did the choosing?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s6" data-duration="34.8">
+  <h2>The question to carry</h2>
+  <div class="prose">
+    <p>The argument over this surgery usually comes as a yes or a no. But each of these countries answered a different question first: who gets to say where death begins.</p>
+  </div>
+  <div class="fig">
+    <h3>Who draws the line</h3>
+    <table class="cmp">
+      <tr><th>Design</th><th>Who decides where death begins</th><th>The price</th></tr>
+      <tr><td>United States (rules of Nov 2026)</td><td>A word from 1981; its meaning set by the transplant network's board and carried out at the bedside</td><td>Nobody voted on what the word means</td></tr>
+      <tr><td>Australia: read the word literally</td><td>The wording of the law</td><td>Hearts only by machine; no restored blood for the other organs</td></tr>
+      <tr><td>Britain, Netherlands: abdomen only</td><td>The anatomy of the brain</td><td>Hearts lost or run on a machine</td></tr>
+      <tr><td>Spain: both, under audit</td><td>One national agency that audits every case</td><td>Steps on a living patient, with the family's separate consent</td></tr>
+    </table>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Which word in your law decides that you are dead? And who last decided what that word means?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ mo:{stop:'HEART STOPS',wait:'NO-TOUCH PERIOD',dead:'DEATH DECLARED',again:'HEART RESTARTED'},
+ he:{axis:'US DONORS, HEART RESTARTED IN THE BODY',yrs:['2020–21','2023','2024'],sub:['18 MONTHS','','']},
+ nt:{axis:'MINUTES AFTER THE HEART STOPS',rows:['UNITED STATES','SPAIN · UK · FRANCE','AUSTRIA · SWITZERLAND','ITALY'],de:'GERMANY: A STOPPED HEART DOES NOT COUNT FOR DONATION · BRAIN DEATH ONLY'},
+ cl:{brain:'BRAIN',heart:'HEART',body:'LIVER · KIDNEYS',pump:'PUMP',clamp:'CLAMP',vent:'CUT OPEN',vent2:'RULE FROM DEC 2026'},
+ ma:{us:'UNITED STATES',au:'AUSTRALIA',uk:'UK',nl:'NETHERLANDS',es:'SPAIN',k:['LAW READ LITERALLY','ABDOMEN ONLY','BOTH, UNDER AUDIT','NEW RULES, NOV 2026']},
+ sim:{a:(m,c)=>`After ${m} min: dead in ${c}`,none:'No country in this comparison declares death yet.',de:' (in Germany, never by this route)'},
+ rd:{perm:'Read as "permanent", the patient is dead once doctors have waited and decided not to restart the heart. Restarting it afterwards, to save organs, is what the new procedure does, and what critics say breaks this reading.',
+     irr:'Read literally, a heart that could still be restarted has not stopped irreversibly. Under this reading most donation after circulatory death would have to wait much longer, or stop.'}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',topic:'#7A6A8C',grid:'#D9E3F0',paper:'#F8F9FB'};
+
+/* ---------- monitor (s0): flat line, declaration, restart ---------- */
+(function(){
+ let d='M40 220 ';const beats=x=>`L${x} 220 L${x+12} 205 L${x+22} 235 L${x+30} 120 L${x+40} 300 L${x+50} 220 `;
+ for(let x=60;x<300;x+=80) d+=beats(x);
+ d+='L700 220 '; for(let x=700;x<930;x+=80) d+=beats(x); d+='L960 220';
+ let h=`<rect x="20" y="40" width="960" height="330" rx="18" fill="#10161D"/>`+
+ `<path id="moTrace" d="${d}" fill="none" stroke="#3DDC97" stroke-width="5" stroke-linejoin="round"/>`+
+ `<g id="moStop" opacity="0"><line x1="320" y1="70" x2="320" y2="350" stroke="${C.dim}" stroke-width="2" stroke-dasharray="6 6"/></g>`+
+ `<g id="moDead" opacity="0"><line x1="560" y1="70" x2="560" y2="350" stroke="${C.flaw}" stroke-width="3" stroke-dasharray="8 6"/></g>`+
+ `<g id="moAgain" opacity="0"><line x1="700" y1="70" x2="700" y2="350" stroke="#3DDC97" stroke-width="3" stroke-dasharray="8 6"/></g>`;
+ $('moG').innerHTML=h;
+ // labels are added by script so the hook gate measures only the drawing, not page captions
+ const lab=(x,t,col,id)=>{const e=document.createElementNS('http://www.w3.org/2000/svg','text');e.setAttribute('x',x);e.setAttribute('y',412);e.setAttribute('text-anchor','middle');
+  e.setAttribute('font-size','24');e.setAttribute('font-weight','700');e.setAttribute('fill',col);e.textContent=t;$(id).appendChild(e);};
+ lab(320,L.mo.stop,C.dim,'moStop');lab(560,L.mo.dead,C.flaw,'moDead');lab(800,L.mo.again,'#0E8A63','moAgain');})();
+window.__fig.monitor=()=>{const p=$('moTrace'),l=p.getTotalLength();gsap.set(p,{strokeDasharray:l,strokeDashoffset:l});gsap.set('#moStop,#moDead,#moAgain',{opacity:0});
+ return gsap.timeline().to(p,{strokeDashoffset:l*0.45,duration:1.6,ease:'none'})
+  .to('#moStop',{opacity:1,duration:.3},.9).to('#moDead',{opacity:1,duration:.3},1.5)
+  .to(p,{strokeDashoffset:0,duration:1.4,ease:'none'},2.2).to('#moAgain',{opacity:1,duration:.3},2.4).to({},{duration:.8});};
+
+/* ---------- hearts (s1): 34 → 182 → 279 ---------- */
+(function(){
+ const V=[34,182,279], B=360, K=1.0, X0=180, W=170, G=110;
+ let h=`<line x1="${X0-40}" y1="${B}" x2="${X0+3*W+2*G+40}" y2="${B}" stroke="${C.ink}" stroke-width="3"/>`;
+ V.forEach((v,i)=>{const x=X0+i*(W+G);
+  h+=`<rect class="heB" x="${x}" y="${B}" width="${W}" height="0" data-h="${v*K}" fill="${i==2?C.flaw:'#DCE7F8'}" stroke="${i==2?C.flaw:C.fact}" stroke-width="3"/>`+
+  `<text class="heV big" x="${x+W/2}" y="${B-v*K-16}" text-anchor="middle" font-size="44" font-weight="700" fill="${i==2?C.flaw:C.ink}" opacity="0">${v}</text>`+
+  `<text x="${x+W/2}" y="${B+40}" text-anchor="middle" font-size="26" font-weight="700" fill="${C.ink}">${L.he.yrs[i]}</text>`+
+  (L.he.sub[i]?`<text x="${x+W/2}" y="${B+70}" text-anchor="middle" font-size="22" fill="${C.dim}">${L.he.sub[i]}</text>`:'');});
+ $('heG').innerHTML=h;})();
+window.__fig.hearts=()=>{const bars=[...document.querySelectorAll('.heB')];bars.forEach(b=>gsap.set(b,{attr:{y:360,height:0}}));gsap.set('.heV',{opacity:0});
+ const tl=gsap.timeline();
+ bars.forEach((b,i)=>{tl.to(b,{attr:{y:360-b.dataset.h,height:+b.dataset.h},duration:.8,ease:'power2.out'},.2+i*.7).to(document.querySelectorAll('.heV')[i],{opacity:1,duration:.25},'>');});
+ return tl.to({},{duration:.8});};
+
+/* ---------- notouch (s2): the clock sweeps, countries light up ---------- */
+(function(){
+ const X=m=>340+m*28, R=[80,150,220,290], TOP=50, BOT=330;
+ let h=`<text x="20" y="34" font-size="20" font-weight="700" fill="${C.dim}">${L.nt.axis}</text>`+
+ `<line x1="${X(0)}" y1="${BOT}" x2="${X(22)}" y2="${BOT}" stroke="${C.ink}" stroke-width="3"/>`+
+ [0,5,10,15,20].map(m=>`<line x1="${X(m)}" y1="${BOT}" x2="${X(m)}" y2="${BOT+10}" stroke="${C.ink}" stroke-width="3"/><text x="${X(m)}" y="${BOT+38}" text-anchor="middle" font-size="24" font-weight="700" fill="${C.ink}">${m}</text>`).join('');
+ const spans=[[2,5],[5,5],[10,10],[20,20]];
+ spans.forEach(([a,b],i)=>{const y=R[i];
+  h+=`<text x="20" y="${y+8}" font-size="19" font-weight="700" fill="${C.ink}">${L.nt.rows[i]}</text>`+
+  `<line x1="${X(0)}" y1="${y}" x2="${X(22)}" y2="${y}" stroke="${C.grid}" stroke-width="2"/>`+
+  (a<b?`<rect class="ntM" x="${X(a)}" y="${y-12}" width="${X(b)-X(a)}" height="24" rx="12" fill="${C.fact}" opacity=".25"/>`
+      :`<circle class="ntM" cx="${X(a)}" cy="${y}" r="14" fill="${C.fact}" opacity=".25"/>`);});
+ h+=`<g id="ntDE" opacity="0"><rect x="14" y="392" width="972" height="40" rx="8" fill="#FBEFE3"/><text x="28" y="419" font-size="20" font-weight="700" fill="${C.flaw}">${L.nt.de}</text></g>`+
+ `<g id="ntHand"><line x1="0" y1="${TOP}" x2="0" y2="${BOT}" stroke="${C.flaw}" stroke-width="4"/></g>`;
+ $('ntG').innerHTML=h; window.__ntX=X;})();
+window.__fig.notouch=()=>{const X=window.__ntX, m={v:0}, marks=[...document.querySelectorAll('.ntM')], at=[2,5,10,20];
+ const upd=()=>{$('ntHand').setAttribute('transform',`translate(${X(m.v)},0)`);marks.forEach((k,i)=>k.setAttribute('opacity',m.v>=at[i]?1:.25));};
+ gsap.set('#ntDE',{opacity:0});m.v=0;upd();
+ gsap.set('#ntHand',{opacity:1});
+ return gsap.timeline().to(m,{v:20.5,duration:4.0,ease:'none',onUpdate:upd},.3).to('#ntHand',{opacity:0,duration:.3}).to('#ntDE',{opacity:1,duration:.4},'<').to({},{duration:.8});};
+
+/* ---------- clamp (s3): flow returns to the body, not to the brain ---------- */
+(function(){
+ // loop: pump (left) → heart (centre) → body (right, below) → back to pump
+ const loop='M170 300 C170 200 330 200 420 230 L580 230 C700 230 800 260 800 320 C800 380 700 400 580 400 L300 400 C220 400 170 370 170 300 Z';
+ let h=`<path d="${loop}" fill="none" stroke="${C.grid}" stroke-width="16" stroke-linejoin="round"/>`+
+ `<path id="clFlow" d="${loop}" fill="none" stroke="#C4453B" stroke-width="10" stroke-linejoin="round" stroke-dasharray="26 18"/>`+
+ // branch to the brain
+ `<path d="M500 230 L500 120" stroke="${C.grid}" stroke-width="16"/>`+
+ `<path id="clUp" d="M500 230 L500 185" stroke="#C4453B" stroke-width="10" opacity="0"/>`+
+ `<circle cx="500" cy="80" r="46" fill="#fff" stroke="${C.dim}" stroke-width="5"/>`+
+ `<text x="560" y="72" font-size="24" font-weight="700" fill="${C.dim}">${L.cl.brain}</text>`+
+ `<circle id="clHeart" cx="500" cy="230" r="34" fill="#fff" stroke="#C4453B" stroke-width="6"/>`+
+ `<text x="500" y="290" text-anchor="middle" font-size="22" font-weight="700" fill="${C.ink}" class="lab">${L.cl.heart}</text>`+
+ `<rect x="640" y="352" width="200" height="70" rx="10" fill="#fff" stroke="${C.ink}" stroke-width="3"/>`+
+ `<text x="740" y="395" text-anchor="middle" font-size="20" font-weight="700" fill="${C.ink}">${L.cl.body}</text>`+
+ `<rect x="100" y="270" width="140" height="60" rx="10" fill="#fff" stroke="${C.ink}" stroke-width="3"/>`+
+ `<text x="170" y="308" text-anchor="middle" font-size="22" font-weight="700" fill="${C.ink}">${L.cl.pump}</text>`+
+ `<g id="clClamp" opacity="0"><rect x="470" y="176" width="60" height="16" rx="4" fill="${C.ink}"/>`+
+ `<text class="lab" x="560" y="190" font-size="22" font-weight="700" fill="${C.ink}">${L.cl.clamp}</text></g>`+
+ `<g id="clVent" opacity="0"><path d="M488 150 l-26 -10 M512 150 l26 -10 M488 135 l-26 -10 M512 135 l26 -10" stroke="${C.flaw}" stroke-width="5" stroke-linecap="round"/>`+
+ `<rect x="488" y="131" width="24" height="7" fill="#fff"/><rect x="488" y="146" width="24" height="7" fill="#fff"/>`+
+ `<text class="lab" x="432" y="150" text-anchor="end" font-size="24" font-weight="700" fill="${C.flaw}">${L.cl.vent}</text></g>`;
+ $('clG').innerHTML=h;})();
+window.__fig.clamp=()=>{const f=$('clFlow');gsap.set(f,{opacity:0,strokeDashoffset:0});gsap.set('#clUp,#clClamp,#clVent',{opacity:0});gsap.set('#clHeart',{scale:1,transformOrigin:'50% 50%'});
+ return gsap.timeline().to('#clClamp',{opacity:1,duration:.3},.2)
+  .to(f,{opacity:1,duration:.3},.6).to(f,{strokeDashoffset:-440,duration:4.4,ease:'none'},.6)
+  .to('#clHeart',{scale:1.15,duration:.25,yoyo:true,repeat:7,ease:'power1.inOut'},.8)
+  .to('#clUp',{opacity:1,duration:.3},1.2)
+  .to('#clVent',{opacity:1,duration:.4},2.6).to({},{duration:.6});};
+
+/* ---------- map (s5): computed outlines from world-atlas, filled one by one ---------- */
+(function(){
+ const ids={'840':['us',C.flaw],'036':['au',C.fact],'826':['uk',C.alt],'528':['nl',C.alt],'724':['es',C.topic]};
+ const g=$('maG');
+ const lib=(src)=>new Promise(r=>{const s=document.createElement('script');s.src=src;s.onload=r;s.onerror=r;document.head.appendChild(s);});
+ window.__maReady=(async()=>{try{
+  if(!window.d3) await lib('https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js');
+  if(!window.topojson) await lib('https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js');
+  const wa=await (await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json')).json();
+  const feats=topojson.feature(wa,wa.objects.countries).features.filter(f=>f.id!=='010');
+  const proj=d3.geoNaturalEarth1().fitExtent([[10,0],[990,340]],{type:'FeatureCollection',features:feats}),gp=d3.geoPath(proj);
+  let h='';feats.forEach(f=>{const k=ids[f.id];h+=`<path ${k?`class="maC" data-k="${k[0]}" data-c="${k[1]}"`:''} d="${gp(f)}" fill="#EEF1F5" stroke="#C9D2DE" stroke-width=".6"/>`;});
+  const lg=[[L.ma.k[0],C.fact],[L.ma.k[1],C.alt],[L.ma.k[2],C.topic],[L.ma.k[3],C.flaw]];
+  const P=(lo,la)=>proj([lo,la]);
+  const tags=[['au',L.ma.au,134,-25,'middle',70],['uk',L.ma.uk+' · '+L.ma.nl,18,67,'start',0],['es',L.ma.es,-11,38,'end',0],['us',L.ma.us,-102,21,'middle',0]];
+  h+=tags.map(([k,t,lo,la,an,dy])=>{const [x,y]=P(lo,la);return `<text class="maT lab" data-k="${k}" x="${x.toFixed(0)}" y="${(y+dy).toFixed(0)}" text-anchor="${an}" font-size="22" font-weight="700" fill="${C.ink}" opacity="0">${t}</text>`}).join('');
+  const [lx,ly]=P(18,67);
+  h+=[['uk',-2,54],['nl',5.3,52.2]].map(([k,lo,la])=>{const [x,y]=P(lo,la);return `<g class="maT" data-k="${k}" opacity="0"><line x1="${(lx-4).toFixed(0)}" y1="${(ly-8).toFixed(0)}" x2="${x.toFixed(0)}" y2="${y.toFixed(0)}" stroke="${C.ink}" stroke-width="1.5"/><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="9" fill="none" stroke="${C.alt}" stroke-width="3"/></g>`}).join('');
+  h+=lg.map(([t,c],i)=>`<g class="maL" data-i="${i}" opacity="0"><rect x="${20+(i%2)*500}" y="${(i<2?352:392)}" width="26" height="26" fill="${c}"/><text x="${56+(i%2)*500}" y="${(i<2?373:413)}" font-size="22" font-weight="700" fill="${C.ink}">${t}</text></g>`).join('');
+  g.innerHTML=h;}catch(e){g.innerHTML=`<text x="20" y="200" font-size="20" fill="${C.dim}">Map data could not be loaded.</text>`;}})();})();
+window.__fig.map=()=>{document.querySelectorAll('.maC').forEach(p=>p.setAttribute('fill','#EEF1F5'));document.querySelectorAll('.maL,.maT').forEach(e=>e.setAttribute('opacity',0));const tl=gsap.timeline();const order=['au','uk','nl','es','us'],leg={au:0,uk:1,nl:1,es:2,us:3};
+ order.forEach((k,i)=>{tl.call(()=>{document.querySelectorAll(`.maC[data-k="${k}"]`).forEach(p=>p.setAttribute('fill',p.dataset.c));
+  const l=document.querySelector(`.maL[data-i="${leg[k]}"]`);if(l) l.setAttribute('opacity',1);
+  document.querySelectorAll(`.maT[data-k="${k}"]`).forEach(t=>t.setAttribute('opacity',1));},null,.3+i*.9);});
+ tl.call(()=>{},null,.3);
+ return tl.to({},{duration:.8},'>');};
+
+/* ---------- web-only interactives ---------- */
+(function(){const r=$('simM');if(!r) return;
+ const P=[['the United States',2],['Spain, the UK and France',5],['Austria and Switzerland',10],['Italy',20]];
+ const draw=()=>{const m=+r.value;$('simMv').textContent=m+' min';const c=P.filter(p=>m>=p[1]).map(p=>p[0]);
+  $('simOut').textContent=(c.length?L.sim.a(m,c.join(', ')):L.sim.none)+L.sim.de;};
+ r.oninput=draw;draw();})();
+(function(){const t=$('readT');if(!t) return;const out=$('readOut');
+ const set=k=>{t.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));out.textContent=L.rd[k];};
+ t.querySelectorAll('button').forEach(b=>b.onclick=()=>set(b.dataset.k));set('perm');})();
+
+const FIGS=['monitor','hearts','notouch','clamp','map'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{const go=()=>window.__fig[id]().play();id==='map'?window.__maReady.then(go):go();}})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/076-heart-still-beating/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  window.__maReady.then(()=>{
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s0:['monitor'],s1:['hearts'],s2:['notouch'],s3:['clamp'],s5:['map']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);});
+}
+</script>
+</body>
+</html>
