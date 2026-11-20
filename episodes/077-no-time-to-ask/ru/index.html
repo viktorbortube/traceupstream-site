@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Как двадцать лет хранения стали чрезвычайной ситуацией на неделю</title>
+<meta name="description" content="В ноябре 2026 года армия США собиралась взорвать около 4,3 тонны азида свинца, которые двадцать лет хранились в Айове. Чрезвычайное разрешение заняло около недели и не дало публике ни одного дня на обсуждение. По правилу о военных боеприпасах 1997 года хранящийся боеприпас становится опасным отходом, только когда военные сами решат от него избавиться или он испортится безвозвратно, поэтому дату ничто вне армии не назначает. Лагерь Минден, Митхольц и Конвенция о химическом оружии запускали часы по-разному, и каждый платил свою цену.">
+<link rel="canonical" href="https://traceupstream.com/episodes/077-no-time-to-ask/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#7A6A8C;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.fig svg{overflow:hidden}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;gap:8px;margin:4px 0 12px;flex-wrap:wrap}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.steps{list-style:none;padding:0;margin:6px 0 0;font-size:16px}
+.steps li{padding:6px 0;border-bottom:1px solid var(--grid)}
+.steps li.off{color:var(--text-dim);text-decoration:line-through}
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--grid);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim)}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+svg .lab{paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+svg .big{font-family:var(--font-display)}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}table.cmp{font-size:13px}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">ВЫП. 077</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="52.3">
+  <div class="kicker">Дефект конструкции · Выпуск 077</div>
+  <h1>Как двадцать лет хранения стали чрезвычайной ситуацией на неделю</h1>
+  <div class="prose lede">
+    <p>В ноябре 2026 года в Мидлтауне, городке в Айове, где живёт около 320 человек, жителям двух улиц велели на день уйти из дома. Школу закрыли, а детские площадки пожарные потом должны были отмыть из шлангов. Сразу за городом армия США собиралась взорвать около <em class="fact">4,3 тонны азида свинца</em>. Это взрывчатка, которой начиняют детонаторы. Предупреждения о свинцовой пыли разослали в города на расстоянии до <em class="fact">160 километров</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Семь дней и двадцать лет</h3>
+    <svg id="span" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Две полосы. Короткая: около семи дней от чрезвычайного разрешения до назначенного взрыва, ноль дней на общественное обсуждение. Очень длинная: около двадцати лет хранения.">
+      <g id="spG"></g>
+    </svg>
+    <div class="figcap">Чрезвычайное разрешение по закону RCRA действует с 13 ноября 2026 года; взрыв был назначен на 20 ноября (EPA; Pen City Current). Хранение около 20 лет (Iowa Capital Dispatch; CNN).</div>
+  </div>
+  <div class="prose">
+    <p>От разрешения до назначенного взрыва прошла примерно неделя, и <em class="flaw">ни одного дня на обсуждение</em> у публики не было. А сама взрывчатка пролежала там двадцать лет.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Так как же всё это время кончилось раньше, чем хоть кого-то успели спросить?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="79.6">
+  <h2>Последняя неделя прошла по правилам</h2>
+  <div class="prose">
+    <p>Первое объяснение напрашивается само: кто-то в последнюю неделю поступил небрежно. Армия поспешила, или регулятор подписал всё, что ему принесли. Но посмотрим, что на самом деле происходило в эту неделю.</p>
+    <p>Там <em class="fact">68 бочек</em>, около 4,3 тонны азида свинца. Его держали в двух подземных бетонных ёмкостях под слоем спирта с водой, потому что мокрый азид свинца спокоен. В <em class="fact">марте 2026 года</em> проверка обнаружила, что жидкость высохла, а порошок начал превращаться в кристаллы. Кристаллы азида свинца могут сработать от трения или удара. <em class="flaw">Сдвинуть бочки значит рискнуть взрывом. Оставить их на месте тоже.</em></p>
+  </div>
+  <div class="fig">
+    <h3>Что нашла проверка</h3>
+    <svg id="tank" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Разрез двух подземных бетонных ёмкостей с бочками азида свинца под слоем спирта с водой. Уровень жидкости падает, бочки высыхают, на них появляются кристаллы.">
+      <g id="tkG"></g>
+    </svg>
+    <div class="figcap">Схема, не в масштабе. Источники: Агентство по охране окружающей среды США; «Айова кэпитал диспатч».</div>
+  </div>
+  <div class="prose">
+    <p>Агентство по охране окружающей среды согласилось, что <em class="fact">опасность неминуема</em>, и выдало армии чрезвычайное разрешение уничтожить бочки прямо там, где они стоят. Даже одна из экологических организаций, которая теперь судится из-за этого разрешения, признала, что более безопасного варианта у армии, возможно, уже нет.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Если последняя неделя прошла по правилам, значит, дефект не в последней неделе. Тогда куда делись двадцать лет?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="94.2">
+  <h2>Правило, которое просыпается поздно</h2>
+  <div class="prose">
+    <p>Американский закон об опасных отходах строгий. Чтобы хранить их, обрабатывать или уничтожать, нужно разрешение, а получить его можно только через публичную процедуру: не меньше <em class="fact">45 дней</em>, когда любой может высказаться, и выбор метода, который можно оспорить.</p>
+    <p>Но военная взрывчатка на складе отходом не считается. По <em class="fact">правилу о военных боеприпасах 1997 года</em> она становится отходом только в двух случаях: либо военные сами решают от неё избавиться, либо она испортилась так, что пользоваться ею уже никогда не получится.</p>
+    <p><em class="flaw">Если владелец сам не решит действовать, строгие правила включаются только тогда, когда вещество уже испорчено.</em> До этого то, как его хранят, регулируют внутренние правила самих военных. И ничто в законе об отходах не требует ни назначить дату уничтожения, ни рассказать соседям, что лежит внутри.</p>
+  </div>
+  <div class="fig">
+    <h3>Когда включаются правила об отходах</h3>
+    <svg id="clock" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Шкала времени. Около двадцати лет хранения по внутренним правилам военных, без внешнего срока. Правила об отходах включаются только в самом конце. Крупнее: последние семь дней от разрешения до назначенного взрыва намного короче сорока пяти дней обсуждения, которые получило бы плановое уничтожение.">
+      <g id="ckG"></g>
+    </svg>
+    <div class="figcap">40 CFR 266.202(b): когда боеприпас становится отходом; 40 CFR 124.10: 45 дней обсуждения.</div>
+  </div>
+  <div class="prose">
+    <p>И касается это далеко не одного подвала. У Министерства обороны есть запас старых и негодных боеприпасов, которые ждут уничтожения. В 2017 году это было около <em class="fact">390 тысяч тонн</em>, и каждый год прибавляется ещё примерно 55 тысяч. Ни одно внешнее правило не назначает дату ни для какой их части.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Что же происходит, когда строгие правила наконец приходят?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="76.1">
+  <h2>Чрезвычайный путь</h2>
+  <div class="prose">
+    <p>Они приходят в чрезвычайной форме. Чрезвычайное разрешение придумано для внезапных опасностей, вроде разлива или пожара, когда промедление ставит людей под удар. О нём всё равно нужно объявить. Но <em class="flaw">обсуждения нет, слушаний нет</em>, а обычные требования действуют лишь настолько, насколько они совместимы с чрезвычайной ситуацией.</p>
+  </div>
+  <div class="fig">
+    <h3>Два пути к разрешению</h3>
+    <svg id="routes" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Два ряда шагов. Плановый путь: заявка, проект разрешения, сорок пять дней обсуждения, слушания, решение. Чрезвычайный путь: неминуемая опасность, затем сразу разрешение на срок до девяноста дней с публичным уведомлением; проект, обсуждение и слушания пропущены.">
+      <g id="roG"></g>
+    </svg>
+    <div class="figcap">40 CFR 270.61 (чрезвычайные разрешения); 40 CFR, часть 124 (обычные).</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Попробуйте: какие шаги оставляет каждый путь?</h3>
+    <div class="toggle" id="routeT"><button class="on" data-k="plan">Плановое уничтожение</button><button data-k="emer">Чрезвычайное разрешение</button></div>
+    <ul class="steps" id="routeOut"></ul>
+  </div>
+  <div class="prose">
+    <p>Для лопнувшей цистерны на шоссе это верный инструмент. А здесь он встретился с опасностью, которая годами росла без шума, и отнял ровно те 45 дней, которые получило бы плановое уничтожение. Уведомление о взрыве дошло до публики за <em class="flaw">пять дней</em> до назначенной даты.</p>
+  </div>
+  <div class="fig">
+    <h3>Кого предупредили</h3>
+    <svg id="plume" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Карта юго-востока Айовы и запада Иллинойса с центром в Мидлтауне, кольца на 16, 80 и 160 километров. Граница Айовы и Иллинойса идёт по Миссисипи. Предупреждения о свинцовой пыли разослали в общины на расстоянии до 160 километров; публичное уведомление пришло за пять дней до назначенного взрыва.">
+      <g id="plG"></g>
+    </svg>
+    <div class="figcap">Кольца — расстояние, а не облако пыли. Предупреждения до 160 км: AP.</div>
+  </div>
+  <div class="prose">
+    <p>Экологические организации подали в суд, в Апелляционный суд восьмого округа. Но суд спрашивают о разрешении, а разрешение касается последней недели. <em class="flaw">У бочек был владелец. Не было никого, чьей работой было бы назначить дату.</em></p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Как выглядит ситуация, когда часы всё-таки кто-то запускает?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="159.4">
+  <h2>Что запускало часы в других местах</h2>
+  <div class="prose">
+    <p><em class="alt">В Луизиане часы запустила авария.</em> После взрыва на площадке частного подрядчика в 2012 году в лагере Минден остались почти 7 тысяч тонн пороха M6, которым стреляют артиллерийские снаряды. По плану, согласованному с агентством, его собирались сжечь под открытым небом. Жители объединились, к ним присоединились учёные, и в 2015 году план поменяли на закрытую камеру, которая фильтрует дым. <em class="flaw">Цена:</em> ещё несколько месяцев, пока опасность оставалась на месте, и миллионы долларов на камеру. И это сработало только потому, что порох ещё можно было перевезти. В Айове этого сделать было нельзя.</p>
+    <p><em class="alt">В Швейцарии — число в законе.</em> Возле деревни Митхольц в старом армейском складе внутри горы до сих пор лежат около 3 500 тонн взрывчатки со времён войны. В 2017 году армия собиралась разместить там вычислительный центр и заказала новую оценку риска. Оказалось, что опасность намного выше предела, который записан в швейцарском законе о крупных авариях, и правительство было обязано действовать. Оно решило медленно выкопать всё, а деревню на это время переселить. <em class="flaw">Цена:</em> около 170 человек уедут из своих домов примерно на десять лет, и кредит в 2,6 млрд швейцарских франков.</p>
+    <p><em class="alt">Для химического оружия — дата в договоре.</em> Конвенция о химическом оружии дала США срок до 2007 года. Жители Кентукки и Колорадо воспротивились плану сжигать оружие рядом с их домами, и в 1996 году Конгресс заморозил деньги на эти печи и потребовал других методов. <em class="flaw">Цена:</em> публика добилась права голоса, а срок был сорван. Последний боеприпас уничтожили в июле 2023 года; всё вместе обошлось примерно в 40 млрд долларов.</p>
+  </div>
+  <div class="fig">
+    <h3>Что запустило часы и сколько это стоило</h3>
+    <svg id="prices" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Три колонки. Лагерь Минден, Луизиана: часы запустила авария; цена — месяцы ожидания и миллионы на закрытую камеру. Митхольц, Швейцария: число в законе; около 170 человек уезжают примерно на десять лет, 2,6 млрд франков. Химическое оружие США: дата в договоре; срок 2007, конец 2023, около 40 млрд долларов.">
+      <g id="prG"></g>
+    </svg>
+    <div class="figcap">EPA (Минден); Федеральный совет Швейцарии (Митхольц); Ассоциация по контролю над вооружениями (КЗХО).</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Авария, число в законе, дата в договоре. А что должно было запустить часы в Айове?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="21.9">
+  <h2>Кто запускает часы</h2>
+  <div class="prose">
+    <p>Решение, которое на самом деле имело значение, было тем, которое двадцать лет назад никто не обязан был принимать.</p>
+  </div>
+  <div class="fig">
+    <h3>Кто назначает дату</h3>
+    <table class="cmp">
+      <tr><th>Случай</th><th>Что запустило часы</th><th>Цена</th></tr>
+      <tr><td>Мидлтаун, Айова</td><td>Ничто вне армии; чрезвычайная ситуация пришла первой</td><td>Неделя и ни одного дня обсуждения</td></tr>
+      <tr><td>Лагерь Минден, Луизиана</td><td>Авария</td><td>Месяцы с опасностью на месте; миллионы на закрытую камеру</td></tr>
+      <tr><td>Митхольц, Швейцария</td><td>Предел риска, записанный в законе</td><td>Деревня пустеет примерно на десять лет; 2,6 млрд франков</td></tr>
+      <tr><td>Химическое оружие США</td><td>Срок в договоре</td><td>Срок сорван на шестнадцать лет; около 40 млрд долларов</td></tr>
+    </table>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Чья это работа — назначить дату, когда разберутся с опасным запасом рядом с вами? И когда эта дата наступит, останется ли у кого-нибудь время спросить, как именно?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ sp:{short:'≈7 ДНЕЙ: РАЗРЕШЕНИЕ → ВЗРЫВ',zero:'ОБСУЖДЕНИЕ: 0 ДНЕЙ',long:'≈20 ЛЕТ ХРАНЕНИЯ'},
+ tk:{top:'68 БОЧЕК · ≈4,3 Т АЗИДА СВИНЦА',liq:'СПИРТ + ВОДА',dry:'МАРТ 2026: СУХО, РАСТУТ КРИСТАЛЛЫ',risk:'МОЖЕТ СРАБОТАТЬ ОТ ТРЕНИЯ ИЛИ УДАРА',ground:'ЗЕМЛЯ'},
+ ck:{row1:'≈20 ЛЕТ ХРАНЕНИЯ · ВНУТРЕННИЕ ПРАВИЛА ВОЕННЫХ · ВНЕШНЕГО СРОКА НЕТ',start:'ВКЛЮЧАЮТСЯ ПРАВИЛА ОБ ОТХОДАХ',zoom:'ПОСЛЕДНЯЯ НЕДЕЛЯ',seven:'7 ДНЕЙ',wall:'ВЗРЫВ',ghost:'45 ДНЕЙ ОБСУЖДЕНИЯ · ПЛАНОВЫЙ ПУТЬ',miss:'НЕ ПОМЕЩАЕТСЯ'},
+ ro:{plan:'ПЛАНОВЫЙ ПУТЬ',emer:'ЧРЕЗВЫЧАЙНЫЙ ПУТЬ',p:[['ЗАЯВКА',''],['ПРОЕКТ',''],['45 ДНЕЙ','ОБСУЖДЕНИЯ'],['СЛУШАНИЯ',''],['РЕШЕНИЕ','']],
+     e0:['НЕМИНУЕМАЯ','ОПАСНОСТЬ'],e4:['РАЗРЕШЕНИЕ','≤ 90 ДНЕЙ'],notice:'УВЕДОМЛЕНИЕ БЕЗ ОБСУЖДЕНИЯ'},
+ pl:{rings:['16 КМ','80 КМ','160 КМ'],home:'МИДЛТАУН',ia:'АЙОВА',il:'ИЛЛИНОЙС',mo:'МИССУРИ',river:'МИССИСИПИ',note:'ПРЕДУПРЕЖДЕНИЯ ДО 160 КМ · УВЕДОМЛЕНИЕ ЗА 5 ДНЕЙ',
+     cities:[['Берлингтон',-91.11,40.81,'start',14,-8],['Айова-Сити',-91.53,41.66,'end',-14,6],['Дэвенпорт',-90.58,41.52,'start',14,6],['Пеория',-89.59,40.69,'start',14,6],['Куинси',-91.41,39.94,'end',-14,6]]},
+ pr:{head:'ЧТО ЗАПУСТИЛО ЧАСЫ',price:'ЦЕНА',c:[
+   {start:['АВАРИЯ'],place:'ЛАГЕРЬ МИНДЕН, ЛУИЗИАНА',cost:['МЕСЯЦЫ ОЖИДАНИЯ','МИЛЛИОНЫ ДОЛЛАРОВ','НА ЗАКРЫТУЮ КАМЕРУ']},
+   {start:['ЧИСЛО','В ЗАКОНЕ'],place:'МИТХОЛЬЦ, ШВЕЙЦАРИЯ',cost:['170 ЧЕЛОВЕК УЕЗЖАЮТ','НА ≈10 ЛЕТ','2,6 МЛРД ФРАНКОВ']},
+   {start:['ДАТА','В ДОГОВОРЕ'],place:'ХИМОРУЖИЕ, США',cost:['СРОК: 2007','ФАКТ: 2023','≈40 МЛРД $']}]},
+ st:{plan:['Заявка от оператора','Проект разрешения опубликован','Не меньше 45 дней общественного обсуждения','Слушания по запросу','Окончательное решение, которое можно обжаловать'],
+     emer:['Вывод о неминуемой и существенной опасности','Разрешение на срок до 90 дней','Публичное уведомление'],
+     skip:['Проект разрешения опубликован','Не меньше 45 дней общественного обсуждения','Слушания по запросу']}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',topic:'#7A6A8C',grid:'#D9E3F0',paper:'#F8F9FB',water:'#BFD4F2'};
+const T=(x,y,s,o={})=>`<text x="${x}" y="${y}" font-size="${o.size||20}" font-weight="${o.w||700}" fill="${o.fill||C.ink}" text-anchor="${o.a||'start'}"${o.cls?` class="${o.cls}"`:''}${o.id?` id="${o.id}"`:''}${o.op!=null?` opacity="${o.op}"`:''}>${s}</text>`;
+
+/* ---------- span (s0): seven days next to twenty years ---------- */
+(function(){
+ let h=`<rect id="spS" x="40" y="60" width="0" height="56" rx="6" fill="${C.flaw}" data-w="28"/>`+T(40,44,L.sp.short,{size:24,id:'spST',op:0,fill:C.flaw})+
+ T(84,98,L.sp.zero,{size:22,id:'spZ',op:0,fill:C.ink})+
+ `<rect id="spL" x="40" y="190" width="0" height="56" rx="6" fill="#DCE7F8" stroke="${C.fact}" stroke-width="3" data-w="920"/>`+T(40,174,L.sp.long,{size:24,id:'spLT',op:0,fill:C.fact});
+ $('spG').innerHTML=h;})();
+window.__fig.span=()=>{gsap.set('#spS,#spL',{attr:{width:0}});gsap.set('#spST,#spZ,#spLT',{opacity:0});
+ return gsap.timeline().to('#spST',{opacity:1,duration:.3},.2).to('#spS',{attr:{width:28},duration:.4},.3).to('#spZ',{opacity:1,duration:.3},.9)
+  .to('#spLT',{opacity:1,duration:.3},1.6).to('#spL',{attr:{width:920},duration:2.4,ease:'power1.inOut'},1.7).to({},{duration:.8});};
+
+/* ---------- tank (s1): the bath dries, crystals grow ---------- */
+(function(){
+ const G=96, TK=[[70,470],[530,930]], TOP=150, BOT=400, LIQ=190;
+ let h=`<rect x="0" y="${G}" width="1000" height="${440-G}" fill="#EFE7DC"/>`+
+  `<line x1="0" y1="${G}" x2="1000" y2="${G}" stroke="${C.alt}" stroke-width="6"/>`+
+  T(20,G-14,L.tk.top,{size:24});
+ TK.forEach(([a,b],k)=>{
+  h+=`<rect x="${a}" y="${TOP}" width="${b-a}" height="${BOT-TOP}" fill="#FFFFFF" stroke="${C.ink}" stroke-width="10"/>`+
+   `<rect class="tkLiq" x="${a+5}" y="${LIQ}" width="${b-a-10}" height="${BOT-5-LIQ}" fill="${C.water}" opacity=".85"/>`;
+  for(let i=0;i<5;i++){const x=a+30+i*((b-a-60-56)/4);
+   h+=`<rect x="${x}" y="${BOT-130}" width="56" height="124" rx="8" fill="#E6EAF0" stroke="${C.ink}" stroke-width="4"/>`+
+    `<line x1="${x}" y1="${BOT-90}" x2="${x+56}" y2="${BOT-90}" stroke="${C.ink}" stroke-width="3"/><line x1="${x}" y1="${BOT-46}" x2="${x+56}" y2="${BOT-46}" stroke="${C.ink}" stroke-width="3"/>`+
+    `<g class="tkCr" opacity="0">`+[[10,-8],[26,-14],[42,-6]].map(([dx,dy])=>`<path d="M${x+dx} ${BOT-130+dy+4} l7 -12 l7 12 l-7 6 Z" fill="${C.flaw}"/>`).join('')+`</g>`;}
+ });
+ h+=T(270,LIQ+34,L.tk.liq,{size:22,fill:C.fact,a:'middle',id:'tkLT',cls:'lab'})+
+  `<g id="tkDry" opacity="0"><rect x="150" y="${BOT+8}" width="700" height="0" fill="none"/>`+T(500,134,L.tk.dry,{size:26,fill:C.flaw,a:'middle',cls:'lab'})+`</g>`+
+  `<g id="tkRisk" opacity="0">`+T(500,432,L.tk.risk,{size:24,fill:C.flaw,a:'middle'})+`</g>`;
+ $('tkG').innerHTML=h;})();
+window.__fig.tank=()=>{const liq=[...document.querySelectorAll('.tkLiq')];liq.forEach(r=>gsap.set(r,{attr:{y:190,height:205}}));gsap.set('.tkCr,#tkDry,#tkRisk',{opacity:0});gsap.set('#tkLT',{opacity:1});
+ return gsap.timeline().to(liq,{attr:{y:395,height:0},duration:2.4,ease:'power1.in'},.4).to('#tkLT',{opacity:0,duration:.3},1.6)
+  .to('#tkDry',{opacity:1,duration:.3},2.6).to('.tkCr',{opacity:1,duration:.25,stagger:.06},2.7).to('#tkRisk',{opacity:1,duration:.3},3.6).to({},{duration:.8});};
+
+/* ---------- clock (s2): twenty years with no date, then the last week ---------- */
+(function(){
+ const X0=60, X1=900, D=d=>X1-d*16;   // days counted back from the blast
+ let h=T(X0,58,L.ck.row1,{size:21,fill:C.dim,id:'ckR1',op:0})+
+  `<rect id="ckBar" x="${X0}" y="78" width="0" height="50" rx="6" fill="#DCE7F8" stroke="${C.fact}" stroke-width="3"/>`+
+  `<g id="ckStart" opacity="0"><line x1="${X1}" y1="64" x2="${X1}" y2="146" stroke="${C.flaw}" stroke-width="6"/>`+T(X1+12,166,L.ck.start,{size:22,fill:C.flaw,a:'end'})+`</g>`+
+  `<g id="ckZoom" opacity="0"><rect x="${X1-28}" y="78" width="28" height="50" fill="${C.flaw}"/><path d="M${X1-28} 176 L${D(7)} 250 M${X1} 176 L${X1} 250" stroke="${C.dim}" stroke-width="2" stroke-dasharray="6 6" fill="none"/>`+T(D(7)-14,236,L.ck.zoom,{size:22,fill:C.dim,a:'end'})+`</g>`+
+  `<rect id="ckGhost" x="${X1}" y="282" width="0" height="56" rx="6" fill="none" stroke="${C.alt}" stroke-width="3" stroke-dasharray="10 8"/>`+
+  `<rect id="ckOver" x="${D(45)}" y="282" width="${D(7)-D(45)}" height="56" fill="#EEF1F5" opacity="0"/>`+
+  `<rect id="ckSev" x="${X1}" y="282" width="0" height="56" rx="6" fill="${C.flaw}"/>`+
+  T(D(7)+8,320,L.ck.seven,{size:20,fill:'#FFFFFF',id:'ckSevT',op:0})+
+  `<g id="ckWall" opacity="0"><line x1="${X1}" y1="264" x2="${X1}" y2="356" stroke="${C.ink}" stroke-width="8"/>`+T(X1,384,L.ck.wall,{size:22,a:'middle'})+`</g>`+
+  `<g id="ckGT" opacity="0">`+T(D(45),272,L.ck.ghost,{size:21,fill:C.alt})+`</g>`+
+  `<g id="ckMiss" opacity="0">`+T((D(7)+D(45))/2,320,L.ck.miss,{size:26,fill:C.dim,a:'middle'})+`</g>`;
+ $('ckG').innerHTML=h; window.__ckW=[X1-X0,X1-D(7),X1-D(45),X1];})();
+window.__fig.clock=()=>{const [w1,w7,w45,X1]=window.__ckW;gsap.set('#ckBar',{attr:{width:0}});gsap.set('#ckSev,#ckGhost',{attr:{x:X1,width:0}});gsap.set('#ckR1,#ckStart,#ckZoom,#ckSevT,#ckWall,#ckGT,#ckMiss,#ckOver',{opacity:0});
+ return gsap.timeline().to('#ckR1',{opacity:1,duration:.3},.1).to('#ckBar',{attr:{width:w1},duration:1.8,ease:'none'},.2)
+  .to('#ckStart',{opacity:1,duration:.3},2.0).to('#ckZoom',{opacity:1,duration:.3},2.5).to('#ckWall',{opacity:1,duration:.2},2.7)
+  .to('#ckSev',{attr:{x:X1-w7,width:w7},duration:.4},2.8).to('#ckSevT',{opacity:1,duration:.2},3.1)
+  .to('#ckGT',{opacity:1,duration:.3},3.5).to('#ckGhost',{attr:{x:X1-w45,width:w45},duration:1.0,ease:'power1.out'},3.5)
+  .to('#ckOver',{opacity:1,duration:.3},4.6).to('#ckMiss',{opacity:1,duration:.3},4.7).to({},{duration:.8});};
+
+/* ---------- routes (s3): the emergency route jumps over the middle ---------- */
+(function(){
+ const BX=i=>30+i*195, BW=160, BH=78, Y1=86, Y2=286;
+ const box=(i,y,lines,o={})=>{const x=BX(i);return `<g class="${o.cls||''}" opacity="${o.op??1}"><rect x="${x}" y="${y}" width="${BW}" height="${BH}" rx="10" fill="${o.fill||'#FFFFFF'}" stroke="${o.stroke||C.ink}" stroke-width="3"${o.dash?' stroke-dasharray="8 7"':''}/>`+
+  (lines[1]?T(x+BW/2,y+33,lines[0],{size:18,a:'middle',fill:o.tc||C.ink})+T(x+BW/2,y+58,lines[1],{size:18,a:'middle',fill:o.tc||C.ink}):T(x+BW/2,y+46,lines[0],{size:18,a:'middle',fill:o.tc||C.ink}))+
+  (o.strike?`<line x1="${x+12}" y1="${y+BH-12}" x2="${x+BW-12}" y2="${y+12}" stroke="${C.flaw}" stroke-width="4"/>`:'')+`</g>`;};
+ let h=T(30,58,L.ro.plan,{size:24,fill:C.alt})+T(30,Y2+BH+34,L.ro.emer,{size:24,fill:C.flaw});
+ L.ro.p.forEach((p,i)=>{h+=box(i,Y1,p,{cls:'roP',op:0,stroke:i==2?C.alt:C.ink,fill:i==2?'#E3F3EC':'#FFFFFF'});
+  if(i<4) h+=`<path class="roPA" d="M${BX(i)+BW+4} ${Y1+BH/2} h27" stroke="${C.ink}" stroke-width="3" marker-end="url(#roArr)" opacity="0"/>`;});
+ [1,2,3].forEach(i=>{h+=box(i,Y2,L.ro.p[i],{cls:'roGh',op:0,dash:true,stroke:'#AAB4C2',tc:'#AAB4C2',strike:true});});
+ h+=box(0,Y2,L.ro.e0,{cls:'roE0',op:0,stroke:C.flaw,fill:'#FBEFE3'})+box(4,Y2,L.ro.e4,{cls:'roE4',op:0,stroke:C.flaw,fill:'#FBEFE3'})+
+  `<path id="roJump" d="M${BX(0)+BW/2} ${Y2-6} C ${BX(1)+40} ${Y2-110}, ${BX(3)+120} ${Y2-110}, ${BX(4)+BW/2-6} ${Y2-10}" fill="none" stroke="${C.flaw}" stroke-width="5" marker-end="url(#roArrF)"/>`+
+  `<g id="roNote" opacity="0">`+T(BX(4)+BW,Y2+BH+34,L.ro.notice,{size:20,a:'end',fill:C.flaw})+`</g>`;
+ const defs=`<defs><marker id="roArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="${C.ink}"/></marker>`+
+  `<marker id="roArrF" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="${C.flaw}"/></marker></defs>`;
+ $('roG').innerHTML=defs+h;})();
+window.__fig.routes=()=>{const j=$('roJump'),l=j.getTotalLength();gsap.set(j,{strokeDasharray:l,strokeDashoffset:l});j.removeAttribute('marker-end');gsap.set('.roP,.roPA,.roGh,.roE0,.roE4,#roNote',{opacity:0});
+ const tl=gsap.timeline();document.querySelectorAll('.roP').forEach((b,i)=>{tl.to(b,{opacity:1,duration:.25},.2+i*.45);const a=document.querySelectorAll('.roPA')[i];if(a) tl.to(a,{opacity:1,duration:.2},.4+i*.45);});
+ return tl.to('.roE0',{opacity:1,duration:.3},2.7).to(j,{strokeDashoffset:0,duration:.9,ease:'power1.inOut'},3.0).call(()=>j.setAttribute('marker-end','url(#roArrF)'),null,3.9).to('.roE4',{opacity:1,duration:.3},3.8)
+  .to('.roGh',{opacity:1,duration:.4},4.1).to('#roNote',{opacity:1,duration:.3},4.4).to({},{duration:.8});};
+
+/* ---------- plume (s3): computed map, rings at 10 / 50 / 100 miles ---------- */
+(function(){
+ const g=$('plG'), HOME=[-91.26,40.83], MI=d=>d/3958.8*180/Math.PI;
+ const lib=src=>new Promise(r=>{const s=document.createElement('script');s.src=src;s.onload=r;s.onerror=r;document.head.appendChild(s);});
+ window.__plReady=(async()=>{try{
+  if(!window.d3) await lib('https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js');
+  if(!window.topojson) await lib('https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js');
+  const us=await (await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json')).json();
+  const st=topojson.feature(us,us.objects.states).features;
+  const ring=m=>d3.geoCircle().center(HOME).radius(MI(m))();
+  const proj=d3.geoConicConformal().parallels([39,42]).rotate([91.26,0]).fitExtent([[230,26],[770,392]],ring(112)),gp=d3.geoPath(proj);
+  const P=(lo,la)=>proj([lo,la]).map(v=>+v.toFixed(0));
+  let h='';const fills={'19':'#FFFFFF','17':'#F2F4F7'};
+  st.forEach(f=>{h+=`<path d="${gp(f)}" fill="${fills[f.id]||'#EEF1F5'}" stroke="#AEB9C8" stroke-width="${f.id=='19'||f.id=='17'?2:1}"/>`;});
+  [10,50,100].forEach((m,i)=>{const [cx,cy]=P(HOME[0],HOME[1]);const k=MI(m)*Math.SQRT1_2,sw=P(HOME[0]-k/Math.cos(HOME[1]*Math.PI/180),HOME[1]-k);
+   h+=`<g class="plR" opacity="0"><path d="${gp(ring(m))}" fill="${C.flaw}" fill-opacity="${[.18,.09,.05][i]}" stroke="${C.flaw}" stroke-width="3" stroke-dasharray="${i?'10 7':'0'}"/>`+
+    (i?T(sw[0]-6,sw[1]+18,L.pl.rings[i],{size:20,a:'end',fill:C.flaw,cls:'lab'}):'')+`</g>`;});
+  const lab=(t,lo,la,o)=>{const [x,y]=P(lo,la);return T(x,y,t,o);};
+  h+=`<g id="plStates">`+lab(L.pl.ia,-93.4,41.2,{size:24,fill:C.dim,a:'middle',cls:'lab'})+lab(L.pl.il,-88.8,41.75,{size:24,fill:C.dim,a:'middle',cls:'lab'})+lab(L.pl.mo,-93.2,40.35,{size:20,fill:C.dim,a:'middle',cls:'lab'})+
+   lab(L.pl.river,-90.95,41.2,{size:17,fill:C.fact,a:'middle',cls:'lab'})+`</g>`;
+  h+=L.pl.cities.map(([n,lo,la,an,dx,dy])=>{const [x,y]=P(lo,la);return `<g class="plC" opacity="0"><circle cx="${x}" cy="${y}" r="5" fill="${C.ink}" stroke="#fff" stroke-width="2"/>`+T(x+dx,y+dy,n,{size:18,a:an,cls:'lab'})+`</g>`;}).join('');
+  const [hx,hy]=P(HOME[0],HOME[1]);
+  h+=`<g id="plHome"><circle cx="${hx}" cy="${hy}" r="7" fill="${C.flaw}" stroke="#fff" stroke-width="2"/>`+T(hx-18,hy+7,L.pl.home,{size:20,a:'end',fill:C.flaw,cls:'lab'})+`</g>`;
+  h+=`<g id="plNote" opacity="0"><rect x="0" y="400" width="1000" height="40" fill="${C.paper}"/>`+T(500,428,L.pl.note,{size:21,a:'middle',fill:C.flaw})+`</g>`;
+  g.innerHTML=h;}catch(e){g.innerHTML=T(20,200,'Не удалось загрузить карту.',{size:20,fill:C.dim,w:400});}})();})();
+window.__fig.plume=()=>{gsap.set('.plR,.plC,#plNote',{opacity:0});const tl=gsap.timeline();
+ document.querySelectorAll('.plR').forEach((r,i)=>tl.to(r,{opacity:1,duration:.4},.3+i*.7));
+ return tl.to('.plC',{opacity:1,duration:.25,stagger:.15},2.4).to('#plNote',{opacity:1,duration:.3},3.4).to({},{duration:.8});};
+
+/* ---------- prices (s4): three clocks, three starters, three prices ---------- */
+(function(){
+ const X=[170,500,830], cols=[C.fact,C.alt,C.topic];
+ let h=T(20,34,L.pr.head,{size:20,fill:C.dim})+T(20,258,L.pr.price,{size:20,fill:C.flaw});
+ L.pr.c.forEach((c,i)=>{const x=X[i];
+  h+=`<g class="prCol" opacity="0"><circle cx="${x}" cy="88" r="36" fill="#FFFFFF" stroke="${cols[i]}" stroke-width="5"/>`+
+   `<line x1="${x}" y1="88" x2="${x}" y2="64" stroke="${cols[i]}" stroke-width="5" stroke-linecap="round"/>`+
+   `<line class="prHand" x1="${x}" y1="88" x2="${x+20}" y2="88" stroke="${cols[i]}" stroke-width="5" stroke-linecap="round" style="transform-origin:${x}px 88px"/>`+
+   c.start.map((s,k)=>T(x,158+k*30,s,{size:25,a:'middle',fill:cols[i],cls:'big'})).join('')+
+   T(x,220,c.place,{size:16,a:'middle',fill:C.dim})+`</g>`+
+   `<g class="prCost" opacity="0"><rect x="${x-150}" y="270" width="300" height="140" rx="10" fill="#FBEFE3"/>`+
+   c.cost.map((s,k)=>T(x,310+k*38,s,{size:21,a:'middle',fill:C.flaw})).join('')+`</g>`;});
+ $('prG').innerHTML=h;})();
+window.__fig.prices=()=>{gsap.set('.prCol,.prCost',{opacity:0});gsap.set('.prHand',{rotation:0});const tl=gsap.timeline();
+ document.querySelectorAll('.prCol').forEach((c,i)=>{tl.to(c,{opacity:1,duration:.3},.2+i*1.3).to(c.querySelector('.prHand'),{rotation:270,duration:.8,ease:'power1.inOut'},.4+i*1.3)
+  .to(document.querySelectorAll('.prCost')[i],{opacity:1,duration:.3},.9+i*1.3);});
+ return tl.to({},{duration:.8},'>');};
+
+/* ---------- web-only interactive: which steps each route keeps ---------- */
+(function(){const t=$('routeT');if(!t) return;const out=$('routeOut');
+ const set=k=>{t.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+  out.innerHTML=k==='plan'?L.st.plan.map(s=>`<li>${s}</li>`).join(''):L.st.emer.map(s=>`<li>${s}</li>`).join('')+L.st.skip.map(s=>`<li class="off">${s}</li>`).join('');};
+ t.querySelectorAll('button').forEach(b=>b.onclick=()=>set(b.dataset.k));set('plan');})();
+
+const FIGS=['span','tank','clock','routes','plume','prices'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{const go=()=>window.__fig[id]().play();id==='plume'?window.__plReady.then(go):go();}})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/077-no-time-to-ask-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  window.__plReady.then(()=>{
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s0:['span'],s1:['tank'],s2:['clock'],s3:['routes','plume'],s4:['prices']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);});
+}
+</script>
+</body>
+</html>

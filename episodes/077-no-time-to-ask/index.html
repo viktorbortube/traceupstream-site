@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — How 20 Years of Storage Became a 7-Day Emergency</title>
+<meta name="description" content="In November 2026 the US Army planned to blow up about 9,500 pounds of lead azide that had been stored in Iowa for twenty years. The emergency permit took about a week and gave the public no comment period. Under the 1997 Military Munitions Rule, a stored munition becomes hazardous waste only when the military decides to get rid of it or it has decayed beyond use, so nothing outside the military sets a date. Camp Minden, Mitholz and the Chemical Weapons Convention each started the clock a different way, and each paid a different price.">
+<link rel="canonical" href="https://traceupstream.com/episodes/077-no-time-to-ask/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#7A6A8C;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.fig svg{overflow:hidden}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;gap:8px;margin:4px 0 12px;flex-wrap:wrap}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.steps{list-style:none;padding:0;margin:6px 0 0;font-size:16px}
+.steps li{padding:6px 0;border-bottom:1px solid var(--grid)}
+.steps li.off{color:var(--text-dim);text-decoration:line-through}
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--grid);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim)}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+svg .lab{paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+svg .big{font-family:var(--font-display)}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}table.cmp{font-size:13px}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.077</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="39.6">
+  <div class="kicker">Trace Upstream · Episode 077</div>
+  <h1>How 20 years of storage became a 7-day emergency</h1>
+  <div class="prose lede">
+    <p>In November 2026, in Middletown, Iowa, a town of about 320 people, two streets were told to leave their homes for the day. The school would close, and firefighters would hose down the playgrounds afterwards. Just outside town, the US Army was going to blow up about <em class="fact">9,500 pounds of lead azide</em>, the explosive that goes inside detonators. Warnings about lead dust went out to towns as far as <em class="fact">a hundred miles</em> away.</p>
+  </div>
+  <div class="fig">
+    <h3>Seven days, twenty years</h3>
+    <svg id="span" viewBox="0 0 1000 300" width="100%" height="300" role="img" aria-label="Two bars. A short one: about seven days from the emergency permit to the planned blast, with no days for public comment. A very long one: about twenty years in storage.">
+      <g id="spG"></g>
+    </svg>
+    <div class="figcap">Emergency RCRA permit effective 13 November 2026; blast planned for 20 November (EPA; Pen City Current). Storage of about 20 years (Iowa Capital Dispatch; CNN).</div>
+  </div>
+  <div class="prose">
+    <p>From the permit to the planned blast was about a week, and the public had <em class="flaw">no days at all to comment</em>. The explosive had been sitting there for twenty years.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So how did all that time run out before anyone could be asked?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="70.5">
+  <h2>The last week was by the book</h2>
+  <div class="prose">
+    <p>The obvious answer is that somebody in the last week was careless: the Army moved too fast, or the regulator signed whatever it was handed. But look at what the last week actually was.</p>
+    <p>There are <em class="fact">68 drums</em>, about 9,500 pounds of lead azide. It had been kept in two underground concrete tanks under a bath of ethanol and water, because wet lead azide is calm. In <em class="fact">March 2026</em> an inspection found that the bath had dried up and the powder was turning into crystals. Crystals of lead azide can go off from friction or a knock. <em class="flaw">Moving the drums could set them off. So could leaving them.</em></p>
+  </div>
+  <div class="fig">
+    <h3>What the inspection found</h3>
+    <svg id="tank" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Cross-section of two underground concrete tanks holding drums of lead azide under a bath of ethanol and water. The liquid level falls until the drums are dry, and crystals form on them.">
+      <g id="tkG"></g>
+    </svg>
+    <div class="figcap">Schematic, not to scale. EPA On-Scene Coordinator; Iowa Capital Dispatch.</div>
+  </div>
+  <div class="prose">
+    <p>The Environmental Protection Agency agreed that this was an <em class="fact">imminent danger</em> and gave the Army an emergency permit to destroy the drums where they were. Even one of the environmental groups now suing over the permit said the Army may have no safer option left.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">If the last week was done by the book, the problem is not in the last week. So where did the twenty years go?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="72.6">
+  <h2>A rule that wakes up late</h2>
+  <div class="prose">
+    <p>American law on hazardous waste is strict. To store it, treat it or destroy it you need a permit, and getting one means a public process: at least <em class="fact">45 days</em> for anyone to comment, and a choice of method that can be questioned.</p>
+    <p>But a stored military explosive is not waste. Under the <em class="fact">Military Munitions Rule of 1997</em>, it only counts as waste in two kinds of situation: the military itself decides to get rid of it, or it has decayed so badly that it can never be used again.</p>
+    <p><em class="flaw">Unless the owner decides to act, the strict rules start only once the material is already ruined.</em> Until then, how it is kept is left to the military's own internal rules, and nothing in the waste law asks anyone to set a date for destroying it, or to tell the neighbours what is inside.</p>
+  </div>
+  <div class="fig">
+    <h3>When the waste rules start</h3>
+    <svg id="clock" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Timeline. About twenty years in storage under the military's own rules, with no outside date. The waste rules start only at the very end. Zoomed in: the last seven days, from permit to planned blast, are far shorter than the forty-five-day comment period a planned destruction would have had.">
+      <g id="ckG"></g>
+    </svg>
+    <div class="figcap">40 CFR 266.202(b): when a munition becomes waste; 40 CFR 124.10: 45-day comment.</div>
+  </div>
+  <div class="prose">
+    <p>And that applies to a lot more than one basement. The Defense Department keeps a stockpile of old and unusable munitions waiting for destruction. In 2017 it was about <em class="fact">430,000 tons</em>, with around 60,000 tons added every year, and no outside rule sets a date for any of it.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So what happens when the strict rules finally do arrive?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="56.1">
+  <h2>The emergency route</h2>
+  <div class="prose">
+    <p>They arrive in emergency form. The emergency permit is meant for sudden dangers, like a spill or a fire, when waiting would put people at risk. It still has to be announced, but there is <em class="flaw">no comment period and no hearing</em>, and the usual requirements apply only as far as they fit the emergency.</p>
+  </div>
+  <div class="fig">
+    <h3>Two routes to a permit</h3>
+    <svg id="routes" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Two rows of steps. Planned route: application, draft permit, forty-five days of public comment, hearing, decision. Emergency route: imminent danger, then straight to a permit of up to ninety days with public notice; the draft, comment and hearing steps are skipped.">
+      <g id="roG"></g>
+    </svg>
+    <div class="figcap">40 CFR 270.61 (emergency permits); 40 CFR part 124 (standard permits).</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Try it: which steps does each route keep?</h3>
+    <div class="toggle" id="routeT"><button class="on" data-k="plan">Planned destruction</button><button data-k="emer">Emergency permit</button></div>
+    <ul class="steps" id="routeOut"></ul>
+  </div>
+  <div class="prose">
+    <p>That is the right tool for a burst tank on a highway. Here, it met a danger that had been growing quietly for years, and it took away exactly the 45 days a planned destruction would have had. Notice of the blast reached the public <em class="flaw">five days</em> before it was due.</p>
+  </div>
+  <div class="fig">
+    <h3>Who was warned</h3>
+    <svg id="plume" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Map of southeast Iowa and western Illinois centred on Middletown, with rings at 10, 50 and 100 miles. The Mississippi River forms the Iowa–Illinois border. Warnings about lead dust went out to communities up to 100 miles away; public notice came five days before the planned blast.">
+      <g id="plG"></g>
+    </svg>
+    <div class="figcap">Rings show distance, not the dust cloud. Warnings up to 100 miles: AP.</div>
+  </div>
+  <div class="prose">
+    <p>Environmental groups have sued in the Eighth Circuit Court of Appeals. But a court is asked about the permit, and the permit is about the last week. <em class="flaw">The drums had an owner. What they did not have was anyone whose job it was to set a date.</em></p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">What does it look like when something does start the clock?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="128.9">
+  <h2>What started the clock elsewhere</h2>
+  <div class="prose">
+    <p><em class="alt">In Louisiana, an accident.</em> After a blast at a private contractor's site in 2012, about 15 million pounds of M6, the powder that fires artillery shells, were left behind at Camp Minden. The plan agreed with the EPA was to burn it in the open. Residents organised, scientists joined them, and in 2015 the plan switched to a closed chamber that filtered the smoke. <em class="flaw">The price:</em> months more with the danger still there, and millions for the chamber. And it only worked because the powder could still be moved. In Iowa, it could not.</p>
+    <p><em class="alt">In Switzerland, a number in a law.</em> Near the village of Mitholz, an old army depot still holds about 3,500 tons of wartime explosives inside a mountain. In 2017 the army was planning to put a computer centre there and ordered a fresh risk study. It found the danger well above the limit set in the Swiss law on major accidents, so the government had to act. It decided to dig everything out slowly and move the village out while it does. <em class="flaw">The price:</em> about 170 people leave their homes for roughly ten years, and a credit of CHF 2.6 billion.</p>
+    <p><em class="alt">For chemical weapons, a date in a treaty.</em> The Chemical Weapons Convention gave the United States until 2007 to destroy its stockpile. Communities in Kentucky and Colorado fought the plan to burn the weapons near their homes, and in 1996 Congress froze the money for those incinerators and ordered other methods. <em class="flaw">The price:</em> the public won its say and the date was missed. The last weapon was destroyed in July 2023, at a total cost of about $40 billion.</p>
+  </div>
+  <div class="fig">
+    <h3>What started the clock, and what it cost</h3>
+    <svg id="prices" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Three columns. Camp Minden, Louisiana: an accident started the clock; the price was months more waiting and millions for a closed chamber. Mitholz, Switzerland: a number in a law; about 170 people out for roughly ten years and CHF 2.6 billion. US chemical weapons: a date in a treaty; deadline 2007, finished 2023, about 40 billion dollars.">
+      <g id="prG"></g>
+    </svg>
+    <div class="figcap">EPA (Camp Minden); Swiss Federal Council (Mitholz); Arms Control Association (CWC).</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">An accident, a number in a law, a date in a treaty. In Iowa, what was supposed to start the clock?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="18">
+  <h2>Who starts the clock</h2>
+  <div class="prose">
+    <p>The decision that mattered was the one nobody had to make twenty years earlier.</p>
+  </div>
+  <div class="fig">
+    <h3>Who sets the date</h3>
+    <table class="cmp">
+      <tr><th>Case</th><th>What started the clock</th><th>The price</th></tr>
+      <tr><td>Middletown, Iowa</td><td>Nothing outside the military; the emergency came first</td><td>A week, and no public comment</td></tr>
+      <tr><td>Camp Minden, Louisiana</td><td>An accident</td><td>Months more with the danger in place; millions for a closed chamber</td></tr>
+      <tr><td>Mitholz, Switzerland</td><td>A risk limit written into law</td><td>A village emptied for about ten years; CHF 2.6 billion</td></tr>
+      <tr><td>US chemical weapons</td><td>A treaty deadline</td><td>Deadline missed by sixteen years; about $40 billion</td></tr>
+    </table>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Who has the job of setting a date to deal with a dangerous stockpile near you? And when that date comes, will there still be time for anyone to ask how?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ sp:{short:'≈7 DAYS: PERMIT → PLANNED BLAST',zero:'PUBLIC COMMENT: 0 DAYS',long:'≈20 YEARS IN STORAGE'},
+ tk:{top:'68 DRUMS · ≈9,500 LB OF LEAD AZIDE',liq:'ETHANOL + WATER',dry:'MARCH 2026: DRY, CRYSTALS FORMING',risk:'FRICTION OR A KNOCK CAN SET IT OFF',ground:'GROUND'},
+ ck:{row1:'≈20 YEARS IN STORAGE · THE MILITARY’S OWN RULES · NO OUTSIDE DATE',start:'WASTE RULES START',zoom:'THE LAST WEEK',seven:'7 DAYS',wall:'BLAST',ghost:'45 DAYS OF PUBLIC COMMENT · PLANNED ROUTE',miss:'DOES NOT FIT'},
+ ro:{plan:'PLANNED ROUTE',emer:'EMERGENCY ROUTE',p:[['APPLICATION',''],['DRAFT','PERMIT'],['45 DAYS OF','COMMENT'],['PUBLIC','HEARING'],['DECISION','']],
+     e0:['IMMINENT','DANGER'],e4:['PERMIT','≤ 90 DAYS'],notice:'NOTICE, NO COMMENT'},
+ pl:{rings:['10 MI','50 MI','100 MI'],home:'MIDDLETOWN',ia:'IOWA',il:'ILLINOIS',mo:'MISSOURI',river:'MISSISSIPPI',note:'WARNINGS SENT UP TO 100 MILES · NOTICE: 5 DAYS AHEAD',
+     cities:[['Burlington',-91.11,40.81,'start',14,-8],['Iowa City',-91.53,41.66,'end',-14,6],['Davenport',-90.58,41.52,'start',14,6],['Peoria',-89.59,40.69,'start',14,6],['Quincy',-91.41,39.94,'end',-14,6]]},
+ pr:{head:'WHAT STARTED THE CLOCK',price:'THE PRICE',c:[
+   {start:['AN ACCIDENT'],place:'CAMP MINDEN, LOUISIANA',cost:['MONTHS MORE WAITING','MILLIONS FOR A','CLOSED CHAMBER']},
+   {start:['A NUMBER','IN A LAW'],place:'MITHOLZ, SWITZERLAND',cost:['170 PEOPLE OUT','FOR ≈10 YEARS','CHF 2.6 BILLION']},
+   {start:['A DATE IN','A TREATY'],place:'CHEMICAL WEAPONS, US',cost:['DEADLINE 2007','DONE 2023','≈$40 BILLION']}]},
+ st:{plan:['Application from the operator','Draft permit published','At least 45 days of public comment','Public hearing on request','Final decision, open to appeal'],
+     emer:['Finding of imminent and substantial endangerment','Permit issued, valid up to 90 days','Public notice'],
+     skip:['Draft permit published','At least 45 days of public comment','Public hearing on request']}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',topic:'#7A6A8C',grid:'#D9E3F0',paper:'#F8F9FB',water:'#BFD4F2'};
+const T=(x,y,s,o={})=>`<text x="${x}" y="${y}" font-size="${o.size||20}" font-weight="${o.w||700}" fill="${o.fill||C.ink}" text-anchor="${o.a||'start'}"${o.cls?` class="${o.cls}"`:''}${o.id?` id="${o.id}"`:''}${o.op!=null?` opacity="${o.op}"`:''}>${s}</text>`;
+
+/* ---------- span (s0): seven days next to twenty years ---------- */
+(function(){
+ let h=`<rect id="spS" x="40" y="60" width="0" height="56" rx="6" fill="${C.flaw}" data-w="28"/>`+T(40,44,L.sp.short,{size:24,id:'spST',op:0,fill:C.flaw})+
+ T(84,98,L.sp.zero,{size:22,id:'spZ',op:0,fill:C.ink})+
+ `<rect id="spL" x="40" y="190" width="0" height="56" rx="6" fill="#DCE7F8" stroke="${C.fact}" stroke-width="3" data-w="920"/>`+T(40,174,L.sp.long,{size:24,id:'spLT',op:0,fill:C.fact});
+ $('spG').innerHTML=h;})();
+window.__fig.span=()=>{gsap.set('#spS,#spL',{attr:{width:0}});gsap.set('#spST,#spZ,#spLT',{opacity:0});
+ return gsap.timeline().to('#spST',{opacity:1,duration:.3},.2).to('#spS',{attr:{width:28},duration:.4},.3).to('#spZ',{opacity:1,duration:.3},.9)
+  .to('#spLT',{opacity:1,duration:.3},1.6).to('#spL',{attr:{width:920},duration:2.4,ease:'power1.inOut'},1.7).to({},{duration:.8});};
+
+/* ---------- tank (s1): the bath dries, crystals grow ---------- */
+(function(){
+ const G=96, TK=[[70,470],[530,930]], TOP=150, BOT=400, LIQ=190;
+ let h=`<rect x="0" y="${G}" width="1000" height="${440-G}" fill="#EFE7DC"/>`+
+  `<line x1="0" y1="${G}" x2="1000" y2="${G}" stroke="${C.alt}" stroke-width="6"/>`+
+  T(20,G-14,L.tk.top,{size:24});
+ TK.forEach(([a,b],k)=>{
+  h+=`<rect x="${a}" y="${TOP}" width="${b-a}" height="${BOT-TOP}" fill="#FFFFFF" stroke="${C.ink}" stroke-width="10"/>`+
+   `<rect class="tkLiq" x="${a+5}" y="${LIQ}" width="${b-a-10}" height="${BOT-5-LIQ}" fill="${C.water}" opacity=".85"/>`;
+  for(let i=0;i<5;i++){const x=a+30+i*((b-a-60-56)/4);
+   h+=`<rect x="${x}" y="${BOT-130}" width="56" height="124" rx="8" fill="#E6EAF0" stroke="${C.ink}" stroke-width="4"/>`+
+    `<line x1="${x}" y1="${BOT-90}" x2="${x+56}" y2="${BOT-90}" stroke="${C.ink}" stroke-width="3"/><line x1="${x}" y1="${BOT-46}" x2="${x+56}" y2="${BOT-46}" stroke="${C.ink}" stroke-width="3"/>`+
+    `<g class="tkCr" opacity="0">`+[[10,-8],[26,-14],[42,-6]].map(([dx,dy])=>`<path d="M${x+dx} ${BOT-130+dy+4} l7 -12 l7 12 l-7 6 Z" fill="${C.flaw}"/>`).join('')+`</g>`;}
+ });
+ h+=T(270,LIQ+34,L.tk.liq,{size:22,fill:C.fact,a:'middle',id:'tkLT',cls:'lab'})+
+  `<g id="tkDry" opacity="0"><rect x="150" y="${BOT+8}" width="700" height="0" fill="none"/>`+T(500,134,L.tk.dry,{size:26,fill:C.flaw,a:'middle',cls:'lab'})+`</g>`+
+  `<g id="tkRisk" opacity="0">`+T(500,432,L.tk.risk,{size:24,fill:C.flaw,a:'middle'})+`</g>`;
+ $('tkG').innerHTML=h;})();
+window.__fig.tank=()=>{const liq=[...document.querySelectorAll('.tkLiq')];liq.forEach(r=>gsap.set(r,{attr:{y:190,height:205}}));gsap.set('.tkCr,#tkDry,#tkRisk',{opacity:0});gsap.set('#tkLT',{opacity:1});
+ return gsap.timeline().to(liq,{attr:{y:395,height:0},duration:2.4,ease:'power1.in'},.4).to('#tkLT',{opacity:0,duration:.3},1.6)
+  .to('#tkDry',{opacity:1,duration:.3},2.6).to('.tkCr',{opacity:1,duration:.25,stagger:.06},2.7).to('#tkRisk',{opacity:1,duration:.3},3.6).to({},{duration:.8});};
+
+/* ---------- clock (s2): twenty years with no date, then the last week ---------- */
+(function(){
+ const X0=60, X1=900, D=d=>X1-d*16;   // days counted back from the blast
+ let h=T(X0,58,L.ck.row1,{size:21,fill:C.dim,id:'ckR1',op:0})+
+  `<rect id="ckBar" x="${X0}" y="78" width="0" height="50" rx="6" fill="#DCE7F8" stroke="${C.fact}" stroke-width="3"/>`+
+  `<g id="ckStart" opacity="0"><line x1="${X1}" y1="64" x2="${X1}" y2="146" stroke="${C.flaw}" stroke-width="6"/>`+T(X1+12,166,L.ck.start,{size:22,fill:C.flaw,a:'end'})+`</g>`+
+  `<g id="ckZoom" opacity="0"><rect x="${X1-28}" y="78" width="28" height="50" fill="${C.flaw}"/><path d="M${X1-28} 176 L${D(7)} 250 M${X1} 176 L${X1} 250" stroke="${C.dim}" stroke-width="2" stroke-dasharray="6 6" fill="none"/>`+T(D(7)-14,236,L.ck.zoom,{size:22,fill:C.dim,a:'end'})+`</g>`+
+  `<rect id="ckGhost" x="${X1}" y="282" width="0" height="56" rx="6" fill="none" stroke="${C.alt}" stroke-width="3" stroke-dasharray="10 8"/>`+
+  `<rect id="ckOver" x="${D(45)}" y="282" width="${D(7)-D(45)}" height="56" fill="#EEF1F5" opacity="0"/>`+
+  `<rect id="ckSev" x="${X1}" y="282" width="0" height="56" rx="6" fill="${C.flaw}"/>`+
+  T(D(7)+8,320,L.ck.seven,{size:20,fill:'#FFFFFF',id:'ckSevT',op:0})+
+  `<g id="ckWall" opacity="0"><line x1="${X1}" y1="264" x2="${X1}" y2="356" stroke="${C.ink}" stroke-width="8"/>`+T(X1,384,L.ck.wall,{size:22,a:'middle'})+`</g>`+
+  `<g id="ckGT" opacity="0">`+T(D(45),272,L.ck.ghost,{size:21,fill:C.alt})+`</g>`+
+  `<g id="ckMiss" opacity="0">`+T((D(7)+D(45))/2,320,L.ck.miss,{size:26,fill:C.dim,a:'middle'})+`</g>`;
+ $('ckG').innerHTML=h; window.__ckW=[X1-X0,X1-D(7),X1-D(45),X1];})();
+window.__fig.clock=()=>{const [w1,w7,w45,X1]=window.__ckW;gsap.set('#ckBar',{attr:{width:0}});gsap.set('#ckSev,#ckGhost',{attr:{x:X1,width:0}});gsap.set('#ckR1,#ckStart,#ckZoom,#ckSevT,#ckWall,#ckGT,#ckMiss,#ckOver',{opacity:0});
+ return gsap.timeline().to('#ckR1',{opacity:1,duration:.3},.1).to('#ckBar',{attr:{width:w1},duration:1.8,ease:'none'},.2)
+  .to('#ckStart',{opacity:1,duration:.3},2.0).to('#ckZoom',{opacity:1,duration:.3},2.5).to('#ckWall',{opacity:1,duration:.2},2.7)
+  .to('#ckSev',{attr:{x:X1-w7,width:w7},duration:.4},2.8).to('#ckSevT',{opacity:1,duration:.2},3.1)
+  .to('#ckGT',{opacity:1,duration:.3},3.5).to('#ckGhost',{attr:{x:X1-w45,width:w45},duration:1.0,ease:'power1.out'},3.5)
+  .to('#ckOver',{opacity:1,duration:.3},4.6).to('#ckMiss',{opacity:1,duration:.3},4.7).to({},{duration:.8});};
+
+/* ---------- routes (s3): the emergency route jumps over the middle ---------- */
+(function(){
+ const BX=i=>30+i*195, BW=160, BH=78, Y1=86, Y2=286;
+ const box=(i,y,lines,o={})=>{const x=BX(i);return `<g class="${o.cls||''}" opacity="${o.op??1}"><rect x="${x}" y="${y}" width="${BW}" height="${BH}" rx="10" fill="${o.fill||'#FFFFFF'}" stroke="${o.stroke||C.ink}" stroke-width="3"${o.dash?' stroke-dasharray="8 7"':''}/>`+
+  (lines[1]?T(x+BW/2,y+33,lines[0],{size:18,a:'middle',fill:o.tc||C.ink})+T(x+BW/2,y+58,lines[1],{size:18,a:'middle',fill:o.tc||C.ink}):T(x+BW/2,y+46,lines[0],{size:18,a:'middle',fill:o.tc||C.ink}))+
+  (o.strike?`<line x1="${x+12}" y1="${y+BH-12}" x2="${x+BW-12}" y2="${y+12}" stroke="${C.flaw}" stroke-width="4"/>`:'')+`</g>`;};
+ let h=T(30,58,L.ro.plan,{size:24,fill:C.alt})+T(30,Y2+BH+34,L.ro.emer,{size:24,fill:C.flaw});
+ L.ro.p.forEach((p,i)=>{h+=box(i,Y1,p,{cls:'roP',op:0,stroke:i==2?C.alt:C.ink,fill:i==2?'#E3F3EC':'#FFFFFF'});
+  if(i<4) h+=`<path class="roPA" d="M${BX(i)+BW+4} ${Y1+BH/2} h27" stroke="${C.ink}" stroke-width="3" marker-end="url(#roArr)" opacity="0"/>`;});
+ [1,2,3].forEach(i=>{h+=box(i,Y2,L.ro.p[i],{cls:'roGh',op:0,dash:true,stroke:'#AAB4C2',tc:'#AAB4C2',strike:true});});
+ h+=box(0,Y2,L.ro.e0,{cls:'roE0',op:0,stroke:C.flaw,fill:'#FBEFE3'})+box(4,Y2,L.ro.e4,{cls:'roE4',op:0,stroke:C.flaw,fill:'#FBEFE3'})+
+  `<path id="roJump" d="M${BX(0)+BW/2} ${Y2-6} C ${BX(1)+40} ${Y2-110}, ${BX(3)+120} ${Y2-110}, ${BX(4)+BW/2-6} ${Y2-10}" fill="none" stroke="${C.flaw}" stroke-width="5" marker-end="url(#roArrF)"/>`+
+  `<g id="roNote" opacity="0">`+T(BX(4)+BW,Y2+BH+34,L.ro.notice,{size:20,a:'end',fill:C.flaw})+`</g>`;
+ const defs=`<defs><marker id="roArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="${C.ink}"/></marker>`+
+  `<marker id="roArrF" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="${C.flaw}"/></marker></defs>`;
+ $('roG').innerHTML=defs+h;})();
+window.__fig.routes=()=>{const j=$('roJump'),l=j.getTotalLength();gsap.set(j,{strokeDasharray:l,strokeDashoffset:l});j.removeAttribute('marker-end');gsap.set('.roP,.roPA,.roGh,.roE0,.roE4,#roNote',{opacity:0});
+ const tl=gsap.timeline();document.querySelectorAll('.roP').forEach((b,i)=>{tl.to(b,{opacity:1,duration:.25},.2+i*.45);const a=document.querySelectorAll('.roPA')[i];if(a) tl.to(a,{opacity:1,duration:.2},.4+i*.45);});
+ return tl.to('.roE0',{opacity:1,duration:.3},2.7).to(j,{strokeDashoffset:0,duration:.9,ease:'power1.inOut'},3.0).call(()=>j.setAttribute('marker-end','url(#roArrF)'),null,3.9).to('.roE4',{opacity:1,duration:.3},3.8)
+  .to('.roGh',{opacity:1,duration:.4},4.1).to('#roNote',{opacity:1,duration:.3},4.4).to({},{duration:.8});};
+
+/* ---------- plume (s3): computed map, rings at 10 / 50 / 100 miles ---------- */
+(function(){
+ const g=$('plG'), HOME=[-91.26,40.83], MI=d=>d/3958.8*180/Math.PI;
+ const lib=src=>new Promise(r=>{const s=document.createElement('script');s.src=src;s.onload=r;s.onerror=r;document.head.appendChild(s);});
+ window.__plReady=(async()=>{try{
+  if(!window.d3) await lib('https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js');
+  if(!window.topojson) await lib('https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js');
+  const us=await (await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json')).json();
+  const st=topojson.feature(us,us.objects.states).features;
+  const ring=m=>d3.geoCircle().center(HOME).radius(MI(m))();
+  const proj=d3.geoConicConformal().parallels([39,42]).rotate([91.26,0]).fitExtent([[230,26],[770,392]],ring(112)),gp=d3.geoPath(proj);
+  const P=(lo,la)=>proj([lo,la]).map(v=>+v.toFixed(0));
+  let h='';const fills={'19':'#FFFFFF','17':'#F2F4F7'};
+  st.forEach(f=>{h+=`<path d="${gp(f)}" fill="${fills[f.id]||'#EEF1F5'}" stroke="#AEB9C8" stroke-width="${f.id=='19'||f.id=='17'?2:1}"/>`;});
+  [10,50,100].forEach((m,i)=>{const [cx,cy]=P(HOME[0],HOME[1]);const k=MI(m)*Math.SQRT1_2,sw=P(HOME[0]-k/Math.cos(HOME[1]*Math.PI/180),HOME[1]-k);
+   h+=`<g class="plR" opacity="0"><path d="${gp(ring(m))}" fill="${C.flaw}" fill-opacity="${[.18,.09,.05][i]}" stroke="${C.flaw}" stroke-width="3" stroke-dasharray="${i?'10 7':'0'}"/>`+
+    (i?T(sw[0]-6,sw[1]+18,L.pl.rings[i],{size:20,a:'end',fill:C.flaw,cls:'lab'}):'')+`</g>`;});
+  const lab=(t,lo,la,o)=>{const [x,y]=P(lo,la);return T(x,y,t,o);};
+  h+=`<g id="plStates">`+lab(L.pl.ia,-93.4,41.2,{size:24,fill:C.dim,a:'middle',cls:'lab'})+lab(L.pl.il,-88.8,41.75,{size:24,fill:C.dim,a:'middle',cls:'lab'})+lab(L.pl.mo,-93.2,40.35,{size:20,fill:C.dim,a:'middle',cls:'lab'})+
+   lab(L.pl.river,-90.95,41.2,{size:17,fill:C.fact,a:'middle',cls:'lab'})+`</g>`;
+  h+=L.pl.cities.map(([n,lo,la,an,dx,dy])=>{const [x,y]=P(lo,la);return `<g class="plC" opacity="0"><circle cx="${x}" cy="${y}" r="5" fill="${C.ink}" stroke="#fff" stroke-width="2"/>`+T(x+dx,y+dy,n,{size:18,a:an,cls:'lab'})+`</g>`;}).join('');
+  const [hx,hy]=P(HOME[0],HOME[1]);
+  h+=`<g id="plHome"><circle cx="${hx}" cy="${hy}" r="7" fill="${C.flaw}" stroke="#fff" stroke-width="2"/>`+T(hx-18,hy+7,L.pl.home,{size:20,a:'end',fill:C.flaw,cls:'lab'})+`</g>`;
+  h+=`<g id="plNote" opacity="0"><rect x="0" y="400" width="1000" height="40" fill="${C.paper}"/>`+T(500,428,L.pl.note,{size:21,a:'middle',fill:C.flaw})+`</g>`;
+  g.innerHTML=h;}catch(e){g.innerHTML=T(20,200,'Map data could not be loaded.',{size:20,fill:C.dim,w:400});}})();})();
+window.__fig.plume=()=>{gsap.set('.plR,.plC,#plNote',{opacity:0});const tl=gsap.timeline();
+ document.querySelectorAll('.plR').forEach((r,i)=>tl.to(r,{opacity:1,duration:.4},.3+i*.7));
+ return tl.to('.plC',{opacity:1,duration:.25,stagger:.15},2.4).to('#plNote',{opacity:1,duration:.3},3.4).to({},{duration:.8});};
+
+/* ---------- prices (s4): three clocks, three starters, three prices ---------- */
+(function(){
+ const X=[170,500,830], cols=[C.fact,C.alt,C.topic];
+ let h=T(20,34,L.pr.head,{size:20,fill:C.dim})+T(20,258,L.pr.price,{size:20,fill:C.flaw});
+ L.pr.c.forEach((c,i)=>{const x=X[i];
+  h+=`<g class="prCol" opacity="0"><circle cx="${x}" cy="88" r="36" fill="#FFFFFF" stroke="${cols[i]}" stroke-width="5"/>`+
+   `<line x1="${x}" y1="88" x2="${x}" y2="64" stroke="${cols[i]}" stroke-width="5" stroke-linecap="round"/>`+
+   `<line class="prHand" x1="${x}" y1="88" x2="${x+20}" y2="88" stroke="${cols[i]}" stroke-width="5" stroke-linecap="round" style="transform-origin:${x}px 88px"/>`+
+   c.start.map((s,k)=>T(x,158+k*30,s,{size:25,a:'middle',fill:cols[i],cls:'big'})).join('')+
+   T(x,220,c.place,{size:16,a:'middle',fill:C.dim})+`</g>`+
+   `<g class="prCost" opacity="0"><rect x="${x-150}" y="270" width="300" height="140" rx="10" fill="#FBEFE3"/>`+
+   c.cost.map((s,k)=>T(x,310+k*38,s,{size:21,a:'middle',fill:C.flaw})).join('')+`</g>`;});
+ $('prG').innerHTML=h;})();
+window.__fig.prices=()=>{gsap.set('.prCol,.prCost',{opacity:0});gsap.set('.prHand',{rotation:0});const tl=gsap.timeline();
+ document.querySelectorAll('.prCol').forEach((c,i)=>{tl.to(c,{opacity:1,duration:.3},.2+i*1.3).to(c.querySelector('.prHand'),{rotation:270,duration:.8,ease:'power1.inOut'},.4+i*1.3)
+  .to(document.querySelectorAll('.prCost')[i],{opacity:1,duration:.3},.9+i*1.3);});
+ return tl.to({},{duration:.8},'>');};
+
+/* ---------- web-only interactive: which steps each route keeps ---------- */
+(function(){const t=$('routeT');if(!t) return;const out=$('routeOut');
+ const set=k=>{t.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+  out.innerHTML=k==='plan'?L.st.plan.map(s=>`<li>${s}</li>`).join(''):L.st.emer.map(s=>`<li>${s}</li>`).join('')+L.st.skip.map(s=>`<li class="off">${s}</li>`).join('');};
+ t.querySelectorAll('button').forEach(b=>b.onclick=()=>set(b.dataset.k));set('plan');})();
+
+const FIGS=['span','tank','clock','routes','plume','prices'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{const go=()=>window.__fig[id]().play();id==='plume'?window.__plReady.then(go):go();}})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/077-no-time-to-ask/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  window.__plReady.then(()=>{
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s0:['span'],s1:['tank'],s2:['clock'],s3:['routes','plume'],s4:['prices']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);});
+}
+</script>
+</body>
+</html>
