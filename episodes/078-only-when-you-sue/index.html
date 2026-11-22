@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace Upstream — The Environmental Law That Only Works When You Sue</title>
+<meta name="description" content="Cape Wind gave up after sixteen years; the Dakota Access pipeline lost its permit and the oil kept flowing. Both fights ran through NEPA, a 1970 law that forbids nothing and only requires agencies to study a project first. Its only brake is a lawsuit that makes the project wait. In November 2026 the US Senate voted 62–33 for a bill that would keep approvals in force while a flawed study is fixed, give 150 days to sue and limit suits to issues raised in comments. Britain, Germany and the Endangered Species Act put the brake in other hands, each at a price.">
+<link rel="canonical" href="https://traceupstream.com/episodes/078-only-when-you-sue/">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#7A6A8C;
+--font-display:'Space Grotesk',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.fig svg{overflow:hidden}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;gap:8px;margin:4px 0 12px;flex-wrap:wrap}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.steps{list-style:none;padding:0;margin:6px 0 0;font-size:16px}
+.steps li{padding:6px 0;border-bottom:1px solid var(--grid)}
+.steps li.off{color:var(--text-dim);text-decoration:line-through}
+.steps li.go{color:var(--alt);font-weight:600}
+.steps li.stop{color:var(--flaw);font-weight:600}
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--grid);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim)}
+.note{font-size:15px;color:var(--text-dim);max-width:70ch}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+svg .lab{paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+svg .big{font-family:var(--font-display)}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}table.cmp{font-size:13px}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen,body.auto .note{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.078</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="46.6">
+  <div class="kicker">Trace Upstream · Episode 078</div>
+  <h1>The environmental law that only works when you sue</h1>
+  <div class="prose lede">
+    <p>Off the coast of Massachusetts, a company planned America’s first offshore wind farm. It spent <em class="fact">sixteen years</em> in permits, hearings and lawsuits, and in 2017 it gave up. Nothing was ever built.</p>
+    <p>In North Dakota, an oil pipeline runs under a lake. In 2020, a federal judge cancelled its permit to be there. <em class="flaw">The oil kept flowing.</em></p>
+    <p>A wind farm and an oil pipeline, on opposite sides of almost every argument about energy. And yet both fights went through the same law, written in 1970. In November 2026, the US Senate voted to change exactly the part of it that did the stopping.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">What kind of law can be turned against both, and what happens when you take that part away?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="54.7">
+  <h2>The usual suspects</h2>
+  <div class="prose">
+    <p>The usual explanation is that environmental groups sue to block anything they dislike. But look at who fought the wind farm. The most determined opponents were people who owned homes along the shore, and some of the richest families in the country, who argued that the turbines would spoil the view from the coast. <em class="flaw">So the lawsuit does not belong to one side.</em> Anyone with a stake in a project can use it, whatever the reason.</p>
+    <p>The second explanation is that government agencies keep losing in court. They don’t. When their environmental studies are challenged, the agencies win <em class="fact">about eight cases out of ten</em>. But even a case the agency wins can take <em class="fact">around four years</em> to settle.</p>
+  </div>
+  <div class="fig">
+    <h3>The agency usually wins. The project waits anyway.</h3>
+    <svg id="clock" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Ten squares for ten court challenges to an environmental study; eight turn green, meaning the agency won. Below, a bar grows over about four years, from the study to the appeal ruling, while the project waits.">
+      <g id="ckG"></g>
+    </svg>
+    <div class="figcap">NEPA appeals 2013–2022: agencies won about 80%; about 4.2 years from the study to the end of the appeal (Breakthrough Institute, Understanding NEPA Litigation).</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">If the lawsuits mostly fail, why does the project have to wait at all?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="89.4">
+  <h2>A law that forbids nothing</h2>
+  <div class="prose">
+    <p>Because of what kind of law this is. The National Environmental Policy Act, usually called NEPA, says that before a federal agency approves a road, a pipeline or a power line, it has to study what the project will do to the environment, and publish what it found.</p>
+    <p><em class="fact">That is all it requires.</em> It does not say which choice to make. In 1989 the Supreme Court put it plainly: the law forbids decisions made without looking, not decisions that are unwise. An agency can approve a harmful project, as long as it has studied the harm.</p>
+    <p>So how does a law that forbids nothing ever stop anything? Through the courts. If a judge finds the study was incomplete, the standard answer has been to cancel the approval until the study is done properly. And while a case is still open, the approval could be cancelled at any moment, so builders and lenders usually wait to see how it ends, even when the agency goes on to win.</p>
+    <p><em class="flaw">So the court case is the law’s only brake. And it is blind.</em> It does not ask whether the project is a wind farm or a pipeline. It only asks whether the project can still be made to wait.</p>
+  </div>
+  <div class="fig">
+    <h3>Same law, opposite outcomes</h3>
+    <svg id="map" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Map of the United States. Off Cape Cod, Massachusetts: Cape Wind, proposed 2001, abandoned 2017, never built. In North Dakota, the Dakota Access pipeline crosses under Lake Oahe; its permit was cancelled in 2020, but the pipeline was already built and the oil kept flowing.">
+      <g id="mpG"></g>
+    </svg>
+    <div class="figcap">Cape Wind: Vineyard Gazette, Bloomberg (Dec 2017). Dakota Access: Standing Rock Sioux Tribe v. US Army Corps of Engineers, D.D.C. 6 Jul 2020; D.C. Cir. 26 Jan 2021. Pipeline route approximate.</div>
+  </div>
+  <div class="prose">
+    <p>The pipeline under the lake was already built. When its permit was cancelled, an appeals court refused to order it emptied, and the oil kept flowing. The wind farm had nothing built yet, and the waiting killed it.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So what happens if you take the waiting away?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="72">
+  <h2>Taking out the teeth</h2>
+  <div class="prose">
+    <p>That is what the Senate’s bill does. It passed <em class="fact">62 to 33</em>, with votes from both parties, and was sent to the House.</p>
+    <p>It changes who can pull the brake, and when. First, a lawsuit has to be filed within <em class="fact">150 days</em> of the approval, instead of the six years that usually apply to suing the government. Second, you can only sue over problems you raised during the public comment period, so only people who spoke up in time can pull the brake at all. And third, the biggest change: if a judge finds the study was wrong, <em class="flaw">the approval stays in force</em>. Building continues, and the agency gets no more than <em class="fact">180 days</em> to fix the study.</p>
+  </div>
+  <div class="fig">
+    <h3>After a judge finds the study was wrong</h3>
+    <svg id="remedy" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Two tracks after a court finds a flawed study. Today: the approval is cancelled, work stops, and the study is redone before building can start again. Under the Senate bill: the approval stays in force, work goes on, and the agency has at most 180 days to fix the study.">
+      <g id="rmG"></g>
+    </svg>
+    <div class="figcap">S.5653 as passed by the Senate: remand without vacatur, cure period of up to 180 days; 150-day filing limit; claims limited to issues raised in comments (CRS R49506; C2ES).</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Try it: a judge finds the study was wrong. What happens next?</h3>
+    <div class="toggle" id="rmT"><button class="on" data-k="now">The rule until now</button><button data-k="bill">The Senate bill</button></div>
+    <ul class="steps" id="rmOut"></ul>
+  </div>
+  <div class="prose">
+    <p>Supporters point out that under the old rule, even a lawsuit that was going to lose could hold a power line, a housing project or a wind farm for years. Opponents ask a simple question. If a bad study can no longer stop anything, why would anyone write a careful one? And, they add, <em class="flaw">a study corrected after the concrete is poured can describe the damage, but it can no longer prevent it.</em></p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Is there a way to keep some power to stop a bad project, without that power being years of waiting?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="104.7">
+  <h2>Where the brake sits elsewhere</h2>
+  <div class="prose">
+    <p>Other countries put the brake in different hands, and each one pays for it.</p>
+    <p><em class="alt">Britain</em> keeps the power to cancel, but shortens the window far more than the American bill does. A big infrastructure approval can be challenged in court for only <em class="fact">six weeks</em>. Within that time, a judge can still cancel it. <em class="flaw">The price is time for the people affected:</em> a problem discovered in week seven has no court left to hear it.</p>
+    <p><em class="alt">Germany</em>, in the gas crisis of 2022, let parliament name the projects itself. A special law listed new terminals for importing liquefied gas, and allowed them to skip the usual environmental assessment. The first terminal was built in about <em class="fact">ten months</em>. Here there was no study that could turn out to be wrong, so the choice was made by politicians in the middle of a crisis. <em class="flaw">Environmental groups say the work damaged the seabed, and without an assessment, there is no baseline to check that against.</em></p>
+    <p><em class="alt">And America already has a law of a different kind.</em> The Endangered Species Act does not ask agencies to look. It draws a line: you may not wipe out a species. In 1978, the Supreme Court used it to stop a dam in Tennessee that was more than two-thirds built, to protect a small fish. That is what no judge could do to the finished pipeline. <em class="flaw">The price of a line that hard</em> is that it can stop a project after most of the money is spent, and so politics goes around it. A year later, Congress exempted that one dam from every federal law, and the gates closed.</p>
+  </div>
+  <div class="fig">
+    <h3>Who holds the brake, and what it costs</h3>
+    <svg id="prices" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Three brake levers. Britain: the people affected hold it for six weeks; a problem found in week seven has no court left. Germany 2022: parliament named the gas terminals before anything was built; no study, so no baseline. Tellico Dam, US: a judge stopped a dam more than two-thirds built; Congress exempted it in 1979.">
+      <g id="prG"></g>
+    </svg>
+    <div class="figcap">Planning Act 2008 s.118 (UK); LNG-Beschleunigungsgesetz 2022 (Germany); TVA v. Hill, 437 U.S. 153 (1978), and the 1979 Energy and Water Development Appropriations Act.</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">So the brake can sit with the people affected, for six weeks. With parliament, before anything is built. Or with a judge, until Congress steps in. Which hand is on it in the bill your representatives vote on?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="19.7">
+  <h2>Who holds the brake</h2>
+  <div class="prose">
+    <p>A law that only asks you to look needs something to make looking matter. For more than fifty years, that something was the wait.</p>
+  </div>
+  <div class="fig">
+    <h3>Where the brake sits</h3>
+    <table class="cmp">
+      <tr><th>Design</th><th>Who can stop a project, and when</th><th>The price</th></tr>
+      <tr><td>NEPA as it has worked</td><td>Anyone who sues, for years; the approval can be cancelled while the case runs</td><td>Projects of every kind wait, even when the agency wins</td></tr>
+      <tr><td>Senate bill (S.5653)</td><td>People who commented, within 150 days; the approval stays while the study is fixed</td><td>A study fixed after building starts can describe harm but not prevent it</td></tr>
+      <tr><td>Britain</td><td>The people affected, for six weeks; a judge can still cancel</td><td>A problem found in week seven has no court left</td></tr>
+      <tr><td>Germany, 2022</td><td>Parliament, before anything is built</td><td>No study, so no baseline to check the damage against</td></tr>
+      <tr><td>Endangered Species Act</td><td>A judge, at any stage, on a hard line</td><td>It can stop a project after the money is spent, so Congress goes around it</td></tr>
+    </table>
+  </div>
+  <p class="note">Also worth knowing: a full environmental impact statement took about 4.5 years on average (CEQ, 2020). In 2025 the Supreme Court, 8–0 in <i>Seven County Infrastructure Coalition v. Eagle County</i>, told courts to give agencies more deference on how far a study must reach. The SunZia power line spent about seventeen years in permitting, for reasons that went beyond NEPA lawsuits. As of the Senate vote, the House had not voted on the bill’s text.</p>
+  <div class="prose keep">
+    <p><em class="flaw">Whenever someone proposes to change how projects get approved, ask this: once a project is approved, what can still stop it if the study turns out to be wrong, and who gets to pull that brake?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Not who's to blame. How it's built.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@TraceUpstream" rel="noopener">Subscribe</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Listen to the narration">▶ Listen</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ ck:{cases:'10 APPEALS OVER A STUDY',win:'AGENCY WINS ≈8 OF 10',lose:'LOSES',bar:'≈4 YEARS FROM THE STUDY TO THE APPEAL RULING',yr:['YEAR 1','YEAR 2','YEAR 3','YEAR 4'],wait:'THE PROJECT WAITS'},
+ mp:{cw:'CAPE WIND',cwY:'2001 → 2017',cwN:'NEVER BUILT',da:'DAKOTA ACCESS',daY:'PERMIT CANCELLED 2020',daN:'OIL KEPT FLOWING',lake:'LAKE OAHE',
+     built:'ALREADY BUILT: KEPT RUNNING',none:'NOTHING BUILT: THE WAIT KILLED IT'},
+ rm:{flaw:['A JUDGE FINDS','THE STUDY WRONG'],now:'THE USUAL RULE',bill:'SENATE BILL',
+     n1:['APPROVAL','CANCELLED'],n2:['WORK','STOPS'],n3:['STUDY REDONE,','NEW APPROVAL'],
+     b1:['APPROVAL','STAYS'],b2:['WORK','GOES ON'],b3:['≤180 DAYS TO','FIX THE STUDY']},
+ pr:{head:'WHO HOLDS THE BRAKE',price:'THE PRICE',c:[
+   {hand:['THE PEOPLE','AFFECTED'],when:'FOR 6 WEEKS',place:'BRITAIN',cost:['WEEK 7:','TOO LATE TO SUE']},
+   {hand:['PARLIAMENT'],when:'BEFORE BUILDING',place:'GERMANY, 2022',cost:['NO STUDY,','NO BASELINE']},
+   {hand:['A JUDGE'],when:'UNTIL CONGRESS ACTS',place:'TELLICO DAM, US',cost:['DAM >2/3 BUILT,','EXEMPTED 1979']}]},
+ st:{now:[['A judge finds the environmental study was wrong',''],['The approval is cancelled (vacated)','stop'],['Building stops; lenders hold back','stop'],['The agency redoes the study','' ],['A new approval, which can be challenged again','']],
+     bill:[['A judge finds the environmental study was wrong',''],['The approval stays in force (remand without vacatur)','go'],['Building continues','go'],['The agency has at most 180 days to fix the study',''],['Only issues raised in public comments could be argued; suit had to come within 150 days','']]}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',topic:'#7A6A8C',grid:'#D9E3F0',paper:'#F8F9FB',water:'#BFD4F2'};
+const T=(x,y,s,o={})=>`<text x="${x}" y="${y}" font-size="${o.size||20}" font-weight="${o.w||700}" fill="${o.fill||C.ink}" text-anchor="${o.a||'start'}"${o.cls?` class="${o.cls}"`:''}${o.id?` id="${o.id}"`:''}${o.op!=null?` opacity="${o.op}"`:''}>${s}</text>`;
+
+/* ---------- clock (s1): eight wins out of ten, and four years of waiting ---------- */
+(function(){
+ let h=T(40,48,L.ck.cases,{size:22,fill:C.dim,id:'ckH',op:0});
+ for(let i=0;i<10;i++){const x=40+i*92;
+  h+=`<rect class="ckSq" x="${x}" y="70" width="76" height="76" rx="10" fill="#FFFFFF" stroke="${C.ink}" stroke-width="3" opacity="0" data-win="${i<8?1:0}"/>`;}
+ h+=T(40,188,L.ck.win,{size:26,fill:C.alt,id:'ckW',op:0})+T(40+8*92+76,188,L.ck.lose,{size:20,fill:C.flaw,id:'ckLs',op:0,a:'end'});
+ const BX=40,BW=920,BY=270;
+ h+=T(BX,BY-16,L.ck.bar,{size:22,fill:C.fact,id:'ckBT',op:0})+
+  `<rect x="${BX}" y="${BY}" width="${BW}" height="56" rx="6" fill="#EEF1F5"/>`+
+  `<rect id="ckBar" x="${BX}" y="${BY}" width="0" height="56" rx="6" fill="#DCE7F8" stroke="${C.fact}" stroke-width="3"/>`;
+ L.ck.yr.forEach((y,i)=>{const x=BX+(i+1)*BW/4;h+=`<g class="ckY" opacity="0"><line x1="${x}" y1="${BY}" x2="${x}" y2="${BY+56}" stroke="${C.fact}" stroke-width="2"/>`+T(x,BY+80,y,{size:20,fill:C.fact,a:'end'})+`</g>`;});
+ h+=`<g id="ckWait" opacity="0"><rect x="${BX}" y="${BY+100}" width="${BW}" height="48" rx="6" fill="${C.flaw}"/>`+T(BX+BW/2,BY+132,L.ck.wait,{size:26,fill:'#FFFFFF',a:'middle'})+`</g>`;
+ $('ckG').innerHTML=h;})();
+window.__fig.clock=()=>{gsap.set('#ckH,.ckSq,#ckW,#ckLs,#ckBT,.ckY,#ckWait',{opacity:0});gsap.set('.ckSq',{attr:{fill:'#FFFFFF'}});gsap.set('#ckBar',{attr:{width:0}});
+ const tl=gsap.timeline().to('#ckH',{opacity:1,duration:.3},.1).to('.ckSq',{opacity:1,duration:.2,stagger:.06},.2);
+ document.querySelectorAll('.ckSq').forEach((s,i)=>tl.to(s,{attr:{fill:s.dataset.win==='1'?'#CFEBDD':'#F6D9BC'},duration:.2},1.0+i*.08));
+ return tl.to('#ckW',{opacity:1,duration:.3},1.9).to('#ckLs',{opacity:1,duration:.3},2.0)
+  .to('#ckBT',{opacity:1,duration:.3},2.5).to('#ckBar',{attr:{width:920},duration:2.0,ease:'none'},2.6)
+  .to('.ckY',{opacity:1,duration:.2,stagger:.5},2.9).to('#ckWait',{opacity:1,duration:.3},4.4).to({},{duration:.8});};
+
+/* ---------- map (s2): computed US map, Cape Wind and Dakota Access ---------- */
+(function(){
+ const g=$('mpG');
+ const lib=src=>new Promise(r=>{const s=document.createElement('script');s.src=src;s.onload=r;s.onerror=r;document.head.appendChild(s);});
+ window.__mpReady=(async()=>{try{
+  if(!window.d3) await lib('https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js');
+  if(!window.topojson) await lib('https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js');
+  const us=await (await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json')).json();
+  const st=topojson.feature(us,us.objects.states).features.filter(f=>!['02','15','60','66','69','72','78'].includes(f.id));
+  const proj=d3.geoAlbers().fitExtent([[80,10],[920,372]],{type:'FeatureCollection',features:st}),gp=d3.geoPath(proj);
+  const P=(lo,la)=>proj([lo,la]).map(v=>+v.toFixed(1));
+  let h='';st.forEach(f=>{const hot=f.id==='25'||f.id==='38';h+=`<path d="${gp(f)}" fill="${hot?'#FFFFFF':'#EEF1F5'}" stroke="#AEB9C8" stroke-width="${hot?2:1}"/>`;});
+  // Dakota Access: Bakken (ND) → under Lake Oahe → SD → Iowa → Patoka, Illinois (approximate)
+  const route=[[-102.6,47.9],[-101.4,47.0],[-100.59,46.43],[-99.3,45.3],[-97.8,44.0],[-96.4,43.1],[-94.6,42.2],[-92.6,41.3],[-91.0,40.3],[-89.1,38.75]].map(p=>P(...p));
+  const d='M'+route.map(p=>p.join(' ')).join(' L');
+  const [lx,ly]=P(-100.59,46.43), [cx,cy]=P(-70.33,41.50);
+  h+=`<ellipse cx="${lx}" cy="${ly}" rx="16" ry="9" fill="${C.water}" stroke="${C.fact}" stroke-width="2"/>`;
+  h+=`<path id="mpPipe" d="${d}" fill="none" stroke="${C.ink}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`;
+  h+=`<path id="mpOil" d="${d}" fill="none" stroke="${C.flaw}" stroke-width="3" stroke-dasharray="10 14" opacity="0"/>`;
+  h+=`<g id="mpDA" opacity="0">`+T(lx-30,ly-34,L.mp.da,{size:26,a:'end',cls:'lab'})+T(lx-30,ly-6,L.mp.daY,{size:22,a:'end',fill:C.flaw,cls:'lab'})+`</g>`;
+  h+=`<g id="mpX" opacity="0"><path d="M${lx-12} ${ly-12} L${lx+12} ${ly+12} M${lx+12} ${ly-12} L${lx-12} ${ly+12}" stroke="${C.flaw}" stroke-width="5" stroke-linecap="round"/></g>`;
+  h+=`<g id="mpFlow" opacity="0">`+T(lx+28,ly+44,L.mp.daN,{size:24,fill:C.flaw,cls:'lab'})+`</g>`;
+  // Cape Wind: a cluster of turbine dots in Nantucket Sound
+  let tb='';for(let i=0;i<9;i++){const a=i%3,b=Math.floor(i/3);tb+=`<circle class="mpT" cx="${cx-10+a*10}" cy="${cy-6+b*10}" r="5" fill="${C.alt}"/>`;}
+  h+=`<g id="mpCW" opacity="0">${tb}`+T(cx+26,cy-4,L.mp.cw,{size:26,cls:'lab'})+T(cx+26,cy+24,L.mp.cwY,{size:22,fill:C.dim,cls:'lab'})+`</g>`;
+  h+=`<g id="mpCWN" opacity="0">`+T(cx+26,cy+52,L.mp.cwN,{size:24,fill:C.flaw,cls:'lab'})+`</g>`;
+  h+=`<g id="mpSum" opacity="0"><rect x="0" y="380" width="1000" height="60" fill="${C.paper}"/>`+T(250,418,L.mp.built,{size:22,a:'middle',fill:C.ink})+T(750,418,L.mp.none,{size:22,a:'middle',fill:C.flaw})+`</g>`;
+  g.innerHTML=h;}catch(e){g.innerHTML=T(20,200,'Map data could not be loaded.',{size:20,fill:C.dim,w:400});}})();})();
+window.__fig.map=()=>{const p=$('mpPipe');if(!p) return gsap.timeline().to({},{duration:1});const l=p.getTotalLength();
+ gsap.set(p,{strokeDasharray:l,strokeDashoffset:l});gsap.set('#mpDA,#mpX,#mpFlow,#mpCW,#mpCWN,#mpSum,#mpOil',{opacity:0});gsap.set('.mpT',{opacity:1});gsap.set('#mpOil',{strokeDashoffset:0});
+ return gsap.timeline().to('#mpCW',{opacity:1,duration:.4},.2).to('.mpT',{opacity:.12,duration:.25,stagger:.08},1.0).to('#mpCWN',{opacity:1,duration:.3},1.8)
+  .to(p,{strokeDashoffset:0,duration:1.2,ease:'none'},2.2).to('#mpDA',{opacity:1,duration:.3},2.6).to('#mpX',{opacity:1,duration:.2},3.3)
+  .to('#mpOil',{opacity:1,duration:.3},3.6).to('#mpOil',{strokeDashoffset:-240,duration:6,ease:'none'},3.6).to('#mpFlow',{opacity:1,duration:.3},3.9)
+  .to('#mpSum',{opacity:1,duration:.3},4.6);};
+
+/* ---------- remedy (s3): two tracks after a judge finds the study wrong ---------- */
+(function(){
+ const BW=190,BH=86,Y1=110,Y2=290,X=[40,290,530,770];
+ const box=(x,y,lines,o={})=>`<g class="${o.cls||''}" opacity="${o.op??1}"${o.id?` id="${o.id}"`:''}><rect x="${x}" y="${y}" width="${o.w||BW}" height="${BH}" rx="10" fill="${o.fill||'#FFFFFF'}" stroke="${o.stroke||C.ink}" stroke-width="3"/>`+
+  T(x+(o.w||BW)/2,y+36,lines[0],{size:18,a:'middle',fill:o.tc||C.ink})+(lines[1]?T(x+(o.w||BW)/2,y+62,lines[1],{size:18,a:'middle',fill:o.tc||C.ink}):'')+`</g>`;
+ const arr=(x1,y1,x2,y2,cls,col)=>`<path class="${cls}" d="M${x1} ${y1} L${x2} ${y2}" stroke="${col||C.ink}" stroke-width="3" marker-end="url(#rmA)" opacity="0"/>`;
+ let h=`<defs><marker id="rmA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="${C.ink}"/></marker></defs>`;
+ h+=box(X[0],200,L.rm.flaw,{id:'rmF',op:0,stroke:C.fact,fill:'#EAF0FB',tc:C.fact});
+ h+=T(X[1],Y1-18,L.rm.now,{size:22,fill:C.flaw,id:'rmNT',op:0})+T(X[1],Y2-18,L.rm.bill,{size:22,fill:C.alt,id:'rmBT',op:0});
+ h+=arr(X[0]+BW+4,230,X[1]-6,Y1+BH/2,'rmAN')+arr(X[0]+BW+4,256,X[1]-6,Y2+BH/2,'rmAB');
+ h+=box(X[1],Y1,L.rm.n1,{cls:'rmN',op:0,stroke:C.flaw,fill:'#FBEFE3',tc:C.flaw})+box(X[2],Y1,L.rm.n2,{cls:'rmN',op:0,stroke:C.flaw,fill:'#FBEFE3',tc:C.flaw})+box(X[3],Y1,L.rm.n3,{cls:'rmN',op:0});
+ h+=box(X[1],Y2,L.rm.b1,{cls:'rmB',op:0,stroke:C.alt,fill:'#E3F3EC',tc:C.alt})+box(X[2],Y2,L.rm.b2,{cls:'rmB',op:0,stroke:C.alt,fill:'#E3F3EC',tc:C.alt})+box(X[3],Y2,L.rm.b3,{cls:'rmB',op:0});
+ h+=arr(X[1]+BW+4,Y1+BH/2,X[2]-6,Y1+BH/2,'rmN2')+arr(X[2]+BW+4,Y1+BH/2,X[3]-6,Y1+BH/2,'rmN2')+arr(X[1]+BW+4,Y2+BH/2,X[2]-6,Y2+BH/2,'rmB2')+arr(X[2]+BW+4,Y2+BH/2,X[3]-6,Y2+BH/2,'rmB2');
+ // a small excavator under each "work" box: stands still on top, rolls on the bottom
+ const dig=(x,y,id)=>`<g id="${id}" opacity="0"><rect x="${x}" y="${y}" width="56" height="20" rx="6" fill="${C.ink}"/><rect x="${x+8}" y="${y-22}" width="30" height="22" rx="3" fill="#E8B04A" stroke="${C.ink}" stroke-width="2"/><path d="M${x+38} ${y-14} L${x+66} ${y-34} L${x+80} ${y-6}" fill="none" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/></g>`;
+ h+=dig(X[2]+60,Y1+BH+40,'rmDN')+dig(X[2]+20,Y2+BH+40,'rmDB');
+ h+=`<g id="rmStop" opacity="0"><line x1="${X[2]+150}" y1="${Y1+BH+8}" x2="${X[2]+150}" y2="${Y1+BH+46}" stroke="${C.flaw}" stroke-width="6"/></g>`;
+ $('rmG').innerHTML=h;})();
+window.__fig.remedy=()=>{gsap.set('#rmF,#rmNT,#rmBT,.rmAN,.rmAB,.rmN,.rmB,.rmN2,.rmB2,#rmDN,#rmDB,#rmStop',{opacity:0});gsap.set('#rmDB',{x:0});
+ const tl=gsap.timeline().to('#rmF',{opacity:1,duration:.3},.1)
+  .to('.rmAN,#rmNT',{opacity:1,duration:.3},.6).to('.rmN',{opacity:1,duration:.25,stagger:.35},.8).to('.rmN2',{opacity:1,duration:.2,stagger:.35},1.0)
+  .to('#rmDN',{opacity:1,duration:.3},1.4).to('#rmStop',{opacity:1,duration:.2},1.6)
+  .to('.rmAB,#rmBT',{opacity:1,duration:.3},2.4).to('.rmB',{opacity:1,duration:.25,stagger:.35},2.6).to('.rmB2',{opacity:1,duration:.2,stagger:.35},2.8)
+  .to('#rmDB',{opacity:1,duration:.3},3.0).to('#rmDB',{x:90,duration:2.4,ease:'none'},3.2);
+ return tl.to({},{duration:.6},'>');};
+
+/* ---------- prices (s4): three brake levers, three hands, three prices ---------- */
+(function(){
+ const X=[170,500,830], cols=[C.fact,C.alt,C.topic];
+ let h=T(20,34,L.pr.head,{size:20,fill:C.dim})+T(20,272,L.pr.price,{size:20,fill:C.flaw});
+ L.pr.c.forEach((c,i)=>{const x=X[i];
+  h+=`<g class="prCol" opacity="0"><rect x="${x-46}" y="92" width="92" height="22" rx="6" fill="${C.ink}"/>`+
+   `<g class="prLev" data-x="${x}"><line x1="${x}" y1="103" x2="${x+34}" y2="52" stroke="${cols[i]}" stroke-width="9" stroke-linecap="round"/><circle cx="${x+34}" cy="52" r="10" fill="${cols[i]}"/></g>`+
+   c.hand.map((s,k)=>T(x,152+k*28,s,{size:24,a:'middle',fill:cols[i],cls:'big'})).join('')+
+   T(x,152+c.hand.length*28+4,c.when,{size:20,a:'middle',fill:C.ink})+
+   T(x,244,c.place,{size:20,a:'middle',fill:C.dim})+`</g>`+
+   `<g class="prCost" opacity="0"><rect x="${x-150}" y="290" width="300" height="110" rx="10" fill="#FBEFE3"/>`+
+   c.cost.map((s,k)=>T(x,336+k*38,s,{size:21,a:'middle',fill:C.flaw})).join('')+`</g>`;});
+ $('prG').innerHTML=h;})();
+window.__fig.prices=()=>{gsap.set('.prCol,.prCost',{opacity:0});document.querySelectorAll('.prLev').forEach(l=>gsap.set(l,{rotation:0,svgOrigin:`${l.dataset.x} 103`}));const tl=gsap.timeline();
+ document.querySelectorAll('.prCol').forEach((c,i)=>{tl.to(c,{opacity:1,duration:.3},.2+i*1.3).to(c.querySelector('.prLev'),{rotation:70,svgOrigin:`${c.querySelector('.prLev').dataset.x} 103`,duration:.6,ease:'power2.in'},.5+i*1.3)
+  .to(document.querySelectorAll('.prCost')[i],{opacity:1,duration:.3},1.0+i*1.3);});
+ return tl.to({},{duration:.8},'>');};
+
+/* ---------- web-only interactive: what happens after a judge finds the study wrong ---------- */
+(function(){const t=$('rmT');if(!t) return;const out=$('rmOut');
+ const set=k=>{t.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+  out.innerHTML=L.st[k].map(([s,c])=>`<li${c?` class="${c}"`:''}>${s}</li>`).join('');};
+ t.querySelectorAll('button').forEach(b=>b.onclick=()=>set(b.dataset.k));set('now');})();
+
+const FIGS=['clock','map','remedy','prices'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{const go=()=>window.__fig[id]().play();id==='map'?window.__mpReady.then(go):go();}})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/078-only-when-you-sue/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  window.__mpReady.then(()=>{
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s1:['clock'],s2:['map'],s3:['remedy'],s4:['prices']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);});
+}
+</script>
+</body>
+</html>

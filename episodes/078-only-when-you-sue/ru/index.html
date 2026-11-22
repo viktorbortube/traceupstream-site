@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Закон о природе, который работает, только если подать в суд</title>
+<meta name="description" content="Ветропарк Cape Wind сдался после шестнадцати лет, а нефтепровод Dakota Access лишился разрешения, но нефть продолжала течь. Оба спора шли через NEPA, закон 1970 года, который ничего не запрещает и только требует сначала изучить проект. Его единственный тормоз — иск, который заставляет проект ждать. В ноябре 2026 года Сенат США 62 голосами против 33 принял законопроект: разрешение остаётся в силе, пока ошибочную оценку исправляют, на иск 150 дней, спорить можно только о том, что подняли в комментариях. Великобритания, Германия и Закон об исчезающих видах держат тормоз в других руках, и у каждого варианта своя цена.">
+<link rel="canonical" href="https://traceupstream.com/episodes/078-only-when-you-sue/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#7A6A8C;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.fig svg{overflow:hidden}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;gap:8px;margin:4px 0 12px;flex-wrap:wrap}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.steps{list-style:none;padding:0;margin:6px 0 0;font-size:16px}
+.steps li{padding:6px 0;border-bottom:1px solid var(--grid)}
+.steps li.off{color:var(--text-dim);text-decoration:line-through}
+.steps li.go{color:var(--alt);font-weight:600}
+.steps li.stop{color:var(--flaw);font-weight:600}
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--grid);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim)}
+.note{font-size:15px;color:var(--text-dim);max-width:70ch}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+svg .lab{paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+svg .big{font-family:var(--font-display)}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}table.cmp{font-size:13px}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen,body.auto .note{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.078</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="65.1">
+  <div class="kicker">Дефект конструкции · Выпуск 078</div>
+  <h1>Закон о природе, который работает, только если подать в суд</h1>
+  <div class="prose lede">
+    <p>У побережья Массачусетса компания собиралась построить первую в Америке морскую ветровую электростанцию. <em class="fact">Шестнадцать лет</em> ушло на разрешения, слушания и суды, и в 2017 году компания сдалась. Так ничего и не построили.</p>
+    <p>В Северной Дакоте под озером проходит нефтепровод. В 2020 году федеральный судья отменил разрешение, по которому труба там лежит. <em class="flaw">А нефть продолжала течь.</em></p>
+    <p>Ветряки и нефтепровод стоят по разные стороны почти любого спора об энергетике. И всё же оба спора шли через один и тот же закон, принятый в 1970 году. В ноябре 2026 года Сенат США проголосовал за то, чтобы изменить в нём именно ту часть, которая и останавливала проекты.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Что это за закон, который можно обернуть против обоих? И что будет, если эту часть убрать?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="61.4">
+  <h2>Привычные подозреваемые</h2>
+  <div class="prose">
+    <p>Обычное объяснение такое: экологи подают в суд, чтобы заблокировать всё, что им не нравится. Но посмотрите, кто боролся с ветряками. Самыми упорными противниками были владельцы домов на побережье и несколько богатейших семей страны. Они доказывали, что ветряки испортят вид с берега. <em class="flaw">Значит, иск не принадлежит одной стороне.</em> Им может воспользоваться любой, кого проект касается, и по любой причине.</p>
+    <p>Второе объяснение: государственные ведомства всё время проигрывают в суде. Это не так. Когда их экологические оценки оспаривают, ведомства выигрывают <em class="fact">примерно восемь дел из десяти</em>. Но даже выигранное дело может тянуться <em class="fact">около четырёх лет</em>.</p>
+  </div>
+  <div class="fig">
+    <h3>Ведомство обычно выигрывает. А проект всё равно ждёт.</h3>
+    <svg id="clock" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Десять квадратов — десять исков против экологической оценки; восемь становятся зелёными: ведомство выиграло. Ниже полоса растёт около четырёх лет, от оценки до решения апелляции, пока проект ждёт.">
+      <g id="ckG"></g>
+    </svg>
+    <div class="figcap">Апелляции по NEPA в 2013–2022 годах: ведомства выиграли около 80%; около 4,2 года от публикации оценки до конца апелляции (Breakthrough Institute, Understanding NEPA Litigation).</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Если иски в основном проигрываются, почему проекту вообще приходится ждать?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="105">
+  <h2>Закон, который ничего не запрещает</h2>
+  <div class="prose">
+    <p>Всё дело в том, что это за закон. Закон о национальной экологической политике, его обычно называют NEPA, требует вот чего. Прежде чем федеральное ведомство одобрит дорогу, трубопровод или линию электропередачи, оно должно изучить, что этот проект сделает с природой, и опубликовать то, что нашло.</p>
+    <p><em class="fact">Больше закон ничего не требует.</em> Он не говорит, какое решение принять. В 1989 году Верховный суд сказал прямо: закон запрещает решения, принятые не глядя, а не решения неразумные. Ведомство может одобрить вредный проект, если вред оно изучило.</p>
+    <p>Так как же закон, который ничего не запрещает, вообще что-то останавливает? Через суд. Если судья находит, что оценка неполная, обычно разрешение отменяют, пока оценку не переделают как следует. А пока дело не закончено, разрешение могут отменить в любой момент. Поэтому строители и банки обычно ждут, чем всё кончится, даже если ведомство потом выиграет.</p>
+    <p><em class="flaw">Получается, что суд — единственный тормоз этого закона. И тормоз этот слепой.</em> Он не спрашивает, ветряки перед ним или нефтепровод. Он спрашивает только одно: можно ли ещё заставить проект ждать.</p>
+  </div>
+  <div class="fig">
+    <h3>Один закон, противоположные исходы</h3>
+    <svg id="map" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Карта США. У мыса Кейп-Код, Массачусетс: ветропарк Cape Wind, предложен в 2001 году, оставлен в 2017-м, так и не построен. В Северной Дакоте нефтепровод Dakota Access проходит под озером Оахе; в 2020 году его разрешение отменили, но труба уже была построена, и нефть продолжала течь.">
+      <g id="mpG"></g>
+    </svg>
+    <div class="figcap">Cape Wind: Vineyard Gazette, Bloomberg (декабрь 2017). Dakota Access: Standing Rock Sioux Tribe v. US Army Corps of Engineers, окружной суд округа Колумбия, 6.07.2020; апелляционный суд, 26.01.2021. Трасса трубы приблизительная.</div>
+  </div>
+  <div class="prose">
+    <p>Нефтепровод под озером уже был построен. Когда его разрешение отменили, апелляционный суд отказался приказать освободить трубу от нефти, и нефть продолжала течь. А у ветряков ещё ничего не было построено, и ожидание их убило.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Так что будет, если ожидание убрать?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="90.3">
+  <h2>Закон без зубов</h2>
+  <div class="prose">
+    <p>Именно это и делает законопроект Сената. Он прошёл <em class="fact">62 голосами против 33</em>, за него голосовали обе партии, и его отправили в Палату представителей.</p>
+    <p>Он меняет, кто может нажать на тормоз и когда. Во-первых, иск нужно подать в течение <em class="fact">150 дней</em> после разрешения, а не шести лет, которые обычно даются на иск к государству. Во-вторых, судиться можно только из-за тех проблем, о которых вы заявили во время публичного обсуждения. Значит, нажать на тормоз смогут только те, кто высказался вовремя. И в-третьих, самое главное: если судья найдёт, что оценка неверна, <em class="flaw">разрешение остаётся в силе</em>. Стройка продолжается, а у ведомства есть не больше <em class="fact">180 дней</em>, чтобы оценку исправить.</p>
+  </div>
+  <div class="fig">
+    <h3>Судья нашёл, что оценка неверна. Что дальше?</h3>
+    <svg id="remedy" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Две дорожки после того, как суд нашёл ошибку в оценке. До сих пор: разрешение отменяют, стройка стоит, оценку переделывают, и только потом можно начинать снова. По законопроекту Сената: разрешение остаётся в силе, стройка идёт, у ведомства не больше 180 дней на исправление оценки.">
+      <g id="rmG"></g>
+    </svg>
+    <div class="figcap">S.5653 в редакции Сената: возврат на доработку без отмены разрешения, до 180 дней на исправление; 150 дней на подачу иска; только вопросы, поднятые в комментариях (CRS R49506; C2ES).</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Попробуйте: судья нашёл, что оценка неверна. Что происходит дальше?</h3>
+    <div class="toggle" id="rmT"><button class="on" data-k="now">Правило до сих пор</button><button data-k="bill">Законопроект Сената</button></div>
+    <ul class="steps" id="rmOut"></ul>
+  </div>
+  <div class="prose">
+    <p>Сторонники напоминают, что по старому правилу даже обречённый на проигрыш иск мог годами держать линию электропередачи, жилой квартал или ветряки. Противники задают простой вопрос. Если плохая оценка больше ничего не может остановить, зачем кому-то писать тщательную? И добавляют: <em class="flaw">оценка, исправленная после того, как бетон залит, может описать ущерб, но предотвратить его уже не может.</em></p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Можно ли сохранить хоть какую-то власть остановить плохой проект, но чтобы эта власть не сводилась к годам ожидания?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="128.6">
+  <h2>Где тормоз в других местах</h2>
+  <div class="prose">
+    <p>В других странах тормоз держат другие руки, и за каждый вариант приходится платить.</p>
+    <p><em class="alt">Великобритания</em> сохраняет право отменить разрешение, но сокращает срок гораздо сильнее, чем американский законопроект. Разрешение на крупный инфраструктурный объект можно оспорить в суде всего <em class="fact">шесть недель</em>. В этот срок судья ещё может его отменить. <em class="flaw">Цена — время для тех, кого проект касается.</em> Если проблему нашли на седьмой неделе, суда, который её выслушает, уже нет.</p>
+    <p><em class="alt">Германия</em> в газовый кризис 2022 года позволила парламенту самому назвать проекты. Специальный закон перечислил новые терминалы для приёма сжиженного газа и разрешил им обойтись без обычной экологической оценки. Первый терминал построили примерно за <em class="fact">десять месяцев</em>. Здесь не было оценки, которая могла бы оказаться неверной, и выбор делали политики посреди кризиса. <em class="flaw">Экологи говорят, что стройка повредила морское дно. А без оценки не с чем сравнить, чтобы это проверить.</em></p>
+    <p><em class="alt">А в самой Америке уже есть закон другого рода.</em> Закон об исчезающих видах не просит ведомства посмотреть. Он проводит черту: уничтожать вид нельзя. В 1978 году Верховный суд с его помощью остановил плотину в Теннесси, построенную больше чем на две трети, ради маленькой рыбки. С готовым нефтепроводом ни один судья такого сделать не смог. <em class="flaw">Цена такой жёсткой черты</em> в том, что она может остановить проект, когда большая часть денег уже потрачена. Поэтому её обходит политика. Через год Конгресс освободил эту плотину от всех федеральных законов, и затворы закрыли.</p>
+  </div>
+  <div class="fig">
+    <h3>Чья рука на тормозе и чего это стоит</h3>
+    <svg id="prices" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Три рычага тормоза. Великобритания: тормоз у затронутых людей на шесть недель; проблема, найденная на седьмой неделе, уже не дойдёт до суда. Германия, 2022: парламент назвал терминалы до начала стройки; оценки нет, сравнивать не с чем. Плотина Теллико, США: судья остановил плотину, построенную больше чем на две трети; в 1979 году Конгресс её освободил.">
+      <g id="prG"></g>
+    </svg>
+    <div class="figcap">Planning Act 2008, ст. 118 (Великобритания); LNG-Beschleunigungsgesetz 2022 (Германия); TVA v. Hill, 437 U.S. 153 (1978) и закон об ассигнованиях на энергетику и водное хозяйство 1979 года.</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Итак, тормоз может быть у тех, кого проект касается, на шесть недель. У парламента, ещё до того как что-то построено. Или у судьи, пока не вмешается Конгресс. Чья рука на тормозе в законопроекте, за который голосуют ваши представители?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="26.5">
+  <h2>У кого тормоз</h2>
+  <div class="prose">
+    <p>Закону, который просит только посмотреть, нужно что-то, от чего взгляд будет иметь значение. Больше пятидесяти лет этим чем-то было ожидание.</p>
+  </div>
+  <div class="fig">
+    <h3>Где стоит тормоз</h3>
+    <table class="cmp">
+      <tr><th>Устройство</th><th>Кто может остановить проект и когда</th><th>Цена</th></tr>
+      <tr><td>NEPA, как он работал</td><td>Любой, кто подаст иск, годами; разрешение могут отменить, пока идёт дело</td><td>Ждут проекты любого рода, даже когда ведомство выигрывает</td></tr>
+      <tr><td>Законопроект Сената (S.5653)</td><td>Те, кто оставил комментарий, в течение 150 дней; разрешение действует, пока оценку исправляют</td><td>Оценка, исправленная после начала стройки, может описать вред, но не предотвратить его</td></tr>
+      <tr><td>Великобритания</td><td>Затронутые люди, шесть недель; судья ещё может отменить</td><td>Проблема, найденная на седьмой неделе, до суда уже не дойдёт</td></tr>
+      <tr><td>Германия, 2022</td><td>Парламент, до начала стройки</td><td>Оценки нет, поэтому ущерб не с чем сравнить</td></tr>
+      <tr><td>Закон об исчезающих видах</td><td>Судья, на любой стадии, по жёсткой черте</td><td>Может остановить проект, когда деньги уже потрачены, и Конгресс его обходит</td></tr>
+    </table>
+  </div>
+  <p class="note">Ещё полезно знать: полная оценка воздействия на окружающую среду занимала в среднем около 4,5 года (CEQ, 2020). В 2025 году Верховный суд единогласно, 8–0, в деле <i>Seven County Infrastructure Coalition v. Eagle County</i> велел судам больше доверять ведомствам в том, насколько широкой должна быть оценка. Линия электропередачи SunZia получала разрешения около семнадцати лет, и причины были не только в исках по NEPA. На момент голосования в Сенате Палата представителей текст законопроекта ещё не голосовала.</p>
+  <div class="prose keep">
+    <p><em class="flaw">Когда кто-то предлагает изменить порядок одобрения проектов, спросите вот что. Если проект уже одобрен, а оценка окажется неверной, что ещё может его остановить, и у кого будет этот тормоз?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ ck:{cases:'10 АПЕЛЛЯЦИЙ ПО ОЦЕНКАМ',win:'ВЕДОМСТВО ВЫИГРЫВАЕТ ≈8 ИЗ 10',lose:'ПРОИГРЫШ',bar:'≈4 ГОДА ОТ ОЦЕНКИ ДО РЕШЕНИЯ ПО АПЕЛЛЯЦИИ',yr:['1-Й ГОД','2-Й ГОД','3-Й ГОД','4-Й ГОД'],wait:'ПРОЕКТ ЖДЁТ'},
+ mp:{cw:'CAPE WIND',cwY:'2001 → 2017',cwN:'НЕ ПОСТРОЕН',da:'DAKOTA ACCESS',daY:'ОТМЕНЕНО В 2020',daN:'НЕФТЬ ТЕЧЁТ',lake:'ОЗЕРО ОАХЕ',
+     built:'УЖЕ ПОСТРОЕН: РАБОТАЕТ',none:'НИЧЕГО НЕ ПОСТРОЕНО: ПРОЕКТ УБИЛО ОЖИДАНИЕ'},
+ rm:{flaw:['СУДЬЯ НАШЁЛ','ОШИБКУ В ОЦЕНКЕ'],now:'ОБЫЧНОЕ ПРАВИЛО',bill:'ЗАКОНОПРОЕКТ',
+     n1:['РАЗРЕШЕНИЕ','ОТМЕНЕНО'],n2:['СТРОЙКА','СТОИТ'],n3:['НОВАЯ ОЦЕНКА,','НОВОЕ РАЗРЕШЕНИЕ'],
+     b1:['РАЗРЕШЕНИЕ','В СИЛЕ'],b2:['СТРОЙКА','ИДЁТ'],b3:['≤180 ДНЕЙ НА','ИСПРАВЛЕНИЕ']},
+ pr:{head:'ЧЬЯ РУКА НА ТОРМОЗЕ',price:'ЦЕНА',c:[
+   {hand:['ЗАТРОНУТЫЕ','ЛЮДИ'],when:'6 НЕДЕЛЬ',place:'ВЕЛИКОБРИТАНИЯ',cost:['НЕДЕЛЯ 7:','ИСК УЖЕ НЕ ПОДАТЬ']},
+   {hand:['ПАРЛАМЕНТ'],when:'ДО СТРОЙКИ',place:'ГЕРМАНИЯ, 2022',cost:['НЕТ ОЦЕНКИ —','НЕ С ЧЕМ СРАВНИТЬ']},
+   {hand:['СУДЬЯ'],when:'ДО ВМЕШАТЕЛЬСТВА КОНГРЕССА',place:'ПЛОТИНА ТЕЛЛИКО, США',cost:['ПОСТРОЕНА >2/3;','1979: ИЗЪЯТА ИЗ ЗАКОНОВ']}]},
+ st:{now:[['Судья находит, что экологическая оценка неверна',''],['Разрешение отменяют','stop'],['Стройка останавливается, банки ждут','stop'],['Ведомство переделывает оценку',''],['Новое разрешение, которое снова можно оспорить','']],
+     bill:[['Судья находит, что экологическая оценка неверна',''],['Разрешение остаётся в силе (возврат на доработку без отмены)','go'],['Стройка продолжается','go'],['У ведомства не больше 180 дней, чтобы исправить оценку',''],['Спорить можно было только о проблемах из публичных комментариев, а иск подать в течение 150 дней','']]}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',topic:'#7A6A8C',grid:'#D9E3F0',paper:'#F8F9FB',water:'#BFD4F2'};
+const T=(x,y,s,o={})=>`<text x="${x}" y="${y}" font-size="${o.size||20}" font-weight="${o.w||700}" fill="${o.fill||C.ink}" text-anchor="${o.a||'start'}"${o.cls?` class="${o.cls}"`:''}${o.id?` id="${o.id}"`:''}${o.op!=null?` opacity="${o.op}"`:''}>${s}</text>`;
+
+/* ---------- clock (s1): eight wins out of ten, and four years of waiting ---------- */
+(function(){
+ let h=T(40,48,L.ck.cases,{size:22,fill:C.dim,id:'ckH',op:0});
+ for(let i=0;i<10;i++){const x=40+i*92;
+  h+=`<rect class="ckSq" x="${x}" y="70" width="76" height="76" rx="10" fill="#FFFFFF" stroke="${C.ink}" stroke-width="3" opacity="0" data-win="${i<8?1:0}"/>`;}
+ h+=T(40,188,L.ck.win,{size:26,fill:C.alt,id:'ckW',op:0})+T(40+8*92+76,188,L.ck.lose,{size:20,fill:C.flaw,id:'ckLs',op:0,a:'end'});
+ const BX=40,BW=920,BY=270;
+ h+=T(BX,BY-16,L.ck.bar,{size:22,fill:C.fact,id:'ckBT',op:0})+
+  `<rect x="${BX}" y="${BY}" width="${BW}" height="56" rx="6" fill="#EEF1F5"/>`+
+  `<rect id="ckBar" x="${BX}" y="${BY}" width="0" height="56" rx="6" fill="#DCE7F8" stroke="${C.fact}" stroke-width="3"/>`;
+ L.ck.yr.forEach((y,i)=>{const x=BX+(i+1)*BW/4;h+=`<g class="ckY" opacity="0"><line x1="${x}" y1="${BY}" x2="${x}" y2="${BY+56}" stroke="${C.fact}" stroke-width="2"/>`+T(x,BY+80,y,{size:20,fill:C.fact,a:'end'})+`</g>`;});
+ h+=`<g id="ckWait" opacity="0"><rect x="${BX}" y="${BY+100}" width="${BW}" height="48" rx="6" fill="${C.flaw}"/>`+T(BX+BW/2,BY+132,L.ck.wait,{size:26,fill:'#FFFFFF',a:'middle'})+`</g>`;
+ $('ckG').innerHTML=h;})();
+window.__fig.clock=()=>{gsap.set('#ckH,.ckSq,#ckW,#ckLs,#ckBT,.ckY,#ckWait',{opacity:0});gsap.set('.ckSq',{attr:{fill:'#FFFFFF'}});gsap.set('#ckBar',{attr:{width:0}});
+ const tl=gsap.timeline().to('#ckH',{opacity:1,duration:.3},.1).to('.ckSq',{opacity:1,duration:.2,stagger:.06},.2);
+ document.querySelectorAll('.ckSq').forEach((s,i)=>tl.to(s,{attr:{fill:s.dataset.win==='1'?'#CFEBDD':'#F6D9BC'},duration:.2},1.0+i*.08));
+ return tl.to('#ckW',{opacity:1,duration:.3},1.9).to('#ckLs',{opacity:1,duration:.3},2.0)
+  .to('#ckBT',{opacity:1,duration:.3},2.5).to('#ckBar',{attr:{width:920},duration:2.0,ease:'none'},2.6)
+  .to('.ckY',{opacity:1,duration:.2,stagger:.5},2.9).to('#ckWait',{opacity:1,duration:.3},4.4).to({},{duration:.8});};
+
+/* ---------- map (s2): computed US map, Cape Wind and Dakota Access ---------- */
+(function(){
+ const g=$('mpG');
+ const lib=src=>new Promise(r=>{const s=document.createElement('script');s.src=src;s.onload=r;s.onerror=r;document.head.appendChild(s);});
+ window.__mpReady=(async()=>{try{
+  if(!window.d3) await lib('https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js');
+  if(!window.topojson) await lib('https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js');
+  const us=await (await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json')).json();
+  const st=topojson.feature(us,us.objects.states).features.filter(f=>!['02','15','60','66','69','72','78'].includes(f.id));
+  const proj=d3.geoAlbers().fitExtent([[80,10],[920,372]],{type:'FeatureCollection',features:st}),gp=d3.geoPath(proj);
+  const P=(lo,la)=>proj([lo,la]).map(v=>+v.toFixed(1));
+  let h='';st.forEach(f=>{const hot=f.id==='25'||f.id==='38';h+=`<path d="${gp(f)}" fill="${hot?'#FFFFFF':'#EEF1F5'}" stroke="#AEB9C8" stroke-width="${hot?2:1}"/>`;});
+  // Dakota Access: Bakken (ND) → under Lake Oahe → SD → Iowa → Patoka, Illinois (approximate)
+  const route=[[-102.6,47.9],[-101.4,47.0],[-100.59,46.43],[-99.3,45.3],[-97.8,44.0],[-96.4,43.1],[-94.6,42.2],[-92.6,41.3],[-91.0,40.3],[-89.1,38.75]].map(p=>P(...p));
+  const d='M'+route.map(p=>p.join(' ')).join(' L');
+  const [lx,ly]=P(-100.59,46.43), [cx,cy]=P(-70.33,41.50);
+  h+=`<ellipse cx="${lx}" cy="${ly}" rx="16" ry="9" fill="${C.water}" stroke="${C.fact}" stroke-width="2"/>`;
+  h+=`<path id="mpPipe" d="${d}" fill="none" stroke="${C.ink}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`;
+  h+=`<path id="mpOil" d="${d}" fill="none" stroke="${C.flaw}" stroke-width="3" stroke-dasharray="10 14" opacity="0"/>`;
+  h+=`<g id="mpDA" opacity="0">`+T(lx-30,ly-34,L.mp.da,{size:26,a:'end',cls:'lab'})+T(lx-30,ly-6,L.mp.daY,{size:22,a:'end',fill:C.flaw,cls:'lab'})+`</g>`;
+  h+=`<g id="mpX" opacity="0"><path d="M${lx-12} ${ly-12} L${lx+12} ${ly+12} M${lx+12} ${ly-12} L${lx-12} ${ly+12}" stroke="${C.flaw}" stroke-width="5" stroke-linecap="round"/></g>`;
+  h+=`<g id="mpFlow" opacity="0">`+T(lx+28,ly+44,L.mp.daN,{size:24,fill:C.flaw,cls:'lab'})+`</g>`;
+  // Cape Wind: a cluster of turbine dots in Nantucket Sound
+  let tb='';for(let i=0;i<9;i++){const a=i%3,b=Math.floor(i/3);tb+=`<circle class="mpT" cx="${cx-10+a*10}" cy="${cy-6+b*10}" r="5" fill="${C.alt}"/>`;}
+  h+=`<g id="mpCW" opacity="0">${tb}`+T(cx+26,cy-4,L.mp.cw,{size:26,cls:'lab'})+T(cx+26,cy+24,L.mp.cwY,{size:22,fill:C.dim,cls:'lab'})+`</g>`;
+  h+=`<g id="mpCWN" opacity="0">`+T(cx+26,cy+52,L.mp.cwN,{size:24,fill:C.flaw,cls:'lab'})+`</g>`;
+  h+=`<g id="mpSum" opacity="0"><rect x="0" y="380" width="1000" height="60" fill="${C.paper}"/>`+T(250,418,L.mp.built,{size:22,a:'middle',fill:C.ink})+T(750,418,L.mp.none,{size:22,a:'middle',fill:C.flaw})+`</g>`;
+  g.innerHTML=h;}catch(e){g.innerHTML=T(20,200,'Не удалось загрузить карту.',{size:20,fill:C.dim,w:400});}})();})();
+window.__fig.map=()=>{const p=$('mpPipe');if(!p) return gsap.timeline().to({},{duration:1});const l=p.getTotalLength();
+ gsap.set(p,{strokeDasharray:l,strokeDashoffset:l});gsap.set('#mpDA,#mpX,#mpFlow,#mpCW,#mpCWN,#mpSum,#mpOil',{opacity:0});gsap.set('.mpT',{opacity:1});gsap.set('#mpOil',{strokeDashoffset:0});
+ return gsap.timeline().to('#mpCW',{opacity:1,duration:.4},.2).to('.mpT',{opacity:.12,duration:.25,stagger:.08},1.0).to('#mpCWN',{opacity:1,duration:.3},1.8)
+  .to(p,{strokeDashoffset:0,duration:1.2,ease:'none'},2.2).to('#mpDA',{opacity:1,duration:.3},2.6).to('#mpX',{opacity:1,duration:.2},3.3)
+  .to('#mpOil',{opacity:1,duration:.3},3.6).to('#mpOil',{strokeDashoffset:-240,duration:6,ease:'none'},3.6).to('#mpFlow',{opacity:1,duration:.3},3.9)
+  .to('#mpSum',{opacity:1,duration:.3},4.6);};
+
+/* ---------- remedy (s3): two tracks after a judge finds the study wrong ---------- */
+(function(){
+ const BW=190,BH=86,Y1=110,Y2=290,X=[40,290,530,770];
+ const box=(x,y,lines,o={})=>`<g class="${o.cls||''}" opacity="${o.op??1}"${o.id?` id="${o.id}"`:''}><rect x="${x}" y="${y}" width="${o.w||BW}" height="${BH}" rx="10" fill="${o.fill||'#FFFFFF'}" stroke="${o.stroke||C.ink}" stroke-width="3"/>`+
+  T(x+(o.w||BW)/2,y+36,lines[0],{size:18,a:'middle',fill:o.tc||C.ink})+(lines[1]?T(x+(o.w||BW)/2,y+62,lines[1],{size:18,a:'middle',fill:o.tc||C.ink}):'')+`</g>`;
+ const arr=(x1,y1,x2,y2,cls,col)=>`<path class="${cls}" d="M${x1} ${y1} L${x2} ${y2}" stroke="${col||C.ink}" stroke-width="3" marker-end="url(#rmA)" opacity="0"/>`;
+ let h=`<defs><marker id="rmA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="${C.ink}"/></marker></defs>`;
+ h+=box(X[0],200,L.rm.flaw,{id:'rmF',op:0,stroke:C.fact,fill:'#EAF0FB',tc:C.fact});
+ h+=T(X[1],Y1-18,L.rm.now,{size:22,fill:C.flaw,id:'rmNT',op:0})+T(X[1],Y2-18,L.rm.bill,{size:22,fill:C.alt,id:'rmBT',op:0});
+ h+=arr(X[0]+BW+4,230,X[1]-6,Y1+BH/2,'rmAN')+arr(X[0]+BW+4,256,X[1]-6,Y2+BH/2,'rmAB');
+ h+=box(X[1],Y1,L.rm.n1,{cls:'rmN',op:0,stroke:C.flaw,fill:'#FBEFE3',tc:C.flaw})+box(X[2],Y1,L.rm.n2,{cls:'rmN',op:0,stroke:C.flaw,fill:'#FBEFE3',tc:C.flaw})+box(X[3],Y1,L.rm.n3,{cls:'rmN',op:0});
+ h+=box(X[1],Y2,L.rm.b1,{cls:'rmB',op:0,stroke:C.alt,fill:'#E3F3EC',tc:C.alt})+box(X[2],Y2,L.rm.b2,{cls:'rmB',op:0,stroke:C.alt,fill:'#E3F3EC',tc:C.alt})+box(X[3],Y2,L.rm.b3,{cls:'rmB',op:0});
+ h+=arr(X[1]+BW+4,Y1+BH/2,X[2]-6,Y1+BH/2,'rmN2')+arr(X[2]+BW+4,Y1+BH/2,X[3]-6,Y1+BH/2,'rmN2')+arr(X[1]+BW+4,Y2+BH/2,X[2]-6,Y2+BH/2,'rmB2')+arr(X[2]+BW+4,Y2+BH/2,X[3]-6,Y2+BH/2,'rmB2');
+ // a small excavator under each "work" box: stands still on top, rolls on the bottom
+ const dig=(x,y,id)=>`<g id="${id}" opacity="0"><rect x="${x}" y="${y}" width="56" height="20" rx="6" fill="${C.ink}"/><rect x="${x+8}" y="${y-22}" width="30" height="22" rx="3" fill="#E8B04A" stroke="${C.ink}" stroke-width="2"/><path d="M${x+38} ${y-14} L${x+66} ${y-34} L${x+80} ${y-6}" fill="none" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/></g>`;
+ h+=dig(X[2]+60,Y1+BH+40,'rmDN')+dig(X[2]+20,Y2+BH+40,'rmDB');
+ h+=`<g id="rmStop" opacity="0"><line x1="${X[2]+150}" y1="${Y1+BH+8}" x2="${X[2]+150}" y2="${Y1+BH+46}" stroke="${C.flaw}" stroke-width="6"/></g>`;
+ $('rmG').innerHTML=h;})();
+window.__fig.remedy=()=>{gsap.set('#rmF,#rmNT,#rmBT,.rmAN,.rmAB,.rmN,.rmB,.rmN2,.rmB2,#rmDN,#rmDB,#rmStop',{opacity:0});gsap.set('#rmDB',{x:0});
+ const tl=gsap.timeline().to('#rmF',{opacity:1,duration:.3},.1)
+  .to('.rmAN,#rmNT',{opacity:1,duration:.3},.6).to('.rmN',{opacity:1,duration:.25,stagger:.35},.8).to('.rmN2',{opacity:1,duration:.2,stagger:.35},1.0)
+  .to('#rmDN',{opacity:1,duration:.3},1.4).to('#rmStop',{opacity:1,duration:.2},1.6)
+  .to('.rmAB,#rmBT',{opacity:1,duration:.3},2.4).to('.rmB',{opacity:1,duration:.25,stagger:.35},2.6).to('.rmB2',{opacity:1,duration:.2,stagger:.35},2.8)
+  .to('#rmDB',{opacity:1,duration:.3},3.0).to('#rmDB',{x:90,duration:2.4,ease:'none'},3.2);
+ return tl.to({},{duration:.6},'>');};
+
+/* ---------- prices (s4): three brake levers, three hands, three prices ---------- */
+(function(){
+ const X=[170,500,830], cols=[C.fact,C.alt,C.topic];
+ let h=T(20,34,L.pr.head,{size:20,fill:C.dim})+T(20,272,L.pr.price,{size:20,fill:C.flaw});
+ L.pr.c.forEach((c,i)=>{const x=X[i];
+  h+=`<g class="prCol" opacity="0"><rect x="${x-46}" y="92" width="92" height="22" rx="6" fill="${C.ink}"/>`+
+   `<g class="prLev" data-x="${x}"><line x1="${x}" y1="103" x2="${x+34}" y2="52" stroke="${cols[i]}" stroke-width="9" stroke-linecap="round"/><circle cx="${x+34}" cy="52" r="10" fill="${cols[i]}"/></g>`+
+   c.hand.map((s,k)=>T(x,152+k*28,s,{size:24,a:'middle',fill:cols[i],cls:'big'})).join('')+
+   T(x,152+c.hand.length*28+4,c.when,{size:20,a:'middle',fill:C.ink})+
+   T(x,244,c.place,{size:20,a:'middle',fill:C.dim})+`</g>`+
+   `<g class="prCost" opacity="0"><rect x="${x-150}" y="290" width="300" height="110" rx="10" fill="#FBEFE3"/>`+
+   c.cost.map((s,k)=>T(x,336+k*38,s,{size:21,a:'middle',fill:C.flaw})).join('')+`</g>`;});
+ $('prG').innerHTML=h;})();
+window.__fig.prices=()=>{gsap.set('.prCol,.prCost',{opacity:0});document.querySelectorAll('.prLev').forEach(l=>gsap.set(l,{rotation:0,svgOrigin:`${l.dataset.x} 103`}));const tl=gsap.timeline();
+ document.querySelectorAll('.prCol').forEach((c,i)=>{tl.to(c,{opacity:1,duration:.3},.2+i*1.3).to(c.querySelector('.prLev'),{rotation:70,svgOrigin:`${c.querySelector('.prLev').dataset.x} 103`,duration:.6,ease:'power2.in'},.5+i*1.3)
+  .to(document.querySelectorAll('.prCost')[i],{opacity:1,duration:.3},1.0+i*1.3);});
+ return tl.to({},{duration:.8},'>');};
+
+/* ---------- web-only interactive: what happens after a judge finds the study wrong ---------- */
+(function(){const t=$('rmT');if(!t) return;const out=$('rmOut');
+ const set=k=>{t.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+  out.innerHTML=L.st[k].map(([s,c])=>`<li${c?` class="${c}"`:''}>${s}</li>`).join('');};
+ t.querySelectorAll('button').forEach(b=>b.onclick=()=>set(b.dataset.k));set('now');})();
+
+const FIGS=['clock','map','remedy','prices'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{const go=()=>window.__fig[id]().play();id==='map'?window.__mpReady.then(go):go();}})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/078-only-when-you-sue-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  window.__mpReady.then(()=>{
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s1:['clock'],s2:['map'],s3:['remedy'],s4:['prices']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);});
+}
+</script>
+</body>
+</html>
