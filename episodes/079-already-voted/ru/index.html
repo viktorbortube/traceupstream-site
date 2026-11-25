@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дефект конструкции — Конгресс, который уволили избиратели, всё ещё пишет законы</title>
+<meta name="description" content="В марте 2025 года уходящий парламент Германии изменил конституцию за неделю до первого заседания нового. В ноябре 2026 года уходящий Конгресс США вернулся к работе почти на два месяца. Мандат кончается в день выборов, власть — в день передачи. Великобритания закрывает это окно календарём, Австралия и Новая Зеландия держат обычаем, США и Германия оставляют открытым, и у каждого способа своя цена.">
+<link rel="canonical" href="https://traceupstream.com/episodes/079-already-voted/ru/">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#F8F9FB;--bg-raised:#FFFFFF;--grid:#D9E3F0;--text:#1B2430;--text-dim:#5A6575;
+--fact:#2B5EC4;--flaw:#B45309;--alt:#0E8A63;--topic:#7A6A8C;
+--font-display:'Onest',sans-serif;--font-body:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.55;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:32px 32px;background-position:-1px -1px}
+.topbar{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fact),var(--flaw),var(--alt));z-index:50}
+.stamp{position:fixed;top:14px;right:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);z-index:50}
+.deck{max-width:1100px;margin:0 auto;padding:60px 28px 0}
+.section{padding:54px 0 30px;border-bottom:1px solid var(--grid)}
+.section:last-child{border-bottom:0}
+.kicker{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+h1{font-family:var(--font-display);font-weight:700;font-size:52px;line-height:1.08;margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:700;font-size:34px;line-height:1.15;margin:0 0 16px}
+h3{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0 0 8px}
+.prose{font-size:18px;max-width:70ch}
+.prose p{margin:0 0 14px}
+.lede{font-size:21px}
+em.flaw{font-style:normal;color:var(--flaw);font-weight:600}
+em.fact{font-style:normal;color:var(--fact);font-weight:600}
+em.alt{font-style:normal;color:var(--alt);font-weight:600}
+.fig{background:var(--bg-raised);border:1px solid var(--grid);border-radius:10px;padding:22px;margin:22px 0}
+.fig svg{overflow:hidden}
+.figcap{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:10px}
+.toggle{display:flex;gap:8px;margin:4px 0 12px;flex-wrap:wrap}
+.toggle button{font-family:var(--font-mono);font-size:13px;padding:7px 12px;border:1.5px solid var(--text);background:var(--bg-raised);border-radius:6px;cursor:pointer}
+.toggle button.on{background:var(--text);color:var(--bg)}
+.steps{list-style:none;padding:0;margin:6px 0 0;font-size:16px}
+.steps li{padding:6px 0;border-bottom:1px solid var(--grid)}
+.steps li.go{color:var(--alt);font-weight:600}
+.steps li.stop{color:var(--flaw);font-weight:600}
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--grid);padding:8px 10px;text-align:left;vertical-align:top}
+table.cmp th{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;color:var(--text-dim)}
+.note{font-size:15px;color:var(--text-dim);max-width:70ch}
+.cta{text-align:center;padding:40px 0 70px}
+.cta a.btn{display:inline-block;margin-top:16px;background:var(--text);color:var(--bg);text-decoration:none;
+font-family:var(--font-mono);font-size:14px;padding:12px 20px;border-radius:8px}
+#listen{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font-mono);font-size:13px;
+padding:10px 14px;border:1px solid var(--text);background:var(--bg-raised);border-radius:8px;cursor:pointer}
+#listen.playing{background:var(--text);color:var(--bg)}
+svg text{font-family:var(--font-mono)}
+svg .lab{paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+svg .big{font-family:var(--font-display)}
+@media (max-width:640px){h1{font-size:36px}h2{font-size:27px}.deck{padding:50px 16px 0}.fig{padding:14px}table.cmp{font-size:13px}}
+body.auto{width:1920px;height:1080px;overflow:hidden;background-image:none}
+body.auto .deck{max-width:none;margin:0;padding:0}
+body.auto .section{position:absolute;inset:0;padding:60px 70px;opacity:0;border:0;display:flex;flex-direction:column;justify-content:center}
+body.auto .section.live{opacity:1}
+body.auto h1{font-size:84px}
+body.auto h2{font-size:62px}
+body.auto h3{font-size:32px}
+body.auto .kicker{font-size:24px}
+body.auto .prose{font-size:34px;max-width:44ch}
+body.auto .figcap{font-size:20px}
+body.auto .prose,body.auto .cta a.btn,body.auto #listen,body.auto .note{display:none}
+body.auto .section .prose.keep{display:block}
+body.auto .fig{margin:14px 0;padding:18px 24px}
+body.auto .webonly{display:none}
+body:has(#figstage) .topbar,body:has(#figstage) .stamp,body:has(#figstage) #listen{display:none}
+</style></head>
+<body>
+<div class="topbar"></div>
+<div class="stamp">EP.079</div>
+<div class="deck">
+
+<section class="section ep" id="s0" data-duration="77.4">
+  <div class="kicker">Дефект конструкции · Выпуск 079</div>
+  <h1>Конгресс, который уволили избиратели, всё ещё пишет законы</h1>
+  <div class="prose lede">
+    <p>В марте 2025 года немецкий парламент изменил конституцию страны. Он ослабил правило, которое ограничивает государственные долги, и открыл дорогу сотням миллиардов евро на оборону и дороги. Для этого нужны были две трети всех депутатов. Набралось <em class="fact">513 голосов</em>, на 24 больше, чем требовалось.</p>
+    <p>Но этот парламент к тому времени уже заменили. Избиратели выбрали новый чуть больше трёх недель назад, и собраться он должен был через неделю. В новом у противников поправки хватило бы мест, чтобы её заблокировать. <em class="flaw">Голосование прошло в старом, за неделю до первого заседания нового, и оно было законным.</em></p>
+    <p>В ноябре 2026 года американцы отдали обе палаты Конгресса другой партии. Уходящее большинство вернулось к работе, и до первого заседания нового Конгресса у него оставалось почти два месяца. Между выборами и днём, когда победители вступают в должность, есть окно в несколько недель.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Сколько власти остаётся в этом окне у парламента, который избиратели только что заменили?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s1" data-duration="120.7">
+  <h2>Привычные подозреваемые</h2>
+  <div class="prose">
+    <p>Первое объяснение: это трюк одной из сторон. Но посмотрите, кто им пользовался. В 1980 году, после победы Рональда Рейгана, уходящий демократический Конгресс принял закон о расчистке свалок токсичных отходов и закон, который взял под охрану огромные территории Аляски. В 2010 году, после того как демократы потеряли Палату представителей, уходящий Конгресс отменил запрет на открытую службу геев в армии, а Сенат ратифицировал договор с Россией о ядерных вооружениях. В Германии голоса дали крупные партии правого и левого центра вместе с «зелёными». <em class="flaw">Значит, окно не принадлежит одной партии. Оно принадлежит тем, кто ещё сидит на старых местах.</em></p>
+    <p>Второе объяснение: окно безвредно, это несколько недель бумажной работы между одной властью и другой. Раньше оно было гораздо длиннее. До 1933 года старый Конгресс и старый президент оставались у власти до марта, через четыре месяца после голосования. Поправка к Конституции, принятая в том году, перенесла передачу власти на январь.</p>
+  </div>
+  <div class="fig">
+    <h3>От голосования до передачи власти</h3>
+    <svg id="window" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Полосы от дня выборов до передачи власти. Великобритания: один день. Германия, 2025: тридцать дней до первого заседания нового парламента. США сегодня: около двух месяцев, с начала ноября до 3 января. США до 1933 года: четыре месяца до мартовской инаугурации и тринадцать месяцев до первой регулярной сессии нового Конгресса; 20-я поправка 1933 года сократила окно примерно до двух месяцев.">
+      <g id="wnG"></g>
+    </svg>
+    <div class="figcap">20-я поправка, ратифицирована 23.01.1933 (Национальный центр Конституции США). Германия: выборы 23.02.2025, новый Бундестаг собрался 25.03.2025. Великобритания: выборы 4.07.2024, новый премьер-министр 5.07.2024.</div>
+  </div>
+  <div class="prose">
+    <p>Зимой после выборов 1932 года посреди этих четырёх месяцев началась банковская паника. Власть оставалась у Герберта Гувера, который проиграл. У Франклина Рузвельта, который победил, её ещё не было. Гувер попросил Рузвельта заранее поддержать его политику, и Рузвельт отказался. К утру, когда Рузвельт приносил присягу, в большинстве штатов банки были закрыты или ограничивали выдачу денег.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Длинное окно было опасно тем, что делалось слишком мало. Почему же короткое опасно тем, что сделать можно слишком много?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s2" data-duration="104.9">
+  <h2>Два разных дня</h2>
+  <div class="prose">
+    <p>Потому что две вещи кончаются в разные дни. Одна из них <em class="fact">мандат</em>, то есть разрешение избирателей управлять. Другая это <em class="flaw">сама власть</em>. Мандат переходит к другим в день выборов. А право принимать законы и утверждать чиновников остаётся у старого парламента и старого правительства до дня передачи. Всё это время уходящее большинство может делать всё то же, что и накануне голосования.</p>
+    <p>И часть его членов делает это без того единственного, что обычно заставляет депутата быть осторожным: без следующих выборов. Те, кто потерял место или уходит на покой, перед этими избирателями больше не предстанут. А большинство в целом избиратели уже оценили. Что бы оно ни сделало в окне, этот приговор уже не изменится.</p>
+    <p>Поэтому окно можно использовать не только чтобы закончить старые дела. В Северной Каролине в 2016 году и в Висконсине в 2018-м законодательное собрание штата вместе с уходящим губернатором приняло законы, которые урезали полномочия только что избранного губернатора. В Северной Каролине суды потом отменили часть этих законов. В Висконсине Верховный суд штата оставил большую часть в силе.</p>
+  </div>
+  <div class="fig">
+    <h3>Когда старая сторона определяет полномочия новой</h3>
+    <svg id="map" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Карта США, выделены два штата. Северная Каролина, декабрь 2016: уходящий губернатор подписал законы, урезавшие полномочия избранного губернатора; суды потом отменили часть из них. Висконсин, декабрь 2018: то же; Верховный суд штата оставил большую часть в силе.">
+      <g id="mpG"></g>
+    </svg>
+    <div class="figcap">NPR, 16.12.2016 (Северная Каролина); NPR, 21.06.2019, и WPR, 9.07.2020 (Висконсин). В обоих штатах законодательное собрание сохранило большинство; сменился губернатор (в Висконсине ещё и генеральный прокурор).</div>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Если окно можно использовать так, зачем какой-либо стране оставлять его открытым?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s3" data-duration="92.7">
+  <h2>Два месяца в Вашингтоне</h2>
+  <div class="prose">
+    <p>Затем, что в окне делается и необходимая работа. Посмотрите, что попало в американское окно в 2026 году. Деньги на работу правительства кончаются <em class="fact">11 декабря</em>, поэтому уходящий Конгресс обязан что-то принять, иначе правительство закроется. Республиканское большинство Сената к тому же добавило в свой календарь лишние дни, чтобы до передачи власти в январе утвердить около <em class="fact">двух десятков</em> судей, предложенных президентом, и почти сотню других чиновников.</p>
+  </div>
+  <div class="fig">
+    <h3>Окно 2026 года, день за днём</h3>
+    <svg id="calendar" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Шкала от дня выборов, 3 ноября 2026, до нового Конгресса 3 января 2027. Уходящий Конгресс возвращается 9 ноября; деньги на работу правительства кончаются 11 декабря; последние запланированные заседания 17 и 18 декабря. Молотки отмечают около двух десятков судей к утверждению, назначаемых пожизненно. В декабре 2024 года другая партия сделала то же.">
+      <g id="caG"></g>
+    </svg>
+    <div class="figcap">Al Jazeera, 21.11.2026; Axios, 9.11.2026; CNN, 12.11.2026 (около двух десятков судей и почти 100 других кандидатов). Декабрь 2024: Brookings.</div>
+  </div>
+  <div class="prose">
+    <p>Федеральные судьи назначаются пожизненно. Судья, утверждённый в последние недели одного Сената, может решать дела и через тридцать лет. Демократы сделали то же самое в декабре 2024 года: утверждали судей Джо Байдена в те недели, когда уже потеряли Сенат.</p>
+    <p>У сторонников такой работы простой довод. Конституция даёт каждому Конгрессу два года, а не срок, который кончается, когда подсчитаны голоса. Правительству в декабре всё равно нужны деньги, а кризис не ждёт января. Критики отвечают, что избиратели только что сказали, чего хотят, а окно позволяет большинству, которое они уже оценили, всё равно решать.</p>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Обе стороны описывают одно и то же правило. Что же ставят на его место другие страны?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s4" data-duration="146.3">
+  <h2>Как закрывают окно</h2>
+  <div class="prose">
+    <p>Страны пробовали три способа, и за каждый приходится платить.</p>
+    <p><em class="alt">Великобритания</em> закрывает окно календарём. Парламент распускают до голосования, так что во время кампании принимать законы некому. А передача власти происходит на следующий день: в июле 2024 года выборы прошли в четверг, а в пятницу новый премьер-министр уже был на Даунинг-стрит. Старое большинство здесь останавливает простая вещь: его больше нет. <em class="flaw">Цена на другой стороне окна.</em> У нового правительства нет ни недели на подготовку, а пока парламент распущен, в срочном случае не к кому обратиться за законом.</p>
+    <p><em class="alt">Австралия и Новая Зеландия</em> связывают уходящему правительству руки обычаем. Пока новое правительство не принесло присягу, министры избегают крупных политических решений, важных назначений и больших контрактов, а если что-то не может ждать, сначала советуются с оппозицией. Останавливает их обещание; суд его там не охраняет. У Бельгии похожее правило, и она показывает другую цену. После выборов 2010 года временное правительство управляло страной <em class="fact">541 день</em>. Несколько месяцев оно жило на временных помесячных расходах, без бюджета на год, пока король не попросил его составить бюджет. <em class="flaw">Правительство, которое ведёт только текущие дела, может оставить крупные решения страны ждать столько, сколько идут переговоры.</em></p>
+    <p><em class="alt">США и Германия</em> оставляют окно открытым полностью. Уходящие депутаты сохраняют все полномочия до последнего дня, и действуют для них только обычные правила. Довод в пользу такого устройства в том, что кризис не ждёт передачи власти. Партии, которые провели немецкое голосование, говорили именно это: деньги на оборону нужны сейчас, а не после месяцев переговоров о новом правительстве. <em class="flaw">Цена в том, что решение принимает парламент, который избиратели уже заменили,</em> а следующая возможность за него ответить наступает через годы после того, как оно вступило в силу.</p>
+  </div>
+  <div class="fig">
+    <h3>Три способа устроить окно и цена каждого</h3>
+    <svg id="prices" viewBox="0 0 1000 440" width="100%" height="440" role="img" aria-label="Три оконные рамы. Великобритания: окно закрыто календарём; старое большинство останавливает то, что парламента больше нет; цена: нет времени на подготовку. Австралия и Новая Зеландия: окно приоткрыто обычаем, который не охраняет суд; в Бельгии временное правительство продержалось 541 день. США и Германия: окно открыто полностью; действуют только обычные правила; цена: решает уже заменённый парламент.">
+      <g id="prG"></g>
+    </svg>
+    <div class="figcap">Великобритания: Dissolution and Calling of Parliament Act 2022. Австралия: PM&amp;C Guidance on Caretaker Conventions (2024); Новая Зеландия: Cabinet Manual, гл. 6. Бельгия: 13.06.2010 – 5.12.2011. В строках разные органы: правила временного правительства связывают министров, в строках о Великобритании, США и Германии речь о парламентах.</div>
+  </div>
+  <div class="fig webonly">
+    <h3>Попробуйте: день после выборов. Кто ещё может решать?</h3>
+    <div class="toggle" id="wT"><button class="on" data-k="uk">Великобритания</button><button data-k="au">Австралия</button><button data-k="us">США</button><button data-k="de">Германия</button></div>
+    <ul class="steps" id="wOut"></ul>
+  </div>
+  <div class="prose keep">
+    <p><em class="flaw">Какой из трёх способов выбрала ваша страна?</em></p>
+  </div>
+</section>
+
+<section class="section ep" id="s5" data-duration="32.4">
+  <h2>У кого окно</h2>
+  <div class="prose">
+    <p>Выборы забирают мандат за один день. В Берлине власть догнала его через месяц, в Вашингтоне через два месяца, и каждая страна уже тихо решила, что происходит в промежутке.</p>
+  </div>
+  <div class="fig">
+    <h3>Окно в разных конструкциях</h3>
+    <table class="cmp">
+      <tr><th>Конструкция</th><th>Кто решает между голосованием и передачей власти</th><th>Что его останавливает</th><th>Цена</th></tr>
+      <tr><td>Великобритания</td><td>Только министры; парламент распущен, передача власти на следующий день</td><td>Останавливать некого: парламента нет</td><td>Нет времени на подготовку; в срочном случае нет законодателя</td></tr>
+      <tr><td>Австралия, Новая Зеландия</td><td>Министры, по правилам временного правительства</td><td>Обычай, а не закон; суд его не охраняет</td><td>Если переговоры затянутся (Бельгия, 541 день), крупные решения ждут</td></tr>
+      <tr><td>США</td><td>Уходящий Конгресс со всеми полномочиями, до 3 января</td><td>Только обычные правила</td><td>Пожизненные назначения и законы после вердикта избирателей</td></tr>
+      <tr><td>Германия</td><td>Уходящий Бундестаг, пока не собрался новый (не дольше 30 дней)</td><td>Только обычные правила</td><td>Конституцию меняет уже заменённый парламент</td></tr>
+    </table>
+  </div>
+  <p class="note">Ещё стоит знать: до 20-й поправки новый Конгресс впервые собирался на регулярную сессию через тринадцать месяцев после выборов, а старый заседал «короткой сессией» до 4 марта. В Америке недели после выборов называют сессией «хромой утки». Конституционный суд Германии отклонил срочные иски против голосования в марте 2025 года; Бундесрат одобрил поправку 21 марта 2025 года.</p>
+  <div class="prose keep">
+    <p><em class="flaw">Поэтому, когда пойдёте голосовать в следующий раз, спросите ещё об одном: между днём, когда вы голосуете, и днём, когда выбранные вами люди вступят в должность, кто ещё может принимать решения, которые переживут его срок, и что его останавливает?</em></p>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="kicker">Не кто виноват — как устроено.</div>
+  <a class="btn" style="background:var(--bg-raised);color:var(--text);border:1.5px solid var(--text)" href="https://www.youtube.com/@defekt-konstrukcii" rel="noopener">Подписаться</a>
+  <a class="btn" style="background:transparent;color:var(--text-dim)" href="../">In English →</a>
+</div>
+
+</div><!-- /deck -->
+<button id="listen" aria-label="Слушать озвучку">▶ Слушать</button>
+
+<script>
+const $=id=>document.getElementById(id);
+const isAuto=new URLSearchParams(location.search).get('mode')==='auto';
+window.__fig=window.__fig||{};
+const L={
+ wn:{head:'ДНЕЙ ОТ ВЫБОРОВ ДО ТОГО, КАК НОВАЯ СТОРОНА ВСТУПАЕТ В ДЕЛО',rows:[
+   {k:'uk',name:'ВЕЛИКОБРИТАНИЯ · ДО НОВОГО ПРЕМЬЕРА',d:1,lab:'1 ДЕНЬ'},
+   {k:'de',name:'ГЕРМАНИЯ, 2025 · ДО НОВОГО ПАРЛАМЕНТА',d:30,lab:'30 ДНЕЙ'},
+   {k:'us',name:'США СЕГОДНЯ · ДО НОВОГО КОНГРЕССА',d:61,lab:'≈2 МЕСЯЦА'},
+   {k:'old',name:'США ДО 1933 · ДО 4 МАРТА',d:121,lab:'4 МЕСЯЦА'}],
+   cong:'НОВЫЙ КОНГРЕСС СОБИРАЛСЯ ЧЕРЕЗ 13 МЕСЯЦЕВ',amend:'ПОСЛЕ ПОПРАВКИ 1933: ≈2 МЕСЯЦА',ticks:['0','100','200','300','400 ДНЕЙ']},
+ mp:{nc:'СЕВ. КАРОЛИНА',ncY:'ЗАКОНЫ: ДЕК. 2016',wi:'ВИСКОНСИН',wiY:'ЗАКОНЫ: ДЕК. 2018',cut:'ПОЛНОМОЧИЯ НОВОГО ГУБЕРНАТОРА УРЕЗАНЫ',ncR:'ПОЗЖЕ: СУДЫ ОТМЕНИЛИ ЧАСТЬ',wiR:'ПОЗЖЕ: БОЛЬШАЯ ЧАСТЬ В СИЛЕ'},
+ ca:{d:['3 НОЯБ.','9 НОЯБ.','11 ДЕК.','17–18 ДЕК.','3 ЯНВ.'],ev:['ВЫБОРЫ','СНОВА В РАБОТЕ','КОНЕЦ ФИНАНСИРОВАНИЯ','ПОСЛЕДНИЕ ЗАСЕДАНИЯ','НОВЫЙ КОНГРЕСС'],
+     judges:'≈24 СУДЬИ + ≈100 ЧИНОВНИКОВ К УТВЕРЖДЕНИЮ',life:'ЭТИ СУДЬИ НАЗНАЧАЮТСЯ ПОЖИЗНЕННО',mirror:'ДЕКАБРЬ 2024: ДЕМОКРАТЫ ТОЖЕ УТВЕРЖДАЛИ СУДЕЙ',win:'ОКНО'},
+ pr:{head:'ЧТО ОГРАНИЧИВАЕТ ТЕХ, КТО ЕЩЁ У ВЛАСТИ',price:'ЦЕНА',c:[
+   {place:'ВЕЛИКОБРИТАНИЯ',how:['ЗАКРЫТО','КАЛЕНДАРЁМ'],stop:['ПАРЛАМЕНТА','УЖЕ НЕТ'],cost:['НЕТ ВРЕМЕНИ','НА ПОДГОТОВКУ']},
+   {place:'АВСТРАЛИЯ · Н. ЗЕЛАНДИЯ',how:['ДЕРЖИТСЯ','НА ОБЕЩАНИИ'],stop:['ОБЫЧАЙ, КОТОРЫЙ','СУД НЕ ОХРАНЯЕТ'],cost:['БЕЛЬГИЯ: 541 ДЕНЬ','БЕЗ НОВОГО КАБИНЕТА']},
+   {place:'США · ГЕРМАНИЯ',how:['ОТКРЫТО','ПОЛНОСТЬЮ'],stop:['ТОЛЬКО ОБЫЧНЫЕ','ПРАВИЛА'],cost:['РЕШАЕТ УЖЕ','ЗАМЕНЁННЫЙ ПАРЛАМЕНТ']}]},
+ st:{uk:[['Парламент распущен до голосования: законы принимать некому',''],['Победитель становится премьер-министром на следующий день','go'],['Во время кампании министры продолжали руководить ведомствами по предвыборным правилам',''],['Если до нового парламента случится что-то срочное, законодателя нет','stop']],
+     au:[['Парламент распущен до голосования',''],['Пока новое правительство не принесло присягу, министры избегают крупных решений, назначений и контрактов','go'],['Если что-то не может ждать, сначала советуются с оппозицией',''],['Это обычай: суд его не охраняет','stop']],
+     us:[['Уходящий Конгресс сохраняет все полномочия до 3 января','stop'],['Он может принимать законы, давать деньги правительству и утверждать пожизненных судей',''],['Депутаты, потерявшие места, по-прежнему голосуют',''],['Действуют только обычные правила','']],
+     de:[['Уходящий Бундестаг сохраняет все полномочия, пока не соберётся новый (в течение 30 дней)','stop'],['В марте 2025 года он изменил конституцию 513 голосами из 733',''],['В новом парламенте у противников была бы блокирующая треть',''],['Голосование было законным; срочные иски отклонены','']]}
+};
+const C={ink:'#1B2430',dim:'#5A6575',fact:'#2B5EC4',flaw:'#B45309',alt:'#0E8A63',topic:'#7A6A8C',grid:'#D9E3F0',paper:'#F8F9FB'};
+const T=(x,y,s,o={})=>`<text x="${x}" y="${y}" font-size="${o.size||20}" font-weight="${o.w||700}" fill="${o.fill||C.ink}" text-anchor="${o.a||'start'}"${o.cls?` class="${o.cls}"`:''}${o.id?` id="${o.id}"`:''}${o.op!=null?` opacity="${o.op}"`:''}>${s}</text>`;
+
+/* ---------- window (s1): days from the vote to the handover ---------- */
+(function(){
+ const X0=60,W=880,K=W/400,Y=[96,176,256,336],BH=40;
+ let h=T(X0,40,L.wn.head,{size:20,fill:C.dim});
+ L.wn.ticks.forEach((t,i)=>{const x=X0+i*100*K;h+=`<line x1="${x}" y1="60" x2="${x}" y2="400" stroke="${C.grid}" stroke-width="2"/>`+T(x,428,t,{size:18,fill:C.dim,a:i?'end':'start'});});
+ const col={uk:C.alt,de:C.topic,us:C.fact,old:C.flaw};
+ L.wn.rows.forEach((r,i)=>{const y=Y[i];
+  h+=`<g class="wnRow" opacity="0">`+T(X0,y-10,r.name,{size:20,fill:C.ink})+
+   `<rect class="wnBar" data-w="${Math.max(6,r.d*K)}" x="${X0}" y="${y}" width="0" height="${BH}" rx="4" fill="${col[r.k]}"/>`+
+   T(X0+Math.max(6,r.d*K)+12,y+28,r.lab,{size:20,fill:col[r.k],cls:'lab',id:'wnL'+r.k})+`</g>`;});
+ const y=Y[3];
+ h+=`<rect id="wnGhost" x="${X0}" y="${y}" width="${121*K}" height="${BH}" rx="4" fill="none" stroke="${C.flaw}" stroke-width="2" stroke-dasharray="6 5" opacity="0"/>`;
+ h+=`<g id="wnAm" opacity="0">`+T(X0+W,y-10,L.wn.amend,{size:20,fill:C.fact,a:'end'})+`</g>`;
+ $('wnG').innerHTML=h;})();
+window.__fig.window=()=>{gsap.set('.wnRow,#wnGhost,#wnAm',{opacity:0});gsap.set('#wnLold',{opacity:1,attr:{fill:C.flaw}});gsap.set('.wnBar',{attr:{width:0}});const tl=gsap.timeline();
+ document.querySelectorAll('.wnRow').forEach((r,i)=>{const b=r.querySelector('.wnBar');tl.to(r,{opacity:1,duration:.3},.2+i*.8).to(b,{attr:{width:+b.dataset.w},duration:.6,ease:'power1.out'},.3+i*.8);});
+ const old=document.querySelectorAll('.wnBar')[3];
+ return tl.to('#wnAm',{opacity:1,duration:.3},4.2).to({},{duration:.8});};
+
+/* ---------- map (s2): North Carolina 2016, Wisconsin 2018 ---------- */
+(function(){
+ const g=$('mpG');
+ const lib=src=>new Promise(r=>{const s=document.createElement('script');s.src=src;s.onload=r;s.onerror=r;document.head.appendChild(s);});
+ window.__mpReady=(async()=>{try{
+  if(!window.d3) await lib('https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js');
+  if(!window.topojson) await lib('https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js');
+  const us=await (await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json')).json();
+  const st=topojson.feature(us,us.objects.states).features.filter(f=>!['02','15','60','66','69','72','78'].includes(f.id));
+  const proj=d3.geoAlbers().fitExtent([[30,20],[660,420]],{type:'FeatureCollection',features:st}),gp=d3.geoPath(proj);
+  let h='';st.forEach(f=>{const hot=f.id==='37'||f.id==='55';h+=`<path${hot?` id="mpS${f.id}"`:''} d="${gp(f)}" fill="#EEF1F5" stroke="#AEB9C8" stroke-width="${hot?2:1}"/>`;});
+  const cen=id=>gp.centroid(st.find(f=>f.id===id)).map(v=>+v.toFixed(1));
+  const [nx,ny]=cen('37'),[wx,wy]=cen('55');
+  // labels in the right-hand column, linked to each state
+  h+=`<g id="mpWI" opacity="0"><path d="M${wx+10} ${wy} L670 110" stroke="${C.flaw}" stroke-width="2.5" fill="none"/>`+T(680,104,L.mp.wi,{size:24})+T(680,132,L.mp.wiY,{size:20,fill:C.dim})+`</g>`;
+  h+=`<g id="mpWIr" opacity="0">`+T(680,160,L.mp.wiR,{size:18,fill:C.ink})+`</g>`;
+  h+=`<g id="mpNC" opacity="0"><path d="M${nx+20} ${ny} L670 280" stroke="${C.flaw}" stroke-width="2.5" fill="none"/>`+T(680,274,L.mp.nc,{size:24})+T(680,302,L.mp.ncY,{size:20,fill:C.dim})+`</g>`;
+  h+=`<g id="mpNCr" opacity="0">`+T(680,330,L.mp.ncR,{size:18,fill:C.ink})+`</g>`;
+  h+=`<g id="mpCut" opacity="0"><rect x="30" y="396" width="630" height="40" rx="6" fill="${C.flaw}"/>`+T(345,424,L.mp.cut,{size:22,fill:'#FFFFFF',a:'middle'})+`</g>`;
+  g.innerHTML=h;}catch(e){g.innerHTML=T(20,200,'Не удалось загрузить карту.',{size:20,fill:C.dim,w:400});}})();})();
+window.__fig.map=()=>{if(!$('mpS37')) return gsap.timeline().to({},{duration:1});
+ gsap.set('#mpNC,#mpNCr,#mpWI,#mpWIr,#mpCut',{opacity:0});gsap.set('#mpS37,#mpS55',{attr:{fill:'#EEF1F5'}});
+ return gsap.timeline().to('#mpS37',{attr:{fill:'#F6D9BC'},duration:.4},.3).to('#mpNC',{opacity:1,duration:.3},.5)
+  .to('#mpS55',{attr:{fill:'#F6D9BC'},duration:.4},1.6).to('#mpWI',{opacity:1,duration:.3},1.8)
+  .to('#mpCut',{opacity:1,duration:.3},2.8).to('#mpNCr',{opacity:1,duration:.3},3.8).to('#mpWIr',{opacity:1,duration:.3},4.6).to({},{duration:.8});};
+
+/* ---------- calendar (s3): the 2026 window, day by day ---------- */
+(function(){
+ // days from 3 Nov 2026: Nov 3=0, Nov 9=6, Dec 11=38, Dec 17=44, Dec 18=45, Jan 3=61
+ const X0=60,W=880,K=W/61,Y=120,D=[0,6,38,44.5,61];
+ const x=d=>+(X0+d*K).toFixed(1);
+ let h=`<rect x="${X0}" y="${Y}" width="${W}" height="14" rx="7" fill="#EEF1F5"/>`;
+ h+=`<rect id="caWin" x="${X0}" y="${Y}" width="0" height="14" rx="7" fill="#F6D9BC" stroke="${C.flaw}" stroke-width="2"/>`;
+ h+=T(X0+W/2,40,L.ca.win,{size:22,fill:C.flaw,a:'middle',id:'caWT',op:0});
+ D.forEach((d,i)=>{const a=i===0?'start':i===4?'end':'middle';const up=i%2===1;
+  h+=`<g class="caM" opacity="0"> <line x1="${x(d)}" y1="${Y-10}" x2="${x(d)}" y2="${Y+24}" stroke="${i===2?C.flaw:C.ink}" stroke-width="3"/>`+
+   T(x(d),up?Y-46:Y+52,L.ca.d[i],{size:18,a,fill:C.dim})+T(x(d),up?Y-22:Y+76,L.ca.ev[i],{size:18,a,fill:i===2?C.flaw:C.ink})+`</g>`;});
+ // gavels: about two dozen, spread over the sitting days
+ let gv='';for(let i=0;i<24;i++){const d=7+i*1.55,gx=x(d),gy=Y+110+(i%2)*26;
+  gv+=`<g class="caG" opacity="0" transform="translate(${gx},${gy})"><rect x="-9" y="-6" width="18" height="10" rx="2" fill="${C.fact}"/><line x1="0" y1="4" x2="0" y2="18" stroke="${C.fact}" stroke-width="3"/></g>`;}
+ h+=gv+T(X0,Y+180,L.ca.judges,{size:20,fill:C.fact,id:'caJ',op:0});
+ h+=`<g id="caLife" opacity="0"><rect x="${X0}" y="${Y+198}" width="${W}" height="42" rx="6" fill="${C.fact}"/>`+T(X0+W/2,Y+226,L.ca.life,{size:22,fill:'#FFFFFF',a:'middle'})+`</g>`;
+ h+=T(X0,Y+272,L.ca.mirror,{size:18,fill:C.dim,id:'caMir',op:0});
+ $('caG').innerHTML=h;})();
+window.__fig.calendar=()=>{gsap.set('.caM,.caG,#caJ,#caLife,#caMir,#caWT',{opacity:0});gsap.set('#caWin',{attr:{width:0}});
+ return gsap.timeline().to('.caM',{opacity:1,duration:.25,stagger:.35},.2).to('#caWin',{attr:{width:880},duration:1.6,ease:'none'},.4).to('#caWT',{opacity:1,duration:.3},.8)
+  .to('.caG',{opacity:1,duration:.12,stagger:.07},2.2).to('#caJ',{opacity:1,duration:.3},2.6).to('#caLife',{opacity:1,duration:.3},4.2).to('#caMir',{opacity:1,duration:.3},5.0).to({},{duration:.8});};
+
+/* ---------- prices (s4): three window frames ---------- */
+(function(){
+ const X=[170,500,830],cols=[C.alt,C.topic,C.fact],open=[0,.5,1];
+ let h=T(500,214,L.pr.head,{size:18,fill:C.dim,a:'middle'})+T(500,296,L.pr.price,{size:18,fill:C.flaw,a:'middle'});
+ L.pr.c.forEach((c,i)=>{const x=X[i],FW=120,FH=86,fy=16;
+  h+=`<g class="prCol" opacity="0">`+
+   `<rect x="${x-FW/2}" y="${fy}" width="${FW}" height="${FH}" fill="#EAF0FB" stroke="${C.ink}" stroke-width="4"/>`+
+   `<rect class="prSash" data-open="${open[i]}" x="${x-FW/2}" y="${fy}" width="${FW}" height="${FH}" fill="#FFFFFF" stroke="${cols[i]}" stroke-width="5"/>`+
+   `<line x1="${x-FW/2}" y1="${fy+FH/2}" x2="${x+FW/2}" y2="${fy+FH/2}" stroke="${C.ink}" stroke-width="2" opacity=".25"/>`+
+   T(x,128,c.place,{size:20,a:'middle',fill:C.dim})+
+   c.how.map((s,k)=>T(x,154+k*24,s,{size:21,a:'middle',fill:cols[i],cls:'big'})).join('')+
+   c.stop.map((s,k)=>T(x,242+k*24,s,{size:19,a:'middle',fill:C.ink})).join('')+`</g>`+
+   `<g class="prCost" opacity="0"><rect x="${x-150}" y="308" width="300" height="96" rx="10" fill="#FBEFE3"/>`+
+   c.cost.map((s,k)=>T(x,348+k*34,s,{size:21,a:'middle',fill:C.flaw})).join('')+`</g>`;});
+ $('prG').innerHTML=h;})();
+window.__fig.prices=()=>{gsap.set('.prCol,.prCost',{opacity:0});document.querySelectorAll('.prSash').forEach(s=>gsap.set(s,{attr:{height:86}}));const tl=gsap.timeline();
+ document.querySelectorAll('.prCol').forEach((c,i)=>{const s=c.querySelector('.prSash');tl.to(c,{opacity:1,duration:.3},.2+i*.9)
+  .to(s,{attr:{height:86*(1-+s.dataset.open*.85)},duration:.5,ease:'power2.inOut'},.4+i*.9)
+  .to(document.querySelectorAll('.prCost')[i],{opacity:1,duration:.3},.6+i*.9);});
+ return tl.to({},{duration:.8},'>');};
+
+/* ---------- web-only interactive: the day after an election ---------- */
+(function(){const t=$('wT');if(!t) return;const out=$('wOut');
+ const set=k=>{t.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+  out.innerHTML=L.st[k].map(([s,c])=>`<li${c?` class="${c}"`:''}>${s}</li>`).join('');};
+ t.querySelectorAll('button').forEach(b=>b.onclick=()=>set(b.dataset.k));set('uk');})();
+
+const FIGS=['window','map','calendar','prices'];
+if(!isAuto){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.section').forEach(s=>{gsap.from(s.querySelectorAll('h1,h2,.prose p'),{opacity:0,y:18,stagger:.08,duration:.5,scrollTrigger:{trigger:s,start:'top 75%'}});});
+  FIGS.forEach(id=>{const el=$(id); if(!el) return; ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{const go=()=>window.__fig[id]().play();id==='map'?window.__mpReady.then(go):go();}})});
+  (function(){const btn=$('listen');let audio=null,idx=0;const secs=[...document.querySelectorAll('.section')];
+    btn.onclick=()=>{if(audio&&!audio.paused){audio.pause();btn.classList.remove('playing');return;}
+      const play=i=>{if(i>=secs.length){btn.classList.remove('playing');idx=0;audio=null;return;}
+        idx=i;secs[i].scrollIntoView({behavior:'smooth',block:'start'});audio=new Audio('https://github.com/viktorbortube/traceupstream-audio/releases/download/079-already-voted-ru/'+secs[i].id+'.mp3');audio.onended=()=>play(i+1);audio.play();btn.classList.add('playing')};
+      const top=secs.findIndex(s=>s.getBoundingClientRect().bottom>80);play(idx||Math.max(0,top));};})();
+}else{
+  document.body.classList.add('auto');
+  window.__mpReady.then(()=>{
+  const secs=[...document.querySelectorAll('.section')];const at=+(new URLSearchParams(location.search).get('at')||0);
+  const master=gsap.timeline({paused:true});const FIG={s1:['window'],s2:['map'],s3:['calendar'],s4:['prices']};let t=0;
+  secs.forEach(s=>{const d=+s.dataset.duration||10;master.set(s,{className:'section ep live'},t);
+    master.fromTo(s.querySelectorAll('h1,h2,.kicker,.prose.keep p,.fig:not(.webonly)'),{opacity:0,y:26},{opacity:1,y:0,stagger:Math.min(.8,d/12),duration:.9},t+.15);
+    (FIG[s.id]||[]).forEach((f,i)=>master.add(window.__fig[f](),t+1.2+i*d/2)); master.set(s,{className:'section ep'},t+d); t+=d;});
+  master.call(()=>{window.__episodeDone=true},null,t);
+  window.__master=master; window.__seek=t=>{master.pause().time(t);}; window.__play=()=>{master.play();}; window.__total=master.duration();
+  const spd=+(new URLSearchParams(location.search).get('spd')||0); if(spd>0) master.timeScale(1/spd); master.play(at);});
+}
+</script>
+</body>
+</html>
